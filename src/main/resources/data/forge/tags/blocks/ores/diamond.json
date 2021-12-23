@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "boss_tools:mars_diamond_ore",
-    "boss_tools:venus_diamond_ore"
+    "beyond_earth:mars_diamond_ore",
+    "beyond_earth:venus_diamond_ore"
   ]
 }

@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "boss_tools:mars_iron_ore",
-    "boss_tools:mercury_iron_ore",
-    "boss_tools:moon_iron_ore"
+    "beyond_earth:mars_iron_ore",
+    "beyond_earth:mercury_iron_ore",
+    "beyond_earth:moon_iron_ore"
   ]
 }
