@@ -211,14 +211,14 @@ public class Methods {
     }
 
     public static boolean isRocket(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof RocketTier4Entity) {
+        if (entity instanceof RocketAbstractEntity) {
             return true;
         }
         return false;
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof RocketTier4Entity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
+        if (entity instanceof RocketAbstractEntity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
             return true;
         }
         return false;

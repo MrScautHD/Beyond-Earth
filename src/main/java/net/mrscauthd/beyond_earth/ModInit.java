@@ -139,10 +139,10 @@ public class ModInit {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BeyondEarthMod.MODID);
 
     //Vehicle Items
-    public static final RegistryObject<Item> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Item> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Item> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Item> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new RocketTier1Item(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new RocketTier2Item(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new RocketTier3Item(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
+    public static final RegistryObject<RocketAbstractItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new RocketTier4Item(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
     public static final RegistryObject<Item> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
 
     //Entitys

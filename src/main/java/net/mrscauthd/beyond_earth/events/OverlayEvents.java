@@ -120,20 +120,8 @@ public class OverlayEvents {
             if (Methods.isRocket(entity.getVehicle())) {
                 int timer = 0;
 
-                if (entity.getVehicle() instanceof RocketTier1Entity) {
-                    timer = entity.getVehicle().getEntityData().get(RocketTier1Entity.START_TIMER);
-                }
-
-                if (entity.getVehicle() instanceof RocketTier2Entity) {
-                    timer = entity.getVehicle().getEntityData().get(RocketTier2Entity.START_TIMER);
-                }
-
-                if (entity.getVehicle() instanceof RocketTier3Entity) {
-                    timer = entity.getVehicle().getEntityData().get(RocketTier3Entity.START_TIMER);
-                }
-
-                if (entity.getVehicle() instanceof RocketTier4Entity) {
-                    timer = entity.getVehicle().getEntityData().get(RocketTier4Entity.START_TIMER);
+                if (entity.getVehicle() instanceof RocketAbstractEntity) {
+                    timer = entity.getVehicle().getEntityData().get(RocketAbstractEntity.START_TIMER);
                 }
 
                 int width = event.getWindow().getGuiScaledWidth() / 2 - 31;

@@ -20,6 +20,8 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entity.*;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
+
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -146,36 +148,19 @@ public class KeyBindings {
 
 		if (type == 1) {
 			if (Methods.isRocket(player.getVehicle())) {
-				if (player.getVehicle() instanceof RocketTier1Entity && player.getVehicle().getEntityData().get(RocketTier1Entity.FUEL) == 300) {
+				if (player.getVehicle() instanceof RocketAbstractEntity) {
+					RocketAbstractEntity rocket = (RocketAbstractEntity) player.getVehicle();
+					IGaugeValue fuelGauge = rocket.getFuelGauge();
 
-					if (!player.getVehicle().getEntityData().get(RocketTier1Entity.ROCKET_START)) {
-						player.getVehicle().getEntityData().set(RocketTier1Entity.ROCKET_START, true);
-						Methods.RocketSounds(player.getVehicle(), world);
+					if (fuelGauge.getAmount() == fuelGauge.getCapacity()) {
+						if (!rocket.getEntityData().get(RocketAbstractEntity.ROCKET_START)) {
+							rocket.getEntityData().set(RocketAbstractEntity.ROCKET_START, true);
+							Methods.RocketSounds(player.getVehicle(), world);
+						}
+
+					} else {
+						Methods.noFuelMessage(player);
 					}
-
-				} else if (player.getVehicle() instanceof RocketTier2Entity && player.getVehicle().getEntityData().get(RocketTier2Entity.FUEL) == 300) {
-
-					if (!player.getVehicle().getEntityData().get(RocketTier2Entity.ROCKET_START)) {
-						player.getVehicle().getEntityData().set(RocketTier2Entity.ROCKET_START, true);
-						Methods.RocketSounds(player.getVehicle(), world);
-					}
-
-				} else if (player.getVehicle() instanceof RocketTier3Entity && player.getVehicle().getEntityData().get(RocketTier3Entity.FUEL) == 300) {
-
-					if (!player.getVehicle().getEntityData().get(RocketTier3Entity.ROCKET_START)) {
-						player.getVehicle().getEntityData().set(RocketTier3Entity.ROCKET_START, true);
-						Methods.RocketSounds(player.getVehicle(), world);
-					}
-
-				} else if (player.getVehicle() instanceof RocketTier4Entity && player.getVehicle().getEntityData().get(RocketTier4Entity.FUEL) == 300) {
-
-					if (!player.getVehicle().getEntityData().get(RocketTier4Entity.ROCKET_START)) {
-						player.getVehicle().getEntityData().set(RocketTier4Entity.ROCKET_START, true);
-						Methods.RocketSounds(player.getVehicle(), world);
-					}
-
-				} else {
-					Methods.noFuelMessage(player);
 				}
 			}
 
