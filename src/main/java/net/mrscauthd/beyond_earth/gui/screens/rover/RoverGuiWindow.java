@@ -47,10 +47,8 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 
 		List<Component> fuelToolTip = new ArrayList<Component>();
 
-		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
-
 		if (!CompatibleManager.JEI.isLoaded() && GuiHelper.isHover(this.getFluidBounds(), mouseX - this.leftPos, mouseY - this.topPos)) {
-			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), ChatFormatting.WHITE));
+			fuelToolTip.add(this.getFuelGaugeComponent());
 			this.renderComponentTooltip(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}
@@ -76,7 +74,7 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 	}
 
 	public Component getFuelGaugeComponent() {
-		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
+		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
 	}
 
 	public IGaugeValue getFuelGaugeValue() {
