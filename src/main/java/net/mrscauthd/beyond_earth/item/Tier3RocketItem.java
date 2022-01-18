@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -40,6 +42,17 @@ public class Tier3RocketItem extends Item {
     public Tier3RocketItem(Properties properties) {
         super(properties);
     }
+
+	@Override
+	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
+		super.fillItemCategory(tab, list);
+		
+		if (this.allowdedIn(tab)) {
+			ItemStack full = new ItemStack(this);
+			full.getOrCreateTag().putInt(fuelTag, 300);
+			list.add(full);
+		}
+	}
 
     @Override
     public void appendHoverText(ItemStack itemstack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
