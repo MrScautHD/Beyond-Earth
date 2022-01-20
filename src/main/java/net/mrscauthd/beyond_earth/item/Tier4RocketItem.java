@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -32,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Tier4RocketItem extends Item {
+public class Tier4RocketItem extends Item implements IFillCategoryAltItem {
 
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
     public static String bucketTag = BeyondEarthMod.MODID + ":buckets";
@@ -41,11 +43,22 @@ public class Tier4RocketItem extends Item {
         super(properties);
     }
 
+	@Override
+	public void fillItemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
+		IFillCategoryAltItem.super.fillItemCategoryAlt(tab, list);
+
+		if (this.allowdedIn(tab)) {
+			ItemStack full = new ItemStack(this);
+			full.getOrCreateTag().putInt(fuelTag, 300);
+			list.add(full);
+		}
+	}
+
     @Override
     public void appendHoverText(ItemStack itemstack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
-        int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
-        list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(GaugeValueHelper.getFuel(fuel, 100))));
+        int fuel = itemstack.getOrCreateTag().getInt(fuelTag);
+        list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(GaugeValueHelper.getFuel(fuel, 300))));
     }
 
     @Override

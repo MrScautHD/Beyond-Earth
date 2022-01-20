@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.item;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -11,6 +12,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -31,13 +33,24 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RoverItem extends Item {
+public class RoverItem extends Item implements IFillCategoryAltItem {
 
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
         super(properties);
     }
+
+	@Override
+	public void fillItemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
+		IFillCategoryAltItem.super.fillItemCategoryAlt(tab, list);
+
+		if (this.allowdedIn(tab)) {
+			ItemStack full = new ItemStack(this);
+			full.getOrCreateTag().putInt(fuelTag, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE);
+			list.add(full);
+		}
+	}
 
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {

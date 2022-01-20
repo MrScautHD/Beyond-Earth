@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.armor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -19,6 +21,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.armormaterial.SpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.entity.renderer.spacesuit.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.capability.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capability.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capability.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.capability.oxygen.SpaceSuitCapabilityProvider;
@@ -108,6 +111,22 @@ public class SpaceSuit {
 					return armorModel;
 				}
 			});
+		}
+
+		@Override
+		public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
+			super.fillItemCategory(tab, list);
+			
+			if (this.allowdedIn(tab)) {
+				ItemStack full = new ItemStack(this);
+				IOxygenStorage oxygenStorage = full.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+				
+				if (oxygenStorage != null)
+				{
+					oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
+					list.add(full);
+				}
+			}
 		}
 
 		@Override
