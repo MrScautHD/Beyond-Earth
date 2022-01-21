@@ -14,9 +14,11 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
@@ -418,63 +420,63 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** TELEPORT BUTTONS */
 		// CATEGORY 0
-		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 0, tl("earth"));
+		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, Methods.overworld, tl("earth"));
 		earthButton.visible = false;
 
-		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, 1, tl("moon"));
+		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, Methods.moon, tl("moon"));
 		moonButton.visible = false;
 
-		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 2, tl("mars"));
+		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, Methods.mars, tl("mars"));
 		marsButton.visible = false;
 
-		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 3, tl("mercury"));
+		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, Methods.mercury, tl("mercury"));
 		mercuryButton.visible = false;
 
-		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 4, tl("venus"));
+		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, Methods.venus, tl("venus"));
 		venusButton.visible = false;
 
 		// CATEGORY 5
-		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 5, tl("glacio"));
+		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, Methods.glacio, tl("glacio"));
 		glacioButton.visible = false;
 
 		/** ORBIT BUTTONS */
 		// CATEGORY 0
-		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 6, tl("orbit"));
+		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, Methods.overworld_orbit, tl("orbit"));
 		earthOrbitButton.visible = false;
 
-		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, 7, tl("orbit"));
+		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, Methods.moon_orbit, tl("orbit"));
 		moonOrbitButton.visible = false;
 
-		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 8, tl("orbit"));
+		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, Methods.mars_orbit, tl("orbit"));
 		marsOrbitButton.visible = false;
 
-		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 9, tl("orbit"));
+		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, Methods.mercury_orbit, tl("orbit"));
 		mercuryOrbitButton.visible = false;
 
-		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 10, tl("orbit"));
+		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, Methods.venus_orbit, tl("orbit"));
 		venusOrbitButton.visible = false;
 		// CATEGORY 5
-		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 11, tl("orbit"));
+		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, Methods.glacio_orbit, tl("orbit"));
 		glacioOrbitButton.visible = false;
 
 		/** SPACE STATION BUTTONS */
 		// CATEGORY 0
-		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 12, tl("space_station"), this.getSpaceStationItemList());
+		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, Methods.overworld_orbit, tl("space_station"), this.getSpaceStationItemList());
 		earthSpaceStationButton.visible = false;
 
-		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, 13, tl("space_station"), this.getSpaceStationItemList());
+		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, Methods.moon_orbit, tl("space_station"), this.getSpaceStationItemList());
 		moonSpaceStationButton.visible = false;
 
-		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 14, tl("space_station"), this.getSpaceStationItemList());
+		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, Methods.mars_orbit, tl("space_station"), this.getSpaceStationItemList());
 		marsSpaceStationButton.visible = false;
 
-		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 15, tl("space_station"), this.getSpaceStationItemList());
+		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, Methods.mercury_orbit, tl("space_station"), this.getSpaceStationItemList());
 		mercurySpaceStationButton.visible = false;
 
-		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 16, tl("space_station"), this.getSpaceStationItemList());
+		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, Methods.venus_orbit, tl("space_station"), this.getSpaceStationItemList());
 		venusSpaceStationButton.visible = false;
 		// CATEGORY 5
-		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 17, tl("space_station"), this.getSpaceStationItemList());
+		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, Methods.glacio_orbit, tl("space_station"), this.getSpaceStationItemList());
 		glacioSpaceStationButton.visible = false;
 	}
 
@@ -640,17 +642,17 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 	}
 
-	public ImageButtonPlacer addImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, int handler, Component title) {
+	public ImageButtonPlacer addImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, ResourceKey<Level> dimension, Component title) {
 		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, (p_2130901) -> {
-			BeyondEarthMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(handler));
+			BeyondEarthMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(dimension.location()));
 		}, title));
 		return button;
 	}
 
-	public ImageButtonPlacer addSpaceStationImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, int handler, Component title, boolean condition) {
+	public ImageButtonPlacer addSpaceStationImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, ResourceKey<Level> dimension, Component title, boolean condition) {
 		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, (p_2130901) -> {
 			if (condition) {
-				BeyondEarthMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(handler));
+				BeyondEarthMod.PACKET_HANDLER.sendToServer(new PlanetSelectionGui.NetworkMessage(dimension.location(), true));
 			}
 		}, title));
 		return button;
