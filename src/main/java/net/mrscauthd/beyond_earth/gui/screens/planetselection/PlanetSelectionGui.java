@@ -1,5 +1,7 @@
 package net.mrscauthd.beyond_earth.gui.screens.planetselection;
 
+import java.util.function.Supplier;
+
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
@@ -8,14 +10,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.crafting.IngredientStack;
+import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.events.Methods;
-
-import java.util.function.Supplier;
 
 public class PlanetSelectionGui {
 
@@ -65,19 +66,19 @@ public class PlanetSelectionGui {
 			this.setDimension(buffer.readResourceLocation());
 			this.setCreateSpaceStation(buffer.readBoolean());
 		}
-		
+
 		public ResourceLocation getDimension() {
 			return this.dimension;
 		}
-		
+
 		public void setDimension(ResourceLocation dimension) {
 			this.dimension = dimension;
 		}
-		
+
 		public boolean isCreateSpaceStation() {
 			return this.createSpaceStation;
 		}
-		
+
 		public void setCreateSpaceStation(boolean createSpaceStation) {
 			this.createSpaceStation = createSpaceStation;
 		}
@@ -93,12 +94,12 @@ public class PlanetSelectionGui {
 
 		public static void handle(NetworkMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
-			
+			defaultOptions(context.getSender());
+
 			if (message.isCreateSpaceStation()) {
 				deleteItems(context.getSender());
 			}
-			
-			defaultOptions(context.getSender());
+
 			ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, message.getDimension());
 			Methods.teleportButton(context.getSender(), key, message.isCreateSpaceStation());
 
@@ -113,28 +114,16 @@ public class PlanetSelectionGui {
 	}
 
 	public static void deleteItems(Player player) {
-		if (!player.getAbilities().instabuild) {
-			getSpaceStationItems(player, ModInit.DESH_INGOT_TAG, 6);
-			getSpaceStationItems(player, ModInit.STEEL_INGOT_TAG, 16);
-			getSpaceStationItems(player, ModInit.IRON_PLATES_TAG, 12);
-			getSpaceStationItems(player, ModInit.DESH_PLATES_TAG, 4);
+		if (player.getAbilities().instabuild) {
+			return;
 		}
-	}
 
-	private static void getSpaceStationItems(Player player, ResourceLocation tag, int count) {
 		Inventory inv = player.getInventory();
-		int itemStackCount = 0;
+		SpaceStationRecipe recipe = (SpaceStationRecipe) player.level.getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
 
-		for (int i = 0; i < inv.getContainerSize(); ++i) {
-			ItemStack itemStack = inv.getItem(i);
-
-			if (Methods.tagCheck(itemStack.getItem(), tag)) {
-				itemStackCount = itemStackCount + itemStack.getCount();
-			}
-
-			if (!itemStack.isEmpty() && Methods.tagCheck(itemStack.getItem(), tag) && itemStackCount >= count) {
-				player.getInventory().clearOrCountMatchingItems(p -> itemStack.getItem() == p.getItem(), count, player.getInventory());
-			}
+		for (IngredientStack ingredientStack : recipe.getIngredientStacks()) {
+			inv.clearOrCountMatchingItems(ingredientStack::testWithoutCount, ingredientStack.getCount(), inv);
 		}
+
 	}
 }

@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -50,7 +51,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
         BlockPos pos = this.getBlockPos();
 		BlockPos pickupPos = new BlockPos(pos.getX(),pos.getY() - 1, pos.getZ());
 
-        if (this.level.getFluidState(pickupPos) == Fluids.WATER.getSource(false)) {
+        if (this.level.getFluidState(pickupPos) == Fluids.WATER.getSource(false) && this.level.getBlockState(pickupPos).is(Blocks.WATER)) {
 
             if (hasSpaceInWaterTank(this.getWaterTank().getFluid().getAmount())) {
 
@@ -60,30 +61,30 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
 
                     if (WATER_TIMER > 10) {
 
-                        ((BucketPickup) this.level.getBlockState(pickupPos).getBlock()).pickupBlock(this.level, pickupPos, this.level.getBlockState(pickupPos));
+                        this.level.setBlock(pickupPos, Blocks.AIR.defaultBlockState(), 3);
 
-                        this.getWaterTank().fill(new FluidStack(Fluids.WATER,1000), IFluidHandler.FluidAction.EXECUTE);
+                        this.getWaterTank().fill(new FluidStack(Fluids.WATER, 1000), IFluidHandler.FluidAction.EXECUTE);
 
                         WATER_TIMER = 0;
                     }
                 }
             }
+        }
 
-            if (this.getWaterTank().getFluid().getAmount() > 1) {
-                BlockEntity ejectBlockEntity = level.getBlockEntity(new BlockPos(pos.getX(),pos.getY() + 1, pos.getZ()));
+        if (this.getWaterTank().getFluid().getAmount() > 1) {
+            BlockEntity ejectBlockEntity = level.getBlockEntity(new BlockPos(pos.getX(),pos.getY() + 1, pos.getZ()));
 
-                if (ejectBlockEntity != null) {
+            if (ejectBlockEntity != null) {
 
-                	IFluidHandler fluidHandler = ejectBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
-                	
-                	if (fluidHandler != null) {
-                		int transferPerTick = this.getTransferPerTick();
-                		
-                		if (FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, false).getAmount() == transferPerTick)
-                		{
-                			FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, true);
-                		}
-                	}
+                IFluidHandler fluidHandler = ejectBlockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, Direction.DOWN).orElse(null);
+
+                if (fluidHandler != null) {
+                    int transferPerTick = this.getTransferPerTick();
+
+                    if (FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, false).getAmount() == transferPerTick)
+                    {
+                        FluidUtil.tryFluidTransfer(fluidHandler, this.waterTank, transferPerTick, true);
+                    }
                 }
             }
         }

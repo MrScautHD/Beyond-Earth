@@ -202,22 +202,24 @@
   "biome.beyond_earth.glacio_ice_spikes": "Glacio Ice Spikes",
 
   "advancements.workbench_advancement.title": "NASA Workbench",
-  "advancements.rocket_tier_2_advancement.title": "Tier 2 Rocket",
-  "advancements.rocket_advancement.descr": "§bHas crafted a Tier 1 Rocket",
+  "advancements.workbench_advancement.descr": "§bHas crafted a NASA Workbench",
   "advancements.rocket_advancement.title": "Tier 1 Rocket",
-  "advancements.moon_advancement.title": "Moon",
+  "advancements.rocket_advancement.descr": "§bHas crafted a Tier 1 Rocket",
+  "advancements.rocket_tier_2_advancement.title": "Tier 2 Rocket",
+  "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
   "advancements.rocket_tier_3_advancement.title": "Tier 3 Rocket",
   "advancements.rocket_tier_3_advancement.descr": "§bHas crafted a Tier 3 Rocket",
+  "advancements.rocket_tier_4_advancement.title": "Tier 4 Rocket",
+  "advancements.rocket_tier_4_advancement.descr": "§bHas crafted a Tier 4 Rocket",
+  "advancements.moon_advancement.title": "Moon",
   "advancements.moon_advancement.descr": "§bHas entered the Moon",
-  "advancements.workbench_advancement.descr": "§bHas crafted a NASA Workbench",
-  "advancements.rocket_tier_2_advancement.descr": "§bHas crafted a Tier 2 Rocket",
 
   "effect.beyond_earth.oxygen_bubble_effect": "Oxygen Bubble",
 
   "key.categories.beyond_earth": "Beyond Earth",
   "key.beyond_earth.rocket_start": "Rocket Start",
 
-  "death.attack.oxygen.player": "%1$s couldn\u0027t breathe anymore",
+  "death.attack.oxygen": "%1$s couldn\u0027t breathe anymore",
   "death.attack.venus.acid": "%1$s was a sacrifice to the acid",
 
   "entity.beyond_earth.alien.farmer": "Farmer",
@@ -268,6 +270,7 @@
 
   "message.beyond_earth.no_fuel": "§cNO FUEL! §7Fill the Rocket with §cFuel§7. (§6Sneak and Right Click§7)",
   "message.beyond_earth.hold_space": "§7Hold §cSpace!",
+  "message.beyond_earth.speed": "%s Speed",
   
 
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Working Area: %1$sx%2$sx%3$s",
@@ -302,6 +305,8 @@
 
 
   "jei.tooltip.beyond_earth.oil": "  You can find Oil in the Ocean",
+  "jei.category.beyond_earth.space_station": "Space Station",
+  "jei.tooltip.beyond_earth.space_station": "Ingredients for create\na Space Station",
 
   "gauge_text.beyond_earth.using": "%1$s Using: %2$s",
   "gauge_text.beyond_earth.using2": "%1$s Using: %2$s/%4$s t",

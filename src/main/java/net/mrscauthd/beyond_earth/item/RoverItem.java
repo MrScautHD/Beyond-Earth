@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RoverItem extends Item {
+public class RoverItem extends VehicleItem {
 
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
@@ -79,24 +79,19 @@ public class RoverItem extends Item {
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
             if (entities.isEmpty()) {
-                RoverEntity rocket = new RoverEntity(ModInit.ROVER.get(), world);
+                RoverEntity rover = new RoverEntity(ModInit.ROVER.get(), world);
 
-                rocket.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
-                double d0 = getYOffset(world, pos, true, rocket.getBoundingBox());
+                rover.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
+                double d0 = this.getYOffset(world, pos, true, rover.getBoundingBox());
                 float f = player.getYRot();
 
-                rocket.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f, 0.0F);
+                rover.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f, 0.0F);
 
-                rocket.yHeadRot = rocket.getYRot();
-                rocket.yBodyRot = rocket.getYRot();
+                rover.yRotO = f;
 
-                if (world instanceof ServerLevel) {
-                    rocket.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(new BlockPos(rocket.getX(), rocket.getY(), rocket.getZ())), MobSpawnType.MOB_SUMMONED, null, null);
-                }
+                world.addFreshEntity(rover);
 
-                world.addFreshEntity(rocket);
-
-                rocket.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
+                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -109,17 +104,6 @@ public class RoverItem extends Item {
         }
 
         return super.useOn(context);
-    }
-
-
-    protected static double getYOffset(LevelReader p_20626_, BlockPos p_20627_, boolean p_20628_, AABB p_20629_) {
-        AABB aabb = new AABB(p_20627_);
-        if (p_20628_) {
-            aabb = aabb.expandTowards(0.0D, -1.0D, 0.0D);
-        }
-
-        Iterable<VoxelShape> iterable = p_20626_.getCollisions((Entity)null, aabb);
-        return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 
     public static void roverPlaceSound(BlockPos pos, Level world) {

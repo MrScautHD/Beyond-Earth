@@ -3,13 +3,11 @@ package net.mrscauthd.beyond_earth.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -17,7 +15,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -32,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class Tier1RocketItem extends Item {
+public class Tier1RocketItem extends VehicleItem {
 
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
     public static String bucketTag = BeyondEarthMod.MODID + ":bucket";
@@ -81,7 +78,7 @@ public class Tier1RocketItem extends Item {
                     RocketTier1Entity rocket = new RocketTier1Entity(ModInit.TIER_1_ROCKET.get(), world);
 
                     rocket.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
-                    double d0 = getYOffset(world, pos, true, rocket.getBoundingBox());
+                    double d0 = this.getYOffset(world, pos, true, rocket.getBoundingBox());
                     rocket.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
 
                     rocket.yRotO = rocket.getYRot();
@@ -103,16 +100,6 @@ public class Tier1RocketItem extends Item {
         }
 
         return super.useOn(context);
-    }
-
-    protected static double getYOffset(LevelReader p_20626_, BlockPos p_20627_, boolean p_20628_, AABB p_20629_) {
-        AABB aabb = new AABB(p_20627_);
-        if (p_20628_) {
-            aabb = aabb.expandTowards(0.0D, -1.0D, 0.0D);
-        }
-
-        Iterable<VoxelShape> iterable = p_20626_.getCollisions((Entity)null, aabb);
-        return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 
     public static void rocketPlaceSound(BlockPos pos, Level world) {

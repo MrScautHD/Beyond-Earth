@@ -6,9 +6,6 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
-import net.minecraft.client.resources.sounds.MinecartSoundInstance;
-import net.minecraft.client.resources.sounds.RidingMinecartSoundInstance;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -16,7 +13,6 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -26,13 +22,11 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
@@ -40,6 +34,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entity.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.SetupLivingBipedAnimEvent;
+import net.mrscauthd.beyond_earth.item.VehicleItem;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
@@ -116,8 +111,7 @@ public class Events {
         Item item2 = player.getMainHandItem().getItem();
 
         /**Cancel Event if it Hold a Vehicle in off hand*/
-        if (item == ModInit.TIER_1_ROCKET_ITEM.get() || item == ModInit.TIER_2_ROCKET_ITEM.get() || item == ModInit.TIER_3_ROCKET_ITEM.get() || item == ModInit.TIER_4_ROCKET_ITEM.get() || item == ModInit.ROVER_ITEM.get()
-            || item2 == ModInit.TIER_1_ROCKET_ITEM.get() || item2 == ModInit.TIER_2_ROCKET_ITEM.get() || item2 == ModInit.TIER_3_ROCKET_ITEM.get() || item2 == ModInit.TIER_4_ROCKET_ITEM.get() || item2 == ModInit.ROVER_ITEM.get()) {
+        if (item instanceof VehicleItem || item2 instanceof VehicleItem) {
             event.setCanceled(true);
             return;
         }
@@ -177,17 +171,8 @@ public class Events {
             if (!Methods.isRocket(player.getVehicle())) {
                 Item item1 = player.getMainHandItem().getItem();
                 Item item2 = player.getOffhandItem().getItem();
-                if (item1 == ModInit.TIER_1_ROCKET_ITEM.get()
-                        || item1 == ModInit.TIER_2_ROCKET_ITEM.get()
-                        || item1 == ModInit.TIER_3_ROCKET_ITEM.get()
-                        || item1 == ModInit.TIER_4_ROCKET_ITEM.get()
-                        || item1 == ModInit.ROVER_ITEM.get()
-                        //Off Hand
-                        || item2 == ModInit.TIER_1_ROCKET_ITEM.get()
-                        || item2 == ModInit.TIER_2_ROCKET_ITEM.get()
-                        || item2 == ModInit.TIER_3_ROCKET_ITEM.get()
-                        || item2 == ModInit.TIER_4_ROCKET_ITEM.get()
-                        || item2 == ModInit.ROVER_ITEM.get()) {
+
+                if (item1 instanceof VehicleItem || item2 instanceof VehicleItem) {
                     model.rightArm.xRot = 10;
                     model.leftArm.xRot = 10;
                     model.rightArm.zRot = 0;
@@ -212,28 +197,16 @@ public class Events {
             Item item1 = player.getMainHandItem().getItem();
             Item item2 = player.getOffhandItem().getItem();
 
-            if (item1 == ModInit.TIER_1_ROCKET_ITEM.get()
-                    || item1 == ModInit.TIER_2_ROCKET_ITEM.get()
-                    || item1 == ModInit.TIER_3_ROCKET_ITEM.get()
-                    || item1 == ModInit.TIER_4_ROCKET_ITEM.get()
-                    || item1 == ModInit.ROVER_ITEM.get()) {
-
+            if (item1 instanceof VehicleItem) {
                 if (event.getHandSide() == HumanoidArm.LEFT) {
                     event.setCanceled(true);
                 }
-
             }
 
-            if (item2 == ModInit.TIER_1_ROCKET_ITEM.get()
-                    || item2 == ModInit.TIER_2_ROCKET_ITEM.get()
-                    || item2 == ModInit.TIER_3_ROCKET_ITEM.get()
-                    || item2 == ModInit.TIER_4_ROCKET_ITEM.get()
-                    || item2 == ModInit.ROVER_ITEM.get()) {
-
+            if (item2 instanceof VehicleItem) {
                 if (event.getHandSide() == HumanoidArm.RIGHT) {
                     event.setCanceled(true);
                 }
-
             }
 
         }
@@ -268,7 +241,7 @@ public class Events {
         if (event != null && event.getEntity() instanceof Player) {
             Player entity = (Player) event.getEntity();
 
-            if (Methods.nethriteSpaceSuitCheck(entity)) {
+            if (Methods.netheriteSpaceSuitCheck(entity)) {
                 if (event.getSource().isFire()) {
                     entity.setRemainingFireTicks(0);
                     event.setCanceled(true);
@@ -282,16 +255,6 @@ public class Events {
         if (event.getRayTraceResult().getType() == HitResult.Type.ENTITY) {
             Entity entity = ((EntityHitResult) event.getRayTraceResult()).getEntity();
             if (Methods.AllVehiclesOr(entity)) {
-                event.setCanceled(true);
-            }
-        }
-    }
-
-    //TODO Remove if you change it to Entity
-    @SubscribeEvent
-    public static void interact(PlayerInteractEvent.EntityInteract event) {
-        if (event.getItemStack().getItem() == Items.NAME_TAG) {
-            if (Methods.AllVehiclesOr(event.getTarget())) {
                 event.setCanceled(true);
             }
         }

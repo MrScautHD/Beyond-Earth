@@ -16,9 +16,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.protocol.game.ClientboundGameEventPacket;
-import net.minecraft.network.protocol.game.ClientboundPlayerAbilitiesPacket;
-import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
+import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -39,7 +37,6 @@ import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.material.Fluid;
@@ -57,9 +54,7 @@ import net.mrscauthd.beyond_earth.entity.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.gui.screens.planetselection.PlanetSelectionGui;
-
-import java.util.ArrayList;
-import java.util.List;
+import net.mrscauthd.beyond_earth.item.VehicleItem;
 
 public class Methods {
 
@@ -77,23 +72,21 @@ public class Methods {
     public static final ResourceKey<Level> overworld_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID,"overworld_orbit"));
 
     public static void worldTeleport(Player entity, ResourceKey<Level> planet, double high) {
-        if (!entity.level.isClientSide) {
+        ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
-            ServerLevel nextWorld = entity.getServer().getLevel(planet);
+        if (nextLevel != null && entity instanceof ServerPlayer) {
+            ((ServerPlayer) entity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
+            ((ServerPlayer) entity).teleportTo(nextLevel, entity.getX(), high, entity.getZ(), entity.getYRot(), entity.getXRot());
+            ((ServerPlayer) entity).connection.send(new ClientboundPlayerAbilitiesPacket(entity.getAbilities()));
 
-            if (nextWorld != null && entity instanceof ServerPlayer) {
-                ((ServerPlayer) entity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
-                ((ServerPlayer) entity).teleportTo(nextWorld, entity.getX(), high, entity.getZ(), entity.yRotO, entity.xRotO);
-                ((ServerPlayer) entity).connection.send(new ClientboundPlayerAbilitiesPacket(entity.getAbilities()));
-
-                for (MobEffectInstance effectinstance : entity.getActiveEffects()) {
-                    ((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), effectinstance));
-                }
+            for (MobEffectInstance effectinstance : entity.getActiveEffects()) {
+                ((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), effectinstance));
             }
+            ((ServerPlayer) entity).connection.send(new ClientboundSetExperiencePacket(entity.experienceProgress, entity.totalExperience, entity.experienceLevel));
         }
     }
 
-    public static boolean nethriteSpaceSuitCheck(LivingEntity entity) {
+    public static boolean netheriteSpaceSuitCheck(LivingEntity entity) {
         Boolean item3 = checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get());
         Boolean item2 = checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get());
         Boolean item1 = checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get());
@@ -218,10 +211,7 @@ public class Methods {
     }
 
     public static boolean AllVehiclesOr(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof RocketTier4Entity || entity instanceof LanderEntity || entity instanceof RoverEntity) {
-            return true;
-        }
-        return false;
+        return entity instanceof VehicleEntity;
     }
 
     public static void RocketSounds(Entity entity, Level world) {
@@ -232,15 +222,7 @@ public class Methods {
         Item item1 = player.getMainHandItem().getItem();
         Item item2 = player.getOffhandItem().getItem();
 
-        List<Item> items = new ArrayList<Item>();
-
-        items.add(ModInit.TIER_1_ROCKET_ITEM.get());
-        items.add(ModInit.TIER_2_ROCKET_ITEM.get());
-        items.add(ModInit.TIER_3_ROCKET_ITEM.get());
-        items.add(ModInit.TIER_4_ROCKET_ITEM.get());
-        items.add(ModInit.ROVER_ITEM.get());
-
-        if (items.contains(item1) && items.contains(item2)) {
+        if (item1 instanceof VehicleItem && item2 instanceof VehicleItem) {
 
             ItemEntity spawn = new ItemEntity(player.level, player.getX(),player.getY(),player.getZ(), new ItemStack(item2));
             spawn.setPickUpDelay(0);
@@ -258,7 +240,7 @@ public class Methods {
         Level level = entity.level;
 
         if (Methods.isWorld(level, planet1) || Methods.isWorld(level, planet2)) {
-            if (!Methods.nethriteSpaceSuitCheck(entity) && !entity.hasEffect(MobEffects.FIRE_RESISTANCE) && !entity.fireImmune() && (entity instanceof Mob)) {
+            if (!Methods.netheriteSpaceSuitCheck(entity) && !entity.hasEffect(MobEffects.FIRE_RESISTANCE) && !entity.fireImmune() && (entity instanceof Mob || entity instanceof Player)) {
                 if (!MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity))) {
                     if (!tagCheck(entity, BeyondEarthMod.MODID + ":entities/planet_fire")) {
                         entity.setSecondsOnFire(10);
@@ -287,7 +269,7 @@ public class Methods {
 
     /**IF a entity should get oxygen damage add it in the tag "oxygen" (don't add the Player, he have a own oxygen system)*/
     public static void EntityOxygen(LivingEntity entity, Level world) {
-        if (Config.EntityOxygenSystem && Methods.isSpaceWorld(world) && tagCheck(entity, BeyondEarthMod.MODID + ":entities/oxygen")) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(world) && tagCheck(entity, BeyondEarthMod.MODID + ":entities/oxygen")) {
 
             if (!entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
 
@@ -303,8 +285,9 @@ public class Methods {
                 }
             }
         }
-        //out of Space
-        if (Config.EntityOxygenSystem && entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+
+        //Out of Space
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
             entity.setAirSupply(300);
         }
     }
@@ -353,10 +336,8 @@ public class Methods {
             Level newWorld = player.level;
 
             if (!player.level.isClientSide) {
-                LanderEntity entityToSpawn = new LanderEntity((EntityType<LanderEntity>) ModInit.LANDER.get(), newWorld);
+                LanderEntity entityToSpawn = new LanderEntity(ModInit.LANDER.get(), newWorld);
                 entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-                entityToSpawn.finalizeSpawn((ServerLevelAccessor) newWorld, newWorld.getCurrentDifficultyAt(new BlockPos(entityToSpawn.getX(), entityToSpawn.getY(), entityToSpawn.getZ())), MobSpawnType.MOB_SUMMONED, null, null);
-
                 newWorld.addFreshEntity(entityToSpawn);
 
                 entityToSpawn.getInventory().setStackInSlot(0, slot_0);
@@ -383,7 +364,6 @@ public class Methods {
         if (!world.isClientSide) {
             LanderEntity landerSpawn = new LanderEntity(ModInit.LANDER.get(), world);
             landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-            landerSpawn.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(new BlockPos(landerSpawn.getX(), landerSpawn.getY(), landerSpawn.getZ())), MobSpawnType.MOB_SUMMONED, null, null);
             world.addFreshEntity(landerSpawn);
 
             String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
@@ -504,7 +484,7 @@ public class Methods {
     }
 
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(ModInit.OXYGEN_EFFECT.get()) && Config.PlayerOxygenSystem && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(ModInit.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
             CompoundTag persistentData = player.getPersistentData();
