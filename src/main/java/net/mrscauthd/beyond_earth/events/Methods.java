@@ -1,5 +1,8 @@
 package net.mrscauthd.beyond_earth.events;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.model.HumanoidModel;
@@ -58,19 +61,24 @@ import net.mrscauthd.beyond_earth.item.VehicleItem;
 
 public class Methods {
 
-    public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon"));
-    public static final ResourceKey<Level> moon_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon_orbit"));
-    public static final ResourceKey<Level> mars = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars"));
-    public static final ResourceKey<Level> mars_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars_orbit"));
-    public static final ResourceKey<Level> mercury = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury"));
-    public static final ResourceKey<Level> mercury_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury_orbit"));
-    public static final ResourceKey<Level> venus = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus"));
-    public static final ResourceKey<Level> venus_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus_orbit"));
-    public static final ResourceKey<Level> glacio = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio"));
-    public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit"));
-    public static final ResourceKey<Level> overworld = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
-    public static final ResourceKey<Level> overworld_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID,"overworld_orbit"));
+	private static final Map<ResourceLocation, ResourceKey<Level>> DIMENSION_KEY_CACHES = new HashMap<>();
+    public static final ResourceKey<Level> moon = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "moon"));
+    public static final ResourceKey<Level> moon_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "moon_orbit"));
+    public static final ResourceKey<Level> mars = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "mars"));
+    public static final ResourceKey<Level> mars_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "mars_orbit"));
+    public static final ResourceKey<Level> mercury = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "mercury"));
+    public static final ResourceKey<Level> mercury_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "mercury_orbit"));
+    public static final ResourceKey<Level> venus = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "venus"));
+    public static final ResourceKey<Level> venus_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "venus_orbit"));
+    public static final ResourceKey<Level> glacio = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "glacio"));
+    public static final ResourceKey<Level> glacio_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit"));
+    public static final ResourceKey<Level> overworld = getDimensionKey(new ResourceLocation("overworld"));
+    public static final ResourceKey<Level> overworld_orbit = getDimensionKey(new ResourceLocation(BeyondEarthMod.MODID,"overworld_orbit"));
 
+    public static ResourceKey<Level> getDimensionKey(ResourceLocation resourceLocation){
+    	return DIMENSION_KEY_CACHES.computeIfAbsent(resourceLocation, r -> ResourceKey.create(Registry.DIMENSION_REGISTRY, r));
+    }
+    
     public static void worldTeleport(Player entity, ResourceKey<Level> planet, double high) {
         ServerLevel nextLevel = entity.getServer().getLevel(planet);
 

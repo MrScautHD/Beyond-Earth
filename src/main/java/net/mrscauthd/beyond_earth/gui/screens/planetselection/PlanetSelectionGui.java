@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.gui.screens.planetselection;
 
 import java.util.function.Supplier;
 
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -100,7 +99,7 @@ public class PlanetSelectionGui {
 				deleteItems(context.getSender());
 			}
 
-			ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, message.getDimension());
+			ResourceKey<Level> key = Methods.getDimensionKey(message.getDimension());
 			Methods.teleportButton(context.getSender(), key, message.isCreateSpaceStation());
 
 			context.setPacketHandled(true);
