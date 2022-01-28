@@ -70,7 +70,7 @@ public class RoverEntity extends VehicleEntity {
 
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public static final int FUEL_BUCKETS = 3;
+	public static final int FUEL_BUCKETS = 3;
 	public static final int FUEL_PER_MB = 2;
 	public static final int FUEL_PER_BUCKET = FluidUtil2.BUCKET_SIZE * FUEL_PER_MB;
 	public static final int FUEL_CAPACITY = FUEL_BUCKETS * FUEL_PER_BUCKET;
