@@ -21,6 +21,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -31,6 +32,32 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty STAGE = BlockStateProperties.LIT;
+    private static final List<Pair<Integer, Integer>> x = new ArrayList<>(List.of(
+            Pair.of(0, 1),
+            Pair.of(1, 1),
+            Pair.of(1, 0),
+            Pair.of(-1, 0),
+            Pair.of(-1, -1),
+            Pair.of(0, -1),
+            Pair.of(1, -1),
+            Pair.of(-1, 1)
+    ));
+    private static final List<Pair<Integer, Integer>> y = new ArrayList<>(List.of(
+            Pair.of(0,2),
+            Pair.of(0,-2),
+            Pair.of(2,0),
+            Pair.of(-2,0),
+            Pair.of(-2,1),
+            Pair.of(-2,-1),
+            Pair.of(2,1),
+            Pair.of(1,-2),
+            Pair.of(2,-2),
+            Pair.of(-2,-2),
+            Pair.of(-1,-1),
+            Pair.of(3,1),
+            Pair.of(1,2),
+            Pair.of(2,2)
+    ));
 
     public RocketLaunchPad(Properties properties) {
         super(properties);
@@ -86,44 +113,18 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
-        List<Integer[]> x = new ArrayList<Integer[]>();
-        x.add(new Integer[]{0,1});
-        x.add(new Integer[]{1,1});
-        x.add(new Integer[]{1,0});
-        x.add(new Integer[]{-1,0});
-        x.add(new Integer[]{-1,-1});
-        x.add(new Integer[]{0,-1});
-        x.add(new Integer[]{1,-1});
-        x.add(new Integer[]{-1,1});
-
-        List<Integer[]> y = new ArrayList<Integer[]>();
-        y.add(new Integer[]{0,2});
-        y.add(new Integer[]{0,-2});
-        y.add(new Integer[]{2,0});
-        y.add(new Integer[]{-2,0});
-        y.add(new Integer[]{-2,1});
-        y.add(new Integer[]{-2,-1});
-        y.add(new Integer[]{2,1});
-        y.add(new Integer[]{1,-2});
-        y.add(new Integer[]{2,-2});
-        y.add(new Integer[]{-2,-2});
-        y.add(new Integer[]{-1,-1});
-        y.add(new Integer[]{3,1});
-        y.add(new Integer[]{1,2});
-        y.add(new Integer[]{2,2});
-
         boolean canEdit = true;
 
-        for (Integer[] value : x) {
-            BlockPos bp = new BlockPos(pos.getX()+value[0],pos.getY(),pos.getZ()+value[1]);
+        for (final Pair<Integer, Integer> value : x) {
+            BlockPos bp = new BlockPos(pos.getX() + value.getLeft(), pos.getY(), pos.getZ() + value.getRight());
 
             if (!(world.getBlockState(bp).getBlock() instanceof RocketLaunchPad && !world.getBlockState(bp).getValue(STAGE))) {
                 canEdit = false;
             }
         }
 
-        for (Integer[] val : y) {
-            BlockPos bp = new BlockPos(pos.getX()+val[0],pos.getY(),pos.getZ()+val[1]);
+        for (final Pair<Integer, Integer> val : y) {
+            BlockPos bp = new BlockPos(pos.getX() + val.getLeft(), pos.getY(), pos.getZ() + val.getRight());
 
         if (!(!(world.getBlockState(bp).getBlock() instanceof RocketLaunchPad) || world.getBlockState(bp).getBlock() instanceof RocketLaunchPad && !world.getBlockState(bp).getValue(STAGE))) {
                 canEdit = false;

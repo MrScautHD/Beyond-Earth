@@ -734,9 +734,7 @@ public class ModInit {
     private static void associateBiomeToConfiguredStructure(Map<StructureFeature<?>, HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>>> STStructureToMultiMap, ConfiguredStructureFeature<?, ?> configuredStructureFeature, ResourceKey<Biome> biomeRegistryKey) {
         STStructureToMultiMap.putIfAbsent(configuredStructureFeature.feature, HashMultimap.create());
         HashMultimap<ConfiguredStructureFeature<?, ?>, ResourceKey<Biome>> configuredStructureToBiomeMultiMap = STStructureToMultiMap.get(configuredStructureFeature.feature);
-        if (configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
-        }
-        else {
+        if (!configuredStructureToBiomeMultiMap.containsValue(biomeRegistryKey)) {
             configuredStructureToBiomeMultiMap.put(configuredStructureFeature, biomeRegistryKey);
         }
     }

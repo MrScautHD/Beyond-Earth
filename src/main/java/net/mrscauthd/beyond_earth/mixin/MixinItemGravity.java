@@ -20,19 +20,19 @@ public abstract class MixinItemGravity {
                 itemGravityMath(w,0.05);
             }
 
-            if (Methods.isWorld(w.level, Methods.mars)) {
+            else if (Methods.isWorld(w.level, Methods.mars)) {
                 itemGravityMath(w,0.06);
             }
 
-            if (Methods.isWorld(w.level, Methods.mercury)) {
+            else if (Methods.isWorld(w.level, Methods.mercury)) {
                 itemGravityMath(w,0.05);
             }
 
-            if (Methods.isWorld(w.level, Methods.venus)) {
+            else if (Methods.isWorld(w.level, Methods.venus)) {
                 itemGravityMath(w,0.06);
             }
 
-            if (Methods.isWorld(w.level, Methods.glacio)) {
+            else if (Methods.isWorld(w.level, Methods.glacio)) {
                 itemGravityMath(w,0.06);
             }
 

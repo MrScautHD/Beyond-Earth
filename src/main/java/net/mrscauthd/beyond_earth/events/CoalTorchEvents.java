@@ -54,19 +54,17 @@ public class CoalTorchEvents {
                 play_fire_sounds_delete(pos, world);
             }
 
-            if (world.getBlockState(pos).getBlock() == Blocks.LANTERN && !world.getBlockState(pos).getValue(LanternBlock.HANGING)) {
-                world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
+            else if (world.getBlockState(pos).getBlock() == Blocks.LANTERN) {
+                if (world.getBlockState(pos).getValue(LanternBlock.HANGING)) {
+                    world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
+                } else {
+                    world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
+                }
 
                 play_fire_sounds_delete(pos, world);
             }
 
-            if (world.getBlockState(pos).getBlock() == Blocks.LANTERN && world.getBlockState(pos).getValue(LanternBlock.HANGING)) {
-                world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
-
-                play_fire_sounds_delete(pos, world);
-            }
-
-            if (world.getBlockState(pos).getBlock() == Blocks.CAMPFIRE && world.getBlockState(pos).getValue(CampfireBlock.LIT)) {
+            else if (world.getBlockState(pos).getBlock() == Blocks.CAMPFIRE && world.getBlockState(pos).getValue(CampfireBlock.LIT)) {
                 //Get Block State
                 BooleanProperty property = (BooleanProperty) world.getBlockState(pos).getBlock().getStateDefinition().getProperty("lit");
 

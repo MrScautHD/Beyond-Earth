@@ -42,7 +42,7 @@ public class CoalLanternBlock extends LanternBlock {
             }
         }
 
-        if (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE) {
+        else if (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE) {
             return InteractionResult.SUCCESS;
         }
 

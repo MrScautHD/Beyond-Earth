@@ -59,6 +59,9 @@ import net.mrscauthd.beyond_earth.gui.screens.planetselection.PlanetSelectionGui
 import net.mrscauthd.beyond_earth.item.VehicleItem;
 import net.mrscauthd.beyond_earth.rendertype.TranslucentArmorRenderType;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class Methods {
 
     public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon"));
@@ -73,6 +76,13 @@ public class Methods {
     public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit"));
     public static final ResourceKey<Level> overworld = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
     public static final ResourceKey<Level> overworld_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID,"overworld_orbit"));
+
+    public static final HashSet<ResourceKey<Level>> spaceWorldsWithoutOxygen = new HashSet<>(10);
+    public static final HashSet<ResourceKey<Level>> orbitWorlds = new HashSet<>(6);
+    static {
+        spaceWorldsWithoutOxygen.addAll(List.of(moon, moon_orbit, mars, mars_orbit, mercury, mercury_orbit, venus, venus_orbit, glacio_orbit, overworld_orbit));
+        orbitWorlds.addAll(List.of(moon_orbit, mars_orbit, mercury_orbit, venus_orbit, glacio_orbit, overworld_orbit));
+    }
 
     public static void worldTeleport(Player entity, ResourceKey<Level> planet, double high) {
         ServerLevel nextLevel = entity.getServer().getLevel(planet);
@@ -89,72 +99,66 @@ public class Methods {
         }
     }
 
-    public static boolean netheriteSpaceSuitCheck(LivingEntity entity) {
-        Boolean item3 = checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get());
-        Boolean item2 = checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get());
-        Boolean item1 = checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get());
-        Boolean item0 = checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get());
+    /**
+     * @param entity the LivingEntity to check
+     * @return true if entity is wearing a full set of netherite space gear, false otherwise
+     */
+    public static boolean netheriteSpaceSuitCheck(final LivingEntity entity) {
+        if (!checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get())) return false; // missing a netherite oxygen mask
+        if (!checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get())) return false; // missing a netherite space suit
+        if (!checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get())) return false; // missing netherite space pants
+        if (!checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get())) return false; // missing netherite space boots
 
-        if (item0 && item1 && item2 && item3) {
-            return true;
-        }
-        return false;
+        return true; // has mask + suit + pants + boots
     }
 
-    public static boolean spaceSuitCheck(LivingEntity entity) {
-        Boolean item3 = checkArmor(entity, 3, ModInit.OXYGEN_MASK.get());
-        Boolean item2 = checkArmor(entity, 2, ModInit.SPACE_SUIT.get());
-        Boolean item1 = checkArmor(entity, 1, ModInit.SPACE_PANTS.get());
-        Boolean item0 = checkArmor(entity, 0, ModInit.SPACE_BOOTS.get());
+    /**
+     * @param entity the LivingEntity to check
+     * @return true if entity is wearing a full set of standard space gear, false otherwise
+     */
+    public static boolean spaceSuitCheck(final LivingEntity entity) {
+        if (!checkArmor(entity, 3, ModInit.OXYGEN_MASK.get())) return false;
+        if (!checkArmor(entity, 2, ModInit.SPACE_SUIT.get())) return false;
+        if (!checkArmor(entity, 1, ModInit.SPACE_PANTS.get())) return false;
+        if (!checkArmor(entity, 0, ModInit.SPACE_BOOTS.get())) return false;
 
-        if (item0 && item1 && item2 && item3) {
-            return true;
-        }
-        return false;
+        return true;
     }
 
-    public static boolean spaceSuitCheckBoth(LivingEntity entity) {
-        Boolean item3 = checkArmor(entity, 3, ModInit.OXYGEN_MASK.get());
-        Boolean item2 = checkArmor(entity, 2, ModInit.SPACE_SUIT.get());
-        Boolean item1 = checkArmor(entity, 1, ModInit.SPACE_PANTS.get());
-        Boolean item0 = checkArmor(entity, 0, ModInit.SPACE_BOOTS.get());
-
-        Boolean item3_2 = checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get());
-        Boolean item2_2 = checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get());
-        Boolean item1_2 = checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get());
-        Boolean item0_2 = checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get());
-
-        Boolean check3 = false;
-        Boolean check2 = false;
-        Boolean check1 = false;
-        Boolean check0 = false;
-
-        if (item3 || item3_2) {
-            check3 = true;
-        }
-        if (item2 || item2_2) {
-            check2 = true;
-        }
-        if (item1 || item1_2) {
-            check1 = true;
-        }
-        if (item0 || item0_2) {
-            check0 = true;
+    /**
+     * @param entity the LivingEntity to check
+     * @return true if entity is wearing a full set of standard or netherite space gear, false otherwise
+     */
+    public static boolean spaceSuitCheckBoth(final LivingEntity entity) {
+        if (!(checkArmor(entity, 3, ModInit.OXYGEN_MASK.get()) || checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get()))) {
+            return false; // missing an oxygen mask
         }
 
-        if (check0 && check1 && check2 && check3) {
-            return true;
+        if (!(checkArmor(entity, 2, ModInit.SPACE_SUIT.get()) || checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get()))) {
+            return false; // missing a space suit
         }
 
-        return false;
+        if (!(checkArmor(entity, 1, ModInit.SPACE_PANTS.get()) || checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get()))) {
+            return false; // missing space pants
+        }
+
+        if (!(checkArmor(entity, 0, ModInit.SPACE_BOOTS.get()) || checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get()))) {
+            return false; // missing space boots
+        }
+
+        return true; // has mask + suit + pants + boots
     }
 
-    public static boolean checkArmor(LivingEntity entity,int number, Item item) {
+    public static boolean checkArmor(final LivingEntity entity, final int number, final Item item) {
         return entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, number)).getItem() == item;
     }
 
     public static boolean isSpaceWorld(Level world) {
-        if (Methods.isWorld(world, moon)
+        if (Methods.isWorld(world, overworld)) {
+            return false;
+        }
+
+        return Methods.isWorld(world, moon)
                 || Methods.isWorld(world, moon_orbit)
                 || Methods.isWorld(world, mars)
                 || Methods.isWorld(world, mars_orbit)
@@ -164,56 +168,30 @@ public class Methods {
                 || Methods.isWorld(world, venus_orbit)
                 || Methods.isWorld(world, glacio)
                 || Methods.isWorld(world, glacio_orbit)
-                || Methods.isWorld(world, overworld_orbit)) {
-            return true;
-        }
-        return false;
+                || Methods.isWorld(world, overworld_orbit);
     }
 
-    public static boolean isSpaceWorldWithoutOxygen(Level world) {
-        if (Methods.isWorld(world, moon)
-                || Methods.isWorld(world, moon_orbit)
-                || Methods.isWorld(world, mars)
-                || Methods.isWorld(world, mars_orbit)
-                || Methods.isWorld(world, mercury)
-                || Methods.isWorld(world, mercury_orbit)
-                || Methods.isWorld(world, venus)
-                || Methods.isWorld(world, venus_orbit)
-                || Methods.isWorld(world, glacio_orbit)
-                || Methods.isWorld(world, overworld_orbit)) {
-            return true;
-        }
-        return false;
+    public static boolean isSpaceWorldWithoutOxygen(final Level world) {
+        return spaceWorldsWithoutOxygen.contains(world.dimension());
     }
 
-    public static boolean isOrbitWorld(Level world) {
-        if (Methods.isWorld(world, overworld_orbit)
-                || Methods.isWorld(world, moon_orbit)
-                || Methods.isWorld(world, mars_orbit)
-                || Methods.isWorld(world, mercury_orbit)
-                || Methods.isWorld(world, venus_orbit)
-                || Methods.isWorld(world, glacio_orbit)) {
-            return true;
-        }
-        return false;
+    public static boolean isOrbitWorld(final Level world) {
+        return orbitWorlds.contains(world.dimension());
     }
 
-    public static boolean isWorld(Level world, ResourceKey<Level> loc) {
+    public static boolean isWorld(final Level world, final ResourceKey<Level> loc) {
         return world.dimension() == loc;
     }
 
-    public static void OxygenDamage(LivingEntity entity) {
+    public static void OxygenDamage(final LivingEntity entity) {
         entity.hurt(ModInit.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
-    public static boolean isRocket(Entity entity) {
-        if (entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof RocketTier4Entity) {
-            return true;
-        }
-        return false;
+    public static boolean isRocket(final Entity entity) {
+        return entity instanceof RocketTier1Entity || entity instanceof RocketTier2Entity || entity instanceof RocketTier3Entity || entity instanceof RocketTier4Entity;
     }
 
-    public static boolean AllVehiclesOr(Entity entity) {
+    public static boolean AllVehiclesOr(final Entity entity) {
         return entity instanceof VehicleEntity;
     }
 
@@ -357,7 +335,7 @@ public class Methods {
         }
     }
 
-    public static void rocketTeleport(Player player, ResourceKey<Level> planet, ItemStack rocketItem, Boolean SpaceStation) {
+    public static void rocketTeleport(Player player, ResourceKey<Level> planet, ItemStack rocketItem, boolean SpaceStation) {
         if (!Methods.isWorld(player.level, planet)) {
             Methods.worldTeleport(player, planet, 700);
         } else {
@@ -424,19 +402,22 @@ public class Methods {
         }
     }
 
-    public static void teleportButton(Player player, ResourceKey<Level> planet, Boolean SpaceStation) {
+    public static void teleportButton(Player player, ResourceKey<Level> planet, boolean SpaceStation) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
         if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
             itemStack = new ItemStack(ModInit.TIER_1_ROCKET_ITEM.get(),1);
         }
-        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
+
+        else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
             itemStack = new ItemStack(ModInit.TIER_2_ROCKET_ITEM.get(),1);
         }
-        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
+
+        else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
             itemStack = new ItemStack(ModInit.TIER_3_ROCKET_ITEM.get(),1);
         }
-        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
+
+        else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
             itemStack = new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get(),1);
         }
 
@@ -447,19 +428,19 @@ public class Methods {
         if (Methods.isWorld(world, Methods.overworld_orbit)) {
             Methods.landerTeleport(player, Methods.overworld);
         }
-        if (Methods.isWorld(world, Methods.moon_orbit)) {
+        else if (Methods.isWorld(world, Methods.moon_orbit)) {
             Methods.landerTeleport(player, Methods.moon);
         }
-        if (Methods.isWorld(world, Methods.mars_orbit)) {
+        else if (Methods.isWorld(world, Methods.mars_orbit)) {
             Methods.landerTeleport(player, Methods.mars);
         }
-        if (Methods.isWorld(world, Methods.glacio_orbit)) {
+        else if (Methods.isWorld(world, Methods.glacio_orbit)) {
             Methods.landerTeleport(player, Methods.glacio);
         }
-        if (Methods.isWorld(world, Methods.mercury_orbit)) {
+        else if (Methods.isWorld(world, Methods.mercury_orbit)) {
             Methods.landerTeleport(player, Methods.mercury);
         }
-        if (Methods.isWorld(world, Methods.venus_orbit)) {
+        else if (Methods.isWorld(world, Methods.venus_orbit)) {
             Methods.landerTeleport(player, Methods.venus);
         }
     }
@@ -471,29 +452,29 @@ public class Methods {
             Methods.worldTeleport(player, Methods.overworld, 450);
         }
 
-        if (world2 == Methods.moon_orbit) {
+        else if (world2 == Methods.moon_orbit) {
             Methods.worldTeleport(player, Methods.moon, 450);
         }
 
-        if (world2 == Methods.mars_orbit) {
+        else if (world2 == Methods.mars_orbit) {
             Methods.worldTeleport(player, Methods.mars, 450);
         }
 
-        if (world2 == Methods.mercury_orbit) {
+        else if (world2 == Methods.mercury_orbit) {
             Methods.worldTeleport(player, Methods.mercury, 450);
         }
 
-        if (world2 == Methods.venus_orbit) {
+        else if (world2 == Methods.venus_orbit) {
             Methods.worldTeleport(player, Methods.venus, 450);
         }
 
-        if (world2 == Methods.glacio_orbit) {
+        else if (world2 == Methods.glacio_orbit) {
             Methods.worldTeleport(player, Methods.glacio, 450);
         }
     }
 
-	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(ModInit.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+	public static void extractArmorOxygenUsingTimer(final ItemStack itemstack, final Player player) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Config.PLAYER_OXYGEN_SYSTEM.get() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(ModInit.OXYGEN_EFFECT.get()) && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
             CompoundTag persistentData = player.getPersistentData();
@@ -564,25 +545,18 @@ public class Methods {
             return HumanoidModel.ArmPose.EMPTY;
         } else {
             if (p_117795_.getUsedItemHand() == p_117796_ && p_117795_.getUseItemRemainingTicks() > 0) {
-                UseAnim useanim = itemstack.getUseAnimation();
-                if (useanim == UseAnim.BLOCK) {
-                    return HumanoidModel.ArmPose.BLOCK;
-                }
-
-                if (useanim == UseAnim.BOW) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-
-                if (useanim == UseAnim.SPEAR) {
-                    return HumanoidModel.ArmPose.THROW_SPEAR;
-                }
-
-                if (useanim == UseAnim.CROSSBOW && p_117796_ == p_117795_.getUsedItemHand()) {
-                    return HumanoidModel.ArmPose.CROSSBOW_CHARGE;
-                }
-
-                if (useanim == UseAnim.SPYGLASS) {
-                    return HumanoidModel.ArmPose.SPYGLASS;
+                final UseAnim useanim = itemstack.getUseAnimation();
+                switch (useanim) {
+                    case BLOCK: return HumanoidModel.ArmPose.BLOCK;
+                    case BOW: return HumanoidModel.ArmPose.BOW_AND_ARROW;
+                    case SPEAR: return HumanoidModel.ArmPose.THROW_SPEAR;
+                    case CROSSBOW: {
+                        if (p_117796_ == p_117795_.getUsedItemHand()) {
+                            return HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+                        }
+                        break;
+                    }
+                    case SPYGLASS: return HumanoidModel.ArmPose.SPYGLASS;
                 }
             } else if (!p_117795_.swinging && itemstack.is(Items.CROSSBOW) && CrossbowItem.isCharged(itemstack)) {
                 return HumanoidModel.ArmPose.CROSSBOW_HOLD;

@@ -152,10 +152,11 @@ public class ClientEventBusSubscriber {
 
 	@SubscribeEvent
 	public static void registerParticlesFactory(ParticleFactoryRegisterEvent event) {
-		Minecraft.getInstance().particleEngine.register(ModInit.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
-		Minecraft.getInstance().particleEngine.register(ModInit.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);
-		Minecraft.getInstance().particleEngine.register(ModInit.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
-		Minecraft.getInstance().particleEngine.register(ModInit.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
-		Minecraft.getInstance().particleEngine.register(ModInit.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
+		final Minecraft mc = Minecraft.getInstance();
+		mc.particleEngine.register(ModInit.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
+		mc.particleEngine.register(ModInit.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);
+		mc.particleEngine.register(ModInit.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
+		mc.particleEngine.register(ModInit.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
+		mc.particleEngine.register(ModInit.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
 	}
 }

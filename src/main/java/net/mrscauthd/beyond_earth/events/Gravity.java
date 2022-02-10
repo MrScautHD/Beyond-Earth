@@ -15,27 +15,31 @@ public class Gravity {
         double venus = 0.04;
         double orbit = 0.02;
 
+        if (Methods.isWorld(world, Methods.overworld)) {
+            return;
+        }
+
         if (Methods.isWorld(world, Methods.moon)) {
             gravityMath(type, entity, moon, -2.5f);
         }
 
-        if (Methods.isWorld(world, Methods.mars)) {
+        else if (Methods.isWorld(world, Methods.mars)) {
             gravityMath(type, entity, mars, -2.0f);
         }
 
-        if (Methods.isWorld(world, Methods.glacio)) {
+        else if (Methods.isWorld(world, Methods.glacio)) {
             gravityMath(type, entity, mars, -2.0f);
         }
 
-        if (Methods.isWorld(world, Methods.mercury)) {
+        else if (Methods.isWorld(world, Methods.mercury)) {
             gravityMath(type, entity, mercury, -2.5f);
         }
 
-        if (Methods.isWorld(world, Methods.venus)) {
+        else if (Methods.isWorld(world, Methods.venus)) {
             gravityMath(type, entity, venus, -2.0f);
         }
 
-        if (Methods.isOrbitWorld(world)) {
+        else if (Methods.isOrbitWorld(world)) {
             gravityMath(type, entity, orbit, -2.5f);
         }
     }
@@ -45,19 +49,11 @@ public class Gravity {
     }
 
     public static boolean playerGravityCheck(Player player) {
-        if (!player.getAbilities().flying && !player.isFallFlying() && !player.isInWater() && !player.isInLava() && !player.isNoGravity() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.hasEffect(MobEffects.LEVITATION)) {
-            return true;
-        }
-
-        return false;
+        return !player.getAbilities().flying && !player.isFallFlying() && !player.isInWater() && !player.isInLava() && !player.isNoGravity() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.hasEffect(MobEffects.LEVITATION);
     }
 
     public static boolean livingGravityCheck(LivingEntity entity) {
-        if (!entity.isFallFlying() && !entity.isInWater() && !entity.isInLava() && !entity.isNoGravity() && !(entity instanceof Player) && !Methods.AllVehiclesOr(entity) && !entity.hasEffect(MobEffects.SLOW_FALLING) && !entity.hasEffect(MobEffects.LEVITATION)) {
-            return true;
-        }
-
-        return false;
+        return !entity.isFallFlying() && !entity.isInWater() && !entity.isInLava() && !entity.isNoGravity() && !(entity instanceof Player) && !Methods.AllVehiclesOr(entity) && !entity.hasEffect(MobEffects.SLOW_FALLING) && !entity.hasEffect(MobEffects.LEVITATION);
     }
 
     public static void gravityMath(GravityType type, LivingEntity entity, double gravity, float fallDistance) {
@@ -74,13 +70,7 @@ public class Gravity {
 	}
 
     public static boolean checkType(GravityType type, LivingEntity entity) {
-    	if (type == GravityType.PLAYER && playerGravityCheck((Player) entity)) {
-    		return true;
-    	} else if (type == GravityType.LIVING && livingGravityCheck(entity)) {
-    		return true;
-    	}
-
-    	return false;
+        return (type == GravityType.PLAYER && playerGravityCheck((Player) entity)) || (type == GravityType.LIVING && livingGravityCheck(entity));
     }
 
     public static void fallDamage (LivingEntity entity, float fallDistance) {
