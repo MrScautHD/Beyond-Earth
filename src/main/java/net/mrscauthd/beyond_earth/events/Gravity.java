@@ -15,6 +15,10 @@ public class Gravity {
         double venus = 0.04;
         double orbit = 0.02;
 
+        if (Methods.isWorld(world, Methods.overworld)) {
+            return;
+        }
+
         if (Methods.isWorld(world, Methods.moon)) {
             gravityMath(type, entity, moon, -2.5f);
         }
