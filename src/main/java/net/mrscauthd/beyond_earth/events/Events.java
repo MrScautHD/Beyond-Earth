@@ -7,6 +7,7 @@ import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
@@ -35,6 +36,8 @@ import net.mrscauthd.beyond_earth.entity.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.SetupLivingBipedAnimEvent;
 import net.mrscauthd.beyond_earth.item.VehicleItem;
+
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
@@ -128,7 +131,7 @@ public class Events {
             }
         }
 
-        if (event.getArm() == HumanoidArm.LEFT) {
+        else if (event.getArm() == HumanoidArm.LEFT) {
             if (Methods.checkArmor(event.getPlayer(), 2, ModInit.SPACE_SUIT.get())) {
 
                 Methods.renderArm(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/arm/space_suit.png"), event.getPlayer(), playerModel, playerModel.leftArm);
@@ -158,12 +161,13 @@ public class Events {
 
             //Player Rocket Sit Rotations
             if (Methods.isRocket(player.getVehicle())) {
-                model.rightLeg.xRot = (float) Math.toRadians(0F);
-                model.leftLeg.xRot = (float) Math.toRadians(0F);
-                model.rightLeg.yRot = (float) Math.toRadians(0F);
-                model.leftLeg.yRot = (float) Math.toRadians(0F);
-                model.rightLeg.zRot = (float) Math.toRadians(0F);
-                model.leftLeg.zRot = (float) Math.toRadians(0F);
+                final float radians0F = (float) Math.toRadians(0F);
+                model.rightLeg.xRot = radians0F;
+                model.leftLeg.xRot = radians0F;
+                model.rightLeg.yRot = radians0F;
+                model.leftLeg.yRot = radians0F;
+                model.rightLeg.zRot = radians0F;
+                model.leftLeg.zRot = radians0F;
 
                 // Arms
                 model.rightArm.xRot = -0.07f;
@@ -171,7 +175,7 @@ public class Events {
             }
 
             //Player Hold Vehicles Rotation
-            if (!Methods.isRocket(player.getVehicle())) {
+            else {
                 Item item1 = player.getMainHandItem().getItem();
                 Item item2 = player.getOffhandItem().getItem();
 
@@ -215,25 +219,28 @@ public class Events {
         }
     }
 
+    private static final Set<ResourceKey<Level>> worldsWithoutRainOrThunder = Set.of(
+            Methods.moon,
+            Methods.moon_orbit,
+            Methods.mars,
+            Methods.mars_orbit,
+            Methods.mercury,
+            Methods.mercury_orbit,
+            Methods.venus_orbit,
+            Methods.glacio_orbit,
+            Methods.overworld_orbit
+    );
+
     @SubscribeEvent
     public static void onWorldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Level world = event.world;
 
-            if (Methods.isWorld(world, Methods.moon)
-             || Methods.isWorld(world, Methods.moon_orbit)
-             || Methods.isWorld(world, Methods.mars)
-             || Methods.isWorld(world, Methods.mars_orbit)
-             || Methods.isWorld(world, Methods.mercury)
-             || Methods.isWorld(world, Methods.mercury_orbit)
-             || Methods.isWorld(world, Methods.venus_orbit)
-             || Methods.isWorld(world, Methods.glacio_orbit)
-             || Methods.isWorld(world, Methods.overworld_orbit)) {
+            if (worldsWithoutRainOrThunder.contains(world.dimension())) {
                 world.thunderLevel = 0;
                 world.rainLevel = 0;
             }
-
-            if (Methods.isWorld(world, Methods.venus)) {
+            else if (Methods.isWorld(world, Methods.venus)) {
                 world.thunderLevel = 0;
             }
         }
@@ -269,12 +276,12 @@ public class Events {
         if (event.getSound() != null) {
             if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.level != null && Methods.checkSound(event.getSound().getSource()) && Methods.isSpaceWorldWithoutOxygen(Minecraft.getInstance().player.level)) {
 
-                if (!(event.getSound() instanceof TickableSoundInstance)) {
-                    event.setSound(new SpaceSoundSystem(event.getSound()));
-
-                } else if (event.getSound() instanceof TickableSoundInstance) {
+                if (event.getSound() instanceof TickableSoundInstance) {
                     event.setSound(new TickableSpaceSoundSystem((TickableSoundInstance) event.getSound()));
+                } else {
+                    event.setSound(new SpaceSoundSystem(event.getSound()));
                 }
+
             }
         }
     }
