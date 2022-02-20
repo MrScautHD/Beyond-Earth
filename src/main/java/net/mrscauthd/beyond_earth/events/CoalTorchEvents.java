@@ -25,13 +25,13 @@ public class CoalTorchEvents {
     public static void onBlockPlace(BlockEvent event) {
         Level world = (Level) event.getWorld();
 
-        double x = event.getPos().getX();
-        double y = event.getPos().getY();
-        double z = event.getPos().getZ();
-
-        BlockPos pos = new BlockPos(x, y, z);
-
         if (Methods.isSpaceWorldWithoutOxygen(world)) {
+
+            double x = event.getPos().getX();
+            double y = event.getPos().getY();
+            double z = event.getPos().getZ();
+
+            BlockPos pos = new BlockPos(x, y, z);
 
             BlockState blockState = world.getBlockState(pos);
             Block block = blockState.getBlock();
@@ -42,7 +42,7 @@ public class CoalTorchEvents {
             }
 
             /** WALL TORCH */
-            if (block == Blocks.WALL_TORCH) {
+            else if (block == Blocks.WALL_TORCH) {
                 DirectionProperty property = (DirectionProperty) blockState.getBlock().getStateDefinition().getProperty("facing");
 
                 world.setBlock(pos, ModInit.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(property, blockState.getValue(property)), 3);
@@ -51,14 +51,14 @@ public class CoalTorchEvents {
             }
 
             /** TORCH */
-            if (block == Blocks.TORCH) {
+            else if (block == Blocks.TORCH) {
                 world.setBlock(pos, ModInit.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
 
                 playFireExtinguish(pos, world);
             }
 
             /** LANTERN */
-            if (block == Blocks.LANTERN) {
+            else if (block == Blocks.LANTERN) {
                 boolean isHanging = blockState.getValue(LanternBlock.HANGING);
 
                 if (isHanging) {
@@ -71,7 +71,7 @@ public class CoalTorchEvents {
             }
 
             /** CAMPFIRE */
-            if (block == Blocks.CAMPFIRE && blockState.getValue(CampfireBlock.LIT)) {
+            else if (block == Blocks.CAMPFIRE && blockState.getValue(CampfireBlock.LIT)) {
                 BooleanProperty property = (BooleanProperty) world.getBlockState(pos).getBlock().getStateDefinition().getProperty("lit");
 
                 world.setBlock(pos, world.getBlockState(pos).setValue(property, false), 3);
