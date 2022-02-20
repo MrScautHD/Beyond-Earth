@@ -133,14 +133,16 @@ public class Methods {
         ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
         if (nextLevel != null && entity instanceof ServerPlayer) {
-            ((ServerPlayer) entity).connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
-            ((ServerPlayer) entity).teleportTo(nextLevel, entity.getX(), high, entity.getZ(), entity.getYRot(), entity.getXRot());
-            ((ServerPlayer) entity).connection.send(new ClientboundPlayerAbilitiesPacket(entity.getAbilities()));
+            ServerPlayer serverEntity = (ServerPlayer) entity;
+
+            serverEntity.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
+            serverEntity.teleportTo(nextLevel, entity.getX(), high, entity.getZ(), entity.getYRot(), entity.getXRot());
+            serverEntity.connection.send(new ClientboundPlayerAbilitiesPacket(entity.getAbilities()));
 
             for (MobEffectInstance effectinstance : entity.getActiveEffects()) {
-                ((ServerPlayer) entity).connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), effectinstance));
+                serverEntity.connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), effectinstance));
             }
-            ((ServerPlayer) entity).connection.send(new ClientboundSetExperiencePacket(entity.experienceProgress, entity.totalExperience, entity.experienceLevel));
+            serverEntity.connection.send(new ClientboundSetExperiencePacket(entity.experienceProgress, entity.totalExperience, entity.experienceLevel));
         }
     }
 
@@ -565,20 +567,17 @@ public class Methods {
         } else {
             if (p_117795_.getUsedItemHand() == p_117796_ && p_117795_.getUseItemRemainingTicks() > 0) {
                 UseAnim useanim = itemstack.getUseAnimation();
-                if (useanim == UseAnim.BLOCK) {
-                    return HumanoidModel.ArmPose.BLOCK;
-                }
-                else if (useanim == UseAnim.BOW) {
-                    return HumanoidModel.ArmPose.BOW_AND_ARROW;
-                }
-                else if (useanim == UseAnim.SPEAR) {
-                    return HumanoidModel.ArmPose.THROW_SPEAR;
-                }
-                else if (useanim == UseAnim.CROSSBOW && p_117796_ == p_117795_.getUsedItemHand()) {
-                    return HumanoidModel.ArmPose.CROSSBOW_CHARGE;
-                }
-                else if (useanim == UseAnim.SPYGLASS) {
-                    return HumanoidModel.ArmPose.SPYGLASS;
+                switch(useanim) {
+                    case BLOCK: return HumanoidModel.ArmPose.BLOCK;
+                    case BOW: return HumanoidModel.ArmPose.BOW_AND_ARROW;
+                    case SPEAR: return HumanoidModel.ArmPose.THROW_SPEAR;
+                    case CROSSBOW: {
+                        if (p_117796_ == p_117795_.getUsedItemHand()) {
+                            return HumanoidModel.ArmPose.CROSSBOW_CHARGE;
+                        }
+                        break;
+                    }
+                    case SPYGLASS: return HumanoidModel.ArmPose.SPYGLASS;
                 }
             } else if (!p_117795_.swinging && itemstack.is(Items.CROSSBOW) && CrossbowItem.isCharged(itemstack)) {
                 return HumanoidModel.ArmPose.CROSSBOW_HOLD;
