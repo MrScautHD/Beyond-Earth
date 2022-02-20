@@ -16,24 +16,24 @@ public abstract class ItemGravity {
     private void tick(CallbackInfo info) {
         ItemEntity w = (ItemEntity) ((Object) this);
 
-        if (GravityCheckItem(w) && !Methods.isWorld(w.level, Methods.overworld)) {
+        if (GravityCheckItem(w)) {
             if (Methods.isWorld(w.level, Methods.moon)) {
-                itemGravityMath(w,0.05D);
+                itemGravityMath(w,0.05);
             }
             else if (Methods.isWorld(w.level, Methods.mars)) {
-                itemGravityMath(w,0.06D);
+                itemGravityMath(w,0.06);
             }
             else if (Methods.isWorld(w.level, Methods.mercury)) {
-                itemGravityMath(w,0.05D);
+                itemGravityMath(w,0.05);
             }
             else if (Methods.isWorld(w.level, Methods.venus)) {
-                itemGravityMath(w,0.06D);
+                itemGravityMath(w,0.06);
             }
             else if (Methods.isWorld(w.level, Methods.glacio)) {
-                itemGravityMath(w,0.06D);
+                itemGravityMath(w,0.06);
             }
             else if (Methods.isOrbitWorld(w.level)) {
-                itemGravityMath(w,0.05D);
+                itemGravityMath(w,0.05);
             }
         }
     }
@@ -46,6 +46,6 @@ public abstract class ItemGravity {
         if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent(entity, gravity))) {
             return;
         }
-        entity.setDeltaMovement(entity.getDeltaMovement().x, entity.getDeltaMovement().y / 0.98D + 0.08D - gravity, entity.getDeltaMovement().z);
+        entity.setDeltaMovement(entity.getDeltaMovement().x, entity.getDeltaMovement().y / 0.98 + 0.08 - gravity, entity.getDeltaMovement().z);
     }
 }

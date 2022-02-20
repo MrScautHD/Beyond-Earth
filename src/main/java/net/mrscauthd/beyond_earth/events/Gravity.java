@@ -9,13 +9,11 @@ import net.mrscauthd.beyond_earth.events.forgeevents.LivingGravityEvent;
 
 public class Gravity {
     public static void Gravity(LivingEntity entity, GravityType type, Level world) {
-        if (Methods.isWorld(world, Methods.overworld)) return;
-
-        double moon = 0.03D;
-        double mars = 0.04D;
-        double mercury = 0.03D;
-        double venus = 0.04D;
-        double orbit = 0.02D;
+        double moon = 0.03;
+        double mars = 0.04;
+        double mercury = 0.03;
+        double venus = 0.04;
+        double orbit = 0.02;
 
         if (Methods.isWorld(world, Methods.moon)) {
             gravityMath(type, entity, moon, -2.5f);
@@ -58,7 +56,7 @@ public class Gravity {
     		return;
     	}
 
-    	entity.setDeltaMovement(entity.getDeltaMovement().x(), entity.getDeltaMovement().y() / 0.98D + 0.08D - gravity, entity.getDeltaMovement().z());
+    	entity.setDeltaMovement(entity.getDeltaMovement().x(), entity.getDeltaMovement().y() / 0.98 + 0.08 - gravity, entity.getDeltaMovement().z());
     	fallDamage(entity, fallDistance);
 	}
 
@@ -66,8 +64,8 @@ public class Gravity {
     	return (type == GravityType.PLAYER && playerGravityCheck((Player) entity)) || (type == GravityType.LIVING && livingGravityCheck(entity));
     }
 
-    public static void fallDamage(LivingEntity entity, float fallDistance) {
-        if ((float) entity.getDeltaMovement().y() < -0.1F) {
+    public static void fallDamage (LivingEntity entity, float fallDistance) {
+        if (entity.getDeltaMovement().y() < -0.1) {
             entity.fallDistance = (float) entity.getDeltaMovement().y() * fallDistance;
         }
     }
