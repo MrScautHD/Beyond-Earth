@@ -48,8 +48,7 @@ public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 	@Override
 	protected List<Direction> getEjectDirections() {
 		List<Direction> list = super.getEjectDirections();
-		list.add(Direction.UP);
-		list.add(Direction.DOWN);
+		list.addAll(Arrays.stream(Direction.values()).toList());
 		return list;
 	}
 
