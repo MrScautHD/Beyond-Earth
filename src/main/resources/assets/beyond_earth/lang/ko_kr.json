@@ -174,6 +174,11 @@
   "block.beyond_earth.glacio_iron_ore": "글라시오 철 광석",
   "block.beyond_earth.glacio_lapis_ore": "글라시오 청금석 광석",
 
+  "block.beyond_earth.earth_globe": "Earth Globe",
+  "block.beyond_earth.moon_globe": "Moon Globe",
+  "block.beyond_earth.mars_globe": "Mars Globe",
+  "block.beyond_earth.mercury_globe": "Mercury Globe",
+  "block.beyond_earth.venus_globe": "Venus Globe",
   "block.beyond_earth.glacio_globe": "Glacio Globe",
 
   "fluid.beyond_earth.fuel": "연료",

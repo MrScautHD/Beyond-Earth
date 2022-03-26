@@ -175,6 +175,11 @@
   "block.beyond_earth.glacio_iron_ore": "Глизеанская железная руда",
   "block.beyond_earth.glacio_lapis_ore": "Глизеанская лазуритовая руда",
 
+  "block.beyond_earth.earth_globe": "Earth Globe",
+  "block.beyond_earth.moon_globe": "Moon Globe",
+  "block.beyond_earth.mars_globe": "Mars Globe",
+  "block.beyond_earth.mercury_globe": "Mercury Globe",
+  "block.beyond_earth.venus_globe": "Venus Globe",
   "block.beyond_earth.glacio_globe": "Glacio Globe",
 
   "fluid.beyond_earth.fuel": "Топливо",

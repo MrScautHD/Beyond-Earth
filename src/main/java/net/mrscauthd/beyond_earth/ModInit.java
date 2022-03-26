@@ -200,13 +200,26 @@ public class ModInit {
     public static final RegistryObject<BlockEntityType<OxygenBubbleDistributorBlockEntity>> OXYGEN_BUBBLE_DISTRIBUTOR = TILE_ENTITIES.register("oxygen_bubble_distributor", () -> BlockEntityType.Builder.of(OxygenBubbleDistributorBlockEntity::new, ModInit.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> WATER_PUMP = TILE_ENTITIES.register("water_pump", () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, ModInit.WATER_PUMP_BLOCK.get()).build(null));
 
-    //Globese
+    //Globe Blocks
+    public static final RegistryObject<Block> EARTH_GLOBE_BLOCK = BLOCKS.register("earth_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> MOON_GLOBE_BLOCK = BLOCKS.register("moon_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> MARS_GLOBE_BLOCK = BLOCKS.register("mars_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> MERCURY_GLOBE_BLOCK = BLOCKS.register("mercury_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> VENUS_GLOBE_BLOCK = BLOCKS.register("venus_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLACIO_GLOBE_BLOCK = BLOCKS.register("glacio_globe",() -> new GlobeBlock(BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE).noOcclusion().requiresCorrectToolForDrops()));
+
+    //Globe Items
+    public static final RegistryObject<BlockItem> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new GlobeItem(ModInit.EARTH_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
+    public static final RegistryObject<BlockItem> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new GlobeItem(ModInit.MOON_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
+    public static final RegistryObject<BlockItem> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new GlobeItem(ModInit.MARS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
+    public static final RegistryObject<BlockItem> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new GlobeItem(ModInit.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
+    public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(ModInit.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
     public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(ModInit.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
 
-    public static final RegistryObject<BlockEntityType<GlobeTileEntity>> GLOBE = TILE_ENTITIES.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new, ModInit.GLACIO_GLOBE_BLOCK.get()).build(null));
+    //Globe Tile Entity
+    public static final RegistryObject<BlockEntityType<GlobeTileEntity>> GLOBE = TILE_ENTITIES.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new, ModInit.EARTH_GLOBE_BLOCK.get(), ModInit.MOON_GLOBE_BLOCK.get(), ModInit.MARS_GLOBE_BLOCK.get(), ModInit.MERCURY_GLOBE_BLOCK.get(), ModInit.VENUS_GLOBE_BLOCK.get(), ModInit.GLACIO_GLOBE_BLOCK.get()).build(null));
 
-    //Tile Entities Flags
+    //Flag Tile Entity
     public static final RegistryObject<BlockEntityType<FlagTileEntity>> FLAG = TILE_ENTITIES.register("flag", () -> BlockEntityType.Builder.of(FlagTileEntity::new, ModInit.FLAG_BLOCK.get(), ModInit.FLAG_BLUE_BLOCK.get(), ModInit.FLAG_BROWN_BLOCK.get(), ModInit.FLAG_CYAN_BLOCK.get(), ModInit.FLAG_GRAY_BLOCK.get(), ModInit.FLAG_GRAY_BLOCK.get(), ModInit.FLAG_GREEN_BLOCK.get(), ModInit.FLAG_LIGHT_BLUE_BLOCK.get(), ModInit.FLAG_LIME_BLOCK.get(), ModInit.FLAG_MAGENTA_BLOCk.get(), ModInit.FLAG_ORANGE_BLOCK.get(), ModInit.FLAG_PINK_BLOCK.get(), ModInit.FLAG_PURPLE_BLOCK.get(), ModInit.FLAG_RED_BLOCK.get(), ModInit.FLAG_YELLOW_BLOCK.get()).build(null));
 
     //Machines

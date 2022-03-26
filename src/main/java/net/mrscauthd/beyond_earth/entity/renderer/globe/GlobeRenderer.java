@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.globe.GlobeBlock;
 import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
 
@@ -27,9 +28,14 @@ import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
 public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithoutLevelRenderer implements BlockEntityRenderer<GlobeTileEntity>, BlockEntityRendererProvider<T> {
 
     /** TEXTURES */
+    public static final ResourceLocation EARTH_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/earth_globe.png");
+    public static final ResourceLocation MOON_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/moon_globe.png");
+    public static final ResourceLocation MARS_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/mars_globe.png");
+    public static final ResourceLocation MERCURY_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/mercury_globe.png");
+    public static final ResourceLocation VENUS_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/venus_globe.png");
     public static final ResourceLocation GLACIO_GLOBE = new ResourceLocation(BeyondEarthMod.MODID, "textures/blocks/globes/glacio_globe.png");
 
-    /** Model */
+    /** MODELS */
     private GlobeModel model;
     private GlobeModel itemModel;
 
@@ -55,7 +61,23 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         /** Animation */
         this.model.setupAnim(p_112307_, particleTicks);
 
-        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        VertexConsumer vertexBuilder;
+
+        /** TEXTURE BINDING */
+        if (blockstate.is(ModInit.EARTH_GLOBE_BLOCK.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(EARTH_GLOBE));
+        } else if (blockstate.is(ModInit.MOON_GLOBE_BLOCK.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MOON_GLOBE));
+        } else if (blockstate.is(ModInit.MARS_GLOBE_BLOCK.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MARS_GLOBE));
+        } else if (blockstate.is(ModInit.MERCURY_GLOBE_BLOCK.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MERCURY_GLOBE));
+        } else if (blockstate.is(ModInit.VENUS_GLOBE_BLOCK.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(VENUS_GLOBE));
+        } else {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        }
+
         this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrixStackIn.popPose();
@@ -68,7 +90,22 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
 
-        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        VertexConsumer vertexBuilder;
+
+        /** TEXTURE BINDING */
+        if (p_108830_.is(ModInit.EARTH_GLOBE_ITEM.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(EARTH_GLOBE));
+        } else if (p_108830_.is(ModInit.MOON_GLOBE_ITEM.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MOON_GLOBE));
+        } else if (p_108830_.is(ModInit.MARS_GLOBE_ITEM.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MARS_GLOBE));
+        } else if (p_108830_.is(ModInit.MERCURY_GLOBE_ITEM.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MERCURY_GLOBE));
+        } else if (p_108830_.is(ModInit.VENUS_GLOBE_ITEM.get())) {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(VENUS_GLOBE));
+        } else {
+            vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        }
 
         /** The Event that Register the Model is to Slow, so we do it like that */
         if (this.itemModel == null) {

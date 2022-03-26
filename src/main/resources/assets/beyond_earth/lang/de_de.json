@@ -174,6 +174,11 @@
   "block.beyond_earth.glacio_iron_ore": "Glacio Eisen Erz",
   "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Erz",
 
+  "block.beyond_earth.earth_globe": "Earth Globus",
+  "block.beyond_earth.moon_globe": "Moon Globus",
+  "block.beyond_earth.mars_globe": "Mars Globus",
+  "block.beyond_earth.mercury_globe": "Mercury Globus",
+  "block.beyond_earth.venus_globe": "Venus Globus",
   "block.beyond_earth.glacio_globe": "Glacio Globus",
   
   "fluid.beyond_earth.fuel": "Treibstoff",
