@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -13,9 +14,23 @@ public class GlobeTileEntity extends BlockEntity {
     public int time = 0;
     public boolean rotate = false;
 
+    @Override
+    public void load(CompoundTag p_155245_) {
+        super.load(p_155245_);
+        this.time = p_155245_.getInt("time");
+        this.rotate = p_155245_.getBoolean("rotate");
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag p_187471_) {
+        super.saveAdditional(p_187471_);
+        p_187471_.putInt("time", this.time);
+        p_187471_.putBoolean("rotate", this.rotate);
+    }
+
     public void tick() {
-        if (rotate) {
-            ++time;
+        if (this.rotate) {
+            ++this.time;
         }
 
         if (this.time > 30) {
