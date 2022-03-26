@@ -55,7 +55,6 @@ public class FuelFluid extends FlowingFluid {
 		} else if (random.nextInt(10) == 0) {
 			worldIn.addParticle(ParticleTypes.UNDERWATER, (double)pos.getX() + random.nextDouble(), (double)pos.getY() + random.nextDouble(), (double)pos.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
 		}
-
 	}
 
 	@Nullable

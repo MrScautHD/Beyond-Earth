@@ -6,9 +6,11 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.gui.OverlayRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +26,8 @@ import net.mrscauthd.beyond_earth.entity.renderer.alienzombie.AlienZombieModel;
 import net.mrscauthd.beyond_earth.entity.renderer.alienzombie.AlienZombieRenderer;
 import net.mrscauthd.beyond_earth.entity.renderer.flag.TileEntityHeadModel;
 import net.mrscauthd.beyond_earth.entity.renderer.flag.TileEntityHeadRenderer;
+import net.mrscauthd.beyond_earth.entity.renderer.globe.GlobeModel;
+import net.mrscauthd.beyond_earth.entity.renderer.globe.GlobeRenderer;
 import net.mrscauthd.beyond_earth.entity.renderer.lander.LanderModel;
 import net.mrscauthd.beyond_earth.entity.renderer.lander.LanderRenderer;
 import net.mrscauthd.beyond_earth.entity.renderer.martianraptor.MartianRaptorModel;
@@ -67,6 +71,9 @@ import org.lwjgl.glfw.GLFW;
 public class ClientEventBusSubscriber {
 	public static KeyMapping key1;
 
+	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator");
+	public static final GlobeRenderer GLOBE_RENDERER = new GlobeRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+
 	@SubscribeEvent
 	public static void registerEntityRenderingHandler(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(ModInit.ALIEN.get(), AlienRenderer::new);
@@ -92,6 +99,7 @@ public class ClientEventBusSubscriber {
 		event.registerBlockEntityRenderer(ModInit.OXYGEN_BUBBLE_DISTRIBUTOR.get(), TileEntityBoxRenderer::new);
 
 		event.registerBlockEntityRenderer(ModInit.FLAG.get(), TileEntityHeadRenderer::new);
+		event.registerBlockEntityRenderer(ModInit.GLOBE.get(), GLOBE_RENDERER);
 	}
 
 	@SubscribeEvent
@@ -103,6 +111,7 @@ public class ClientEventBusSubscriber {
 		event.registerLayerDefinition(MoglerModel.LAYER_LOCATION, MoglerModel::createBodyLayer);
 		event.registerLayerDefinition(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
 		event.registerLayerDefinition(TileEntityHeadModel.LAYER_LOCATION, TileEntityHeadModel::createHumanoidHeadLayer);
+		event.registerLayerDefinition(GlobeModel.LAYER_LOCATION, GlobeModel::createLayer);
 		
 		event.registerLayerDefinition(RocketTier1Model.LAYER_LOCATION, RocketTier1Model::createBodyLayer);
 		event.registerLayerDefinition(RocketTier2Model.LAYER_LOCATION, RocketTier2Model::createBodyLayer);
@@ -165,5 +174,10 @@ public class ClientEventBusSubscriber {
 		mc.particleEngine.register(ModInit.LARGE_SMOKE_PARTICLE.get(), LargeSmokeParticle.ParticleFactory::new);
 		mc.particleEngine.register(ModInit.SMALL_FLAME_PARTICLE.get(), SmallFlameParticle.ParticleFactory::new);
 		mc.particleEngine.register(ModInit.SMALL_SMOKE_PARTICLE.get(), SmallSmokeParticle.ParticleFactory::new);
+	}
+
+	@SubscribeEvent
+	public static void atlas(TextureStitchEvent.Pre event) {
+		event.addSprite(OXYGEN_BUBBLE);
 	}
 }

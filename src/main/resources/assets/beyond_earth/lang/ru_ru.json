@@ -66,6 +66,7 @@
 
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: Флаги",
+  "itemGroup.tab_globes": "Beyond Earth: Globes",
   "itemGroup.tab_blocks": "Beyond Earth: Блоки",
   "itemGroup.tab_basics": "Beyond Earth: Основа",
   "itemGroup.tab_machines": "Beyond Earth: Машины",
@@ -173,7 +174,9 @@
   "block.beyond_earth.glacio_copper_ore": "Глизеанская медная руда",
   "block.beyond_earth.glacio_iron_ore": "Глизеанская железная руда",
   "block.beyond_earth.glacio_lapis_ore": "Глизеанская лазуритовая руда",
-  
+
+  "block.beyond_earth.glacio_globe": "Glacio Globe",
+
   "fluid.beyond_earth.fuel": "Топливо",
   "fluid.fuel": "Топливо",
   "fluid.beyond_earth.oil": "Нефть",

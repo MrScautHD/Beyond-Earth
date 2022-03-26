@@ -74,7 +74,6 @@ public class WaterPump extends AbstractMachineBlock<WaterPumpBlockEntity> {
         WEST_SHAPE = Shapes.join(WEST_SHAPE, Shapes.box(0.0625, 0.375, 0.375, 0.375, 0.625, 0.625), BooleanOp.OR);
         WEST_SHAPE = Shapes.join(WEST_SHAPE, Shapes.box(0.34375, 0.8125, 0.34375, 0.65625, 1, 0.65625), BooleanOp.OR);
         WEST_SHAPE = Shapes.join(WEST_SHAPE, Shapes.box(0.375, 0.0625, 0.375, 0.625, 0.8125, 0.625), BooleanOp.OR);
-
     }
 
     @Override

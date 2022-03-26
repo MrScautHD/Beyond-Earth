@@ -65,6 +65,7 @@
 
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: 깃발",
+  "itemGroup.tab_globes": "Beyond Earth: Globes",
   "itemGroup.tab_blocks": "Beyond Earth: 블록",
   "itemGroup.tab_basics": "Beyond Earth: 기본",
   "itemGroup.tab_machines": "Beyond Earth: 기계",
@@ -172,7 +173,9 @@
   "block.beyond_earth.glacio_copper_ore": "글라시오 구리 광석",
   "block.beyond_earth.glacio_iron_ore": "글라시오 철 광석",
   "block.beyond_earth.glacio_lapis_ore": "글라시오 청금석 광석",
-  
+
+  "block.beyond_earth.glacio_globe": "Glacio Globe",
+
   "fluid.beyond_earth.fuel": "연료",
   "fluid.fuel": "연료",
   "fluid.beyond_earth.oil": "기름",

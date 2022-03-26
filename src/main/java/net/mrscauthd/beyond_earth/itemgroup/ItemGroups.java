@@ -106,6 +106,13 @@ public class ItemGroups {
 			return new ItemStack(ModInit.FLAG_PURPLE_BLOCK.get(), 1);
 		}
 	};
+	public static CreativeModeTab tab_globes = new CreativeModeTab("tab_globes") {
+		@OnlyIn(Dist.CLIENT)
+		@Override
+		public ItemStack makeIcon() {
+			return new ItemStack(ModInit.GLACIO_GLOBE_BLOCK.get(), 1);
+		}
+	};
 	public static CreativeModeTab tab_blocks = new CreativeModeTab("tab_blocks") {
 		@OnlyIn(Dist.CLIENT)
 		@Override

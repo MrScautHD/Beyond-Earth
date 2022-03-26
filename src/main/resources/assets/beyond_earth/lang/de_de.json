@@ -65,6 +65,7 @@
 
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: Flaggen",
+  "itemGroup.tab_globes": "Beyond Earth: Globus",
   "itemGroup.tab_blocks": "Beyond Earth: Blöcke",
   "itemGroup.tab_basics": "Beyond Earth: Grundlagen",
   "itemGroup.tab_machines": "Beyond Earth: Maschinen",
@@ -172,6 +173,8 @@
   "block.beyond_earth.glacio_copper_ore": "Glacio Kupfer Erz",
   "block.beyond_earth.glacio_iron_ore": "Glacio Eisen Erz",
   "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Erz",
+
+  "block.beyond_earth.glacio_globe": "Glacio Globus",
   
   "fluid.beyond_earth.fuel": "Treibstoff",
   "fluid.fuel": "Treibstoff",

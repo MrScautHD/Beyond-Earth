@@ -18,7 +18,6 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entity.*;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
-import net.mrscauthd.beyond_earth.events.ClientMethods;
 import net.mrscauthd.beyond_earth.events.Methods;
 import org.lwjgl.glfw.GLFW;
 
@@ -138,7 +137,6 @@ public class KeyBindings {
 							((ServerLevel) world).sendParticles(p, ParticleTypes.SPIT, true, ridding.getX(), ridding.getY() - 0.3, ridding.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
 						}
 					}
-
 				}
 				ridding.fallDistance = (float) (ridding.getDeltaMovement().y() * (-1) * 4.5);
 			}

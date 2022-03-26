@@ -38,7 +38,6 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(STAGE, false));
     }
 
-    @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         boolean flag = context.getLevel().getFluidState(context.getClickedPos()).is(Fluids.WATER);
@@ -94,7 +93,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         int x = pos.getX() - 1;
         int z = pos.getZ() - 1;
 
-        /** Pos for 4x4 */
+        /** Pos for 5x5 */
         int x2 = pos.getX() - 2;
         int z2 = pos.getZ() - 2;
 
