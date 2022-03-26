@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -34,8 +33,8 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public static final VoxelShape SHAPE = Shapes.box(0.2, 0, 0.2, 0.8, 1, 0.8);
 
-    //TODO FIX GLOBE ROTATION
-    //TODO ADD OTHER GLOBES TOO
+    //TODO Improve Globe Rotation
+    //TODO Fix Globe Textures and add Earth one
 
     public GlobeBlock(Properties p_49224_) {
         super(p_49224_);
