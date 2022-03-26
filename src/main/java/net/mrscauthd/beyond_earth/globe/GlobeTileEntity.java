@@ -18,6 +18,9 @@ public class GlobeTileEntity extends BlockEntity {
             ++time;
         }
 
-
+        if (this.time > 30) {
+            this.rotate = false;
+            this.time = 0;
+        }
     }
 }

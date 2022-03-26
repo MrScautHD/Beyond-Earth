@@ -55,27 +55,26 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         /** Animation */
         this.model.setupAnim(p_112307_, particleTicks);
 
-        VertexConsumer vertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
-        this.model.renderToBuffer(matrixStackIn, vertexbuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrixStackIn.popPose();
     }
 
     @Override
     public void renderByItem(ItemStack p_108830_, ItemTransforms.TransformType p_108831_, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_108835_) {
-        super.renderByItem(p_108830_, p_108831_, matrixStackIn, buffer, combinedLight, p_108835_);
         matrixStackIn.pushPose();
 
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
 
-        VertexConsumer vertexbuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
+        VertexConsumer vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
 
         /** The Event that Register the Model is to Slow, so we do it like that */
         if (this.itemModel == null) {
-            itemModel = new GlobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
+            this.itemModel = new GlobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
         }
-        this.itemModel.renderToBuffer(matrixStackIn, vertexbuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        this.itemModel.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrixStackIn.popPose();
     }

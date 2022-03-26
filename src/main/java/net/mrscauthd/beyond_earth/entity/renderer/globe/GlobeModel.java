@@ -2,8 +2,6 @@ package net.mrscauthd.beyond_earth.entity.renderer.globe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
@@ -11,7 +9,6 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
@@ -48,7 +45,7 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
     public void setupAnim(T entity, float partialTicks) {
         if (entity.rotate) {
             float f1 = ((float)entity.time + partialTicks) * 0.2F;
-            this.globe.getChild("planet").yRot = Vector3f.YP.rotationDegrees(180).toXYZ().y() + f1;
+            this.globe.getChild("planet").yRot = f1;
         } else {
             this.globe.getChild("planet").yRot = 0;
         }
