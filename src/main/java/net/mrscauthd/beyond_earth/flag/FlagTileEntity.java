@@ -82,12 +82,10 @@ public class FlagTileEntity extends BlockEntity {
         return this.saveWithFullMetadata();
     }
 
-
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         this.load(pkt.getTag());
     }
-
 
     public void setOwner(@Nullable GameProfile p_59770_) {
         synchronized(this) {
