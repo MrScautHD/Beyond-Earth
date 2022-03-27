@@ -17,12 +17,10 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.mrscauthd.beyond_earth.ModInit;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +30,9 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty STAGE = BlockStateProperties.LIT;
+
+    public static final VoxelShape SHAPE_NORMAL = Shapes.box(0, 0, 0, 16, 3, 16);
+    public static final VoxelShape SHAPE_HIGH = Shapes.box(0, 0, 0, 16, 4, 16);
 
     public RocketLaunchPad(Properties properties) {
         super(properties);
@@ -70,12 +71,10 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        Vec3 offset = state.getOffset(world, pos);
-
         if (state.getValue(STAGE)) {
-            return Shapes.or(box(0, 0, 0, 16, 4, 16)).move(offset.x, offset.y, offset.z);
+            return SHAPE_HIGH;
         } else {
-            return Shapes.or(box(0, 0, 0, 16, 3, 16)).move(offset.x, offset.y, offset.z);
+            return SHAPE_NORMAL;
         }
     }
 
