@@ -31,8 +31,8 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty STAGE = BlockStateProperties.LIT;
 
-    public static final VoxelShape SHAPE_NORMAL = Shapes.box(0, 0, 0, 16, 3, 16);
-    public static final VoxelShape SHAPE_HIGH = Shapes.box(0, 0, 0, 16, 4, 16);
+    public static final VoxelShape SHAPE_HIGH = Shapes.box(0, 0, 0, 1, 0.25, 1);
+    public static final VoxelShape SHAPE_NORMAL = Shapes.box(0, 0, 0, 1, 0.187, 1);
 
     public RocketLaunchPad(Properties properties) {
         super(properties);

@@ -34,7 +34,6 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     public static final VoxelShape SHAPE = Shapes.box(0.2, 0, 0.2, 0.8, 1, 0.8);
 
     //TODO Improve Globe Rotation
-    //TODO Fix Globe Textures and add Earth one
 
     public GlobeBlock(Properties p_49224_) {
         super(p_49224_);
