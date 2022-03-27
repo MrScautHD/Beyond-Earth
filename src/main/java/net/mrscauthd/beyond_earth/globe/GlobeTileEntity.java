@@ -2,8 +2,6 @@ package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -30,29 +28,14 @@ public class GlobeTileEntity extends BlockEntity {
         p_187471_.putBoolean("rotate", this.rotate);
     }
 
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithFullMetadata();
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.load(pkt.getTag());
-    }
-
     public void tick() {
-        if (this.rotate) {
-            ++this.time;
+        if (this.getTileData().getBoolean("rotate")) {
+            this.getTileData().putInt("time", this.getTileData().getInt("time") + 1);
         }
 
-        if (this.time > 30) {
-            this.rotate = false;
-            this.time = 0;
+        if (this.getTileData().getInt("time") > 30) {
+            this.getTileData().putBoolean("rotate", false);
+            this.getTileData().putInt("time", 0);
         }
     }
 }

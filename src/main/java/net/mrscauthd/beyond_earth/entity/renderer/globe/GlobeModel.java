@@ -43,8 +43,8 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
     }
 
     public void setupAnim(T entity, float partialTicks) {
-        if (entity.rotate) {
-            float f1 = ((float)entity.time + partialTicks) * 0.2F;
+        if (entity.getTileData().getBoolean("rotate")) {
+            float f1 = ((float) entity.getTileData().getInt("time") + partialTicks) * 0.2F;
             this.globe.getChild("planet").yRot = f1;
         } else {
             this.globe.getChild("planet").yRot = 0;

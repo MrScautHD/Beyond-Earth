@@ -111,6 +111,7 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         if (this.itemModel == null) {
             this.itemModel = new GlobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
         }
+
         this.itemModel.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrixStackIn.popPose();
