@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -90,6 +91,9 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
 
+        Minecraft mc = Minecraft.getInstance();
+        ClientLevel level = mc.level;
+
         VertexConsumer vertexBuilder;
 
         /** TEXTURE BINDING */
@@ -109,7 +113,14 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
 
         /** The Event that Register the Model is to Slow, so we do it like that */
         if (this.itemModel == null) {
-            this.itemModel = new GlobeModel(Minecraft.getInstance().getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
+            this.itemModel = new GlobeModel(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
+        }
+
+        /** Animation */
+        if (level != null) {
+            if (!mc.isPaused()) {
+                itemModel.globe.getChild("planet").yRot = (level.getGameTime() + mc.getFrameTime()) / -20;
+            }
         }
 
         this.itemModel.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
