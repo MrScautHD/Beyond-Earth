@@ -33,8 +33,6 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public static final VoxelShape SHAPE = Shapes.box(0.2, 0, 0.2, 0.8, 1, 0.8);
 
-    //TODO Improve Globe Rotation
-
     public GlobeBlock(Properties p_49224_) {
         super(p_49224_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
@@ -93,7 +91,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
         if (p_60504_.getBlockEntity(p_60505_) instanceof GlobeTileEntity) {
             GlobeTileEntity blockEntity = (GlobeTileEntity) p_60504_.getBlockEntity(p_60505_);
-            float value = (float) (Math.PI / (Math.pow(0.00001, blockEntity.getRotationalInertia()) + 1) / 10);
+            float value = (float) (Math.PI / (Math.pow(0.00003, blockEntity.getRotationalInertia()) + 1) / 4);
             blockEntity.setRotationalInertia(value);
             blockEntity.serializeNBT();
         }

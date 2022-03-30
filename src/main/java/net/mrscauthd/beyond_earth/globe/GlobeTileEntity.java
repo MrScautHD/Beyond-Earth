@@ -35,13 +35,15 @@ public class GlobeTileEntity extends BlockEntity {
 
     public void tick() {
         if (this.rotationalInertia > 0) {
-            this.rotationalInertia -= 0.0075f; //this.rotationalInertia -= 0.0075f;
-        } else if (this.rotationalInertia < 0) {
-            this.rotationalInertia = 0.0f;
-        }
+            this.rotationalInertia -= 0.0075f;
 
-        this.yaw -= this.rotationalInertia;
-        this.yaw0 = yaw - this.rotationalInertia;
+            if (this.rotationalInertia < 0) {
+                this.rotationalInertia = 0.0f;
+            }
+
+            this.yaw0 = this.yaw;
+            this.yaw -= this.rotationalInertia;
+        }
     }
 
     public float getRotationalInertia() {

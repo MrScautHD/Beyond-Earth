@@ -44,10 +44,6 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
     }
 
     public void setupAnim(T entity, float partialTicks) {
-        if (entity.getRotationalInertia() > 0) {
-            this.globe.getChild("planet").yRot = Mth.lerp(partialTicks, entity.getYaw(), entity.yaw0);
-        } else {
-            this.globe.getChild("planet").yRot = entity.getYaw();
-        }
+        this.globe.getChild("planet").yRot = Mth.lerp(partialTicks, entity.yaw0, entity.getYaw());
     }
 }
