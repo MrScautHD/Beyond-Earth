@@ -15,12 +15,14 @@ public class GlobeTileEntity extends BlockEntity {
 
     private float rotationalInertia = 0.0f;
     private float yaw = 0.0f;
+    public float yaw0 = 0.0f;
 
     @Override
     public void load(CompoundTag p_155245_) {
         super.load(p_155245_);
         this.rotationalInertia = p_155245_.getFloat("inertia");
         this.yaw = p_155245_.getFloat("yaw");
+        this.yaw0 = p_155245_.getFloat("yaw0");
     }
 
     @Override
@@ -28,14 +30,18 @@ public class GlobeTileEntity extends BlockEntity {
         super.saveAdditional(p_187471_);
         p_187471_.putFloat("inertia", this.rotationalInertia);
         p_187471_.putFloat("yaw", this.yaw);
+        p_187471_.putFloat("yaw0", this.yaw0);
     }
 
     public void tick() {
         if (this.rotationalInertia > 0) {
-            this.rotationalInertia -= 0.0075f;
-
-            this.yaw -= this.rotationalInertia;
+            this.rotationalInertia -= 0.0075f; //this.rotationalInertia -= 0.0075f;
+        } else if (this.rotationalInertia < 0) {
+            this.rotationalInertia = 0.0f;
         }
+
+        this.yaw -= this.rotationalInertia;
+        this.yaw0 = yaw - this.rotationalInertia;
     }
 
     public float getRotationalInertia() {

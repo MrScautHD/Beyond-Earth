@@ -446,7 +446,6 @@ public class RoverEntity extends VehicleEntity {
         if (f > 1.0F) {
             f = 1.0F;
         }
-
         p_21044_.animationSpeed += (f - p_21044_.animationSpeed) * 0.4F;
         p_21044_.animationPosition += p_21044_.animationSpeed;
     }

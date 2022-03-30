@@ -9,6 +9,7 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
@@ -43,6 +44,10 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
     }
 
     public void setupAnim(T entity, float partialTicks) {
-        this.globe.getChild("planet").yRot = entity.getYaw();
+        if (entity.getRotationalInertia() > 0) {
+            this.globe.getChild("planet").yRot = Mth.lerp(partialTicks, entity.getYaw(), entity.yaw0);
+        } else {
+            this.globe.getChild("planet").yRot = entity.getYaw();
+        }
     }
 }
