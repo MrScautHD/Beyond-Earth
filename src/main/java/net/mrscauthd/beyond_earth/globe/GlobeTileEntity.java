@@ -4,8 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -17,7 +15,7 @@ public class GlobeTileEntity extends BlockEntity {
 
     private float rotationalInertia = 0.0f;
     private float yaw = 0.0f;
-    public float yaw0 = 0.0f;
+    private float yaw0 = 0.0f;
 
     @Override
     public void load(CompoundTag p_155245_) {
@@ -51,28 +49,40 @@ public class GlobeTileEntity extends BlockEntity {
     }
 
     public void tick() {
-        if (this.rotationalInertia > 0) {
-            this.rotationalInertia -= 0.0075f;
+        if (this.getRotationalInertia() > 0) {
+            this.setRotationalInertia(this.getRotationalInertia() - 0.0075f);
 
-            if (this.rotationalInertia < 0) {
-                this.rotationalInertia = 0.0f;
+            if (this.getRotationalInertia() < 0) {
+                this.setRotationalInertia(0);
             }
 
-            this.yaw0 = this.yaw;
-            this.yaw -= this.rotationalInertia;
+            this.setYaw0(this.getYaw());
+            this.setYaw(this.getYaw() - this.getRotationalInertia());
             this.setChanged();
         }
     }
 
     public float getRotationalInertia() {
-        return this.rotationalInertia;
+        return this.getTileData().getFloat("inertia");
     }
 
     public void setRotationalInertia(float value) {
-        this.rotationalInertia = value;
+        this.getTileData().putFloat("inertia", value);
     }
 
     public float getYaw() {
-        return this.yaw;
+        return this.getTileData().getFloat("yaw");
+    }
+
+    public void setYaw(float value) {
+        this.getTileData().putFloat("yaw", value);
+    }
+
+    public float getYaw0() {
+        return this.getTileData().getFloat("yaw0");
+    }
+
+    public void setYaw0(float value) {
+        this.getTileData().putFloat("yaw0", value);
     }
 }
