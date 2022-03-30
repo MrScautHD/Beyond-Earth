@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -33,31 +35,6 @@ public class GlobeTileEntity extends BlockEntity {
         p_187471_.putFloat("yaw0", this.yaw0);
     }
 
-    public void tick() {
-        if (this.rotationalInertia > 0) {
-            this.rotationalInertia -= 0.0075f;
-
-            if (this.rotationalInertia < 0) {
-                this.rotationalInertia = 0.0f;
-            }
-
-            this.yaw0 = this.yaw;
-            this.yaw -= this.rotationalInertia;
-        }
-    }
-
-    public float getRotationalInertia() {
-        return this.rotationalInertia;
-    }
-
-    public void setRotationalInertia(float value) {
-        this.rotationalInertia = value;
-    }
-
-    public float getYaw() {
-        return this.yaw;
-    }
-
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
@@ -71,5 +48,31 @@ public class GlobeTileEntity extends BlockEntity {
     @Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
         this.load(pkt.getTag());
+    }
+
+    public void tick() {
+        if (this.rotationalInertia > 0) {
+            this.rotationalInertia -= 0.0075f;
+
+            if (this.rotationalInertia < 0) {
+                this.rotationalInertia = 0.0f;
+            }
+
+            this.yaw0 = this.yaw;
+            this.yaw -= this.rotationalInertia;
+            this.setChanged();
+        }
+    }
+
+    public float getRotationalInertia() {
+        return this.rotationalInertia;
+    }
+
+    public void setRotationalInertia(float value) {
+        this.rotationalInertia = value;
+    }
+
+    public float getYaw() {
+        return this.yaw;
     }
 }
