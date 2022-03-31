@@ -9,13 +9,14 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
 
 public class GlobeTileEntity extends BlockEntity {
-    public GlobeTileEntity(BlockPos pos, BlockState state) {
-        super(ModInit.GLOBE.get(), pos, state);
-    }
 
     private float rotationalInertia = 0.0f;
     private float yaw = 0.0f;
     private float yaw0 = 0.0f;
+
+    public GlobeTileEntity(BlockPos pos, BlockState state) {
+        super(ModInit.GLOBE.get(), pos, state);
+    }
 
     @Override
     public void load(CompoundTag p_155245_) {
@@ -58,7 +59,11 @@ public class GlobeTileEntity extends BlockEntity {
 
             this.setYaw0(this.getYaw());
             this.setYaw(this.getYaw() - this.getRotationalInertia());
-            this.setChanged();
+
+            if (this.getRotationalInertia() == 0) {
+                this.setChanged();
+                System.out.println("CHANGED2");
+            }
         }
     }
 

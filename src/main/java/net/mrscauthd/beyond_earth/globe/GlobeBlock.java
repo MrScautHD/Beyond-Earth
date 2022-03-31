@@ -93,7 +93,8 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
             GlobeTileEntity blockEntity = (GlobeTileEntity) p_60504_.getBlockEntity(p_60505_);
             float value = (float) (Math.PI / (Math.pow(0.00003, blockEntity.getRotationalInertia()) + 1) / 4);
             blockEntity.setRotationalInertia(value);
-            blockEntity.serializeNBT();
+            blockEntity.setChanged();
+            System.out.println("CHANGED1");
         }
 
         return InteractionResult.SUCCESS;
