@@ -2,8 +2,6 @@ package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -34,21 +32,6 @@ public class GlobeTileEntity extends BlockEntity {
         p_187471_.putFloat("yaw0", this.yaw0);
     }
 
-    @Override
-    public ClientboundBlockEntityDataPacket getUpdatePacket() {
-        return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        return this.saveWithFullMetadata();
-    }
-
-    @Override
-    public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket pkt) {
-        this.load(pkt.getTag());
-    }
-
     public void tick() {
         if (this.getRotationalInertia() > 0) {
             this.setRotationalInertia(this.getRotationalInertia() - 0.0075f);
@@ -68,26 +51,26 @@ public class GlobeTileEntity extends BlockEntity {
     }
 
     public float getRotationalInertia() {
-        return this.getTileData().getFloat("inertia");
+        return this.rotationalInertia;
     }
 
     public void setRotationalInertia(float value) {
-        this.getTileData().putFloat("inertia", value);
+        this.rotationalInertia = value;
     }
 
     public float getYaw() {
-        return this.getTileData().getFloat("yaw");
+        return this.yaw;
     }
 
     public void setYaw(float value) {
-        this.getTileData().putFloat("yaw", value);
+        this.yaw = value;
     }
 
     public float getYaw0() {
-        return this.getTileData().getFloat("yaw0");
+        return this.yaw0;
     }
 
     public void setYaw0(float value) {
-        this.getTileData().putFloat("yaw0", value);
+        this.yaw0 = value;
     }
 }
