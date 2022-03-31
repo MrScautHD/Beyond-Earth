@@ -29,7 +29,6 @@ public class GlobeTileEntity extends BlockEntity {
         this.rotationalInertia = p_155245_.getFloat("inertia");
         this.yaw = p_155245_.getFloat("yaw");
         this.yaw0 = p_155245_.getFloat("yaw0");
-        System.out.println("IS CALLED");
     }
 
     @Override
@@ -86,7 +85,6 @@ public class GlobeTileEntity extends BlockEntity {
                 if (!this.level.isClientSide) {
                     this.setChanged();
                 }
-                System.out.println("CHANGED2");
             }
         }
     }
