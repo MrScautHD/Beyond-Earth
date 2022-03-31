@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +64,7 @@ public class GlobeTileEntity extends BlockEntity {
             double z = this.getBlockPos().getZ();
 
             for (ServerPlayer p : serverLevel.getPlayers(distance -> {
-                return distance.distanceToSqr(x, y, z) < 4096.0F;
+                return distance.distanceToSqr(x, y, z) < (128*128); //128 Blocks
             })) {
                 p.connection.send(this.getUpdatePacket());
             }
