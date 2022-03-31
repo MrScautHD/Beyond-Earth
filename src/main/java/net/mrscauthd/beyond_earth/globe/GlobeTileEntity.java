@@ -2,6 +2,12 @@ package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
@@ -22,14 +28,46 @@ public class GlobeTileEntity extends BlockEntity {
         this.rotationalInertia = p_155245_.getFloat("inertia");
         this.yaw = p_155245_.getFloat("yaw");
         this.yaw0 = p_155245_.getFloat("yaw0");
+        System.out.println("IS CALLED");
     }
 
     @Override
-    protected void saveAdditional(CompoundTag p_187471_) {
+    public void saveAdditional(CompoundTag p_187471_) {
         super.saveAdditional(p_187471_);
         p_187471_.putFloat("inertia", this.rotationalInertia);
         p_187471_.putFloat("yaw", this.yaw);
         p_187471_.putFloat("yaw0", this.yaw0);
+    }
+
+    @Override
+    public CompoundTag getUpdateTag() {
+        return this.saveWithoutMetadata();
+    }
+
+    @Override
+    public Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    public void setChanged() {
+        super.setChanged();
+
+        Level level = this.getLevel();
+
+        if (level instanceof ServerLevel) {
+            ServerLevel serverLevel = (ServerLevel) level;
+
+            double x = this.getBlockPos().getX();
+            double y = this.getBlockPos().getY();
+            double z = this.getBlockPos().getZ();
+
+            for (ServerPlayer p : serverLevel.getPlayers(distance -> {
+                return distance.distanceToSqr(x, y, z) < 4096.0F;
+            })) {
+                p.connection.send(this.getUpdatePacket());
+            }
+        }
     }
 
     public void tick() {
@@ -44,7 +82,9 @@ public class GlobeTileEntity extends BlockEntity {
             this.setYaw(this.getYaw() - this.getRotationalInertia());
 
             if (this.getRotationalInertia() == 0) {
-                this.setChanged();
+                if (!this.level.isClientSide) {
+                    this.setChanged();
+                }
                 System.out.println("CHANGED2");
             }
         }
