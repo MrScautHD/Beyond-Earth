@@ -66,8 +66,12 @@ public class GlacioSky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
+                        /** ENABLE BLEND SYSTEM */
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
+
+                        /** COLOR SYSTEM */
                         float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
                         if (afloat != null) {
                             RenderSystem.setShader(GameRenderer::getPositionColorShader);
