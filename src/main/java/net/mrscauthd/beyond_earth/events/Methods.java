@@ -112,10 +112,14 @@ public class Methods {
     );
 
     public static void worldTeleport(Player entity, ResourceKey<Level> planet, double high) {
-        ServerLevel nextLevel = entity.getServer().getLevel(planet);
-
-        if (nextLevel != null && entity instanceof ServerPlayer && entity.canChangeDimensions()) {
+        if (entity instanceof ServerPlayer && entity.canChangeDimensions()) {
             ServerPlayer serverPlayer = (ServerPlayer) entity;
+            ServerLevel nextLevel = entity.getServer().getLevel(planet);
+
+            if (nextLevel == null) {
+                System.out.println("World not existing!");
+                return;
+            }
 
             serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
             serverPlayer.teleportTo(nextLevel, entity.getX(), high, entity.getZ(), entity.getYRot(), entity.getXRot());

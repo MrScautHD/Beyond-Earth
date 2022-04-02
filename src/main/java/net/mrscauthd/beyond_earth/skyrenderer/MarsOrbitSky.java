@@ -74,7 +74,7 @@ public class MarsOrbitSky {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
                         Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starmatrix4f = RenderSystem.getProjectionMatrix();
+                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
                         RenderSystem.disableTexture();
                         Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
                         float f = (float)vec3.x;
@@ -86,66 +86,81 @@ public class MarsOrbitSky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
+                        /** ENABLE BLEND SYSTEM */
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
-                        RenderSystem.enableTexture();
+
+                        /** STAR ROT */
+                        p_181410_.pushPose();
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                        p_181410_.mulPose(Vector3f.ZP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
+
+                        /** STAR */
+                        createStars();
+                        RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
+                        FogRenderer.setupNoFog();
+                        starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                        p_181410_.popPose();
+
                         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
                         p_181410_.pushPose();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
-                        //ROT
-                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
-                        Matrix4f matrix4f1 = p_181410_.last().pose();
+                        RenderSystem.enableTexture();
 
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
-                        //MARS
-                        RenderSystem.depthMask(true);
-                        RenderSystem.enableDepthTest();
+                        /** DEFAULT ROT */
+                        p_181410_.pushPose();
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                        Matrix4f matrix4f1 = p_181410_.last().pose();
+                        p_181410_.popPose();
+
+                        /** SUN */
+                        float f12 = 30.0F;
+
+                        RenderSystem.setShaderTexture(0, SUN_TEXTURE);
+                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.end();
+                        BufferUploader.end(bufferbuilder);
+
+                        /** MARS ROT */
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
+                        matrix4f1 = p_181410_.last().pose();
+
+                        /** MARS */
+                        RenderSystem.disableBlend();
 
                         float var20 = -3000.0F + (float) Minecraft.getInstance().player.getY() * 6F;
 
-                        float scale = 100 * (0.3F - var20 / 10000.0F);
+                        float scale = 100 * (0.2F - var20 / 10000.0F);
                         scale = Math.max(scale, 4.0F);
 
                         RenderSystem.setShaderTexture(0, MARS_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -scale, -180.0F, scale).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, scale, -180.0F, scale).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, scale, -180.0F, -scale).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -scale, -180.0F, -scale).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -scale, -100.0F, scale).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, scale, -100.0F, scale).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
-                        RenderSystem.depthMask(false);
-
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
-                        matrix4f1 = p_181410_.last().pose();
-
-                        float f12 = 35.0F * 2;
-
-                        //MARS
-                        RenderSystem.setShaderTexture(0, SUN_TEXTURE);
-                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -f12, 200.0F, -f12).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 200.0F, -f12).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 200.0F, f12).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -f12, 200.0F, f12).uv(0.0F, 1.0F).endVertex();
-                        bufferbuilder.end();
-                        BufferUploader.end(bufferbuilder);
+                        RenderSystem.enableBlend();
 
                         RenderSystem.disableTexture();
-
-                        //STAR GEN
-                        createStars();
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        FogRenderer.setupNoFog();
-                        starBuffer.drawWithShader(p_181410_.last().pose(), starmatrix4f, GameRenderer.getPositionShader());
-
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.disableBlend();
                         p_181410_.popPose();
+
+                        /** CUT WAY SYSTEM */
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 
@@ -157,7 +172,6 @@ public class MarsOrbitSky {
 
                         RenderSystem.enableTexture();
                         RenderSystem.depthMask(true);
-                        RenderSystem.disableDepthTest();
                     }
                 };
             }
@@ -191,16 +205,16 @@ public class MarsOrbitSky {
                     double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d3 = (double)(0.15F + random.nextFloat() * 0.1F);
+                    double d3 = (double)(0.075F + random.nextFloat() * 0.1F);
                     double d4 = d0 * d0 + d1 * d1 + d2 * d2;
                     if (d4 < 1.0D && d4 > 0.01D) {
                         d4 = 1.0D / Math.sqrt(d4);
                         d0 *= d4;
                         d1 *= d4;
                         d2 *= d4;
-                        double d5 = d0 * 200.0D;
-                        double d6 = d1 * 200.0D;
-                        double d7 = d2 * 200.0D;
+                        double d5 = d0 * 100.0D;
+                        double d6 = d1 * 100.0D;
+                        double d7 = d2 * 100.0D;
                         double d8 = Math.atan2(d0, d2);
                         double d9 = Math.sin(d8);
                         double d10 = Math.cos(d8);

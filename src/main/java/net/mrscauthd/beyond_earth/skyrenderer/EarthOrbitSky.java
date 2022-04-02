@@ -110,12 +110,32 @@ public class EarthOrbitSky {
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.enableTexture();
 
-                        /** EARTH ROT */
-                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
-                        Matrix4f matrix4f1 = p_181410_.last().pose();
-
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+                        /** DEFAULT ROT */
+                        p_181410_.pushPose();
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                        Matrix4f matrix4f1 = p_181410_.last().pose();
+                        p_181410_.popPose();
+
+                        /** SUN */
+                        float f12 = 30.0F;
+
+                        RenderSystem.setShaderTexture(0, SUN_TEXTURE);
+                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.end();
+                        BufferUploader.end(bufferbuilder);
+
+
+                        /** EARTH ROT */
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
+                        matrix4f1 = p_181410_.last().pose();
 
                         /** EARTH */
                         RenderSystem.disableBlend();
@@ -135,21 +155,6 @@ public class EarthOrbitSky {
                         BufferUploader.end(bufferbuilder);
 
                         RenderSystem.enableBlend();
-
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
-                        matrix4f1 = p_181410_.last().pose();
-
-                        /** SUN */
-                        float f12 = 30.0F;
-
-                        RenderSystem.setShaderTexture(0, SUN_TEXTURE);
-                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                        bufferbuilder.end();
-                        BufferUploader.end(bufferbuilder);
 
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
