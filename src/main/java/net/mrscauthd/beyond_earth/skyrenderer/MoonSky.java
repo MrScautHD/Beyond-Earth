@@ -152,9 +152,9 @@ public class MoonSky {
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
+                        /** EARTH */
                         RenderSystem.disableBlend();
 
-                        /** EARTH */
                         RenderSystem.setShaderTexture(0, EARTH);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -9, -99.0F, 9).uv(0.0F, 0.0F).endVertex();

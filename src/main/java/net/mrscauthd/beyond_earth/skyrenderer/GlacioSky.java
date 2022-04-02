@@ -54,7 +54,7 @@ public class GlacioSky {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
                         Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starmatrix4f = RenderSystem.getProjectionMatrix();
+                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
                         RenderSystem.disableTexture();
                         Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
                         float f = (float) vec3.x;
@@ -97,45 +97,56 @@ public class GlacioSky {
                             p_181410_.popPose();
                         }
 
-                        RenderSystem.enableTexture();
-                        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+                        /** STAR ROT */
                         p_181410_.pushPose();
-                        float f11 = 1.0F - level.getRainLevel(p_181412_);
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, f11);
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                        p_181410_.mulPose(Vector3f.ZP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                        /** STAR */
+                        createStars();
+                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        FogRenderer.setupNoFog();
+                        starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                        p_181410_.popPose();
 
-                        float f12 = 32.0F;
+                        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 
-                        //ROT
+                        p_181410_.pushPose();
+                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        RenderSystem.enableTexture();
+
+                        /** VICINUS ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(180.0F));
                         p_181410_.mulPose(Vector3f.ZP.rotationDegrees(30.0F));
                         Matrix4f matrix4f1 = p_181410_.last().pose();
 
-                        //VICINUS
-                        RenderSystem.depthMask(true);
-                        RenderSystem.enableDepthTest();
+                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+                        /** VICINUS */
+                        RenderSystem.disableBlend();
+
                         RenderSystem.setShaderTexture(0, VICINUS_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -f12, -180.0F, f12).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, -180.0F, f12).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, -180.0F, -f12).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -f12, -180.0F, -f12).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -16.0F, -100.0F, 16.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 16.0F, -100.0F, 16.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 16.0F, -100.0F, -16.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -16.0F, -100.0F, -16.0F).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
-                        RenderSystem.depthMask(false);
+                        RenderSystem.enableBlend();
 
-                        //ROT
+                        /** DEFAULT ROT */
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
                         p_181410_.mulPose(Vector3f.ZP.rotationDegrees(-30.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
                         matrix4f1 = p_181410_.last().pose();
 
-                        f12 = 30;
+                        /** SUN */
+                        float f12 = 30.0F;
 
-
-                        //SUN
                         RenderSystem.setShaderTexture(0, SUN_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(0.0F, 0.0F).endVertex();
@@ -146,16 +157,11 @@ public class GlacioSky {
                         BufferUploader.end(bufferbuilder);
 
                         RenderSystem.disableTexture();
-
-                        //STAR GEN
-                        createStars();
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        FogRenderer.setupNoFog();
-                        starBuffer.drawWithShader(p_181410_.last().pose(), starmatrix4f, GameRenderer.getPositionShader());
-
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.disableBlend();
                         p_181410_.popPose();
+
+                        /** CUT AWAY SYSTEM */
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 
@@ -176,7 +182,6 @@ public class GlacioSky {
 
                         RenderSystem.enableTexture();
                         RenderSystem.depthMask(true);
-                        RenderSystem.disableDepthTest();
                     }
                 };
             }
@@ -204,16 +209,16 @@ public class GlacioSky {
                     double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d3 = (double)(0.35F + random.nextFloat() * 0.1F);
+                    double d3 = (double)(0.15F + random.nextFloat() * 0.1F);
                     double d4 = d0 * d0 + d1 * d1 + d2 * d2;
                     if (d4 < 1.0D && d4 > 0.01D) {
                         d4 = 1.0D / Math.sqrt(d4);
                         d0 *= d4;
                         d1 *= d4;
                         d2 *= d4;
-                        double d5 = d0 * 200.0D;
-                        double d6 = d1 * 200.0D;
-                        double d7 = d2 * 200.0D;
+                        double d5 = d0 * 100.0D;
+                        double d6 = d1 * 100.0D;
+                        double d7 = d2 * 100.0D;
                         double d8 = Math.atan2(d0, d2);
                         double d9 = Math.sin(d8);
                         double d10 = Math.cos(d8);
