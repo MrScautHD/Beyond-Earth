@@ -68,7 +68,7 @@ public class MoonSky {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
                         Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starmatrix4f = RenderSystem.getProjectionMatrix();
+                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
                         RenderSystem.disableTexture();
                         Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
                         float f = (float)vec3.x;
@@ -80,6 +80,8 @@ public class MoonSky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
+                        /** COLOR SYSTEM */
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
                         float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
@@ -111,12 +113,26 @@ public class MoonSky {
                             p_181410_.popPose();
                         }
 
-                        RenderSystem.enableTexture();
+                        /** STAR ROT */
+                        p_181410_.pushPose();
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                        p_181410_.mulPose(Vector3f.ZP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
+
+                        /** STAR */
+                        createStars();
+                        RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
+                        FogRenderer.setupNoFog();
+                        starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                        p_181410_.popPose();
+
                         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
                         p_181410_.pushPose();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        RenderSystem.enableTexture();
 
-                        //ROT
+                        /** EARTH ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(180.0F));
                         p_181410_.mulPose(Vector3f.ZP.rotationDegrees(30.0F));
@@ -124,9 +140,7 @@ public class MoonSky {
 
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
-                        float f12 = 30.0F;
-
-                        //EARTH LIGHT
+                        /** EARTH LIGHT */
                         RenderSystem.setShaderTexture(0, EARTH_LIGHT_TEXTURES);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -25, -100.0F, 25).uv(0.0F, 0.0F).endVertex();
@@ -136,11 +150,9 @@ public class MoonSky {
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
+                        RenderSystem.disableBlend();
 
-                        //EARTH
-                        RenderSystem.depthMask(true);
-                        RenderSystem.enableDepthTest();
-
+                        /** EARTH */
                         RenderSystem.setShaderTexture(0, EARTH);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -9, -99.0F, 9).uv(0.0F, 0.0F).endVertex();
@@ -150,13 +162,17 @@ public class MoonSky {
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
-                        RenderSystem.depthMask(false);
+                        RenderSystem.enableBlend();
 
+                        /** DEFAULT ROT */
+                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
                         p_181410_.mulPose(Vector3f.ZP.rotationDegrees(-30.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
                         matrix4f1 = p_181410_.last().pose();
 
-                        //SUN
+                        /** SUN */
+                        float f12 = 30.0F;
+
                         RenderSystem.setShaderTexture(0, SUN_TEXTURES);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(0.0F, 0.0F).endVertex();
@@ -167,21 +183,15 @@ public class MoonSky {
                         BufferUploader.end(bufferbuilder);
 
                         RenderSystem.disableTexture();
-
-                        //STAR GEN
-                        createStars();
-                        RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
-                        FogRenderer.setupNoFog();
-                        starBuffer.drawWithShader(p_181410_.last().pose(), starmatrix4f, GameRenderer.getPositionShader());
-
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.disableBlend();
                         p_181410_.popPose();
+
+                        /** CUT AWAY SYSTEM */
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 
                         double d0 = minecraft.player.getEyePosition(p_181412_).y - level.getLevelData().getHorizonHeight(level);
-
                         if (d0 < 0.0D) {
                             p_181410_.pushPose();
                             p_181410_.translate(0.0D, 12.0D, 0.0D);
@@ -197,7 +207,6 @@ public class MoonSky {
 
                         RenderSystem.enableTexture();
                         RenderSystem.depthMask(true);
-                        RenderSystem.disableDepthTest();
                     }
                 };
             }

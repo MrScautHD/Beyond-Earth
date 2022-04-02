@@ -83,6 +83,7 @@ public class GlacioOrbitSky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
                         RenderSystem.enableTexture();
