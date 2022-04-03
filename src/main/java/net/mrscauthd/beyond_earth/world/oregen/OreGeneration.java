@@ -160,7 +160,7 @@ public class OreGeneration {
 
     /** BIOME ORE GEN */
     public static void biomesLoading(BiomeLoadingEvent event) {
-        if (event.getName().getPath().equals(BiomeRegistry.MOON.getRegistryName().getPath())) {
+        if (event.getName().equals(BiomeRegistry.MOON)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonIceShardOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonIronOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonDeshOre);

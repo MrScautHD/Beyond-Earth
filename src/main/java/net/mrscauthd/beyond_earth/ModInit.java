@@ -596,7 +596,6 @@ public class ModInit {
     public static Holder<PlacedFeature> MARS_ROCK;
     public static MarsBlockBlobFeature MARS_BLOCK_BLOB_FEATURE;
 
-
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
         //MARS ICE SPIKE

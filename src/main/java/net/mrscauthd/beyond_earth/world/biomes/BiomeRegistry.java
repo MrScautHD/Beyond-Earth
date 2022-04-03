@@ -7,6 +7,7 @@ import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.NetherPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -20,7 +21,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BiomeRegistry {
 
-    public static Biome MOON;
+    public static final ResourceLocation MOON = new ResourceLocation(BeyondEarthMod.MODID, "moon_desert");
 
     public static Biome MARS;
     public static Biome MARS_ROCKY_PLAINS;
@@ -38,17 +39,6 @@ public class BiomeRegistry {
 
     @SubscribeEvent
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-
-        if (MOON == null) {
-            BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(-16777216).waterColor(4159204).waterFogColor(329011).skyColor(-16777216).foliageColorOverride(7842607).grassColorOverride(9551193).build();
-            BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder();
-            BiomeDefaultFeatures.addDripstone(biomeGenerationSettings);
-            addDefaultCarvers(biomeGenerationSettings);
-            MobSpawnSettings mobSpawnInfo = (new MobSpawnSettings.Builder()).addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(ModInit.ALIEN_ZOMBIE.get(), 20, 5, 5)).addMobCharge(ModInit.ALIEN_ZOMBIE.get(), 0.7D, 0.15D).addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(ModInit.STAR_CRAWLER.get(), 20, 5, 5)).addMobCharge(ModInit.STAR_CRAWLER.get(), 0.7D, 0.15D).build();
-
-            MOON = new Biome.BiomeBuilder().precipitation(Biome.Precipitation.NONE).biomeCategory(Biome.BiomeCategory.NONE).mobSpawnSettings(mobSpawnInfo).temperature(-0.7f).downfall(0f).specialEffects(effects).generationSettings(biomeGenerationSettings.build()).build();
-            event.getRegistry().register(MOON.setRegistryName(BeyondEarthMod.MODID, "moon"));
-        }
 
         if (MARS == null) {
             BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(-3044526).waterColor(4159204).waterFogColor(329011).skyColor(-3044526).foliageColorOverride(7842607).grassColorOverride(9551193).ambientParticle(new AmbientParticleSettings(ParticleTypes.CRIMSON_SPORE, 0.014f)).build();
@@ -134,7 +124,7 @@ public class BiomeRegistry {
         }
 
         if (GLACIO == null) {
-            BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(12638463).waterColor(4159204).waterFogColor(329011).skyColor(calculateSkyColor(-0.7f)).foliageColorOverride(0xFFFFFF).build();
+            BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(12638463).waterColor(4159204).waterFogColor(329011).skyColor(8756735).foliageColorOverride(0xFFFFFF).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder();
             addDefaultCarvers(biomeGenerationSettings);
             BiomeDefaultFeatures.addSurfaceFreezing(biomeGenerationSettings);
@@ -147,7 +137,7 @@ public class BiomeRegistry {
         }
 
         if (GLACIO_ICE_SPIKES == null) {
-            BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(12638463).waterColor(4159204).waterFogColor(329011).skyColor(calculateSkyColor(-0.7f)).foliageColorOverride(0xFFFFFF).build();
+            BiomeSpecialEffects effects = new BiomeSpecialEffects.Builder().fogColor(12638463).waterColor(4159204).waterFogColor(329011).skyColor(8756735).foliageColorOverride(0xFFFFFF).build();
             BiomeGenerationSettings.Builder biomeGenerationSettings = new BiomeGenerationSettings.Builder();
             addDefaultCarvers(biomeGenerationSettings);
             BiomeDefaultFeatures.addSurfaceFreezing(biomeGenerationSettings);
@@ -177,12 +167,6 @@ public class BiomeRegistry {
         p_194721_.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE);
         p_194721_.addCarver(GenerationStep.Carving.AIR, Carvers.CAVE_EXTRA_UNDERGROUND);
         p_194721_.addCarver(GenerationStep.Carving.AIR, Carvers.CANYON);
-    }
-
-    protected static int calculateSkyColor(float p_194844_) {
-        float $$1 = p_194844_ / 3.0F;
-        $$1 = Mth.clamp($$1, -1.0F, 1.0F);
-        return Mth.hsvToRgb(0.62222224F - $$1 * 0.05F, 0.5F + $$1 * 0.1F, 1.0F);
     }
 
     public static void addLushCavesVegetationFeatures(BiomeGenerationSettings.Builder p_176851_) {
