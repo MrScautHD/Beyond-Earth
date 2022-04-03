@@ -104,8 +104,12 @@ public class VenusSky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
+                        /** ENABLE BLEND SYSTEM */
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
+
+                        /** COLOR SYSTEM */
                         float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
                         if (afloat != null) {
                             RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -135,21 +139,22 @@ public class VenusSky {
                             p_181410_.popPose();
                         }
 
-                        RenderSystem.enableTexture();
                         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
                         p_181410_.pushPose();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        RenderSystem.enableTexture();
 
-                        //ROT
+                        /** DEFAULT ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
                         Matrix4f matrix4f1 = p_181410_.last().pose();
 
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
+                        /** SUN */
                         float f12 = 20.0F;
 
-                        //SUN
                         RenderSystem.setShaderTexture(0, SUN_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
@@ -159,10 +164,11 @@ public class VenusSky {
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
+                        /** EARTH ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(-130.0F));
                         p_181410_.mulPose(Vector3f.ZP.rotationDegrees(210.0F));
 
-                        //EARTH
+                        /** EARTH */
                         RenderSystem.setShaderTexture(0, EARTH_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -2, -100.0F, 2).uv(0.0F, 0.0F).endVertex();
@@ -174,7 +180,7 @@ public class VenusSky {
 
                         RenderSystem.disableTexture();
 
-                        //STAR GEN
+                        /** STAR */
                         float f10 = level.getStarBrightness(p_181412_) * 1.0F - level.getRainLevel(p_181412_);
                         if (f10 > 0.0F) {
                             RenderSystem.setShaderColor(f10, f10, f10, f10);
@@ -185,6 +191,8 @@ public class VenusSky {
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.disableBlend();
                         p_181410_.popPose();
+
+                        /** CUT AWAY SYSTEM */
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 

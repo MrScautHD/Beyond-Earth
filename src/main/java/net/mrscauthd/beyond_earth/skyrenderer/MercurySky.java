@@ -78,8 +78,12 @@ public class MercurySky {
                         RenderSystem.setShaderColor(f, f1, f2, 1.0F);
                         ShaderInstance shaderinstance = RenderSystem.getShader();
                         minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+
+                        /** ENABLE BLEND SYSTEM */
                         RenderSystem.enableBlend();
                         RenderSystem.defaultBlendFunc();
+
+                        /** COLOR SYSTEM */
                         float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
                         if (afloat != null) {
                             RenderSystem.setShader(GameRenderer::getPositionColorShader);
@@ -109,21 +113,22 @@ public class MercurySky {
                             p_181410_.popPose();
                         }
 
-                        RenderSystem.enableTexture();
                         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
                         p_181410_.pushPose();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                        RenderSystem.enableTexture();
 
-                        //ROT
+                        /** DEFAULT ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
                         Matrix4f matrix4f1 = p_181410_.last().pose();
 
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
+                        /** SUN */
                         float f12 = 60.0F;
 
-                        //SUN
                         RenderSystem.setShaderTexture(0, SUN_TEXTURES);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
                         bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
@@ -135,7 +140,7 @@ public class MercurySky {
 
                         RenderSystem.disableTexture();
 
-                        //STAR GEN
+                        /** STAR */
                         createStars();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         FogRenderer.setupNoFog();
@@ -144,6 +149,8 @@ public class MercurySky {
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         RenderSystem.disableBlend();
                         p_181410_.popPose();
+
+                        /** CUT AWAY SYSTEM */
                         RenderSystem.disableTexture();
                         RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
 
@@ -196,16 +203,16 @@ public class MercurySky {
                     double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
                     double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d3 = (double)(0.15F + random.nextFloat() * 0.1F);
+                    double d3 = (double)(0.1F + random.nextFloat() * 0.1F);
                     double d4 = d0 * d0 + d1 * d1 + d2 * d2;
                     if (d4 < 1.0D && d4 > 0.01D) {
                         d4 = 1.0D / Math.sqrt(d4);
                         d0 *= d4;
                         d1 *= d4;
                         d2 *= d4;
-                        double d5 = d0 * 150.0D;
-                        double d6 = d1 * 150.0D;
-                        double d7 = d2 * 150.0D;
+                        double d5 = d0 * 100.0D;
+                        double d6 = d1 * 100.0D;
+                        double d7 = d2 * 100.0D;
                         double d8 = Math.atan2(d0, d2);
                         double d9 = Math.sin(d8);
                         double d10 = Math.cos(d8);

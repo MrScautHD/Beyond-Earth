@@ -40,6 +40,9 @@ public class EarthOrbitSky {
     private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
     private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/no_a_sun.png");
 
+    private static final ResourceLocation MOON_PHASES_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/moon_phases_1.png");
+    private static final ResourceLocation MOON_PHASES_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/moon_phases_2.png");
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, false, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
@@ -131,6 +134,40 @@ public class EarthOrbitSky {
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
+                        f12 = 20.0F;
+
+                        /** MOON */
+                        int k = minecraft.level.getMoonPhase();
+                        int l = k % 4;
+                        int i1 = k / 4 % 2;
+                        float f13 = (float)(l + 0) / 4.0F;
+                        float f14 = (float)(i1 + 0) / 2.0F;
+                        float f15 = (float)(l + 1) / 4.0F;
+                        float f16 = (float)(i1 + 1) / 2.0F;
+
+                        /** MOON PHASE 2 */
+                        RenderSystem.setShaderTexture(0, MOON_PHASES_2_TEXTURE);
+                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                        bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(f15, f16).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(f13, f16).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
+                        bufferbuilder.end();
+                        BufferUploader.end(bufferbuilder);
+
+                        /** MOON PHASE 1 */
+                        RenderSystem.disableBlend();
+
+                        RenderSystem.setShaderTexture(0, MOON_PHASES_1_TEXTURE);
+                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                        bufferbuilder.vertex(matrix4f1, -f12, -100.0F, f12).uv(f15, f16).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(f13, f16).endVertex();
+                        bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
+                        bufferbuilder.end();
+                        BufferUploader.end(bufferbuilder);
+
+                        RenderSystem.enableBlend();
 
                         /** EARTH ROT */
                         p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
