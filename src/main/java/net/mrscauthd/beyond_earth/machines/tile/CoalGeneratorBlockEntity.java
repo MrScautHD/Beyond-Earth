@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.gui.screens.coalgenerator.CoalGeneratorGui;
+import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGui;
 
 public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 

@@ -24,7 +24,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidHandlerWrapper;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gui.screens.waterpump.WaterPumpGui;
+import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.beyond_earth.machines.WaterPump;
 
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {

@@ -23,7 +23,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.gui.screens.lander.LanderGui;
+import net.mrscauthd.beyond_earth.guis.screens.lander.LanderGui;
 
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.ItemStackHandler;

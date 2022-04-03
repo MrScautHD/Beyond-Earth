@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.machines.tile;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.gui.screens.solarpanel.SolarPanelGui;
+import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelGui;
 
 public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 

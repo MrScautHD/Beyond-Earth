@@ -16,7 +16,7 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
-import net.mrscauthd.beyond_earth.gui.screens.oxygenloader.OxygenLoaderGui;
+import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGui;
 
 public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 

@@ -28,7 +28,7 @@ import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.FluidIngredient;
 import net.mrscauthd.beyond_earth.crafting.FuelRefiningRecipe;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gui.screens.fuelrefinery.FuelRefineryGui;
+import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
 
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {

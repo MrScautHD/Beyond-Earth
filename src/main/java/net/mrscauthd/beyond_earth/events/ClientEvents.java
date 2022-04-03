@@ -24,7 +24,7 @@ import net.mrscauthd.beyond_earth.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.events.forgeevents.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.RenderViewEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.SetupLivingBipedAnimEvent;
-import net.mrscauthd.beyond_earth.item.VehicleItem;
+import net.mrscauthd.beyond_earth.items.VehicleItem;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class ClientEvents {

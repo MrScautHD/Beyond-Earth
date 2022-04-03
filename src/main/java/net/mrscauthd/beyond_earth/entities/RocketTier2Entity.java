@@ -26,7 +26,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gui.screens.rocket.RocketGui;
+import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
 
 public class RocketTier2Entity extends IRocketEntity {
 

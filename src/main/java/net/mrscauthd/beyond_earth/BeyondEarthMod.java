@@ -12,7 +12,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
 import net.mrscauthd.beyond_earth.entities.alien.AlienTrade;
 import net.mrscauthd.beyond_earth.config.Config;
-import net.mrscauthd.beyond_earth.gui.screens.planetselection.PlanetSelectionGui;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.keybinds.KeyBindings;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 

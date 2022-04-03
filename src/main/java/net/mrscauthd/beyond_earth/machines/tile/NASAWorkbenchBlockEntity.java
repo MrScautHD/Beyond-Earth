@@ -31,7 +31,7 @@ import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.RocketPart;
 import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipe;
-import net.mrscauthd.beyond_earth.gui.screens.nasaworkbench.NasaWorkbenchGui;
+import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGui;
 import net.mrscauthd.beyond_earth.inventory.ItemHandlerHelper2;
 import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;

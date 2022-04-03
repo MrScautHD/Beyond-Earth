@@ -41,8 +41,8 @@ import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
-import net.mrscauthd.beyond_earth.gui.screens.planetselection.PlanetSelectionGui;
-import net.mrscauthd.beyond_earth.item.VehicleItem;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
+import net.mrscauthd.beyond_earth.items.VehicleItem;
 
 import java.util.Set;
 

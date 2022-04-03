@@ -22,8 +22,8 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.SpaceSuitCapabilityProvider;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.item.FilledAltArmorItem;
-import net.mrscauthd.beyond_earth.itemgroup.ItemGroups;
+import net.mrscauthd.beyond_earth.items.FilledAltArmorItem;
+import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;

@@ -13,7 +13,7 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.mrscauthd.beyond_earth.gui.screens.rover.RoverGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGuiWindow;
 import net.mrscauthd.beyond_earth.jei.JeiPlugin.RoverJeiCategory;
 
 public class RoverGuiContainerHandler implements IGuiContainerHandler<RoverGuiWindow> {

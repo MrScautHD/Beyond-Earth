@@ -31,7 +31,7 @@ import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.gui.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class Overlays {

@@ -8,7 +8,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.beyond_earth.gui.screens.compressor.CompressorGui;
+import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGui;
 
 public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 

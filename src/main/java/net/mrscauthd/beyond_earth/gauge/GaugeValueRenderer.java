@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.gui.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 
 public class GaugeValueRenderer extends AbstractGaugeDataRenderer {
 

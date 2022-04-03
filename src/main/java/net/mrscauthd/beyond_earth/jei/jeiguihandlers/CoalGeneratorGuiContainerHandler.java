@@ -15,8 +15,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.gui.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.gui.screens.coalgenerator.CoalGeneratorGuiWindow;
+import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGuiWindow;
 import net.mrscauthd.beyond_earth.jei.JeiPlugin.CoalGeneratorJeiCategory;
 
 public class CoalGeneratorGuiContainerHandler  implements IGuiContainerHandler<CoalGeneratorGuiWindow> {

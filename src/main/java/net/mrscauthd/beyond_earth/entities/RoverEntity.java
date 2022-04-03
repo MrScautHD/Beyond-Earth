@@ -45,7 +45,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gui.screens.rover.RoverGui;
+import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

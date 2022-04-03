@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
 import net.mrscauthd.beyond_earth.entities.RocketTier3Entity;
 import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
-import net.mrscauthd.beyond_earth.gui.screens.rocket.RocketGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
 import net.mrscauthd.beyond_earth.jei.JeiPlugin;
 
 public class RocketGuiContainerHandler implements IGuiContainerHandler<RocketGuiWindow> {

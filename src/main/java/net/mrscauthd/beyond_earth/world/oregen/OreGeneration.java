@@ -23,7 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.world.biomes.BiomesRegistry;
+import net.mrscauthd.beyond_earth.registries.BiomesRegistry;
 
 import java.util.List;
 

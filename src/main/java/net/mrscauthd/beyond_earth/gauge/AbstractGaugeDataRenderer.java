@@ -13,8 +13,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec2;
-import net.mrscauthd.beyond_earth.gui.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.util.Rectangle2d;
+import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 public abstract class AbstractGaugeDataRenderer {
 
