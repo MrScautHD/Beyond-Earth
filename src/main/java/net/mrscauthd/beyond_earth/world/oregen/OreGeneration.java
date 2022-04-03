@@ -23,7 +23,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.world.biomes.BiomeRegistry;
+import net.mrscauthd.beyond_earth.world.biomes.BiomesRegistry;
 
 import java.util.List;
 
@@ -160,7 +160,9 @@ public class OreGeneration {
 
     /** BIOME ORE GEN */
     public static void biomesLoading(BiomeLoadingEvent event) {
-        if (event.getName().equals(BiomeRegistry.MOON)) {
+        ResourceLocation biome = event.getName();
+
+        if (biome.equals(BiomesRegistry.MOON_DESERT)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonIceShardOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonIronOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(moonDeshOre);
@@ -168,25 +170,25 @@ public class OreGeneration {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(soulSoil);
         }
 
-        if (event.getName().getPath().equals(BiomeRegistry.MARS.getRegistryName().getPath()) || event.getName().getPath().equals(BiomeRegistry.MARS_ICE_SPIKES.getRegistryName().getPath())) {
+        if (biome.equals(BiomesRegistry.MARS_DESERT) || biome.equals(BiomesRegistry.MARS_ROCKY_PLAINS) || biome.equals(BiomesRegistry.MARS_ICE_SPIKES)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(marsIceShardOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(marsIronOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(marsDiamondOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(marsOstrumOre);
         }
 
-        if (event.getName().getPath().equals(BiomeRegistry.MERCURY.getRegistryName().getPath())) {
+        if (biome.equals(BiomesRegistry.MERCURY)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(mercuryIronOre);
         }
 
-        if (event.getName().getPath().equals(BiomeRegistry.VENUS.getRegistryName().getPath()) || event.getName().getPath().equals(BiomeRegistry.INFERNAL_VENUS_BARRENS.getRegistryName().getPath())) {
+        if (biome.equals(BiomesRegistry.VENUS_DESERT) || biome.equals(BiomesRegistry.INFERNAL_VENUS_BARRENS)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(venusCoalOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(venusGoldOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(venusDiamondOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(venusCaloriteOre);
         }
 
-        if (event.getName().getPath().equals(BiomeRegistry.GLACIO.getRegistryName().getPath()) || event.getName().getPath().equals(BiomeRegistry.GLACIO_ICE_SPIKES.getRegistryName().getPath())) {
+        if (biome.equals(BiomesRegistry.GLACIO) || biome.equals(BiomesRegistry.GLACIO_ICE_SPIKES)) {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(glacioIceShardOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(glacioCoalOre);
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(glacioIronOre);

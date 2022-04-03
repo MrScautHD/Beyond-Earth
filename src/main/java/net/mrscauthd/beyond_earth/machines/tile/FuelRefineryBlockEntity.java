@@ -22,12 +22,12 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.capability.fluid.FluidMultiTank;
+import net.mrscauthd.beyond_earth.capabilities.fluid.FluidMultiTank;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.FluidIngredient;
 import net.mrscauthd.beyond_earth.crafting.FuelRefiningRecipe;
-import net.mrscauthd.beyond_earth.fluid.FluidUtil2;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gui.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
 

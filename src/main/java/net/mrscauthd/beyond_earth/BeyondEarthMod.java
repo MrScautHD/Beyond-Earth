@@ -9,11 +9,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.mrscauthd.beyond_earth.compat.CompatibleManager;
-import net.mrscauthd.beyond_earth.entity.alien.AlienTrade;
+import net.mrscauthd.beyond_earth.compats.CompatibleManager;
+import net.mrscauthd.beyond_earth.entities.alien.AlienTrade;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.gui.screens.planetselection.PlanetSelectionGui;
-import net.mrscauthd.beyond_earth.keybind.KeyBindings;
+import net.mrscauthd.beyond_earth.keybinds.KeyBindings;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 
 import net.mrscauthd.beyond_earth.world.oregen.OreGeneration;

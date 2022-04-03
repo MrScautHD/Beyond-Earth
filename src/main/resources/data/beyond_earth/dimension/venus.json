@@ -306,7 +306,7 @@
             "if_true": {
               "type": "minecraft:biome",
               "biome_is": [
-                "beyond_earth:venus"
+                "beyond_earth:venus_desert"
               ]
             },
             "then_run": {
@@ -477,7 +477,7 @@
       "type": "minecraft:multi_noise",
       "biomes": [
         {
-          "biome": "beyond_earth:venus",
+          "biome": "beyond_earth:venus_desert",
           "parameters": {
             "temperature": 1,
             "humidity": -1,

@@ -1,7 +1,7 @@
 package net.mrscauthd.beyond_earth.jei;
 
 import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.compat.CompatibleMod;
+import net.mrscauthd.beyond_earth.compats.CompatibleMod;
 
 public class JeiCompat extends CompatibleMod {
 

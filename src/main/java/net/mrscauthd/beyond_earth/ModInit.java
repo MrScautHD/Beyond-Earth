@@ -28,7 +28,6 @@ import net.minecraft.world.level.levelgen.*;
 import net.minecraft.world.level.levelgen.feature.*;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.material.FlowingFluid;
@@ -41,8 +40,8 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.*;
-import net.mrscauthd.beyond_earth.armor.SpaceSuit;
-import net.mrscauthd.beyond_earth.block.*;
+import net.mrscauthd.beyond_earth.armors.SpaceSuit;
+import net.mrscauthd.beyond_earth.blocks.*;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeDyedItem;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeEnchantedBook;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeEnchantedItem;
@@ -59,12 +58,11 @@ import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.beyond_earth.crafting.RocketPart;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipeSerializer;
 import net.mrscauthd.beyond_earth.effects.OxygenEffect;
-import net.mrscauthd.beyond_earth.entity.*;
-import net.mrscauthd.beyond_earth.feature.MarsBlockBlobFeature;
-import net.mrscauthd.beyond_earth.feature.MarsIceSpikeFeature;
-import net.mrscauthd.beyond_earth.feature.VenusDeltas;
+import net.mrscauthd.beyond_earth.entities.*;
+import net.mrscauthd.beyond_earth.features.MarsBlockBlobFeature;
+import net.mrscauthd.beyond_earth.features.VenusDeltas;
 import net.mrscauthd.beyond_earth.flag.FlagTileEntity;
-import net.mrscauthd.beyond_earth.fluid.OilFluid;
+import net.mrscauthd.beyond_earth.fluids.OilFluid;
 import net.mrscauthd.beyond_earth.globe.GlobeBlock;
 import net.mrscauthd.beyond_earth.globe.GlobeItem;
 import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
@@ -90,19 +88,19 @@ import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEnti
 import net.mrscauthd.beyond_earth.machines.tile.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.WaterPumpBlockEntity;
-import net.mrscauthd.beyond_earth.entity.pygro.PygroEntity;
+import net.mrscauthd.beyond_earth.entities.pygro.PygroEntity;
 import net.mrscauthd.beyond_earth.flag.*;
-import net.mrscauthd.beyond_earth.fluid.FuelFluid;
-import net.mrscauthd.beyond_earth.armor.NetheriteSpaceSuit;
-import net.mrscauthd.beyond_earth.entity.alien.AlienEntity;
+import net.mrscauthd.beyond_earth.fluids.FuelFluid;
+import net.mrscauthd.beyond_earth.armors.NetheriteSpaceSuit;
+import net.mrscauthd.beyond_earth.entities.alien.AlienEntity;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.beyond_earth.itemgroup.ItemGroups;
-import net.mrscauthd.beyond_earth.entity.pygro.PygroMobsSensor;
-import net.mrscauthd.beyond_earth.world.biomes.BiomeRegistry;
-import net.mrscauthd.beyond_earth.world.chunk.PlanetChunkGenerator;
-import net.mrscauthd.beyond_earth.world.processor.StructureVoidProcessor;
+import net.mrscauthd.beyond_earth.entities.pygro.PygroMobsSensor;
+import net.mrscauthd.beyond_earth.world.biomes.BiomesRegistry;
+import net.mrscauthd.beyond_earth.world.chunkgen.PlanetChunkGenerator;
+import net.mrscauthd.beyond_earth.world.processors.StructureVoidProcessor;
 import net.mrscauthd.beyond_earth.world.structures.*;
 
 import java.util.function.Supplier;
@@ -583,10 +581,6 @@ public class ModInit {
     public static final DamageSource DAMAGE_SOURCE_OXYGEN = new DamageSource("oxygen").bypassArmor();
     public static final DamageSource DAMAGE_SOURCE_ACID_RAIN = new DamageSource("venus.acid").bypassArmor();
 
-    //ICE SPIKE
-    public static Holder<PlacedFeature> MARS_ICE_SPIKE;
-    public static MarsIceSpikeFeature MARS_ICE_SPIKE_FEATURE;
-
     //VENUS DELTAS
     public static Holder<PlacedFeature> VENUS_DELTAS_SMALL;
     public static Holder<PlacedFeature> VENUS_DELTAS_BIG;
@@ -598,11 +592,6 @@ public class ModInit {
 
     @SubscribeEvent
     public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
-        //MARS ICE SPIKE
-        MARS_ICE_SPIKE_FEATURE = new MarsIceSpikeFeature(NoneFeatureConfiguration.CODEC);
-        MARS_ICE_SPIKE_FEATURE.setRegistryName(BeyondEarthMod.MODID, "mars_ice_spike");
-        feature.getRegistry().register(MARS_ICE_SPIKE_FEATURE);
-
         //MARS BLOCK BLOB
         MARS_BLOCK_BLOB_FEATURE = new MarsBlockBlobFeature(BlockStateConfiguration.CODEC);
         MARS_BLOCK_BLOB_FEATURE.setRegistryName(BeyondEarthMod.MODID, "mars_block_blob");
@@ -637,9 +626,6 @@ public class ModInit {
             //Planet Noise
             Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(BeyondEarthMod.MODID, "planet_noise"), PlanetChunkGenerator.CODEC);
 
-            //Mars Ice Spikes
-            MARS_ICE_SPIKE = PlacementUtils.register("mars_ice_spike", FeatureUtils.register("mars_ice_spike", MARS_ICE_SPIKE_FEATURE), CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-
             //Mars Rock //TODO REPLACE it laiter with the new block
             MARS_ROCK = PlacementUtils.register("mars_rock", FeatureUtils.register("mars_rock", MARS_BLOCK_BLOB_FEATURE, new BlockStateConfiguration(Blocks.POLISHED_GRANITE.defaultBlockState())), CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
 
@@ -650,18 +636,13 @@ public class ModInit {
     }
 
     public static void biomesLoading(BiomeLoadingEvent event) {
-        //Mars ice Spikes
-        if (event.getName().getPath().equals(BiomeRegistry.MARS_ICE_SPIKES.getRegistryName().getPath())) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MARS_ICE_SPIKE);
-        }
-
         //Rocky Mars
-        if (event.getName().getPath().equals(BiomeRegistry.MARS_ROCKY_PLAINS.getRegistryName().getPath())) {
+        if (event.getName().equals(BiomesRegistry.MARS_ROCKY_PLAINS)) {
             event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MARS_ROCK);
         }
 
         //Venus Deltas
-        if (event.getName().getPath().equals(BiomeRegistry.INFERNAL_VENUS_BARRENS.getRegistryName().getPath())) {
+        if (event.getName().equals(BiomesRegistry.INFERNAL_VENUS_BARRENS)) {
             event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_SMALL);
             event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_BIG);
         }

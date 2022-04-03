@@ -22,8 +22,8 @@ import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.capability.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.fluid.FluidUtil2;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.util.Rectangle2d;
 
 public class GuiHelper {

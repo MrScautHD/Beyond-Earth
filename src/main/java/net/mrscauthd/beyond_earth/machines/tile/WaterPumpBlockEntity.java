@@ -8,7 +8,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BucketPickup;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
@@ -23,8 +22,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.capability.fluid.FluidHandlerWrapper;
-import net.mrscauthd.beyond_earth.fluid.FluidUtil2;
+import net.mrscauthd.beyond_earth.capabilities.fluid.FluidHandlerWrapper;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gui.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.beyond_earth.machines.WaterPump;
 

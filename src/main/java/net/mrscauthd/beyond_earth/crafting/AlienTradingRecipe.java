@@ -13,7 +13,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.entity.alien.AlienTrade;
+import net.mrscauthd.beyond_earth.entities.alien.AlienTrade;
 
 public abstract class AlienTradingRecipe extends BeyondEarthRecipe {
 

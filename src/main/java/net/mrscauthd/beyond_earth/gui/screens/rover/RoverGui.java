@@ -10,9 +10,9 @@ import net.minecraftforge.items.*;
 
 import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.entity.RoverEntity;
+import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.fluid.FluidUtil2;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gui.helper.ContainerHelper;
 import org.jetbrains.annotations.NotNull;
 

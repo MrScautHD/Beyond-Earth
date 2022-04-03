@@ -4,7 +4,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.entity.alien.AlienTrade;
+import net.mrscauthd.beyond_earth.entities.alien.AlienTrade;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class RecipesUpdatedEvent {

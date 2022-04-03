@@ -19,7 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.capability.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;

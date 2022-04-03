@@ -16,7 +16,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
-import net.mrscauthd.beyond_earth.block.CoalLanternBlock;
+import net.mrscauthd.beyond_earth.blocks.CoalLanternBlock;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class CoalTorchEvents {

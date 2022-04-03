@@ -13,10 +13,10 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.mrscauthd.beyond_earth.entity.RocketTier1Entity;
-import net.mrscauthd.beyond_earth.entity.RocketTier2Entity;
-import net.mrscauthd.beyond_earth.entity.RocketTier3Entity;
-import net.mrscauthd.beyond_earth.entity.RocketTier4Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier3Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
 import net.mrscauthd.beyond_earth.gui.screens.rocket.RocketGuiWindow;
 import net.mrscauthd.beyond_earth.jei.JeiPlugin;
 

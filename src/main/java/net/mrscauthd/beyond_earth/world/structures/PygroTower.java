@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.structure.PostPlacementProcessor;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGenerator;
 import net.minecraft.world.level.levelgen.structure.pieces.PieceGeneratorSupplier;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
-import net.mrscauthd.beyond_earth.world.configurator.JigsawConfigurator;
+import net.mrscauthd.beyond_earth.world.configurators.JigsawConfigurator;
 
 import java.util.Optional;
 
