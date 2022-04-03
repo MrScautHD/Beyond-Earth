@@ -22,11 +22,11 @@
   },
   "features": [
     [
+      "minecraft:ice_spike",
+      "minecraft:ice_patch",
       "minecraft:freeze_top_layer",
       "minecraft:amethyst_geode",
-      "minecraft:glow_lichen",
-	  "minecraft:ice_spike",
-	  "minecraft:ice_patch"
+      "minecraft:glow_lichen"
     ]
   ]
 }
