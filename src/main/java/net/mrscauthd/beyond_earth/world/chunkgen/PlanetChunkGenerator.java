@@ -37,6 +37,11 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
     }
 
     @Override
+    public ChunkGenerator withSeed(long p_64374_) {
+        return new PlanetChunkGenerator(this.structureSets, this.noises, this.biomeSource.withSeed(p_64374_), p_64374_, this.settings);
+    }
+
+    @Override
     public void buildSurface(WorldGenRegion p_188636_, StructureFeatureManager p_188637_, ChunkAccess p_188638_) {
         BlockState bedrock = Blocks.BEDROCK.defaultBlockState();
 
