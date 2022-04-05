@@ -219,7 +219,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public BeyondEarthRecipeType<? extends FuelRefiningRecipe> getRecipeType() {
-		return BeyondEarthRecipeTypes.FUELREFINING;
+		return BeyondEarthRecipeTypes.FUEL_REFINING;
 	}
 
 	@Override

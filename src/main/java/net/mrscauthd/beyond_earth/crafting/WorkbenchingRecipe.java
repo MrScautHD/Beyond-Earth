@@ -26,6 +26,7 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate<RocketPartsItemHandler, Boolean> {
 
@@ -119,12 +120,12 @@ public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_WORKBENCHING.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_NASA_WORKBENCH.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.WORKBENCHING;
+		return BeyondEarthRecipeTypes.NASA_WORKBENCHING;
 	}
 
 	/**

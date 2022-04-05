@@ -34,7 +34,7 @@ public class CompressorGuiContainerHandler implements IGuiContainerHandler<Compr
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(CompressorJeiCategory.Uid));
+				recipesGui.showTypes(Arrays.asList(CompressorJeiCategory.recipeType));
 			}
 
 			@Override

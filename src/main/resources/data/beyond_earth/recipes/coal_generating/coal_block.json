@@ -1,5 +1,5 @@
 {
-	"type": "beyond_earth:generating",
+	"type": "beyond_earth:coal_generator",
 	"input": {
 		"tag": "forge:storage_blocks/coal"
 	},

@@ -11,13 +11,14 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class SpaceStationRecipe extends BeyondEarthRecipe {
 
 	public static final ResourceLocation KEY;
 
 	static {
-		ResourceLocation id = ModInit.RECIPE_SERIALIZER_SPACE_STATION.getId();
+		ResourceLocation id = RecipeSerializersRegistry.RECIPE_SERIALIZER_SPACE_STATION.getId();
 		KEY = new ResourceLocation(id.getNamespace(), id.getPath() + "/space_station");
 	}
 
@@ -63,7 +64,7 @@ public class SpaceStationRecipe extends BeyondEarthRecipe {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_SPACE_STATION.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_SPACE_STATION.get();
 	}
 
 	@Override

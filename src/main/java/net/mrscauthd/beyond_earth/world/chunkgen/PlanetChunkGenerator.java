@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.world.chunkgen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.SharedConstants;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.*;
 import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.blending.Blender;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
@@ -44,7 +42,6 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
     @Override
     public void buildSurface(WorldGenRegion p_188636_, StructureFeatureManager p_188637_, ChunkAccess p_188638_) {
         BlockState bedrock = Blocks.BEDROCK.defaultBlockState();
-
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
         int x;
@@ -73,13 +70,6 @@ public class PlanetChunkGenerator extends NoiseBasedChunkGenerator {
             }
         }
 
-        if (!SharedConstants.debugVoidTerrain(p_188638_.getPos())) {
-            WorldGenerationContext worldgenerationcontext = new WorldGenerationContext(this, p_188636_);
-            NoiseGeneratorSettings noisegeneratorsettings = this.settings.value();
-            NoiseChunk noisechunk = p_188638_.getOrCreateNoiseChunk(this.router(), () -> {
-                return new Beardifier(p_188637_, p_188638_);
-            }, noisegeneratorsettings, this.globalFluidPicker, Blender.of(p_188636_));
-            this.surfaceSystem.buildSurface(p_188636_.getBiomeManager(), p_188636_.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY), noisegeneratorsettings.useLegacyRandomSource(), worldgenerationcontext, p_188638_, noisechunk, noisegeneratorsettings.surfaceRule());
-        }
+        super.buildSurface(p_188636_, p_188637_, p_188638_);
     }
 }

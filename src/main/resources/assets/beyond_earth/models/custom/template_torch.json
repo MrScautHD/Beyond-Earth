@@ -1,6 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "template_torch",
 	"ambientocclusion": false,
 	"textures": {
 		"2": "beyond_earth:blocks/coal_torch",

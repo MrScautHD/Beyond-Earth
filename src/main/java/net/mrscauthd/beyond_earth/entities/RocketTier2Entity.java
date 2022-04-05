@@ -27,6 +27,8 @@ import io.netty.buffer.Unpooled;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
+import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
+import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
 public class RocketTier2Entity extends IRocketEntity {
 
@@ -99,8 +101,8 @@ public class RocketTier2Entity extends IRocketEntity {
 		if (this.entityData.get(START_TIMER) == 200) {
 			if (level instanceof ServerLevel) {
 				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.4, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.4, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.4, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.4, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
 				}
 			}
 		} else {
@@ -114,7 +116,7 @@ public class RocketTier2Entity extends IRocketEntity {
 
 	@Override
 	public void fillUpRocket() {
-		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), ModInit.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
+		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
 
 			if (this.entityData.get(FUEL) == 0 && this.entityData.get(BUCKETS) == 0) {
 				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));

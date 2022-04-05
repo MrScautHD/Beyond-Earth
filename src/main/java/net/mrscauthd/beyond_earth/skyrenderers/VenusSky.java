@@ -44,6 +44,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -532,7 +533,7 @@ public class VenusSky {
                                     double d2 = voxelshape.max(Direction.Axis.Y, d0, d1);
                                     double d3 = (double)fluidstate.getHeight(levelreader, blockpos1);
                                     double d4 = Math.max(d2, d3);
-                                    ParticleOptions particleoptions = !fluidstate.is(FluidTags.LAVA) && !blockstate.is(Blocks.MAGMA_BLOCK) && !CampfireBlock.isLitCampfire(blockstate) ? (ParticleOptions) ModInit.VENUS_RAIN_PARTICLE.get() : ParticleTypes.SMOKE;
+                                    ParticleOptions particleoptions = !fluidstate.is(FluidTags.LAVA) && !blockstate.is(Blocks.MAGMA_BLOCK) && !CampfireBlock.isLitCampfire(blockstate) ? (ParticleOptions) ParticlesRegistry.VENUS_RAIN_PARTICLE.get() : ParticleTypes.SMOKE;
                                     minecraft.level.addParticle(particleoptions, (double)blockpos1.getX() + d0, (double)blockpos1.getY() + d4, (double)blockpos1.getZ() + d1, 0.0D, 0.0D, 0.0D);
                                 }
                             }

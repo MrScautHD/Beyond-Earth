@@ -10,7 +10,7 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.fluids.FluidStack;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class FuelRefiningRecipe extends BeyondEarthRecipe implements Predicate<FluidStack>{
 	private FluidIngredient input;
@@ -65,12 +65,12 @@ public class FuelRefiningRecipe extends BeyondEarthRecipe implements Predicate<F
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_FUELREFINING.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_FUEL_REFINERY.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.FUELREFINING;
+		return BeyondEarthRecipeTypes.FUEL_REFINING;
 	}
 
 }

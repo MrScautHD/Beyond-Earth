@@ -1,6 +1,4 @@
 {
-	"credit": "Made with Blockbench",
-	"parent": "water_pump",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "beyond_earth:blocks/water_pump",

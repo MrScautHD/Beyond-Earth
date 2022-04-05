@@ -3,10 +3,7 @@ package net.mrscauthd.beyond_earth.compats.waila;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcp.mobius.waila.api.IRegistrar;
-import mcp.mobius.waila.api.ITooltip;
-import mcp.mobius.waila.api.IWailaPlugin;
-import mcp.mobius.waila.api.TooltipPosition;
+import mcp.mobius.waila.api.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -54,12 +51,14 @@ public class WailaPlugin implements IWailaPlugin {
 	}
 
 	@Override
-	public void register(IRegistrar registrar) {
-		registrar.registerBlockDataProvider(BlockDataProvider.INSTANCE, BlockEntity.class);
-		registrar.registerComponentProvider(BlockDataProvider.INSTANCE, TooltipPosition.BODY, Block.class);
-
-		registrar.registerEntityDataProvider(EntityDataProvider.INSTANCE, Entity.class);
-		registrar.registerComponentProvider(EntityDataProvider.INSTANCE, TooltipPosition.BODY, Entity.class);
+	public void register(IWailaCommonRegistration registration) {
+		registration.registerBlockDataProvider(BlockDataProvider.INSTANCE, BlockEntity.class);
+		registration.registerEntityDataProvider(EntityDataProvider.INSTANCE, Entity.class);
 	}
 
+	@Override
+	public void registerClient(IWailaClientRegistration registration) {
+		registration.registerComponentProvider(BlockDataProvider.INSTANCE, TooltipPosition.BODY, Block.class);
+		registration.registerComponentProvider(EntityDataProvider.INSTANCE, TooltipPosition.BODY, Entity.class);
+	}
 }

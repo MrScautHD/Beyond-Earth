@@ -1,5 +1,5 @@
 {
-	"type": "beyond_earth:oxygenloader",
+	"type": "beyond_earth:oxygen_loader",
 	"input": {
 		"name": "minecraft:water",
 		"amount": 5

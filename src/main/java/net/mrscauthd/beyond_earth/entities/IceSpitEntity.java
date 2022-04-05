@@ -18,6 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.Random;
 
@@ -74,7 +75,7 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
     }
 
     public static IceSpitEntity shoot(LivingEntity entity, LivingEntity target, int damage) {
-        IceSpitEntity entityarrow = new IceSpitEntity(ModInit.ICE_SPIT_ENTITY.get(), entity, entity.level);
+        IceSpitEntity entityarrow = new IceSpitEntity(EntitiesRegistry.ICE_SPIT_ENTITY.get(), entity, entity.level);
         double d0 = target.getY() + (double) target.getEyeHeight() - 1.1;
         double d1 = target.getX() - entity.getX();
         double d3 = target.getZ() - entity.getZ();

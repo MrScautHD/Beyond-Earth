@@ -6,7 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class OxygenBubbleDistributorRecipe extends OxygenMakingRecipeAbstract {
 
@@ -24,12 +24,12 @@ public class OxygenBubbleDistributorRecipe extends OxygenMakingRecipeAbstract {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_OXYGENBUBBLEDISTRIBUTOR.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_OXYGEN_BUBBLE_DISTRIBUTOR.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.OXYGENBUBBLEDISTRIBUTOR;
+		return BeyondEarthRecipeTypes.OXYGEN_BUBBLE_DISTRIBUTING;
 	}
 
 }

@@ -8,12 +8,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.*;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.ModInit;
 
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
+import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class RocketGui {
@@ -29,7 +30,7 @@ public class RocketGui {
 		Entity rocket;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ModInit.ROCKET_GUI.get(), id);
+			super(ScreensRegistry.ROCKET_GUI.get(), id);
 
 			this.rocket = inv.player.level.getEntity(extraData.readVarInt());
 
@@ -42,7 +43,7 @@ public class RocketGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 46, 22) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
-					return Methods.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), ModInit.FLUID_VEHICLE_FUEL_TAG);
+					return Methods.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG);
 				}
 			});
 

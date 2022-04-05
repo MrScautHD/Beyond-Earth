@@ -41,6 +41,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.AlienZombieEntity;
 import net.mrscauthd.beyond_earth.config.Config;
+import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -69,7 +70,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 
 	@Override
 	public Villager getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
-		AlienEntity alienentity = new AlienEntity(ModInit.ALIEN.get(),this.level);
+		AlienEntity alienentity = new AlienEntity(EntitiesRegistry.ALIEN.get(),this.level);
 		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos(p_241840_2_.getX(), p_241840_2_.getY(), p_241840_2_.getZ())), MobSpawnType.BREEDING, (SpawnGroupData)null, (CompoundTag)null);
 		return alienentity;
 	}

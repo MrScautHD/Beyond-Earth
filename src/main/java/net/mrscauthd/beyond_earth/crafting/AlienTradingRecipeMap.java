@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 import org.apache.commons.lang3.tuple.Triple;
 
 import com.google.gson.JsonObject;
@@ -93,7 +94,7 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_ALIEN_TRADING_MAP.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ALIEN_TRADING_MAP.get();
 	}
 
 	@Override

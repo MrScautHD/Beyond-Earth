@@ -10,6 +10,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class WaterPumpGui {
 
@@ -25,7 +26,7 @@ public class WaterPumpGui {
 		private final WaterPumpBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, WaterPumpBlockEntity blockEntity) {
-			super(ModInit.WATER_PUMP_GUI.get(), id);
+			super(ScreensRegistry.WATER_PUMP_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 90, this::addSlot);

@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.guis.screens.compressor;
 
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.core.BlockPos;
@@ -30,7 +31,7 @@ public class CompressorGui {
 		private CompressorBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, CompressorBlockEntity blockEntity) {
-			super(ModInit.COMPRESSOR_GUI.get(), id);
+			super(ScreensRegistry.COMPRESSOR_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();

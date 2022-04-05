@@ -1,5 +1,5 @@
 {
-   "type":"beyond_earth:fuelrefining",
+   "type":"beyond_earth:fuel_refinery",
    "input":{
       "tag":"beyond_earth:oil",
       "amount":2

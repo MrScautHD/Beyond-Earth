@@ -43,6 +43,7 @@ import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEve
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
+import net.mrscauthd.beyond_earth.registries.*;
 
 import java.util.Set;
 
@@ -204,7 +205,7 @@ public class Methods {
     }
 
     public static void oxygenDamage(LivingEntity entity) {
-        entity.hurt(ModInit.DAMAGE_SOURCE_OXYGEN, 1.0F);
+        entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
     public static boolean isRocket(Entity entity) {
@@ -248,7 +249,7 @@ public class Methods {
             return;
         }
 
-        if (tagCheck(entity, ModInit.PLANET_FIRE_TAG)) {
+        if (tagCheck(entity, TagsRegistry.PLANET_FIRE_TAG)) {
             return;
         }
 
@@ -269,12 +270,12 @@ public class Methods {
             return;
         }
 
-        if (tagCheck(entity, ModInit.VENUS_RAIN_TAG)) {
+        if (tagCheck(entity, TagsRegistry.VENUS_RAIN_TAG)) {
             return;
         }
 
         if (entity.level.getLevelData().isRaining() && entity.level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getX()), (int) Math.floor(entity.getZ())) <= Math.floor(entity.getY()) + 1) {
-            entity.hurt(ModInit.DAMAGE_SOURCE_ACID_RAIN, 1);
+            entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_ACID_RAIN, 1);
         }
     }
 
@@ -284,9 +285,9 @@ public class Methods {
             return;
         }
 
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(world) && tagCheck(entity, ModInit.OXYGEN_TAG)) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(world) && tagCheck(entity, TagsRegistry.OXYGEN_TAG)) {
 
-            if (!entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+            if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
                 entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") + 1);
 
@@ -302,7 +303,7 @@ public class Methods {
         }
 
         //Out of Space
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
             entity.setAirSupply(300);
         }
     }
@@ -339,7 +340,7 @@ public class Methods {
             Level newWorld = player.level;
 
             if (!player.level.isClientSide) {
-                LanderEntity entityToSpawn = new LanderEntity(ModInit.LANDER.get(), newWorld);
+                LanderEntity entityToSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newWorld);
                 entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
                 newWorld.addFreshEntity(entityToSpawn);
 
@@ -365,7 +366,7 @@ public class Methods {
         Level world = player.level;
 
         if (!world.isClientSide) {
-            LanderEntity landerSpawn = new LanderEntity(ModInit.LANDER.get(), world);
+            LanderEntity landerSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), world);
             landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
             world.addFreshEntity(landerSpawn);
 
@@ -482,7 +483,7 @@ public class Methods {
     }
 
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(ModInit.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
             CompoundTag persistentData = player.getPersistentData();
@@ -500,7 +501,7 @@ public class Methods {
 	}
 
     public static void rocketSounds(Entity entity, Level world) {
-        world.playSound(null, entity, ModInit.ROCKET_SOUND.get(), SoundSource.NEUTRAL,1,1);
+        world.playSound(null, entity, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL,1,1);
     }
 
     public static void noFuelMessage(Player player) {

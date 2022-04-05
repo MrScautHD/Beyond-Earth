@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.StructureProcessorsRegistry;
 
 public class StructureVoidProcessor extends StructureProcessor {
 
@@ -23,6 +23,7 @@ public class StructureVoidProcessor extends StructureProcessor {
         if (structureBlockInfoWorld.state.is(Blocks.STRUCTURE_VOID)) {
             return null;
         }
+
         if (worldView.getBlockState(structureBlockInfoWorld.pos).isAir()) {
             return null;
         }
@@ -32,6 +33,6 @@ public class StructureVoidProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return ModInit.STRUCTURE_VOID_PROCESSOR;
+        return StructureProcessorsRegistry.STRUCTURE_VOID_PROCESSOR;
     }
 }

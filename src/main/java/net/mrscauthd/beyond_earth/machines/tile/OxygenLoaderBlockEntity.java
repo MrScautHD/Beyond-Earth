@@ -98,7 +98,7 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 
 	@Override
 	public BeyondEarthRecipeType<? extends OxygenMakingRecipeAbstract> getRecipeType() {
-		return BeyondEarthRecipeTypes.OXYGENLOADER;
+		return BeyondEarthRecipeTypes.OXYGEN_LOADING;
 	}
 
 	@Override

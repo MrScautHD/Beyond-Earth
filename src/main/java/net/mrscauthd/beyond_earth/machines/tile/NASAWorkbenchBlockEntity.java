@@ -199,7 +199,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public BeyondEarthRecipeType<WorkbenchingRecipe> getRecipeType() {
-		return BeyondEarthRecipeTypes.WORKBENCHING;
+		return BeyondEarthRecipeTypes.NASA_WORKBENCHING;
 	}
 
 	@Override

@@ -37,16 +37,16 @@ public class RocketGuiContainerHandler implements IGuiContainerHandler<RocketGui
             @Override
             public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
                 if (containerScreen.getRocket() instanceof RocketTier1Entity) {
-                    recipesGui.showCategories(Arrays.asList(JeiPlugin.RocketTier1JeiCategory.Uid));
+                    recipesGui.showTypes(Arrays.asList(JeiPlugin.RocketTier1JeiCategory.recipeType));
                 }
                 if (containerScreen.getRocket() instanceof RocketTier2Entity) {
-                    recipesGui.showCategories(Arrays.asList(JeiPlugin.RocketTier2JeiCategory.Uid));
+                    recipesGui.showTypes(Arrays.asList(JeiPlugin.RocketTier2JeiCategory.recipeType));
                 }
                 if (containerScreen.getRocket() instanceof RocketTier3Entity) {
-                    recipesGui.showCategories(Arrays.asList(JeiPlugin.RocketTier3JeiCategory.Uid));
+                    recipesGui.showTypes(Arrays.asList(JeiPlugin.RocketTier3JeiCategory.recipeType));
                 }
                 if (containerScreen.getRocket() instanceof RocketTier4Entity) {
-                    recipesGui.showCategories(Arrays.asList(JeiPlugin.RocketTier4JeiCategory.Uid));
+                    recipesGui.showTypes(Arrays.asList(JeiPlugin.RocketTier4JeiCategory.recipeType));
                 }
             }
 

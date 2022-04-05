@@ -10,6 +10,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class SolarPanelGui {
 
@@ -25,7 +26,7 @@ public class SolarPanelGui {
 		private SolarPanelBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, SolarPanelBlockEntity blockEntity) {
-			super(ModInit.SOLAR_PANEL_GUI.get(), id);
+			super(ScreensRegistry.SOLAR_PANEL_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			ContainerHelper.addInventorySlots(this, inv, 8, 84, this::addSlot);

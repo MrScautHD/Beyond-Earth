@@ -1,5 +1,5 @@
 {
-   "type":"beyond_earth:workbenching",
+   "type":"beyond_earth:nasa_workbench",
    "input":{
       "parts":{
          "beyond_earth:nose":[
@@ -9,35 +9,35 @@
          ],
          "beyond_earth:body":[
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             },
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             },
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             },
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             },
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             },
             {
-               "tag":"beyond_earth:compresseds/desh"
+               "tag":"beyond_earth:compresseds/steel"
             }
          ],
          "beyond_earth:tank":[
             {
-               "tag":"beyond_earth:tanks/desh"
+               "tag":"beyond_earth:tanks/steel"
             },
             {
-               "tag":"beyond_earth:tanks/desh"
+               "tag":"beyond_earth:tanks/steel"
             }
          ],
          "beyond_earth:fin_left":[
             {
-               "item":"minecraft:bucket"
+               "item":"beyond_earth:rocket_fin"
             },
             {
                "item":"beyond_earth:rocket_fin"
@@ -45,7 +45,7 @@
          ],
          "beyond_earth:fin_right":[
             {
-               "item":"minecraft:bucket"
+               "item":"beyond_earth:rocket_fin"
             },
             {
                "item":"beyond_earth:rocket_fin"
@@ -53,13 +53,13 @@
          ],
          "beyond_earth:engine":[
             {
-               "tag":"beyond_earth:engines/desh"
+               "tag":"beyond_earth:engines/steel"
             }
          ]
       }
    },
    "output":{
-      "item":"beyond_earth:rocket_t2",
+      "item":"beyond_earth:rocket_t1",
       "count":1
    }
 }

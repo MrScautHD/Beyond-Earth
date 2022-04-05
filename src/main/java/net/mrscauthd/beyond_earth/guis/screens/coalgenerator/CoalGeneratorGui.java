@@ -12,6 +12,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.CoalGeneratorBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class CoalGeneratorGui {
 
@@ -27,7 +28,7 @@ public class CoalGeneratorGui {
 		private CoalGeneratorBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, CoalGeneratorBlockEntity blockEntity) {
-			super(ModInit.COAL_GENERATOR_GUI.get(), id);
+			super(ScreensRegistry.COAL_GENERATOR_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();

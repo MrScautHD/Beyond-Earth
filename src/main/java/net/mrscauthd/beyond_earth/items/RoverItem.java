@@ -22,6 +22,7 @@ import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
+import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -74,7 +75,7 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
             if (entities.isEmpty()) {
-                RoverEntity rover = new RoverEntity(ModInit.ROVER.get(), world);
+                RoverEntity rover = new RoverEntity(EntitiesRegistry.ROVER.get(), world);
 
                 rover.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
                 double d0 = this.getYOffset(world, pos, true, rover.getBoundingBox());

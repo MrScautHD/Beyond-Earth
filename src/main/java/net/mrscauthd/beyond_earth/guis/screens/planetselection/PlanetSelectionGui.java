@@ -13,6 +13,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class PlanetSelectionGui {
 
@@ -27,7 +28,7 @@ public class PlanetSelectionGui {
 		Player player;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ModInit.PLANET_SELECTION_GUI.get(), id);
+			super(ScreensRegistry.PLANET_SELECTION_GUI.get(), id);
 
 			this.rocket = extraData.readUtf();
 			this.player = inv.player;

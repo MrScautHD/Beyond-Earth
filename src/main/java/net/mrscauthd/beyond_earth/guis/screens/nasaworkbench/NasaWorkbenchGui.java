@@ -16,6 +16,7 @@ import net.mrscauthd.beyond_earth.guis.helper.GridPlacer;
 import net.mrscauthd.beyond_earth.guis.helper.RocketPartGridPlacer;
 import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class NasaWorkbenchGui {
 
@@ -35,7 +36,7 @@ public class NasaWorkbenchGui {
 		private int partSlotEnd = 0;
 
 		public GuiContainer(int id, Inventory inv, NASAWorkbenchBlockEntity blockEntity) {
-			super(ModInit.NASA_WORKBENCH_GUI.get(), id);
+			super(ScreensRegistry.NASA_WORKBENCH_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			this.resultInventory = new ResultContainer() {

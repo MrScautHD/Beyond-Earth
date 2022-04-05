@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.crafting;
 
 import java.util.Random;
 
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 import org.apache.commons.lang3.tuple.Triple;
 
 import com.google.gson.JsonObject;
@@ -14,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.mrscauthd.beyond_earth.ModInit;
 
 public class AlienTradingRecipeEnchantedItem extends AlienTradingRecipeItemStack {
 	
@@ -104,12 +104,12 @@ public class AlienTradingRecipeEnchantedItem extends AlienTradingRecipeItemStack
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTEDITEM.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTED_ITEM.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.ALIEN_TRADING_ENCHANTEDITEM;
+		return BeyondEarthRecipeTypes.ALIEN_TRADING_ENCHANTED_ITEM;
 	}
 
 	public static class Serializer extends BeyondEarthRecipeSerializer<AlienTradingRecipeEnchantedItem> {

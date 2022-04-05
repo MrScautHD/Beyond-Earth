@@ -46,6 +46,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
+import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -298,7 +299,7 @@ public class RoverEntity extends VehicleEntity {
         this.resetFallDistance();
 
         //Fuel Load up
-        if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), ModInit.FLUID_VEHICLE_FUEL_TAG)) {
+        if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
 
             if (this.entityData.get(FUEL) <= 2000) {
                 this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));

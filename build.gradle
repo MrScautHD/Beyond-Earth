@@ -73,7 +73,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.35'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.40'
 
     //Mixin
     if (System.getProperty("idea.sync.active") != "true") {
@@ -81,14 +81,14 @@ dependencies {
     }
 
     //JEI
-    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.4.3.122")
+    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.0.180:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.7.0.180")
 
     //The One Probe
     implementation fg.deobf("curse.maven:the-one-probe-245211:3671753")
     
     //Jade
-    implementation fg.deobf("curse.maven:jade-324717:3671210")
+    implementation fg.deobf("curse.maven:jade-324717:3681449")
 
     //TConstruct
     //implementation fg.deobf("slimeknights.mantle:Mantle:1.18.1-1.7.29")

@@ -35,7 +35,7 @@ public class CoalGeneratorGuiContainerHandler  implements IGuiContainerHandler<C
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(CoalGeneratorJeiCategory.Uid));
+				recipesGui.showTypes(Arrays.asList(CoalGeneratorJeiCategory.recipeType));
 			}
 
 			@Override

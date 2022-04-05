@@ -17,7 +17,7 @@ import net.minecraft.world.item.DyeableLeatherItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class AlienTradingRecipeDyedItem extends AlienTradingRecipeItemStack {
 
@@ -84,12 +84,12 @@ public class AlienTradingRecipeDyedItem extends AlienTradingRecipeItemStack {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_ALIEN_TRADING_DYEDITEM.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ALIEN_TRADING_DYED_ITEM.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.ALIEN_TRADING_DYEDITEM;
+		return BeyondEarthRecipeTypes.ALIEN_TRADING_DYED_ITEM;
 	}
 
 	public static class Serializer extends BeyondEarthRecipeSerializer<AlienTradingRecipeDyedItem> {

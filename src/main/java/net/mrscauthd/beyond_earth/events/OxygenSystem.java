@@ -10,6 +10,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
+import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenSystem {
 
@@ -21,7 +22,7 @@ public class OxygenSystem {
                 Methods.oxygenDamage(entity);
             }
 
-            if (Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+            if (Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
                 ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
                 IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
@@ -36,17 +37,17 @@ public class OxygenSystem {
 
             }
 
-            if (!Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+            if (!Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
                 entity.setAirSupply(-4);
             }
 
-            if (entity.hasEffect(ModInit.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
+            if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
                 entity.setAirSupply(300);
             }
         }
 
         //Out of Space
-        if (Methods.spaceSuitCheckBoth(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+        if (Methods.spaceSuitCheckBoth(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
             ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
             IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
@@ -55,7 +56,7 @@ public class OxygenSystem {
             }
         }
 
-        if (entity.hasEffect(ModInit.OXYGEN_EFFECT.get())) {
+        if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
             entity.setAirSupply(300);
         }
     }

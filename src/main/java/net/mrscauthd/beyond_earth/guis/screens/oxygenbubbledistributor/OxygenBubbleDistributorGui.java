@@ -13,6 +13,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenMakingBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class OxygenBubbleDistributorGui {
 
@@ -28,7 +29,7 @@ public class OxygenBubbleDistributorGui {
 		private OxygenBubbleDistributorBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, OxygenBubbleDistributorBlockEntity blockEntity) {
-			super(ModInit.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
+			super(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			IItemHandlerModifiable internal = blockEntity.getItemHandler();

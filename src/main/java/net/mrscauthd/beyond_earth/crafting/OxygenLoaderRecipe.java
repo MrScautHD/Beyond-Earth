@@ -6,7 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class OxygenLoaderRecipe extends OxygenMakingRecipeAbstract {
 
@@ -24,12 +24,12 @@ public class OxygenLoaderRecipe extends OxygenMakingRecipeAbstract {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_OXYGENLOADER.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_OXYGEN_LOADER.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.OXYGENLOADER;
+		return BeyondEarthRecipeTypes.OXYGEN_LOADING;
 	}
 
 }

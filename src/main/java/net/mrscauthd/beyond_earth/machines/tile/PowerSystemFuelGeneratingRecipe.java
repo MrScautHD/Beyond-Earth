@@ -13,7 +13,7 @@ public class PowerSystemFuelGeneratingRecipe extends PowerSystemFuelBurnTime {
 	}
 
 	public BeyondEarthRecipeType<? extends GeneratingRecipe> getRecipeType() {
-		return BeyondEarthRecipeTypes.GENERATING;
+		return BeyondEarthRecipeTypes.COAL_GENERATING;
 	}
 
 	@Override

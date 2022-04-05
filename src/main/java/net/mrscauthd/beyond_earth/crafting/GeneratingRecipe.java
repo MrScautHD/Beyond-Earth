@@ -14,7 +14,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class GeneratingRecipe extends BeyondEarthRecipe implements Predicate<ItemStack> {
 
@@ -57,12 +57,12 @@ public class GeneratingRecipe extends BeyondEarthRecipe implements Predicate<Ite
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_GENERATING.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_COAL_GENERATOR.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.GENERATING;
+		return BeyondEarthRecipeTypes.COAL_GENERATING;
 	}
 
 	public int getFuelSlot(Container container, Level level) {

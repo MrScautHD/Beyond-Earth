@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import org.apache.commons.lang3.tuple.Triple;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
@@ -24,6 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipe;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeType;
 
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class AlienTrade implements ItemListing {
 	public static int MAX_USES = 9999;
 	public static final Map<VillagerProfession, Int2ObjectMap<ItemListing[]>> TRADES = new HashMap<>();
@@ -66,6 +70,7 @@ public class AlienTrade implements ItemListing {
 
 	}
 
+	@SubscribeEvent
 	public static void addReloadListener(AddReloadListenerEvent event) {
 		if (event.getServerResources() != null) {
 			RecipeManager recipeManager = event.getServerResources().getRecipeManager();
@@ -75,7 +80,6 @@ public class AlienTrade implements ItemListing {
 				public void onResourceManagerReload(ResourceManager resourceManager) {
 					AlienTrade.registerTrades(recipeManager);
 				}
-
 			});
 		}
 	}

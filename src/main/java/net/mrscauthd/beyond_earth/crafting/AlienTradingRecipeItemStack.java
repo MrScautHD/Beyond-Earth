@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.crafting;
 
 import java.util.Random;
 
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 import org.apache.commons.lang3.tuple.Triple;
 
 import com.google.gson.JsonObject;
@@ -50,7 +51,7 @@ public class AlienTradingRecipeItemStack extends AlienTradingRecipeItemStackBase
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_ALIEN_TRADING_ITEMSTACK.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ALIEN_TRADING_ITEMSTACK.get();
 	}
 
 	@Override

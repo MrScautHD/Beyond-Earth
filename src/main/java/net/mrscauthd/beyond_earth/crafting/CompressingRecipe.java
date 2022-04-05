@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 
 public class CompressingRecipe extends ItemStackToItemStackRecipe {
 
@@ -26,7 +26,7 @@ public class CompressingRecipe extends ItemStackToItemStackRecipe {
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_COMPRESSING.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_COMPRESSOR.get();
 	}
 
 	@Override

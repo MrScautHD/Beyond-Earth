@@ -11,6 +11,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class LanderGui {
@@ -25,7 +26,7 @@ public class LanderGui {
 		Entity lander;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ModInit.LANDER_GUI.get(), id);
+			super(ScreensRegistry.LANDER_GUI.get(), id);
 
 			this.lander = inv.player.level.getEntity(extraData.readVarInt());
 

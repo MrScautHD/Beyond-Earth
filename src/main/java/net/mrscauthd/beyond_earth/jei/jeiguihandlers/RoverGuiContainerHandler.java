@@ -32,7 +32,7 @@ public class RoverGuiContainerHandler implements IGuiContainerHandler<RoverGuiWi
 
 			@Override
 			public void onClick(IFocusFactory focusFactory, IRecipesGui recipesGui) {
-				recipesGui.showCategories(Arrays.asList(RoverJeiCategory.Uid));
+				recipesGui.showTypes(Arrays.asList(RoverJeiCategory.recipeType));
 			}
 
 			@Override

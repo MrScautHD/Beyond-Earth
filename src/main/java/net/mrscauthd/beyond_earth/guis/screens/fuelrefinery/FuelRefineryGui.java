@@ -12,6 +12,7 @@ import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class FuelRefineryGui {
 
@@ -27,7 +28,7 @@ public class FuelRefineryGui {
 		private final FuelRefineryBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, FuelRefineryBlockEntity blockEntity) {
-			super(ModInit.FUEL_REFINERY_GUI.get(), id);
+			super(ScreensRegistry.FUEL_REFINERY_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();

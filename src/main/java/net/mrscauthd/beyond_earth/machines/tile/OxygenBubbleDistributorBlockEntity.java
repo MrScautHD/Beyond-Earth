@@ -8,9 +8,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,6 +23,7 @@ import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
+import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
 
@@ -102,15 +102,10 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 
 	private void spawnOxygenBubble(double range) {
 		Level level = this.getLevel();
-		List<Mob> entities = level.getEntitiesOfClass(Mob.class, this.getWorkingArea(range));
-		List<Player> players = level.getEntitiesOfClass(Player.class, this.getWorkingArea(range));
+		List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, this.getWorkingArea(range));
 
-		for (Mob entity : entities) {
-			entity.addEffect(new MobEffectInstance(ModInit.OXYGEN_EFFECT.get(), 2 * 24, 0, false, false));
-		}
-
-		for (Player entity : players) {
-			entity.addEffect(new MobEffectInstance(ModInit.OXYGEN_EFFECT.get(), 2 * 24, 0, false, false));
+		for (LivingEntity entity : entities) {
+			entity.addEffect(new MobEffectInstance(EffectsRegistry.OXYGEN_EFFECT.get(), 2 * 24, 0, false, false));
 		}
 
 		if (level instanceof ServerLevel) {
@@ -193,7 +188,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 
 	@Override
 	public BeyondEarthRecipeType<? extends OxygenMakingRecipeAbstract> getRecipeType() {
-		return BeyondEarthRecipeTypes.OXYGENBUBBLEDISTRIBUTOR;
+		return BeyondEarthRecipeTypes.OXYGEN_BUBBLE_DISTRIBUTING;
 	}
 
 	public static class ChangeRangeMessage {

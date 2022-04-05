@@ -27,6 +27,8 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
+import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
+import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
 public class RocketTier4Entity extends IRocketEntity {
 
@@ -102,14 +104,14 @@ public class RocketTier4Entity extends IRocketEntity {
 					float f2 = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * (0.7F + 0.21F * (float)1);
 					float f3 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * (0.7F + 0.21F * (float)1);
 
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.9, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.9, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.9, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.9, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
 
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.SMALL_FLAME_PARTICLE.get(), true, this.getX() + f2, this.getY() - vec.y - 2.3, this.getZ() + f3, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.SMALL_SMOKE_PARTICLE.get(), true, this.getX() + f2, this.getY() - vec.y - 3.3, this.getZ() + f3, 10, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_FLAME_PARTICLE.get(), true, this.getX() + f2, this.getY() - vec.y - 2.3, this.getZ() + f3, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_SMOKE_PARTICLE.get(), true, this.getX() + f2, this.getY() - vec.y - 3.3, this.getZ() + f3, 10, 0.1, 0.1, 0.1, 0.04);
 
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.SMALL_FLAME_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 2.3, this.getZ() - f3, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ModInit.SMALL_SMOKE_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 3.3, this.getZ() - f3, 10, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_FLAME_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 2.3, this.getZ() - f3, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_SMOKE_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 3.3, this.getZ() - f3, 10, 0.1, 0.1, 0.1, 0.04);
 				}
 			}
 		} else {
@@ -123,7 +125,7 @@ public class RocketTier4Entity extends IRocketEntity {
 
 	@Override
 	public void fillUpRocket() {
-		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), ModInit.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
+		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
 
 			if (this.entityData.get(FUEL) == 0 && this.entityData.get(BUCKETS) == 0) {
 				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));

@@ -16,6 +16,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
+import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class Tier2RocketItem extends IRocketItem implements FilledAltVehicleItem
                 List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
                 if (entities.isEmpty()) {
-                    RocketTier2Entity rocket = new RocketTier2Entity(ModInit.TIER_2_ROCKET.get(), world);
+                    RocketTier2Entity rocket = new RocketTier2Entity(EntitiesRegistry.TIER_2_ROCKET.get(), world);
 
                     rocket.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
                     double d0 = this.getYOffset(world, pos, true, rocket.getBoundingBox());

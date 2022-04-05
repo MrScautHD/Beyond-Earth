@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 import org.apache.commons.lang3.tuple.Triple;
 
 import com.google.gson.JsonObject;
@@ -20,7 +21,6 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.ModInit;
 
 public class AlienTradingRecipeEnchantedBook extends AlienTradingRecipeItemStackBase {
 
@@ -99,12 +99,12 @@ public class AlienTradingRecipeEnchantedBook extends AlienTradingRecipeItemStack
 
 	@Override
 	public RecipeSerializer<?> getSerializer() {
-		return ModInit.RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTEDBOOK.get();
+		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTED_BOOK.get();
 	}
 
 	@Override
 	public RecipeType<?> getType() {
-		return BeyondEarthRecipeTypes.ALIEN_TRADING_ENCHANTEDBOOK;
+		return BeyondEarthRecipeTypes.ALIEN_TRADING_ENCHANTED_BOOK;
 	}
 
 	public static class Serializer extends BeyondEarthRecipeSerializer<AlienTradingRecipeEnchantedBook> {

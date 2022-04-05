@@ -13,6 +13,7 @@ import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenMakingBlockEntity;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class OxygenLoaderGui {
 
@@ -28,7 +29,7 @@ public class OxygenLoaderGui {
 		private OxygenLoaderBlockEntity blockEntity;
 
 		public GuiContainer(int id, Inventory inv, OxygenLoaderBlockEntity blockEntity) {
-			super(ModInit.OXYGEN_LOADER_GUI.get(), id);
+			super(ScreensRegistry.OXYGEN_LOADER_GUI.get(), id);
 			this.blockEntity = blockEntity;
 
 			IItemHandlerModifiable internal = blockEntity.getItemHandler();

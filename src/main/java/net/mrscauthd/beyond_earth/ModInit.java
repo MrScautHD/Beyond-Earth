@@ -1,43 +1,18 @@
 package net.mrscauthd.beyond_earth;
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.data.worldgen.features.FeatureUtils;
-import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.TagKey;
-import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.levelgen.*;
-import net.minecraft.world.level.levelgen.feature.*;
-import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
-import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.*;
 import net.mrscauthd.beyond_earth.armors.SpaceSuit;
@@ -57,27 +32,11 @@ import net.mrscauthd.beyond_earth.crafting.OxygenLoaderRecipeSerializer;
 import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipeSerializer;
 import net.mrscauthd.beyond_earth.crafting.RocketPart;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipeSerializer;
-import net.mrscauthd.beyond_earth.effects.OxygenEffect;
-import net.mrscauthd.beyond_earth.entities.*;
-import net.mrscauthd.beyond_earth.features.MarsBlockBlobFeature;
-import net.mrscauthd.beyond_earth.features.VenusDeltas;
 import net.mrscauthd.beyond_earth.flag.FlagTileEntity;
 import net.mrscauthd.beyond_earth.fluids.OilFluid;
 import net.mrscauthd.beyond_earth.globe.GlobeBlock;
 import net.mrscauthd.beyond_earth.globe.GlobeItem;
 import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGui;
-import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGui;
-import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGui;
-import net.mrscauthd.beyond_earth.guis.screens.lander.LanderGui;
-import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGui;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGui;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
-import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
-import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
-import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelGui;
-import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.beyond_earth.items.*;
 import net.mrscauthd.beyond_earth.machines.*;
 import net.mrscauthd.beyond_earth.machines.tile.CoalGeneratorBlockEntity;
@@ -88,27 +47,19 @@ import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEnti
 import net.mrscauthd.beyond_earth.machines.tile.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.WaterPumpBlockEntity;
-import net.mrscauthd.beyond_earth.entities.pygro.PygroEntity;
 import net.mrscauthd.beyond_earth.flag.*;
 import net.mrscauthd.beyond_earth.fluids.FuelFluid;
 import net.mrscauthd.beyond_earth.armors.NetheriteSpaceSuit;
-import net.mrscauthd.beyond_earth.entities.alien.AlienEntity;
 
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
-import net.mrscauthd.beyond_earth.entities.pygro.PygroMobsSensor;
-import net.mrscauthd.beyond_earth.registries.BiomesRegistry;
-import net.mrscauthd.beyond_earth.world.chunkgen.PlanetChunkGenerator;
-import net.mrscauthd.beyond_earth.world.processors.StructureVoidProcessor;
-import net.mrscauthd.beyond_earth.world.structures.*;
+import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModInit {
-
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BeyondEarthMod.MODID);
 
     public static final DeferredRegister<BlockEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, BeyondEarthMod.MODID);
 
@@ -116,17 +67,7 @@ public class ModInit {
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, BeyondEarthMod.MODID);
 
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, BeyondEarthMod.MODID);
-
-    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, BeyondEarthMod.MODID);
-
-    public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BeyondEarthMod.MODID);
-
-    public static final DeferredRegister<MenuType<?>> GUIS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarthMod.MODID);
-
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BeyondEarthMod.MODID);
-
-    public static final DeferredRegister<StructureFeature<?>> STRUCTURES = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, BeyondEarthMod.MODID);
 
     //Vehicle Items
     public static final RegistryObject<Tier1RocketItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
@@ -135,36 +76,8 @@ public class ModInit {
     public static final RegistryObject<Tier4RocketItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
     public static final RegistryObject<RoverItem> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
 
-    //Entities
-    public static final RegistryObject<EntityType<AlienEntity>> ALIEN = ENTITIES.register("alien", () -> EntityType.Builder.of(AlienEntity::new, MobCategory.CREATURE).sized(0.75f, 2.5f).build(new ResourceLocation(BeyondEarthMod.MODID, "alien").toString()));
-    public static final RegistryObject<EntityType<AlienZombieEntity>> ALIEN_ZOMBIE = ENTITIES.register("alien_zombie", () -> EntityType.Builder.of(AlienZombieEntity::new, MobCategory.MONSTER).sized(0.6f, 2.4f).build(new ResourceLocation(BeyondEarthMod.MODID, "alien_zombie").toString()));
-    public static final RegistryObject<EntityType<StarCrawlerEntity>> STAR_CRAWLER = ENTITIES.register("star_crawler", () -> EntityType.Builder.of(StarCrawlerEntity::new, MobCategory.MONSTER).sized(1.3f, 1f).build(new ResourceLocation(BeyondEarthMod.MODID, "star_crawler").toString()));
-    public static final RegistryObject<EntityType<PygroEntity>> PYGRO = ENTITIES.register("pygro", () -> EntityType.Builder.of(PygroEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6f, 1.8f).build(new ResourceLocation(BeyondEarthMod.MODID, "pygro").toString()));
-    public static final RegistryObject<EntityType<PygroBruteEntity>> PYGRO_BRUTE = ENTITIES.register("pygro_brute", () -> EntityType.Builder.of(PygroBruteEntity::new, MobCategory.MONSTER).fireImmune().sized(0.6f, 1.8f).build(new ResourceLocation(BeyondEarthMod.MODID, "pygro_brute").toString()));
-    public static final RegistryObject<EntityType<MoglerEntity>> MOGLER = ENTITIES.register("mogler", () -> EntityType.Builder.of(MoglerEntity::new, MobCategory.MONSTER).sized(1.4f, 1.4f).build(new ResourceLocation(BeyondEarthMod.MODID, "mogler").toString()));
-    public static final RegistryObject<EntityType<MartianRaptor>> MARTIAN_RAPTOR = ENTITIES.register("martian_raptor", () -> EntityType.Builder.of(MartianRaptor::new, MobCategory.MONSTER).sized(0.75f, 2.0f).build(new ResourceLocation(BeyondEarthMod.MODID, "martian_raptor").toString()));
-
-    //VEHICLES
-    public static final RegistryObject<EntityType<RocketTier1Entity>> TIER_1_ROCKET = ENTITIES.register("rocket_t1", () -> EntityType.Builder.of(RocketTier1Entity::new, MobCategory.MISC).sized(1.1f, 4.4f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "rocket_t1").toString()));
-    public static final RegistryObject<EntityType<RocketTier2Entity>> TIER_2_ROCKET = ENTITIES.register("rocket_t2", () -> EntityType.Builder.of(RocketTier2Entity::new, MobCategory.MISC).sized(1.1f, 4.6f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "rocket_t2").toString()));
-    public static final RegistryObject<EntityType<RocketTier3Entity>> TIER_3_ROCKET = ENTITIES.register("rocket_t3", () -> EntityType.Builder.of(RocketTier3Entity::new, MobCategory.MISC).sized(1.1f, 4.8f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "rocket_t3").toString()));
-    public static final RegistryObject<EntityType<RocketTier4Entity>> TIER_4_ROCKET = ENTITIES.register("rocket_t4", () -> EntityType.Builder.of(RocketTier4Entity::new, MobCategory.MISC).sized(1.1f, 6.1f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "rocket_t4").toString()));
-    public static final RegistryObject<EntityType<LanderEntity>> LANDER = ENTITIES.register("lander", () -> EntityType.Builder.of(LanderEntity::new, MobCategory.MISC).sized(0.6f, 2.0f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "lander").toString()));
-    public static final RegistryObject<EntityType<RoverEntity>> ROVER = ENTITIES.register("rover", () -> EntityType.Builder.of(RoverEntity::new, MobCategory.MISC).sized(2.5f, 1.0f).fireImmune().build(new ResourceLocation(BeyondEarthMod.MODID, "rover").toString()));
-
     //Rocket Launch Pad
     public static final RegistryObject<Block> ROCKET_LAUNCH_PAD = BLOCKS.register("rocket_launch_pad", () -> new RocketLaunchPad(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-
-
-    //Alien Spit Entity
-    public static final RegistryObject<EntityType<? extends IceSpitEntity>> ICE_SPIT_ENTITY = ENTITIES.register("ice_spit_entity", () -> EntityType.Builder.<IceSpitEntity>of(IceSpitEntity::new, MobCategory.MISC).sized(0.5f, 0.5f).build(new ResourceLocation(BeyondEarthMod.MODID, "alien_spit_entity").toString()));
-
-    //pygro
-    public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, BeyondEarthMod.MODID);
-    public static final RegistryObject<SensorType<PygroMobsSensor>> PYGRO_SENSOR = SENSOR.register("pygro_sensor", ()-> new SensorType<>(PygroMobsSensor::new));
-
-    //Sounds
-    public static final RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> new SoundEvent(new ResourceLocation(BeyondEarthMod.MODID, "rocket_fly")));
 
     //Blocks
     public static final RegistryObject<Block> COAL_TORCH_BLOCK = BLOCKS.register("coal_torch",() -> new CoalTorchBlock(BlockBehaviour.Properties.of(Material.DECORATION).noCollission().instabreak().sound(SoundType.WOOD)));
@@ -247,15 +160,11 @@ public class ModInit {
     public static final RegistryObject<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel",() -> new LiquidBlock(ModInit.FUEL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noDrops()));
     public static final RegistryObject<Item> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new BucketItem(ModInit.FUEL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroups.tab_normal)));
 
-    public static final TagKey<Fluid> FLUID_VEHICLE_FUEL_TAG = TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "vehicle_fuel"));
-
     //Oil Fluid
     public static final RegistryObject<FlowingFluid> FLOWING_OIL = FLUIDS.register("flowing_oil", () -> new OilFluid.Flowing());
     public static final RegistryObject<FlowingFluid> OIL_STILL = FLUIDS.register("oil", () -> new OilFluid.Source());
     public static final RegistryObject<LiquidBlock> OIL_BLOCK = BLOCKS.register("oil",() -> new LiquidBlock(ModInit.OIL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noDrops()));
     public static final RegistryObject<Item> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(ModInit.OIL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroups.tab_normal)));
-
-    public static final TagKey<Fluid> OIL_FLUID_TAG = TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "oil"));
 
     //Item
     public static final RegistryObject<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(COAL_TORCH_BLOCK.get(), WALL_COAL_TORCH_BLOCK.get(),new Item.Properties().tab(ItemGroups.tab_basics)));
@@ -263,13 +172,13 @@ public class ModInit {
     public static final RegistryObject<BlockItem> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(ModInit.COAL_LANTERN_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_basics)));
 
     //Spawn Eggs
-    public static final RegistryObject<ForgeSpawnEggItem> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg", () -> new ForgeSpawnEggItem(ALIEN::get, -13382401, -11650781, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> ALIEN_ZOMBIE_SPAWN_EGG = ITEMS.register("alien_zombie_spawn_egg",() -> new ForgeSpawnEggItem(ALIEN_ZOMBIE::get, -14804199, -16740159, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ForgeSpawnEggItem(STAR_CRAWLER::get, -13421773, -16724788, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> PYGRO_SPAWN_EGG = ITEMS.register("pygro_spawn_egg",() -> new ForgeSpawnEggItem(PYGRO::get, -3381760, -6750208, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> PYGRO_BRUTE_SPAWN_EGG = ITEMS.register("pygro_brute_spawn_egg",() -> new ForgeSpawnEggItem(PYGRO_BRUTE::get, -3381760, -67208, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> MOGLER_SPAWN_EGG = ITEMS.register("mogler_spawn_egg",() -> new ForgeSpawnEggItem(MOGLER::get, -13312, -3407872, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
-    public static final RegistryObject<ForgeSpawnEggItem> MARTIAN_RAPTOR_SPAWN_EGG = ITEMS.register("martian_raptor_spawn_egg",() -> new ForgeSpawnEggItem(MARTIAN_RAPTOR::get, 5349438, -13312, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.ALIEN::get, -13382401, -11650781, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> ALIEN_ZOMBIE_SPAWN_EGG = ITEMS.register("alien_zombie_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.ALIEN_ZOMBIE::get, -14804199, -16740159, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> STAR_CRAWLER_SPAWN_EGG = ITEMS.register("star_crawler_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.STAR_CRAWLER::get, -13421773, -16724788, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> PYGRO_SPAWN_EGG = ITEMS.register("pygro_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.PYGRO::get, -3381760, -6750208, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> PYGRO_BRUTE_SPAWN_EGG = ITEMS.register("pygro_brute_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.PYGRO_BRUTE::get, -3381760, -67208, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> MOGLER_SPAWN_EGG = ITEMS.register("mogler_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.MOGLER::get, -13312, -3407872, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
+    public static final RegistryObject<ForgeSpawnEggItem> MARTIAN_RAPTOR_SPAWN_EGG = ITEMS.register("martian_raptor_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.MARTIAN_RAPTOR::get, 5349438, -13312, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
 
     //Generel Items
     public static final RegistryObject<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().tab(ItemGroups.tab_normal).food((new FoodProperties.Builder()).nutrition(4).saturationMod(3f).build())));
@@ -477,9 +386,6 @@ public class ModInit {
     public static final RegistryObject<BlockItem> GLACIO_LAPIS_ORE_ITEM = ITEMS.register("glacio_lapis_ore", () -> new BlockItem(ModInit.GLACIO_LAPIS_ORE.get(), new Item.Properties().tab(ItemGroups.tab_blocks)));
 
 
-    //Effects
-    public static final RegistryObject<MobEffect> OXYGEN_EFFECT = EFFECTS.register("oxygen_bubble_effect", () -> new OxygenEffect(MobEffectCategory.BENEFICIAL,3035801));
-
     //Space Suit Items
     public static final RegistryObject<Item> OXYGEN_MASK = ITEMS.register("oxygen_mask", () -> SpaceSuit.OXYGEN_MASK);
     public static final RegistryObject<Item> SPACE_SUIT = ITEMS.register("space_suit", () -> SpaceSuit.SPACE_SUIT);
@@ -509,46 +415,6 @@ public class ModInit {
     public static final RegistryObject<Item> FLAG_RED_ITEM = ITEMS.register("flag_red", () -> new DoubleHighBlockItem(FLAG_RED_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_flags)));
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new DoubleHighBlockItem(FLAG_YELLOW_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_flags)));
 
-    //GUIS
-    public static final RegistryObject<MenuType<RocketGui.GuiContainer>> ROCKET_GUI = GUIS.register("rocket_gui", () -> new MenuType(new RocketGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<CompressorGui.GuiContainer>> COMPRESSOR_GUI = GUIS.register("compressor_gui", () -> new MenuType(new CompressorGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<FuelRefineryGui.GuiContainer>> FUEL_REFINERY_GUI = GUIS.register("fuel_refinery_gui", () -> new MenuType(new FuelRefineryGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<CoalGeneratorGui.GuiContainer>> COAL_GENERATOR_GUI = GUIS.register("coal_generator_gui", () -> new MenuType(new CoalGeneratorGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<NasaWorkbenchGui.GuiContainer>> NASA_WORKBENCH_GUI = GUIS.register("nasa_workbench_gui", () -> new MenuType(new NasaWorkbenchGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<OxygenLoaderGui.GuiContainer>> OXYGEN_LOADER_GUI = GUIS.register("oxygen_loader_gui", () -> new MenuType(new OxygenLoaderGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<SolarPanelGui.GuiContainer>> SOLAR_PANEL_GUI = GUIS.register("solar_panel_gui", () -> new MenuType(new SolarPanelGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<WaterPumpGui.GuiContainer>> WATER_PUMP_GUI = GUIS.register("water_pump_gui", () -> new MenuType(new WaterPumpGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<OxygenBubbleDistributorGui.GuiContainer>> OXYGEN_BUBBLE_DISTRIBUTOR_GUI = GUIS.register("oxygen_bubble_distributor_gui", () -> new MenuType(new OxygenBubbleDistributorGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<LanderGui.GuiContainer>> LANDER_GUI = GUIS.register("lander_gui", () -> new MenuType(new LanderGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<RoverGui.GuiContainer>> ROVER_GUI = GUIS.register("rover_gui", () -> new MenuType(new RoverGui.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<PlanetSelectionGui.GuiContainer>> PLANET_SELECTION_GUI = GUIS.register("planet_selection_gui", () -> new MenuType(new PlanetSelectionGui.GuiContainerFactory()));
-
-
-    //Particle
-    public static final RegistryObject<ParticleType<SimpleParticleType>> VENUS_RAIN_PARTICLE = PARTICLES.register("venus_rain", () -> new SimpleParticleType(true));
-    public static final RegistryObject<ParticleType<SimpleParticleType>> LARGE_FLAME_PARTICLE = PARTICLES.register("large_flame", () -> new SimpleParticleType(true));
-    public static final RegistryObject<ParticleType<SimpleParticleType>> LARGE_SMOKE_PARTICLE = PARTICLES.register("large_smoke", () -> new SimpleParticleType(true));
-    public static final RegistryObject<ParticleType<SimpleParticleType>> SMALL_FLAME_PARTICLE = PARTICLES.register("small_flame", () -> new SimpleParticleType(true));
-    public static final RegistryObject<ParticleType<SimpleParticleType>> SMALL_SMOKE_PARTICLE = PARTICLES.register("small_smoke", () -> new SimpleParticleType(true));
-
-
-    //Recpies
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BeyondEarthMod.MODID);
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSING = RECIPE_SERIALIZERS.register("compressing", () -> new CompressingRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_GENERATING = RECIPE_SERIALIZERS.register("generating", () -> new GeneratingRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENLOADER = RECIPE_SERIALIZERS.register("oxygenloader", () -> new OxygenLoaderRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_OXYGENBUBBLEDISTRIBUTOR = RECIPE_SERIALIZERS.register("oxygenbubbledistributor", () -> new OxygenBubbleDistributorRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_WORKBENCHING = RECIPE_SERIALIZERS.register("workbenching", () -> new WorkbenchingRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_FUELREFINING = RECIPE_SERIALIZERS.register("fuelrefining", () -> new FuelRefiningRecipeSerializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_ITEMSTACK = RECIPE_SERIALIZERS.register("alien_trading_itemstack", () -> new AlienTradingRecipeItemStack.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTEDBOOK = RECIPE_SERIALIZERS.register("alien_trading_enchantedbook", () -> new AlienTradingRecipeEnchantedBook.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_ENCHANTEDITEM = RECIPE_SERIALIZERS.register("alien_trading_enchanteditem", () -> new AlienTradingRecipeEnchantedItem.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_MAP = RECIPE_SERIALIZERS.register("alien_trading_map", () -> new AlienTradingRecipeMap.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_POTIONEDITEM = RECIPE_SERIALIZERS.register("alien_trading_potioneditem", () -> new AlienTradingRecipePotionedItem.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_DYEDITEM = RECIPE_SERIALIZERS.register("alien_trading_dyeditem", () -> new AlienTradingRecipeDyedItem.Serializer());
-	public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_SPACE_STATION = RECIPE_SERIALIZERS.register("space_station", () -> new SpaceStationRecipeSerializer());
-
-
     //RocketParts
     public static final DeferredRegister<RocketPart> ROCKET_PARTS = DeferredRegister.create(new ResourceLocation(BeyondEarthMod.MODID, "rocket_part"), BeyondEarthMod.MODID);
     public static final Supplier<IForgeRegistry<RocketPart>> ROCKET_PARTS_REGISTRY = ROCKET_PARTS.makeRegistry(RocketPart.class, RegistryBuilder::new);
@@ -560,91 +426,4 @@ public class ModInit {
 	public static final RegistryObject<RocketPart> ROCKET_PART_FIN_LEFT = ROCKET_PARTS.register("fin_left", () -> new RocketPart(2));
 	public static final RegistryObject<RocketPart> ROCKET_PART_FIN_RIGHT = ROCKET_PARTS.register("fin_right", () -> new RocketPart(2));
 	public static final RegistryObject<RocketPart> ROCKET_PART_ENGINE = ROCKET_PARTS.register("engine", () -> new RocketPart(1));
-
-    //Tags
-    public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "entities/oxygen"));
-    public static final TagKey<EntityType<?>> PLANET_FIRE_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "entities/planet_fire"));
-    public static final TagKey<EntityType<?>> VENUS_RAIN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "entities/venus_rain"));
-
-    //Structures
-    public static final RegistryObject<StructureFeature<?>> ALIEN_VILLAGE = STRUCTURES.register("alien_village", AlienVillage::new);
-    public static final RegistryObject<StructureFeature<?>> METEOR = STRUCTURES.register("meteor", Meteor::new);
-    public static final RegistryObject<StructureFeature<?>> OIL_WELL = STRUCTURES.register("oil_well", OilWell::new);
-    public static final RegistryObject<StructureFeature<?>> PYGRO_TOWER = STRUCTURES.register("pygro_tower", PygroTower::new);
-    public static final RegistryObject<StructureFeature<?>> PYGRO_VILLAGE = STRUCTURES.register("pygro_village", PygroVillage::new);
-    public static final RegistryObject<StructureFeature<?>> VENUS_BULLET = STRUCTURES.register("venus_bullet", VenusBullet::new);
-
-	//Register Processor
-    public static final StructureProcessorType<StructureVoidProcessor> STRUCTURE_VOID_PROCESSOR = () -> StructureVoidProcessor.CODEC;
-
-    //Damage Source
-    public static final DamageSource DAMAGE_SOURCE_OXYGEN = new DamageSource("oxygen").bypassArmor();
-    public static final DamageSource DAMAGE_SOURCE_ACID_RAIN = new DamageSource("venus.acid").bypassArmor();
-
-    //VENUS DELTAS
-    public static Holder<PlacedFeature> VENUS_DELTAS_SMALL;
-    public static Holder<PlacedFeature> VENUS_DELTAS_BIG;
-    public static VenusDeltas VENUS_DELTAS_FEATURE;
-
-    //MARS ROCK
-    public static Holder<PlacedFeature> MARS_ROCK;
-    public static MarsBlockBlobFeature MARS_BLOCK_BLOB_FEATURE;
-
-    @SubscribeEvent
-    public static void RegistryFeature(RegistryEvent.Register<Feature<?>> feature) {
-        //MARS BLOCK BLOB
-        MARS_BLOCK_BLOB_FEATURE = new MarsBlockBlobFeature(BlockStateConfiguration.CODEC);
-        MARS_BLOCK_BLOB_FEATURE.setRegistryName(BeyondEarthMod.MODID, "mars_block_blob");
-        feature.getRegistry().register(MARS_BLOCK_BLOB_FEATURE);
-
-        //VENUS DELTAS
-        VENUS_DELTAS_FEATURE = new VenusDeltas(ColumnFeatureConfiguration.CODEC);
-        VENUS_DELTAS_FEATURE.setRegistryName(BeyondEarthMod.MODID, "venus_deltas");
-        feature.getRegistry().register(VENUS_DELTAS_FEATURE);
-    }
-
-    @SubscribeEvent
-    public static void defaultAttributes(EntityAttributeCreationEvent event) {
-        event.put(ALIEN.get(), AlienEntity.setCustomAttributes().build());
-        event.put(PYGRO.get(), PygroEntity.setCustomAttributes().build());
-        event.put(PYGRO_BRUTE.get(), PygroBruteEntity.setCustomAttributes().build());
-        event.put(MOGLER.get(), MoglerEntity.setCustomAttributes().build());
-        event.put(MARTIAN_RAPTOR.get(), MartianRaptor.setCustomAttributes().build());
-        event.put(ALIEN_ZOMBIE.get(), AlienZombieEntity.setCustomAttributes().build());
-        event.put(STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().build());
-    }
-
-    @SubscribeEvent
-    public static void init(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            //Structure Void Processor
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(BeyondEarthMod.MODID, "structure_void_processor"), STRUCTURE_VOID_PROCESSOR);
-
-            //Recipe Types
-            BeyondEarthRecipeTypes.init();
-
-            //Planet Noise
-            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(BeyondEarthMod.MODID, "planet_noise"), PlanetChunkGenerator.CODEC);
-
-            //Mars Rock //TODO REPLACE it laiter with the new block
-            MARS_ROCK = PlacementUtils.register("mars_rock", FeatureUtils.register("mars_rock", MARS_BLOCK_BLOB_FEATURE, new BlockStateConfiguration(Blocks.POLISHED_GRANITE.defaultBlockState())), CountPlacement.of(2), InSquarePlacement.spread(), PlacementUtils.HEIGHTMAP, BiomeFilter.biome());
-
-            //Venus Deltas
-            VENUS_DELTAS_SMALL = PlacementUtils.register("venus_deltas_small", FeatureUtils.register("venus_deltas_small", VENUS_DELTAS_FEATURE, new ColumnFeatureConfiguration(ConstantInt.of(1), UniformInt.of(1, 4))), CountOnEveryLayerPlacement.of(4), BiomeFilter.biome());
-            VENUS_DELTAS_BIG = PlacementUtils.register("venus_deltas_big", FeatureUtils.register("venus_deltas_big", VENUS_DELTAS_FEATURE, new ColumnFeatureConfiguration(UniformInt.of(2, 3), UniformInt.of(5, 10))), CountOnEveryLayerPlacement.of(2), BiomeFilter.biome());
-        });
-    }
-
-    public static void biomesLoading(BiomeLoadingEvent event) {
-        //Rocky Mars
-        if (event.getName().equals(BiomesRegistry.MARS_ROCKY_PLAINS)) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MARS_ROCK);
-        }
-
-        //Venus Deltas
-        if (event.getName().equals(BiomesRegistry.INFERNAL_VENUS_BARRENS)) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_SMALL);
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_BIG);
-        }
-    }
 }

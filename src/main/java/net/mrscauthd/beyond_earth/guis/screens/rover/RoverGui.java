@@ -9,11 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.*;
 
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
+import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class RoverGui {
@@ -28,7 +29,7 @@ public class RoverGui {
 		Entity rover;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ModInit.ROVER_GUI.get(), id);
+			super(ScreensRegistry.ROVER_GUI.get(), id);
 
 			this.rover = inv.player.level.getEntity(extraData.readVarInt());
 
@@ -36,7 +37,7 @@ public class RoverGui {
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
-					return Methods.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), ModInit.FLUID_VEHICLE_FUEL_TAG);
+					return Methods.tagCheck(FluidUtil2.findBucketFluid(stack.getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG);
 				}
 			});
 
