@@ -71,6 +71,8 @@ public class BeyondEarthMod {
 		ScreensRegistry.SCREENS.register(bus);
 		StructuresRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
+		FeatureRegistry.CONFIGURED_FEATURES.register(bus);
+		FeatureRegistry.PLACED_FEATURES.register(bus);
 
 		//TODO CLEAN UP KEYBIND NETWORKER
 		KeyBindings.registerMessages();

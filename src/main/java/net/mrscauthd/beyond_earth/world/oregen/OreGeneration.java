@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
@@ -19,9 +20,11 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.registries.BiomesRegistry;
+import net.mrscauthd.beyond_earth.registries.FeatureRegistry;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -33,11 +36,25 @@ public class OreGeneration {
     public static final TagKey<Block> MOON_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon_ore_replaceables"));
     public static final RuleTest MOON_MATCH = new TagMatchTest(MOON_ORE_REPLACEABLES);
 
-    public static final Supplier<Holder<PlacedFeature>> MOON_CHEESE_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":moon_cheese_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":moon_cheese_ore", Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_CHEESE_ORE.get().defaultBlockState(), 10)), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
-    public static final Supplier<Holder<PlacedFeature>> MOON_SOUL_SOIL = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":moon_soul_soil", FeatureUtils.register(BeyondEarthMod.MODID + ":moon_soul_soil", Feature.ORE, new OreConfiguration(MOON_MATCH, Blocks.SOUL_SOIL.defaultBlockState(), 60)), commonOrePlacement(22, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(100))));
-    public static final Supplier<Holder<PlacedFeature>> MOON_ICE_SHARD_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":moon_ice_shard_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":moon_ice_shard_ore", Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_ICE_SHARD_ORE.get().defaultBlockState(), 10)), commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
-    public static final Supplier<Holder<PlacedFeature>> MOON_IRON_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":moon_iron_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":moon_iron_ore", Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_IRON_ORE.get().defaultBlockState(), 11)), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
-    public static final Supplier<Holder<PlacedFeature>> MOON_DESH_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":moon_desh_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":moon_desh_ore", Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_DESH_ORE.get().defaultBlockState(), 9)), commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80))));
+    // MOON_CHEESE_ORE
+    public static final RegistryObject<ConfiguredFeature<?,?>> MOON_CHEESE_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("moon_cheese_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_CHEESE_ORE.get().defaultBlockState(), 10)));
+    public static final RegistryObject<PlacedFeature> MOON_CHEESE_ORE = FeatureRegistry.PLACED_FEATURES.register("moon_cheese_ore", () -> new PlacedFeature(Holder.direct(MOON_CHEESE_ORE_CONFIGURED.get()), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192)))));
+
+    // MOON_SOUL_SOIL
+    public static final RegistryObject<ConfiguredFeature<?,?>> MOON_SOUL_SOIL_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("moon_soul_soil", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(MOON_MATCH, Blocks.SOUL_SOIL.defaultBlockState(), 60)));
+    public static final RegistryObject<PlacedFeature> MOON_SOUL_SOIL = FeatureRegistry.PLACED_FEATURES.register("moon_soul_soil", () -> new PlacedFeature(Holder.direct(MOON_SOUL_SOIL_CONFIGURED.get()), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(0), VerticalAnchor.absolute(100)))));
+
+    // MOON_ICE_SHARD_ORE
+    public static final RegistryObject<ConfiguredFeature<?,?>> MOON_ICE_SHARD_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("moon_ice_shard_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_ICE_SHARD_ORE.get().defaultBlockState(), 10)));
+    public static final RegistryObject<PlacedFeature> MOON_ICE_SHARD_ORE = FeatureRegistry.PLACED_FEATURES.register("moon_ice_shard_ore", () -> new PlacedFeature(Holder.direct(MOON_ICE_SHARD_ORE_CONFIGURED.get()), commonOrePlacement(8, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))));
+
+    // MOON_IRON_ORE
+    public static final RegistryObject<ConfiguredFeature<?,?>> MOON_IRON_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("moon_iron_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_ICE_SHARD_ORE.get().defaultBlockState(), 11)));
+    public static final RegistryObject<PlacedFeature> MOON_IRON_ORE = FeatureRegistry.PLACED_FEATURES.register("moon_iron_ore", () -> new PlacedFeature(Holder.direct(MOON_IRON_ORE_CONFIGURED.get()), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56)))));
+
+    // MOON_IRON_ORE
+    public static final RegistryObject<ConfiguredFeature<?,?>> MOON_DESH_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("moon_desh_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(MOON_MATCH, ModInit.MOON_ICE_SHARD_ORE.get().defaultBlockState(), 9)));
+    public static final RegistryObject<PlacedFeature> MOON_DESH_ORE = FeatureRegistry.PLACED_FEATURES.register("moon_desh_ore", () -> new PlacedFeature(Holder.direct(MOON_DESH_ORE_CONFIGURED.get()), commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)))));
 
     /** MARS ORES: */
     public static final TagKey<Block> MARS_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars_ore_replaceables"));
@@ -73,21 +90,21 @@ public class OreGeneration {
     public static final Supplier<Holder<PlacedFeature>> GLACIO_IRON_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_iron_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_iron_ore", Feature.ORE, new OreConfiguration(GLACIO_MATCH, ModInit.GLACIO_IRON_ORE.get().defaultBlockState(), 12)), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56))));
     public static final Supplier<Holder<PlacedFeature>> GLACIO_LAPIS_ORE  = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_lapis_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_lapis_ore", Feature.ORE, new OreConfiguration(GLACIO_MATCH, ModInit.GLACIO_LAPIS_ORE.get().defaultBlockState(), 9)), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
 
-    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_COAL_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":deepslate_coal_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":deepslate_coal_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_COAL_ORE.defaultBlockState(), 17)), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
-    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_COPPER_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":deepslate_copper_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":deepslate_copper_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_COPPER_ORE.defaultBlockState(), 17)), commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(112))));
-    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_IRON_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":deepslate_iron_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":deepslate_iron_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_IRON_ORE.defaultBlockState(), 12)), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(20))));
-    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_LAPIS_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":deepslate_lapis_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":deepslate_lapis_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState(), 9)), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(10))));
+    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_COAL_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_coal_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_coal_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_COAL_ORE.defaultBlockState(), 17)), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192))));
+    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_COPPER_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_copper_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_copper_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_COPPER_ORE.defaultBlockState(), 17)), commonOrePlacement(16, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(112))));
+    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_IRON_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_iron_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_iron_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_IRON_ORE.defaultBlockState(), 12)), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(20))));
+    public static final Supplier<Holder<PlacedFeature>> GLACIO_DEEPSLATE_LAPIS_ORE = () -> PlacementUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_lapis_ore", FeatureUtils.register(BeyondEarthMod.MODID + ":glacio_deepslate_lapis_ore", Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState(), 9)), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(10))));
 
     @SubscribeEvent
     public static void biomesLoading(BiomeLoadingEvent event) {
         ResourceLocation biome = event.getName();
 
         if (biome.equals(BiomesRegistry.MOON_DESERT)) {
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_ICE_SHARD_ORE.get());
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_IRON_ORE.get());
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_DESH_ORE.get());
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_CHEESE_ORE.get());
-            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_SOUL_SOIL.get());
+            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_ICE_SHARD_ORE.getHolder().get());
+            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_IRON_ORE.getHolder().get());
+            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_DESH_ORE.getHolder().get());
+            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_CHEESE_ORE.getHolder().get());
+            event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(MOON_SOUL_SOIL.getHolder().get());
         }
 
         if (biome.equals(BiomesRegistry.MARS_DESERT) || biome.equals(BiomesRegistry.MARS_ROCKY_PLAINS) || biome.equals(BiomesRegistry.MARS_ICE_SPIKES)) {
