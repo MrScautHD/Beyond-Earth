@@ -19,9 +19,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class GlacioSky {
@@ -33,6 +33,7 @@ public class GlacioSky {
 
     private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/blue_sun.png");
     private static final ResourceLocation VICINUS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/vicinus.png");
+    private static final ResourceLocation VICINUS_LIGHT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/vicinus_light.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -108,10 +109,9 @@ public class GlacioSky {
                         p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
                         /** STAR */
-                        createStars();
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         FogRenderer.setupNoFog();
-                        starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                        minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
                         p_181410_.popPose();
 
                         RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -127,6 +127,16 @@ public class GlacioSky {
                         Matrix4f matrix4f1 = p_181410_.last().pose();
 
                         RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+                        /** VICINUS LIGHT */
+                        RenderSystem.setShaderTexture(0, VICINUS_LIGHT_TEXTURE);
+                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                        bufferbuilder.vertex(matrix4f1, -48.0F, -100.0F, 48.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 48.0F, -100.0F, 48.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 48.0F, -100.0F, -48.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -48.0F, -100.0F, -48.0F).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.end();
+                        BufferUploader.end(bufferbuilder);
 
                         /** VICINUS */
                         RenderSystem.disableBlend();
@@ -188,66 +198,6 @@ public class GlacioSky {
                         RenderSystem.depthMask(true);
                     }
                 };
-            }
-
-            private void createStars() {
-                Tesselator tesselator = Tesselator.getInstance();
-                BufferBuilder bufferbuilder = tesselator.getBuilder();
-                RenderSystem.setShader(GameRenderer::getPositionShader);
-                if (starBuffer != null) {
-                    starBuffer.close();
-                }
-
-                starBuffer = new VertexBuffer();
-                this.drawStars(bufferbuilder);
-                bufferbuilder.end();
-                starBuffer.upload(bufferbuilder);
-            }
-
-            private void drawStars(BufferBuilder p_109555_) {
-                Random random = new Random(10842L);
-                p_109555_.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION);
-                int stars = 1500;
-
-                for(int i = 0; i < stars; ++i) {
-                    double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-                    double d3 = (double)(0.15F + random.nextFloat() * 0.1F);
-                    double d4 = d0 * d0 + d1 * d1 + d2 * d2;
-                    if (d4 < 1.0D && d4 > 0.01D) {
-                        d4 = 1.0D / Math.sqrt(d4);
-                        d0 *= d4;
-                        d1 *= d4;
-                        d2 *= d4;
-                        double d5 = d0 * 100.0D;
-                        double d6 = d1 * 100.0D;
-                        double d7 = d2 * 100.0D;
-                        double d8 = Math.atan2(d0, d2);
-                        double d9 = Math.sin(d8);
-                        double d10 = Math.cos(d8);
-                        double d11 = Math.atan2(Math.sqrt(d0 * d0 + d2 * d2), d1);
-                        double d12 = Math.sin(d11);
-                        double d13 = Math.cos(d11);
-                        double d14 = random.nextDouble() * Math.PI * 2.0D;
-                        double d15 = Math.sin(d14);
-                        double d16 = Math.cos(d14);
-
-                        for(int j = 0; j < 4; ++j) {
-                            double d17 = 0.0D;
-                            double d18 = (double)((j & 2) - 1) * d3;
-                            double d19 = (double)((j + 1 & 2) - 1) * d3;
-                            double d20 = 0.0D;
-                            double d21 = d18 * d16 - d19 * d15;
-                            double d22 = d19 * d16 + d18 * d15;
-                            double d23 = d21 * d12 + 0.0D * d13;
-                            double d24 = 0.0D * d12 - d21 * d13;
-                            double d25 = d24 * d9 - d22 * d10;
-                            double d26 = d22 * d9 + d24 * d10;
-                            p_109555_.vertex(d5 + d25, d6 + d23, d7 + d26).endVertex();
-                        }
-                    }
-                }
             }
         });
     }

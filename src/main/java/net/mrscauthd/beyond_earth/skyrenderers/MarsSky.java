@@ -65,7 +65,7 @@ public class MarsSky {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
                         Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starmatrix4f = RenderSystem.getProjectionMatrix();
+                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
                         RenderSystem.disableTexture();
                         Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
                         float f = (float) vec3.x;
@@ -145,10 +145,10 @@ public class MarsSky {
                         /** PHOBOS */
                         RenderSystem.setShaderTexture(0, PHOBOS_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -3, -100.0F, 3).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 3, -100.0F, 3).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 3, -100.0F, -3).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -3, -100.0F, -3).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -3.0F, -100.0F, 3.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 3.0F, -100.0F, 3.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 3.0F, -100.0F, -3.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -3.0F, -100.0F, -3.0F).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
@@ -159,10 +159,10 @@ public class MarsSky {
                         /** EARTH */
                         RenderSystem.setShaderTexture(0, EARTH_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -1, -100.0F, 1).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 1, -100.0F, 1).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 1, -100.0F, -1).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -1, -100.0F, -1).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -1.0F, -100.0F, 1.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 1.0F, -100.0F, 1.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 1.0F, -100.0F, -1.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -1.0F, -100.0F, -1.0F).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
@@ -173,10 +173,10 @@ public class MarsSky {
                         /** DEIMOS */
                         RenderSystem.setShaderTexture(0, DEIMOS_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -4, -100.0F, 4).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 4, -100.0F, 4).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 4, -100.0F, -4).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -4, -100.0F, -4).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -4.0F, -100.0F, 4.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 4.0F, -100.0F, 4.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 4.0F, -100.0F, -4.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -4.0F, -100.0F, -4.0F).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
@@ -187,7 +187,7 @@ public class MarsSky {
                         if (f10 > 0.0F) {
                             RenderSystem.setShaderColor(f10, f10, f10, f10);
                             FogRenderer.setupNoFog();
-                            minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starmatrix4f, GameRenderer.getPositionShader());
+                            minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
                         }
 
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

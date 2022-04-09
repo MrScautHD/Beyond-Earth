@@ -43,7 +43,6 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
 
 import javax.annotation.Nullable;
@@ -93,7 +92,7 @@ public class VenusSky {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
                         Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starmatrix4f = RenderSystem.getProjectionMatrix();
+                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
                         RenderSystem.disableTexture();
                         Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
                         float f = (float) vec3.x;
@@ -172,10 +171,10 @@ public class VenusSky {
                         /** EARTH */
                         RenderSystem.setShaderTexture(0, EARTH_TEXTURE);
                         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -2, -100.0F, 2).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 2, -100.0F, 2).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, 2, -100.0F, -2).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -2, -100.0F, -2).uv(0.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -2.0F, -100.0F, 2.0F).uv(0.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 2.0F, -100.0F, 2.0F).uv(1.0F, 0.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, 2.0F, -100.0F, -2.0F).uv(1.0F, 1.0F).endVertex();
+                        bufferbuilder.vertex(matrix4f1, -2.0F, -100.0F, -2.0F).uv(0.0F, 1.0F).endVertex();
                         bufferbuilder.end();
                         BufferUploader.end(bufferbuilder);
 
@@ -186,7 +185,7 @@ public class VenusSky {
                         if (f10 > 0.0F) {
                             RenderSystem.setShaderColor(f10, f10, f10, f10);
                             FogRenderer.setupNoFog();
-                            Minecraft.getInstance().levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starmatrix4f, GameRenderer.getPositionShader());
+                            Minecraft.getInstance().levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
                         }
 
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

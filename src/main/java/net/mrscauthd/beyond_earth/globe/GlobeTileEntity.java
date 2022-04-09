@@ -57,13 +57,7 @@ public class GlobeTileEntity extends BlockEntity {
         if (level instanceof ServerLevel) {
             ServerLevel serverLevel = (ServerLevel) level;
 
-            double x = this.getBlockPos().getX();
-            double y = this.getBlockPos().getY();
-            double z = this.getBlockPos().getZ();
-
-            for (ServerPlayer p : serverLevel.getPlayers(distance -> {
-                return distance.distanceToSqr(x, y, z) < (128*128); //128 Blocks
-            })) {
+            for (ServerPlayer p : serverLevel.getServer().getPlayerList().getPlayers()) {
                 p.connection.send(this.getUpdatePacket());
             }
         }
