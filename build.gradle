@@ -73,7 +73,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.41'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.44'
 
     //Mixin
     if (System.getProperty("idea.sync.active") != "true") {
@@ -95,13 +95,12 @@ dependencies {
     //implementation fg.deobf("slimeknights.tconstruct:TConstruct:1.18.1-3.3.2.28")
 
 
-  //Mekanism
-  //compileOnly fg.deobf("mekanism:Mekanism:1.18.1-10.1.1")
-  //runtimeOnly fg.deobf("mekanism:Mekanism:1.18.1-10.1.1")
-  //runtimeOnly fg.deobf("mekanism:Mekanism:1.18.1-10.1.1:additions")
-  //runtimeOnly fg.deobf("mekanism:Mekanism:1.18.1-10.1.1:generators")
-  //runtimeOnly fg.deobf("mekanism:Mekanism:1.18.1-10.1.1:tools")
-
+    //Mekanism
+    compileOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459")
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459")
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459:additions")
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459:generators")
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459:tools")
 }
 
 mixin {

@@ -19,5 +19,4 @@ public class MekanismCompat extends CompatibleMod {
 	protected void onLoad() {
 
 	}
-
 }

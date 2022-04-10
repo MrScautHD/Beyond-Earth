@@ -22,6 +22,8 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorageHolder;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
+import net.mrscauthd.beyond_earth.compats.mekanism.MekanismHelper;
+import net.mrscauthd.beyond_earth.compats.mekanism.OxygenStorageGasAdapter;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
@@ -147,9 +149,9 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
 		if (CompatibleManager.MEKANISM.isLoaded()) {
-//			if (capability == MekanismHelper.getGasHandlerCapability()) {
-//				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), true, true)).cast();
-//			}
+			if (capability == MekanismHelper.getGasHandlerCapability()) {
+				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), true, true)).cast();
+			}
 		}
 
 		return super.getCapability(capability, facing);

@@ -38,5 +38,4 @@ public class CompatibleManager {
 	public static void visit() {
 
 	}
-
 }
