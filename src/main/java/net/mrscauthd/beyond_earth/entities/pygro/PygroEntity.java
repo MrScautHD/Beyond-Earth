@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkHooks;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.registries.SensorsRegistry;
 

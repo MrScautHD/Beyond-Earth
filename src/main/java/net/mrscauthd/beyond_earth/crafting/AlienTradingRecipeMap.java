@@ -29,7 +29,6 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.utils.EnumUtils;
 
 public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {

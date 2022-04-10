@@ -8,8 +8,6 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -20,12 +18,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkEvent;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
+import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
@@ -44,7 +42,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	public static final int MAX_TIMER = 4;
 
 	public OxygenBubbleDistributorBlockEntity(BlockPos pos, BlockState state) {
-		super(ModInit.OXYGEN_BUBBLE_DISTRIBUTOR.get(), pos, state);
+		super(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), pos, state);
 		this.setWorkingAreaVisible(false);
 	}
 

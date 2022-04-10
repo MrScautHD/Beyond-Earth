@@ -9,13 +9,13 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipe;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GridPlacer;
 import net.mrscauthd.beyond_earth.guis.helper.RocketPartGridPlacer;
 import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.registries.RocketPartsRegistry;
 import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
 public class NasaWorkbenchGui {
@@ -61,12 +61,12 @@ public class NasaWorkbenchGui {
 
 			RocketPartsItemHandler partsItemHandler = blockEntity.getPartsItemHandler();
 			GridPlacer placer = new GridPlacer();
-			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, ModInit.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 36, 2, placer::placeBottom, ModInit.ROCKET_PART_BODY.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 90, 1, placer::placeRight, ModInit.ROCKET_PART_TANK.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, ModInit.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, ModInit.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, ModInit.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(31, 36, 2, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_BODY.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(31, 90, 1, placer::placeRight, RocketPartsRegistry.ROCKET_PART_TANK.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
+			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
 
 			this.partSlotEnd = this.slots.size();
 

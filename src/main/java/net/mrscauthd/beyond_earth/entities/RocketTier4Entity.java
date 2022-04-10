@@ -23,10 +23,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
@@ -44,7 +44,7 @@ public class RocketTier4Entity extends IRocketEntity {
 
 	@Override
 	public ItemStack getPickResult() {
-		ItemStack itemStack = new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get(), 1);
+		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
 		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
 		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
 
@@ -54,7 +54,7 @@ public class RocketTier4Entity extends IRocketEntity {
 	@Override
 	protected void spawnRocketItem() {
 		if (!level.isClientSide) {
-			ItemStack itemStack = new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get(), 1);
+			ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
 			itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
 			itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
 

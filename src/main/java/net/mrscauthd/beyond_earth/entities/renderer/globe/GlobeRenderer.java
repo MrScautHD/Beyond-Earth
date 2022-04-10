@@ -21,9 +21,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.globe.GlobeBlock;
 import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
+import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithoutLevelRenderer implements BlockEntityRenderer<GlobeTileEntity>, BlockEntityRendererProvider<T> {
@@ -65,15 +66,15 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         VertexConsumer vertexBuilder;
 
         /** TEXTURE BINDING */
-        if (blockstate.is(ModInit.EARTH_GLOBE_BLOCK.get())) {
+        if (blockstate.is(BlocksRegistry.EARTH_GLOBE_BLOCK.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(EARTH_GLOBE));
-        } else if (blockstate.is(ModInit.MOON_GLOBE_BLOCK.get())) {
+        } else if (blockstate.is(BlocksRegistry.MOON_GLOBE_BLOCK.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MOON_GLOBE));
-        } else if (blockstate.is(ModInit.MARS_GLOBE_BLOCK.get())) {
+        } else if (blockstate.is(BlocksRegistry.MARS_GLOBE_BLOCK.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MARS_GLOBE));
-        } else if (blockstate.is(ModInit.MERCURY_GLOBE_BLOCK.get())) {
+        } else if (blockstate.is(BlocksRegistry.MERCURY_GLOBE_BLOCK.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MERCURY_GLOBE));
-        } else if (blockstate.is(ModInit.VENUS_GLOBE_BLOCK.get())) {
+        } else if (blockstate.is(BlocksRegistry.VENUS_GLOBE_BLOCK.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(VENUS_GLOBE));
         } else {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
@@ -97,15 +98,15 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         VertexConsumer vertexBuilder;
 
         /** TEXTURE BINDING */
-        if (p_108830_.is(ModInit.EARTH_GLOBE_ITEM.get())) {
+        if (p_108830_.is(ItemsRegistry.EARTH_GLOBE_ITEM.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(EARTH_GLOBE));
-        } else if (p_108830_.is(ModInit.MOON_GLOBE_ITEM.get())) {
+        } else if (p_108830_.is(ItemsRegistry.MOON_GLOBE_ITEM.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MOON_GLOBE));
-        } else if (p_108830_.is(ModInit.MARS_GLOBE_ITEM.get())) {
+        } else if (p_108830_.is(ItemsRegistry.MARS_GLOBE_ITEM.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MARS_GLOBE));
-        } else if (p_108830_.is(ModInit.MERCURY_GLOBE_ITEM.get())) {
+        } else if (p_108830_.is(ItemsRegistry.MERCURY_GLOBE_ITEM.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(MERCURY_GLOBE));
-        } else if (p_108830_.is(ModInit.VENUS_GLOBE_ITEM.get())) {
+        } else if (p_108830_.is(ItemsRegistry.VENUS_GLOBE_ITEM.get())) {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(VENUS_GLOBE));
         } else {
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));

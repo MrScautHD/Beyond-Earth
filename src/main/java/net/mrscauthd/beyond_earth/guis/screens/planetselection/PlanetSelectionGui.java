@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.network.IContainerFactory;
 import net.minecraftforge.network.NetworkEvent;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.events.Methods;

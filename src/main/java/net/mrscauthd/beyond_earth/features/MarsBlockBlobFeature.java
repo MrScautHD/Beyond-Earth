@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 import java.util.Random;
 
@@ -25,7 +25,7 @@ public class MarsBlockBlobFeature extends Feature<BlockStateConfiguration> {
         for(blockstateconfiguration = p_159471_.config(); blockpos.getY() > worldgenlevel.getMinBuildHeight() + 3; blockpos = blockpos.below()) {
             if (!worldgenlevel.isEmptyBlock(blockpos.below())) {
                 BlockState blockstate = worldgenlevel.getBlockState(blockpos.below());
-                if (isDirt(blockstate) || isStone(blockstate) || blockstate.is(ModInit.MARS_SAND.get())) {
+                if (isDirt(blockstate) || isStone(blockstate) || blockstate.is(BlocksRegistry.MARS_SAND.get())) {
                     break;
                 }
             }

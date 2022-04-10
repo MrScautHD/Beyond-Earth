@@ -53,15 +53,13 @@ public class BeyondEarthMod {
 		/**Config*/
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC, "beyond_earth-common.toml");
 
-		/** Old REGISTRIES */
-		ModInit.ITEMS.register(bus);
-		ModInit.BLOCKS.register(bus);
-		ModInit.TILE_ENTITIES.register(bus);
-		ModInit.FLUIDS.register(bus);
-		ModInit.ROCKET_PARTS.register(bus);
-
 		/** NEW REGISTRIES */
+		ItemsRegistry.ITEMS.register(bus);
+		BlocksRegistry.BLOCKS.register(bus);
+		FluidsRegistry.FLUIDS.register(bus);
 		EntitiesRegistry.ENTITIES.register(bus);
+		BlockEntitiesRegistry.BLOCK_ENTITIES.register(bus);
+		RocketPartsRegistry.ROCKET_PARTS.register(bus);
 		PaintingsRegistry.PAINTINGS.register(bus);
 		SensorsRegistry.SENSOR.register(bus);
 		RecipeSerializersRegistry.RECIPE_SERIALIZERS.register(bus);

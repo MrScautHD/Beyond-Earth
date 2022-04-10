@@ -42,10 +42,10 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
 import javax.annotation.Nonnull;
@@ -168,7 +168,7 @@ public class RoverEntity extends VehicleEntity {
 
     @Override
     public ItemStack getPickedResult(HitResult target) {
-        ItemStack itemStack = new ItemStack(ModInit.ROVER_ITEM.get(), 1);
+        ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
         itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.entityData.get(FUEL));
 
         return itemStack;
@@ -199,7 +199,7 @@ public class RoverEntity extends VehicleEntity {
 
     protected void spawnRoverItem() {
         if (!level.isClientSide) {
-            ItemStack itemStack = new ItemStack(ModInit.ROVER_ITEM.get(), 1);
+            ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
             itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
 
             ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);

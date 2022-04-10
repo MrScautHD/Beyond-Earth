@@ -24,7 +24,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.entities.*;
@@ -32,6 +31,7 @@ import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class Overlays {
@@ -86,7 +86,7 @@ public class Overlays {
         }
 
         /** OXYGEN TANK */
-        if (chestItem == ModInit.SPACE_SUIT.get() || chestItem == ModInit.NETHERITE_SPACE_SUIT.get()) {
+        if (chestItem == ItemsRegistry.SPACE_SUIT.get() || chestItem == ItemsRegistry.NETHERITE_SPACE_SUIT.get()) {
             OverlayRegistry.enableOverlay(Overlays.OXYGEN_TANK, true);
         } else {
             OverlayRegistry.enableOverlay(Overlays.OXYGEN_TANK, false);

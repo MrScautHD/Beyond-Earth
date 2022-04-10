@@ -50,7 +50,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.CompressingRecipe;
@@ -94,8 +93,7 @@ import net.mrscauthd.beyond_earth.machines.tile.ItemStackToItemStackBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
-import net.mrscauthd.beyond_earth.registries.TagsRegistry;
+import net.mrscauthd.beyond_earth.registries.*;
 import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 @mezz.jei.api.JeiPlugin
@@ -225,8 +223,8 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipes(SpaceStationJeiCategory.recipeType, generateSpaceStationRecipes());
 		// Oil
 		Component oilDescriptionKey = new TranslatableComponent("jei.tooltip." + BeyondEarthMod.MODID + ".oil");
-		registration.addIngredientInfo(new ItemStack(ModInit.OIL_BUCKET.get(), 1), VanillaTypes.ITEM_STACK, oilDescriptionKey);
-		registration.addIngredientInfo(new FluidStack(ModInit.OIL_STILL.get(), 1000), ForgeTypes.FLUID_STACK, oilDescriptionKey);
+		registration.addIngredientInfo(new ItemStack(ItemsRegistry.OIL_BUCKET.get(), 1), VanillaTypes.ITEM_STACK, oilDescriptionKey);
+		registration.addIngredientInfo(new FluidStack(FluidsRegistry.OIL_STILL.get(), 1000), ForgeTypes.FLUID_STACK, oilDescriptionKey);
 	}
 
 	// Oxygen Loading
@@ -320,27 +318,27 @@ public class JeiPlugin implements IModPlugin {
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
 		// Oxygen Loader
-		registration.addRecipeCatalyst(new ItemStack(ModInit.OXYGEN_LOADER_BLOCK.get()), OxygenLoaderJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(BlocksRegistry.OXYGEN_LOADER_BLOCK.get()), OxygenLoaderJeiCategory.recipeType);
 		// Oxygen Bubble Distributor
-		registration.addRecipeCatalyst(new ItemStack(ModInit.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()), OxygenBubbleDistributorJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(BlocksRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()), OxygenBubbleDistributorJeiCategory.recipeType);
 		// Coal Generator
-		registration.addRecipeCatalyst(new ItemStack(ModInit.COAL_GENERATOR_BLOCK.get()), CoalGeneratorJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(BlocksRegistry.COAL_GENERATOR_BLOCK.get()), CoalGeneratorJeiCategory.recipeType);
 		// workbench
-		registration.addRecipeCatalyst(new ItemStack(ModInit.NASA_WORKBENCH_ITEM.get()), NasaWorkbenchJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.NASA_WORKBENCH_ITEM.get()), NasaWorkbenchJeiCategory.recipeType);
 		// Compressor
-		registration.addRecipeCatalyst(new ItemStack(ModInit.COMPRESSOR_BLOCK.get()), CompressorJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(BlocksRegistry.COMPRESSOR_BLOCK.get()), CompressorJeiCategory.recipeType);
 		// FuelMaker
-		registration.addRecipeCatalyst(new ItemStack(ModInit.FUEL_REFINERY_BLOCK.get()), FuelRefineryJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(BlocksRegistry.FUEL_REFINERY_BLOCK.get()), FuelRefineryJeiCategory.recipeType);
 		// Rocket Tier 1
-		registration.addRecipeCatalyst(new ItemStack(ModInit.TIER_1_ROCKET_ITEM.get()), RocketTier1JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get()), RocketTier1JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
 		// Rocket Tier 2
-		registration.addRecipeCatalyst(new ItemStack(ModInit.TIER_2_ROCKET_ITEM.get()), RocketTier2JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get()), RocketTier2JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
 		// Rocket Tier 3
-		registration.addRecipeCatalyst(new ItemStack(ModInit.TIER_3_ROCKET_ITEM.get()), RocketTier3JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get()), RocketTier3JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
 		// Rocket Tier 4
-		registration.addRecipeCatalyst(new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get()), RocketTier4JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get()), RocketTier4JeiCategory.recipeType, SpaceStationJeiCategory.recipeType);
 		// Rover
-		registration.addRecipeCatalyst(new ItemStack(ModInit.ROVER_ITEM.get()), RoverJeiCategory.recipeType);
+		registration.addRecipeCatalyst(new ItemStack(ItemsRegistry.ROVER_ITEM.get()), RoverJeiCategory.recipeType);
 	}
 
 	public static class OxygenLoaderJeiCategory implements IRecipeCategory<OxygenLoaderRecipe> {
@@ -655,12 +653,12 @@ public class JeiPlugin implements IModPlugin {
 			builder.moveRecipeTransferButton(background.getWidth() - 20, background.getHeight() - 20);
 
 			GridPlacer placer = new GridPlacer();
-			placeRocketParts(39, 8, 1, placer::placeBottom, ModInit.ROCKET_PART_NOSE.get(), builder, recipe);
-			placeRocketParts(30, 26, 2, placer::placeBottom, ModInit.ROCKET_PART_BODY.get(), builder, recipe);
-			placeRocketParts(30, 80, 1, placer::placeRight, ModInit.ROCKET_PART_TANK.get(), builder, recipe);
-			placeRocketParts(12, 80, 1, placer::placeBottom, ModInit.ROCKET_PART_FIN_LEFT.get(), builder, recipe);
-			placeRocketParts(66, 80, 1, placer::placeBottom, ModInit.ROCKET_PART_FIN_RIGHT.get(), builder, recipe);
-			placeRocketParts(39, 98, 1, placer::placeBottom, ModInit.ROCKET_PART_ENGINE.get(), builder, recipe);
+			placeRocketParts(39, 8, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_NOSE.get(), builder, recipe);
+			placeRocketParts(30, 26, 2, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_BODY.get(), builder, recipe);
+			placeRocketParts(30, 80, 1, placer::placeRight, RocketPartsRegistry.ROCKET_PART_TANK.get(), builder, recipe);
+			placeRocketParts(12, 80, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_LEFT.get(), builder, recipe);
+			placeRocketParts(66, 80, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_RIGHT.get(), builder, recipe);
+			placeRocketParts(39, 98, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_ENGINE.get(), builder, recipe);
 
 			IRecipeSlotBuilder output = builder.addSlot(RecipeIngredientRole.OUTPUT, 127, 73);
 			output.addItemStack(recipe.getOutput());
@@ -791,7 +789,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RocketTier1JeiCategory(IGuiHelper guiHelper) {
 			this.background = guiHelper.drawableBuilder(BACKGROUND, 0, 0, 128, 71).setTextureSize(128, 71).build();
-			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModInit.TIER_1_ROCKET_ITEM.get()));
+			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get()));
 		}
 
 		@Override
@@ -850,7 +848,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RocketTier2JeiCategory(IGuiHelper guiHelper) {
 			this.background = guiHelper.drawableBuilder(BACKGROUND, 0, 0, 128, 71).setTextureSize(128, 71).build();
-			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModInit.TIER_2_ROCKET_ITEM.get()));
+			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get()));
 		}
 
 		@Override
@@ -909,7 +907,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RocketTier3JeiCategory(IGuiHelper guiHelper) {
 			this.background = guiHelper.drawableBuilder(BACKGROUND, 0, 0, 128, 71).setTextureSize(128, 71).build();
-			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModInit.TIER_3_ROCKET_ITEM.get()));
+			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get()));
 		}
 
 		@Override
@@ -968,7 +966,7 @@ public class JeiPlugin implements IModPlugin {
 
 		public RocketTier4JeiCategory(IGuiHelper guiHelper) {
 			this.background = guiHelper.drawableBuilder(BACKGROUND, 0, 0, 128, 71).setTextureSize(128, 71).build();
-			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get()));
+			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get()));
 		}
 
 		@Override

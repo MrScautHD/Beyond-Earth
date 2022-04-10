@@ -1,44 +1,30 @@
 package net.mrscauthd.beyond_earth.flag;
 
-import com.google.common.collect.Iterables;
 import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftSessionService;
-import com.mojang.authlib.properties.Property;
 
 import java.util.UUID;
-import java.util.concurrent.Executor;
-import java.util.function.Consumer;
 import javax.annotation.Nullable;
 
-import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.server.players.GameProfileCache;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class FlagTileEntity extends BlockEntity {
-    @Nullable
-    private static GameProfileCache profileCache;
-
-    @Nullable
-    private static MinecraftSessionService sessionService;
 
     @Nullable
     private GameProfile owner;
 
-    @Nullable
-    private static Executor mainThreadExecutor;
-
     public FlagTileEntity(BlockPos pos, BlockState state) {
-        super(ModInit.FLAG.get(), pos, state);
+        super(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override
@@ -63,7 +49,6 @@ public class FlagTileEntity extends BlockEntity {
                 this.setOwner(new GameProfile((UUID)null, s));
             }
         }
-
     }
 
     @Nullable
@@ -96,37 +81,9 @@ public class FlagTileEntity extends BlockEntity {
     }
 
     private void updateOwnerProfile() {
-        updateGameprofile(this.owner, (p_155747_) -> {
+        SkullBlockEntity.updateGameprofile(this.owner, (p_155747_) -> {
             this.owner = p_155747_;
             this.setChanged();
         });
-    }
-
-    @Nullable
-    public static void updateGameprofile(@Nullable GameProfile p_155739_, Consumer<GameProfile> p_155740_) {
-        if (p_155739_ != null && !StringUtil.isNullOrEmpty(p_155739_.getName()) && (!p_155739_.isComplete() || !p_155739_.getProperties().containsKey("textures")) && profileCache != null && sessionService != null) {
-            profileCache.getAsync(p_155739_.getName(), (p_182470_) -> {
-                Util.backgroundExecutor().execute(() -> {
-                    Util.ifElse(p_182470_, (p_182479_) -> {
-                        Property property = Iterables.getFirst(p_182479_.getProperties().get("textures"), (Property)null);
-                        if (property == null) {
-                            p_182479_ = sessionService.fillProfileProperties(p_182479_, true);
-                        }
-
-                        GameProfile gameprofile = p_182479_;
-                        mainThreadExecutor.execute(() -> {
-                            profileCache.add(gameprofile);
-                            p_155740_.accept(gameprofile);
-                        });
-                    }, () -> {
-                        mainThreadExecutor.execute(() -> {
-                            p_155740_.accept(p_155739_);
-                        });
-                    });
-                });
-            });
-        } else {
-            p_155740_.accept(p_155739_);
-        }
     }
 }

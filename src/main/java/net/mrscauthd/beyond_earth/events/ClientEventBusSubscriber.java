@@ -19,7 +19,6 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienModel;
 import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieModel;
@@ -65,9 +64,7 @@ import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGuiWindow;
 import net.mrscauthd.beyond_earth.overlays.Overlays;
 import net.mrscauthd.beyond_earth.particles.*;
 import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienRenderer;
-import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
-import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
-import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
+import net.mrscauthd.beyond_earth.registries.*;
 import org.lwjgl.glfw.GLFW;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -99,10 +96,10 @@ public class ClientEventBusSubscriber {
 
 		event.registerEntityRenderer(EntitiesRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
-		event.registerBlockEntityRenderer(ModInit.OXYGEN_BUBBLE_DISTRIBUTOR.get(), TileEntityBoxRenderer::new);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
 
-		event.registerBlockEntityRenderer(ModInit.FLAG.get(), TileEntityHeadRenderer::new);
-		event.registerBlockEntityRenderer(ModInit.GLOBE.get(), GLOBE_RENDERER);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), TileEntityHeadRenderer::new);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GLOBE_RENDERER);
 	}
 
 	@SubscribeEvent
@@ -148,19 +145,19 @@ public class ClientEventBusSubscriber {
 		ClientRegistry.registerKeyBinding(key1);
 
 		//Fluid Translucent Renderer
-		ItemBlockRenderTypes.setRenderLayer(ModInit.FLOWING_FUEL.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(ModInit.FUEL_STILL.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(FluidsRegistry.FLOWING_FUEL.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(FluidsRegistry.FUEL_STILL.get(), RenderType.translucent());
 
-		ItemBlockRenderTypes.setRenderLayer(ModInit.FLOWING_OIL.get(), RenderType.translucent());
-		ItemBlockRenderTypes.setRenderLayer(ModInit.OIL_STILL.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(FluidsRegistry.FLOWING_OIL.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(FluidsRegistry.OIL_STILL.get(), RenderType.translucent());
 
 		//Block Translucent Renderer
-		ItemBlockRenderTypes.setRenderLayer(ModInit.COAL_LANTERN_BLOCK.get(), RenderType.translucent());
+		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.COAL_LANTERN_BLOCK.get(), RenderType.translucent());
 
 		//Cutout
-		ItemBlockRenderTypes.setRenderLayer(ModInit.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
 
-		ItemBlockRenderTypes.setRenderLayer(ModInit.WATER_PUMP_BLOCK.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
 
 		//OVERLAY
 		OverlayRegistry.registerOverlayTop("warning", Overlays.WARNING);

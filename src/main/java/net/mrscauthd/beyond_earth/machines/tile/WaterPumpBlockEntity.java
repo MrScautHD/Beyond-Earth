@@ -21,17 +21,17 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidHandlerWrapper;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.beyond_earth.machines.WaterPump;
+import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
 	public static final int TRANSFER_PER_TICK = 10;
 	
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
-        super(ModInit.WATER_PUMP.get(), pos, state);
+        super(BlockEntitiesRegistry.WATER_PUMP_BLOCK_ENTITY.get(), pos, state);
     }
 
     public static final ResourceLocation WATER_TANK = new ResourceLocation(BeyondEarthMod.MODID, "water_tank");

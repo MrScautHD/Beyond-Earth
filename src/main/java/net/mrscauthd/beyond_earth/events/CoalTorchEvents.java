@@ -15,8 +15,8 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.blocks.CoalLanternBlock;
+import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class CoalTorchEvents {
@@ -40,14 +40,14 @@ public class CoalTorchEvents {
             else if (block == Blocks.WALL_TORCH) {
                 DirectionProperty property = (DirectionProperty) blockState.getBlock().getStateDefinition().getProperty("facing");
 
-                world.setBlock(pos, ModInit.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(property, blockState.getValue(property)), 3);
+                world.setBlock(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(property, blockState.getValue(property)), 3);
 
                 playFireExtinguish(pos, world);
             }
 
             /** TORCH */
             else if (block == Blocks.TORCH) {
-                world.setBlock(pos, ModInit.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
+                world.setBlock(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
 
                 playFireExtinguish(pos, world);
             }
@@ -57,9 +57,9 @@ public class CoalTorchEvents {
                 boolean isHanging = blockState.getValue(LanternBlock.HANGING);
 
                 if (isHanging) {
-                    world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
+                    world.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
                 } else {
-                    world.setBlock(pos, ModInit.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
+                    world.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
                 }
 
                 playFireExtinguish(pos, world);

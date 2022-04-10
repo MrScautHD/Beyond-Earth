@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.mrscauthd.beyond_earth.ModInit;
 
 public class AlienTradingRecipeItemStack extends AlienTradingRecipeItemStackBase {
 

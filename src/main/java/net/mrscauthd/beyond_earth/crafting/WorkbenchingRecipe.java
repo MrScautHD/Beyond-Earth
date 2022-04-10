@@ -24,9 +24,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
+import net.mrscauthd.beyond_earth.registries.RocketPartsRegistry;
 
 public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate<RocketPartsItemHandler, Boolean> {
 
@@ -41,7 +41,7 @@ public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate
 		Map<RocketPart, List<Ingredient>> map = new HashMap<>();
 
 		for (Entry<String, JsonElement> entry : partsJson.entrySet()) {
-			RocketPart part = ModInit.ROCKET_PARTS_REGISTRY.get().getValue(new ResourceLocation(entry.getKey()));
+			RocketPart part = RocketPartsRegistry.ROCKET_PARTS_REGISTRY.get().getValue(new ResourceLocation(entry.getKey()));
 			JsonArray slotsJson = entry.getValue().getAsJsonArray();
 			List<Ingredient> ingredients = Lists.newArrayList(slotsJson).stream().map(Ingredient::fromJson).collect(Collectors.toList());
 			map.put(part, Collections.unmodifiableList(ingredients));

@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.rendertypes.TranslucentArmorRenderType;
 
 public class SpaceSuitModel {
@@ -106,9 +106,9 @@ public class SpaceSuitModel {
             leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
 
             /**Translucent Armor Parts*/
-            if (stack.getItem() == ModInit.OXYGEN_MASK.get()) {
+            if (stack.getItem() == ItemsRegistry.OXYGEN_MASK.get()) {
                 head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(spaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
-            } else if (stack.getItem() == ModInit.NETHERITE_OXYGEN_MASK.get()) {
+            } else if (stack.getItem() == ItemsRegistry.NETHERITE_OXYGEN_MASK.get()) {
                 head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(netheriteSpaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
             } else {
                 head.render(poseStack, buffer, packedLight, packedOverlay);

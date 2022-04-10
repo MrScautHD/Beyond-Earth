@@ -17,8 +17,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 import java.util.Random;
 
@@ -45,7 +45,7 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
     @Override
     @OnlyIn(Dist.CLIENT)
     public ItemStack getItem() {
-        return new ItemStack(ModInit.ICE_SHARD.get(), 1);
+        return new ItemStack(ItemsRegistry.ICE_SHARD.get(), 1);
     }
 
     @Override

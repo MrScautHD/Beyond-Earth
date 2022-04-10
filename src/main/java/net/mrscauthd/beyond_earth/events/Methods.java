@@ -34,7 +34,6 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
@@ -135,47 +134,47 @@ public class Methods {
     }
 
     public static boolean netheriteSpaceSuitCheck(LivingEntity entity) {
-        if (!checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get())) return false;
-        if (!checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get())) return false;
-        if (!checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get())) return false;
-        if (!checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get())) return false;
+        if (!checkArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get())) return false;
+        if (!checkArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
+        if (!checkArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get())) return false;
+        if (!checkArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get())) return false;
 
         return true;
     }
 
     public static boolean spaceSuitCheck(LivingEntity entity) {
-        if (!checkArmor(entity, 3, ModInit.OXYGEN_MASK.get())) return false;
-        if (!checkArmor(entity, 2, ModInit.SPACE_SUIT.get())) return false;
-        if (!checkArmor(entity, 1, ModInit.SPACE_PANTS.get())) return false;
-        if (!checkArmor(entity, 0, ModInit.SPACE_BOOTS.get())) return false;
+        if (!checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
+        if (!checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
+        if (!checkArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get())) return false;
+        if (!checkArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get())) return false;
 
         return true;
     }
 
     public static boolean spaceSuitCheckBoth(LivingEntity entity) {
-        boolean item3 = checkArmor(entity, 3, ModInit.OXYGEN_MASK.get());
-        boolean item3b = checkArmor(entity, 3, ModInit.NETHERITE_OXYGEN_MASK.get());
+        boolean item3 = checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get());
+        boolean item3b = checkArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get());
 
         if (!item3 && !item3b) {
             return false;
         }
 
-        boolean item2 = checkArmor(entity, 2, ModInit.SPACE_SUIT.get());
-        boolean item2b = checkArmor(entity, 2, ModInit.NETHERITE_SPACE_SUIT.get());
+        boolean item2 = checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get());
+        boolean item2b = checkArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get());
 
         if (!item2 && !item2b) {
             return false;
         }
 
-        boolean item1 = checkArmor(entity, 1, ModInit.SPACE_PANTS.get());
-        boolean item1b = checkArmor(entity, 1, ModInit.NETHERITE_SPACE_PANTS.get());
+        boolean item1 = checkArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get());
+        boolean item1b = checkArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get());
 
         if (!item1 && !item1b) {
             return false;
         }
 
-        boolean item0 = checkArmor(entity, 0, ModInit.SPACE_BOOTS.get());
-        boolean item0b = checkArmor(entity, 0, ModInit.NETHERITE_SPACE_BOOTS.get());
+        boolean item0 = checkArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get());
+        boolean item0b = checkArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
 
         if (!item0 && !item0b) {
             return false;
@@ -423,16 +422,16 @@ public class Methods {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
         if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
-            itemStack = new ItemStack(ModInit.TIER_1_ROCKET_ITEM.get(),1);
+            itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(),1);
         }
         else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
-            itemStack = new ItemStack(ModInit.TIER_2_ROCKET_ITEM.get(),1);
+            itemStack = new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get(),1);
         }
         else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
-            itemStack = new ItemStack(ModInit.TIER_3_ROCKET_ITEM.get(),1);
+            itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(),1);
         }
         else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
-            itemStack = new ItemStack(ModInit.TIER_4_ROCKET_ITEM.get(),1);
+            itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(),1);
         }
 
         Methods.rocketTeleport(player, planet, itemStack, SpaceStation);

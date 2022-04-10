@@ -16,7 +16,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;

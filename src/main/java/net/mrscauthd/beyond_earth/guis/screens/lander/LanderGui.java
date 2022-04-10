@@ -8,7 +8,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.*;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.registries.ScreensRegistry;

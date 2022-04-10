@@ -21,7 +21,6 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidMultiTank;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
@@ -30,6 +29,7 @@ import net.mrscauthd.beyond_earth.crafting.FuelRefiningRecipe;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGui;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
+import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 
@@ -51,7 +51,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	private FuelRefiningRecipe cachedRecipe;
 
 	public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {
-		super(ModInit.FUEL_REFINERY.get(), pos, state);
+		super(BlockEntitiesRegistry.FUEL_REFINERY_BLOCK_ENTITY.get(), pos, state);
 
 		this.recipeCacher = new StackCacher();
 		this.cachedRecipe = null;

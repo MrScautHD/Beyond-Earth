@@ -5,10 +5,10 @@ import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import com.google.common.collect.ImmutableSet;
+import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 import java.util.Set;
 import java.util.function.Supplier;
@@ -17,11 +17,11 @@ import java.util.function.Supplier;
 public class PlanetCaver {
 
     protected static final Supplier<Set<Block>> replaceableBlocks = () -> ImmutableSet.of(
-            ModInit.MOON_STONE.get(),
-            ModInit.MARS_STONE.get(),
-            ModInit.MERCURY_STONE.get(),
-            ModInit.VENUS_STONE.get(), ModInit.VENUS_SANDSTONE.get(),
-            ModInit.GLACIO_STONE.get(), ModInit.PERMAFROST_STONE.get());
+            BlocksRegistry.MOON_STONE.get(),
+            BlocksRegistry.MARS_STONE.get(),
+            BlocksRegistry.MERCURY_STONE.get(),
+            BlocksRegistry.VENUS_STONE.get(), BlocksRegistry.VENUS_SANDSTONE.get(),
+            BlocksRegistry.GLACIO_STONE.get(), BlocksRegistry.PERMAFROST_STONE.get());
 
     @SubscribeEvent
     public static void init(FMLCommonSetupEvent event) {

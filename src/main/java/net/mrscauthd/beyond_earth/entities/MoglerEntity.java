@@ -12,7 +12,6 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 

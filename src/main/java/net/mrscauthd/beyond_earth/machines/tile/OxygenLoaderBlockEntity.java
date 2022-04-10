@@ -10,13 +10,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGui;
+import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 
@@ -25,7 +25,7 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 	public static final int SLOT_OUTPUT_SOURCE = 3;
 
 	public OxygenLoaderBlockEntity(BlockPos pos, BlockState state) {
-		super(ModInit.OXYGEN_LOADER.get(), pos, state);
+		super(BlockEntitiesRegistry.OXYGEN_LOADER_BLOCK_ENTITY.get(), pos, state);
 	}
 
 	@Override

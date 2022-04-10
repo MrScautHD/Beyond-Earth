@@ -21,7 +21,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
@@ -63,13 +63,13 @@ public class ClientMethods {
     }
 
     public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer) {
-        if (Methods.checkArmor(player, 2, ModInit.SPACE_SUIT.get())) {
+        if (Methods.checkArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
 
             ClientMethods.renderArm(poseStack, multiBufferSource, light, ARM_SPACE_SUIT, player, playerModel, renderer, playerModel.rightArm);
             return true;
         }
 
-        if (Methods.checkArmor(player, 2, ModInit.NETHERITE_SPACE_SUIT.get())) {
+        if (Methods.checkArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
 
             ClientMethods.renderArm(poseStack, multiBufferSource, light, ARM_NETHERITE_SPACE_SUIT, player, playerModel, renderer, playerModel.rightArm);
             return true;

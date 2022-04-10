@@ -12,7 +12,6 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;

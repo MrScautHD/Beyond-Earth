@@ -18,13 +18,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 @OnlyIn(Dist.CLIENT)
@@ -63,7 +63,7 @@ public class RocketGuiWindow extends AbstractContainerScreen<RocketGui.GuiContai
 
 		IGaugeValue fuelGaugeValue = this.getFuelGaugeValue();
 
-		FluidStack fluidStack = new FluidStack(ModInit.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
+		FluidStack fluidStack = new FluidStack(BlocksRegistry.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
 		GuiHelper.drawRocketFluidTank(ms, this.leftPos + 67, this.topPos + 22, fluidStack, fuelGaugeValue.getCapacity());
 	}
 

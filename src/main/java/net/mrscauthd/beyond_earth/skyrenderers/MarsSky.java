@@ -26,6 +26,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 
+import javax.annotation.Nullable;
+
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MarsSky {
 
@@ -35,6 +37,8 @@ public class MarsSky {
 	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/phobos.png");
 	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/deimos.png");
 	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
+
+    private static final float[] sunriseCol = new float[4];
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
@@ -57,6 +61,25 @@ public class MarsSky {
 
                     }
                 };
+            }
+
+            @Nullable
+            public float[] getSunriseColor(float p_108872_, float p_108873_) {
+                float f = 0.4F;
+                float f1 = Mth.cos(p_108872_ * ((float)Math.PI * 2F)) - 0.0F;
+                float f2 = -0.0F;
+                if (f1 >= -0.4F && f1 <= 0.4F) {
+                    float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 12.9F;
+                    float f4 = 1.0F - (1.0F - Mth.sin(f3 * (float)Math.PI)) * 0.99F;
+                    f4 *= f4;
+                    sunriseCol[0] = f3 * 0.3F + 0.7F;
+                    sunriseCol[1] = f3 * f3 * 0.7F + 0.2F;
+                    sunriseCol[2] = f3 * f3 * 0.0F + 0.2F;
+                    sunriseCol[3] = f4;
+                    return sunriseCol;
+                } else {
+                    return null;
+                }
             }
 
             @Override
@@ -83,7 +106,7 @@ public class MarsSky {
                         RenderSystem.defaultBlendFunc();
 
                         /** COLOR SYSTEM */
-                        float[] afloat = level.effects().getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
+                        float[] afloat = getSunriseColor(level.getTimeOfDay(p_181412_), p_181412_);
                         if (afloat != null) {
                             RenderSystem.setShader(GameRenderer::getPositionColorShader);
                             RenderSystem.disableTexture();

@@ -38,10 +38,10 @@ import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraft.world.item.trading.MerchantOffers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.entities.AlienZombieEntity;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
+import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -87,7 +87,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 	@Override
 	public InteractionResult mobInteract(Player p_230254_1_, InteractionHand p_230254_2_) {
 		ItemStack itemstack = p_230254_1_.getItemInHand(p_230254_2_);
-		if (itemstack.getItem() != ModInit.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.isTrading() && !this.isSleeping() && !p_230254_1_.isSecondaryUseActive()) {
+		if (itemstack.getItem() != ItemsRegistry.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.isTrading() && !this.isSleeping() && !p_230254_1_.isSecondaryUseActive()) {
 			if (this.isBaby()) {
 				this.shakeHead();
 				return InteractionResult.sidedSuccess(this.level.isClientSide);

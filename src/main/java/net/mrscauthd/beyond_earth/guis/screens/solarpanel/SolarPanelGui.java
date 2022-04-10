@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.ModInit;
 import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
 import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
 import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
