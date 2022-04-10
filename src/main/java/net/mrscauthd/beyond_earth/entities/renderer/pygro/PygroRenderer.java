@@ -16,6 +16,8 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 @OnlyIn(Dist.CLIENT)
 public class PygroRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
 
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/pygro.png");
+
     public PygroRenderer(EntityRendererProvider.Context p_174344_, ModelLayerLocation p_174345_, ModelLayerLocation p_174346_, ModelLayerLocation p_174347_) {
         super(p_174344_, createModel(p_174344_.getModelSet(), p_174345_), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
         this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(p_174344_.bakeLayer(p_174346_)), new HumanoidModel(p_174344_.bakeLayer(p_174347_))));
@@ -28,7 +30,7 @@ public class PygroRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
     }
 
     public ResourceLocation getTextureLocation(Mob p_115708_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/pygro.png");
+        return TEXTURE;
     }
 
     protected boolean isShaking(Mob p_115712_) {

@@ -10,12 +10,15 @@ import net.mrscauthd.beyond_earth.entities.AlienZombieEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class AlienZombieRenderer extends MobRenderer<AlienZombieEntity, AlienZombieModel<AlienZombieEntity>> {
+
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/alien_zombie.png");
+
     public AlienZombieRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new AlienZombieModel<>(renderManagerIn.bakeLayer(AlienZombieModel.LAYER_LOCATION)), 0.5f);
     }
 
     @Override
     public ResourceLocation getTextureLocation(AlienZombieEntity p_114482_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/alien_zombie.png");
+        return TEXTURE;
     }
 }

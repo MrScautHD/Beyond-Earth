@@ -10,12 +10,15 @@ import net.mrscauthd.beyond_earth.entities.StarCrawlerEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class StarCrawlerRenderer extends MobRenderer<StarCrawlerEntity, StarCrawlerModel<StarCrawlerEntity>> {
+
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/starfish.png");
+
     public StarCrawlerRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new StarCrawlerModel<>(renderManagerIn.bakeLayer(StarCrawlerModel.LAYER_LOCATION)), 0f);
     }
 
     @Override
     public ResourceLocation getTextureLocation(StarCrawlerEntity p_114482_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/starfish.png");
+        return TEXTURE;
     }
 }

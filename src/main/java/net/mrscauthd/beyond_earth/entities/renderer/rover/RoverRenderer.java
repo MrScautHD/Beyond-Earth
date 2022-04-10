@@ -10,12 +10,15 @@ import net.mrscauthd.beyond_earth.entities.renderer.VehicleRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class RoverRenderer extends VehicleRenderer<RoverEntity, RoverModel<RoverEntity>> {
+
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/vehicles/rover.png");
+
     public RoverRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RoverModel<>(renderManagerIn.bakeLayer(RoverModel.LAYER_LOCATION)), 0f);
     }
 
     @Override
     public ResourceLocation getTextureLocation(RoverEntity p_114482_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/vehicles/rover.png");
+        return TEXTURE;
     }
 }

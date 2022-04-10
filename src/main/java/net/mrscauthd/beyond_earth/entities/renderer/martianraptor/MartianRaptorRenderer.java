@@ -10,12 +10,15 @@ import net.mrscauthd.beyond_earth.entities.MartianRaptor;
 
 @OnlyIn(Dist.CLIENT)
 public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, MartianRaptorModel<MartianRaptor>> {
+
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/martian_raptor.png");
+
     public MartianRaptorRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new MartianRaptorModel<>(renderManagerIn.bakeLayer(MartianRaptorModel.LAYER_LOCATION)), 0.5f);
     }
 
     @Override
     public ResourceLocation getTextureLocation(MartianRaptor p_114482_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/martian_raptor.png");
+        return TEXTURE;
     }
 }

@@ -8,6 +8,25 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.alien.AlienEntity;
 
 public class AlienRenderer extends MobRenderer<AlienEntity, AlienModel<AlienEntity>> {
+
+    /** TEXTURES */
+    public static final ResourceLocation texDefault = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien.png");
+
+    public static final ResourceLocation tex1 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien1.png");
+    public static final ResourceLocation tex2 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien2.png");
+    public static final ResourceLocation tex3 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien3.png");
+    public static final ResourceLocation tex4 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien4.png");
+    public static final ResourceLocation tex5 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien5.png");
+    public static final ResourceLocation tex6 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien6.png");
+    public static final ResourceLocation tex7 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien7.png");
+    public static final ResourceLocation tex8 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien8.png");
+    public static final ResourceLocation tex9 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien9.png");
+    public static final ResourceLocation tex10 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien10.png");
+    public static final ResourceLocation tex11 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien11.png");
+    public static final ResourceLocation tex12 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien12.png");
+    public static final ResourceLocation tex13 = new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien13.png");
+
+
     public AlienRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new AlienModel<>(renderManagerIn.bakeLayer(AlienModel.LAYER_LOCATION)), 0.5f);
     }
@@ -15,45 +34,45 @@ public class AlienRenderer extends MobRenderer<AlienEntity, AlienModel<AlienEnti
     @Override
     public ResourceLocation getTextureLocation(AlienEntity entity) {
         if (entity.getVillagerData().getProfession() == VillagerProfession.FARMER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien1.png");
+            return tex1;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.FISHERMAN) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien2.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.FISHERMAN) {
+            return tex2;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.SHEPHERD) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien3.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.SHEPHERD) {
+            return tex3;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.FLETCHER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien4.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.FLETCHER) {
+            return tex4;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.LIBRARIAN) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien5.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.LIBRARIAN) {
+            return tex5;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien6.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER) {
+            return tex6;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.CLERIC) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien7.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.CLERIC) {
+            return tex7;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.ARMORER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien8.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.ARMORER) {
+            return tex8;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.WEAPONSMITH) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien9.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.WEAPONSMITH) {
+            return tex9;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.TOOLSMITH) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien10.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.TOOLSMITH) {
+            return tex10;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.BUTCHER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien11.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.BUTCHER) {
+            return tex11;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.LEATHERWORKER) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien12.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.LEATHERWORKER) {
+            return tex12;
         }
-        if (entity.getVillagerData().getProfession() == VillagerProfession.MASON) {
-            return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien13.png");
+        else if (entity.getVillagerData().getProfession() == VillagerProfession.MASON) {
+            return tex13;
         }
 
-        return new ResourceLocation(BeyondEarthMod.MODID,"textures/entities/alien/entity_alien.png");
+        return texDefault;
     }
 }

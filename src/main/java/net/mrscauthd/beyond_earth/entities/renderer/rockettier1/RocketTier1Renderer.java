@@ -10,12 +10,15 @@ import net.mrscauthd.beyond_earth.entities.renderer.VehicleRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class RocketTier1Renderer extends VehicleRenderer<RocketTier1Entity, RocketTier1Model<RocketTier1Entity>> {
+
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/vehicles/rocket_t1.png");
+
     public RocketTier1Renderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RocketTier1Model<>(renderManagerIn.bakeLayer(RocketTier1Model.LAYER_LOCATION)), 0.5f);
     }
 
     @Override
     public ResourceLocation getTextureLocation(RocketTier1Entity p_114482_) {
-        return new ResourceLocation(BeyondEarthMod.MODID, "textures/vehicles/rocket_t1.png");
+        return TEXTURE;
     }
 }

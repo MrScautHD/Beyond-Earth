@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
@@ -14,8 +13,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,7 +23,6 @@ import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.block.SkullBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.phys.Vec3;
@@ -69,12 +65,6 @@ public class TileEntityHeadRenderer implements BlockEntityRenderer<FlagTileEntit
 	private static final Map<FlagBlock.ISkullType, ResourceLocation> SKINS = Util.make(Maps.newHashMap(), (p_209263_0_) -> {
 		p_209263_0_.put(FlagBlock.Types.PLAYER, DefaultPlayerSkin.getDefaultSkin());
 	});
-
-	public static Map<SkullBlock.Type, TileEntityHeadModel> createSkullRenderers(EntityModelSet p_173662_) {
-		ImmutableMap.Builder<SkullBlock.Type, TileEntityHeadModel> builder = ImmutableMap.builder();
-		builder.put(SkullBlock.Types.PLAYER, new TileEntityHeadModel(p_173662_.bakeLayer(ModelLayers.PLAYER_HEAD)));
-		return builder.build();
-	}
 
 	@Override
 	public void render(FlagTileEntity tileEntityIn, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {

@@ -28,8 +28,8 @@ public class SpaceSuitModel {
     @OnlyIn(Dist.CLIENT)
     public static class SPACE_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
-        private static ResourceLocation spaceSuit = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/space_suit_head.png");
-        private static ResourceLocation netheriteSpaceSuit = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/netherite_space_suit_head.png");
+        private static final ResourceLocation spaceSuit = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/space_suit_head.png");
+        private static final ResourceLocation netheriteSpaceSuit = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/netherite_space_suit_head.png");
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarthMod.MODID, "space_suit_p1"), "main");
 
