@@ -3,11 +3,16 @@ package net.mrscauthd.beyond_earth.skyrenderers;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
@@ -71,106 +76,119 @@ public class MoonOrbitSky {
                 return new ISkyRenderHandler() {
                     @Override
                     public void render(int ticks, float p_181412_, PoseStack p_181410_, ClientLevel level, Minecraft minecraft) {
-                        Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
-                        Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
-                        RenderSystem.disableTexture();
-                        Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
-                        float f = (float)vec3.x;
-                        float f1 = (float)vec3.y;
-                        float f2 = (float)vec3.z;
-                        FogRenderer.levelFogColor();
-                        BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
-                        RenderSystem.depthMask(false);
-                        RenderSystem.setShaderColor(f, f1, f2, 1.0F);
-                        ShaderInstance shaderinstance = RenderSystem.getShader();
-                        minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
+                        Camera camera = minecraft.gameRenderer.getMainCamera();
+                        FogType fogtype = camera.getFluidInCamera();
 
-                        /** ENABLE BLEND SYSTEM */
-                        RenderSystem.enableBlend();
-                        RenderSystem.defaultBlendFunc();
+                        if (fogtype != FogType.POWDER_SNOW && fogtype != FogType.LAVA) {
+                            Entity entity = camera.getEntity();
+                            if (entity instanceof LivingEntity) {
+                                LivingEntity livingentity = (LivingEntity) entity;
+                                if (livingentity.hasEffect(MobEffects.BLINDNESS)) {
+                                    return;
+                                }
+                            }
 
-                        /** STAR ROT */
-                        p_181410_.pushPose();
-                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
-                        p_181410_.mulPose(Vector3f.ZP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
-
-                        /** STAR */
-                        starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000, false);
-                        RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
-                        FogRenderer.setupNoFog();
-                        starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
-                        p_181410_.popPose();
-
-                        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-
-                        p_181410_.pushPose();
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        RenderSystem.enableTexture();
-
-                        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-
-                        /** DEFAULT ROT */
-                        p_181410_.pushPose();
-                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
-                        Matrix4f matrix4f1 = p_181410_.last().pose();
-                        p_181410_.popPose();
-
-                        /** SUN */
-                        float f12 = 30.0F;
-
-                        RenderSystem.setShaderTexture(0, SUN_TEXTURE);
-                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                        bufferbuilder.end();
-                        BufferUploader.end(bufferbuilder);
-
-
-                        /** MOON ROT */
-                        p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
-                        p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
-                        matrix4f1 = p_181410_.last().pose();
-
-                        /** MOON */
-                        RenderSystem.disableBlend();
-
-                        float var20 = -3000.0F + (float) Minecraft.getInstance().player.getY() * 6F;
-
-                        float scale = 100 * (0.2F - var20 / 10000.0F);
-                        scale = Math.max(scale, 4.0F);
-
-                        RenderSystem.setShaderTexture(0, MOON_TEXTURE);
-                        bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-                        bufferbuilder.vertex(matrix4f1, -scale, -100.0F, scale).uv(0.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, scale, -100.0F, scale).uv(1.0F, 0.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
-                        bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
-                        bufferbuilder.end();
-                        BufferUploader.end(bufferbuilder);
-
-                        RenderSystem.enableBlend();
-
-                        RenderSystem.disableTexture();
-                        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                        RenderSystem.disableBlend();
-                        p_181410_.popPose();
-
-                        /** CUT WAY SYSTEM */
-                        RenderSystem.disableTexture();
-                        RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
-
-                        if (level.effects().hasGround()) {
-                            RenderSystem.setShaderColor(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F, 1.0F);
-                        } else {
+                            Matrix4f matrix4f = RenderSystem.getProjectionMatrix();
+                            Matrix4f starMatrix4f = RenderSystem.getProjectionMatrix();
+                            RenderSystem.disableTexture();
+                            Vec3 vec3 = level.getSkyColor(minecraft.gameRenderer.getMainCamera().getPosition(), p_181412_);
+                            float f = (float) vec3.x;
+                            float f1 = (float) vec3.y;
+                            float f2 = (float) vec3.z;
+                            FogRenderer.levelFogColor();
+                            BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
+                            RenderSystem.depthMask(false);
                             RenderSystem.setShaderColor(f, f1, f2, 1.0F);
-                        }
+                            ShaderInstance shaderinstance = RenderSystem.getShader();
+                            minecraft.levelRenderer.skyBuffer.drawWithShader(p_181410_.last().pose(), matrix4f, shaderinstance);
 
-                        RenderSystem.enableTexture();
-                        RenderSystem.depthMask(true);
+                            /** ENABLE BLEND SYSTEM */
+                            RenderSystem.enableBlend();
+                            RenderSystem.defaultBlendFunc();
+
+                            /** STAR ROT */
+                            p_181410_.pushPose();
+                            p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                            p_181410_.mulPose(Vector3f.ZP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                            p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
+
+                            /** STAR */
+                            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000, false);
+                            RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
+                            FogRenderer.setupNoFog();
+                            starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                            p_181410_.popPose();
+
+                            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
+                            p_181410_.pushPose();
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            RenderSystem.enableTexture();
+
+                            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+
+                            /** DEFAULT ROT */
+                            p_181410_.pushPose();
+                            p_181410_.mulPose(Vector3f.YP.rotationDegrees(-90.0F));
+                            p_181410_.mulPose(Vector3f.XP.rotationDegrees(level.getTimeOfDay(p_181412_) * 360.0F));
+                            Matrix4f matrix4f1 = p_181410_.last().pose();
+                            p_181410_.popPose();
+
+                            /** SUN */
+                            float f12 = 30.0F;
+
+                            RenderSystem.setShaderTexture(0, SUN_TEXTURE);
+                            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                            bufferbuilder.vertex(matrix4f1, -f12, 100.0F, -f12).uv(0.0F, 0.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
+
+
+                            /** MOON ROT */
+                            p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
+                            p_181410_.mulPose(Vector3f.XP.rotationDegrees(0.0F));
+                            matrix4f1 = p_181410_.last().pose();
+
+                            /** MOON */
+                            RenderSystem.disableBlend();
+
+                            float var20 = -3000.0F + (float) Minecraft.getInstance().player.getY() * 6F;
+
+                            float scale = 100 * (0.2F - var20 / 10000.0F);
+                            scale = Math.max(scale, 4.0F);
+
+                            RenderSystem.setShaderTexture(0, MOON_TEXTURE);
+                            bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+                            bufferbuilder.vertex(matrix4f1, -scale, -100.0F, scale).uv(0.0F, 0.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, scale, -100.0F, scale).uv(1.0F, 0.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
+                            bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
+
+                            RenderSystem.enableBlend();
+
+                            RenderSystem.disableTexture();
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            RenderSystem.disableBlend();
+                            p_181410_.popPose();
+
+                            /** CUT WAY SYSTEM */
+                            RenderSystem.disableTexture();
+                            RenderSystem.setShaderColor(0.0F, 0.0F, 0.0F, 1.0F);
+
+                            if (level.effects().hasGround()) {
+                                RenderSystem.setShaderColor(f * 0.2F + 0.04F, f1 * 0.2F + 0.04F, f2 * 0.6F + 0.1F, 1.0F);
+                            } else {
+                                RenderSystem.setShaderColor(f, f1, f2, 1.0F);
+                            }
+
+                            RenderSystem.enableTexture();
+                            RenderSystem.depthMask(true);
+                        }
                     }
                 };
             }

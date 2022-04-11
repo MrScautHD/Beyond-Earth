@@ -30,28 +30,44 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSelectionGui.GuiContainer> {
 
-	public static ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
 
-	public static ResourceLocation defaultButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
-	public static ResourceLocation gbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button.png");
-	public static ResourceLocation gb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button_2.png");
-	public static ResourceLocation rbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
-	public static ResourceLocation rb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button_2.png");
+	public static final ResourceLocation defaultButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
+	public static final ResourceLocation gbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button.png");
+	public static final ResourceLocation gb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button_2.png");
+	public static final ResourceLocation rbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
+	public static final ResourceLocation rb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button_2.png");
 
-	public static ResourceLocation dbbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button.png");
-	public static ResourceLocation dbb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button_2.png");
+	public static final ResourceLocation dbbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button.png");
+	public static final ResourceLocation dbb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button_2.png");
 
-	public static ResourceLocation bbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button.png");
-	public static ResourceLocation bb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button_2.png");
+	public static final ResourceLocation bbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button.png");
+	public static final ResourceLocation bb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button_2.png");
 
-	public static ResourceLocation sbbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button.png");
-	public static ResourceLocation sbb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button_2.png");
+	public static final ResourceLocation sbbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button.png");
+	public static final ResourceLocation sbb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button_2.png");
 
-	public static ResourceLocation bgbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button.png");
-	public static ResourceLocation bgb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button_2.png");
+	public static final ResourceLocation bgbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button.png");
+	public static final ResourceLocation bgb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button_2.png");
 
-	public static ResourceLocation brbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button.png");
-	public static ResourceLocation brb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button_2.png");
+	public static final ResourceLocation brbButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button.png");
+	public static final ResourceLocation brb2ButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button_2.png");
+
+	public static final ResourceLocation solarSystemTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/solar_system.png");
+	public static final ResourceLocation proximaCentauriTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/proxima_centauri.png");
+
+	public static final ResourceLocation milkyWayTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/milky_way.png");
+
+	public static final ResourceLocation sunTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/sun.png");
+	public static final ResourceLocation blueSunTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/blue_sun.png");
+	public static final ResourceLocation marsTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mars.png");
+	public static final ResourceLocation earthTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/earth.png");
+	public static final ResourceLocation venusTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/venus.png");
+	public static final ResourceLocation mercuryTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mercury.png");
+	public static final ResourceLocation glacioTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/glacio.png");
+
+	public static final ResourceLocation rocketMenuListTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list.png");
+	public static final ResourceLocation rocketMenuListTex2 = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list_2.png");
 
 	public int Category = -1;
 
@@ -319,46 +335,46 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		// Solar System
 		if (Category >= 0 && Category <= 4) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/solar_system.png"));
+			RenderSystem.setShaderTexture(0, solarSystemTex);
 			GuiHelper.blit(ms, (this.width - 185) / 2, (this.height - 185) / 2, 0, 0, 185, 185, 185, 185);
 		}
 
 		// Proxima Centauri
 		if (Category >= 5 && Category <= 6) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/proxima_centauri.png"));
+			RenderSystem.setShaderTexture(0, proximaCentauriTex);
 			GuiHelper.blit(ms, (this.width - 185) / 2, (this.height - 185) / 2, 0, 0, 185, 185, 185, 185);
 		}
 
 		// SUN
 		if (Category >= 0 && Category <= 4) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/sun.png"));
+			RenderSystem.setShaderTexture(0, sunTex);
 			GuiHelper.blit(ms, (this.width - 15) / 2, (this.height - 15) / 2, 0, 0, 15, 15, 15, 15);
 		} else if (Category >= 5 && Category <= 6) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/blue_sun.png"));
+			RenderSystem.setShaderTexture(0, blueSunTex);
 			GuiHelper.blit(ms, (this.width - 15) / 2, (this.height - 15) / 2, 0, 0, 15, 15, 15, 15);
 		}
 
 		// MILKY WAY
 		if (Category == -1) {
-			this.addGalaxy(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/milky_way.png"), -125, -125, 250, 250, milkyWay);
+			this.addGalaxy(ms, milkyWayTex, -125, -125, 250, 250, milkyWay);
 		}
 
 		// PLANETS
 		if (Category >= 0 && Category <= 4) {
-			this.addPlanet(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mars.png"), -70, -70, 10, 10, rotationMars);
-			this.addPlanet(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/earth.png"), -54, -54, 10, 10, rotationEarth);
-			this.addPlanet(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/venus.png"), -37, -37, 10, 10, rotationVenus);
-			this.addPlanet(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mercury.png"), -20.5F, -20.5F, 10, 10, rotationMercury);
+			this.addPlanet(ms, marsTex, -70, -70, 10, 10, rotationMars);
+			this.addPlanet(ms, earthTex, -54, -54, 10, 10, rotationEarth);
+			this.addPlanet(ms, venusTex, -37, -37, 10, 10, rotationVenus);
+			this.addPlanet(ms, mercuryTex, -20.5F, -20.5F, 10, 10, rotationMercury);
 		} else if (Category >= 5 && Category <= 6) {
-			this.addPlanet(ms, new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/glacio.png"), -20.5F, -20.5F, 10, 10, rotationGlacio);
+			this.addPlanet(ms, glacioTex, -20.5F, -20.5F, 10, 10, rotationGlacio);
 		}
 
 		// MENU
 		if ((Category < 1) || (Category == 5)) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list.png"));
+			RenderSystem.setShaderTexture(0, rocketMenuListTex);
 			GuiComponent.blit(ms, 0, (this.height / 2) - 177 / 2, 0, 0, 105, 177, 105, 177);
 		} else if ((Category >= 1 && Category <= 4) || (Category >= 5 && Category <= 6)) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list_2.png"));
+			RenderSystem.setShaderTexture(0, rocketMenuListTex2);
 			GuiComponent.blit(ms, 0, (this.height / 2) - 177 / 2, 0, 0, 215, 177, 215, 177);
 		}
 
