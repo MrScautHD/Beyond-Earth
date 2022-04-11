@@ -244,6 +244,14 @@ public class Methods {
             return;
         }
 
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+
+            if (player.isSpectator() || player.getAbilities().instabuild) {
+                return;
+            }
+        }
+
         if (MinecraftForge.EVENT_BUS.post(new LivingSetFireInHotPlanetEvent(entity, planet))) {
             return;
         }
@@ -263,6 +271,14 @@ public class Methods {
 
         if (entity.isPassenger() && (Methods.isRocket(entity.getVehicle()) || entity.getVehicle() instanceof LanderEntity)) {
             return;
+        }
+
+        if (entity instanceof Player) {
+            Player player = (Player) entity;
+
+            if (player.isSpectator() || player.getAbilities().instabuild) {
+                return;
+            }
         }
 
         if (MinecraftForge.EVENT_BUS.post(new LivingSetVenusRainEvent(entity, planet))) {
