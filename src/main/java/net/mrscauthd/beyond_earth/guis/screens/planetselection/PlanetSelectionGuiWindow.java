@@ -30,6 +30,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSelectionGui.GuiContainer> {
 
+	/** TEXTURES */
 	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
 
 	public static final ResourceLocation defaultButtonTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
@@ -69,6 +70,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public static final ResourceLocation rocketMenuListTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list.png");
 	public static final ResourceLocation rocketMenuListTex2 = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list_2.png");
 
+	/** TEXT */
 	public static final Component catalogTEXT = tl("catalog");
 	public static final Component backTEXT = tl("back");
 
@@ -110,16 +112,18 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public static final Component rocket_t3TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 3);
 	public static final Component rocket_t4TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 4);
 
+	/** CATEGORY */
 	public int Category = -1;
 
+	/** ROTATIONS */
 	public float milkyWay = 0;
 	public float rotationMars = 0;
 	public float rotationEarth = 90;
 	public float rotationVenus = 180;
 	public float rotationMercury = 270;
-
 	public float rotationGlacio = 180;
 
+	/** BUTTONS */
 	// CATEGORY BUTTONS (-1)
 	public ImageButtonPlacer solarSystemButton;
 	public ImageButtonPlacer proximaCentauriButton;
