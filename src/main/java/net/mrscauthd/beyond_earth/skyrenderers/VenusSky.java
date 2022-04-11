@@ -279,7 +279,7 @@ public class VenusSky {
                                 }
 
                                 cloudBuffer = new VertexBuffer();
-                                Minecraft.getInstance().levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
+                                minecraft.levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
                                 bufferbuilder.end();
                                 cloudBuffer.upload(bufferbuilder);
                             }
