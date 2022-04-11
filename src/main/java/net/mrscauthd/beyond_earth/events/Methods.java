@@ -232,7 +232,7 @@ public class Methods {
         }
     }
 
-    /**If a entity should not get Fire add it to the Tag "venus_fire"*/
+    /** If a entity should not get Fire add it to the Tag "venus_fire" */
     public static void planetFire(LivingEntity entity, ResourceKey<Level> planet) {
         Level level = entity.level;
 
@@ -263,7 +263,7 @@ public class Methods {
         entity.setSecondsOnFire(10);
     }
 
-    /**If a entity should not get Damage add it to the Tag "venus_rain"*/
+    /** If a entity should not get Damage add it to the Tag "venus_rain" */
     public static void venusRain(LivingEntity entity, ResourceKey<Level> planet) {
         if (!Methods.isWorld(entity.level, planet)) {
             return;
@@ -294,7 +294,7 @@ public class Methods {
         }
     }
 
-    /**If a entity should get oxygen damage add it to the tag "oxygen"*/
+    /** If a entity should get oxygen damage add it to the tag "oxygen" */
     public static void entityOxygen(LivingEntity entity, Level world) {
         if (entity instanceof Player) {
             return;

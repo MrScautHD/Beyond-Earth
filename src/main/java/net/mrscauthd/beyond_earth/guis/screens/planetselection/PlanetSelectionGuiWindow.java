@@ -69,6 +69,47 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public static final ResourceLocation rocketMenuListTex = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list.png");
 	public static final ResourceLocation rocketMenuListTex2 = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list_2.png");
 
+	public static final Component catalogTEXT = tl("catalog");
+	public static final Component backTEXT = tl("back");
+
+	public static final Component sunTEXT = tl("sun");
+	public static final Component proxima_centauriTEXT = tl("proxima_centauri");
+
+	public static final Component solar_systemTEXT = tl("solar_system");
+
+	public static final Component solar_system_sunTEXT = tl("solar_system_sun");
+	public static final Component solar_system_proxima_centauriTEXT = tl("solar_system_proxima_centauri");
+
+	public static final Component earthTEXT = tl("earth");
+	public static final Component marsTEXT = tl("mars");
+	public static final Component mercuryTEXT = tl("mercury");
+	public static final Component venusTEXT = tl("venus");
+	public static final Component glacioTEXT = tl("glacio");
+
+	public static final Component planetTEXT = tl("planet");
+	public static final Component moonTEXT = tl("moon");
+
+	public static final Component orbitTEXT = tl("orbit");
+
+	public static final Component no_gravityTEXT = tl("no_gravity");
+
+	public static final Component space_stationTEXT = tl("space_station");
+
+	public static final Component categoryTEXT = tl("category");
+	public static final Component providedTEXT = tl("provided");
+	public static final Component typeTEXT = tl("type");
+	public static final Component gravityTEXT = tl("gravity");
+	public static final Component oxygenTEXT = tl("oxygen");
+	public static final Component temperatureTEXT = tl("temperature");
+	public static final Component oxygenTrueTEXT = tl("oxygen.true");
+	public static final Component oxygenFalseTEXT = tl("oxygen.false");
+	public static final Component item_requirementTEXT = tl("item_requirement");
+
+	public static final Component rocket_t1TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 1);
+	public static final Component rocket_t2TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 2);
+	public static final Component rocket_t3TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 3);
+	public static final Component rocket_t4TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 4);
+
 	public int Category = -1;
 
 	public float milkyWay = 0;
@@ -153,9 +194,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			solarSystemButton.visible = true;
 			proximaCentauriButton.visible = true;
 
-			this.categoryButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 68 / 2, 70, 20, ms, solarSystemButton, tl("sun"), tl("solar_system"));
+			this.categoryButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 68 / 2, 70, 20, ms, solarSystemButton, sunTEXT, solar_systemTEXT);
 
-			this.categoryButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, proximaCentauriButton, tl("proxima_centauri"), tl("solar_system"));
+			this.categoryButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, proximaCentauriButton, proxima_centauriTEXT, solar_systemTEXT);
 		} else {
 			solarSystemButton.visible = false;
 			proximaCentauriButton.visible = false;
@@ -168,13 +209,13 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			mercuryCategoryButton.visible = true;
 			venusCategoryButton.visible = true;
 
-			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, earthCategoryButton, tl("earth"), 1);
+			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, earthCategoryButton, earthTEXT, 1);
 
-			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 21 / 2, 70, 20, ms, marsCategoryButton, tl("mars"), 2);
+			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 21 / 2, 70, 20, ms, marsCategoryButton, marsTEXT, 2);
 
-			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 65 / 2, 70, 20, ms, mercuryCategoryButton, tl("mercury"), 3);
+			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 65 / 2, 70, 20, ms, mercuryCategoryButton, mercuryTEXT, 3);
 
-			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 109 / 2, 70, 20, ms, venusCategoryButton, tl("venus"), 3);
+			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) + 109 / 2, 70, 20, ms, venusCategoryButton, venusTEXT, 3);
 		} else {
 			earthCategoryButton.visible = false;
 			marsCategoryButton.visible = false;
@@ -202,16 +243,16 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			moonSpaceStationButton.visible = true;
 
 			// Planets
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, earthButton, tl("planet"), "9.807 m/s", true, "a", 14);
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) + 21 / 2, 70, 20, ms, moonButton, tl("moon"), "1.62 m/s", false, "c", -160);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, earthButton, planetTEXT, "9.807 m/s", true, "a", 14);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) + 21 / 2, 70, 20, ms, moonButton, moonTEXT, "1.62 m/s", false, "c", -160);
 
 			// Orbits
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, earthOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) + 21 / 2, 37, 20, ms, moonOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, earthOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) + 21 / 2, 37, 20, ms, moonOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 			// Space Station
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, earthSpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) + 21 / 2, 75, 20, ms, moonSpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, earthSpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) + 21 / 2, 75, 20, ms, moonSpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 		} else {
 			earthButton.visible = false;
@@ -229,13 +270,13 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			marsSpaceStationButton.visible = true;
 
 			// Planets
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, marsButton, tl("planet"), "3.721 m/s", false, "a", -63);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, marsButton, planetTEXT, "3.721 m/s", false, "a", -63);
 
 			// Orbits
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, marsOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, marsOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 			// Space Station
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, marsSpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, marsSpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 		} else {
 			marsButton.visible = false;
 			marsOrbitButton.visible = false;
@@ -249,13 +290,13 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			mercurySpaceStationButton.visible = true;
 
 			// Planets
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, mercuryButton, tl("planet"), "3.7 m/s", false, "a", 430);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, mercuryButton, planetTEXT, "3.7 m/s", false, "a", 430);
 
 			// Orbits
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, mercuryOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, mercuryOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 			// Space Station
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, mercurySpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, mercurySpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 		} else {
 			mercuryButton.visible = false;
 			mercuryOrbitButton.visible = false;
@@ -269,13 +310,13 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			venusSpaceStationButton.visible = true;
 
 			// Planets
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, venusButton, tl("planet"), "8.87 m/s", false, "a", 482);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, venusButton, planetTEXT, "8.87 m/s", false, "a", 482);
 
 			// Orbits
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, venusOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, venusOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 			// Space Station
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, venusSpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, venusSpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 		} else {
 			venusButton.visible = false;
 			venusOrbitButton.visible = false;
@@ -286,7 +327,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		if (Category == 5) {
 			glacioCategoryButton.visible = true;
 
-			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, glacioCategoryButton, tl("glacio"), 4);
+			this.buttonManager(rocketType, gb2ButtonTex, rb2ButtonTex, gbButtonTex, rbButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, glacioCategoryButton, glacioTEXT, 4);
 		} else {
 			glacioCategoryButton.visible = false;
 		}
@@ -297,13 +338,13 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			glacioSpaceStationButton.visible = true;
 
 			// Planets
-			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, glacioButton, tl("planet"), "3.721 m/s", true, "a", -20);
+			this.teleportButtonManager(bbButtonTex, bb2ButtonTex, mouseX, mouseY, 10, (this.height / 2) - 24 / 2, 70, 20, ms, glacioButton, planetTEXT, "3.721 m/s", true, "a", -20);
 
 			// Orbits
-			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, glacioOrbitButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.teleportButtonManager(sbbButtonTex, sbb2ButtonTex, mouseX, mouseY, 84, (this.height / 2) - 24 / 2, 37, 20, ms, glacioOrbitButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 
 			// Space Station
-			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, glacioSpaceStationButton, tl("orbit"), tl("no_gravity"), false, "c", -270);
+			this.spaceStationCreatorButtonManager(brbButtonTex, brb2ButtonTex, bgbButtonTex, bgb2ButtonTex, mouseX, mouseY, 125, (this.height / 2) - 24 / 2, 75, 20, ms, glacioSpaceStationButton, orbitTEXT, no_gravityTEXT, false, "c", -270);
 		} else {
 			glacioButton.visible = false;
 			glacioOrbitButton.visible = false;
@@ -311,15 +352,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		// RENDER FONTS
-		this.font.draw(ms, tl("catalog"), 24, (this.height / 2) - 143 / 2, -1);
-	}
-
-	public Component getRocket(int tier) {
-		return new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + tier);
-	}
-
-	public Component tl(String string) {
-		return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + string);
+		this.font.draw(ms, catalogTEXT, 24, (this.height / 2) - 143 / 2, -1);
 	}
 
 	@Override
@@ -416,89 +449,89 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		this.spaceStationItemList = this.recipe.getIngredientStacks().stream().allMatch(this::getSpaceStationItemCheck);
 
 		/** CATEGORY -1 */
-		solarSystemButton = this.addImageButtonSetSolarSystem(10, (this.height / 2) - 68 / 2, 70, 20, bbButtonTex, 0, tl("solar_system_sun"));
-		proximaCentauriButton = this.addImageButtonSetSolarSystem(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 5, tl("solar_system_proxima_centauri"));
+		solarSystemButton = this.addImageButtonSetSolarSystem(10, (this.height / 2) - 68 / 2, 70, 20, bbButtonTex, 0, solar_system_sunTEXT);
+		proximaCentauriButton = this.addImageButtonSetSolarSystem(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 5, solar_system_proxima_centauriTEXT);
 
 		/** CATEGORY 0 */
-		earthCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) - 24 / 2, 70, 20, defaultButtonTex, 1, menu.rocket, 1, tl("earth"));
+		earthCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) - 24 / 2, 70, 20, defaultButtonTex, 1, menu.rocket, 1, earthTEXT);
 		earthCategoryButton.visible = false;
 
-		marsCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 21 / 2, 70, 20, defaultButtonTex, 2, menu.rocket, 2, tl("mars"));
+		marsCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 21 / 2, 70, 20, defaultButtonTex, 2, menu.rocket, 2, marsTEXT);
 		marsCategoryButton.visible = false;
 
-		mercuryCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 65 / 2, 70, 20, defaultButtonTex, 3, menu.rocket, 3, tl("mercury"));
+		mercuryCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 65 / 2, 70, 20, defaultButtonTex, 3, menu.rocket, 3, mercuryTEXT);
 		mercuryCategoryButton.visible = false;
 
-		venusCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 109 / 2, 70, 20, defaultButtonTex, 4, menu.rocket, 3, tl("venus"));
+		venusCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) + 109 / 2, 70, 20, defaultButtonTex, 4, menu.rocket, 3, venusTEXT);
 		venusCategoryButton.visible = false;
 
 		/** CATEGORY 5 */
-		glacioCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) - 24 / 2, 70, 20, defaultButtonTex, 6, menu.rocket, 4, tl("glacio"));
+		glacioCategoryButton = this.addImageButtonSetCategory(10, (this.height / 2) - 24 / 2, 70, 20, defaultButtonTex, 6, menu.rocket, 4, glacioTEXT);
 		glacioCategoryButton.visible = false;
 
 		/** BACK BUTTON */
-		backButton = this.addImageButtonBack(10, (this.height / 2) - 68 / 2, 70, 20, dbbButtonTex, tl("back"));
+		backButton = this.addImageButtonBack(10, (this.height / 2) - 68 / 2, 70, 20, dbbButtonTex, backTEXT);
 		backButton.visible = false;
 
 		/** TELEPORT BUTTONS */
 		// CATEGORY 0
-		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 0, tl("earth"));
+		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 0, earthTEXT);
 		earthButton.visible = false;
 
-		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, 1, tl("moon"));
+		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, 1, moonTEXT);
 		moonButton.visible = false;
 
-		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 2, tl("mars"));
+		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 2, marsTEXT);
 		marsButton.visible = false;
 
-		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 3, tl("mercury"));
+		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 3, mercuryTEXT);
 		mercuryButton.visible = false;
 
-		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 4, tl("venus"));
+		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 4, venusTEXT);
 		venusButton.visible = false;
 
 		// CATEGORY 5
-		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 5, tl("glacio"));
+		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, 5, glacioTEXT);
 		glacioButton.visible = false;
 
 		/** ORBIT BUTTONS */
 		// CATEGORY 0
-		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 6, tl("orbit"));
+		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 6, orbitTEXT);
 		earthOrbitButton.visible = false;
 
-		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, 7, tl("orbit"));
+		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, 7, orbitTEXT);
 		moonOrbitButton.visible = false;
 
-		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 8, tl("orbit"));
+		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 8, orbitTEXT);
 		marsOrbitButton.visible = false;
 
-		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 9, tl("orbit"));
+		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 9, orbitTEXT);
 		mercuryOrbitButton.visible = false;
 
-		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 10, tl("orbit"));
+		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 10, orbitTEXT);
 		venusOrbitButton.visible = false;
 		// CATEGORY 5
-		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 11, tl("orbit"));
+		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, 11, orbitTEXT);
 		glacioOrbitButton.visible = false;
 
 		/** SPACE STATION BUTTONS */
 		// CATEGORY 0
-		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 12, tl("space_station"), this.spaceStationItemList);
+		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 12, space_stationTEXT, this.spaceStationItemList);
 		earthSpaceStationButton.visible = false;
 
-		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, 13, tl("space_station"), this.spaceStationItemList);
+		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, 13, space_stationTEXT, this.spaceStationItemList);
 		moonSpaceStationButton.visible = false;
 
-		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 14, tl("space_station"), this.spaceStationItemList);
+		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 14, space_stationTEXT, this.spaceStationItemList);
 		marsSpaceStationButton.visible = false;
 
-		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 15, tl("space_station"), this.spaceStationItemList);
+		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 15, space_stationTEXT, this.spaceStationItemList);
 		mercurySpaceStationButton.visible = false;
 
-		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 16, tl("space_station"), this.spaceStationItemList);
+		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 16, space_stationTEXT, this.spaceStationItemList);
 		venusSpaceStationButton.visible = false;
 		// CATEGORY 5
-		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 17, tl("space_station"), this.spaceStationItemList);
+		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, 17, space_stationTEXT, this.spaceStationItemList);
 		glacioSpaceStationButton.visible = false;
 	}
 
@@ -544,8 +577,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 			List<Component> list = new ArrayList<Component>();
 
-			list.add(new TextComponent("\u00A79" + tl("category").getString() + ": \u00A7" + level + dim.getString()));
-			list.add(new TextComponent("\u00A79" + tl("provided").getString() + ": \u00A7b" + this.getRocket(stage).getString()));
+			list.add(new TextComponent("\u00A79" + categoryTEXT.getString() + ": \u00A7" + level + dim.getString()));
+			list.add(new TextComponent("\u00A79" + providedTEXT.getString() + ": \u00A7b" + this.getRocket(stage).getString()));
 			this.renderComponentTooltip(ms, list, mouseX, mouseY);
 
 			if (checkTier(rocketType, stage)) {
@@ -563,8 +596,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 			List<Component> list = new ArrayList<Component>();
 
-			list.add(new TextComponent("\u00A79" + tl("category").getString() + ": \u00A7b" + solarSystem.getString()));
-			list.add(new TextComponent("\u00A79" + tl("type").getString() + ": \u00A73" + type.getString()));
+			list.add(new TextComponent("\u00A79" + categoryTEXT.getString() + ": \u00A7b" + solarSystem.getString()));
+			list.add(new TextComponent("\u00A79" + typeTEXT.getString() + ": \u00A73" + type.getString()));
 			this.renderComponentTooltip(ms, list, mouseX, mouseY);
 
 			button.setTexture(bb2);
@@ -580,10 +613,10 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 			List<Component> list = new ArrayList<Component>();
 
-			list.add(new TextComponent("\u00A79" + tl("type").getString() + ": \u00A73" + planetType.getString()));
-			list.add(new TextComponent("\u00A79" + tl("gravity").getString() + ": \u00A73" + gravity.getString()));
-			list.add(new TextComponent("\u00A79" + tl("oxygen").getString() + ": \u00A7" + (oxygen ? "a" : "c") + tl("oxygen." + oxygen).getString()));
-			list.add(new TextComponent("\u00A79" + tl("temperature").getString() + ": \u00A7" + temperatureColor + temperature));
+			list.add(new TextComponent("\u00A79" + typeTEXT.getString() + ": \u00A73" + planetType.getString()));
+			list.add(new TextComponent("\u00A79" + gravityTEXT.getString() + ": \u00A73" + gravity.getString()));
+			list.add(new TextComponent("\u00A79" + oxygenTEXT.getString() + ": \u00A7" + (oxygen ? "a" + oxygenTrueTEXT.getString() : "c" + oxygenFalseTEXT.getString())));
+			list.add(new TextComponent("\u00A79" + temperatureTEXT.getString() + ": \u00A7" + temperatureColor + temperature));
 			this.renderComponentTooltip(ms, list, mouseX, mouseY);
 
 			button.setTexture(bb2);
@@ -604,7 +637,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		if (GuiHelper.isHover(this.getBounds(left, top, width, height), mouseX, mouseY)) {
 			List<Component> list = new ArrayList<Component>();
 
-			list.add(new TextComponent("\u00A79" + tl("item_requirement").getString()));
+			list.add(new TextComponent("\u00A79" + item_requirementTEXT.getString()));
 
 			for (IngredientStack ingredientStack : recipe.getIngredientStacks()) {
 				boolean check = this.getSpaceStationItemCheck(ingredientStack);
@@ -613,10 +646,10 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			}
 
 			list.add(new TextComponent("\u00A7c----------------"));
-			list.add(new TextComponent("\u00A79" + tl("type").getString() + ": \u00A73" + orbitType.getString()));
-			list.add(new TextComponent("\u00A79" + tl("gravity").getString() + ": \u00A73" + gravity.getString()));
-			list.add(new TextComponent("\u00A79" + tl("oxygen").getString() + ": \u00A7" + (oxygen ? "a" : "c") + tl("oxygen." + oxygen).getString()));
-			list.add(new TextComponent("\u00A79" + tl("temperature").getString() + ": \u00A7" + temperatureColor + temperature));
+			list.add(new TextComponent("\u00A79" + typeTEXT.getString() + ": \u00A73" + orbitType.getString()));
+			list.add(new TextComponent("\u00A79" + gravityTEXT.getString() + ": \u00A73" + gravity.getString()));
+			list.add(new TextComponent("\u00A79" + oxygenTEXT.getString() + ": \u00A7" + (oxygen ? "a" + oxygenTrueTEXT.getString() : "c" + oxygenFalseTEXT.getString())));
+			list.add(new TextComponent("\u00A79" + temperatureTEXT.getString() + ": \u00A7" + temperatureColor + temperature));
 			this.renderComponentTooltip(ms, list, mouseX, mouseY);
 
 			if (spaceStationItemList) {
@@ -646,6 +679,25 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		return itemStackCount >= ingredientStack.getCount();
+	}
+
+	public static Component getRocket(int tier) {
+		if (tier == 1) {
+			return rocket_t1TEXT;
+		}
+		else if (tier == 2) {
+			return rocket_t2TEXT;
+		}
+		else if (tier == 3) {
+			return rocket_t3TEXT;
+		}
+		else {
+			return rocket_t4TEXT;
+		}
+	}
+
+	public static Component tl(String string) {
+		return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + string);
 	}
 
 	public void backButtonManager(ResourceLocation bb, ResourceLocation bb2, int mouseX, int mouseY, int left, int top, int width, int height, ImageButtonPlacer button) {
