@@ -8,7 +8,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.protocol.game.*;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -17,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -29,7 +27,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.portal.PortalInfo;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -45,6 +46,7 @@ import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
 
 import java.util.Set;
+import java.util.function.Function;
 
 public class Methods {
 
@@ -111,9 +113,13 @@ public class Methods {
             glacio_orbit
     );
 
-    public static void worldTeleport(Player entity, ResourceKey<Level> planet, double high) {
-        if (entity instanceof ServerPlayer && entity.canChangeDimensions()) {
-            ServerPlayer serverPlayer = (ServerPlayer) entity;
+    public static void entityWorldTeleporter(Entity entity, ResourceKey<Level> planet, double high) {
+        if (entity.canChangeDimensions()) {
+
+            if (entity.getServer() == null) {
+                return;
+            }
+
             ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
             if (nextLevel == null) {
@@ -121,15 +127,25 @@ public class Methods {
                 return;
             }
 
-            serverPlayer.connection.send(new ClientboundGameEventPacket(ClientboundGameEventPacket.WIN_GAME, 0));
-            serverPlayer.teleportTo(nextLevel, entity.getX(), high, entity.getZ(), entity.getYRot(), entity.getXRot());
-            serverPlayer.connection.send(new ClientboundPlayerAbilitiesPacket(entity.getAbilities()));
+            entity.changeDimension(nextLevel, new ITeleporter() {
 
-            for (MobEffectInstance effectinstance : entity.getActiveEffects()) {
-                serverPlayer.connection.send(new ClientboundUpdateMobEffectPacket(entity.getId(), effectinstance));
-            }
+                @Override
+                public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
+                    Vec3 pos = new Vec3(entity.position().x, high, entity.position().z);
 
-            serverPlayer.connection.send(new ClientboundSetExperiencePacket(entity.experienceProgress, entity.totalExperience, entity.experienceLevel));
+                    return new PortalInfo(pos, Vec3.ZERO, entity.getYRot(), entity.getXRot());
+                }
+
+                @Override
+                public boolean isVanilla() {
+                    return false;
+                }
+
+                @Override
+                public boolean playTeleportSound(ServerPlayer player, ServerLevel sourceWorld, ServerLevel destWorld) {
+                    return false;
+                }
+            });
         }
     }
 
@@ -344,13 +360,13 @@ public class Methods {
     public static void landerTeleport(Player player, ResourceKey<Level> newPlanet) {
         LanderEntity lander = (LanderEntity) player.getVehicle();
 
-        if (player.getY() < 1) {
+        if (lander.getY() < 1) {
 
             ItemStack slot_0 = lander.getInventory().getStackInSlot(0);
             ItemStack slot_1 = lander.getInventory().getStackInSlot(1);
             lander.remove(Entity.RemovalReason.DISCARDED);
 
-            Methods.worldTeleport(player, newPlanet, 700);
+            Methods.entityWorldTeleporter(player, newPlanet, 700);
 
             Level newWorld = player.level;
 
@@ -369,7 +385,7 @@ public class Methods {
 
     public static void rocketTeleport(Player player, ResourceKey<Level> planet, ItemStack rocketItem, Boolean SpaceStation) {
         if (!Methods.isWorld(player.level, planet)) {
-            Methods.worldTeleport(player, planet, 700);
+            Methods.entityWorldTeleporter(player, planet, 700);
         } else {
             player.setPos(player.getX(), 700, player.getZ());
 
@@ -474,26 +490,26 @@ public class Methods {
         }
     }
 
-    public static void playerFallToPlanet(Level world, Player player) {
+    public static void entityFallToPlanet(Level world, Entity entity) {
         ResourceKey<Level> world2 = world.dimension();
 
         if (world2 == Methods.earth_orbit) {
-            Methods.worldTeleport(player, Methods.overworld, 450);
+            Methods.entityWorldTeleporter(entity, Methods.overworld, 450);
         }
         else if (world2 == Methods.moon_orbit) {
-            Methods.worldTeleport(player, Methods.moon, 450);
+            Methods.entityWorldTeleporter(entity, Methods.moon, 450);
         }
         else if (world2 == Methods.mars_orbit) {
-            Methods.worldTeleport(player, Methods.mars, 450);
+            Methods.entityWorldTeleporter(entity, Methods.mars, 450);
         }
         else if (world2 == Methods.mercury_orbit) {
-            Methods.worldTeleport(player, Methods.mercury, 450);
+            Methods.entityWorldTeleporter(entity, Methods.mercury, 450);
         }
         else if (world2 == Methods.venus_orbit) {
-            Methods.worldTeleport(player, Methods.venus, 450);
+            Methods.entityWorldTeleporter(entity, Methods.venus, 450);
         }
         else if (world2 == Methods.glacio_orbit) {
-            Methods.worldTeleport(player, Methods.glacio, 450);
+            Methods.entityWorldTeleporter(entity, Methods.glacio, 450);
         }
     }
 

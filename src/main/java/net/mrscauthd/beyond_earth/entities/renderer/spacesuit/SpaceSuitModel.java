@@ -25,6 +25,7 @@ import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.rendertypes.TranslucentArmorRenderType;
 
 public class SpaceSuitModel {
+
     @OnlyIn(Dist.CLIENT)
     public static class SPACE_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 

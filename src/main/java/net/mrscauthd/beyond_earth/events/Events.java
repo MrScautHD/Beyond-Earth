@@ -16,7 +16,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.*;
+import net.mrscauthd.beyond_earth.events.forgeevents.EntityTickEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.ItemTickEvent;
+import net.mrscauthd.beyond_earth.mixin.EntityTick;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
@@ -40,11 +42,6 @@ public class Events {
 
             //Drop Off Hand Item
             Methods.dropRocket(player);
-
-            //Player orbit Fall Teleport
-            if (player.getY() < 1 && !(player.getVehicle() instanceof LanderEntity)) {
-                Methods.playerFallToPlanet(world, player);
-            }
         }
     }
 
@@ -69,6 +66,19 @@ public class Events {
         //Venus Fire
         Methods.planetFire(entity, Methods.venus);
         Methods.planetFire(entity, Methods.mercury);
+    }
+
+    @SubscribeEvent
+    public static void entityTick(EntityTickEvent event) {
+        Entity entity = event.getEntity();
+
+        // ORBIT TELEPORT
+        if (entity.getY() < 1 && !(entity.getVehicle() instanceof LanderEntity)) {
+
+            if ((entity instanceof LanderEntity) && !entity.isVehicle()) {
+                Methods.entityFallToPlanet(entity.level, entity);
+            }
+        }
     }
 
     @SubscribeEvent
