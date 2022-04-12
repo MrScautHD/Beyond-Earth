@@ -75,9 +75,11 @@ public class Events {
         // ORBIT TELEPORT
         if (entity.getY() < 1 && !(entity.getVehicle() instanceof LanderEntity)) {
 
-            if ((entity instanceof LanderEntity) && !entity.isVehicle()) {
-                Methods.entityFallToPlanet(entity.level, entity);
+            if ((entity instanceof LanderEntity) && entity.isVehicle()) {
+                return;
             }
+
+            Methods.entityFallToPlanet(entity.level, entity);
         }
     }
 
