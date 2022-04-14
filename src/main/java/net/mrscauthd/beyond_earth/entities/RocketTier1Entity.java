@@ -68,9 +68,13 @@ public class RocketTier1Entity extends IRocketEntity {
 	@Override
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		super.interact(player, hand);
-		InteractionResult retval = InteractionResult.sidedSuccess(this.level.isClientSide);
-		if (player instanceof ServerPlayer && player.isCrouching()) {
+		InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
 
+		if (!(player instanceof ServerPlayer)) {
+			return InteractionResult.PASS;
+		}
+
+		if (player.isCrouching()) {
 			NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
 				@Override
 				public Component getDisplayName() {
@@ -87,11 +91,11 @@ public class RocketTier1Entity extends IRocketEntity {
 				buf.writeVarInt(this.getId());
 			});
 
-			return retval;
+			return result;
 		}
 
 		player.startRiding(this);
-		return retval;
+		return result;
 	}
 
 	@Override
