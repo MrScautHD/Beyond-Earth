@@ -63,7 +63,7 @@ public class Events {
         //Venus Rain
         Methods.venusRain(entity, Methods.venus);
 
-        //Venus Fire
+        //Planet Fire
         Methods.planetFire(entity, Methods.venus);
         Methods.planetFire(entity, Methods.mercury);
     }

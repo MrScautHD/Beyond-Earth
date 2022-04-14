@@ -3,8 +3,10 @@ package net.mrscauthd.beyond_earth.items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -78,11 +80,13 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
 
                 rover.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
                 double d0 = this.getYOffset(world, pos, true, rover.getBoundingBox());
-                float f = player.getYRot();
 
-                rover.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f, 0.0F);
+                /** ROTATION */
+                float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 5.626F) / 11.25F) * 11.25F;
 
-                rover.yRotO = f;
+                rover.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f + 180.0F, 0.0F);
+
+                rover.yRotO = rover.getYRot();
 
                 world.addFreshEntity(rover);
 

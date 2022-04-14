@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.items;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -61,7 +62,11 @@ public class Tier4RocketItem extends IRocketItem implements FilledAltVehicleItem
 
                     rocket.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
                     double d0 = this.getYOffset(world, pos, true, rocket.getBoundingBox());
-                    rocket.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, 0.0F, 0.0F);
+
+                    // ROTATION
+                    float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
+
+                    rocket.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f, 0.0F);
 
                     rocket.yRotO = rocket.getYRot();
 
