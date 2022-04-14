@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.items;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -26,6 +25,7 @@ import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
@@ -60,17 +60,23 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
         int y = pos.getY();
         int z = pos.getZ();
 
-        BlockPos pos1 = new BlockPos(x, y + 1, z);
-        BlockPos pos2 = new BlockPos(x + 1, y + 1, z);
-        BlockPos pos3 = new BlockPos(x - 1, y + 1, z);
-        BlockPos pos4 = new BlockPos(x, y + 1, z + 1);
-        BlockPos pos5 = new BlockPos(x, y + 1, z - 1);
-        BlockPos pos6 = new BlockPos(x + 1, y + 1, z + 1);
-        BlockPos pos7 = new BlockPos(x + 1, y + 1, z -1);
-        BlockPos pos8 = new BlockPos(x - 1, y + 1, z + 1);
-        BlockPos pos9 = new BlockPos(x - 1, y + 1, z - 1);
+        /** Pos for 3x3 */
+        int x2 = pos.getX() - 1;
+        int y2 = pos.getY() + 1;
+        int z2 = pos.getZ() - 1;
 
-        if (!world.getBlockState(pos1).canOcclude() && !world.getBlockState(pos2).canOcclude() && !world.getBlockState(pos3).canOcclude() && !world.getBlockState(pos4).canOcclude() && !world.getBlockState(pos5).canOcclude() && !world.getBlockState(pos6).canOcclude() && !world.getBlockState(pos7).canOcclude() && !world.getBlockState(pos8).canOcclude() && !world.getBlockState(pos9).canOcclude()) {
+        List<Boolean> flag = new ArrayList<>();
+
+        /** Check is 3x3 nothing Solid */
+        for (int f1 = x2; f1 < x2 + 3; f1++) {
+            for (int f2 = z2; f2 < z2 + 3; f2++) {
+                BlockPos pos2 = new BlockPos(f1, y2, f2);
+
+                flag.add(!world.getBlockState(pos2).canOcclude());
+            }
+        }
+
+        if (!flag.contains(false)) {
 
             AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
