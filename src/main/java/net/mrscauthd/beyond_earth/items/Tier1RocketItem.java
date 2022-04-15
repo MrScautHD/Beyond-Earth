@@ -1,24 +1,13 @@
 package net.mrscauthd.beyond_earth.items;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
-import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
-import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
-
-import java.util.List;
 
 public class Tier1RocketItem extends IRocketItem implements FilledAltVehicleItem {
 
@@ -27,64 +16,13 @@ public class Tier1RocketItem extends IRocketItem implements FilledAltVehicleItem
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        Level world = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        BlockState state = world.getBlockState(pos);
-        InteractionHand hand = context.getHand();
-        ItemStack itemStack = context.getItemInHand();
+    public int getRocketHigh() {
+        return 4;
+    }
 
-        if (world.isClientSide()) {
-            return InteractionResult.PASS;
-        }
-
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-
-        if (state.getBlock() instanceof RocketLaunchPad && state.getValue(RocketLaunchPad.STAGE)) {
-
-            BlockPos pos1 = new BlockPos(x,y + 1, z);
-            BlockPos pos2 = new BlockPos(x,y + 2, z);
-            BlockPos pos3 = new BlockPos(x,y + 3, z);
-            BlockPos pos4 = new BlockPos(x,y + 4, z);
-
-            if (world.getBlockState(pos1).isAir() && world.getBlockState(pos2).isAir() && world.getBlockState(pos3).isAir() && world.getBlockState(pos4).isAir()) {
-
-                AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
-                List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
-
-                if (entities.isEmpty()) {
-                    RocketTier1Entity rocket = new RocketTier1Entity(EntitiesRegistry.TIER_1_ROCKET.get(), world);
-
-                    rocket.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
-                    double d0 = this.getYOffset(world, pos, true, rocket.getBoundingBox());
-
-                    // ROTATION
-                    float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
-
-                    rocket.moveTo((double)pos.getX() + 0.5D, (double)pos.getY() + d0, (double)pos.getZ() + 0.5D, f, 0.0F);
-
-                    rocket.yRotO = rocket.getYRot();
-
-                    world.addFreshEntity(rocket);
-
-                    rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
-                    rocket.getEntityData().set(RocketTier1Entity.BUCKETS, itemStack.getOrCreateTag().getInt(bucketTag));
-
-                    if (!player.getAbilities().instabuild) {
-                        player.setItemInHand(hand, ItemStack.EMPTY);
-                    } else {
-                        player.swing(context.getHand(), true);
-                    }
-
-                    rocketPlaceSound(pos, world);
-                }
-            }
-        }
-
-        return super.useOn(context);
+    @Override
+    public IRocketEntity getRocket(Level level) {
+        return new RocketTier1Entity(EntitiesRegistry.TIER_1_ROCKET.get(), level);
     }
 
     @Override

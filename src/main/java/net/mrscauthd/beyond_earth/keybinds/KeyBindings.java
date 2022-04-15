@@ -69,7 +69,6 @@ public class KeyBindings {
 					INSTANCE.sendToServer(new KeyBindingPressedMessage(3, 0));
 				}
 			}
-
 		}
 	}
 
