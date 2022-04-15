@@ -41,6 +41,8 @@ import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
+import net.mrscauthd.beyond_earth.events.forgeevents.PlayerLandingResumeEvent;
+import net.mrscauthd.beyond_earth.events.forgeevents.PlayerLandingStartEvent;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
@@ -379,6 +381,7 @@ public class Methods {
                 entityToSpawn.getInventory().setStackInSlot(1, slot_1);
 
                 player.startRiding(entityToSpawn);
+                MinecraftForge.EVENT_BUS.post(new PlayerLandingResumeEvent(player, lander, entityToSpawn));
             }
         }
     }
@@ -410,6 +413,7 @@ public class Methods {
                 createSpaceStation(player, (ServerLevel) world);
             }
 
+            MinecraftForge.EVENT_BUS.post(new PlayerLandingStartEvent(player, landerSpawn));
             cleanUpPlayerNBT(player);
 
             player.startRiding(landerSpawn);
