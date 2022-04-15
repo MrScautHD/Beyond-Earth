@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
@@ -10,15 +9,12 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
-import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
-import net.mrscauthd.beyond_earth.entities.alien.AlienTrade;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.keybinds.KeyBindings;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 
 import net.mrscauthd.beyond_earth.registries.*;
-import net.mrscauthd.beyond_earth.world.oregen.OreGeneration;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -46,7 +42,6 @@ public class BeyondEarthMod {
 
 	public BeyondEarthMod() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 
 		bus.register(this);
 

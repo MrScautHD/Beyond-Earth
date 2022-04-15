@@ -15,10 +15,12 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.events.forgeevents.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import org.jetbrains.annotations.Nullable;
@@ -78,6 +80,9 @@ public abstract class IRocketItem extends VehicleItem {
                     /** SET TAGS */
                     rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
                     rocket.getEntityData().set(RocketTier1Entity.BUCKETS, itemStack.getOrCreateTag().getInt(bucketTag));
+
+                    /** CALL PLACE ROCKET EVENT */
+                    MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));
 
                     /** ITEM REMOVE */
                     if (!player.getAbilities().instabuild) {

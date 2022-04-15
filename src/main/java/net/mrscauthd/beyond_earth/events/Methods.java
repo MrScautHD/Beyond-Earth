@@ -39,8 +39,10 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
+import net.mrscauthd.beyond_earth.events.forgeevents.LanderOrbitTeleportEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
+import net.mrscauthd.beyond_earth.events.forgeevents.StartRideLanderEvent;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
@@ -362,6 +364,9 @@ public class Methods {
 
         if (lander.getY() < 1) {
 
+            /** CALL LANDER ORBIT TELEPORT PRE EVENT */
+            MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Pre(lander, player));
+
             ItemStack slot_0 = lander.getInventory().getStackInSlot(0);
             ItemStack slot_1 = lander.getInventory().getStackInSlot(1);
             lander.remove(Entity.RemovalReason.DISCARDED);
@@ -379,6 +384,9 @@ public class Methods {
                 entityToSpawn.getInventory().setStackInSlot(1, slot_1);
 
                 player.startRiding(entityToSpawn);
+
+                /** CALL LANDER ORBIT TELEPORT POST EVENT */
+                MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Post(lander, player));
             }
         }
     }
@@ -409,6 +417,9 @@ public class Methods {
             if (SpaceStation) {
                 createSpaceStation(player, (ServerLevel) world);
             }
+
+            /** CALL START RIDE LANDER EVENT */
+            MinecraftForge.EVENT_BUS.post(new StartRideLanderEvent(landerSpawn, player));
 
             cleanUpPlayerNBT(player);
 

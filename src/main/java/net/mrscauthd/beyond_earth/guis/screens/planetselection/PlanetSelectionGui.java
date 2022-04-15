@@ -47,7 +47,12 @@ public class PlanetSelectionGui {
 		}
 	}
 
-	public static class NetworkHandler {
+	/** HERE TO ALLOW ADDON MODS TO CALL THE NETWORK */
+	public abstract static class AbstractNetworkHandler {
+
+	}
+
+	public static class NetworkHandler extends AbstractNetworkHandler {
 		private int integer = 0;
 
 		public NetworkHandler(int integer) {

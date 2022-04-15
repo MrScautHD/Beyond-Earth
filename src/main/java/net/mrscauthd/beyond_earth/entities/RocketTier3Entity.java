@@ -19,11 +19,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.events.forgeevents.RocketPickResultEvent;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
@@ -47,6 +49,7 @@ public class RocketTier3Entity extends IRocketEntity {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
 		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
 		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
+		MinecraftForge.EVENT_BUS.post(new RocketPickResultEvent(this, itemStack));
 
 		return itemStack;
 	}

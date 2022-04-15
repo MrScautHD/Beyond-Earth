@@ -10,6 +10,7 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
@@ -480,63 +482,63 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** TELEPORT BUTTONS */
 		// CATEGORY 0
-		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(0), earthTEXT);
+		earthButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(0), earthTEXT);
 		earthButton.visible = false;
 
-		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(1), moonTEXT);
+		moonButton = this.addImageButton(10, (this.height / 2) + 21 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(1), moonTEXT);
 		moonButton.visible = false;
 
-		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(2), marsTEXT);
+		marsButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(2), marsTEXT);
 		marsButton.visible = false;
 
-		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(3), mercuryTEXT);
+		mercuryButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(3), mercuryTEXT);
 		mercuryButton.visible = false;
 
-		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(4), venusTEXT);
+		venusButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(4), venusTEXT);
 		venusButton.visible = false;
 
 		// CATEGORY 5
-		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, this.getNetworkHandler(5), glacioTEXT);
+		glacioButton = this.addImageButton(10, (this.height / 2) - 24 / 2, 70, 20, bbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(5), glacioTEXT);
 		glacioButton.visible = false;
 
 		/** ORBIT BUTTONS */
 		// CATEGORY 0
-		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(6), orbitTEXT);
+		earthOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(6), orbitTEXT);
 		earthOrbitButton.visible = false;
 
-		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(7), orbitTEXT);
+		moonOrbitButton = this.addImageButton(84, (this.height / 2) + 21 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(7), orbitTEXT);
 		moonOrbitButton.visible = false;
 
-		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(8), orbitTEXT);
+		marsOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(8), orbitTEXT);
 		marsOrbitButton.visible = false;
 
-		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(9), orbitTEXT);
+		mercuryOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(9), orbitTEXT);
 		mercuryOrbitButton.visible = false;
 
-		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(10), orbitTEXT);
+		venusOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(10), orbitTEXT);
 		venusOrbitButton.visible = false;
 		// CATEGORY 5
-		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, this.getNetworkHandler(11), orbitTEXT);
+		glacioOrbitButton = this.addImageButton(84, (this.height / 2) - 24 / 2, 37, 20, sbbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(11), orbitTEXT);
 		glacioOrbitButton.visible = false;
 
 		/** SPACE STATION BUTTONS */
 		// CATEGORY 0
-		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(12), space_stationTEXT, this.spaceStationItemList);
+		earthSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(12), space_stationTEXT, this.spaceStationItemList);
 		earthSpaceStationButton.visible = false;
 
-		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(13), space_stationTEXT, this.spaceStationItemList);
+		moonSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) + 21 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(13), space_stationTEXT, this.spaceStationItemList);
 		moonSpaceStationButton.visible = false;
 
-		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(14), space_stationTEXT, this.spaceStationItemList);
+		marsSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(14), space_stationTEXT, this.spaceStationItemList);
 		marsSpaceStationButton.visible = false;
 
-		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(15), space_stationTEXT, this.spaceStationItemList);
+		mercurySpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(15), space_stationTEXT, this.spaceStationItemList);
 		mercurySpaceStationButton.visible = false;
 
-		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(16), space_stationTEXT, this.spaceStationItemList);
+		venusSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(16), space_stationTEXT, this.spaceStationItemList);
 		venusSpaceStationButton.visible = false;
 		// CATEGORY 5
-		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, this.getNetworkHandler(17), space_stationTEXT, this.spaceStationItemList);
+		glacioSpaceStationButton = this.addSpaceStationImageButton(125, (this.height / 2) - 24 / 2, 75, 20, brbButtonTex, BeyondEarthMod.PACKET_HANDLER, this.getNetworkHandler(17), space_stationTEXT, this.spaceStationItemList);
 		glacioSpaceStationButton.visible = false;
 	}
 
@@ -670,6 +672,14 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 	}
 
+	public void backButtonManager(ResourceLocation bb, ResourceLocation bb2, int mouseX, int mouseY, int left, int top, int width, int height, ImageButtonPlacer button) {
+		if (GuiHelper.isHover(this.getBounds(left, top, width, height), mouseX, mouseY)) {
+			button.setTexture(bb2);
+		} else {
+			button.setTexture(bb);
+		}
+	}
+
 	public boolean getSpaceStationItemCheck(IngredientStack ingredientStack) {
 
 		if (menu.player.getAbilities().instabuild || menu.player.isSpectator()) {
@@ -710,25 +720,21 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + string);
 	}
 
-	public void backButtonManager(ResourceLocation bb, ResourceLocation bb2, int mouseX, int mouseY, int left, int top, int width, int height, ImageButtonPlacer button) {
-		if (GuiHelper.isHover(this.getBounds(left, top, width, height), mouseX, mouseY)) {
-			button.setTexture(bb2);
-		} else {
-			button.setTexture(bb);
-		}
+	public void callPacketHandler(SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler) {
+		simpleChannel.sendToServer(handler);
 	}
 
-	public ImageButtonPlacer addImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, PlanetSelectionGui.NetworkHandler handler, Component title) {
+	public ImageButtonPlacer addImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, Component title) {
 		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, (p_2130901) -> {
-			BeyondEarthMod.PACKET_HANDLER.sendToServer(handler);
+			this.callPacketHandler(simpleChannel, handler);
 		}, title));
 		return button;
 	}
 
-	public ImageButtonPlacer addSpaceStationImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, PlanetSelectionGui.NetworkHandler handler, Component title, boolean condition) {
+	public ImageButtonPlacer addSpaceStationImageButton(int xIn, int yIn, int width, int height, ResourceLocation texture, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, Component title, boolean condition) {
 		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, (p_2130901) -> {
 			if (condition) {
-				BeyondEarthMod.PACKET_HANDLER.sendToServer(handler);
+				this.callPacketHandler(simpleChannel, handler);
 			}
 		}, title));
 		return button;
@@ -762,6 +768,12 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, (p_2130901) -> {
 			this.Category = newCategory;
 		}, title));
+		return button;
+	}
+
+	/** FOR ADDON MODS */
+	public ImageButtonPlacer addAddonButton(int xIn, int yIn, int width, int height, ResourceLocation texture, Component title, Button.OnPress onPress) {
+		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(xIn, yIn, width, height, 0, 0, 0, texture, width, height, onPress, title));
 		return button;
 	}
 }

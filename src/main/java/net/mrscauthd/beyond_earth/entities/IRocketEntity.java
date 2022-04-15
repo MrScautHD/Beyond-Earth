@@ -96,9 +96,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         return false;
     }
 
-    protected void spawnRocketItem() {
-
-    }
+    protected abstract void spawnRocketItem();
 
     protected void dropEquipment() {
         for (int i = 0; i < inventory.getSlots(); ++i) {
@@ -160,9 +158,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
     }
 
-    public void particleSpawn() {
-
-    }
+    public abstract void particleSpawn();
 
     public void doesDrop() {
         if (this.isOnGround() || this.isInWater()) {
@@ -179,9 +175,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         }
     }
 
-    public void fillUpRocket() {
-
-    }
+    public abstract void fillUpRocket();
 
     public void rocketAnimation() {
         ar = ar + 1;
