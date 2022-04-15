@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
@@ -21,7 +22,9 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -30,6 +33,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.events.forgeevents.RocketPickResultEvent;
+import net.mrscauthd.beyond_earth.items.IRocketItem;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -97,8 +102,25 @@ public abstract class IRocketEntity extends VehicleEntity {
     }
 
     protected void spawnRocketItem() {
-
+    	if (!level.isClientSide) {
+    		ItemStack itemStack = this.getPickedResult(null);
+    		ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
+    		entityToSpawn.setPickUpDelay(10);
+    		level.addFreshEntity(entityToSpawn);
+    	}
     }
+
+    @Override
+    public ItemStack getPickResult() {
+    	ItemStack itemStack = new ItemStack(this.getRocketItem(), 1);
+    	itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
+    	itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
+    	MinecraftForge.EVENT_BUS.post(new RocketPickResultEvent(this, itemStack));
+
+    	return itemStack;
+    }
+
+    protected abstract IRocketItem getRocketItem();
 
     protected void dropEquipment() {
         for (int i = 0; i < inventory.getSlots(); ++i) {
