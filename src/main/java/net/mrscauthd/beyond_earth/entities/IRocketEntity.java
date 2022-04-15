@@ -33,6 +33,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.events.forgeevents.PlayerEnterPlanetSelectionEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.RocketPickResultEvent;
 import net.mrscauthd.beyond_earth.items.IRocketItem;
 
@@ -243,6 +244,10 @@ public abstract class IRocketEntity extends VehicleEntity {
             pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
             pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
             pass.setNoGravity(true);
+
+            if (pass instanceof Player) {
+            	MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionEvent((Player) pass, this));
+            }
 
             this.remove(RemovalReason.DISCARDED);
         } else if (this.getY() > 600 && this.getPassengers().isEmpty())  {
