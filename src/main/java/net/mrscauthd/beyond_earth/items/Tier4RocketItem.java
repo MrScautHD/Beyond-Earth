@@ -19,6 +19,11 @@ public class Tier4RocketItem extends IRocketItem implements FilledAltVehicleItem
 	public IRocketEntity createRocketEntity(UseOnContext context) {
 		return new RocketTier4Entity(EntitiesRegistry.TIER_4_ROCKET.get(), context.getLevel());
 	}
+	
+	@Override
+	public int getRequireAirHeight() {
+		return 6;
+	}
 
     @Override
     public void fillItemCategoryAlt(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
