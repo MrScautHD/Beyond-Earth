@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.guis.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,7 +14,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.PlanetSelectionGuiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +23,9 @@ public class ImageButtonPlacer extends Button {
     private ResourceLocation buttonTexture;
     private ResourceLocation hoverButtonTexture;
 
+    private boolean rocketCondition;
     private Types type;
     private List<String> list;
-    private Pair<String, Integer> rocketPair;
 
     private final int xTexStart;
     private final int yTexStart;
@@ -37,28 +35,28 @@ public class ImageButtonPlacer extends Button {
     private final int textureWidth;
     private final int textureHeight;
 
-    public ImageButtonPlacer(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, Types type, List<String> list, Pair<String, Integer> rocketPair, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Button.OnPress onPressIn) {
-        this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, type, list, rocketPair, buttonTexture, hoverButtonTexture, 256, 256, onPressIn);
+    public ImageButtonPlacer(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Button.OnPress onPressIn) {
+        this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, 256, 256, onPressIn);
     }
 
-    public ImageButtonPlacer(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, Types type, List<String> list, Pair<String, Integer> rocketPair, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i51135_9_, int p_i51135_10_, Button.OnPress onPressIn) {
-        this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, type, list, rocketPair, buttonTexture, hoverButtonTexture, p_i51135_9_, p_i51135_10_, onPressIn, TextComponent.EMPTY);
+    public ImageButtonPlacer(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i51135_9_, int p_i51135_10_, Button.OnPress onPressIn) {
+        this(xIn, yIn, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, p_i51135_9_, p_i51135_10_, onPressIn, TextComponent.EMPTY);
     }
 
-    public ImageButtonPlacer(int x, int y, int width, int height, int xTexStart, int yTexStart, int yDiffText, Types type, List<String> list, Pair<String, Integer> rocketPair, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPress, Component title) {
-        this(x, y, width, height, xTexStart, yTexStart, yDiffText, type, list, rocketPair, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPress, Button.NO_TOOLTIP, title);
+    public ImageButtonPlacer(int x, int y, int width, int height, int xTexStart, int yTexStart, int yDiffText, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPress, Component title) {
+        this(x, y, width, height, xTexStart, yTexStart, yDiffText, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPress, Button.NO_TOOLTIP, title);
     }
 
-    public ImageButtonPlacer(int p_i244513_1_, int p_i244513_2_, int p_i244513_3_, int p_i244513_4_, int p_i244513_5_, int p_i244513_6_, int p_i244513_7_, Types type, List<String> list, Pair<String, Integer> rocketPair, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i244513_9_, int p_i244513_10_, Button.OnPress p_i244513_11_, net.minecraft.client.gui.components.Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
+    public ImageButtonPlacer(int p_i244513_1_, int p_i244513_2_, int p_i244513_3_, int p_i244513_4_, int p_i244513_5_, int p_i244513_6_, int p_i244513_7_, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i244513_9_, int p_i244513_10_, Button.OnPress p_i244513_11_, net.minecraft.client.gui.components.Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
         super(p_i244513_1_, p_i244513_2_, p_i244513_3_, p_i244513_4_, p_i244513_13_, p_i244513_11_, p_i244513_12_);
         this.textureWidth = p_i244513_9_;
         this.textureHeight = p_i244513_10_;
         this.xTexStart = p_i244513_5_;
         this.yTexStart = p_i244513_6_;
         this.yDiffText = p_i244513_7_;
+        this.rocketCondition = rocketCondition;
         this.type = type;
         this.list = list;
-        this.rocketPair = rocketPair;
         this.buttonTexture = buttonTexture;
         this.hoverButtonTexture = hoverButtonTexture;
     }
@@ -74,10 +72,10 @@ public class ImageButtonPlacer extends Button {
         /** IF YOU USE THIS PUT 1 STRING IN THE LIST (CATEGORY) */
         MILKY_WAY_CATEGORY,
 
-        /** IF YOU USE THIS PUT 2 STRINGS IN THE LIST (CATEGORY, PROVIDED) AND PUT 1 (STRING) AND 1 (INTEGER) IN THE PAIR */
+        /** IF YOU USE THIS PUT 2 STRINGS IN THE LIST (CATEGORY, PROVIDED) */
         SOLAR_SYSTEM_CATEGORY,
 
-        /** idk right now */
+        /** IF YOU USE THIS PUT 4 STRINGS IN THE LIST (TYPE, GRAVITY, OXYGEN, TEMPERATURE) */
         PLANET_CATEGORY
     }
 
@@ -98,10 +96,10 @@ public class ImageButtonPlacer extends Button {
 
         if (this.isHovered) {
             /** SOLAR_SYSTEM_CATEGORY HOVER TEXTURE */
-            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && checkTier(), true, this.hoverButtonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
+            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && this.rocketCondition, true, this.hoverButtonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
         } else {
             /** SOLAR_SYSTEM_CATEGORY TEXTURE */
-            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && checkTier(), false, this.buttonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
+            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && this.rocketCondition, false, this.buttonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
         }
 
         /** TEXTURE RENDERER */
@@ -117,6 +115,7 @@ public class ImageButtonPlacer extends Button {
         if (minecraft.screen instanceof PlanetSelectionGuiWindow) {
             this.milkyWayCategoryManager(minecraft, poseStack, mouseX, mouseY);
             this.solarSystemCategoryManager(minecraft, poseStack, mouseX, mouseY);
+            this.planetCategoryManager(minecraft, poseStack, mouseX, mouseY);
         }
 
         RenderSystem.disableDepthTest();
@@ -143,10 +142,26 @@ public class ImageButtonPlacer extends Button {
 
             List<Component> list = new ArrayList<>();
 
-            String condition = this.checkTier() ? "a" : "c";
+            String condition = this.rocketCondition ? "a" : "c";
 
             list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.CATEGORY_TEXT.getString() + ": \u00A7" + condition + this.list.get(0)));
             list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.PROVIDED_TEXT.getString() + ": \u00A7b" + this.list.get(1)));
+
+            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+        }
+    }
+
+    /** PLANET SYSTEM TYPE MANAGER */
+    private void planetCategoryManager(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+        if (this.isHovered && this.type == Types.PLANET_CATEGORY) {
+            Screen screen = minecraft.screen;
+
+            List<Component> list = new ArrayList<>();
+
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
 
             screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }
@@ -161,9 +176,5 @@ public class ImageButtonPlacer extends Button {
         }
 
         return defaultTexture;
-    }
-
-    private boolean checkTier() {
-        return PlanetSelectionGuiHelper.checkTier(this.rocketPair.getFirst(), this.rocketPair.getSecond());
     }
 }

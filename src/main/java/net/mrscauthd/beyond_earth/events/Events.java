@@ -120,10 +120,6 @@ public class Events {
             return;
         }
 
-        if (event.getEntity().level.isClientSide) {
-            return;
-        }
-
         Player entity = (Player) event.getEntity();
 
         if (!Methods.netheriteSpaceSuitCheck(entity)) {

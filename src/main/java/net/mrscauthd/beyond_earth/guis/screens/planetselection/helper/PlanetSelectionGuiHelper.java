@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.guis.screens.planetselection.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.gui.GuiComponent;
@@ -32,8 +31,8 @@ public class PlanetSelectionGuiHelper {
     public static List<Button> sunButtons = new ArrayList<>();
     public static List<Button> proximaCentauriButtons = new ArrayList<>();
 
-    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, Pair<String, Integer> tier, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, type, list, tier, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 screen.category = newCategory;
             }
@@ -42,8 +41,8 @@ public class PlanetSelectionGuiHelper {
         return button;
     }
 
-    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, ImageButtonPlacer.Types type, List<String> list, Pair<String, Integer> tier, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, type, list, tier, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
             }
@@ -52,8 +51,8 @@ public class PlanetSelectionGuiHelper {
         return button;
     }
 
-    public static ImageButtonPlacer addBackButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, ImageButtonPlacer.Types type, List<String> list, Pair<String, Integer> tier, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, type, list, tier, buttonTexture, hoverButtonTexture, title, onPress);
+    public static ImageButtonPlacer addBackButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
+        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
         return button;
     }
 
@@ -131,10 +130,12 @@ public class PlanetSelectionGuiHelper {
         return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + string);
     }
 
+    /** ADDON MOD SHOULD DO A OWN HANDLER EXTENDED OF "AbstractNetworkHandler" */
     public static void callPacketHandler(SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler) {
         simpleChannel.sendToServer(handler);
     }
 
+    /** ADDON MOD SHOULD RETURN A OWN NETWORK HANDLER */
     public static PlanetSelectionGui.NetworkHandler getNetworkHandler(int handler) {
         return new PlanetSelectionGui.NetworkHandler(handler);
     }

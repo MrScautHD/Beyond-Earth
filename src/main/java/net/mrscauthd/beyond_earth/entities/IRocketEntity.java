@@ -72,14 +72,14 @@ public abstract class IRocketEntity extends VehicleEntity {
 
     @Override
     public void push(Entity p_21294_) {
-
     }
 
     @Override
     public void kill() {
+        this.dropEquipment();
+        this.spawnRocketItem();
+
         if (!this.level.isClientSide) {
-            this.dropEquipment();
-            this.spawnRocketItem();
             this.remove(RemovalReason.DISCARDED);
         }
     }
@@ -88,14 +88,16 @@ public abstract class IRocketEntity extends VehicleEntity {
     public boolean hurt(DamageSource source, float p_21017_) {
         Entity sourceEntity = source.getEntity();
 
-        if (!this.level.isClientSide) {
-            if (!source.isProjectile() && sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
+        if (!source.isProjectile() && sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
 
-                this.spawnRocketItem();
-                this.dropEquipment();
+            this.spawnRocketItem();
+            this.dropEquipment();
+
+            if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
-                return true;
             }
+
+            return true;
         }
 
         return false;
@@ -166,16 +168,17 @@ public abstract class IRocketEntity extends VehicleEntity {
     public abstract void particleSpawn();
 
     public void doesDrop() {
-        if (!this.level.isClientSide) {
-            if (this.isOnGround() || this.isInWater()) {
+        if (this.isOnGround() || this.isInWater()) {
 
-                BlockPos blockPos = new BlockPos(Math.floor(this.getX()), this.getY() - 0.01, Math.floor(this.getZ()));
-                BlockState state = level.getBlockState(blockPos);
+            BlockPos blockPos = new BlockPos(Math.floor(this.getX()), this.getY() - 0.01, Math.floor(this.getZ()));
+            BlockState state = level.getBlockState(blockPos);
 
-                if (!level.isEmptyBlock(this.getOnPos()) && ((state.getBlock() instanceof RocketLaunchPad && !state.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
+            if (!level.isEmptyBlock(this.getOnPos()) && ((state.getBlock() instanceof RocketLaunchPad && !state.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
 
-                    this.dropEquipment();
-                    this.spawnRocketItem();
+                this.dropEquipment();
+                this.spawnRocketItem();
+
+                if (!this.level.isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
@@ -197,42 +200,41 @@ public abstract class IRocketEntity extends VehicleEntity {
     }
 
     public void startTimerAndFlyMovement() {
-        if (!this.level.isClientSide) {
-            if (this.entityData.get(START_TIMER) < 200) {
-                this.entityData.set(START_TIMER, this.entityData.get(START_TIMER) + 1);
-            }
+        if (this.entityData.get(START_TIMER) < 200) {
+            this.entityData.set(START_TIMER, this.entityData.get(START_TIMER) + 1);
+        }
 
-            if (this.entityData.get(START_TIMER) == 200) {
-                if (this.getDeltaMovement().y < ROCKET_SPEED - 0.1) {
-                    this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y + 0.1, this.getDeltaMovement().z);
-                } else {
-                    this.setDeltaMovement(this.getDeltaMovement().x, ROCKET_SPEED, this.getDeltaMovement().z);
-                }
+        if (this.entityData.get(START_TIMER) == 200) {
+            if (this.getDeltaMovement().y < ROCKET_SPEED - 0.1) {
+                this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y + 0.1, this.getDeltaMovement().z);
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().x, ROCKET_SPEED, this.getDeltaMovement().z);
             }
         }
     }
 
     public void openPlanetSelectionGui() {
-        if (!this.level.isClientSide) {
+        if (this.getPassengers().isEmpty()) {
+            return;
+        }
 
-            if (this.getPassengers().isEmpty()) {
-                return;
+        Entity pass = this.getPassengers().get(0);
+
+        if (this.getY() > 600) {
+            if (pass instanceof Player && ((Player) pass).containerMenu != null) {
+                ((Player) pass).closeContainer();
             }
 
-            Entity pass = this.getPassengers().get(0);
+            pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
+            pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
+            pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
+            pass.setNoGravity(true);
 
-            if (this.getY() > 600) {
-                if (pass instanceof Player && ((Player) pass).containerMenu != null) {
-                    ((Player) pass).closeContainer();
-                }
-
-                pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
-                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
-                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
-                pass.setNoGravity(true);
-
+            if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
-            } else if (this.getY() > 600 && this.getPassengers().isEmpty()) {
+            }
+        } else if (this.getY() > 600 && this.getPassengers().isEmpty()) {
+            if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }

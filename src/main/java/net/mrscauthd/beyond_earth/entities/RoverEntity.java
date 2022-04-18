@@ -176,41 +176,41 @@ public class RoverEntity extends VehicleEntity {
 
     @Override
     public void kill() {
+        this.spawnRoverItem();
+        this.dropEquipment();
+
         if (!this.level.isClientSide) {
-            this.spawnRoverItem();
-            this.dropEquipment();
             this.remove(RemovalReason.DISCARDED);
         }
     }
 
     @Override
     public AABB getBoundingBoxForCulling() {
-        return new AABB(this.getX(),this.getY(),this.getZ(),this.getX(),this.getY(), this.getZ()).inflate(4.5,4.5,4.5);
+        return new AABB(this.getX(), this.getY(), this.getZ(), this.getX(), this.getY(), this.getZ()).inflate(4.5,4.5,4.5);
     }
 
     @Override
     public boolean hurt(DamageSource source, float p_21017_) {
-        if (!this.level.isClientSide) {
-            if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
-                this.spawnRoverItem();
-                this.dropEquipment();
+        if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+            this.spawnRoverItem();
+            this.dropEquipment();
+
+            if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
-                return true;
             }
+            return true;
         }
 
         return false;
     }
 
     protected void spawnRoverItem() {
-        if (!level.isClientSide) {
-            ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-            itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
+        ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
+        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
 
-            ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
-            entityToSpawn.setPickUpDelay(10);
-            level.addFreshEntity(entityToSpawn);
-        }
+        ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
+        entityToSpawn.setPickUpDelay(10);
+        level.addFreshEntity(entityToSpawn);
     }
 
     protected void dropEquipment() {

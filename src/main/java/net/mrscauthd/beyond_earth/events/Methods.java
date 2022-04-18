@@ -116,40 +116,38 @@ public class Methods {
     );
 
     public static void entityWorldTeleporter(Entity entity, ResourceKey<Level> planet, double high) {
-        if (!entity.level.isClientSide) {
-            if (entity.canChangeDimensions()) {
+        if (entity.canChangeDimensions()) {
 
-                if (entity.getServer() == null) {
-                    return;
-                }
-
-                ServerLevel nextLevel = entity.getServer().getLevel(planet);
-
-                if (nextLevel == null) {
-                    System.out.println("World not existing!");
-                    return;
-                }
-
-                entity.changeDimension(nextLevel, new ITeleporter() {
-
-                    @Override
-                    public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
-                        Vec3 pos = new Vec3(entity.position().x, high, entity.position().z);
-
-                        return new PortalInfo(pos, Vec3.ZERO, entity.getYRot(), entity.getXRot());
-                    }
-
-                    @Override
-                    public boolean isVanilla() {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean playTeleportSound(ServerPlayer player, ServerLevel sourceWorld, ServerLevel destWorld) {
-                        return false;
-                    }
-                });
+            if (entity.getServer() == null) {
+                return;
             }
+
+            ServerLevel nextLevel = entity.getServer().getLevel(planet);
+
+            if (nextLevel == null) {
+                System.out.println("World not existing!");
+                return;
+            }
+
+            entity.changeDimension(nextLevel, new ITeleporter() {
+
+                @Override
+                public PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
+                    Vec3 pos = new Vec3(entity.position().x, high, entity.position().z);
+
+                    return new PortalInfo(pos, Vec3.ZERO, entity.getYRot(), entity.getXRot());
+                }
+
+                @Override
+                public boolean isVanilla() {
+                    return false;
+                }
+
+                @Override
+                public boolean playTeleportSound(ServerPlayer player, ServerLevel sourceWorld, ServerLevel destWorld) {
+                    return false;
+                }
+            });
         }
     }
 
@@ -224,9 +222,7 @@ public class Methods {
     }
 
     public static void oxygenDamage(LivingEntity entity) {
-        if (!entity.level.isClientSide) {
-            entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
-        }
+        entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
     public static boolean isRocket(Entity entity) {
@@ -238,20 +234,18 @@ public class Methods {
     }
 
     public static void dropRocket(Player player) {
-        if (!player.level.isClientSide) {
-            Item item1 = player.getMainHandItem().getItem();
-            Item item2 = player.getOffhandItem().getItem();
+        Item item1 = player.getMainHandItem().getItem();
+        Item item2 = player.getOffhandItem().getItem();
 
-            if (item1 instanceof VehicleItem && item2 instanceof VehicleItem) {
+        if (item1 instanceof VehicleItem && item2 instanceof VehicleItem) {
 
-                ItemEntity spawn = new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), new ItemStack(item2));
-                spawn.setPickUpDelay(0);
-                player.level.addFreshEntity(spawn);
+            ItemEntity spawn = new ItemEntity(player.level, player.getX(), player.getY(), player.getZ(), new ItemStack(item2));
+            spawn.setPickUpDelay(0);
+            player.level.addFreshEntity(spawn);
 
-                player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capability -> {
-                    capability.extractItem(40, 1, false); //40 is offhand
-                });
-            }
+            player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(capability -> {
+                capability.extractItem(40, 1, false); //40 is offhand
+            });
         }
     }
 
@@ -260,10 +254,6 @@ public class Methods {
         Level level = entity.level;
 
         if (!Methods.isWorld(level, planet)) {
-            return;
-        }
-
-        if (level.isClientSide) {
             return;
         }
 
@@ -296,10 +286,6 @@ public class Methods {
             return;
         }
 
-        if (entity.level.isClientSide) {
-            return;
-        }
-
         if (entity.isPassenger() && (Methods.isRocket(entity.getVehicle()) || entity.getVehicle() instanceof LanderEntity)) {
             return;
         }
@@ -328,10 +314,6 @@ public class Methods {
     /** If a entity should get oxygen damage add it to the tag "oxygen" */
     public static void entityOxygen(LivingEntity entity, Level world) {
         if (entity instanceof Player) {
-            return;
-        }
-
-        if (world.isClientSide) {
             return;
         }
 
@@ -377,84 +359,78 @@ public class Methods {
     public static void landerTeleport(Player player, ResourceKey<Level> newPlanet) {
         LanderEntity lander = (LanderEntity) player.getVehicle();
 
-        if (!player.level.isClientSide) {
-            if (lander.getY() < 1) {
+        if (lander.getY() < 1) {
 
-                /** CALL LANDER ORBIT TELEPORT PRE EVENT */
-                MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Pre(lander, player));
+            /** CALL LANDER ORBIT TELEPORT PRE EVENT */
+            MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Pre(lander, player));
 
-                ItemStack slot_0 = lander.getInventory().getStackInSlot(0);
-                ItemStack slot_1 = lander.getInventory().getStackInSlot(1);
+            ItemStack slot_0 = lander.getInventory().getStackInSlot(0);
+            ItemStack slot_1 = lander.getInventory().getStackInSlot(1);
+            if (!player.level.isClientSide) {
                 lander.remove(Entity.RemovalReason.DISCARDED);
-
-                Methods.entityWorldTeleporter(player, newPlanet, 700);
-
-                Level newWorld = player.level;
-
-                LanderEntity entityToSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newWorld);
-                entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-                newWorld.addFreshEntity(entityToSpawn);
-
-                entityToSpawn.getInventory().setStackInSlot(0, slot_0);
-                entityToSpawn.getInventory().setStackInSlot(1, slot_1);
-
-                player.startRiding(entityToSpawn);
-
-                /** CALL LANDER ORBIT TELEPORT POST EVENT */
-                MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Post(lander, player));
             }
+
+            Methods.entityWorldTeleporter(player, newPlanet, 700);
+
+            Level newWorld = player.level;
+
+            LanderEntity entityToSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newWorld);
+            entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
+            newWorld.addFreshEntity(entityToSpawn);
+
+            entityToSpawn.getInventory().setStackInSlot(0, slot_0);
+            entityToSpawn.getInventory().setStackInSlot(1, slot_1);
+
+            player.startRiding(entityToSpawn);
+
+            /** CALL LANDER ORBIT TELEPORT POST EVENT */
+            MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Post(lander, player));
         }
     }
 
     public static void rocketTeleport(Player player, ResourceKey<Level> planet, ItemStack rocketItem, Boolean SpaceStation) {
         Level level = player.level;
 
-        if (!level.isClientSide) {
-            if (!Methods.isWorld(player.level, planet)) {
-                Methods.entityWorldTeleporter(player, planet, 700);
-            } else {
-                player.setPos(player.getX(), 700, player.getZ());
+        if (!Methods.isWorld(player.level, planet)) {
+            Methods.entityWorldTeleporter(player, planet, 700);
+        } else {
+            player.setPos(player.getX(), 700, player.getZ());
 
-                if (player instanceof ServerPlayer) {
-                    ((ServerPlayer) player).connection.teleport(player.getX(), 700, player.getZ(), player.getYRot(), player.getXRot());
-                }
+            if (player instanceof ServerPlayer) {
+                ((ServerPlayer) player).connection.teleport(player.getX(), 700, player.getZ(), player.getYRot(), player.getXRot());
             }
-
-            LanderEntity landerSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), level);
-            landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-            level.addFreshEntity(landerSpawn);
-
-            String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
-
-            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
-            landerSpawn.getInventory().setStackInSlot(1, rocketItem);
-
-            if (SpaceStation) {
-                createSpaceStation(player, (ServerLevel) level);
-            }
-
-            /** CALL START RIDE LANDER EVENT */
-            MinecraftForge.EVENT_BUS.post(new StartRideLanderEvent(landerSpawn, player));
-
-            cleanUpPlayerNBT(player);
-
-            player.startRiding(landerSpawn);
         }
+
+        LanderEntity landerSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), level);
+        landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
+        level.addFreshEntity(landerSpawn);
+
+        String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
+
+        landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
+        landerSpawn.getInventory().setStackInSlot(1, rocketItem);
+
+        if (SpaceStation) {
+            createSpaceStation(player, (ServerLevel) level);
+        }
+
+        /** CALL START RIDE LANDER EVENT */
+        MinecraftForge.EVENT_BUS.post(new StartRideLanderEvent(landerSpawn, player));
+
+        cleanUpPlayerNBT(player);
+
+        player.startRiding(landerSpawn);
     }
 
     public static void createSpaceStation(Player player, ServerLevel serverWorld) {
-        if (!serverWorld.isClientSide) {
-            BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
-            serverWorld.getStructureManager().getOrCreate(space_station).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
-        }
+        BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
+        serverWorld.getStructureManager().getOrCreate(space_station).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
     }
 
     public static void cleanUpPlayerNBT(Player player) {
-        if (!player.level.isClientSide) {
-            player.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", false);
-            player.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", "");
-            player.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", "");
-        }
+        player.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", false);
+        player.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", "");
+        player.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", "");
     }
 
     public static void openPlanetGui(Player player) {
@@ -483,58 +459,52 @@ public class Methods {
     }
 
     public static void teleportButton(Player player, ResourceKey<Level> planet, boolean SpaceStation) {
-        if (!player.level.isClientSide) {
-            ItemStack itemStack = new ItemStack(Items.AIR, 1);
+        ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-            if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
-                itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-            } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
-                itemStack = new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get(), 1);
-            } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
-                itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
-            } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
-                itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
-            }
-
-            Methods.rocketTeleport(player, planet, itemStack, SpaceStation);
+        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
+            itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
+            itemStack = new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get(), 1);
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
+            itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
+            itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
         }
+
+        Methods.rocketTeleport(player, planet, itemStack, SpaceStation);
     }
 
     public static void landerTeleportOrbit(Player player, Level world) {
-        if (!player.level.isClientSide) {
-            if (Methods.isWorld(world, Methods.earth_orbit)) {
-                Methods.landerTeleport(player, Methods.overworld);
-            } else if (Methods.isWorld(world, Methods.moon_orbit)) {
-                Methods.landerTeleport(player, Methods.moon);
-            } else if (Methods.isWorld(world, Methods.mars_orbit)) {
-                Methods.landerTeleport(player, Methods.mars);
-            } else if (Methods.isWorld(world, Methods.glacio_orbit)) {
-                Methods.landerTeleport(player, Methods.glacio);
-            } else if (Methods.isWorld(world, Methods.mercury_orbit)) {
-                Methods.landerTeleport(player, Methods.mercury);
-            } else if (Methods.isWorld(world, Methods.venus_orbit)) {
-                Methods.landerTeleport(player, Methods.venus);
-            }
+        if (Methods.isWorld(world, Methods.earth_orbit)) {
+            Methods.landerTeleport(player, Methods.overworld);
+        } else if (Methods.isWorld(world, Methods.moon_orbit)) {
+            Methods.landerTeleport(player, Methods.moon);
+        } else if (Methods.isWorld(world, Methods.mars_orbit)) {
+            Methods.landerTeleport(player, Methods.mars);
+        } else if (Methods.isWorld(world, Methods.glacio_orbit)) {
+            Methods.landerTeleport(player, Methods.glacio);
+        } else if (Methods.isWorld(world, Methods.mercury_orbit)) {
+            Methods.landerTeleport(player, Methods.mercury);
+        } else if (Methods.isWorld(world, Methods.venus_orbit)) {
+            Methods.landerTeleport(player, Methods.venus);
         }
     }
 
     public static void entityFallToPlanet(Level world, Entity entity) {
-        if (!entity.level.isClientSide) {
-            ResourceKey<Level> world2 = world.dimension();
+        ResourceKey<Level> world2 = world.dimension();
 
-            if (world2 == Methods.earth_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.overworld, 450);
-            } else if (world2 == Methods.moon_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.moon, 450);
-            } else if (world2 == Methods.mars_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.mars, 450);
-            } else if (world2 == Methods.mercury_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.mercury, 450);
-            } else if (world2 == Methods.venus_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.venus, 450);
-            } else if (world2 == Methods.glacio_orbit) {
-                Methods.entityWorldTeleporter(entity, Methods.glacio, 450);
-            }
+        if (world2 == Methods.earth_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.overworld, 450);
+        } else if (world2 == Methods.moon_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.moon, 450);
+        } else if (world2 == Methods.mars_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.mars, 450);
+        } else if (world2 == Methods.mercury_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.mercury, 450);
+        } else if (world2 == Methods.venus_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.venus, 450);
+        } else if (world2 == Methods.glacio_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.glacio, 450);
         }
     }
 
