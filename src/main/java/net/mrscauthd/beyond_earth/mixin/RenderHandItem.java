@@ -25,7 +25,7 @@ public abstract class RenderHandItem {
         }
     }
 
-    @Inject(at = @At(value = "RETURN"), method = "renderArmWithItem", cancellable = true)
+    @Inject(at = @At(value = "RETURN"), method = "renderArmWithItem")
     private void setRotationAnglesPost(LivingEntity p_117185_, ItemStack p_117186_, ItemTransforms.TransformType p_117187_, HumanoidArm p_117188_, PoseStack p_117189_, MultiBufferSource p_117190_, int p_117191_, CallbackInfo info) {
 
         MinecraftForge.EVENT_BUS.post(new RenderHandItemEvent.Post(p_117185_, p_117186_, p_117187_, p_117188_, p_117189_, p_117190_, p_117191_));

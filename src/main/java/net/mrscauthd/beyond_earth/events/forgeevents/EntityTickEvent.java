@@ -1,17 +1,11 @@
 package net.mrscauthd.beyond_earth.events.forgeevents;
 
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.event.entity.EntityEvent;
 
-public class EntityTickEvent extends Event {
-
-    private Entity entity;
+public class EntityTickEvent extends EntityEvent {
 
     public EntityTickEvent(Entity entity) {
-        this.entity = entity;
-    }
-
-    public Entity getEntity() {
-        return entity;
+        super(entity);
     }
 }

@@ -34,5 +34,4 @@ public class SolarPanelBlock extends AbstractMachineBlock<SolarPanelBlockEntity>
 	public SolarPanelBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		return new SolarPanelBlockEntity(pos, state);
 	}
-
 }

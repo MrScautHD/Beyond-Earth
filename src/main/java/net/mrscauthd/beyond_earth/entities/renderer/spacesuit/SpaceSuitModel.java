@@ -73,7 +73,7 @@ public class SpaceSuitModel {
             .texOffs(48, 54).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(-2.0F, 12.0F, 0.0F));
 
             PartDefinition leftLeg = partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(48, 44).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.4F))
-                    .texOffs(48, 54).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
+            .texOffs(48, 54).addBox(-2.0F, 6.0F, -2.0F, 4.0F, 6.0F, 4.0F, new CubeDeformation(0.27F)), PartPose.offset(2.0F, 12.0F, 0.0F));
 
             return LayerDefinition.create(meshdefinition, 64, 64);
         }
@@ -83,7 +83,7 @@ public class SpaceSuitModel {
             EquipmentSlot slot = EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 3);
             ItemStack stack = entity.getItemBySlot(slot);
 
-            /**Setup Anim*/
+            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
@@ -99,19 +99,21 @@ public class SpaceSuitModel {
             this.rightLeg.copyFrom(livingModel.rightLeg);
             this.leftLeg.copyFrom(livingModel.leftLeg);
 
-            /**Not Translucent Armor Parts*/
+            /** Not Translucent Armor Parts */
             body.render(poseStack, buffer, packedLight, packedOverlay);
             rightArm.render(poseStack, buffer, packedLight, packedOverlay);
             leftArm.render(poseStack, buffer, packedLight, packedOverlay);
             rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
             leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
 
-            /**Translucent Armor Parts*/
+            /** Translucent Armor Parts */
             if (stack.getItem() == ItemsRegistry.OXYGEN_MASK.get()) {
                 head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(spaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
-            } else if (stack.getItem() == ItemsRegistry.NETHERITE_OXYGEN_MASK.get()) {
+            }
+            else if (stack.getItem() == ItemsRegistry.NETHERITE_OXYGEN_MASK.get()) {
                 head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(netheriteSpaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
-            } else {
+            }
+            else {
                 head.render(poseStack, buffer, packedLight, packedOverlay);
             }
         }
@@ -152,7 +154,7 @@ public class SpaceSuitModel {
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 
-            /**Setup Anim*/
+            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;

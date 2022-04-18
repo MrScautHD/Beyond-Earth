@@ -73,49 +73,51 @@ public class RocketTier1Entity extends IRocketEntity {
 		super.interact(player, hand);
 		InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
 
-		if (!(player instanceof ServerPlayer)) {
-			return InteractionResult.PASS;
+		if (!this.level.isClientSide) {
+			if (player.isCrouching()) {
+				NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+					@Override
+					public Component getDisplayName() {
+						return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID + ".rocket_t1");
+					}
+
+					@Override
+					public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+						FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+						packetBuffer.writeVarInt(RocketTier1Entity.this.getId());
+						return new RocketGui.GuiContainer(id, inventory, packetBuffer);
+					}
+				}, buf -> {
+					buf.writeVarInt(this.getId());
+				});
+
+				return InteractionResult.CONSUME;
+			}
+
+			player.startRiding(this);
+			return InteractionResult.CONSUME;
 		}
 
-		if (player.isCrouching()) {
-			NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
-				@Override
-				public Component getDisplayName() {
-					return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID +".rocket_t1");
-				}
-
-				@Override
-				public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-					FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-					packetBuffer.writeVarInt(RocketTier1Entity.this.getId());
-					return new RocketGui.GuiContainer(id, inventory, packetBuffer);
-				}
-			}, buf -> {
-				buf.writeVarInt(this.getId());
-			});
-
-			return result;
-		}
-
-		player.startRiding(this);
 		return result;
 	}
 
 	@Override
 	public void particleSpawn() {
-		Vec3 vec = this.getDeltaMovement();
+		if (!this.level.isClientSide) {
+			Vec3 vec = this.getDeltaMovement();
 
-		if (this.entityData.get(START_TIMER) == 200) {
-			if (level instanceof ServerLevel) {
-				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+			if (this.entityData.get(START_TIMER) == 200) {
+				if (level instanceof ServerLevel) {
+					for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
+						((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+						((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+					}
 				}
-			}
-		} else {
-			if (level instanceof ServerLevel) {
-				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
+			} else {
+				if (level instanceof ServerLevel) {
+					for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
+						((ServerLevel) level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
+					}
 				}
 			}
 		}
@@ -123,13 +125,15 @@ public class RocketTier1Entity extends IRocketEntity {
 
 	@Override
 	public void fillUpRocket() {
-		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
-			this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getEntityData().set(BUCKETS, 1);
-		}
+		if (!this.level.isClientSide) {
+			if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
+				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
+				this.getEntityData().set(BUCKETS, 1);
+			}
 
-		if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
-			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
+			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
+				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
+			}
 		}
 	}
 }

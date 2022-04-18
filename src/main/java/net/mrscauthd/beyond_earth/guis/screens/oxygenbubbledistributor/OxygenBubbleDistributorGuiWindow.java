@@ -47,9 +47,14 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 	public ImageButtonPlacer button_plus;
 	public ImageButtonPlacer button_minus;
 
-	private static ResourceLocation HideButton = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button.png");
-	private static ResourceLocation Button1 = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus.png");
-	private static ResourceLocation Button2 = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus.png");
+	private static final ResourceLocation TECHNIK_BUTTON = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_2.png");
+
+	private static final ResourceLocation TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus_2.png");
+
+	private static final ResourceLocation TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus_2.png");
 
 	public OxygenBubbleDistributorGuiWindow(OxygenBubbleDistributorGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -77,31 +82,13 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);
 		}
-
-		if (GuiHelper.isHover(this.getButtonBounds(-20, 4, 20, 21), mouseX, mouseY)) {
-			button_plus.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus_2.png"));
-		} else {
-			button_plus.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus.png"));
-		}
-
-		if (GuiHelper.isHover(this.getButtonBounds(-20, 25, 20, 20), mouseX, mouseY)) {
-			button_minus.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus_2.png"));
-		} else {
-			button_minus.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus.png"));
-		}
-
-		if (GuiHelper.isHover(this.getButtonBounds(-20, -22, 34, 20), mouseX, mouseY)) {
-			workingAreaVisibleButton.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_2.png"));
-		} else {
-			workingAreaVisibleButton.setTexture(new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button.png"));
-		}
 	}
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
-
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+
 		RenderSystem.setShaderTexture(0, texture);
 		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
@@ -115,17 +102,17 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 	protected void init() {
 		super.init();
 
-		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 20, 20, 0, 0, 0, Button1, 20, 20, (p_2130901) -> {
+		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 20, 20, 0, 0, 0, null, null, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
 		}));
 
-		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 20, 20, 0, 0, 0, Button2, 20, 20, (p_2130901) -> {
+		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 20, 20, 0, 0, 0, null, null, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
 		}));
 
-		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 34, 20, 0, 0, 0, HideButton, 34, 20, e -> {
+		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 34, 20, 0, 0, 0, null, null, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
 		}));

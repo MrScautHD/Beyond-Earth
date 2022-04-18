@@ -73,8 +73,10 @@ public class LanderEntity extends VehicleEntity {
 
 	@Override
 	public void kill() {
-		dropEquipment();
-		this.remove(RemovalReason.DISCARDED);
+		if (!this.level.isClientSide) {
+			dropEquipment();
+			this.remove(RemovalReason.DISCARDED);
+		}
 	}
 
 	@Override
@@ -84,9 +86,12 @@ public class LanderEntity extends VehicleEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
-			dropEquipment();
-			this.remove(RemovalReason.DISCARDED);
+		if (!this.level.isClientSide) {
+			if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+				dropEquipment();
+				this.remove(RemovalReason.DISCARDED);
+				return true;
+			}
 		}
 
 		return false;
@@ -98,9 +103,9 @@ public class LanderEntity extends VehicleEntity {
 
 			if (!this.level.isClientSide) {
 				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, Explosion.BlockInteraction.BREAK);
-			}
 
-			this.remove(RemovalReason.DISCARDED);
+				this.remove(RemovalReason.DISCARDED);
+			}
 		}
 
 		return super.causeFallDamage(p_150347_, p_150348_, p_150349_);
@@ -154,31 +159,31 @@ public class LanderEntity extends VehicleEntity {
 		super.interact(player, hand);
 		InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
 
-		if (!(player instanceof ServerPlayer)) {
-			return InteractionResult.PASS;
+		if (!this.level.isClientSide) {
+			if (player.isCrouching()) {
+				NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+					@Override
+					public Component getDisplayName() {
+						return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID + ".lander");
+					}
+
+					@Override
+					public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+						FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+						packetBuffer.writeVarInt(LanderEntity.this.getId());
+						return new LanderGui.GuiContainer(id, inventory, packetBuffer);
+					}
+				}, buf -> {
+					buf.writeVarInt(this.getId());
+				});
+
+				return InteractionResult.CONSUME;
+			}
+
+			player.startRiding(this);
+			return InteractionResult.CONSUME;
 		}
 
-		if (player.isCrouching()) {
-			NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
-				@Override
-				public Component getDisplayName() {
-					return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID +".lander");
-				}
-
-				@Override
-				public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-					FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-					packetBuffer.writeVarInt(LanderEntity.this.getId());
-					return new LanderGui.GuiContainer(id, inventory, packetBuffer);
-				}
-			}, buf -> {
-				buf.writeVarInt(this.getId());
-			});
-
-			return result;
-		}
-
-		player.startRiding(this);
 		return result;
 	}
 

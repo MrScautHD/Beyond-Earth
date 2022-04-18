@@ -36,34 +36,40 @@ import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class Overlays {
 
+    /** WARNING OVERLAY VARIABLES */
     private static boolean check = false;
     private static float counter = 0;
 
-    private static final ResourceLocation warning = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/warning.png");
+    /** WARNING TEXTURE */
+    private static final ResourceLocation WARNING_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/warning.png");
 
-    private static final ResourceLocation timerN1 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer1.png");
-    private static final ResourceLocation timerN2 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer2.png");
-    private static final ResourceLocation timerN3 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer3.png");
-    private static final ResourceLocation timerN4 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer4.png");
-    private static final ResourceLocation timerN5 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer5.png");
-    private static final ResourceLocation timerN6 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer6.png");
-    private static final ResourceLocation timerN7 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer7.png");
-    private static final ResourceLocation timerN8 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer8.png");
-    private static final ResourceLocation timerN9 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer9.png");
-    private static final ResourceLocation timerN10 = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer10.png");
+    /** TIMER TEXTURES */
+    private static final ResourceLocation TIMER_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer1.png");
+    private static final ResourceLocation TIMER_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer2.png");
+    private static final ResourceLocation TIMER_3_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer3.png");
+    private static final ResourceLocation TIMER_4_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer4.png");
+    private static final ResourceLocation TIMER_5_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer5.png");
+    private static final ResourceLocation TIMER_6_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer6.png");
+    private static final ResourceLocation TIMER_7_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer7.png");
+    private static final ResourceLocation TIMER_8_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer8.png");
+    private static final ResourceLocation TIMER_9_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer9.png");
+    private static final ResourceLocation TIMER_10_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer10.png");
 
-    private static final ResourceLocation oxygen_tank_empty = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_empty.png");
-    private static final ResourceLocation oxygen_tank_full = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_full.png");
+    /** OXYGEN TANK TEXTURES */
+    private static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_empty.png");
+    private static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_full.png");
 
-    private static final ResourceLocation moon = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_moon.png");
-    private static final ResourceLocation mars = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_mars.png");
-    private static final ResourceLocation mercury = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_mercury.png");
-    private static final ResourceLocation venus = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_venus.png");
-    private static final ResourceLocation glacio = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_glacio.png");
-    private static final ResourceLocation earth = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_earth.png");
-    private static final ResourceLocation orbit = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y_main_orbit.png");
+    /** PLANET BAR TEXTURES */
+    private static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/moon_planet_bar.png");
+    private static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mars_planet_bar.png");
+    private static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mercury_planet_bar.png");
+    private static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/venus_planet_bar.png");
+    private static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/glacio_planet_bar.png");
+    private static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/earth_planet_bar.png");
+    private static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/orbit_planet_bar.png");
 
-    private static final ResourceLocation rocketY = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket_y.png");
+    /** ROCKET TEXTURE */
+    private static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket.png");
 
     /** OVERLAY ENABLE OR DISABLE EVENT */
     @SubscribeEvent
@@ -129,15 +135,15 @@ public class Overlays {
             RenderSystem.setShaderColor(counter, counter, counter, counter);
 
             /** WARNING IMAGE */
-            RenderSystem.setShaderTexture(0, warning);
-            gui.blit(mStack, 0, 0, 0, 0, width, height, width, height);
+            RenderSystem.setShaderTexture(0, WARNING_TEXTURE);
+            gui.blit(mStack, width / 2 - 58, 50, 0, 0, 116, 21, 116, 21);
 
             /** SPEED TEXT */
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             double speed = Math.round(100.0 * (vehicle).getDeltaMovement().y()) / 100.0;
 
             Component message = new TranslatableComponent("message." + BeyondEarthMod.MODID + ".speed", speed);
-            Minecraft.getInstance().font.draw(mStack, message, width / 2 - 29, height / 2 / 2.3f, -3407872);
+            Minecraft.getInstance().font.draw(mStack, message, width / 2 - 29, 80 , -3407872);
         }
     };
 
@@ -158,43 +164,43 @@ public class Overlays {
 
             /** TIMER */
             if (timer > -1 && timer < 20) {
-                RenderSystem.setShaderTexture(0, timerN10);
+                RenderSystem.setShaderTexture(0, TIMER_10_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 20 && timer < 40) {
-                RenderSystem.setShaderTexture(0, timerN9);
+                RenderSystem.setShaderTexture(0, TIMER_9_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 40 && timer < 60) {
-                RenderSystem.setShaderTexture(0, timerN8);
+                RenderSystem.setShaderTexture(0, TIMER_8_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 60 && timer < 80) {
-                RenderSystem.setShaderTexture(0, timerN7);
+                RenderSystem.setShaderTexture(0, TIMER_7_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 80 && timer < 100) {
-                RenderSystem.setShaderTexture(0, timerN6);
+                RenderSystem.setShaderTexture(0, TIMER_6_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 100 && timer < 120) {
-                RenderSystem.setShaderTexture(0, timerN5);
+                RenderSystem.setShaderTexture(0, TIMER_5_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 120 && timer < 140) {
-                RenderSystem.setShaderTexture(0, timerN4);
+                RenderSystem.setShaderTexture(0, TIMER_4_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 140 && timer < 160) {
-                RenderSystem.setShaderTexture(0, timerN3);
+                RenderSystem.setShaderTexture(0, TIMER_3_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 160 && timer < 180) {
-                RenderSystem.setShaderTexture(0, timerN2);
+                RenderSystem.setShaderTexture(0, TIMER_2_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 180 && timer < 200) {
-                RenderSystem.setShaderTexture(0, timerN1);
+                RenderSystem.setShaderTexture(0, TIMER_1_TEXTURE);
                 gui.blit(mStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
         }
@@ -217,8 +223,8 @@ public class Overlays {
             int textureWidth = 62;
             int textureHeight = 52;
 
-            GuiHelper.drawVerticalReverse(mStack, x, y, textureWidth, textureHeight, oxygen_tank_empty, oxygenStoredRatio);
-            GuiHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, oxygen_tank_full, oxygenStoredRatio);
+            GuiHelper.drawVerticalReverse(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE, oxygenStoredRatio);
+            GuiHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_FULL_TEXTURE, oxygenStoredRatio);
 
             /** OXYGEN AMOUNT TEXT */
             if (oxygenStorage != null) {
@@ -248,25 +254,25 @@ public class Overlays {
             ResourceLocation planet;
 
             if (Methods.isWorld(world, Methods.moon)) {
-                planet = moon;
+                planet = MOON_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isWorld(world, Methods.mars)) {
-                planet = mars;
+                planet = MARS_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isWorld(world, Methods.mercury)) {
-                planet = mercury;
+                planet = MERCURY_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isWorld(world, Methods.venus)) {
-                planet = venus;
+                planet = VENUS_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isWorld(world, Methods.glacio)) {
-                planet = glacio;
+                planet = GLACIO_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isOrbitWorld(world)) {
-                planet = orbit;
+                planet = ORBIT_PLANET_BAR_TEXTURE;
             }
             else {
-                planet = earth;
+                planet = EARTH_PLANET_BAR_TEXTURE;
             }
 
             /** ROCKET BAR IMAGE */
@@ -274,7 +280,7 @@ public class Overlays {
             gui.blit(mStack, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
             /** ROCKET_Y IMAGE */
-            RenderSystem.setShaderTexture(0, rocketY);
+            RenderSystem.setShaderTexture(0, ROCKET_PLANET_BAR_TEXTURE);
             GuiHelper.blit(mStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
         }
     };

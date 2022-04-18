@@ -79,7 +79,7 @@ public class Methods {
             earth_orbit
     );
 
-    private static final Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
+    public static final Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
             moon,
             moon_orbit,
             mars,
@@ -92,7 +92,7 @@ public class Methods {
             earth_orbit
     );
 
-    private static final Set<ResourceKey<Level>> spaceWorlds = Set.of(
+    public static final Set<ResourceKey<Level>> spaceWorlds = Set.of(
             moon,
             moon_orbit,
             mars,

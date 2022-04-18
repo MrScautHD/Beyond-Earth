@@ -49,11 +49,11 @@ public class SpaceSuit {
 
 					Map<String, ModelPart> map = Map.of("head", new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION)).head,
 
-									 "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-									 "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-									 "left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-									 "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
-									 "left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
+							"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+							"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+							"left_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+							"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+							"left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);

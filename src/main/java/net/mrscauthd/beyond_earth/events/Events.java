@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.events;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -17,79 +18,87 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.EntityTickEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.ItemTickEvent;
-import net.mrscauthd.beyond_earth.mixin.EntityTick;
+import net.mrscauthd.beyond_earth.events.forgeevents.ItemEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forgeevents.LivingEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.mixin.ItemEntityTickEnd;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Player player = event.player;
             Level world = player.level;
 
-            //Lander Teleport System
+            /** LANDER ORBIT TELEPORT SYSTEM */
             if (player.getVehicle() instanceof LanderEntity) {
                 Methods.landerTeleportOrbit(player, world);
             }
 
-            //Planet Gui Open
+            /** DISABLE CLOSE PLANET GUI SYSTEM */
             Methods.openPlanetGui(player);
 
-            //Oxygen System
+            /** ENTITY OXYGEN SYSTEM */
             OxygenSystem.OxygenSystem(player);
 
-            //Drop Off Hand Item
+            /** DROP OFF HAND VEHICLE ITEM */
             Methods.dropRocket(player);
         }
     }
 
     @SubscribeEvent
-    public static void onLivingEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public static void livingEntityTick(LivingEvent.LivingUpdateEvent event) {
         LivingEntity entity = event.getEntityLiving();
-        Level world = entity.level;
+        Level level = entity.level;
 
-        //Entity Oxygen System
-        Methods.entityOxygen(entity,world);
+        /** ENTITY OXYGEN SYSTEM */
+        Methods.entityOxygen(entity, level);
 
-        //Gravity Method Call
-        if (entity instanceof Player) {
-            Gravity.gravity(entity, Gravity.GravityType.PLAYER, world);
-        } else {
-            Gravity.gravity(entity, Gravity.GravityType.LIVING, world);
-        }
-
-        //Venus Rain
+        /** VENUS RAIN SYSTEM */
         Methods.venusRain(entity, Methods.venus);
 
-        //Planet Fire
+        /** PLANET FIRE SYSTEM */
         Methods.planetFire(entity, Methods.venus);
         Methods.planetFire(entity, Methods.mercury);
     }
 
     @SubscribeEvent
+    public static void livingEntityEndTick(LivingEntityTickEndEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        Level level = entity.level;
+
+        /** ENTITY GRAVITY SYSTEM */
+        EntityGravity.gravity(entity, level);
+    }
+
+    @SubscribeEvent
+    public static void itemEntityEndTick(ItemEntityTickEndEvent event) {
+        ItemEntity entity = event.getEntityItem();
+        Level level = entity.level;
+
+        /** ITEM ENTITY GRAVITY SYSTEM */
+        ItemGravity.gravity(entity, level);
+    }
+
+    @SubscribeEvent
     public static void entityTick(EntityTickEvent event) {
         Entity entity = event.getEntity();
+        Level level = entity.level;
 
-        // ORBIT TELEPORT
+        /** ORBIT TELEPORT SYSTEM */
         if (entity.getY() < 1 && !(entity.getVehicle() instanceof LanderEntity)) {
 
             if ((entity instanceof LanderEntity) && entity.isVehicle()) {
                 return;
             }
 
-            Methods.entityFallToPlanet(entity.level, entity);
+            Methods.entityFallToPlanet(level, entity);
         }
     }
 
     @SubscribeEvent
-    public static void onItemEntityTick(ItemTickEvent event) {
-        ItemGravity.itemGravity(event.getEntityItem());
-    }
-
-    @SubscribeEvent
-    public static void onWorldTick(TickEvent.WorldTickEvent event) {
+    public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Level world = event.world;
 
@@ -103,7 +112,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void onEntityAttacked(LivingAttackEvent event) {
+    public static void livingEntityAttack(LivingAttackEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
@@ -123,7 +132,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void fishingProjectile(ProjectileImpactEvent event) {
+    public static void projectileImpact(ProjectileImpactEvent event) {
         if (event.getRayTraceResult().getType() != HitResult.Type.ENTITY) {
             return;
         }
@@ -136,7 +145,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void onKill(LivingDeathEvent event) {
+    public static void livingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
 
             ((Player) event.getEntity()).closeContainer();
@@ -146,7 +155,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void onFallDamage(LivingFallEvent event) {
+    public static void livingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
@@ -161,9 +170,6 @@ public class Events {
         }
         else if (Methods.isWorld(level, Methods.mercury)) {
             event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isWorld(level, Methods.venus)) {
-            event.setDistance(event.getDistance() - 5.0F);
         }
         else if (Methods.isOrbitWorld(level)) {
             event.setDistance(event.getDistance() - 8.5F);

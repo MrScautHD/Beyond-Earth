@@ -176,9 +176,11 @@ public class RoverEntity extends VehicleEntity {
 
     @Override
     public void kill() {
-        this.spawnRoverItem();
-        this.dropEquipment();
-        this.remove(RemovalReason.DISCARDED);
+        if (!this.level.isClientSide) {
+            this.spawnRoverItem();
+            this.dropEquipment();
+            this.remove(RemovalReason.DISCARDED);
+        }
     }
 
     @Override
@@ -188,10 +190,13 @@ public class RoverEntity extends VehicleEntity {
 
     @Override
     public boolean hurt(DamageSource source, float p_21017_) {
-        if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
-            this.spawnRoverItem();
-            this.dropEquipment();
-            this.remove(RemovalReason.DISCARDED);
+        if (!this.level.isClientSide) {
+            if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+                this.spawnRoverItem();
+                this.dropEquipment();
+                this.remove(RemovalReason.DISCARDED);
+                return true;
+            }
         }
 
         return false;
@@ -262,31 +267,31 @@ public class RoverEntity extends VehicleEntity {
         super.interact(player, hand);
         InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
 
-        if (!(player instanceof ServerPlayer)) {
-            return InteractionResult.PASS;
+        if (!this.level.isClientSide) {
+            if (player.isCrouching()) {
+                NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+                    @Override
+                    public Component getDisplayName() {
+                        return RoverEntity.this.getDisplayName();
+                    }
+
+                    @Override
+                    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                        FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                        packetBuffer.writeVarInt(RoverEntity.this.getId());
+                        return new RoverGui.GuiContainer(id, inventory, packetBuffer);
+                    }
+                }, buf -> {
+                    buf.writeVarInt(this.getId());
+                });
+
+                return InteractionResult.CONSUME;
+            }
+
+            player.startRiding(this);
+            return InteractionResult.CONSUME;
         }
 
-        if (player.isCrouching()) {
-            NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
-                @Override
-                public Component getDisplayName() {
-                    return RoverEntity.this.getDisplayName();
-                }
-
-                @Override
-                public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-                    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                    packetBuffer.writeVarInt(RoverEntity.this.getId());
-                    return new RoverGui.GuiContainer(id, inventory, packetBuffer);
-                }
-            }, buf -> {
-                buf.writeVarInt(this.getId());
-            });
-
-            return result;
-        }
-
-        player.startRiding(this);
         return result;
     }
 
