@@ -102,17 +102,17 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 	protected void init() {
 		super.init();
 
-		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 20, 20, 0, 0, 0, null, null, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
+		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 20, 20, 0, 0, 0, null, null, null, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
 		}));
 
-		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 20, 20, 0, 0, 0, null, null, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
+		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 20, 20, 0, 0, 0, null, null, null, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
 		}));
 
-		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 34, 20, 0, 0, 0, null, null, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
+		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 34, 20, 0, 0, 0, null, null, null, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
 		}));

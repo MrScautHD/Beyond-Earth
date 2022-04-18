@@ -83,7 +83,7 @@ public class PlanetSelectionGui {
 			NetworkEvent.Context context = contextSupplier.get();
 			ServerPlayer player = context.getSender();
 
-			// Teleport Planet Buttons
+			/** TELEPORT BUTTONS */
 			if (message.getInteger() == 0) {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.overworld, false);
@@ -104,13 +104,12 @@ public class PlanetSelectionGui {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.venus, false);
 			}
-			/** Proxima Centauri: */
 			if (message.getInteger() == 5) {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.glacio, false);
 			}
 
-			// Teleport Orbit Buttons
+			/** TELEPORT ORBIT BUTTONS */
 			if (message.getInteger() == 6) {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.earth_orbit, false);
@@ -131,13 +130,12 @@ public class PlanetSelectionGui {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.venus_orbit, false);
 			}
-			/** Proxima Centauri: */
 			if (message.getInteger() == 11) {
 				defaultOptions(player);
 				Methods.teleportButton(player, Methods.glacio_orbit, false);
 			}
 
-			// Create Space Station Buttons
+			/** TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
 			if (message.getInteger() == 12) {
 				defaultOptions(player);
 				deleteItems(player);
@@ -163,7 +161,6 @@ public class PlanetSelectionGui {
 				deleteItems(player);
 				Methods.teleportButton(player, Methods.venus_orbit, true);
 			}
-			/** Proxima Centauri: */
 			if (message.getInteger() == 17) {
 				defaultOptions(player);
 				deleteItems(player);
@@ -182,6 +179,10 @@ public class PlanetSelectionGui {
 
 	public static void deleteItems(Player player) {
 		if (player.getAbilities().instabuild || player.isSpectator()) {
+			return;
+		}
+
+		if (player.level.isClientSide) {
 			return;
 		}
 
