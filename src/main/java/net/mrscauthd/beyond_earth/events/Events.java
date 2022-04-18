@@ -163,18 +163,16 @@ public class Events {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
-        if (!level.isClientSide) {
-            if (Methods.isWorld(level, Methods.moon)) {
-                event.setDistance(event.getDistance() - 5.5F);
-            } else if (Methods.isWorld(level, Methods.mars)) {
-                event.setDistance(event.getDistance() - 5.0F);
-            } else if (Methods.isWorld(level, Methods.glacio)) {
-                event.setDistance(event.getDistance() - 5.0F);
-            } else if (Methods.isWorld(level, Methods.mercury)) {
-                event.setDistance(event.getDistance() - 5.5F);
-            } else if (Methods.isOrbitWorld(level)) {
-                event.setDistance(event.getDistance() - 8.5F);
-            }
+        if (Methods.isWorld(level, Methods.moon)) {
+            event.setDistance(event.getDistance() - 5.5F);
+        } else if (Methods.isWorld(level, Methods.mars)) {
+            event.setDistance(event.getDistance() - 5.0F);
+        } else if (Methods.isWorld(level, Methods.glacio)) {
+            event.setDistance(event.getDistance() - 5.0F);
+        } else if (Methods.isWorld(level, Methods.mercury)) {
+            event.setDistance(event.getDistance() - 5.5F);
+        } else if (Methods.isOrbitWorld(level)) {
+            event.setDistance(event.getDistance() - 8.5F);
         }
     }
 }
