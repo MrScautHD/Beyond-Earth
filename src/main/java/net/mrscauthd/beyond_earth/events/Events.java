@@ -20,7 +20,6 @@ import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forgeevents.EntityTickEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.ItemEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.LivingEntityTickEndEvent;
-import net.mrscauthd.beyond_earth.mixin.ItemEntityTickEnd;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
@@ -121,6 +120,10 @@ public class Events {
             return;
         }
 
+        if (event.getEntity().level.isClientSide) {
+            return;
+        }
+
         Player entity = (Player) event.getEntity();
 
         if (!Methods.netheriteSpaceSuitCheck(entity)) {
@@ -147,10 +150,11 @@ public class Events {
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
         if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
+            Player player = (Player) event.getEntity();
 
-            ((Player) event.getEntity()).closeContainer();
-            Methods.cleanUpPlayerNBT((Player) event.getEntity());
-            event.getEntity().setNoGravity(false);
+            player.closeContainer();
+            Methods.cleanUpPlayerNBT(player);
+            player.setNoGravity(false);
         }
     }
 
@@ -159,20 +163,18 @@ public class Events {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
-        if (Methods.isWorld(level, Methods.moon)) {
-            event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isWorld(level, Methods.mars)) {
-            event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isWorld(level, Methods.glacio)) {
-            event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isWorld(level, Methods.mercury)) {
-            event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isOrbitWorld(level)) {
-            event.setDistance(event.getDistance() - 8.5F);
+        if (!level.isClientSide) {
+            if (Methods.isWorld(level, Methods.moon)) {
+                event.setDistance(event.getDistance() - 5.5F);
+            } else if (Methods.isWorld(level, Methods.mars)) {
+                event.setDistance(event.getDistance() - 5.0F);
+            } else if (Methods.isWorld(level, Methods.glacio)) {
+                event.setDistance(event.getDistance() - 5.0F);
+            } else if (Methods.isWorld(level, Methods.mercury)) {
+                event.setDistance(event.getDistance() - 5.5F);
+            } else if (Methods.isOrbitWorld(level)) {
+                event.setDistance(event.getDistance() - 8.5F);
+            }
         }
     }
 }

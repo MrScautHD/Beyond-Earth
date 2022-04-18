@@ -70,7 +70,9 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
         this.level.addParticle(ParticleTypes.SPIT, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
         this.level.addParticle(ParticleTypes.ITEM_SNOWBALL, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
         if (this.inGround) {
-            this.remove(RemovalReason.DISCARDED);
+            if (!this.level.isClientSide) {
+                this.remove(RemovalReason.DISCARDED);
+            }
         }
     }
 
