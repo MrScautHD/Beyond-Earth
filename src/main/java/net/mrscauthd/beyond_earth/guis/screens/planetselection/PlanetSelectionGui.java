@@ -182,10 +182,6 @@ public class PlanetSelectionGui {
 			return;
 		}
 
-		if (player.level.isClientSide) {
-			return;
-		}
-
 		Inventory inv = player.getInventory();
 		SpaceStationRecipe recipe = (SpaceStationRecipe) player.level.getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
 		

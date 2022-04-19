@@ -225,6 +225,10 @@ public class Methods {
         entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
+    public static void venusRainDamage(LivingEntity entity) {
+        entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_ACID_RAIN, 1.0F);
+    }
+
     public static boolean isRocket(Entity entity) {
         return entity instanceof IRocketEntity;
     }
@@ -307,17 +311,19 @@ public class Methods {
         }
 
         if (entity.level.getLevelData().isRaining() && entity.level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getX()), (int) Math.floor(entity.getZ())) <= Math.floor(entity.getY()) + 1) {
-            entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_ACID_RAIN, 1);
+            if (!entity.level.isClientSide) {
+                Methods.venusRainDamage(entity);
+            }
         }
     }
 
     /** If a entity should get oxygen damage add it to the tag "oxygen" */
-    public static void entityOxygen(LivingEntity entity, Level world) {
+    public static void entityOxygen(LivingEntity entity, Level level) {
         if (entity instanceof Player) {
             return;
         }
 
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(world) && tagCheck(entity, TagsRegistry.OXYGEN_TAG)) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(level) && tagCheck(entity, TagsRegistry.OXYGEN_TAG)) {
 
             if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
@@ -325,7 +331,9 @@ public class Methods {
 
                 if (entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") > 15) {
 
-                    Methods.oxygenDamage(entity);
+                    if (!level.isClientSide) {
+                        Methods.oxygenDamage(entity);
+                    }
 
                     entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", 0);
                 }
@@ -374,24 +382,26 @@ public class Methods {
 
             Level newWorld = player.level;
 
-            LanderEntity entityToSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newWorld);
-            entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-            newWorld.addFreshEntity(entityToSpawn);
+            if (!player.level.isClientSide) {
+                LanderEntity entityToSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newWorld);
+                entityToSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
+                newWorld.addFreshEntity(entityToSpawn);
 
-            entityToSpawn.getInventory().setStackInSlot(0, slot_0);
-            entityToSpawn.getInventory().setStackInSlot(1, slot_1);
+                entityToSpawn.getInventory().setStackInSlot(0, slot_0);
+                entityToSpawn.getInventory().setStackInSlot(1, slot_1);
 
-            player.startRiding(entityToSpawn);
+                player.startRiding(entityToSpawn);
 
-            /** CALL LANDER ORBIT TELEPORT POST EVENT */
-            MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Post(lander, player));
+                /** CALL LANDER ORBIT TELEPORT POST EVENT */
+                MinecraftForge.EVENT_BUS.post(new LanderOrbitTeleportEvent.Post(lander, player));
+            }
         }
     }
 
     public static void rocketTeleport(Player player, ResourceKey<Level> planet, ItemStack rocketItem, Boolean SpaceStation) {
         Level level = player.level;
 
-        if (!Methods.isWorld(player.level, planet)) {
+        if (!Methods.isWorld(level, planet)) {
             Methods.entityWorldTeleporter(player, planet, 700);
         } else {
             player.setPos(player.getX(), 700, player.getZ());
@@ -401,25 +411,29 @@ public class Methods {
             }
         }
 
-        LanderEntity landerSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), level);
-        landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
-        level.addFreshEntity(landerSpawn);
+        Level newLevel = player.level;
 
-        String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
+        if (!newLevel.isClientSide) {
+            LanderEntity landerSpawn = new LanderEntity(EntitiesRegistry.LANDER.get(), newLevel);
+            landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
+            newLevel.addFreshEntity(landerSpawn);
 
-        landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
-        landerSpawn.getInventory().setStackInSlot(1, rocketItem);
+            String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
 
-        if (SpaceStation) {
-            createSpaceStation(player, (ServerLevel) level);
+            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
+            landerSpawn.getInventory().setStackInSlot(1, rocketItem);
+
+            if (SpaceStation) {
+                createSpaceStation(player, (ServerLevel) newLevel);
+            }
+
+            /** CALL START RIDE LANDER EVENT */
+            MinecraftForge.EVENT_BUS.post(new StartRideLanderEvent(landerSpawn, player));
+
+            cleanUpPlayerNBT(player);
+
+            player.startRiding(landerSpawn);
         }
-
-        /** CALL START RIDE LANDER EVENT */
-        MinecraftForge.EVENT_BUS.post(new StartRideLanderEvent(landerSpawn, player));
-
-        cleanUpPlayerNBT(player);
-
-        player.startRiding(landerSpawn);
     }
 
     public static void createSpaceStation(Player player, ServerLevel serverWorld) {
