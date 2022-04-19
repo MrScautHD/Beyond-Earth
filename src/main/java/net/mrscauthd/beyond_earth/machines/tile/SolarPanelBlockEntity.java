@@ -7,6 +7,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -38,9 +40,9 @@ public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 	@Override
 	protected boolean canGenerateEnergy() {
 		Level level = this.getLevel();
-		BlockPos blockPos = this.getBlockPos();
+		BlockPos blockPos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ());
 
-		return level.isDay() && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(blockPos.getX()), (int) Math.floor(blockPos.getZ())) <= Math.floor(blockPos.getY()) + 1;
+		return level.isDay() && level.canSeeSky(blockPos);
 	}
 
 	@Override

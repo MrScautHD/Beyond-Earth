@@ -9,13 +9,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
+import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -76,7 +79,10 @@ public class ImageButtonPlacer extends Button {
         SOLAR_SYSTEM_CATEGORY,
 
         /** IF YOU USE THIS PUT 4 STRINGS IN THE LIST (TYPE, GRAVITY, OXYGEN, TEMPERATURE) */
-        PLANET_CATEGORY
+        PLANET_CATEGORY,
+
+        /** IF YOU USE THIS PUT 4 STRINGS IN THE LIST (TYPE, GRAVITY, OXYGEN, TEMPERATURE) */
+        PLANET_SPACE_STATION_CATEGORY
     }
 
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -94,12 +100,17 @@ public class ImageButtonPlacer extends Button {
         /** TEXTURE MANAGER */
         ResourceLocation texture;
 
-        if (this.isHovered) {
-            /** SOLAR_SYSTEM_CATEGORY HOVER TEXTURE */
-            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && this.rocketCondition, true, this.hoverButtonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
-        } else {
-            /** SOLAR_SYSTEM_CATEGORY TEXTURE */
-            texture = this.getTypeTexture(type == Types.SOLAR_SYSTEM_CATEGORY && this.rocketCondition, false, this.buttonTexture, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
+        /** (SOLAR SYSTEM CATEGORY) TEXTURE */
+        if (type == Types.SOLAR_SYSTEM_CATEGORY && rocketCondition) {
+            texture = this.getTypeTexture(this.isHovered, PlanetSelectionGuiWindow.GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.GREEN_LIGHT_BUTTON_TEXTURE);
+        }
+        /** (PLANET SPACE STATION CATEGORY) TEXTURE */
+        else if (type == Types.PLANET_SPACE_STATION_CATEGORY) {
+            texture = this.getTypeTexture(this.isHovered, PlanetSelectionGuiWindow.LARGE_GREEN_BUTTON_TEXTURE, PlanetSelectionGuiWindow.LARGE_GREEN_LIGHT_BUTTON_TEXTURE);
+        }
+        /** (DEFAULT) TEXTURE */
+        else {
+            texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
         }
 
         /** TEXTURE RENDERER */
@@ -116,6 +127,7 @@ public class ImageButtonPlacer extends Button {
             this.milkyWayCategoryManager(minecraft, poseStack, mouseX, mouseY);
             this.solarSystemCategoryManager(minecraft, poseStack, mouseX, mouseY);
             this.planetCategoryManager(minecraft, poseStack, mouseX, mouseY);
+            this.planetSpaceStationCategoryManager(minecraft, poseStack, mouseX, mouseY);
         }
 
         RenderSystem.disableDepthTest();
@@ -167,14 +179,38 @@ public class ImageButtonPlacer extends Button {
         }
     }
 
-    /** TYPE TEXTURE MANAGER */
-    private ResourceLocation getTypeTexture(boolean typeCondition, boolean hover, ResourceLocation defaultTexture, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
-        if (typeCondition && !hover) {
-            return buttonTexture;
-        } else if (typeCondition && hover) {
-            return hoverButtonTexture;
-        }
+    /** PLANET SPACE STATION SYSTEM TYPE MANAGER */
+    private void planetSpaceStationCategoryManager(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+        if (this.isHovered && this.type == Types.PLANET_SPACE_STATION_CATEGORY) {
+            PlanetSelectionGuiWindow screen = (PlanetSelectionGuiWindow) minecraft.screen;
 
-        return defaultTexture;
+            List<Component> list = new ArrayList<>();
+
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.ITEM_REQUIREMENT_TEXT.getString()));
+
+            for (IngredientStack ingredientStack : screen.recipe.getIngredientStacks()) {
+                boolean check = screen.getSpaceStationItemCheck(ingredientStack);
+                Component component = Arrays.stream(ingredientStack.getIngredient().getItems()).findFirst().map(ItemStack::getHoverName).orElse(TextComponent.EMPTY);
+
+                list.add(new TextComponent("\u00A78[\u00A76" + ingredientStack.getCount() + "\u00A78]" + (check ? "\u00A7a" : "\u00A7c") + " " + component.getString() + (ingredientStack.getCount() > 1 ? "'s" : "")));
+            }
+
+            list.add(new TextComponent("\u00A7c----------------"));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
+            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
+
+            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+        }
+    }
+
+    /** TYPE TEXTURE MANAGER */
+    private ResourceLocation getTypeTexture(boolean hover, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture) {
+        if (hover) {
+            return hoverButtonTexture;
+        } else {
+            return buttonTexture;
+        }
     }
 }
