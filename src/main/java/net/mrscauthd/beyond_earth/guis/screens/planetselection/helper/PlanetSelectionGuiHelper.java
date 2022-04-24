@@ -19,43 +19,40 @@ import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionGuiHelper {
 
-    //TODO NOT USED YET
-    public static List<Button> solarSystemButtons = new ArrayList<>();
-
-    public static List<Button> sunButtons = new ArrayList<>();
-    public static List<Button> proximaCentauriButtons = new ArrayList<>();
-
     /** USE IT FOR CATEGORY BUTTONS */
-    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 screen.category = newCategory;
             }
         });
 
+        screen.buttons.add(button);
         return button;
     }
 
     /** USE IT FOR TELEPORT BUTTONS */
-    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
             }
         });
 
+        screen.buttons.add(button);
         return button;
     }
 
     /** USE IT FOR BACK BUTTONS */
-    public static ImageButtonPlacer addBackButton(PlanetSelectionGuiWindow screen, int x, int y, int width, int height, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
-        ImageButtonPlacer button = screen.addButton(x, (screen.height / 2) + y / 2, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
+    public static ImageButtonPlacer addBackButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
+        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
+
+        screen.buttons.add(button);
         return button;
     }
 

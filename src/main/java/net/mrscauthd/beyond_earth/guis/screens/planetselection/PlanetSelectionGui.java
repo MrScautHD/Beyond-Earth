@@ -178,7 +178,10 @@ public class PlanetSelectionGui {
 	}
 
 	public static void defaultOptions(Player player) {
-		player.setNoGravity(false);
+		if (!player.level.isClientSide) {
+			player.setNoGravity(false);
+		}
+
 		Methods.holdSpaceMessage(player);
 		player.closeContainer();
 	}

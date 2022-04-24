@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.guis.screens.planetselection;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.components.Button;
@@ -7,6 +8,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -18,6 +20,7 @@ import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.PlanetSelectionGuiHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -108,6 +111,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	/** CATEGORY */
 	public int category = 0; //IF YOU DO A ADDON MOD SET THIS CATEGORY TO -1 AND DO A OWN CATEGORY VARIABLE! (-1 == nothing)
 
+	/** BUTTON LIST */
+	public List<ImageButtonPlacer> buttons;
+
 	/** ROTATIONS */
 	public float rotationMilkyWay = 0;
 	public float rotationMars = 0;
@@ -166,6 +172,11 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public SpaceStationRecipe recipe;
 	private boolean spaceStationItemList;
 
+	/** SCROLL SYSTEM */
+	private float scrollOffs;
+	private boolean scrolling = true;
+	private int startIndex = 1;
+
 	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
 		this.imageWidth = 512;
@@ -215,6 +226,20 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
 		this.visibleButton(this.glacioCategoryButton, this.category == 6);
 
+		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioButton, this.category == 7);
+
+		/** PROXIMA CENTAURI ORBIT CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioOrbitButton, this.category == 7);
+
+		/** PROXIMA CENTAURI SPACE STATION CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioSpaceStationButton, this.category == 7);
+
+		/** HANDLE BUTTON POS (ROW 0 IS FOR NO ROW AND NO LIST SYSTEM, 1 - 3 ROWS EXISTING!) */
+		this.handleButtonPos(1, 0);
+		this.handleButtonPos(2, 1);
+		this.handleButtonPos(3, 1);
+
 		/** CATALOG TEXT RENDERER */
 		this.font.draw(ms, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
 	}
@@ -227,12 +252,12 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		PlanetSelectionGuiHelper.addTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
 
 		/** SUN SOLAR SYSTEM RENDERER */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 3)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 5)) {
 			PlanetSelectionGuiHelper.addTexture(poseStack, (this.width - 185) / 2, (this.height - 185) / 2, 185, 185, SUN_SOLAR_SYSTEM_TEXTURE);
 		}
 
 		/** PROXIMA CENTAURI SOLAR SYSTEM RENDERER */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 5, 7)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 6, 7)) {
 			PlanetSelectionGuiHelper.addTexture(poseStack, (this.width - 185) / 2, (this.height - 185) / 2, 185, 185, PROXIMA_CENTAURI_SOLAR_SYSTEM_TEXTURE);
 		}
 
@@ -243,12 +268,12 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		this.renderRotatedObjects(poseStack);
 
 		/** SUN RENDERER */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 3)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 5)) {
 			PlanetSelectionGuiHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
 		}
 
 		/** BLUE SUN RENDERER */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 5, 7)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 6, 7)) {
 			PlanetSelectionGuiHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
 		}
 
@@ -273,11 +298,15 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		this.recipe = (SpaceStationRecipe) this.minecraft.level.getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
 		this.spaceStationItemList = this.recipe.getIngredientStacks().stream().allMatch(this::getSpaceStationItemCheck);
 
+		/** SET BUTTON LIST */
+		this.buttons = Lists.newArrayList();
+
 		/** MAIN CATEGORY BUTTON 1 */
-		solarSystemButton = PlanetSelectionGuiHelper.addCategoryButton(this,10, -68, 70, 20, 1, true, ImageButtonPlacer.Types.MILKY_WAY_CATEGORY, List.of(SUN_TEXT.getString()), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, SOLAR_SYSTEM_SUN_TEXT);
+		solarSystemButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 1, true, ImageButtonPlacer.Types.MILKY_WAY_CATEGORY, List.of(SUN_TEXT.getString()), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, SOLAR_SYSTEM_SUN_TEXT);
+		solarSystemButton.visible = false;
 
 		/** BACK BUTTON */
-		backButton = PlanetSelectionGuiHelper.addBackButton(this, 10, -68, 70, 20, DARK_BLUE_BUTTON_TEXTURE, DARK_BLUE_LIGHT_BUTTON_TEXTURE, BACK_TEXT, (onPress) -> {
+		backButton = PlanetSelectionGuiHelper.addBackButton(this, 10, 1, 70, 20, DARK_BLUE_BUTTON_TEXTURE, DARK_BLUE_LIGHT_BUTTON_TEXTURE, BACK_TEXT, (onPress) -> {
 			if (this.category == 1) {
 				this.category = 0;
 			}
@@ -294,83 +323,84 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		backButton.visible = false;
 
 		/** CATEGORY 1 */
-		earthCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, -24, 70, 20, 2, this.checkTier(1), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(EARTH_TEXT.getString(), ROCKET_TIER_1_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, EARTH_TEXT);
+		earthCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 2, this.checkTier(1), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(EARTH_TEXT.getString(), ROCKET_TIER_1_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, EARTH_TEXT);
 		earthCategoryButton.visible = false;
 
-		marsCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 21, 70, 20, 3, this.checkTier(2), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(MARS_TEXT.getString(), ROCKET_TIER_2_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, MARS_TEXT);
+		marsCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 3, this.checkTier(2), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(MARS_TEXT.getString(), ROCKET_TIER_2_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, MARS_TEXT);
 		marsCategoryButton.visible = false;
 
-		mercuryCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 65, 70, 20, 4, this.checkTier(3), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(MERCURY_TEXT.getString(), ROCKET_TIER_3_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, MERCURY_TEXT);
+		mercuryCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 4, this.checkTier(3), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(MERCURY_TEXT.getString(), ROCKET_TIER_3_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, MERCURY_TEXT);
 		mercuryCategoryButton.visible = false;
 
-		venusCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 109, 70, 20, 5, this.checkTier(3), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(VENUS_TEXT.getString(), ROCKET_TIER_3_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, VENUS_TEXT);
+		venusCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 5, this.checkTier(3), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(VENUS_TEXT.getString(), ROCKET_TIER_3_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, VENUS_TEXT);
 		venusCategoryButton.visible = false;
 
 		/** TELEPORT BUTTONS */
-		earthButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, -24, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(0), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "9.807 m/s", "a" + OXYGEN_TRUE_TEXT.getString(), "a" + "14"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, EARTH_TEXT);
+		earthButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(0), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "9.807 m/s", "a" + OXYGEN_TRUE_TEXT.getString(), "a" + "14"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, EARTH_TEXT);
 		earthButton.visible = false;
 
-		moonButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 21, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(1), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(MOON_TEXT.getString(), "1.62 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "a" + "-160"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MOON_TEXT);
+		moonButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(1), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(MOON_TEXT.getString(), "1.62 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "a" + "-160"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MOON_TEXT);
 		moonButton.visible = false;
 
-		marsButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, -24, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(2), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.721 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "a" + "-63"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MARS_TEXT);
+		marsButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(2), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.721 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "a" + "-63"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MARS_TEXT);
 		marsButton.visible = false;
 
-		mercuryButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, -24, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(3), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.7 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "430"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MERCURY_TEXT);
+		mercuryButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(3), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.7 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "430"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, MERCURY_TEXT);
 		mercuryButton.visible = false;
 
-		venusButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, -24, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(4), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "8.87 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "482"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, VENUS_TEXT);
+		venusButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(4), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "8.87 m/s", "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "482"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, VENUS_TEXT);
 		venusButton.visible = false;
 
 		/** ORBIT TELEPORT BUTTONS */
-		earthOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, -24, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(5), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		earthOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(5), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		earthOrbitButton.visible = false;
 
-		moonOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 21, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(6), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		moonOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(6), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		moonOrbitButton.visible = false;
 
-		marsOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, -24, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(7), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		marsOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(7), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		marsOrbitButton.visible = false;
 
-		mercuryOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, -24, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(8), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		mercuryOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(8), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		mercuryOrbitButton.visible = false;
 
-		venusOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, -24, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(9), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		venusOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(9), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		venusOrbitButton.visible = false;
 
 		/** SPACE STATION TELEPORT BUTTONS */
-		earthSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, -24, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(10), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		earthSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(10), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		earthSpaceStationButton.visible = false;
 
-		moonSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 21, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(11), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		moonSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(11), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		moonSpaceStationButton.visible = false;
 
-		marsSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, -24, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(12), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		marsSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(12), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		marsSpaceStationButton.visible = false;
 
-		mercurySpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, -24, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(13), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		mercurySpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(13), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		mercurySpaceStationButton.visible = false;
 
-		venusSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, -24, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(14), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		venusSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(14), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		venusSpaceStationButton.visible = false;
 
 		/** MAIN CATEGORY BUTTON 2 */
-		proximaCentauriButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, -24, 70, 20, 6, true, ImageButtonPlacer.Types.MILKY_WAY_CATEGORY, List.of(PROXIMA_CENTAURI_TEXT.getString()), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, SOLAR_SYSTEM_PROXIMA_CENTAURI_TEXT);
+		proximaCentauriButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 6, true, ImageButtonPlacer.Types.MILKY_WAY_CATEGORY, List.of(PROXIMA_CENTAURI_TEXT.getString()), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, SOLAR_SYSTEM_PROXIMA_CENTAURI_TEXT);
+		proximaCentauriButton.visible = false;
 
 		/** PROXIMA CENTAURI SOLAR SYSTEM CATEGORY */
-		glacioCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, -24, 70, 20, 7, this.checkTier(4), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(GLACIO_TEXT.getString(), ROCKET_TIER_4_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, GLACIO_TEXT);
+		glacioCategoryButton = PlanetSelectionGuiHelper.addCategoryButton(this, 10, 1, 70, 20, 7, this.checkTier(4), ImageButtonPlacer.Types.SOLAR_SYSTEM_CATEGORY, List.of(GLACIO_TEXT.getString(), ROCKET_TIER_4_TEXT.getString()), RED_BUTTON_TEXTURE, RED_LIGHT_BUTTON_TEXTURE, GLACIO_TEXT);
 		glacioCategoryButton.visible = false;
 
 		/** PROXIMA CENTAURI TELEPORT BUTTONS */
-		glacioButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, -24, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(15), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.721 m/s", "a" + OXYGEN_TRUE_TEXT.getString(), "a" + "-20"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, GLACIO_TEXT);
+		glacioButton = PlanetSelectionGuiHelper.addHandlerButton(this, 10, 1, 70, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(15), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(PLANET_TEXT.getString(), "3.721 m/s", "a" + OXYGEN_TRUE_TEXT.getString(), "a" + "-20"), BLUE_BUTTON_TEXTURE, BLUE_LIGHT_BUTTON_TEXTURE, GLACIO_TEXT);
 		glacioButton.visible = false;
 
 		/** PROXIMA CENTAURI ORBIT TELEPORT BUTTONS */
-		glacioOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, (this.height / 2) - 24 / 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(16), null, null, SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
+		glacioOrbitButton = PlanetSelectionGuiHelper.addHandlerButton(this, 84, 2, 37, 20, true, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(16), ImageButtonPlacer.Types.PLANET_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), SMALL_BLUE_BUTTON_TEXTURE, SMALL_BLUE_LIGHT_BUTTON_TEXTURE, ORBIT_TEXT);
 		glacioOrbitButton.visible = false;
 
 		/** PROXIMA CENTAURI SPACE STATION TELEPORT BUTTONS */
-		glacioSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, (this.height / 2) - 24 / 2, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(17), null, null, LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
+		glacioSpaceStationButton = PlanetSelectionGuiHelper.addHandlerButton(this, 125, 3, 75, 20, this.spaceStationItemList, BeyondEarthMod.PACKET_HANDLER, PlanetSelectionGuiHelper.getNetworkHandler(17), ImageButtonPlacer.Types.PLANET_SPACE_STATION_CATEGORY, List.of(ORBIT_TEXT.getString(), NO_GRAVITY_TEXT.getString(), "c" + OXYGEN_FALSE_TEXT.getString(), "c" + "-270"), LARGE_RED_BUTTON_TEXTURE, LARGE_RED_LIGHT_BUTTON_TEXTURE, SPACE_STATION_TEXT);
 		glacioSpaceStationButton.visible = false;
 	}
 
@@ -402,7 +432,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		/** SUN CATEGORY */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 3)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 1, 5)) {
 			PlanetSelectionGuiHelper.addRotatedObject(this, poseStack, MARS_TEXTURE, -70, -70, 10, 10, this.rotationMars);
 			PlanetSelectionGuiHelper.addRotatedObject(this, poseStack, EARTH_TEXTURE, -54, -54, 10, 10, this.rotationEarth);
 			PlanetSelectionGuiHelper.addRotatedObject(this, poseStack, VENUS_TEXTURE, -37, -37, 10, 10, this.rotationVenus);
@@ -410,8 +440,62 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		/** PROXIMA CENTAURI CATEGORY */
-		if (PlanetSelectionGuiHelper.categoryRange(this.category, 5, 6)) {
+		if (PlanetSelectionGuiHelper.categoryRange(this.category, 6, 7)) {
 			PlanetSelectionGuiHelper.addRotatedObject(this, poseStack, GLACIO_TEXTURE, -20.5F, -20.5F, 10, 10, this.rotationGlacio);
+		}
+	}
+
+	public boolean mouseDragged(double p_99322_, double p_99323_, int p_99324_, double p_99325_, double p_99326_) {
+		if (this.scrolling && false) {
+			int i = this.topPos + 14;
+			int j = i + 54;
+			this.scrollOffs = ((float)p_99323_ - (float)i - 7.5F) / ((float)(j - i) - 15.0F);
+			this.scrollOffs = Mth.clamp(this.scrollOffs, 0.0F, 1.0F);
+			this.startIndex = (int)((double)(this.scrollOffs * (float)this.getOffscreenRows()) + 0.5D) * 4;
+			return true;
+		} else {
+			return super.mouseDragged(p_99322_, p_99323_, p_99324_, p_99325_, p_99326_);
+		}
+	}
+
+	public boolean mouseScrolled(double p_99314_, double p_99315_, double p_99316_) {
+		if (true) {
+			int i = this.getOffscreenRows();
+			float f = (float)p_99316_ / (float)i;
+			this.scrollOffs = Mth.clamp(this.scrollOffs - f, 0.0F, 1.0F);
+			this.startIndex = (int)((double)(this.scrollOffs * (float)i) + 0.5D) * 4;
+		}
+
+		return true;
+	}
+
+	protected int getOffscreenRows() {
+		return (50 + 4 - 1) / 4 - 3;
+	}
+
+	public void handleButtonPos(int row, int startPos) {
+		/** VISIBLE BUTTON LIST */
+		List<ImageButtonPlacer> listVisible = new ArrayList<>();
+
+		/** ADD VISIBLE BUTTONS TO THE LIST */
+		for (int f1 = 0; f1 < this.buttons.size(); f1++) {
+			ImageButtonPlacer button = this.buttons.get(f1);
+
+			if (button.visible && button.row == row) {
+				listVisible.add(button);
+			}
+		}
+
+		/** SET POS OF VISIBLE BUTTONS */
+		for (int f2 = 0; f2 < listVisible.size(); f2++) {
+			ImageButtonPlacer button = listVisible.get(f2);
+
+			int buttonStartY = (this.height / 2) - 68 / 2;
+			int pos = buttonStartY + (22 * (f2 + startPos));
+
+			if (button.y != pos) {
+				button.setPosition(button.x, pos);
+			}
 		}
 	}
 
@@ -449,8 +533,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	}
 
 	/** USE THIS METHOD TO ADD A OWN BUTTON SYSTEM (YOU SHOULD USE THE PlanetGuiHelper ONE, IF YOU NEED NOT A OWN SYSTEM) */
-	public ImageButtonPlacer addButton(int x, int y, int width, int height, boolean rocketCondition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
-		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(x, y, width, height, 0, 0, 0, rocketCondition, type, list, buttonTexture, hoverButtonTexture, width, height, onPress, title));
+	public ImageButtonPlacer addButton(int x, int y, int row, int width, int height, boolean rocketCondition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
+		ImageButtonPlacer button = this.addRenderableWidget(new ImageButtonPlacer(x, y, row, width, height, 0, 0, 0, rocketCondition, type, list, buttonTexture, hoverButtonTexture, width, height, onPress, title));
 		return button;
 	}
 }
