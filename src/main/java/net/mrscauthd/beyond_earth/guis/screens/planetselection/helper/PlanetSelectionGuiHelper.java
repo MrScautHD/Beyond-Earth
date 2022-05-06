@@ -1,7 +1,7 @@
 package net.mrscauthd.beyond_earth.guis.screens.planetselection.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.gui.GuiComponent;
@@ -25,10 +25,11 @@ import java.util.List;
 public class PlanetSelectionGuiHelper {
 
     /** USE IT FOR CATEGORY BUTTONS */
-    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+    public static ImageButtonPlacer addCategoryButton(PlanetSelectionGuiWindow screen, CategoryHelper categoryHelper, int x, int row, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
-                screen.category = newCategory;
+                categoryHelper.set(newCategory);
+                screen.scrollIndex = 0;
             }
         });
 
@@ -41,6 +42,7 @@ public class PlanetSelectionGuiHelper {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
+                screen.scrollIndex = 0;
             }
         });
 
@@ -54,6 +56,31 @@ public class PlanetSelectionGuiHelper {
 
         screen.buttons.add(button);
         return button;
+    }
+
+    /** USE IT TO RENDER A CIRCLE */
+    public static void addCircle(double x, double y, double radius, int sides) {
+        BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+
+        RenderSystem.setShaderColor(36 / 255.0f, 50 / 255.0f, 123 / 255.0f, 1.0f);
+        RenderSystem.setShader(GameRenderer::getPositionShader);
+
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION);
+
+        double width = radius - 0.5;
+        for (double f1 = width; f1 < width + 1; f1 += 0.1) {
+
+            for (int f2 = 0; f2 <= sides; f2++) {
+                double angle = (Math.PI * 2 * f2 / sides) + Math.toRadians(180);
+                bufferBuilder.vertex(x + Math.sin(angle) * f1, y + Math.cos(angle) * f1, 0).endVertex();
+            }
+        }
+
+        bufferBuilder.end();
+        BufferUploader.end(bufferBuilder);
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     /** USE THIS TO ROTATE TEXTURES (LIKE PLANETS) */
@@ -91,10 +118,7 @@ public class PlanetSelectionGuiHelper {
 
     /** USE THIS TO CHECK THE CATEGORY RANGE */
     public static boolean categoryRange(int category, int start, int end) {
-        if (category >= start && category <= end) {
-            return true;
-        }
-        return false;
+        return category >= start && category <= end;
     }
 
     /** USE THIS TO CHECK ROCKET TIERS (IF YOU ADDED A OWN ROCKET DO A NEW METHOD) */

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -32,6 +33,9 @@ public class ImageButtonPlacer extends Button {
 
     /** USE ROW 0 FOR (NO ROW SYSTEM), USE ROW 1 FOR (CATEGORIES, PLANETS), USE ROW 2 FOR (ORBITS), USE ROW 3 FOR (SPACE STATIONS) */
     public int row;
+
+    public int preY;
+    public int preX;
 
     private final int xTexStart;
     private final int yTexStart;
@@ -124,7 +128,7 @@ public class ImageButtonPlacer extends Button {
         /** FONT RENDERER */
         Font fontRenderer = minecraft.font;
         int j = getFGColor();
-        drawCenteredString(poseStack, fontRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
+        GuiComponent.drawCenteredString(poseStack, fontRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
 
         /** TYPE SYSTEM */
         if (minecraft.screen instanceof PlanetSelectionGuiWindow) {
