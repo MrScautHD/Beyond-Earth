@@ -121,7 +121,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> GLACIO_IRON_ORE = FeatureRegistry.PLACED_FEATURES.register("glacio_iron_ore", () -> new PlacedFeature(GLACIO_IRON_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-24), VerticalAnchor.absolute(56)))));
 
     // GLACIO_LAPIS_ORE
-    public static final RegistryObject<ConfiguredFeature<?,?>> GLACIO_LAPIS_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("glacio_lapis_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(GLACIO_MATCH, BlocksRegistry.GLACIO_IRON_ORE.get().defaultBlockState(), 9)));
+    public static final RegistryObject<ConfiguredFeature<?,?>> GLACIO_LAPIS_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("glacio_lapis_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(GLACIO_MATCH, BlocksRegistry.GLACIO_LAPIS_ORE.get().defaultBlockState(), 9)));
     public static final RegistryObject<PlacedFeature> GLACIO_LAPIS_ORE = FeatureRegistry.PLACED_FEATURES.register("glacio_lapis_ore", () -> new PlacedFeature(GLACIO_LAPIS_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))));
 
     /** GLACIO DEEPSLATE ORES */
@@ -139,7 +139,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> GLACIO_DEEPSLATE_IRON_ORE = FeatureRegistry.PLACED_FEATURES.register("glacio_deepslate_iron_ore", () -> new PlacedFeature(GLACIO_DEEPSLATE_IRON_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(10, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(20)))));
 
     // GLACIO_DEEPSLATE_IRON_ORE
-    public static final RegistryObject<ConfiguredFeature<?,?>> GLACIO_DEEPSLATE_LAPIS_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("glacio_deepslate_lapis_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_IRON_ORE.defaultBlockState(), 9)));
+    public static final RegistryObject<ConfiguredFeature<?,?>> GLACIO_DEEPSLATE_LAPIS_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("glacio_deepslate_lapis_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState(), 9)));
     public static final RegistryObject<PlacedFeature> GLACIO_DEEPSLATE_LAPIS_ORE = FeatureRegistry.PLACED_FEATURES.register("glacio_deepslate_lapis_ore", () -> new PlacedFeature(GLACIO_DEEPSLATE_LAPIS_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(10)))));
 
     @SubscribeEvent
