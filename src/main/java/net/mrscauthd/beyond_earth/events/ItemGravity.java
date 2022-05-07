@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.events;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.events.forgeevents.ItemGravityEvent;
+import net.mrscauthd.beyond_earth.events.forge.ItemGravityEvent;
 
 public class ItemGravity {
 

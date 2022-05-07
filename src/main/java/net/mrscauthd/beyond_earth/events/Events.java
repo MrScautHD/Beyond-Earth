@@ -17,9 +17,9 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.*;
-import net.mrscauthd.beyond_earth.events.forgeevents.EntityTickEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.ItemEntityTickEndEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.LivingEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forge.EntityTickEvent;
+import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {

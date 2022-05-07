@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.events.forgeevents;
+package net.mrscauthd.beyond_earth.events.forge;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.world.entity.LivingEntity;

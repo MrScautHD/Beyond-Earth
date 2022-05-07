@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.mixin;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.events.forgeevents.LivingEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

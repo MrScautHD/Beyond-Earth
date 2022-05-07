@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.events.forgeevents;
+package net.mrscauthd.beyond_earth.events.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraftforge.eventbus.api.Cancelable;

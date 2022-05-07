@@ -1,17 +1,18 @@
-package net.mrscauthd.beyond_earth.events.forgeevents;
+package net.mrscauthd.beyond_earth.events.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-public class PlanetSelectionGuiBackgroundRenderEvent extends ScreenEvent {
+public class PlanetSelectionGuiRenderEvent extends ScreenEvent {
+
     private PoseStack poseStack;
     private float partialTicks;
     private int mouseX;
     private int mouseY;
 
-    public PlanetSelectionGuiBackgroundRenderEvent(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    public PlanetSelectionGuiRenderEvent(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
         super(screen);
         this.poseStack = poseStack;
         this.partialTicks = partialTicks;
@@ -36,13 +37,13 @@ public class PlanetSelectionGuiBackgroundRenderEvent extends ScreenEvent {
     }
 
     @Cancelable
-    public static class Pre extends PlanetSelectionGuiBackgroundRenderEvent {
+    public static class Pre extends PlanetSelectionGuiRenderEvent {
         public Pre(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
             super(screen, poseStack, partialTicks, mouseX, mouseY);
         }
     }
 
-    public static class Post extends PlanetSelectionGuiBackgroundRenderEvent {
+    public static class Post extends PlanetSelectionGuiRenderEvent {
         public Post(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
             super(screen, poseStack, partialTicks, mouseX, mouseY);
         }

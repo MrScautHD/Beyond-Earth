@@ -39,14 +39,10 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
-import net.mrscauthd.beyond_earth.events.forgeevents.LanderOrbitTeleportEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetFireInHotPlanetEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.LivingSetVenusRainEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.StartRideLanderEvent;
+import net.mrscauthd.beyond_earth.events.forge.*;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
-import org.apache.logging.log4j.LogManager;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -446,6 +442,8 @@ public class Methods {
         player.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", false);
         player.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", "");
         player.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", "");
+
+        MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionGuiEvent(player));
     }
 
     public static void openPlanetGui(Player player) {

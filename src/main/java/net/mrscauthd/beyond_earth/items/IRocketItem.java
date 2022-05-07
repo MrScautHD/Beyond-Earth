@@ -20,7 +20,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
-import net.mrscauthd.beyond_earth.events.forgeevents.PlaceRocketEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import org.jetbrains.annotations.Nullable;

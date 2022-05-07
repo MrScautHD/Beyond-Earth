@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -30,6 +31,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionGuiEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -229,6 +231,10 @@ public abstract class IRocketEntity extends VehicleEntity {
             pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
             pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
             pass.setNoGravity(true);
+
+            if (pass instanceof Player) {
+                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent((Player) pass, this));
+            }
 
             if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);

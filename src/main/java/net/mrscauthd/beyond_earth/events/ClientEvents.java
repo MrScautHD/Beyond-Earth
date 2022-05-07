@@ -21,9 +21,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
-import net.mrscauthd.beyond_earth.events.forgeevents.RenderHandItemEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.RenderViewEvent;
-import net.mrscauthd.beyond_earth.events.forgeevents.SetupLivingBipedAnimEvent;
+import net.mrscauthd.beyond_earth.events.forge.RenderHandItemEvent;
+import net.mrscauthd.beyond_earth.events.forge.RenderViewEvent;
+import net.mrscauthd.beyond_earth.events.forge.SetupLivingBipedAnimEvent;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 
 @Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
