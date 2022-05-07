@@ -17,6 +17,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiNetworkHandler;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
 
 import java.util.List;
@@ -30,6 +31,8 @@ public class PlanetSelectionGuiHelper {
             if (condition) {
                 categoryHelper.set(newCategory);
                 screen.scrollIndex = 0;
+
+                screen.updateButtonVisibility();
             }
         });
 
@@ -38,11 +41,13 @@ public class PlanetSelectionGuiHelper {
     }
 
     /** USE IT FOR TELEPORT BUTTONS */
-    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGuiNetworkHandlerHelper handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
                 screen.scrollIndex = 0;
+
+                screen.updateButtonVisibility();
             }
         });
 
@@ -147,12 +152,12 @@ public class PlanetSelectionGuiHelper {
     }
 
     /** ADDON MODS SHOULD DO A OWN HANDLER EXTENDED OF "AbstractNetworkHandler" */
-    public static void callPacketHandler(SimpleChannel simpleChannel, PlanetSelectionGui.AbstractNetworkHandler handler) {
+    public static void callPacketHandler(SimpleChannel simpleChannel, PlanetSelectionGuiNetworkHandlerHelper handler) {
         simpleChannel.sendToServer(handler);
     }
 
     /** ADDON MODS SHOULD RETURN A OWN NETWORK HANDLER */
-    public static PlanetSelectionGui.NetworkHandler getNetworkHandler(int handler) {
-        return new PlanetSelectionGui.NetworkHandler(handler);
+    public static PlanetSelectionGuiNetworkHandler getNetworkHandler(int handler) {
+        return new PlanetSelectionGuiNetworkHandler(handler);
     }
 }

@@ -11,6 +11,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiNetworkHandler;
 import net.mrscauthd.beyond_earth.keybinds.KeyBindings;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 
@@ -72,7 +73,7 @@ public class BeyondEarthMod {
 
 		BeyondEarthMod.addNetworkMessage(OxygenBubbleDistributorBlockEntity.ChangeRangeMessage.class, OxygenBubbleDistributorBlockEntity.ChangeRangeMessage::encode, OxygenBubbleDistributorBlockEntity.ChangeRangeMessage::decode, OxygenBubbleDistributorBlockEntity.ChangeRangeMessage::handle);
 		BeyondEarthMod.addNetworkMessage(OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage.class, OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage::encode, OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage::decode, OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage::handle);
-		BeyondEarthMod.addNetworkMessage(PlanetSelectionGui.NetworkHandler.class, PlanetSelectionGui.NetworkHandler::encode, PlanetSelectionGui.NetworkHandler::decode, PlanetSelectionGui.NetworkHandler::handle);
+		BeyondEarthMod.addNetworkMessage(PlanetSelectionGuiNetworkHandler.class, PlanetSelectionGuiNetworkHandler::encode, PlanetSelectionGuiNetworkHandler::decode, PlanetSelectionGuiNetworkHandler::handle);
 
 		CompatibleManager.visit();
 	}

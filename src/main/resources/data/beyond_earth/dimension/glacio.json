@@ -67,7 +67,7 @@
                 }
               },
               {
-                "location": 0,
+                "location": 1,
                 "derivative": 0,
                 "value": {
                   "coordinate": "continents",

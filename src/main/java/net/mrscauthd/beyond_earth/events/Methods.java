@@ -46,6 +46,7 @@ import net.mrscauthd.beyond_earth.events.forgeevents.StartRideLanderEvent;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.Set;
 import java.util.function.Function;
@@ -125,7 +126,7 @@ public class Methods {
             ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
             if (nextLevel == null) {
-                System.out.println("World not existing!");
+                BeyondEarthMod.LOGGER.error(planet.getRegistryName() + " not existing!");
                 return;
             }
 

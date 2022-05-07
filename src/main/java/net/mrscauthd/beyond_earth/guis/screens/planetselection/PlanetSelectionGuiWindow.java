@@ -18,6 +18,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.events.forgeevents.PlanetSelectionGuiBackgroundRenderEvent;
+import net.mrscauthd.beyond_earth.events.forgeevents.PlanetSelectionGuiButtonVisibilityEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.PlanetSelectionGuiInitEvent;
 import net.mrscauthd.beyond_earth.events.forgeevents.PlanetSelectionGuiRenderEvent;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
@@ -197,52 +198,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			return;
 		}
 
-		/** SOLAR SYSTEM VISIBLE LOGIC */
-		this.visibleButton(this.solarSystemButton, this.category.get() == 0);
-		this.visibleButton(this.proximaCentauriButton, this.category.get() == 0);
-
-		/** BACK BUTTON VISIBLE LOGIC */
-		this.visibleButton(this.backButton, PlanetSelectionGuiHelper.categoryRange(this.category.get(), 1, 5) || PlanetSelectionGuiHelper.categoryRange(this.category.get(), 6, 7));
-
-		/** SUN CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.earthCategoryButton, this.category.get() == 1);
-		this.visibleButton(this.marsCategoryButton, this.category.get() == 1);
-		this.visibleButton(this.mercuryCategoryButton, this.category.get() == 1);
-		this.visibleButton(this.venusCategoryButton, this.category.get() == 1);
-
-		/** SUN PLANET CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.earthButton, this.category.get() == 2);
-		this.visibleButton(this.moonButton, this.category.get() == 2);
-		this.visibleButton(this.marsButton, this.category.get() == 3);
-		this.visibleButton(this.mercuryButton, this.category.get() == 4);
-		this.visibleButton(this.venusButton, this.category.get() == 5);
-
-		/** SUN ORBIT CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.earthOrbitButton, this.category.get() == 2);
-		this.visibleButton(this.moonOrbitButton, this.category.get() == 2);
-		this.visibleButton(this.marsOrbitButton, this.category.get() == 3);
-		this.visibleButton(this.mercuryOrbitButton, this.category.get() == 4);
-		this.visibleButton(this.venusOrbitButton, this.category.get() == 5);
-
-		/** SUN SPACE STATION CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.earthSpaceStationButton, this.category.get() == 2);
-		this.visibleButton(this.moonSpaceStationButton, this.category.get() == 2);
-		this.visibleButton(this.marsSpaceStationButton, this.category.get() == 3);
-		this.visibleButton(this.mercurySpaceStationButton, this.category.get() == 4);
-		this.visibleButton(this.venusSpaceStationButton, this.category.get() == 5);
-
-		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.glacioCategoryButton, this.category.get() == 6);
-
-		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.glacioButton, this.category.get() == 7);
-
-		/** PROXIMA CENTAURI ORBIT CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.glacioOrbitButton, this.category.get() == 7);
-
-		/** PROXIMA CENTAURI SPACE STATION CATEGORY VISIBLE LOGIC */
-		this.visibleButton(this.glacioSpaceStationButton, this.category.get() == 7);
-
 		/** CATALOG TEXT RENDERER */
 		this.font.draw(poseStack, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
 
@@ -348,18 +303,22 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			if (this.category.get() == 1) {
 				this.category.set(0);
 				this.scrollIndex = 0;
+				this.updateButtonVisibility();
 			}
 			else if (PlanetSelectionGuiHelper.categoryRange(this.category.get(), 2, 5)) {
 				this.category.set(1);
 				this.scrollIndex = 0;
+				this.updateButtonVisibility();
 			}
 			else if (this.category.get() == 6) {
 				this.category.set(0);
 				this.scrollIndex = 0;
+				this.updateButtonVisibility();
 			}
 			else if (PlanetSelectionGuiHelper.categoryRange(this.category.get(), 7, 7)) {
 				this.category.set(6);
 				this.scrollIndex = 0;
+				this.updateButtonVisibility();
 			}
 		});
 		this.visibleButton(backButton, false);
@@ -447,6 +406,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** INIT POST EVENT FOR ADDONS */
 		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiInitEvent.Post(this));
+
+		/** UPDATE BUTTON VISIBILITY */
+		this.updateButtonVisibility();
 	}
 
 	@Override
@@ -456,7 +418,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	@Override
 	public boolean mouseDragged(double p_99322_, double p_99323_, int p_99324_, double p_99325_, double p_99326_) {
-
 		//p_99323_
 		System.out.println(p_99323_);
 		return super.mouseDragged(p_99322_, p_99323_, p_99324_, p_99325_, p_99326_);
@@ -468,17 +429,76 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			if (p_99316_ == 1) {
 				if (this.scrollIndex != 0) {
 					this.scrollIndex = this.scrollIndex + 1;
+					this.updateButtonVisibility();
 					return true;
 				}
 			} else {
 				if (this.scrollIndex != -(this.getVisibleButtons(1).size() - 4)) { //LAITER TO 5
 					this.scrollIndex = this.scrollIndex - 1;
+					this.updateButtonVisibility();
 					return true;
 				}
 			}
 		}
 
 		return false;
+	}
+
+	public void updateButtonVisibility() {
+
+		/** BUTTON VISIBILITY PRE EVENT FOR ADDONS */
+		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiButtonVisibilityEvent.Pre(this))) {
+			return;
+		}
+
+		/** SOLAR SYSTEM VISIBLE LOGIC */
+		this.visibleButton(this.solarSystemButton, this.category.get() == 0);
+		this.visibleButton(this.proximaCentauriButton, this.category.get() == 0);
+
+		/** BACK BUTTON VISIBLE LOGIC */
+		this.visibleButton(this.backButton, PlanetSelectionGuiHelper.categoryRange(this.category.get(), 1, 5) || PlanetSelectionGuiHelper.categoryRange(this.category.get(), 6, 7));
+
+		/** SUN CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.earthCategoryButton, this.category.get() == 1);
+		this.visibleButton(this.marsCategoryButton, this.category.get() == 1);
+		this.visibleButton(this.mercuryCategoryButton, this.category.get() == 1);
+		this.visibleButton(this.venusCategoryButton, this.category.get() == 1);
+
+		/** SUN PLANET CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.earthButton, this.category.get() == 2);
+		this.visibleButton(this.moonButton, this.category.get() == 2);
+		this.visibleButton(this.marsButton, this.category.get() == 3);
+		this.visibleButton(this.mercuryButton, this.category.get() == 4);
+		this.visibleButton(this.venusButton, this.category.get() == 5);
+
+		/** SUN ORBIT CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.earthOrbitButton, this.category.get() == 2);
+		this.visibleButton(this.moonOrbitButton, this.category.get() == 2);
+		this.visibleButton(this.marsOrbitButton, this.category.get() == 3);
+		this.visibleButton(this.mercuryOrbitButton, this.category.get() == 4);
+		this.visibleButton(this.venusOrbitButton, this.category.get() == 5);
+
+		/** SUN SPACE STATION CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.earthSpaceStationButton, this.category.get() == 2);
+		this.visibleButton(this.moonSpaceStationButton, this.category.get() == 2);
+		this.visibleButton(this.marsSpaceStationButton, this.category.get() == 3);
+		this.visibleButton(this.mercurySpaceStationButton, this.category.get() == 4);
+		this.visibleButton(this.venusSpaceStationButton, this.category.get() == 5);
+
+		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioCategoryButton, this.category.get() == 6);
+
+		/** PROXIMA CENTAURI CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioButton, this.category.get() == 7);
+
+		/** PROXIMA CENTAURI ORBIT CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioOrbitButton, this.category.get() == 7);
+
+		/** PROXIMA CENTAURI SPACE STATION CATEGORY VISIBLE LOGIC */
+		this.visibleButton(this.glacioSpaceStationButton, this.category.get() == 7);
+
+		/** BUTTON VISIBILITY POST EVENT FOR ADDONS */
+		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiButtonVisibilityEvent.Post(this));
 	}
 
 	public void rotateObjects(float partialTicks) {
@@ -534,7 +554,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 				int y = buttonStartY + (22 * (f2 + extraPos + this.scrollIndex));
 
 				if (button.y != y) {
-					//button.preY = y;
 					button.setPosition(button.x, y);
 				}
 			}
@@ -581,11 +600,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** BUTTON VISIBILITY */
 		button.visible = condition && this.buttonScrollVisibility(button);
-
-		//TODO JUST SCROLL POS DOES WORK NOT RIGHT (IT GIVES TIMES BY ADDONS THAT IT MOVE UP AND THEN GO INVISIBLE)
-
-		/** SET POS */
-		//button.setPosition(button.x, button.preY);
 	}
 
 	public boolean getSpaceStationItemCheck(IngredientStack ingredientStack) {
