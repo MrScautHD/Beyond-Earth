@@ -45,7 +45,7 @@
             "points": [
               {
                 "location": 0,
-                "derivative": 0.8,
+                "derivative": -1.0,
                 "value": {
                   "coordinate": "erosion",
                   "points": [
@@ -67,7 +67,7 @@
                 }
               },
               {
-                "location": 1,
+                "location": 0,
                 "derivative": 0,
                 "value": {
                   "coordinate": "continents",

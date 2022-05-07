@@ -39,94 +39,109 @@ public class PlanetSelectionGuiNetworkHandler extends PlanetSelectionGuiNetworkH
         NetworkEvent.Context context = contextSupplier.get();
         ServerPlayer player = context.getSender();
 
-        /** (SUN CATEGORY) TELEPORT BUTTONS */
-        if (message.getInteger() == 0) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.overworld, false);
-        }
-        if (message.getInteger() == 1) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.moon, false);
-        }
-        if (message.getInteger() == 2) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.mars, false);
-        }
-        if (message.getInteger() == 3) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.mercury, false);
-        }
-        if (message.getInteger() == 4) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.venus, false);
-        }
+        switch (message.getInteger()) {
 
-        /** (SUN CATEGORY) TELEPORT ORBIT BUTTONS */
-        if (message.getInteger() == 5) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.earth_orbit, false);
-        }
-        if (message.getInteger() == 6) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.moon_orbit, false);
-        }
-        if (message.getInteger() == 7) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.mars_orbit, false);
-        }
-        if (message.getInteger() == 8) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.mercury_orbit, false);
-        }
-        if (message.getInteger() == 9) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.venus_orbit, false);
-        }
+            /** (SUN CATEGORY) TELEPORT BUTTONS */
+            case 0:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.overworld, false);
+                break;
 
-        /** (SUN CATEGORY) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
-        if (message.getInteger() == 10) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.earth_orbit, true);
-        }
-        if (message.getInteger() == 11) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.moon_orbit, true);
-        }
-        if (message.getInteger() == 12) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.mars_orbit, true);
-        }
-        if (message.getInteger() == 13) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.mercury_orbit, true);
-        }
-        if (message.getInteger() == 14) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.venus_orbit, true);
-        }
+            case 1:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.moon, false);
+                break;
 
-        /** (PROXIMA CENTAURI) TELEPORT BUTTONS */
-        if (message.getInteger() == 15) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.glacio, false);
-        }
+            case 2:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.mars, false);
+                break;
 
-        /** (PROXIMA CENTAURI) TELEPORT ORBIT BUTTONS */
-        if (message.getInteger() == 16) {
-            message.defaultOptions(player);
-            Methods.teleportButton(player, Methods.glacio_orbit, false);
-        }
+            case 3:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.mercury, false);
+                break;
 
-        /** (PROXIMA CENTAURI) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
-        if (message.getInteger() == 17) {
-            message.defaultOptions(player);
-            message.deleteItems(player);
-            Methods.teleportButton(player, Methods.glacio_orbit, true);
+            case 4:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.venus, false);
+                break;
+
+            /** (SUN CATEGORY) TELEPORT ORBIT BUTTONS */
+            case 5:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.earth_orbit, false);
+                break;
+
+            case 6:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.moon_orbit, false);
+                break;
+
+            case 7:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.mars_orbit, false);
+                break;
+
+            case 8:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.mercury_orbit, false);
+                break;
+
+            case 9:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.venus_orbit, false);
+                break;
+
+            /** (SUN CATEGORY) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
+            case 10:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.earth_orbit, true);
+                break;
+
+            case 11:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.moon_orbit, true);
+                break;
+
+            case 12:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.mars_orbit, true);
+                break;
+
+            case 13:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.mercury_orbit, true);
+                break;
+
+            case 14:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.venus_orbit, true);
+                break;
+
+            /** (PROXIMA CENTAURI) TELEPORT BUTTONS */
+            case 15:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.glacio, false);
+                break;
+
+            /** (PROXIMA CENTAURI) TELEPORT ORBIT BUTTONS */
+            case 16:
+                message.defaultOptions(player);
+                Methods.teleportButton(player, Methods.glacio_orbit, false);
+                break;
+
+            /** (PROXIMA CENTAURI) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
+            case 17:
+                message.defaultOptions(player);
+                message.deleteItems(player);
+                Methods.teleportButton(player, Methods.glacio_orbit, true);
+                break;
         }
 
         context.setPacketHandled(true);

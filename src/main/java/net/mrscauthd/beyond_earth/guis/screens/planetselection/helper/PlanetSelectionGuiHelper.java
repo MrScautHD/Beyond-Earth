@@ -16,7 +16,6 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiNetworkHandler;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
 
@@ -31,7 +30,6 @@ public class PlanetSelectionGuiHelper {
             if (condition) {
                 categoryHelper.set(newCategory);
                 screen.scrollIndex = 0;
-
                 screen.updateButtonVisibility();
             }
         });
@@ -46,7 +44,6 @@ public class PlanetSelectionGuiHelper {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
                 screen.scrollIndex = 0;
-
                 screen.updateButtonVisibility();
             }
         });
@@ -147,8 +144,8 @@ public class PlanetSelectionGuiHelper {
     }
 
     /** ADDON MODS SHOULD USE A OWN TL METHOD */
-    public static Component tl(String string) {
-        return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + string);
+    public static Component tl(String text) {
+        return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + text);
     }
 
     /** ADDON MODS SHOULD DO A OWN HANDLER EXTENDED OF "AbstractNetworkHandler" */
