@@ -1,7 +1,6 @@
 package net.mrscauthd.beyond_earth.entities;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -11,7 +10,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
@@ -29,11 +27,6 @@ public class MoglerEntity extends Hoglin {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.6)
                 .add(Attributes.ATTACK_DAMAGE, 6);
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override

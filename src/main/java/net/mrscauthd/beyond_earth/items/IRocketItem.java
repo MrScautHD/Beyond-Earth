@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.items;
 
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -15,11 +16,15 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.entities.renderer.VehicleRenderer;
 import net.mrscauthd.beyond_earth.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
@@ -27,6 +32,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class IRocketItem extends VehicleItem {
 
@@ -120,10 +126,6 @@ public abstract class IRocketItem extends VehicleItem {
         return !flag.contains(false);
     }
 
-    public abstract int getRocketHigh();
-
-    public abstract IRocketEntity getRocket(Level level);
-
     @Override
     public void appendHoverText(ItemStack itemstack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
@@ -131,6 +133,25 @@ public abstract class IRocketItem extends VehicleItem {
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
         list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(GaugeValueHelper.getFuel(fuel, 100))));
     }
+
+    @Override
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(new IItemRenderProperties() {
+
+            @OnlyIn(Dist.CLIENT)
+            @Override
+            public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+                return IRocketItem.this.getRenderer();
+            }
+        });
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public abstract BlockEntityWithoutLevelRenderer getRenderer();
+
+    public abstract int getRocketHigh();
+
+    public abstract IRocketEntity getRocket(Level level);
 
     public void rocketPlaceSound(BlockPos pos, Level world) {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);

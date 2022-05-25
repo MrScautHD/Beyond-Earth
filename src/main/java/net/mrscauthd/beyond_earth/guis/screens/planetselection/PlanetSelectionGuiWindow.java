@@ -57,9 +57,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/milky_way.png");
 
-	public static final ResourceLocation SUN_SOLAR_SYSTEM_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/solar_system.png");
-	public static final ResourceLocation PROXIMA_CENTAURI_SOLAR_SYSTEM_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/proxima_centauri.png");
-
 	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/sun.png");
 	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/blue_sun.png");
 	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mars.png");
@@ -417,10 +414,17 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	}
 
 	@Override
-	public boolean mouseDragged(double p_99322_, double p_99323_, int p_99324_, double p_99325_, double p_99326_) {
-		//p_99323_
-		System.out.println(p_99323_);
-		return super.mouseDragged(p_99322_, p_99323_, p_99324_, p_99325_, p_99326_);
+	public void onClose() {
+		//TODO DISABLE LAITER (DELETE THE SUPER)
+		super.onClose();
+	}
+
+	@Override
+	public boolean mouseDragged(double mouseX, double mouseY, int p_99324_, double deltaX, double deltaY) {
+
+		System.out.println(mouseY);
+
+		return super.mouseDragged(mouseX, mouseY, p_99324_, deltaX, deltaY);
 	}
 
 	@Override
@@ -562,8 +566,16 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	public boolean buttonScrollVisibility(ImageButtonPlacer button) {
 		int buttonStartY = (this.height / 2) - 68 / 2;
+		int buttonEndY = buttonStartY + 22 * 3;
 
+		/** IF BUTTON ABOVE THE MENU */
 		if (button.y < buttonStartY && button.row != 0) {
+			return false;
+		}
+
+		/** IF BUTTON UNDER THE MENU */
+		if (button.y > buttonEndY && button.row != 0) {
+			System.out.println(buttonEndY + " " + button.y);
 			return false;
 		}
 

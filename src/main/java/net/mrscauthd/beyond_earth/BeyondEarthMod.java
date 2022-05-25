@@ -10,7 +10,6 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
 import net.mrscauthd.beyond_earth.config.Config;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiNetworkHandler;
 import net.mrscauthd.beyond_earth.keybinds.KeyBindings;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
@@ -21,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.common.MinecraftForge;
 
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -46,7 +44,7 @@ public class BeyondEarthMod {
 
 		bus.register(this);
 
-		/**Config*/
+		/** CONFIG */
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC, "beyond_earth-common.toml");
 
 		/** NEW REGISTRIES */

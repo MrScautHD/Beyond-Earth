@@ -31,9 +31,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.0'
-group = 'com.yourname.modid'
-archivesBaseName = 'modid'
+version = '1.18.2-6.2'
+group = 'net.mrscauthd.beyond_earth'
+archivesBaseName = 'Beyond-Earth'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -73,7 +73,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.52'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.19'
 
     //Mixin
     if (System.getProperty("idea.sync.active") != "true") {

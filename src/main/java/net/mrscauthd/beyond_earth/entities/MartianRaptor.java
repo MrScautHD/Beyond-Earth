@@ -56,11 +56,6 @@ public class MartianRaptor extends Monster {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
     protected SoundEvent getHurtSound(DamageSource p_33034_) {
         return SoundEvents.STRIDER_HURT;
     }

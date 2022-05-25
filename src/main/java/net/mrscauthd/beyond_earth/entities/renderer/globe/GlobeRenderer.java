@@ -51,6 +51,7 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
             return;
         }
 
+        Minecraft mc = Minecraft.getInstance();
         BlockState blockstate = p_112307_.getBlockState();
         Direction direction = blockstate.getValue(GlobeBlock.FACING);
 
@@ -60,10 +61,14 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
         matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(direction.toYRot()));
 
+        VertexConsumer vertexBuilder;
+
+        if (this.model == null) {
+            this.model = new GlobeModel(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
+        }
+
         /** Animation */
         this.model.setupAnim(p_112307_, particleTicks);
-
-        VertexConsumer vertexBuilder;
 
         /** TEXTURE BINDING */
         if (blockstate.is(BlocksRegistry.EARTH_GLOBE_BLOCK.get())) {
@@ -112,7 +117,6 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
             vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(GLACIO_GLOBE));
         }
 
-        /** The Event that Register the Model is to Slow, so we do it like that */
         if (this.itemModel == null) {
             this.itemModel = new GlobeModel(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));
         }
@@ -131,7 +135,6 @@ public class GlobeRenderer<T extends GlobeTileEntity> extends BlockEntityWithout
 
     @Override
     public BlockEntityRenderer<T> create(Context p_173571_) {
-        this.model = new GlobeModel(p_173571_.bakeLayer(GlobeModel.LAYER_LOCATION));
         return this::render;
     }
 }

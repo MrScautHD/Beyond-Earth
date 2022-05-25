@@ -102,8 +102,8 @@ public class RocketTier4Entity extends IRocketEntity {
 	public void particleSpawn() {
 		Vec3 vec = this.getDeltaMovement();
 
-		if (this.entityData.get(START_TIMER) == 200) {
-			if (level instanceof ServerLevel) {
+		if (level instanceof ServerLevel) {
+			if (this.entityData.get(START_TIMER) == 200) {
 				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
 					float f2 = Mth.cos(this.getYRot() * ((float) Math.PI / 180F)) * (0.7F + 0.21F * (float) 1);
 					float f3 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F)) * (0.7F + 0.21F * (float) 1);
@@ -117,9 +117,7 @@ public class RocketTier4Entity extends IRocketEntity {
 					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_FLAME_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 2.3, this.getZ() - f3, 20, 0.1, 0.1, 0.1, 0.001);
 					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.SMALL_SMOKE_PARTICLE.get(), true, this.getX() - f2, this.getY() - vec.y - 3.3, this.getZ() - f3, 10, 0.1, 0.1, 0.1, 0.04);
 				}
-			}
-		} else {
-			if (level instanceof ServerLevel) {
+			} else {
 				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
 					((ServerLevel) level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
 				}

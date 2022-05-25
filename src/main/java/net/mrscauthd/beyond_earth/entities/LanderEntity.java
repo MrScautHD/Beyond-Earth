@@ -73,7 +73,7 @@ public class LanderEntity extends VehicleEntity {
 
 	@Override
 	public void kill() {
-		dropEquipment();
+		this.dropEquipment();
 
 		if (!this.level.isClientSide) {
 			this.remove(RemovalReason.DISCARDED);
@@ -88,7 +88,7 @@ public class LanderEntity extends VehicleEntity {
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
 		if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
-			dropEquipment();
+			this.dropEquipment();
 
 			if (!this.level.isClientSide) {
 				this.remove(RemovalReason.DISCARDED);

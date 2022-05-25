@@ -49,11 +49,6 @@ public class StarCrawlerEntity extends Monster {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	@Override
 	protected boolean shouldDespawnInPeaceful() {
 		return false;
 	}

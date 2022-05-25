@@ -1,7 +1,6 @@
 package net.mrscauthd.beyond_earth.entities;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.entities.alien.AlienEntity;
 import net.mrscauthd.beyond_earth.config.Config;
 
@@ -41,11 +39,6 @@ public class AlienZombieEntity extends Monster implements RangedAttackMob {
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
-
-	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false));
@@ -54,12 +47,7 @@ public class AlienZombieEntity extends Monster implements RangedAttackMob {
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, Player.class, false, false));
 		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, AlienEntity.class, false, false));
-		this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 15) {
-			@Override
-			public boolean canContinueToUse() {
-				return this.canUse();
-			}
-		});
+		this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 15));
 	}
 
 	@Override

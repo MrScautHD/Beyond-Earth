@@ -1,5 +1,7 @@
 package net.mrscauthd.beyond_earth.items;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -16,8 +18,13 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1ItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverItemRenderer;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
@@ -27,8 +34,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
+
+    @OnlyIn(Dist.CLIENT)
+    public static final RoverItemRenderer ITEM_RENDERER = new RoverItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
@@ -109,6 +120,17 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
         }
 
         return super.useOn(context);
+    }
+
+    @Override
+    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+        consumer.accept(new IItemRenderProperties() {
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
+                return ITEM_RENDERER;
+            }
+        });
     }
 
     @Override

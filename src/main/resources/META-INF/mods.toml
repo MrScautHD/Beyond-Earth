@@ -23,6 +23,6 @@ Fly to Other Planets and Beyond!
 [[dependencies.beyond_earth]]
     modId="forge"
     mandatory=true
-    versionRange="[40.0.52,]"
+    versionRange="[40.1.19,]"
     ordering="NONE"
     side="BOTH"

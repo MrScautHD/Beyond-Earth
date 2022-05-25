@@ -102,15 +102,13 @@ public class RocketTier3Entity extends IRocketEntity {
 	public void particleSpawn() {
 		Vec3 vec = this.getDeltaMovement();
 
-		if (this.entityData.get(START_TIMER) == 200) {
-			if (level instanceof ServerLevel) {
+		if (level instanceof ServerLevel) {
+			if (this.entityData.get(START_TIMER) == 200) {
 				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
 					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.6, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
 					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.6, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
 				}
-			}
-		} else {
-			if (level instanceof ServerLevel) {
+			} else {
 				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
 					((ServerLevel) level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
 				}

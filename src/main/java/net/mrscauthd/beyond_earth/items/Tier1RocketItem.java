@@ -1,18 +1,31 @@
 package net.mrscauthd.beyond_earth.items;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1ItemRenderer;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 public class Tier1RocketItem extends IRocketItem implements FilledAltVehicleItem {
 
+    @OnlyIn(Dist.CLIENT)
+    public static final RocketTier1ItemRenderer ITEM_RENDERER = new RocketTier1ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+
     public Tier1RocketItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public BlockEntityWithoutLevelRenderer getRenderer() {
+        return ITEM_RENDERER;
     }
 
     @Override

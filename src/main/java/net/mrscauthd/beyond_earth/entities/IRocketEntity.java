@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -169,13 +170,14 @@ public abstract class IRocketEntity extends VehicleEntity {
 
     public abstract void particleSpawn();
 
-    public void doesDrop() {
+    public abstract void fillUpRocket();
+
+    public boolean doesDrop(BlockState state, BlockPos pos) {
         if (this.isOnGround() || this.isInWater()) {
 
-            BlockPos blockPos = new BlockPos(Math.floor(this.getX()), this.getY() - 0.01, Math.floor(this.getZ()));
-            BlockState state = level.getBlockState(blockPos);
+            BlockState state2 = this.level.getBlockState(new BlockPos(Math.floor(this.getX()), this.getY() - 0.2, Math.floor(this.getZ())));
 
-            if (!level.isEmptyBlock(this.getOnPos()) && ((state.getBlock() instanceof RocketLaunchPad && !state.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
+            if (!level.isEmptyBlock(pos) && ((state2.getBlock() instanceof RocketLaunchPad && !state2.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
 
                 this.dropEquipment();
                 this.spawnRocketItem();
@@ -183,11 +185,34 @@ public abstract class IRocketEntity extends VehicleEntity {
                 if (!this.level.isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
                 }
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected void checkOnBlocks() {
+        AABB aabb = this.getBoundingBox();
+        BlockPos blockPos1 = new BlockPos(aabb.minX + 0.001D, (aabb.minY - 0.2) + 0.001D, aabb.minZ + 0.001D);
+        BlockPos blockPos2 = new BlockPos(aabb.maxX - 0.001D, aabb.minY - 0.001D, aabb.maxZ - 0.001D);
+
+        if (this.level.hasChunksAt(blockPos1, blockPos2)) {
+            for (int i = blockPos1.getX(); i <= blockPos2.getX(); ++i) {
+                for (int j = blockPos1.getY(); j <= blockPos2.getY(); ++j) {
+                    for (int k = blockPos1.getZ(); k <= blockPos2.getZ(); ++k) {
+                        BlockPos pos = new BlockPos(i, j, k);
+                        BlockState state = this.level.getBlockState(pos);
+
+                        if (this.doesDrop(state, pos)) {
+                            return;
+                        }
+                    }
+                }
             }
         }
     }
-
-    public abstract void fillUpRocket();
 
     public void rocketAnimation() {
         ar = ar + 1;
@@ -216,13 +241,10 @@ public abstract class IRocketEntity extends VehicleEntity {
     }
 
     public void openPlanetSelectionGui() {
-        if (this.getPassengers().isEmpty()) {
-            return;
-        }
+        if (this.getY() > 600 && !this.getPassengers().isEmpty()) {
 
-        Entity pass = this.getPassengers().get(0);
+            Entity pass = this.getPassengers().get(0);
 
-        if (this.getY() > 600) {
             if (pass instanceof Player && ((Player) pass).containerMenu != null) {
                 ((Player) pass).closeContainer();
             }
@@ -246,12 +268,25 @@ public abstract class IRocketEntity extends VehicleEntity {
         }
     }
 
+    public void rocketExplosion() {
+        if (this.entityData.get(START_TIMER) == 200) {
+            if (this.getDeltaMovement().y < -0.07) {
+                if (!this.level.isClientSide) {
+                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 10, Explosion.BlockInteraction.BREAK);
+
+                    this.remove(RemovalReason.DISCARDED);
+                }
+            }
+        }
+    }
+
     @Override
     public void tick() {
         super.tick();
 
-        this.doesDrop();
+        this.checkOnBlocks();
         this.fillUpRocket();
+        this.rocketExplosion();
 
         if (this.entityData.get(ROCKET_START)) {
             this.particleSpawn();
@@ -285,7 +320,6 @@ public abstract class IRocketEntity extends VehicleEntity {
                     Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
 
                     for(Pose pose : livingEntity.getDismountPoses()) {
-                        AABB axisalignedbb = livingEntity.getLocalBoundsForPose(pose);
                         if (DismountHelper.isBlockFloorValid(this.level.getBlockFloorHeight(blockpos))) {
                             livingEntity.setPose(pose);
                             return vector3d1;

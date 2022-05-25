@@ -67,7 +67,6 @@ public class Methods {
     public static final Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
             moon,
             moon_orbit,
-            mars,
             mars_orbit,
             mercury,
             mercury_orbit,
