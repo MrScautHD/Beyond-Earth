@@ -12,7 +12,6 @@ public abstract class PlanetSelectionGuiNetworkHandlerHelper {
     public void defaultOptions(Player player) {
         if (!player.level.isClientSide) {
             player.setNoGravity(false);
-            player.getAbilities().mayfly = false;
         }
 
         Methods.holdSpaceMessage(player);

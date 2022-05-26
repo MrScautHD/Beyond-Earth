@@ -566,7 +566,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	public boolean buttonScrollVisibility(ImageButtonPlacer button) {
 		int buttonStartY = (this.height / 2) - 68 / 2;
-		int buttonEndY = buttonStartY + 22 * 3;
+		int buttonEndY = buttonStartY + 22 * 4;
 
 		/** IF BUTTON ABOVE THE MENU */
 		if (button.y < buttonStartY && button.row != 0) {
@@ -574,8 +574,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		/** IF BUTTON UNDER THE MENU */
-		if (button.y > buttonEndY && button.row != 0) {
-			System.out.println(buttonEndY + " " + button.y);
+		if (button.y >= buttonEndY && button.row != 0) {
+			System.out.println(button);
 			return false;
 		}
 

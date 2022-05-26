@@ -257,7 +257,6 @@ public abstract class IRocketEntity extends VehicleEntity {
                 pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
                 pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
                 pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
-                pass.getAbilities().mayfly = true;
                 pass.setNoGravity(true);
 
                 MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent(pass, this));

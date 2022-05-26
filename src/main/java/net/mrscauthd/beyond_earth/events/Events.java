@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.events;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -43,6 +44,11 @@ public class Events {
 
             /** DROP OFF HAND VEHICLE ITEM */
             Methods.dropRocket(player);
+
+            /** DISABLE KICK BY FLYING IF IN PLANET GUI */
+            if (player instanceof ServerPlayer) {
+                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open"));
+            }
         }
     }
 
@@ -151,7 +157,6 @@ public class Events {
             player.closeContainer();
             Methods.cleanUpPlayerNBT(player);
             player.setNoGravity(false);
-            player.getAbilities().mayfly = false;
         }
     }
 

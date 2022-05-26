@@ -5,13 +5,16 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -446,26 +449,24 @@ public class Methods {
     }
 
     public static void openPlanetGui(Player player) {
-        if (!player.level.isClientSide) {
-            if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
-                if (player instanceof ServerPlayer) {
+        if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
+            if (player instanceof ServerPlayer) {
 
-                    NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
-                        @Override
-                        public Component getDisplayName() {
-                            return new TextComponent("Planet Selection");
-                        }
+                NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+                    @Override
+                    public Component getDisplayName() {
+                        return new TextComponent("Planet Selection");
+                    }
 
-                        @Override
-                        public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-                            FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                            packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
-                            return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
-                        }
-                    }, buf -> {
-                        buf.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
-                    });
-                }
+                    @Override
+                    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                        FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
+                        return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
+                    }
+                }, buf -> {
+                    buf.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
+                });
             }
         }
     }
@@ -537,6 +538,12 @@ public class Methods {
 			persistentData.putInt(key, oxygenTimer);
 		}
 	}
+
+    public static void disableFlyAntiCheat(ServerPlayer player, boolean condition) {
+        if (condition) {
+            player.connection.aboveGroundTickCount = 0;
+        }
+    }
 
     public static void rocketSounds(Entity entity, Level world) {
         world.playSound(null, entity, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
