@@ -36,14 +36,19 @@ import net.mrscauthd.beyond_earth.entities.renderer.mogler.MoglerRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.pygro.PygroModel;
 import net.mrscauthd.beyond_earth.entities.renderer.pygro.PygroRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.pygrobrute.PygroBruteRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1ItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1Model;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2ItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2Model;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3ItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3Model;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4ItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4Model;
 import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverModel;
 import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.spacesuit.SpaceSuitModel;
@@ -73,6 +78,13 @@ public class ClientEventBusSubscriber {
 
 	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator");
 	public static final GlobeRenderer GLOBE_RENDERER = new GlobeRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+
+	public static final RocketTier1ItemRenderer ROCKET_TIER_1_ITEM_RENDERER = new RocketTier1ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+	public static final RocketTier2ItemRenderer ROCKET_TIER_2_ITEM_RENDERER = new RocketTier2ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+	public static final RocketTier3ItemRenderer ROCKET_TIER_3_ITEM_RENDERER = new RocketTier3ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+	public static final RocketTier4ItemRenderer ROCKET_TIER_4_ITEM_RENDERER = new RocketTier4ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+	public static final RoverItemRenderer ROVER_ITEM_RENDERER = new RoverItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+
 
 	@SubscribeEvent
 	public static void registerEntityRenderingHandler(EntityRenderersEvent.RegisterRenderers event) {

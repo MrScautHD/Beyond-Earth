@@ -88,19 +88,19 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
         int y = pos.getY();
 
-        /** Pos for 3x3 */
+        /** POS FOR 3x3 */
         int x = pos.getX() - 1;
         int z = pos.getZ() - 1;
 
-        /** Pos for 5x5 */
+        /** POS FOR 5x5 */
         int x2 = pos.getX() - 2;
         int z2 = pos.getZ() - 2;
 
-        /** Lists */
+        /** LISTS */
         List<Boolean> flag1 = new ArrayList<>();
         List<Boolean> flag2 = new ArrayList<>();
 
-        /** Check if Launch Pad 3x3 */
+        /** CHECK IF LAUNCH PAD 3x3 */
         for (int f1 = x; f1 < x + 3; f1++) {
             for (int f2 = z; f2 < z + 3; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
@@ -109,7 +109,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             }
         }
 
-        /** Check if Launch Pad 5x5 STAGE false */
+        /** CHECK IF LAUNCH PAD 5x5 (STAGE == FALSE) */
         for (int f1 = x2; f1 < x2 + 5; f1++) {
             for (int f2 = z2; f2 < z2 + 5; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
@@ -120,7 +120,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             }
         }
 
-        /** Variable Setter */
+        /** VARIABLE SETTER */
         if (!flag1.contains(false)) {
             if (!state.getValue(STAGE) && !flag2.contains(true)) {
                 world.setBlock(pos, state.setValue(STAGE, true), 2);

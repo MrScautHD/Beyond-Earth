@@ -105,7 +105,7 @@ public class LanderEntity extends VehicleEntity {
 		if (p_150347_ >= 3.0F) {
 
 			if (!this.level.isClientSide) {
-				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, Explosion.BlockInteraction.BREAK);
+				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
 
 				this.remove(RemovalReason.DISCARDED);
 			}

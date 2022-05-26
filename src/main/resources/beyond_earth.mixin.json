@@ -6,7 +6,8 @@
   "mixins": [
     "LivingEntityTickEnd",
     "ItemEntityTickEnd",
-    "EntityTick"
+    "EntityTick",
+    "BlockSet"
   ],
   "client": [
     "SetupLivingBipedAnim",

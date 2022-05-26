@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -32,10 +33,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionGuiEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Set;
 
 public abstract class IRocketEntity extends VehicleEntity {
@@ -75,6 +78,7 @@ public abstract class IRocketEntity extends VehicleEntity {
 
     @Override
     public void push(Entity p_21294_) {
+
     }
 
     @Override
@@ -242,24 +246,25 @@ public abstract class IRocketEntity extends VehicleEntity {
 
     public void openPlanetSelectionGui() {
         if (this.getY() > 600 && !this.getPassengers().isEmpty()) {
+            if (this.getPassengers().get(0) instanceof Player) {
 
-            Entity pass = this.getPassengers().get(0);
+                Player pass = (Player) this.getPassengers().get(0);
 
-            if (pass instanceof Player && ((Player) pass).containerMenu != null) {
-                ((Player) pass).closeContainer();
-            }
+                if (pass.containerMenu != null) {
+                    pass.closeContainer();
+                }
 
-            pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
-            pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
-            pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
-            pass.setNoGravity(true);
+                pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
+                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
+                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
+                pass.getAbilities().mayfly = true;
+                pass.setNoGravity(true);
 
-            if (pass instanceof Player) {
-                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent((Player) pass, this));
-            }
+                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent(pass, this));
 
-            if (!this.level.isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
+                if (!this.level.isClientSide) {
+                    this.remove(RemovalReason.DISCARDED);
+                }
             }
         } else if (this.getY() > 600 && this.getPassengers().isEmpty()) {
             if (!this.level.isClientSide) {
@@ -272,9 +277,22 @@ public abstract class IRocketEntity extends VehicleEntity {
         if (this.entityData.get(START_TIMER) == 200) {
             if (this.getDeltaMovement().y < -0.07) {
                 if (!this.level.isClientSide) {
-                    this.level.explode(this, this.getX(), this.getY(), this.getZ(), 10, Explosion.BlockInteraction.BREAK);
+                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
 
                     this.remove(RemovalReason.DISCARDED);
+                }
+            }
+        }
+    }
+
+    public void burnEntities() {
+        if (this.entityData.get(START_TIMER) == 200) {
+            AABB aabb = AABB.ofSize(new Vec3(this.getX(), this.getY() - 2, this.getZ()), 2, 2, 2);
+            List<LivingEntity> entities = this.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, aabb);
+
+            for (LivingEntity entity : entities) {
+                if (!Methods.netheriteSpaceSuitCheck(entity)) {
+                    entity.setSecondsOnFire(15);
                 }
             }
         }
@@ -287,6 +305,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         this.checkOnBlocks();
         this.fillUpRocket();
         this.rocketExplosion();
+        this.burnEntities();
 
         if (this.entityData.get(ROCKET_START)) {
             this.particleSpawn();

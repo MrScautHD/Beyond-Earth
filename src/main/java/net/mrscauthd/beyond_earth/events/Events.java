@@ -151,6 +151,7 @@ public class Events {
             player.closeContainer();
             Methods.cleanUpPlayerNBT(player);
             player.setNoGravity(false);
+            player.getAbilities().mayfly = false;
         }
     }
 

@@ -1,8 +1,8 @@
 package net.mrscauthd.beyond_earth.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.NonNullList;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -10,15 +10,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier3Entity;
-import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3ItemRenderer;
+import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 public class Tier3RocketItem extends IRocketItem implements FilledAltVehicleItem {
-
-    @OnlyIn(Dist.CLIENT)
-    public static final RocketTier3ItemRenderer ITEM_RENDERER = new RocketTier3ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-
     public Tier3RocketItem(Properties properties) {
         super(properties);
     }
@@ -26,12 +22,12 @@ public class Tier3RocketItem extends IRocketItem implements FilledAltVehicleItem
     @OnlyIn(Dist.CLIENT)
     @Override
     public BlockEntityWithoutLevelRenderer getRenderer() {
-        return ITEM_RENDERER;
+        return ClientEventBusSubscriber.ROCKET_TIER_3_ITEM_RENDERER;
     }
 
     @Override
-    public int getRocketHigh() {
-        return 5;
+    public EntityType getEntityType() {
+        return EntitiesRegistry.TIER_3_ROCKET.get();
     }
 
     @Override

@@ -25,9 +25,7 @@ import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.items.FilledAltArmorItem;
 import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.api.distmarker.Dist;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -44,7 +42,6 @@ public class NetheriteSpaceSuit {
 			consumer.accept(new IItemRenderProperties() {
 
 				@Override
-				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
 
 					Map<String, ModelPart> map = Map.of("head", new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION)).head,
@@ -93,7 +90,6 @@ public class NetheriteSpaceSuit {
 			consumer.accept(new IItemRenderProperties() {
 
 				@Override
-				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
 
 					Map<String, ModelPart> map = Map.of(
@@ -155,7 +151,7 @@ public class NetheriteSpaceSuit {
 			p_41423_.add(GaugeTextHelper.buildSpacesuitOxygenTooltip(oxygenStorage));
 		}
 
-		@OnlyIn(Dist.CLIENT)
+		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit.png";
 		}
@@ -172,7 +168,6 @@ public class NetheriteSpaceSuit {
 			consumer.accept(new IItemRenderProperties() {
 
 				@Override
-				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
 
 					Map<String, ModelPart> map = Map.of(
@@ -209,7 +204,7 @@ public class NetheriteSpaceSuit {
 			}
 		}
 
-		@OnlyIn(Dist.CLIENT)
+		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit_legs.png";
 		}
@@ -221,7 +216,6 @@ public class NetheriteSpaceSuit {
 			consumer.accept(new IItemRenderProperties() {
 
 				@Override
-				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
 
 					Map<String, ModelPart> map = Map.of(

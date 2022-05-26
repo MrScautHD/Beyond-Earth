@@ -19,7 +19,7 @@ import net.mrscauthd.beyond_earth.events.Methods;
 public class CoalLanternBlock extends LanternBlock {
     public CoalLanternBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, Boolean.valueOf(false)).setValue(WATERLOGGED, Boolean.valueOf(false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HANGING, false).setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -28,16 +28,20 @@ public class CoalLanternBlock extends LanternBlock {
 
         if (!p_51275_.getBlockState(p_51276_).getValue(CoalLanternBlock.HANGING) && !Methods.isSpaceWorldWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
             if (!p_51275_.isClientSide) {
+
                 p_51275_.setBlock(p_51276_, Blocks.LANTERN.defaultBlockState(), 3);
-                fireManager(itemstack, p_51277_, p_51278_, p_51276_, p_51275_);
+
+                this.fireManager(itemstack, p_51277_, p_51278_, p_51276_, p_51275_);
                 return InteractionResult.SUCCESS;
             }
         }
 
         if (p_51275_.getBlockState(p_51276_).getValue(CoalLanternBlock.HANGING) && !Methods.isSpaceWorldWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
             if (!p_51275_.isClientSide) {
+
                 p_51275_.setBlock(p_51276_, Blocks.LANTERN.defaultBlockState().setValue(LanternBlock.HANGING, true), 3);
-                fireManager(itemstack, p_51277_, p_51278_, p_51276_, p_51275_);
+
+                this.fireManager(itemstack, p_51277_, p_51278_, p_51276_, p_51275_);
                 return InteractionResult.SUCCESS;
             }
         }
@@ -49,11 +53,11 @@ public class CoalLanternBlock extends LanternBlock {
         return InteractionResult.PASS;
     }
 
-    public static void fireManager(ItemStack itemstack, Player playerentity, InteractionHand hand, BlockPos pos, Level world) {
+    public void fireManager(ItemStack itemstack, Player playerEntity, InteractionHand hand, BlockPos pos, Level world) {
         if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
             world.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1, 1);
 
-            itemstack.hurtAndBreak(1, playerentity, (player) -> {
+            itemstack.hurtAndBreak(1, playerEntity, (player) -> {
                 player.broadcastBreakEvent(hand);
             });
         }
@@ -61,7 +65,9 @@ public class CoalLanternBlock extends LanternBlock {
         if (itemstack.getItem() == Items.FIRE_CHARGE) {
             world.playSound(null, pos, SoundEvents.FIRECHARGE_USE, SoundSource.BLOCKS, 1,1);
 
-            itemstack.setCount(itemstack.getCount() - 1);
+            if (!playerEntity.getAbilities().instabuild && !playerEntity.isSpectator()) {
+                itemstack.setCount(itemstack.getCount() - 1);
+            }
         }
     }
 }

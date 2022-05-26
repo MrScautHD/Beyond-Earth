@@ -9,13 +9,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
@@ -24,13 +27,11 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
-import net.mrscauthd.beyond_earth.entities.renderer.VehicleRenderer;
 import net.mrscauthd.beyond_earth.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -63,7 +64,12 @@ public abstract class IRocketItem extends VehicleItem {
 
         if (state.getBlock() instanceof RocketLaunchPad && state.getValue(RocketLaunchPad.STAGE)) {
 
-            if (this.getRocketHighTest(level, pos, this.getRocketHigh())) {
+            BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
+            BlockPos blockpos = blockplacecontext.getClickedPos();
+            Vec3 vec3 = Vec3.upFromBottomCenterOf(blockpos, this.getRocketPlaceHigh());
+            AABB aabb = this.getEntityType().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+
+            if (level.noCollision(aabb)) {
 
                 /** CHECK IF NO ENTITY ON THE LAUNCH PAD */
                 AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
@@ -108,24 +114,6 @@ public abstract class IRocketItem extends VehicleItem {
         return super.useOn(context);
     }
 
-    public Boolean getRocketHighTest(Level level, BlockPos pos, int high) {
-        List<Boolean> flag = new ArrayList<>();
-
-        int x = pos.getX();
-        int y = pos.getY() + 1;
-        int z = pos.getZ();
-
-        /** CHECK IF ALL FREE TO PLACE THE ROCKET */
-        for (int f1 = y; f1 < y + high; f1++) {
-            BlockPos pos2 = new BlockPos(x, f1, z);
-
-
-            flag.add(level.getBlockState(pos2).isAir());
-        }
-
-        return !flag.contains(false);
-    }
-
     @Override
     public void appendHoverText(ItemStack itemstack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
@@ -138,7 +126,6 @@ public abstract class IRocketItem extends VehicleItem {
     public void initializeClient(Consumer<IItemRenderProperties> consumer) {
         consumer.accept(new IItemRenderProperties() {
 
-            @OnlyIn(Dist.CLIENT)
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
                 return IRocketItem.this.getRenderer();
@@ -146,10 +133,14 @@ public abstract class IRocketItem extends VehicleItem {
         });
     }
 
+    public float getRocketPlaceHigh() {
+        return -0.6F;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public abstract BlockEntityWithoutLevelRenderer getRenderer();
 
-    public abstract int getRocketHigh();
+    public abstract EntityType getEntityType();
 
     public abstract IRocketEntity getRocket(Level level);
 

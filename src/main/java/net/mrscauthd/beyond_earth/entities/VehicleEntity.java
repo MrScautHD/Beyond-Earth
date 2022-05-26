@@ -31,6 +31,7 @@ public class VehicleEntity extends Entity {
 
     public VehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
+        this.blocksBuilding = true;
     }
 
     @Override
@@ -53,13 +54,13 @@ public class VehicleEntity extends Entity {
 
     }
 
-    /**Enable Interact with the Entity*/
+    /** Enable Interact with the Entity */
     @Override
     public boolean isPickable() {
         return true;
     }
 
-    /**Interact with the Entity Gui,Spawn Egg...*/
+    /** Interact with the Entity Gui,Spawn Egg... */
     @Override
     public InteractionResult interact(Player p_19978_, InteractionHand p_19979_) {
         return InteractionResult.PASS;
@@ -69,11 +70,11 @@ public class VehicleEntity extends Entity {
     public void tick() {
         super.tick();
 
-        /**ROT Anim*/
+        /** ROT Anim */
         this.tickLerp();
         this.rotAnim();
 
-        /**Movement Physic*/
+        /** Movement Physic */
         Vec3 vec3 = this.getDeltaMovement();
         double d1 = vec3.x;
         double d3 = vec3.y;
@@ -136,7 +137,7 @@ public class VehicleEntity extends Entity {
         }
     }
 
-    /**Movement Physic*/
+    /** Movement Physic */
     public void travel(Vec3 p_21280_) {
         if (this.isControlledByLocalInstance()) {
             double d0 = 0.08D;

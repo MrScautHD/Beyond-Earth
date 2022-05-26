@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -15,16 +14,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1ItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverItemRenderer;
+import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
@@ -32,15 +30,10 @@ import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
-
-    @OnlyIn(Dist.CLIENT)
-    public static final RoverItemRenderer ITEM_RENDERER = new RoverItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
@@ -66,28 +59,18 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
         BlockPos pos = context.getClickedPos();
         InteractionHand hand = context.getHand();
         ItemStack itemStack = context.getItemInHand();
+        Level level = context.getLevel();
 
         int x = pos.getX();
         int y = pos.getY();
         int z = pos.getZ();
 
-        /** Pos for 3x3 */
-        int x2 = pos.getX() - 1;
-        int y2 = pos.getY() + 1;
-        int z2 = pos.getZ() - 1;
+        BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
+        BlockPos blockpos = blockplacecontext.getClickedPos();
+        Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
+        AABB aabb = EntitiesRegistry.ROVER.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
-        List<Boolean> flag = new ArrayList<>();
-
-        /** Check is 3x3 nothing Solid */
-        for (int f1 = x2; f1 < x2 + 3; f1++) {
-            for (int f2 = z2; f2 < z2 + 3; f2++) {
-                BlockPos pos2 = new BlockPos(f1, y2, f2);
-
-                flag.add(!world.getBlockState(pos2).canOcclude());
-            }
-        }
-
-        if (!flag.contains(false)) {
+        if (level.noCollision(aabb)) {
 
             AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
@@ -128,7 +111,7 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-                return ITEM_RENDERER;
+                return ClientEventBusSubscriber.ROVER_ITEM_RENDERER;
             }
         });
     }
