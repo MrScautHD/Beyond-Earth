@@ -34,6 +34,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	/** TEXTURES */
 	public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
 
+	public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/scroller.png");
+
 	public static final ResourceLocation GREEN_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button.png");
 	public static final ResourceLocation GREEN_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button_2.png");
 
@@ -114,7 +116,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public CategoryHelper category; //IF YOU DO A ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH "AbstractCategoryHelper"
 
 	/** BUTTON LISTS */
-	public List<ImageButtonPlacer> buttons;
 	public List<ImageButtonPlacer> visibleButtons;
 
 	/** ROTATIONS */
@@ -177,6 +178,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	/** SCROLL SYSTEM */
 	public int scrollIndex;
+
+	/** BUTTON ROW END */
+	public int rowEnd;
 
 	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -247,6 +251,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		/** SMALL MENU RENDERER */
 		if (PlanetSelectionGuiHelper.categoryRange(this.category.get(), 0, 1) || PlanetSelectionGuiHelper.categoryRange(this.category.get(), 6, 6)) {
 			PlanetSelectionGuiHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
+			this.renderScroller(poseStack);
 		}
 
 		/** LARGE MENU RENDERER */
@@ -269,6 +274,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 			return;
 		}
 
+		/** ROW END */
+		this.rowEnd = 4;
+
 		/** SET CATEGORY */
 		this.category = new CategoryHelper();
 
@@ -288,7 +296,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		this.spaceStationItemList = this.recipe.getIngredientStacks().stream().allMatch(this::getSpaceStationItemCheck);
 
 		/** SET BUTTON LISTS */
-		this.buttons = Lists.newArrayList();
 		this.visibleButtons = Lists.newArrayList();
 
 		/** MAIN CATEGORY BUTTON 1 */
@@ -415,7 +422,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	@Override
 	public void onClose() {
-		//TODO DISABLE LAITER (DELETE THE SUPER)
 		super.onClose();
 	}
 
@@ -429,7 +435,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	@Override
 	public boolean mouseScrolled(double p_99314_, double p_99315_, double p_99316_) {
-		if (this.getVisibleButtons(1).size() > 4) { // LAITER 5
+		if (this.getVisibleButtons(1).size() > this.rowEnd) {
 			if (p_99316_ == 1) {
 				if (this.scrollIndex != 0) {
 					this.scrollIndex = this.scrollIndex + 1;
@@ -437,7 +443,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 					return true;
 				}
 			} else {
-				if (this.scrollIndex != -(this.getVisibleButtons(1).size() - 4)) { //LAITER TO 5
+				if (this.scrollIndex != -(this.getVisibleButtons(1).size() - this.rowEnd)) {
 					this.scrollIndex = this.scrollIndex - 1;
 					this.updateButtonVisibility();
 					return true;
@@ -454,6 +460,8 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiButtonVisibilityEvent.Pre(this))) {
 			return;
 		}
+
+		this.visibleButtons.clear();
 
 		/** SOLAR SYSTEM VISIBLE LOGIC */
 		this.visibleButton(this.solarSystemButton, this.category.get() == 0);
@@ -541,6 +549,18 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 	}
 
+	public void renderScroller(PoseStack poseStack) {
+		if (this.visibleButtons.size() > this.rowEnd) {
+
+			int buttonStartY = (this.height / 2) - 67 / 2;
+			int scrollSize = this.visibleButtons.size() - this.rowEnd;
+
+			float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
+
+			PlanetSelectionGuiHelper.addTexture(poseStack, 92, (int) y, 4, 8, SCROLLER_TEXTURE);
+		}
+	}
+
 	public void handleButtonPos(int rowStart, int rowEnd) {
 		/** SET POS OF VISIBLE BUTTONS */
 		for (int f1 = rowStart; f1 <= rowEnd; f1++) {
@@ -566,7 +586,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	public boolean buttonScrollVisibility(ImageButtonPlacer button) {
 		int buttonStartY = (this.height / 2) - 68 / 2;
-		int buttonEndY = buttonStartY + 22 * 4;
+		int buttonEndY = buttonStartY + 22 * this.rowEnd;
 
 		/** IF BUTTON ABOVE THE MENU */
 		if (button.y < buttonStartY && button.row != 0) {
@@ -575,7 +595,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** IF BUTTON UNDER THE MENU */
 		if (button.y >= buttonEndY && button.row != 0) {
-			System.out.println(button);
 			return false;
 		}
 
@@ -602,9 +621,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		/** HANDLE VISIBLE BUTTON LIST */
 		if (condition && !visibleButtons.contains(button)) {
 			visibleButtons.add(button);
-		}
-		else if (!condition && visibleButtons.contains(button)) {
-			visibleButtons.remove(button);
 		}
 
 		/** POS HANDLER */

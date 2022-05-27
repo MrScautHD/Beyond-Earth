@@ -34,7 +34,6 @@ public class PlanetSelectionGuiHelper {
             }
         });
 
-        screen.buttons.add(button);
         return button;
     }
 
@@ -48,7 +47,6 @@ public class PlanetSelectionGuiHelper {
             }
         });
 
-        screen.buttons.add(button);
         return button;
     }
 
@@ -56,7 +54,6 @@ public class PlanetSelectionGuiHelper {
     public static ImageButtonPlacer addBackButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
 
-        screen.buttons.add(button);
         return button;
     }
 

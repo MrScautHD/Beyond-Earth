@@ -34,9 +34,6 @@ public class ImageButtonPlacer extends Button {
     /** USE ROW 0 FOR (NO ROW SYSTEM), USE ROW 1 FOR (CATEGORIES, PLANETS), USE ROW 2 FOR (ORBITS), USE ROW 3 FOR (SPACE STATIONS) */
     public int row;
 
-    public int preY;
-    public int preX;
-
     private final int xTexStart;
     private final int yTexStart;
 
