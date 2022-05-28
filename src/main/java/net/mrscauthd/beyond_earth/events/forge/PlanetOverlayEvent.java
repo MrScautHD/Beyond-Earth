@@ -9,6 +9,7 @@ public class PlanetOverlayEvent extends Event {
 
     private ForgeIngameGui gui;
     private ResourceLocation resourceLocation;
+    private ResourceLocation planetTexture;
     private PoseStack poseStack;
     private float partialTicks;
     private int width;
@@ -31,6 +32,10 @@ public class PlanetOverlayEvent extends Event {
         return resourceLocation;
     }
 
+    public ResourceLocation getPlanetTexture() {
+        return planetTexture;
+    }
+
     public PoseStack getPoseStack() {
         return poseStack;
     }
@@ -47,7 +52,7 @@ public class PlanetOverlayEvent extends Event {
         return height;
     }
 
-    public void setResourceLocation(ResourceLocation resourceLocation) {
-        this.resourceLocation = resourceLocation;
+    public void setPlanetTexture(ResourceLocation planetTexture) {
+        this.planetTexture = planetTexture;
     }
 }

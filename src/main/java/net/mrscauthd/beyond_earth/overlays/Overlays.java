@@ -281,7 +281,7 @@ public class Overlays {
             PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, mStack, partialTicks, width, height);
 
             if (MinecraftForge.EVENT_BUS.post(event)) {
-                planet = event.getResourceLocation();
+                planet = event.getPlanetTexture();
             }
 
             /** ROCKET BAR IMAGE */
