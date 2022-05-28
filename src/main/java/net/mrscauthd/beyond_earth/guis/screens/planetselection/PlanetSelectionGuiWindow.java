@@ -275,7 +275,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		}
 
 		/** ROW END */
-		this.rowEnd = 4;
+		this.rowEnd = 5;
 
 		/** SET CATEGORY */
 		this.category = new CategoryHelper();
@@ -422,15 +422,7 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 	@Override
 	public void onClose() {
-		super.onClose();
-	}
 
-	@Override
-	public boolean mouseDragged(double mouseX, double mouseY, int p_99324_, double deltaX, double deltaY) {
-
-		System.out.println(mouseY);
-
-		return super.mouseDragged(mouseX, mouseY, p_99324_, deltaX, deltaY);
 	}
 
 	@Override
