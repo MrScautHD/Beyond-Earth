@@ -5,16 +5,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.PacketListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
@@ -67,7 +64,7 @@ public class Methods {
 
     public static final ResourceLocation space_station = new ResourceLocation(BeyondEarthMod.MODID, "space_station");
 
-    public static final Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
+    public static Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
             moon,
             moon_orbit,
             mars_orbit,
@@ -78,7 +75,7 @@ public class Methods {
             earth_orbit
     );
 
-    public static final Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
+    public static Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
             moon,
             moon_orbit,
             mars,
@@ -91,7 +88,7 @@ public class Methods {
             earth_orbit
     );
 
-    public static final Set<ResourceKey<Level>> spaceWorlds = Set.of(
+    public static Set<ResourceKey<Level>> spaceWorlds = Set.of(
             moon,
             moon_orbit,
             mars,
@@ -105,7 +102,7 @@ public class Methods {
             earth_orbit
     );
 
-    private static final Set<ResourceKey<Level>> orbitWorlds = Set.of(
+    public static Set<ResourceKey<Level>> orbitWorlds = Set.of(
             earth_orbit,
             moon_orbit,
             mars_orbit,

@@ -20,6 +20,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.client.gui.IIngameOverlay;
 import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +29,8 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.events.forge.LivingSetVenusRainEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlanetOverlayEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
@@ -273,6 +276,12 @@ public class Overlays {
             }
             else {
                 planet = EARTH_PLANET_BAR_TEXTURE;
+            }
+
+            PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, mStack, partialTicks, width, height);
+
+            if (MinecraftForge.EVENT_BUS.post(event)) {
+                planet = event.getResourceLocation();
             }
 
             /** ROCKET BAR IMAGE */

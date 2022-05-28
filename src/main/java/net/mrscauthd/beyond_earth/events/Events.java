@@ -105,13 +105,13 @@ public class Events {
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            Level world = event.world;
+            Level level = event.world;
 
-            if (Methods.worldsWithoutRain.contains(world.dimension())) {
-                world.thunderLevel = 0;
-                world.rainLevel = 0;
-            } else if (Methods.isWorld(world, Methods.venus)) {
-                world.thunderLevel = 0;
+            if (Methods.worldsWithoutRain.contains(level.dimension())) {
+                level.thunderLevel = 0;
+                level.rainLevel = 0;
+            } else if (Methods.isWorld(level, Methods.venus)) {
+                level.thunderLevel = 0;
             }
         }
     }
