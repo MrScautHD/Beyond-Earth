@@ -29,18 +29,18 @@ public class Events {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Player player = event.player;
-            Level world = player.level;
+            Level level = player.level;
 
             /** LANDER ORBIT TELEPORT SYSTEM */
             if (player.getVehicle() instanceof LanderEntity) {
-                Methods.landerTeleportOrbit(player, world);
+                Methods.landerTeleportOrbit(player, level);
             }
 
             /** DISABLE CLOSE PLANET GUI SYSTEM */
             Methods.openPlanetGui(player);
 
-            /** ENTITY OXYGEN SYSTEM */
-            OxygenSystem.OxygenSystem(player);
+            /** PLAYER OXYGEN SYSTEM */
+            OxygenSystem.OxygenSystem(player, level);
 
             /** DROP OFF HAND VEHICLE ITEM */
             Methods.dropRocket(player);

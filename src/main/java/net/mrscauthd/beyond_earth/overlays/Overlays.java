@@ -44,35 +44,35 @@ public class Overlays {
     private static float counter = 0;
 
     /** WARNING TEXTURE */
-    private static final ResourceLocation WARNING_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/warning.png");
+    public static final ResourceLocation WARNING_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/warning.png");
 
     /** TIMER TEXTURES */
-    private static final ResourceLocation TIMER_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer1.png");
-    private static final ResourceLocation TIMER_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer2.png");
-    private static final ResourceLocation TIMER_3_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer3.png");
-    private static final ResourceLocation TIMER_4_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer4.png");
-    private static final ResourceLocation TIMER_5_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer5.png");
-    private static final ResourceLocation TIMER_6_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer6.png");
-    private static final ResourceLocation TIMER_7_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer7.png");
-    private static final ResourceLocation TIMER_8_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer8.png");
-    private static final ResourceLocation TIMER_9_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer9.png");
-    private static final ResourceLocation TIMER_10_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer10.png");
+    public static final ResourceLocation TIMER_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer1.png");
+    public static final ResourceLocation TIMER_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer2.png");
+    public static final ResourceLocation TIMER_3_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer3.png");
+    public static final ResourceLocation TIMER_4_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer4.png");
+    public static final ResourceLocation TIMER_5_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer5.png");
+    public static final ResourceLocation TIMER_6_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer6.png");
+    public static final ResourceLocation TIMER_7_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer7.png");
+    public static final ResourceLocation TIMER_8_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer8.png");
+    public static final ResourceLocation TIMER_9_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer9.png");
+    public static final ResourceLocation TIMER_10_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer10.png");
 
     /** OXYGEN TANK TEXTURES */
-    private static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_empty.png");
-    private static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_empty.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_full.png");
 
     /** PLANET BAR TEXTURES */
-    private static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/moon_planet_bar.png");
-    private static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mars_planet_bar.png");
-    private static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mercury_planet_bar.png");
-    private static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/venus_planet_bar.png");
-    private static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/glacio_planet_bar.png");
-    private static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/earth_planet_bar.png");
-    private static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/orbit_planet_bar.png");
+    public static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/moon_planet_bar.png");
+    public static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mars_planet_bar.png");
+    public static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mercury_planet_bar.png");
+    public static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/venus_planet_bar.png");
+    public static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/glacio_planet_bar.png");
+    public static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/earth_planet_bar.png");
+    public static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/orbit_planet_bar.png");
 
     /** ROCKET TEXTURE */
-    private static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket.png");
+    public static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket.png");
 
     /** OVERLAY ENABLE OR DISABLE EVENT */
     @SubscribeEvent
