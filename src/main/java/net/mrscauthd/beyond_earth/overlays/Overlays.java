@@ -243,7 +243,7 @@ public class Overlays {
         @Override
         public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Player player = Minecraft.getInstance().player;
-            Level world = Minecraft.getInstance().level;
+            Level level = Minecraft.getInstance().level;
 
             float yHeight = (float) player.getY() / 5.3F;
 
@@ -256,22 +256,22 @@ public class Overlays {
 
             ResourceLocation planet;
 
-            if (Methods.isWorld(world, Methods.moon)) {
+            if (Methods.isWorld(level, Methods.moon)) {
                 planet = MOON_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(world, Methods.mars)) {
+            else if (Methods.isWorld(level, Methods.mars)) {
                 planet = MARS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(world, Methods.mercury)) {
+            else if (Methods.isWorld(level, Methods.mercury)) {
                 planet = MERCURY_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(world, Methods.venus)) {
+            else if (Methods.isWorld(level, Methods.venus)) {
                 planet = VENUS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(world, Methods.glacio)) {
+            else if (Methods.isWorld(level, Methods.glacio)) {
                 planet = GLACIO_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isOrbitWorld(world)) {
+            else if (Methods.isOrbitWorld(level)) {
                 planet = ORBIT_PLANET_BAR_TEXTURE;
             }
             else {
