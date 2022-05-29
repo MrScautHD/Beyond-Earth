@@ -8,6 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -448,8 +449,10 @@ public class Methods {
     public static void openPlanetGui(Player player) {
         if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
             if (player instanceof ServerPlayer) {
+                ServerPlayer serverPlayer = (ServerPlayer) player;
 
-                NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+                /** OPEN MENU */
+                NetworkHooks.openGui(serverPlayer, new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
                         return new TextComponent("Planet Selection");
@@ -542,8 +545,13 @@ public class Methods {
         }
     }
 
+    public static void stopSounds(ServerPlayer serverPlayer, ResourceLocation sound, SoundSource source) {
+        ClientboundStopSoundPacket stopSoundS2CPacket = new ClientboundStopSoundPacket(sound, source);
+        serverPlayer.connection.send(stopSoundS2CPacket);
+    }
+
     public static void rocketSounds(Entity entity, Level world) {
-        world.playSound(null, entity, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
+        world.playSound(null, entity, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
     }
 
     public static void noFuelMessage(Player player) {

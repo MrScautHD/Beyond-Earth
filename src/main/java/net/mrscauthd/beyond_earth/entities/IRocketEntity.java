@@ -8,6 +8,8 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -35,6 +37,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionGuiEvent;
+import net.mrscauthd.beyond_earth.registries.SoundsRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -258,6 +261,11 @@ public abstract class IRocketEntity extends VehicleEntity {
                 pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
                 pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
                 pass.setNoGravity(true);
+
+                /** STOP ROCKET SOUND */
+                if (pass instanceof ServerPlayer) {
+                    Methods.stopSounds((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
+                }
 
                 MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent(pass, this));
 

@@ -77,7 +77,7 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
 
         entity.level.addFreshEntity(entityArrow);
 
-        entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.PLAYERS, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
+        entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.HOSTILE, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
         return entityArrow;
     }
 }

@@ -4,6 +4,7 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
+import net.mrscauthd.beyond_earth.entities.renderer.spacesuit.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.forge.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forge.RenderViewEvent;
 import net.mrscauthd.beyond_earth.events.forge.SetupLivingBipedAnimEvent;
@@ -111,6 +113,7 @@ public class ClientEvents {
         AbstractClientPlayer player = event.getPlayer();
         PlayerRenderer renderer = (PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player);
         PlayerModel<AbstractClientPlayer> playerModel = renderer.getModel();
+        SpaceSuitModel.SPACE_SUIT_P1 model = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
 
         Item item = player.getOffhandItem().getItem();
         Item item2 = player.getMainHandItem().getItem();
@@ -121,9 +124,9 @@ public class ClientEvents {
         }
 
         if (event.getArm() == HumanoidArm.RIGHT) {
-            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer));
+            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, model.rightArm));
         } else {
-            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer));
+            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, model.leftArm));
         }
     }
 

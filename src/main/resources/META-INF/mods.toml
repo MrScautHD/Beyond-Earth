@@ -1,28 +1,26 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[${loader_version},)"
 license="All Rights Reserved unless otherwise explicitly stated"
 
 [[mods]]
 modId="beyond_earth"
-version="6.2"
+version="${mod_version}"
 displayName="Beyond Earth"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/beyond-earth"
 logoFile="logo.png"
 authors="MrScautHD"
-description='''
-Fly to Other Planets and Beyond!
-'''
+description='''Fly to Other Planets and Beyond!'''
 
 [[dependencies.beyond_earth]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.2]"
+    versionRange="[${mc_version}]"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.beyond_earth]]
     modId="forge"
     mandatory=true
-    versionRange="[40.1.25,]"
+    versionRange="[${forge_version},]"
     ordering="NONE"
     side="BOTH"

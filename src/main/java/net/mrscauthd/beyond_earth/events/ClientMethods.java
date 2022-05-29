@@ -26,11 +26,23 @@ import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
 
-    public static final ResourceLocation ARM_SPACE_SUIT = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/arm/space_suit.png");
-    public static final ResourceLocation ARM_NETHERITE_SPACE_SUIT = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/arm/netherite_space_suit.png");
+    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/space_suit.png");
+    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/netherite_space_suit.png");
 
-    public static boolean checkSound(SoundSource sound) {
-        return sound == SoundSource.BLOCKS || sound == SoundSource.NEUTRAL || sound == SoundSource.RECORDS || sound == SoundSource.WEATHER || sound == SoundSource.HOSTILE || sound == SoundSource.PLAYERS || sound == SoundSource.AMBIENT;
+    public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, ModelPart armModel) {
+        if (Methods.checkArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
+
+            ClientMethods.renderArm(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel);
+            return true;
+        }
+
+        if (Methods.checkArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
+
+            ClientMethods.renderArm(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel);
+            return true;
+        }
+
+        return false;
     }
 
     public static void renderArm(PoseStack poseStack, MultiBufferSource bufferSource, int light, ResourceLocation texture, AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playermodel, PlayerRenderer renderer, ModelPart arm) {
@@ -48,6 +60,10 @@ public class ClientMethods {
         arm.render(poseStack, vertex, light, OverlayTexture.NO_OVERLAY);
     }
 
+    public static boolean checkSound(SoundSource sound) {
+        return sound == SoundSource.BLOCKS || sound == SoundSource.NEUTRAL || sound == SoundSource.RECORDS || sound == SoundSource.WEATHER || sound == SoundSource.HOSTILE || sound == SoundSource.PLAYERS || sound == SoundSource.AMBIENT;
+    }
+
     public static void bobView(PoseStack poseStack, float tick) {
         Minecraft mc = Minecraft.getInstance();
 
@@ -60,21 +76,5 @@ public class ClientMethods {
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.sin(f1 * (float) Math.PI) * f2 * 3.0F));
             poseStack.mulPose(Vector3f.XP.rotationDegrees(Math.abs(Mth.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5.0F));
         }
-    }
-
-    public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer) {
-        if (Methods.checkArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
-
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, ARM_SPACE_SUIT, player, playerModel, renderer, playerModel.rightArm);
-            return true;
-        }
-
-        if (Methods.checkArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
-
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, ARM_NETHERITE_SPACE_SUIT, player, playerModel, renderer, playerModel.rightArm);
-            return true;
-        }
-
-        return false;
     }
 }
