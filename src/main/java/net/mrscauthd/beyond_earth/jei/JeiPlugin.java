@@ -160,8 +160,6 @@ public class JeiPlugin implements IModPlugin {
 		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
 		registration.addGuiContainerHandler(RocketGuiWindow.class, new RocketGuiContainerHandler());
 		registration.addGuiContainerHandler(RoverGuiWindow.class, new RoverGuiContainerHandler());
-
-		registration.addGuiScreenHandler(PlanetSelectionGuiWindow.class, new PlanetSelectionGuiJeiHandler());
 	}
 
 	@Override
