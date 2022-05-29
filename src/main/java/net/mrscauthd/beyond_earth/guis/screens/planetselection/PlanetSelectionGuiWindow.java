@@ -187,7 +187,7 @@ public class PlanetSelectionGuiWindow extends Screen implements MenuAccess<Plane
 	/** BUTTON ROW END */
 	public int rowEnd;
 
-	protected PlanetSelectionGuiWindow(Component p_96550_, PlanetSelectionGui.GuiContainer menu) {
+	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer menu, Inventory inventory, Component p_96550_) {
 		super(p_96550_);
 		this.menu = menu;
 	}
