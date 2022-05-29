@@ -81,7 +81,6 @@ import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBub
 import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
 import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGui;
 import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGuiWindow;
