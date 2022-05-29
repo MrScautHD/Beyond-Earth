@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSelectionGui.GuiContainer> {
+public class PlanetSelectionGuiWindow extends Screen implements MenuAccess<PlanetSelectionGui.GuiContainer> {
 
 	/** TEXTURES */
 	public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
@@ -112,6 +114,9 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	public static final Component ROCKET_TIER_3_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 3);
 	public static final Component ROCKET_TIER_4_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 4);
 
+	/** MENU */
+	private PlanetSelectionGui.GuiContainer menu;
+
 	/** CATEGORY */
 	public CategoryHelper category; //IF YOU DO A ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH "AbstractCategoryHelper"
 
@@ -182,17 +187,20 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 	/** BUTTON ROW END */
 	public int rowEnd;
 
-	public PlanetSelectionGuiWindow(PlanetSelectionGui.GuiContainer container, Inventory inventory, Component text) {
-		super(container, inventory, text);
-		this.imageWidth = 512;
-		this.imageHeight = 512;
+	protected PlanetSelectionGuiWindow(Component p_96550_, PlanetSelectionGui.GuiContainer menu) {
+		super(p_96550_);
+		this.menu = menu;
+	}
+
+	@Override
+	public PlanetSelectionGui.GuiContainer getMenu() {
+		return menu;
 	}
 
 	@Override
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(poseStack);
+		this.renderBg(poseStack, partialTicks, mouseX, mouseY);
 		super.render(poseStack, mouseX, mouseY, partialTicks);
-		this.renderTooltip(poseStack, mouseX, mouseY);
 
 		/** RENDER PRE EVENT FOR ADDONS */
 		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
@@ -206,7 +214,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
 	}
 
-	@Override
 	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
 
 		/** RENDER BACKGROUND PRE EVENT FOR ADDONS */
@@ -413,11 +420,6 @@ public class PlanetSelectionGuiWindow extends AbstractContainerScreen<PlanetSele
 
 		/** UPDATE BUTTON VISIBILITY */
 		this.updateButtonVisibility();
-	}
-
-	@Override
-	protected void renderLabels(PoseStack p_97808_, int p_97809_, int p_97810_) {
-
 	}
 
 	@Override
