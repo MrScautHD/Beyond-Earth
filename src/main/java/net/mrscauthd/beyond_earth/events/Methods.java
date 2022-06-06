@@ -1,13 +1,11 @@
 package net.mrscauthd.beyond_earth.events;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
@@ -45,7 +43,6 @@ import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.*;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
-import net.mrscauthd.beyond_earth.keybinds.KeyHandler;
 import net.mrscauthd.beyond_earth.registries.*;
 
 import java.util.Set;

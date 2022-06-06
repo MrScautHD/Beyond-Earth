@@ -115,7 +115,7 @@ public abstract class IRocketItem extends VehicleItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemstack, @Nullable Level world, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
 
         int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
