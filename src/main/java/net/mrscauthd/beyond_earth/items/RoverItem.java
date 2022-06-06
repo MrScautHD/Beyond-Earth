@@ -26,14 +26,12 @@ import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
+public class RoverItem extends VehicleItem {
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
@@ -41,7 +39,7 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
+    public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
         int fuel = p_41421_.getOrCreateTag().getInt(fuelTag);
         p_41423_.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE))));
@@ -117,25 +115,12 @@ public class RoverItem extends VehicleItem implements FilledAltVehicleItem {
     }
 
     @Override
-    public void fillItemCategoryAlt(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
+    public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
+        super.fillItemCategory(p_41391_, p_41392_);
         if (this.allowdedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
             itemStack.getOrCreateTag().putInt(fuelTag, 3000);
             p_41392_.add(itemStack);
-        }
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-        if (p_41391_ != ItemGroups.tab_normal) {
-            super.fillItemCategory(p_41391_, p_41392_);
-        }
-    }
-
-    @Override
-    public void itemCategoryAlt(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-        if (this.allowdedIn(p_41391_)) {
-            p_41392_.add(new ItemStack(this));
         }
     }
 

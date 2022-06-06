@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.armors;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -12,15 +11,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
@@ -29,9 +23,6 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.SpaceSuitCapabilityProvide
 import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
-import net.mrscauthd.beyond_earth.items.FilledAltArmorItem;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -41,7 +32,7 @@ import java.util.function.Consumer;
 
 public class JetSuit {
 
-    public static class OxygenMask extends FilledAltArmorItem {
+    public static class OxygenMask extends ArmorItem {
         public OxygenMask(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -73,26 +64,12 @@ public class JetSuit {
         }
 
         @Override
-        public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            if (this.allowdedIn(tab)) {
-                list.add(new ItemStack(this));
-            }
-        }
-
-        @Override
-        public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            if (p_41391_ != ItemGroups.tab_normal) {
-                super.fillItemCategory(p_41391_, p_41392_);
-            }
-        }
-
-        @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return BeyondEarthMod.MODID + ":textures/armor/jet_suit_oxygen_mask.png";
         }
     }
 
-    public static class Suit extends FilledAltArmorItem {
+    public static class Suit extends ArmorItem {
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -125,29 +102,14 @@ public class JetSuit {
         }
 
         @Override
-        public void fillItemCategoryAlt(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            if (this.allowdedIn(p_41391_)) {
-                ItemStack full = new ItemStack(this);
-                IOxygenStorage oxygenStorage = full.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
-
-                if (oxygenStorage != null) {
-                    oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
-                    p_41392_.add(full);
-                }
-            }
-        }
-
-        @Override
         public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            if (p_41391_ != ItemGroups.tab_normal) {
-                super.fillItemCategory(p_41391_, p_41392_);
-            }
-        }
+            super.fillItemCategory(p_41391_, p_41392_);
+            if (this.allowdedIn(p_41391_)) {
+                ItemStack itemStack = new ItemStack(this);
+                IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
-        @Override
-        public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            if (this.allowdedIn(tab)) {
-                list.add(new ItemStack(this));
+                oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
+                p_41392_.add(itemStack);
             }
         }
 
@@ -175,7 +137,7 @@ public class JetSuit {
         }
     }
 
-    public static class Pants extends FilledAltArmorItem {
+    public static class Pants extends ArmorItem {
         public Pants(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -209,26 +171,12 @@ public class JetSuit {
         }
 
         @Override
-        public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            if (this.allowdedIn(tab)) {
-                list.add(new ItemStack(this));
-            }
-        }
-
-        @Override
-        public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            if (p_41391_ != ItemGroups.tab_normal) {
-                super.fillItemCategory(p_41391_, p_41392_);
-            }
-        }
-
-        @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return BeyondEarthMod.MODID + ":textures/armor/jet_suit_pants.png";
         }
     }
 
-    public static class Boots extends FilledAltArmorItem {
+    public static class Boots extends ArmorItem {
         public Boots(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -259,20 +207,6 @@ public class JetSuit {
                     return armorModel;
                 }
             });
-        }
-
-        @Override
-        public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            if (this.allowdedIn(tab)) {
-                list.add(new ItemStack(this));
-            }
-        }
-
-        @Override
-        public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            if (p_41391_ != ItemGroups.tab_normal) {
-                super.fillItemCategory(p_41391_, p_41392_);
-            }
         }
 
         @Override

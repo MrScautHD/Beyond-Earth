@@ -22,8 +22,6 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.SpaceSuitCapabilityProvider;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.items.FilledAltArmorItem;
-import net.mrscauthd.beyond_earth.itemgroups.ItemGroups;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
@@ -35,7 +33,7 @@ import java.util.function.Consumer;
 
 public class SpaceSuit {
 
-	public static class OxygenMask extends FilledAltArmorItem {
+	public static class OxygenMask extends ArmorItem {
 		public OxygenMask(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
 		}
@@ -67,26 +65,12 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-			if (p_41391_ != ItemGroups.tab_normal) {
-				super.fillItemCategory(p_41391_, p_41392_);
-			}
-		}
-
-		@Override
-		public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-			if (this.allowdedIn(tab)) {
-				list.add(new ItemStack(this));
-			}
-		}
-
-		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 			return BeyondEarthMod.MODID + ":textures/armor/oxygen_mask.png";
 		}
 	}
 
-	public static class Suit extends FilledAltArmorItem {
+	public static class Suit extends ArmorItem {
 		public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
 		}
@@ -119,29 +103,14 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void fillItemCategoryAlt(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-			if (this.allowdedIn(p_41391_)) {
-				ItemStack full = new ItemStack(this);
-				IOxygenStorage oxygenStorage = full.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
-
-				if (oxygenStorage != null) {
-					oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
-					p_41392_.add(full);
-				}
-			}
-		}
-
-		@Override
 		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-			if (p_41391_ != ItemGroups.tab_normal) {
-				super.fillItemCategory(p_41391_, p_41392_);
-			}
-		}
+			super.fillItemCategory(p_41391_, p_41392_);
+			if (this.allowdedIn(p_41391_)) {
+				ItemStack itemStack = new ItemStack(this);
+				IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
-		@Override
-		public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-			if (this.allowdedIn(tab)) {
-				list.add(new ItemStack(this));
+				oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
+				p_41392_.add(itemStack);
 			}
 		}
 
@@ -168,7 +137,7 @@ public class SpaceSuit {
 		}
 	}
 
-	public static class Pants extends FilledAltArmorItem {
+	public static class Pants extends ArmorItem {
 		public Pants(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
 		}
@@ -202,26 +171,12 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-			if (p_41391_ != ItemGroups.tab_normal) {
-				super.fillItemCategory(p_41391_, p_41392_);
-			}
-		}
-
-		@Override
-		public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-			if (this.allowdedIn(tab)) {
-				list.add(new ItemStack(this));
-			}
-		}
-
-		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 			return BeyondEarthMod.MODID + ":textures/armor/space_pants.png";
 		}
 	}
 
-	public static class Boots extends FilledAltArmorItem {
+	public static class Boots extends ArmorItem {
 		public Boots(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
 		}
@@ -252,20 +207,6 @@ public class SpaceSuit {
 					return armorModel;
 				}
 			});
-		}
-
-		@Override
-		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-			if (p_41391_ != ItemGroups.tab_normal) {
-				super.fillItemCategory(p_41391_, p_41392_);
-			}
-		}
-
-		@Override
-		public void itemCategoryAlt(CreativeModeTab tab, NonNullList<ItemStack> list) {
-			if (this.allowdedIn(tab)) {
-				list.add(new ItemStack(this));
-			}
 		}
 
 		@Override

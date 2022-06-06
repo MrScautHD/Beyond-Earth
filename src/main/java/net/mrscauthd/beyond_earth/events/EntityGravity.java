@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.events.forge.EntityGravityEvent;
 
@@ -63,7 +64,7 @@ public class EntityGravity {
 
     /** LIVING ENTITY GRAVITY CHECK */
     private static boolean getLivingEntityCondition(LivingEntity entity) {
-        return getEntityCondition(entity) && !entity.isFallFlying() && !entity.hasEffect(MobEffects.SLOW_FALLING) && !entity.hasEffect(MobEffects.LEVITATION);
+        return getEntityCondition(entity) && !entity.isFallFlying() && !entity.hasEffect(MobEffects.SLOW_FALLING) && !entity.hasEffect(MobEffects.LEVITATION) && !entity.onClimbable();
     }
 
     /** ENTITY GRAVITY CHECK */

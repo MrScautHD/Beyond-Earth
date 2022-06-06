@@ -103,17 +103,17 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 	protected void init() {
 		super.init();
 
-		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 0, 20, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
+		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 0, 20, 20, 0, 0, 0, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
 		}));
 
-		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 0, 20, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
+		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 0, 20, 20, 0, 0, 0, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
 		}));
 
-		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 0, 34, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
+		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 0, 34, 20, 0, 0, 0, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
 		}));
@@ -182,9 +182,5 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 
 	public Rectangle2d getEnergyBounds() {
 		return GuiHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
-	}
-
-	public Rectangle2d getButtonBounds(int left, int top, int width, int height) {
-		return GuiHelper.getBounds(this.leftPos + left, this.topPos + top, width, height);
 	}
 }

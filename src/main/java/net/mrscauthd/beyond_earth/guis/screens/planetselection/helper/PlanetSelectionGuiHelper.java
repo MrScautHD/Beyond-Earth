@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.events.ClientMethods;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiNetworkHandler;
@@ -38,10 +39,15 @@ public class PlanetSelectionGuiHelper {
     }
 
     /** USE IT FOR TELEPORT BUTTONS */
-    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, boolean condition, SimpleChannel simpleChannel, PlanetSelectionGuiNetworkHandlerHelper handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+    public static ImageButtonPlacer addHandlerButton(PlanetSelectionGuiWindow screen, int x, int row, int width, int height, boolean condition, boolean holdKeyMessage, SimpleChannel simpleChannel, PlanetSelectionGuiNetworkHandlerHelper handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
             if (condition) {
                 callPacketHandler(simpleChannel, handler);
+
+                if (holdKeyMessage) {
+                    ClientMethods.holdKeyMessage();
+                }
+
                 screen.scrollIndex = 0;
                 screen.updateButtonVisibility();
             }

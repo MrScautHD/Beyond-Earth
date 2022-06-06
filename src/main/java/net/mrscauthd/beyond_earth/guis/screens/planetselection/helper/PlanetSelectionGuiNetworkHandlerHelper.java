@@ -4,7 +4,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
-import net.mrscauthd.beyond_earth.events.Methods;
 
 public abstract class PlanetSelectionGuiNetworkHandlerHelper {
 
@@ -14,7 +13,6 @@ public abstract class PlanetSelectionGuiNetworkHandlerHelper {
             player.setNoGravity(false);
         }
 
-        Methods.holdSpaceMessage(player);
         player.closeContainer();
     }
 

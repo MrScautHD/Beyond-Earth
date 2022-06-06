@@ -1,10 +1,8 @@
 package net.mrscauthd.beyond_earth.itemgroups;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-import net.mrscauthd.beyond_earth.items.FilledAltArmorItem;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
@@ -13,44 +11,6 @@ public class ItemGroups {
 		@Override
 		public ItemStack makeIcon() {
 			return new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-		}
-
-		@Override
-		public void fillItemList(NonNullList<ItemStack> list) {
-			/** FULL VEHICLE ITEMS */
-			ItemsRegistry.TIER_1_ROCKET_ITEM.get().fillItemCategoryAlt(this, list);
-			ItemsRegistry.TIER_2_ROCKET_ITEM.get().fillItemCategoryAlt(this, list);
-			ItemsRegistry.TIER_3_ROCKET_ITEM.get().fillItemCategoryAlt(this, list);
-			ItemsRegistry.TIER_4_ROCKET_ITEM.get().fillItemCategoryAlt(this, list);
-			ItemsRegistry.ROVER_ITEM.get().fillItemCategoryAlt(this, list);
-
-			/** SPACE SUIT */
-			((FilledAltArmorItem) ItemsRegistry.OXYGEN_MASK.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.SPACE_SUIT.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.SPACE_PANTS.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.SPACE_BOOTS.get()).itemCategoryAlt(this, list);
-
-			/** VEHICLE ITEMS */
-			ItemsRegistry.TIER_1_ROCKET_ITEM.get().itemCategoryAlt(this, list);
-			ItemsRegistry.TIER_2_ROCKET_ITEM.get().itemCategoryAlt(this, list);
-			ItemsRegistry.TIER_3_ROCKET_ITEM.get().itemCategoryAlt(this, list);
-			ItemsRegistry.TIER_4_ROCKET_ITEM.get().itemCategoryAlt(this, list);
-			ItemsRegistry.ROVER_ITEM.get().itemCategoryAlt(this, list);
-
-			/** NETHERITE SPACE SUIT */
-			((FilledAltArmorItem) ItemsRegistry.NETHERITE_OXYGEN_MASK.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.NETHERITE_SPACE_SUIT.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.NETHERITE_SPACE_PANTS.get()).itemCategoryAlt(this, list);
-			((FilledAltArmorItem) ItemsRegistry.NETHERITE_SPACE_BOOTS.get()).itemCategoryAlt(this, list);
-
-			/** FULL SPACE SUIT */
-			((FilledAltArmorItem) ItemsRegistry.SPACE_SUIT.get()).fillItemCategoryAlt(this, list);
-
-			/** FULL NETHERITE SPACE SUIT */
-			((FilledAltArmorItem) ItemsRegistry.NETHERITE_SPACE_SUIT.get()).fillItemCategoryAlt(this, list);
-
-			/** DEFAULT ITEMS */
-			super.fillItemList(list);
 		}
 	};
 	public static CreativeModeTab tab_machines = new CreativeModeTab("tab_machines") {

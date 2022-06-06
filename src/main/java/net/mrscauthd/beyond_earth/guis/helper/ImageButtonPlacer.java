@@ -42,23 +42,23 @@ public class ImageButtonPlacer extends Button {
     private final int textureWidth;
     private final int textureHeight;
 
-    public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Button.OnPress onPressIn) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, 256, 256, onPressIn);
+    public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i51135_9_, int p_i51135_10_, Button.OnPress onPressIn) {
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, false, null, null, buttonTexture, hoverButtonTexture, p_i51135_9_, p_i51135_10_, onPressIn);
     }
 
-    public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i51135_9_, int p_i51135_10_, Button.OnPress onPressIn) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, p_i51135_9_, p_i51135_10_, onPressIn, TextComponent.EMPTY);
+    public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPressIn) {
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPressIn, TextComponent.EMPTY);
     }
 
-    public ImageButtonPlacer(int x, int y, int row, int width, int height, int xTexStart, int yTexStart, int yDiffText, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPress, Component title) {
-        this(x, y, row, width, height, xTexStart, yTexStart, yDiffText, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPress, Button.NO_TOOLTIP, title);
+    public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPressIn, Button.NO_TOOLTIP, title);
     }
 
-    public ImageButtonPlacer(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int p_i244513_5_, int p_i244513_6_, int p_i244513_7_, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int p_i244513_9_, int p_i244513_10_, Button.OnPress p_i244513_11_, net.minecraft.client.gui.components.Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
+    public ImageButtonPlacer(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int p_i244513_5_, int p_i244513_6_, int p_i244513_7_, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
         super(p_i244513_1_, p_i244513_2_, p_i244513_3_, p_i244513_4_, p_i244513_13_, p_i244513_11_, p_i244513_12_);
         this.row = row;
-        this.textureWidth = p_i244513_9_;
-        this.textureHeight = p_i244513_10_;
+        this.textureWidth = textureWidth;
+        this.textureHeight = textureHeight;
         this.xTexStart = p_i244513_5_;
         this.yTexStart = p_i244513_6_;
         this.yDiffText = p_i244513_7_;
