@@ -32,7 +32,6 @@ public class KeyMethods {
                 float forward = player.zza;
 
                 if (player.getVehicle().getEntityData().get(RoverEntity.FUEL) != 0 && !player.getVehicle().isEyeInFluid(FluidTags.WATER)) {
-                    System.out.println(forward);
 
                     if (forward > 0) {
                         Methods.vehicleRotation(rover, rotationForward);
