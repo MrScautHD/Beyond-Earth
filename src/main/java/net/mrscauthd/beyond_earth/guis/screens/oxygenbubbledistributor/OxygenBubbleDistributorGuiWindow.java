@@ -21,6 +21,7 @@ import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.registries.NetworksRegistry;
 import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 @OnlyIn(Dist.CLIENT)
@@ -104,17 +105,17 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 
 		button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 0, 20, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
+			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
 		}));
 
 		button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 0, 20, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
+			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
 		}));
 
 		workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22, 0, 34, 20, 0, 0, 0, false, null, null, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
 			BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-			BeyondEarthMod.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
+			NetworksRegistry.PACKET_HANDLER.sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos, !this.cachedWorkingAreaVisible));
 		}));
 	}
 

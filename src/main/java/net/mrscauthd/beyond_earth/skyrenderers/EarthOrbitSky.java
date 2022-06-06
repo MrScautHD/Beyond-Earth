@@ -116,7 +116,7 @@ public class EarthOrbitSky {
                             p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
                             /** STAR */
-                            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000, false);
+                            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
                             RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
                             FogRenderer.setupNoFog();
                             starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());

@@ -199,37 +199,21 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	}
 
 	public static class ChangeRangeMessage {
-		private BlockPos blockPos = BlockPos.ZERO;
-		private boolean direction = false;
+		public BlockPos blockPos = BlockPos.ZERO;
+		public boolean direction = false;
 
 		public ChangeRangeMessage() {
 
 		}
 
 		public ChangeRangeMessage(BlockPos pos, boolean direction) {
-			this.setBlockPos(pos);
-			this.setDirection(direction);
+			this.blockPos = pos;
+			this.direction = direction;
 		}
 
 		public ChangeRangeMessage(FriendlyByteBuf buffer) {
-			this.setBlockPos(buffer.readBlockPos());
-			this.setDirection(buffer.readBoolean());
-		}
-
-		public BlockPos getBlockPos() {
-			return this.blockPos;
-		}
-
-		public void setBlockPos(BlockPos blockPos) {
-			this.blockPos = blockPos;
-		}
-
-		public boolean getDirection() {
-			return this.direction;
-		}
-
-		public void setDirection(boolean direction) {
-			this.direction = direction;
+			this.blockPos = buffer.readBlockPos();
+			this.direction = buffer.readBoolean();
 		}
 
 		public static ChangeRangeMessage decode(FriendlyByteBuf buffer) {
@@ -237,52 +221,42 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 		}
 
 		public static void encode(ChangeRangeMessage message, FriendlyByteBuf buffer) {
-			buffer.writeBlockPos(message.getBlockPos());
-			buffer.writeBoolean(message.getDirection());
+			buffer.writeBlockPos(message.blockPos);
+			buffer.writeBoolean(message.direction);
 		}
 
 		public static void handle(ChangeRangeMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
-			OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) context.getSender().level.getBlockEntity(message.getBlockPos());
-			int prev = blockEntity.getRange();
-			int next = prev + (message.getDirection() ? +1 : -1);
-			blockEntity.setRange(next);
+
+			context.enqueueWork(() -> {
+				OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) context.getSender().level.getBlockEntity(message.blockPos);
+
+				int prev = blockEntity.getRange();
+				int next = prev + (message.direction ? +1 : -1);
+
+				blockEntity.setRange(next);
+			});
+
 			context.setPacketHandled(true);
 		}
 	}
 
 	public static class ChangeWorkingAreaVisibleMessage {
-		private BlockPos blockPos = BlockPos.ZERO;
-		private boolean visible = false;
+		public BlockPos blockPos = BlockPos.ZERO;
+		public boolean visible = false;
 
 		public ChangeWorkingAreaVisibleMessage() {
 
 		}
 
 		public ChangeWorkingAreaVisibleMessage(BlockPos pos, boolean visible) {
-			this.setBlockPos(pos);
-			this.setVisible(visible);
+			this.blockPos = pos;
+			this.visible = visible;
 		}
 
 		public ChangeWorkingAreaVisibleMessage(FriendlyByteBuf buffer) {
-			this.setBlockPos(buffer.readBlockPos());
-			this.setVisible(buffer.readBoolean());
-		}
-
-		public BlockPos getBlockPos() {
-			return this.blockPos;
-		}
-
-		public void setBlockPos(BlockPos blockPos) {
-			this.blockPos = blockPos;
-		}
-
-		public boolean isVisible() {
-			return this.visible;
-		}
-
-		public void setVisible(boolean visible) {
-			this.visible = visible;
+			this.blockPos = buffer.readBlockPos();
+			this.visible = buffer.readBoolean();
 		}
 
 		public static ChangeWorkingAreaVisibleMessage decode(FriendlyByteBuf buffer) {
@@ -290,14 +264,19 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 		}
 
 		public static void encode(ChangeWorkingAreaVisibleMessage message, FriendlyByteBuf buffer) {
-			buffer.writeBlockPos(message.getBlockPos());
-			buffer.writeBoolean(message.isVisible());
+			buffer.writeBlockPos(message.blockPos);
+			buffer.writeBoolean(message.visible);
 		}
 
 		public static void handle(ChangeWorkingAreaVisibleMessage message, Supplier<NetworkEvent.Context> contextSupplier) {
 			NetworkEvent.Context context = contextSupplier.get();
-			OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) context.getSender().level.getBlockEntity(message.getBlockPos());
-			blockEntity.setWorkingAreaVisible(message.isVisible());
+
+			context.enqueueWork(() -> {
+				OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) context.getSender().level.getBlockEntity(message.blockPos);
+
+				blockEntity.setWorkingAreaVisible(message.visible);
+			});
+
 			context.setPacketHandled(true);
 		}
 	}

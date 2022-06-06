@@ -9,22 +9,22 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class SpaceSuitMaterial {
+public class JetSuitMaterial {
     public static ArmorMaterial ARMOR_MATERIAL = new ArmorMaterial() {
 
         @Override
         public int getDurabilityForSlot(EquipmentSlot slot) {
-            return new int[]{195, 225, 240, 165}[slot.getIndex()];
+            return new int[]{481, 555, 592, 407}[slot.getIndex()];
         }
 
         @Override
         public int getDefenseForSlot(EquipmentSlot slot) {
-            return new int[]{2, 5, 6, 2}[slot.getIndex()];
+            return new int[]{3, 6, 8, 3}[slot.getIndex()];
         }
 
         @Override
         public int getEnchantmentValue() {
-            return 14;
+            return 15;
         }
 
         @Override
@@ -34,22 +34,22 @@ public class SpaceSuitMaterial {
 
         @Override
         public Ingredient getRepairIngredient() {
-            return Ingredient.of(new ItemStack(Items.IRON_INGOT));
+            return Ingredient.of(new ItemStack(Items.NETHERITE_INGOT));
         }
 
         @Override
         public String getName() {
-            return "space_suit";
+            return "jet_suit";
         }
 
         @Override
         public float getToughness() {
-            return 0f;
+            return 3.0f;
         }
 
         @Override
         public float getKnockbackResistance() {
-            return 0f;
+            return 0.1f;
         }
     };
 }

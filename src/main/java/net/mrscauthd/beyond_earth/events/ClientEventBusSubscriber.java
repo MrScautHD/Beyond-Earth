@@ -23,6 +23,7 @@ import net.mrscauthd.beyond_earth.entities.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienModel;
 import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieModel;
 import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadModel;
 import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeModel;
@@ -51,7 +52,7 @@ import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4Rende
 import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverItemRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverModel;
 import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverRenderer;
-import net.mrscauthd.beyond_earth.entities.renderer.spacesuit.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.entities.renderer.starcrawler.StarCrawlerModel;
 import net.mrscauthd.beyond_earth.entities.renderer.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGuiWindow;
@@ -84,7 +85,6 @@ public class ClientEventBusSubscriber {
 	public static final RocketTier3ItemRenderer ROCKET_TIER_3_ITEM_RENDERER = new RocketTier3ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 	public static final RocketTier4ItemRenderer ROCKET_TIER_4_ITEM_RENDERER = new RocketTier4ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 	public static final RoverItemRenderer ROVER_ITEM_RENDERER = new RoverItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
-
 
 	@SubscribeEvent
 	public static void registerEntityRenderingHandler(EntityRenderersEvent.RegisterRenderers event) {
@@ -134,6 +134,9 @@ public class ClientEventBusSubscriber {
 
 		event.registerLayerDefinition(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION, SpaceSuitModel.SPACE_SUIT_P1::createBodyLayer);
 		event.registerLayerDefinition(SpaceSuitModel.SPACE_SUIT_P2.LAYER_LOCATION, SpaceSuitModel.SPACE_SUIT_P2::createBodyLayer);
+
+		event.registerLayerDefinition(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION, JetSuitModel.JET_SUIT_P1::createBodyLayer);
+		event.registerLayerDefinition(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION, JetSuitModel.JET_SUIT_P2::createBodyLayer);
 	}
 
 	@SubscribeEvent

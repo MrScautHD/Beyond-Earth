@@ -156,10 +156,10 @@ public class MercurySky {
                             RenderSystem.disableTexture();
 
                             /** STAR */
-                            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, false);
+                            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, 160, 190, -1);
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             FogRenderer.setupNoFog();
-                            starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                            starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionColorShader());
 
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             RenderSystem.disableBlend();

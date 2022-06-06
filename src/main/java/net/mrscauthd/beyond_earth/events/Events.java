@@ -45,6 +45,9 @@ public class Events {
             /** DROP OFF HAND VEHICLE ITEM */
             Methods.dropRocket(player);
 
+            /** JET SUIT MOVEMENT */
+            JetSuitMovement.movement(player);
+
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
             if (player instanceof ServerPlayer) {
                 Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open"));

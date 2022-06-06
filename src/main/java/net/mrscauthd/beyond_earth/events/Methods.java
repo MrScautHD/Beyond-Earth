@@ -550,7 +550,7 @@ public class Methods {
         serverPlayer.connection.send(stopSoundS2CPacket);
     }
 
-    public static void rocketSounds(Entity entity, Level world) {
+    public static void playRocketSound(Entity entity, Level world) {
         world.playSound(null, entity, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
     }
 

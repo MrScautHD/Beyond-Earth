@@ -26,9 +26,10 @@ import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEnti
 @OnlyIn(Dist.CLIENT)
 public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDistributorBlockEntity> {
 
-    public static TextureAtlasSprite atlass = null;
+    public static TextureAtlasSprite atlas = null;
 
     public TileEntityBoxRenderer(BlockEntityRendererProvider.Context context) {
+
     }
 
     @Override
@@ -89,7 +90,7 @@ public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDi
             drawShapeOutline(builder, matrix4f, normal,   endX, botY, startZ,   endX, topY, startZ, rl, gl, bl);
             drawShapeOutline(builder, matrix4f, normal,   endX, botY,   endZ,   endX, topY,   endZ, rl, gl, bl);
 
-            drawSurfaces(bufferIn,matrix4f, normal, startX, startZ, endX, endZ, botY, topY,r,g,b);
+            drawSurfaces(bufferIn, matrix4f, normal, startX, startZ, endX, endZ, botY, topY, r, g, b);
         }
     }
 
@@ -117,14 +118,14 @@ public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDi
             builder = buffer.getBuffer(RenderType.translucentNoCrumbling());
         }
 
-        if (atlass == null) {
-            atlass = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator"));
+        if (atlas == null) {
+            atlas = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator"));
         }
 
-        float maxU = atlass.getU1();
-        float minU = atlass.getU0();
-        float maxV = atlass.getV1();
-        float minV = atlass.getV0();
+        float maxU = atlas.getU1();
+        float minU = atlas.getU0();
+        float maxV = atlas.getV1();
+        float minV = atlas.getV0();
 
         //Down
         builder.vertex(matrix, startX, botY, startZ).color(r, g, b, 0xAA).uv(minU, minV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 0, -1, 0).endVertex();

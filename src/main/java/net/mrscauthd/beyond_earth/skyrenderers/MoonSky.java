@@ -137,10 +137,10 @@ public class MoonSky {
                             p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
                             /** STAR */
-                            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, false);
+                            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, 190, 160, -1);
                             RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
                             FogRenderer.setupNoFog();
-                            starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                            starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionColorShader());
                             p_181410_.popPose();
 
                             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

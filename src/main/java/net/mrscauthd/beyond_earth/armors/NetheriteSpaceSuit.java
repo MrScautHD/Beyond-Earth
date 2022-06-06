@@ -14,9 +14,8 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.armormaterials.NetheriteSpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
-import net.mrscauthd.beyond_earth.entities.renderer.spacesuit.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
@@ -35,7 +34,10 @@ import java.util.function.Consumer;
 
 public class NetheriteSpaceSuit {
 
-	public static ArmorItem NETHERITE_OXYGEN_MASK = new FilledAltArmorItem(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(ItemGroups.tab_normal).fireResistant()) {
+	public static class OxygenMask extends FilledAltArmorItem {
+		public OxygenMask(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
+			super(p_40386_, p_40387_, p_40388_);
+		}
 
 		@Override
 		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
@@ -79,12 +81,15 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit_head.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_oxygen_mask.png";
+		}
+	}
+
+	public static class Suit extends FilledAltArmorItem {
+		public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
+			super(p_40386_, p_40387_, p_40388_);
 		}
 
-	};
-
-	public static ArmorItem NETHERITE_SPACE_SUIT = new FilledAltArmorItem(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(ItemGroups.tab_normal).fireResistant()) {
 		@Override
 		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 			consumer.accept(new IItemRenderProperties() {
@@ -145,7 +150,7 @@ public class NetheriteSpaceSuit {
 		}
 
 		@Override
-		public void appendHoverText(ItemStack p_41421_, @Nullable net.minecraft.world.level.Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
+		public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
 			super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(p_41421_);
 			p_41423_.add(GaugeTextHelper.buildSpacesuitOxygenTooltip(oxygenStorage));
@@ -153,16 +158,20 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_suit.png";
 		}
 
 		@Override
 		public void onArmorTick(ItemStack stack, Level world, Player player) {
 			Methods.extractArmorOxygenUsingTimer(stack, player);
 		}
-	};
+	}
 
-	public static ArmorItem NETHERITE_SPACE_PANTS = new FilledAltArmorItem(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().tab(ItemGroups.tab_normal).fireResistant()) {
+	public static class Pants extends FilledAltArmorItem {
+		public Pants(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
+			super(p_40386_, p_40387_, p_40388_);
+		}
+
 		@Override
 		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 			consumer.accept(new IItemRenderProperties() {
@@ -185,6 +194,7 @@ public class NetheriteSpaceSuit {
 					SpaceSuitModel.SPACE_SUIT_P2 armorModel = new SpaceSuitModel.SPACE_SUIT_P2(modelPart);
 
 					armorModel.entity = living;
+
 					return armorModel;
 				}
 			});
@@ -206,11 +216,15 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit_legs.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_pants.png";
 		}
-	};
+	}
 
-	public static ArmorItem NETHERITE_SPACE_BOOTS = new FilledAltArmorItem(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().tab(ItemGroups.tab_normal).fireResistant()) {
+	public static class Boots extends FilledAltArmorItem {
+		public Boots(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
+			super(p_40386_, p_40387_, p_40388_);
+		}
+
 		@Override
 		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 			consumer.accept(new IItemRenderProperties() {
@@ -255,7 +269,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/models/armor/netherite_space_suit.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_suit.png";
 		}
-	};
+	}
 }

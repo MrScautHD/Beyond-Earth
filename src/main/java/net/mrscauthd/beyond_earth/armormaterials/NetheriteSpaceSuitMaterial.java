@@ -7,8 +7,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class NetheriteSpaceSuitMaterial {
@@ -39,7 +37,6 @@ public class NetheriteSpaceSuitMaterial {
             return Ingredient.of(new ItemStack(Items.NETHERITE_INGOT));
         }
 
-        @OnlyIn(Dist.CLIENT)
         @Override
         public String getName() {
             return "netherite_space_suit";

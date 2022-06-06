@@ -21,24 +21,36 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
 
-    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/space_suit.png");
-    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/models/armor/netherite_space_suit.png");
+    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/space_suit.png");
+    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/netherite_space_suit.png");
+    public static final ResourceLocation JET_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/jet_suit.png");
 
-    public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, ModelPart armModel) {
+    public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, boolean armModel) {
+        SpaceSuitModel.SPACE_SUIT_P1 spaceSuit = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
+        JetSuitModel.JET_SUIT_P1 jetSuit = new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION));
+
         if (Methods.checkArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
 
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel);
+            ClientMethods.renderArm(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
             return true;
         }
 
         if (Methods.checkArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
 
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel);
+            ClientMethods.renderArm(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
+            return true;
+        }
+
+        if (Methods.checkArmor(player, 2, ItemsRegistry.JET_SUIT.get())) {
+
+            ClientMethods.renderArm(poseStack, multiBufferSource, light, JET_SUIT_TEXTURE, player, playerModel, renderer, armModel ? jetSuit.rightArm : jetSuit.leftArm);
             return true;
         }
 

@@ -4,25 +4,34 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.player.Input;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketListener;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundForgetLevelChunkPacket;
+import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
+import net.minecraft.network.protocol.game.ServerboundPlayerInputPacket;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.MovementInputUpdateEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
-import net.mrscauthd.beyond_earth.entities.renderer.spacesuit.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.forge.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forge.RenderViewEvent;
 import net.mrscauthd.beyond_earth.events.forge.SetupLivingBipedAnimEvent;
@@ -113,7 +122,6 @@ public class ClientEvents {
         AbstractClientPlayer player = event.getPlayer();
         PlayerRenderer renderer = (PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player);
         PlayerModel<AbstractClientPlayer> playerModel = renderer.getModel();
-        SpaceSuitModel.SPACE_SUIT_P1 model = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
 
         Item item = player.getOffhandItem().getItem();
         Item item2 = player.getMainHandItem().getItem();
@@ -123,11 +131,7 @@ public class ClientEvents {
             return;
         }
 
-        if (event.getArm() == HumanoidArm.RIGHT) {
-            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, model.rightArm));
-        } else {
-            event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, model.leftArm));
-        }
+        event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, event.getArm() == HumanoidArm.RIGHT));
     }
 
     @SubscribeEvent
@@ -146,7 +150,7 @@ public class ClientEvents {
         Player player = (Player) event.getLivingEntity();
         HumanoidModel model = event.getModel();
 
-        //Player Rocket Sit Rotations, Player Hold Rotation
+        // Player Rocket Sit Rotations, Player Hold Rotation
         if (Methods.isRocket(player.getVehicle())) {
             model.rightLeg.xRot = 0F;
             model.leftLeg.xRot = 0F;
