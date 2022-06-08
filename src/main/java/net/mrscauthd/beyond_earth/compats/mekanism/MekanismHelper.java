@@ -1,17 +1,7 @@
 package net.mrscauthd.beyond_earth.compats.mekanism;
 
-import mekanism.api.chemical.gas.IGasHandler;
-import mekanism.common.capabilities.Capabilities;
-import mekanism.common.integration.lookingat.theoneprobe.TOPChemicalElement;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.capabilities.Capability;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MekanismHelper {
-
+/*
 	public static Capability<IGasHandler> getGasHandlerCapability() {
 		return Capabilities.GAS_HANDLER_CAPABILITY;
 	}
@@ -47,4 +37,5 @@ public class MekanismHelper {
 
 		return list;
 	}
+ */
 }

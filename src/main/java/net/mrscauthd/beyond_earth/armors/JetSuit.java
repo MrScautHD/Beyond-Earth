@@ -6,16 +6,16 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
@@ -65,7 +65,7 @@ public class JetSuit {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return BeyondEarthMod.MODID + ":textures/armor/jet_suit_oxygen_mask.png";
+            return BeyondEarth.MODID + ":textures/armor/jet_suit_oxygen_mask.png";
         }
     }
 
@@ -102,9 +102,28 @@ public class JetSuit {
         }
 
         @Override
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return Methods.jetSuitCheck(entity);
+        }
+
+        @Override
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            if (!entity.level.isClientSide) {
+                int nextFlightTick = flightTicks + 1;
+                if (nextFlightTick % 10 == 0) {
+                    if (nextFlightTick % 20 == 0) {
+                        stack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
+                    }
+                    entity.gameEvent(GameEvent.ELYTRA_GLIDE);
+                }
+            }
+            return false;
+        }
+
+        @Override
         public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
             super.fillItemCategory(p_41391_, p_41392_);
-            if (this.allowdedIn(p_41391_)) {
+            if (this.allowedIn(p_41391_)) {
                 ItemStack itemStack = new ItemStack(this);
                 IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
@@ -122,13 +141,13 @@ public class JetSuit {
         public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
             super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
             IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(p_41421_);
-            p_41423_.add(new TextComponent("Energy: 0"));
+            p_41423_.add(Component.literal("Energy: 0"));
             p_41423_.add(GaugeTextHelper.buildSpacesuitOxygenTooltip(oxygenStorage));
         }
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return BeyondEarthMod.MODID + ":textures/armor/jet_suit.png";
+            return BeyondEarth.MODID + ":textures/armor/jet_suit.png";
         }
 
         @Override
@@ -172,7 +191,7 @@ public class JetSuit {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return BeyondEarthMod.MODID + ":textures/armor/jet_suit_pants.png";
+            return BeyondEarth.MODID + ":textures/armor/jet_suit_pants.png";
         }
     }
 
@@ -211,7 +230,7 @@ public class JetSuit {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return BeyondEarthMod.MODID + ":textures/armor/jet_suit.png";
+            return BeyondEarth.MODID + ":textures/armor/jet_suit.png";
         }
     }
 }

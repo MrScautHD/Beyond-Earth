@@ -14,22 +14,21 @@ import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguratio
 import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.registries.BiomesRegistry;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import net.mrscauthd.beyond_earth.registries.FeatureRegistry;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class OreGeneration {
 
     /** MOON ORES: */
-    public static final TagKey<Block> MOON_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon_ore_replaceables"));
+    public static final TagKey<Block> MOON_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon_ore_replaceables"));
     public static final RuleTest MOON_MATCH = new TagMatchTest(MOON_ORE_REPLACEABLES);
 
     // MOON_CHEESE_ORE
@@ -53,7 +52,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> MOON_DESH_ORE = FeatureRegistry.PLACED_FEATURES.register("moon_desh_ore", () -> new PlacedFeature(MOON_DESH_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(7, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(80)))));
 
     /** MARS ORES: */
-    public static final TagKey<Block> MARS_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars_ore_replaceables"));
+    public static final TagKey<Block> MARS_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars_ore_replaceables"));
     public static final RuleTest MARS_MATCH = new TagMatchTest(MARS_ORE_REPLACEABLES);
 
     // MARS_ICE_SHARD_ORE
@@ -73,7 +72,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> MARS_OSTRUM_ORE = FeatureRegistry.PLACED_FEATURES.register("mars_ostrum_ore", () -> new PlacedFeature(MARS_OSTRUM_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
     /** MERCURY ORES: */
-    public static final TagKey<Block> MERCURY_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury_ore_replaceables"));
+    public static final TagKey<Block> MERCURY_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury_ore_replaceables"));
     public static final RuleTest MERCURY_MATCH = new TagMatchTest(MERCURY_ORE_REPLACEABLES);
 
     // MERCURY_IRON_ORE
@@ -81,7 +80,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> MERCURY_IRON_ORE = FeatureRegistry.PLACED_FEATURES.register("mercury_iron_ore", () -> new PlacedFeature(MERCURY_IRON_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(20, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(192)))));
 
     /** VENUS ORES: */
-    public static final TagKey<Block> VENUS_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus_ore_replaceables"));
+    public static final TagKey<Block> VENUS_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus_ore_replaceables"));
     public static final RuleTest VENUS_MATCH = new TagMatchTest(VENUS_ORE_REPLACEABLES);
 
     // VENUS_COAL_ORE
@@ -101,7 +100,7 @@ public class OreGeneration {
     public static final RegistryObject<PlacedFeature> VENUS_CALORITE_ORE = FeatureRegistry.PLACED_FEATURES.register("venus_calorite_ore", () -> new PlacedFeature(VENUS_CALORITE_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(6, HeightRangePlacement.triangle(VerticalAnchor.aboveBottom(-80), VerticalAnchor.aboveBottom(80)))));
 
     /** GLACIO ORES: */
-    public static final TagKey<Block> GLACIO_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio_ore_replaceables"));
+    public static final TagKey<Block> GLACIO_ORE_REPLACEABLES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio_ore_replaceables"));
     public static final RuleTest GLACIO_MATCH = new TagMatchTest(GLACIO_ORE_REPLACEABLES);
 
     // GLACIO_ICE_SHARD_ORE
@@ -142,7 +141,8 @@ public class OreGeneration {
     public static final RegistryObject<ConfiguredFeature<?,?>> GLACIO_DEEPSLATE_LAPIS_ORE_CONFIGURED = FeatureRegistry.CONFIGURED_FEATURES.register("glacio_deepslate_lapis_ore", () -> new ConfiguredFeature(Feature.ORE, new OreConfiguration(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, Blocks.DEEPSLATE_LAPIS_ORE.defaultBlockState(), 9)));
     public static final RegistryObject<PlacedFeature> GLACIO_DEEPSLATE_LAPIS_ORE = FeatureRegistry.PLACED_FEATURES.register("glacio_deepslate_lapis_ore", () -> new PlacedFeature(GLACIO_DEEPSLATE_LAPIS_ORE_CONFIGURED.getHolder().get(), commonOrePlacement(2, HeightRangePlacement.triangle(VerticalAnchor.absolute(-80), VerticalAnchor.absolute(10)))));
 
-    @SubscribeEvent
+    //TODO USE BiomeModifer
+    /*@SubscribeEvent
     public static void biomesLoading(BiomeLoadingEvent event) {
         ResourceLocation biome = event.getName();
 
@@ -184,7 +184,7 @@ public class OreGeneration {
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(GLACIO_DEEPSLATE_COPPER_ORE.getHolder().get());
             event.getGeneration().getFeatures(GenerationStep.Decoration.UNDERGROUND_ORES).add(GLACIO_DEEPSLATE_LAPIS_ORE.getHolder().get());
         }
-    }
+    }*/
 
     /** ORE PLACEMENTS */
     private static List<PlacementModifier> orePlacement(PlacementModifier p_195347_, PlacementModifier p_195348_) {

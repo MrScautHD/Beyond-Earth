@@ -13,13 +13,13 @@ import org.apache.logging.log4j.LogManager;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod(BeyondEarthMod.MODID)
-public class BeyondEarthMod {
+@Mod(BeyondEarth.MODID)
+public class BeyondEarth {
 
 	public static final Logger LOGGER = LogManager.getLogger();
 	public static final String MODID = "beyond_earth";
 
-	public BeyondEarthMod() {
+	public BeyondEarth() {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		bus.register(this);

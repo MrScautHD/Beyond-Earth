@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValuesProvider;
 
 public class ProbeInfoEntityProvider implements IProbeInfoEntityProvider {
@@ -30,7 +30,7 @@ public class ProbeInfoEntityProvider implements IProbeInfoEntityProvider {
 
 	@Override
 	public String getID() {
-		return new ResourceLocation(BeyondEarthMod.MODID, "top_entity").toString();
+		return new ResourceLocation(BeyondEarth.MODID, "top_entity").toString();
 	}
 
 }

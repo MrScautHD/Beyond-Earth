@@ -28,19 +28,19 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MoonSky {
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "moon");
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "moon");
 
     @Nullable
     public static VertexBuffer starBuffer;
-    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/no_a_sun.png");
-    private static final ResourceLocation EARTH = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
-    private static final ResourceLocation EARTH_LIGHT_TEXTURES = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth_light.png");
+    private static final ResourceLocation SUN_TEXTURES = new ResourceLocation(BeyondEarth.MODID, "textures/sky/no_a_sun.png");
+    private static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+    private static final ResourceLocation EARTH_LIGHT_TEXTURES = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth_light.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -126,7 +126,7 @@ public class MoonSky {
                                 }
 
                                 bufferbuilder.end();
-                                BufferUploader.end(bufferbuilder);
+                                BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
 
@@ -165,7 +165,7 @@ public class MoonSky {
                             bufferbuilder.vertex(matrix4f1, 27.0F, -100.0F, -27.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -27.0F, -100.0F, -27.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** EARTH */
                             RenderSystem.disableBlend();
@@ -177,7 +177,7 @@ public class MoonSky {
                             bufferbuilder.vertex(matrix4f1, 9.0F, -99.0F, -9.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -9.0F, -99.0F, -9.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.enableBlend();
 
@@ -197,7 +197,7 @@ public class MoonSky {
                             bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

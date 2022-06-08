@@ -37,7 +37,7 @@ public class Tier4RocketItem extends IRocketItem {
     @Override
     public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
         super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowdedIn(p_41391_)) {
+        if (this.allowedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
             itemStack.getOrCreateTag().putInt(fuelTag, 300);
             p_41392_.add(itemStack);

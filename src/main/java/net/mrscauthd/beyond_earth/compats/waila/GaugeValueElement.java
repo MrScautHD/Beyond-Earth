@@ -1,13 +1,7 @@
 package net.mrscauthd.beyond_earth.compats.waila;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import mcp.mobius.waila.api.ui.Element;
-import net.minecraft.world.phys.Vec2;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueRenderer;
-
-public class GaugeValueElement extends Element {
-
+public class GaugeValueElement /*extends Element*/ {
+/*
 	public static final int RIGHT_PADDING = 2;
 	public static final int TOP_OFFSET = 1;
 	public static final int BOTTOM_PADDING = 1;
@@ -32,5 +26,5 @@ public class GaugeValueElement extends Element {
 	public GaugeValueRenderer getRenderer() {
 		return this.renderer;
 	}
-
+*/
 }

@@ -41,7 +41,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
@@ -169,7 +169,7 @@ public class RoverEntity extends VehicleEntity {
     @Override
     public ItemStack getPickedResult(HitResult target) {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.entityData.get(FUEL));
+        itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.entityData.get(FUEL));
 
         return itemStack;
     }
@@ -182,11 +182,6 @@ public class RoverEntity extends VehicleEntity {
         if (!this.level.isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
-    }
-
-    @Override
-    public AABB getBoundingBoxForCulling() {
-        return new AABB(this.getX(), this.getY(), this.getZ(), this.getX(), this.getY(), this.getZ()).inflate(4.5,4.5,4.5);
     }
 
     @Override
@@ -206,7 +201,7 @@ public class RoverEntity extends VehicleEntity {
 
     protected void spawnRoverItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
+        itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
 
         ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
         entityToSpawn.setPickUpDelay(10);

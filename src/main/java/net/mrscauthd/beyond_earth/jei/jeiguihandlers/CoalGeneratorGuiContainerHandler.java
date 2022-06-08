@@ -1,26 +1,8 @@
 package net.mrscauthd.beyond_earth.jei.jeiguihandlers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+public class CoalGeneratorGuiContainerHandler /*implements IGuiContainerHandler<CoalGeneratorGuiWindow> */ {
 
-import mezz.jei.api.gui.handlers.IGuiClickableArea;
-import mezz.jei.api.gui.handlers.IGuiContainerHandler;
-import mezz.jei.api.recipe.IFocusFactory;
-import mezz.jei.api.runtime.IRecipesGui;
-import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGuiWindow;
-import net.mrscauthd.beyond_earth.jei.JeiPlugin.CoalGeneratorJeiCategory;
-
-public class CoalGeneratorGuiContainerHandler  implements IGuiContainerHandler<CoalGeneratorGuiWindow> {
-	
+	/*
 	public CoalGeneratorGuiContainerHandler() {
 
 	}
@@ -46,5 +28,5 @@ public class CoalGeneratorGuiContainerHandler  implements IGuiContainerHandler<C
 				return list;
 			}
 		});
-	}
+	}*/
 }

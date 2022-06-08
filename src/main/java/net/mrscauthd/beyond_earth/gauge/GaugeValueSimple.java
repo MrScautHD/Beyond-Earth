@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Component.Serializer;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class GaugeValueSimple implements IGaugeValue {
@@ -107,7 +106,7 @@ public class GaugeValueSimple implements IGaugeValue {
 	}
 
 	protected Component createDefaultTextComponent() {
-		return new TranslatableComponent(GaugeValueHelper.makeTranslationKey(this.getName()));
+		return Component.translatable(GaugeValueHelper.makeTranslationKey(this.getName()));
 	}
 
 	public GaugeValueSimple displayeName(@Nullable Component displayeName) {

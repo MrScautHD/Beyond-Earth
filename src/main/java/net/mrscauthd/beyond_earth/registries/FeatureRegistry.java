@@ -13,22 +13,21 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.BlockStateConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.*;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.features.MarsBlockBlobFeature;
 import net.mrscauthd.beyond_earth.features.VenusDeltas;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class FeatureRegistry {
 
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, BeyondEarthMod.MODID);
-    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, BeyondEarthMod.MODID);
-    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, BeyondEarthMod.MODID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, BeyondEarth.MODID);
+    public static final DeferredRegister<ConfiguredFeature<?,?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, BeyondEarth.MODID);
+    public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, BeyondEarth.MODID);
 
     /** MARS ROCK */
     public static final RegistryObject<MarsBlockBlobFeature> MARS_ROCK_FEATURE = FEATURES.register("mars_rock", () -> new MarsBlockBlobFeature(BlockStateConfiguration.CODEC));
@@ -47,19 +46,20 @@ public class FeatureRegistry {
     public static final RegistryObject<ConfiguredFeature<?,?>> VENUS_DELTAS_LARGE_CONFIGURED_FEATURE = CONFIGURED_FEATURES.register("venus_deltas_large", () -> new ConfiguredFeature<>(VENUS_DELTAS_FEATURE.get(), new ColumnFeatureConfiguration(UniformInt.of(2, 3), UniformInt.of(5, 10))));
     public static final RegistryObject<PlacedFeature> VENUS_DELTAS_LARGE = PLACED_FEATURES.register("venus_deltas_large", () -> new PlacedFeature(Holder.direct(VENUS_DELTAS_LARGE_CONFIGURED_FEATURE.get()), List.of(CountOnEveryLayerPlacement.of(2), BiomeFilter.biome())));
 
-    @SubscribeEvent
-    public static void biomesLoading(BiomeLoadingEvent event) {
-        ResourceLocation name = event.getName();
+    //TODO USE BiomeModifer
+    //@SubscribeEvent
+    //public static void biomesLoading(BiomeLoadingEvent event) {
+       // ResourceLocation name = event.getName();
 
         /** MARS ROCK */
-        if (name.equals(BiomesRegistry.MARS_ROCKY_PLAINS)) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MARS_ROCK.getHolder().get());
-        }
+        //if (name.equals(BiomesRegistry.MARS_ROCKY_PLAINS)) {
+        //    event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, MARS_ROCK.getHolder().get());
+        //}
 
         /** VENUS DELTAS */
-        if (name.equals(BiomesRegistry.INFERNAL_VENUS_BARRENS)) {
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_SMALL.getHolder().get());
-            event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_LARGE.getHolder().get());
-        }
-    }
+        //if (name.equals(BiomesRegistry.INFERNAL_VENUS_BARRENS)) {
+        //    event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_SMALL.getHolder().get());
+        //    event.getGeneration().addFeature(GenerationStep.Decoration.SURFACE_STRUCTURES, VENUS_DELTAS_LARGE.getHolder().get());
+        //}
+    //}
 }

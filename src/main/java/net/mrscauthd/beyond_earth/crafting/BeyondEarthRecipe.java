@@ -36,6 +36,7 @@ public abstract class BeyondEarthRecipe implements Recipe<Container> {
 	
 	@Override
 	public String getGroup() {
+		//TODO IDK
 		return this.getSerializer().getRegistryType().toString();
 	}
 

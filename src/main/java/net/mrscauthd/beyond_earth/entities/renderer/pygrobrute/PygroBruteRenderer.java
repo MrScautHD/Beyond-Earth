@@ -11,13 +11,13 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.renderer.pygro.PygroModel;
 
 @OnlyIn(Dist.CLIENT)
 public class PygroBruteRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/entities/pygro_brute.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entities/pygro_brute.png");
 
     public PygroBruteRenderer(EntityRendererProvider.Context p_174344_, ModelLayerLocation p_174345_, ModelLayerLocation p_174346_, ModelLayerLocation p_174347_) {
         super(p_174344_, createModel(p_174344_.getModelSet(), p_174345_), 0.5F, 1.0019531F, 1.0F, 1.0019531F);

@@ -17,25 +17,21 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorageHolder;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
-import net.mrscauthd.beyond_earth.compats.CompatibleManager;
-import net.mrscauthd.beyond_earth.compats.mekanism.MekanismHelper;
-import net.mrscauthd.beyond_earth.compats.mekanism.OxygenStorageGasAdapter;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
 
 public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity {
 	public static final int TANK_CAPACITY = 3000;
 	public static final int TRANSFER_PER_TICK = 256;
-	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
-	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarthMod.MODID, "output");
+	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarth.MODID, "input");
+	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarth.MODID, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
 	public static final int SLOT_INPUT_SINK = 1;
 
@@ -70,9 +66,10 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 	public List<IGaugeValue> getGaugeValues() {
 		List<IGaugeValue> list = super.getGaugeValues();
 
+/*
 		if (!CompatibleManager.MEKANISM.isLoaded()) {
 			list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));
-		}
+		}*/
 
 		return list;
 	}
@@ -148,11 +145,12 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
+		/*
 		if (CompatibleManager.MEKANISM.isLoaded()) {
 			if (capability == MekanismHelper.getGasHandlerCapability()) {
 				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), true, true)).cast();
 			}
-		}
+		}*/
 
 		return super.getCapability(capability, facing);
 	}

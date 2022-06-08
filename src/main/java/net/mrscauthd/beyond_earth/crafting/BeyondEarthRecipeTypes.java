@@ -5,9 +5,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BeyondEarthRecipeTypes {
 	public static ItemStackToItemStackRecipeType<CompressingRecipe> COMPRESSING;
 	public static BeyondEarthRecipeType<GeneratingRecipe> COAL_GENERATING;
@@ -43,7 +43,7 @@ public class BeyondEarthRecipeTypes {
 	}
 
 	private static <T extends BeyondEarthRecipeType<?>> T create(T value) {
-		Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(BeyondEarthMod.MODID, value.getName()), value);
+		Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(BeyondEarth.MODID, value.getName()), value);
 		return value;
 	}
 }

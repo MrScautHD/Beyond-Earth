@@ -2,9 +2,7 @@ package net.mrscauthd.beyond_earth.crafting;
 
 import javax.annotation.Nonnull;
 
-import net.minecraftforge.registries.ForgeRegistryEntry;
-
-public class RocketPart extends ForgeRegistryEntry<RocketPart> {
+public class RocketPart {
 
     @Nonnull
     public static final RocketPart EMPTY = new RocketPart(0);

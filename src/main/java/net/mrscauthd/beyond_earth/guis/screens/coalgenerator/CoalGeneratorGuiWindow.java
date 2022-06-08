@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
@@ -21,7 +21,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class CoalGeneratorGuiWindow extends AbstractContainerScreen<CoalGeneratorGui.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/coal_generator.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/coal_generator.png");
 
 	public static final int FIRE_LEFT = 77;
 	public static final int FIRE_TOP = 49;

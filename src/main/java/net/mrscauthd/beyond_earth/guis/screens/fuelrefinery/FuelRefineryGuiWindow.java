@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
@@ -21,7 +21,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class FuelRefineryGuiWindow extends AbstractContainerScreen<FuelRefineryGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/fuel_refinery.png");
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/fuel_refinery.png");
 
 	public static final int INPUT_TANK_LEFT = 9;
 	public static final int INPUT_TANK_TOP = 21;

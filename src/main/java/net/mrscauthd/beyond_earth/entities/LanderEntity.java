@@ -5,7 +5,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,10 +18,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.guis.screens.lander.LanderGui;
 
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
@@ -78,11 +76,6 @@ public class LanderEntity extends VehicleEntity {
 		if (!this.level.isClientSide) {
 			this.remove(RemovalReason.DISCARDED);
 		}
-	}
-
-	@Override
-	public AABB getBoundingBoxForCulling() {
-		return new AABB(this.getX(),this.getY(),this.getZ(),this.getX(),this.getY(), this.getZ()).inflate(3,3,3);
 	}
 
 	@Override
@@ -167,7 +160,7 @@ public class LanderEntity extends VehicleEntity {
 				NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
 					@Override
 					public Component getDisplayName() {
-						return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID + ".lander");
+						return Component.translatable("container.entity." + BeyondEarth.MODID + ".lander");
 					}
 
 					@Override

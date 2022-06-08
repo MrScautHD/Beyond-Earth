@@ -18,7 +18,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.renderer.TileEntityBoxRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienModel;
 import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieModel;
@@ -26,8 +26,8 @@ import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieRende
 import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadModel;
 import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeBlockRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeModel;
-import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.lander.LanderModel;
 import net.mrscauthd.beyond_earth.entities.renderer.lander.LanderRenderer;
 import net.mrscauthd.beyond_earth.entities.renderer.martianraptor.MartianRaptorModel;
@@ -73,12 +73,11 @@ import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienRenderer;
 import net.mrscauthd.beyond_earth.registries.*;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusSubscriber {
 	public static KeyMapping key1;
 
-	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator");
-	public static final GlobeRenderer GLOBE_RENDERER = new GlobeRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarth.MODID, "entities/tile_entity_box_oxygen_generator");
 
 	public static final RocketTier1ItemRenderer ROCKET_TIER_1_ITEM_RENDERER = new RocketTier1ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 	public static final RocketTier2ItemRenderer ROCKET_TIER_2_ITEM_RENDERER = new RocketTier2ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -111,7 +110,7 @@ public class ClientEventBusSubscriber {
 		event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
 
 		event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), TileEntityHeadRenderer::new);
-		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GLOBE_RENDERER);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
 	}
 
 	@SubscribeEvent
@@ -156,7 +155,7 @@ public class ClientEventBusSubscriber {
 		MenuScreens.register(ScreensRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionGuiWindow::new);
 
 		//Key Binding Registrys
-		key1 = new KeyMapping("key." + BeyondEarthMod.MODID + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BeyondEarthMod.MODID);
+		key1 = new KeyMapping("key." + BeyondEarth.MODID + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BeyondEarth.MODID);
 		ClientRegistry.registerKeyBinding(key1);
 
 		//Fluid Translucent Renderer

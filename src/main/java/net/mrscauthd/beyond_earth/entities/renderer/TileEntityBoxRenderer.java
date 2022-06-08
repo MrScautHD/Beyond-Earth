@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 
-import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -20,7 +20,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 
 @OnlyIn(Dist.CLIENT)
@@ -108,19 +108,13 @@ public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDi
     }
 
     private void drawSurfaces(MultiBufferSource buffer, Matrix4f matrix, Matrix3f normal, float startX, float startZ, float endX, float endZ, float botY, float topY, int r, int g, int b) {
-        VertexConsumer builder;
         Minecraft minecraft = Minecraft.getInstance();
-        GraphicsStatus graphicsFanciness = minecraft.options.graphicsMode;
-
-        if (graphicsFanciness == GraphicsStatus.FABULOUS) {
-            builder = buffer.getBuffer(RenderType.translucentMovingBlock());
-        } else {
-            builder = buffer.getBuffer(RenderType.translucentNoCrumbling());
-        }
 
         if (atlas == null) {
-            atlas = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator"));
+            atlas = minecraft.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(BeyondEarth.MODID, "entities/tile_entity_box_oxygen_generator"));
         }
+
+        VertexConsumer builder = buffer.getBuffer(Sheets.translucentItemSheet());
 
         float maxU = atlas.getU1();
         float minU = atlas.getU0();

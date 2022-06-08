@@ -7,7 +7,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.crafting.IngredientStack;
 import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiBackgroundRenderEvent;
@@ -34,43 +33,43 @@ import java.util.List;
 public class PlanetSelectionGuiWindow extends Screen implements MenuAccess<PlanetSelectionGui.GuiContainer> {
 
 	/** TEXTURES */
-	public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/planet_selection.png");
+	public static final ResourceLocation BACKGROUND_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/planet_selection.png");
 
-	public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/scroller.png");
+	public static final ResourceLocation SCROLLER_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/scroller.png");
 
-	public static final ResourceLocation GREEN_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button.png");
-	public static final ResourceLocation GREEN_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/green_button_2.png");
+	public static final ResourceLocation GREEN_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/green_button.png");
+	public static final ResourceLocation GREEN_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/green_button_2.png");
 
-	public static final ResourceLocation RED_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button.png");
-	public static final ResourceLocation RED_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/red_button_2.png");
+	public static final ResourceLocation RED_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/red_button.png");
+	public static final ResourceLocation RED_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/red_button_2.png");
 
-	public static final ResourceLocation DARK_BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button.png");
-	public static final ResourceLocation DARK_BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/dark_blue_button_2.png");
+	public static final ResourceLocation DARK_BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/dark_blue_button.png");
+	public static final ResourceLocation DARK_BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/dark_blue_button_2.png");
 
-	public static final ResourceLocation BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button.png");
-	public static final ResourceLocation BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/blue_button_2.png");
+	public static final ResourceLocation BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/blue_button.png");
+	public static final ResourceLocation BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/blue_button_2.png");
 
-	public static final ResourceLocation SMALL_BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button.png");
-	public static final ResourceLocation SMALL_BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/small_blue_button_2.png");
+	public static final ResourceLocation SMALL_BLUE_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/small_blue_button.png");
+	public static final ResourceLocation SMALL_BLUE_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/small_blue_button_2.png");
 
-	public static final ResourceLocation LARGE_GREEN_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button.png");
-	public static final ResourceLocation LARGE_GREEN_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_green_button_2.png");
+	public static final ResourceLocation LARGE_GREEN_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_green_button.png");
+	public static final ResourceLocation LARGE_GREEN_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_green_button_2.png");
 
-	public static final ResourceLocation LARGE_RED_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button.png");
-	public static final ResourceLocation LARGE_RED_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/big_red_button_2.png");
+	public static final ResourceLocation LARGE_RED_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_red_button.png");
+	public static final ResourceLocation LARGE_RED_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_red_button_2.png");
 
-	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/milky_way.png");
+	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/milky_way.png");
 
-	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/sun.png");
-	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/blue_sun.png");
-	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mars.png");
-	public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/earth.png");
-	public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/venus.png");
-	public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/mercury.png");
-	public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/gui/glacio.png");
+	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/sun.png");
+	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/blue_sun.png");
+	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/mars.png");
+	public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/earth.png");
+	public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/venus.png");
+	public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/mercury.png");
+	public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/glacio.png");
 
-	public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list.png");
-	public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_menu_list_2.png");
+	public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_menu_list.png");
+	public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_menu_list_2.png");
 
 	/** TEXT */
 	public static final Component CATALOG_TEXT = PlanetSelectionGuiHelper.tl("catalog");
@@ -109,10 +108,10 @@ public class PlanetSelectionGuiWindow extends Screen implements MenuAccess<Plane
 	public static final Component OXYGEN_FALSE_TEXT = PlanetSelectionGuiHelper.tl("oxygen.false");
 	public static final Component ITEM_REQUIREMENT_TEXT = PlanetSelectionGuiHelper.tl("item_requirement");
 
-	public static final Component ROCKET_TIER_1_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 1);
-	public static final Component ROCKET_TIER_2_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 2);
-	public static final Component ROCKET_TIER_3_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 3);
-	public static final Component ROCKET_TIER_4_TEXT = new TranslatableComponent("entity." + BeyondEarthMod.MODID + ".rocket_t" + 4);
+	public static final Component ROCKET_TIER_1_TEXT = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 1);
+	public static final Component ROCKET_TIER_2_TEXT = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 2);
+	public static final Component ROCKET_TIER_3_TEXT = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 3);
+	public static final Component ROCKET_TIER_4_TEXT = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 4);
 
 	/** MENU */
 	private PlanetSelectionGui.GuiContainer menu;

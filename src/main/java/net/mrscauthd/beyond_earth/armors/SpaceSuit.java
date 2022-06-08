@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
@@ -66,7 +66,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/armor/oxygen_mask.png";
+			return BeyondEarth.MODID + ":textures/armor/oxygen_mask.png";
 		}
 	}
 
@@ -105,7 +105,7 @@ public class SpaceSuit {
 		@Override
 		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
 			super.fillItemCategory(p_41391_, p_41392_);
-			if (this.allowdedIn(p_41391_)) {
+			if (this.allowedIn(p_41391_)) {
 				ItemStack itemStack = new ItemStack(this);
 				IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
@@ -128,7 +128,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/armor/space_suit.png";
+			return BeyondEarth.MODID + ":textures/armor/space_suit.png";
 		}
 
 		@Override
@@ -172,7 +172,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/armor/space_pants.png";
+			return BeyondEarth.MODID + ":textures/armor/space_pants.png";
 		}
 	}
 
@@ -211,7 +211,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarthMod.MODID + ":textures/armor/space_suit.png";
+			return BeyondEarth.MODID + ":textures/armor/space_suit.png";
 		}
 	}
 }

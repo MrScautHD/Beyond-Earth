@@ -3,12 +3,12 @@ package net.mrscauthd.beyond_earth.gauge;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 
 public class GaugeValueRenderer extends AbstractGaugeDataRenderer {
 
-	private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/simplegaugevalue.png");
+	private static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/simplegaugevalue.png");
 
 	public GaugeValueRenderer(IGaugeValue value) {
 		super(value);

@@ -1,24 +1,8 @@
 package net.mrscauthd.beyond_earth.compats.waila;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mcp.mobius.waila.api.*;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueRenderer;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueSerializer;
-import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
-
-@mcp.mobius.waila.api.WailaPlugin
-public class WailaPlugin implements IWailaPlugin {
-
+//@mcp.mobius.waila.api.WailaPlugin
+public class WailaPlugin/* implements IWailaPlugin*/ {
+/*
 	public static final ResourceLocation DATA_KEY = new ResourceLocation(BeyondEarthMod.MODID, "waila_datakey");
 
 	public static ListTag write(List<IGaugeValue> list) {
@@ -61,4 +45,5 @@ public class WailaPlugin implements IWailaPlugin {
 		registration.registerComponentProvider(BlockDataProvider.INSTANCE, TooltipPosition.BODY, Block.class);
 		registration.registerComponentProvider(EntityDataProvider.INSTANCE, TooltipPosition.BODY, Entity.class);
 	}
+ */
 }

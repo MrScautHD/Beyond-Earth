@@ -15,5 +15,4 @@ public class TOPPlugin implements Function<ITheOneProbe, Void> {
 
 		return null;
 	}
-
 }

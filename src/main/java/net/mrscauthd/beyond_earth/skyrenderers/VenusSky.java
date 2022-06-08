@@ -46,25 +46,24 @@ import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class VenusSky {
 
     private static final float[] rainSizeX = new float[1024];
     private static final float[] rainSizeZ = new float[1024];
     private static int rainSoundTime;
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "venus");
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "venus");
 
-    private static final ResourceLocation CLOUD_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/clouds.png");
-    private static final ResourceLocation RAIN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/rain.png");
-    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/red_sun.png");
-    private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
+    private static final ResourceLocation CLOUD_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/clouds.png");
+    private static final ResourceLocation RAIN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/rain.png");
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/red_sun.png");
+    private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -140,7 +139,7 @@ public class VenusSky {
                                 }
 
                                 bufferbuilder.end();
-                                BufferUploader.end(bufferbuilder);
+                                BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
 
@@ -167,7 +166,7 @@ public class VenusSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** EARTH ROT */
                             p_181410_.mulPose(Vector3f.YP.rotationDegrees(-130.0F));
@@ -181,7 +180,7 @@ public class VenusSky {
                             bufferbuilder.vertex(matrix4f1, 2.0F, -100.0F, -2.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -2.0F, -100.0F, -2.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();
 
@@ -268,9 +267,10 @@ public class VenusSky {
                                 }
 
                                 minecraft.levelRenderer.cloudBuffer = new VertexBuffer();
-                                minecraft.levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
-                                bufferbuilder.end();
-                                minecraft.levelRenderer.cloudBuffer.upload(bufferbuilder);
+                                BufferBuilder.RenderedBuffer bufferbuilder$renderedbuffer = minecraft.levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
+                                minecraft.levelRenderer.cloudBuffer.bind();
+                                minecraft.levelRenderer.cloudBuffer.upload(bufferbuilder$renderedbuffer);
+                                VertexBuffer.unbind();
                             }
 
                             RenderSystem.setShader(GameRenderer::getPositionTexColorNormalShader);
@@ -422,7 +422,7 @@ public class VenusSky {
                             LevelReader levelreader = minecraft.level;
                             BlockPos blockpos = new BlockPos(p_109694_.getPosition());
                             BlockPos blockpos1 = null;
-                            int i = (int)(100.0F * f * f) / (minecraft.options.particles == ParticleStatus.DECREASED ? 2 : 1);
+                            int i = (int)(100.0F * f * f) / (minecraft.options.particles().get() == ParticleStatus.DECREASED ? 2 : 1);
 
                             for(int j = 0; j < i; ++j) {
                                 int k = random.nextInt(21) - 10;
@@ -431,7 +431,7 @@ public class VenusSky {
                                 Biome biome = levelreader.getBiome(blockpos2).value();
                                 if (blockpos2.getY() > levelreader.getMinBuildHeight() && blockpos2.getY() <= blockpos.getY() + 10 && blockpos2.getY() >= blockpos.getY() - 10 && biome.getPrecipitation() == Biome.Precipitation.RAIN && biome.warmEnoughToRain(blockpos2)) {
                                     blockpos1 = blockpos2.below();
-                                    if (minecraft.options.particles == ParticleStatus.MINIMAL) {
+                                    if (minecraft.options.particles().get() == ParticleStatus.MINIMAL) {
                                         break;
                                     }
 

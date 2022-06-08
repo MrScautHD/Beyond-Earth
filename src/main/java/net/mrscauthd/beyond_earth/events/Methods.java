@@ -6,8 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -35,7 +33,7 @@ import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
@@ -50,20 +48,20 @@ import java.util.function.Function;
 
 public class Methods {
 
-    public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon"));
-    public static final ResourceKey<Level> moon_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon_orbit"));
-    public static final ResourceKey<Level> mars = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars"));
-    public static final ResourceKey<Level> mars_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars_orbit"));
-    public static final ResourceKey<Level> mercury = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury"));
-    public static final ResourceKey<Level> mercury_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury_orbit"));
-    public static final ResourceKey<Level> venus = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus"));
-    public static final ResourceKey<Level> venus_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus_orbit"));
-    public static final ResourceKey<Level> glacio = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio"));
-    public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit"));
+    public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon"));
+    public static final ResourceKey<Level> moon_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon_orbit"));
+    public static final ResourceKey<Level> mars = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars"));
+    public static final ResourceKey<Level> mars_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars_orbit"));
+    public static final ResourceKey<Level> mercury = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury"));
+    public static final ResourceKey<Level> mercury_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury_orbit"));
+    public static final ResourceKey<Level> venus = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus"));
+    public static final ResourceKey<Level> venus_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus_orbit"));
+    public static final ResourceKey<Level> glacio = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio"));
+    public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio_orbit"));
     public static final ResourceKey<Level> overworld = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
-    public static final ResourceKey<Level> earth_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID,"earth_orbit"));
+    public static final ResourceKey<Level> earth_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
 
-    public static final ResourceLocation space_station = new ResourceLocation(BeyondEarthMod.MODID, "space_station");
+    public static final ResourceLocation space_station = new ResourceLocation(BeyondEarth.MODID, "space_station");
 
     public static Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
             moon,
@@ -122,7 +120,7 @@ public class Methods {
             ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
             if (nextLevel == null) {
-                BeyondEarthMod.LOGGER.error(planet.getRegistryName() + " not existing!");
+                BeyondEarth.LOGGER.error(planet.registry() + " not existing!");
                 return;
             }
 
@@ -157,6 +155,15 @@ public class Methods {
         return true;
     }
 
+    public static boolean jetSuitCheck(LivingEntity entity) {
+        if (!checkArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get())) return false;
+        if (!checkArmor(entity, 2, ItemsRegistry.JET_SUIT.get())) return false;
+        if (!checkArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
+        if (!checkArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
+
+        return true;
+    }
+
     public static boolean spaceSuitCheck(LivingEntity entity) {
         if (!checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
         if (!checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
@@ -169,29 +176,33 @@ public class Methods {
     public static boolean spaceSuitCheckBoth(LivingEntity entity) {
         boolean item3 = checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get());
         boolean item3b = checkArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get());
+        boolean item3c = checkArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get());
 
-        if (!item3 && !item3b) {
+        if (!item3 && !item3b && !item3c) {
             return false;
         }
 
         boolean item2 = checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get());
         boolean item2b = checkArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get());
+        boolean item2c = checkArmor(entity, 2, ItemsRegistry.JET_SUIT.get());
 
-        if (!item2 && !item2b) {
+        if (!item2 && !item2b && !item2c) {
             return false;
         }
 
         boolean item1 = checkArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get());
         boolean item1b = checkArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get());
+        boolean item1c = checkArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get());
 
-        if (!item1 && !item1b) {
+        if (!item1 && !item1b && !item1c) {
             return false;
         }
 
         boolean item0 = checkArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get());
         boolean item0b = checkArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
+        boolean item0c = checkArmor(entity, 0, ItemsRegistry.JET_SUIT_PANTS.get());
 
-        if (!item0 && !item0b) {
+        if (!item0 && !item0b && !item0c) {
             return false;
         }
 
@@ -324,15 +335,15 @@ public class Methods {
 
             if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
-                entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") + 1);
+                entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") + 1);
 
-                if (entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") > 15) {
+                if (entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") > 15) {
 
                     if (!level.isClientSide) {
                         Methods.oxygenDamage(entity);
                     }
 
-                    entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", 0);
+                    entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", 0);
                 }
             }
         }
@@ -415,7 +426,7 @@ public class Methods {
             landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
             newLevel.addFreshEntity(landerSpawn);
 
-            String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
+            String itemId = player.getPersistentData().getString(BeyondEarth.MODID + ":slot0");
 
             landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
@@ -439,15 +450,15 @@ public class Methods {
     }
 
     public static void cleanUpPlayerNBT(Player player) {
-        player.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", false);
-        player.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", "");
-        player.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", "");
+        player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", false);
+        player.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", "");
+        player.getPersistentData().putString(BeyondEarth.MODID + ":slot0", "");
 
         MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionGuiEvent(player));
     }
 
     public static void openPlanetGui(Player player) {
-        if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
+        if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
             if (player instanceof ServerPlayer) {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 
@@ -455,17 +466,17 @@ public class Methods {
                 NetworkHooks.openGui(serverPlayer, new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
-                        return new TextComponent("Planet Selection");
+                        return Component.literal("Planet Selection");
                     }
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
                         FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
+                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
                         return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
-                    buf.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
+                    buf.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
                 });
             }
         }
@@ -474,13 +485,13 @@ public class Methods {
     public static void teleportButton(Player player, ResourceKey<Level> planet, boolean SpaceStation) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
+        if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t1")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
+        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t2")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
+        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t3")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
+        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t4")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
         }
 
@@ -526,7 +537,7 @@ public class Methods {
 			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
             CompoundTag persistentData = player.getPersistentData();
-			String key = BeyondEarthMod.MODID + ":oxygen_timer";
+			String key = BeyondEarth.MODID + ":oxygen_timer";
 			int oxygenTimer = persistentData.getInt(key);
 			oxygenTimer++;
 
@@ -556,7 +567,7 @@ public class Methods {
 
     public static void noFuelMessage(Player player) {
         if (!player.level.isClientSide) {
-            player.displayClientMessage(new TranslatableComponent("message." + BeyondEarthMod.MODID + ".no_fuel"), false);
+            player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".no_fuel"), false);
         }
     }
 }

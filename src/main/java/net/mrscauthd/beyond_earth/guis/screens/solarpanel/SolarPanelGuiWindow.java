@@ -12,7 +12,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
@@ -20,7 +20,7 @@ import net.mrscauthd.beyond_earth.machines.tile.SolarPanelBlockEntity;
 @OnlyIn(Dist.CLIENT)
 public class SolarPanelGuiWindow extends AbstractContainerScreen<SolarPanelGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/solar_panel.png");
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/solar_panel.png");
 
 	public SolarPanelGuiWindow(SolarPanelGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);

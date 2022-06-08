@@ -3,12 +3,12 @@ package net.mrscauthd.beyond_earth.registries;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.entities.alien.AlienEntity;
 import net.mrscauthd.beyond_earth.entities.pygro.PygroEntity;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EntityAttributeRegistry {
 
     @SubscribeEvent

@@ -21,29 +21,29 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 public class GuiHelper {
 
-	public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/fire_on.png");
+	public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/fire_on.png");
 	public static final int FIRE_WIDTH = 14;
 	public static final int FIRE_HEIGHT = 14;
-	public static final ResourceLocation ARROW_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/animated_arrow_full.png");
+	public static final ResourceLocation ARROW_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/animated_arrow_full.png");
 	public static final int ARROW_WIDTH = 24;
 	public static final int ARROW_HEIGHT = 17;
-	public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/oxygen.png");
-	public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/fluid_tank_fore.png");
+	public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/oxygen.png");
+	public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/fluid_tank_fore.png");
 	public static final int OXYGEN_TANK_WIDTH = 14;
 	public static final int OXYGEN_TANK_HEIGHT = 48;
-	public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/energy_full.png");
+	public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/energy_full.png");
 	public static final int ENERGY_WIDTH = 24;
 	public static final int ENERGY_HEIGHT = 48;
 	public static final int FUEL_WIDTH = 48;
 	public static final int FUEL_HEIGHT = 48;
-	public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(BeyondEarthMod.MODID, "textures/fluid_tank_fore.png");
+	public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/fluid_tank_fore.png");
 	public static final int FLUID_TANK_WIDTH = 14;
 	public static final int FLUID_TANK_HEIGHT = 48;
 
@@ -98,7 +98,7 @@ public class GuiHelper {
 	}
 
 	public static void drawFuel(PoseStack matrixStack, int left, int top, double ratio) {
-		ResourceLocation full = new ResourceLocation(BeyondEarthMod.MODID, "textures/rocket_fuel_bar_full.png");
+		ResourceLocation full = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_fuel_bar_full.png");
 		drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
 	}
 
@@ -292,7 +292,7 @@ public class GuiHelper {
 		bufferbuilder.vertex(matrix, (float) x2, (float) y1, (float) blitOffset).uv(maxU, minV).endVertex();
 		bufferbuilder.vertex(matrix, (float) x1, (float) y1, (float) blitOffset).uv(minU, minV).endVertex();
 		bufferbuilder.end();
-		BufferUploader.end(bufferbuilder);
+		BufferUploader.drawWithShader(bufferbuilder.end());
 	}
 
 	public static void blit(PoseStack matrixStack, float x, float y, float width, float height, float uOffset, float vOffset, float uWidth, float vHeight, int textureWidth, int textureHeight) {

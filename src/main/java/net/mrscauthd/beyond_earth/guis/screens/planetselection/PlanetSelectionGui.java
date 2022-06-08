@@ -4,6 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
@@ -23,6 +24,11 @@ public class PlanetSelectionGui {
             super(ScreensRegistry.PLANET_SELECTION_GUI.get(), id);
             this.rocket = extraData.readUtf();
             this.player = inv.player;
+        }
+
+        @Override
+        public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
+            return null;
         }
 
         @Override

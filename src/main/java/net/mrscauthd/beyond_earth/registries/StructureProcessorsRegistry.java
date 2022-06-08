@@ -6,10 +6,10 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProc
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.world.processors.StructureVoidProcessor;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class StructureProcessorsRegistry {
 
     /** STRUCTURE VOID PROCESSOR */
@@ -20,7 +20,7 @@ public class StructureProcessorsRegistry {
         event.enqueueWork(() -> {
 
             /** STRUCTURE VOID PROCESSOR */
-            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(BeyondEarthMod.MODID, "structure_void_processor"), STRUCTURE_VOID_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(BeyondEarth.MODID, "structure_void_processor"), STRUCTURE_VOID_PROCESSOR);
         });
     }
 }

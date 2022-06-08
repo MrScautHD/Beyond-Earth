@@ -27,5 +27,4 @@ public abstract class CompatibleMod {
 	public ResourceLocation getLocation(String path) {
 		return new ResourceLocation(this.getModID(), path);
 	}
-
 }

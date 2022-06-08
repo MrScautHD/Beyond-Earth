@@ -1,22 +1,7 @@
 package net.mrscauthd.beyond_earth.compats.waila;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mcp.mobius.waila.api.BlockAccessor;
-import mcp.mobius.waila.api.IComponentProvider;
-import mcp.mobius.waila.api.IServerDataProvider;
-import mcp.mobius.waila.api.ITooltip;
-import mcp.mobius.waila.api.config.IPluginConfig;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.gauge.IGaugeValuesProvider;
-
-public class BlockDataProvider implements IServerDataProvider<BlockEntity>, IComponentProvider {
-
+public class BlockDataProvider /*implements IServerDataProvider<BlockEntity>, IComponentProvider*/ {
+/*
 	public static final BlockDataProvider INSTANCE = new BlockDataProvider();
 
 	@Override
@@ -34,6 +19,5 @@ public class BlockDataProvider implements IServerDataProvider<BlockEntity>, ICom
 	@Override
 	public void appendTooltip(ITooltip tooltip, BlockAccessor accessor, IPluginConfig config) {
 		WailaPlugin.appendTooltip(tooltip, accessor.getServerData());
-	}
-
+	}*/
 }

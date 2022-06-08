@@ -11,12 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 
 @OnlyIn(Dist.CLIENT)
 public class NasaWorkbenchGuiWindow extends AbstractContainerScreen<NasaWorkbenchGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/nasa_workbench.png");
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/nasa_workbench.png");
 
 	public NasaWorkbenchGuiWindow(NasaWorkbenchGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);

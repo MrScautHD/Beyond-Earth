@@ -5,7 +5,6 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -23,7 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.RocketPickResultEvent;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
@@ -47,8 +46,8 @@ public class RocketTier4Entity extends IRocketEntity {
 	@Override
 	public ItemStack getPickResult() {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
+		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
+		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":buckets", this.getEntityData().get(BUCKETS));
 		MinecraftForge.EVENT_BUS.post(new RocketPickResultEvent(this, itemStack));
 
 		return itemStack;
@@ -57,8 +56,8 @@ public class RocketTier4Entity extends IRocketEntity {
 	@Override
 	protected void spawnRocketItem() {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
+		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
+		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":buckets", this.getEntityData().get(BUCKETS));
 
 		ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
 		entityToSpawn.setPickUpDelay(10);
@@ -75,7 +74,7 @@ public class RocketTier4Entity extends IRocketEntity {
 				NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
 					@Override
 					public Component getDisplayName() {
-						return new TranslatableComponent("container.entity." + BeyondEarthMod.MODID + ".rocket_t4");
+						return Component.translatable("container.entity." + BeyondEarth.MODID + ".rocket_t4");
 					}
 
 					@Override

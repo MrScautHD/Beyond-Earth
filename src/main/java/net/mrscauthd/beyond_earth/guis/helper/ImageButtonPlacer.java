@@ -7,7 +7,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -47,7 +46,7 @@ public class ImageButtonPlacer extends Button {
     }
 
     public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPressIn) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPressIn, TextComponent.EMPTY);
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, hoverButtonTexture, textureWidth, textureHeight, onPressIn, Component.empty());
     }
 
     public ImageButtonPlacer(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
@@ -145,8 +144,8 @@ public class ImageButtonPlacer extends Button {
 
             List<Component> list = new ArrayList<>();
 
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.CATEGORY_TEXT.getString() + ": \u00A7b" + this.list.get(0)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + PlanetSelectionGuiWindow.SOLAR_SYSTEM_TEXT.getString()));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.CATEGORY_TEXT.getString() + ": \u00A7b" + this.list.get(0)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + PlanetSelectionGuiWindow.SOLAR_SYSTEM_TEXT.getString()));
 
             screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }
@@ -161,8 +160,8 @@ public class ImageButtonPlacer extends Button {
 
             String condition = this.rocketCondition ? "a" : "c";
 
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.CATEGORY_TEXT.getString() + ": \u00A7" + condition + this.list.get(0)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.PROVIDED_TEXT.getString() + ": \u00A7b" + this.list.get(1)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.CATEGORY_TEXT.getString() + ": \u00A7" + condition + this.list.get(0)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.PROVIDED_TEXT.getString() + ": \u00A7b" + this.list.get(1)));
 
             screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }
@@ -175,10 +174,10 @@ public class ImageButtonPlacer extends Button {
 
             List<Component> list = new ArrayList<>();
 
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
 
             screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }
@@ -191,20 +190,20 @@ public class ImageButtonPlacer extends Button {
 
             List<Component> list = new ArrayList<>();
 
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.ITEM_REQUIREMENT_TEXT.getString()));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.ITEM_REQUIREMENT_TEXT.getString()));
 
             for (IngredientStack ingredientStack : screen.recipe.getIngredientStacks()) {
                 boolean check = screen.getSpaceStationItemCheck(ingredientStack);
-                Component component = Arrays.stream(ingredientStack.getIngredient().getItems()).findFirst().map(ItemStack::getHoverName).orElse(TextComponent.EMPTY);
+                Component component = Arrays.stream(ingredientStack.getIngredient().getItems()).findFirst().map(ItemStack::getHoverName).orElse(Component.empty());
 
-                list.add(new TextComponent("\u00A78[\u00A76" + ingredientStack.getCount() + "\u00A78]" + (check ? "\u00A7a" : "\u00A7c") + " " + component.getString() + (ingredientStack.getCount() > 1 ? "'s" : "")));
+                list.add(Component.literal("\u00A78[\u00A76" + ingredientStack.getCount() + "\u00A78]" + (check ? "\u00A7a" : "\u00A7c") + " " + component.getString() + (ingredientStack.getCount() > 1 ? "'s" : "")));
             }
 
-            list.add(new TextComponent("\u00A7c----------------"));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
-            list.add(new TextComponent("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
+            list.add(Component.literal("\u00A7c----------------"));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionGuiWindow.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
 
             screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }

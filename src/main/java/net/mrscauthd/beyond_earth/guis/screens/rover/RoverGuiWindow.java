@@ -16,8 +16,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.compats.CompatibleManager;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
@@ -30,7 +29,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/rover.png");
+	private static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rover.png");
 
 	public RoverGuiWindow(RoverGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -49,10 +48,12 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 
 		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
 
+		/*
 		if (!CompatibleManager.JEI.isLoaded() && GuiHelper.isHover(this.getFluidBounds(), mouseX - this.leftPos, mouseY - this.topPos)) {
 			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), ChatFormatting.WHITE));
 			this.renderComponentTooltip(ms, fuelToolTip, mouseX, mouseY);
 		}
+		*/
 	}
 
 	@Override

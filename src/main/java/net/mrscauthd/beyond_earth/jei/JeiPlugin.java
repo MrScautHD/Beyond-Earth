@@ -1,102 +1,8 @@
 package net.mrscauthd.beyond_earth.jei;
 
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.constants.VanillaTypes;
-import mezz.jei.api.forge.ForgeTypes;
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
-import mezz.jei.api.gui.builder.IRecipeSlotBuilder;
-import mezz.jei.api.gui.drawable.IDrawable;
-import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import mezz.jei.api.gui.drawable.IDrawableBuilder;
-import mezz.jei.api.gui.drawable.IDrawableStatic;
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
-import mezz.jei.api.helpers.IGuiHelper;
-import mezz.jei.api.helpers.IJeiHelpers;
-import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
-import mezz.jei.api.recipe.RecipeType;
-import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.api.registration.IGuiHandlerRegistration;
-import mezz.jei.api.registration.IRecipeCatalystRegistration;
-import mezz.jei.api.registration.IRecipeCategoryRegistration;
-import mezz.jei.api.registration.IRecipeRegistration;
-import mezz.jei.api.registration.IRecipeTransferRegistration;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.core.NonNullList;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
-import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
-import net.mrscauthd.beyond_earth.crafting.CompressingRecipe;
-import net.mrscauthd.beyond_earth.crafting.FuelRefiningRecipe;
-import net.mrscauthd.beyond_earth.crafting.GeneratingRecipe;
-import net.mrscauthd.beyond_earth.crafting.IngredientStack;
-import net.mrscauthd.beyond_earth.crafting.OxygenBubbleDistributorRecipe;
-import net.mrscauthd.beyond_earth.crafting.OxygenLoaderRecipe;
-import net.mrscauthd.beyond_earth.crafting.RocketPart;
-import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
-import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipe;
-import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.guis.helper.GridPlacer;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.guis.helper.IPlacer;
-import net.mrscauthd.beyond_earth.guis.helper.RocketPartGridPlacer;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGui;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGui;
-import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGui;
-import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGui;
-import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGui;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGui;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
-import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGuiWindow;
-import net.mrscauthd.beyond_earth.jei.jeiguihandlers.*;
-import net.mrscauthd.beyond_earth.machines.tile.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.CompressorBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.ItemStackToItemStackBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
-import net.mrscauthd.beyond_earth.machines.tile.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.registries.*;
-import net.mrscauthd.beyond_earth.utils.Rectangle2d;
-
-@mezz.jei.api.JeiPlugin
-public class JeiPlugin implements IModPlugin {
+//@mezz.jei.api.JeiPlugin
+public class JeiPlugin/* implements IModPlugin*/ {
+	/*
 	public static IJeiHelpers jeiHelper;
 
 	private Map<Fluid, List<ItemStack>> fluidFullItemStacks;
@@ -773,7 +679,6 @@ public class JeiPlugin implements IModPlugin {
 		drawText(stack, background, text);
 	}
 
-	/** TIER 1 ROCKET */
 	public static class RocketTier1JeiCategory implements IRecipeCategory<FuelLoadingRecipe> {
 		public static final ResourceLocation Uid = new ResourceLocation(BeyondEarthMod.MODID, "rocket_t1");
 		public static final RecipeType recipeType = new RecipeType<>(new ResourceLocation(BeyondEarthMod.MODID, "rocket_t1"), FuelLoadingRecipe.class);
@@ -1369,5 +1274,5 @@ public class JeiPlugin implements IModPlugin {
 		public IDrawable getIcon() {
 			return this.icon;
 		}
-	}
+	}*/
 }

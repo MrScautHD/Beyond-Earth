@@ -32,7 +32,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionGuiEvent;
@@ -256,9 +256,9 @@ public abstract class IRocketEntity extends VehicleEntity {
                     pass.closeContainer();
                 }
 
-                pass.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", true);
-                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", this.getType().toString());
-                pass.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
+                pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
+                pass.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", this.getType().toString());
+                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
                 pass.setNoGravity(true);
 
                 /** STOP ROCKET SOUND */

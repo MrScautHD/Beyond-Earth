@@ -8,19 +8,19 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 
 public class GaugeTextHelper {
 
-	public static final ResourceLocation USING_NAME = new ResourceLocation(BeyondEarthMod.MODID, "using");
-	public static final ResourceLocation USING2_NAME = new ResourceLocation(BeyondEarthMod.MODID, "using2");
-	public static final ResourceLocation GENERATING_NAME = new ResourceLocation(BeyondEarthMod.MODID, "generating");
-	public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(BeyondEarthMod.MODID, "maxgeneration");
-	public static final ResourceLocation TOTAL_NAME = new ResourceLocation(BeyondEarthMod.MODID, "total");
-	public static final ResourceLocation STORED_NAME = new ResourceLocation(BeyondEarthMod.MODID, "stored");
-	public static final ResourceLocation CAPACITY_NAME = new ResourceLocation(BeyondEarthMod.MODID, "capacity");
-	public static final ResourceLocation TRANSFER_NAME = new ResourceLocation(BeyondEarthMod.MODID, "transfer");
+	public static final ResourceLocation USING_NAME = new ResourceLocation(BeyondEarth.MODID, "using");
+	public static final ResourceLocation USING2_NAME = new ResourceLocation(BeyondEarth.MODID, "using2");
+	public static final ResourceLocation GENERATING_NAME = new ResourceLocation(BeyondEarth.MODID, "generating");
+	public static final ResourceLocation MAXGENERATION_NAME = new ResourceLocation(BeyondEarth.MODID, "maxgeneration");
+	public static final ResourceLocation TOTAL_NAME = new ResourceLocation(BeyondEarth.MODID, "total");
+	public static final ResourceLocation STORED_NAME = new ResourceLocation(BeyondEarth.MODID, "stored");
+	public static final ResourceLocation CAPACITY_NAME = new ResourceLocation(BeyondEarth.MODID, "capacity");
+	public static final ResourceLocation TRANSFER_NAME = new ResourceLocation(BeyondEarth.MODID, "transfer");
 
 	public static final String USING_KEY = makeTranslationKey(USING_NAME);
 	public static final String USING2_KEY = makeTranslationKey(USING2_NAME);

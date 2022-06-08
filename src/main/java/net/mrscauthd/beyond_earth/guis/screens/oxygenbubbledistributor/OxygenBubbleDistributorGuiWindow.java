@@ -10,12 +10,11 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
@@ -27,7 +26,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<OxygenBubbleDistributorGui.GuiContainer> {
 
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/oxygen_bubble_distributor.png");
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/oxygen_bubble_distributor.png");
 
 	public static final int INPUT_TANK_LEFT = 9;
 	public static final int INPUT_TANK_TOP = 21;
@@ -48,14 +47,14 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 	public ImageButtonPlacer button_plus;
 	public ImageButtonPlacer button_minus;
 
-	private static final ResourceLocation TECHNIK_BUTTON = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button.png");
-	private static final ResourceLocation LIGHT_TECHNIK_BUTTON = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_2.png");
+	private static final ResourceLocation TECHNIK_BUTTON = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button_2.png");
 
-	private static final ResourceLocation TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus.png");
-	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_plus_2.png");
+	private static final ResourceLocation TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button_plus.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button_plus_2.png");
 
-	private static final ResourceLocation TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus.png");
-	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/technik_button_minus_2.png");
+	private static final ResourceLocation TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button_minus.png");
+	private static final ResourceLocation LIGHT_TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/technik_button_minus_2.png");
 
 	public OxygenBubbleDistributorGuiWindow(OxygenBubbleDistributorGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -128,7 +127,7 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 		NumberFormat numberInstance = NumberFormat.getNumberInstance();
 		numberInstance.setMaximumFractionDigits(2);
 		String rangeToString = numberInstance.format((range * 2.0D) + 1.0D);
-		TranslatableComponent workingAreaText = new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".oxygen_bubble_distributor.workingarea.text", rangeToString, rangeToString, rangeToString);
+		Component workingAreaText = Component.translatable("gui." + BeyondEarth.MODID + ".oxygen_bubble_distributor.workingarea.text", rangeToString, rangeToString, rangeToString);
 
 		int sideWidth = 2;
 		int sidePadding = 2;
@@ -140,11 +139,11 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 		int textwidth = 12;
 
 		if ((range * 2) + 1 > 9) {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/oxygen_range_layer.png"));
+			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarth.MODID, "textures/buttons/oxygen_range_layer.png"));
 			GuiComponent.blit(ms, workingAreaOffsetX + 1, workingAreaTop, 0, 0, 150, 25, 150, 25);
 			textwidth = 13;
 		} else {
-			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarthMod.MODID, "textures/buttons/oxygen_range_small_layer.png"));
+			RenderSystem.setShaderTexture(0, new ResourceLocation(BeyondEarth.MODID, "textures/buttons/oxygen_range_small_layer.png"));
 			GuiComponent.blit(ms, workingAreaOffsetX + 1, workingAreaTop, 0, 0, 140, 25, 140, 25);
 			textwidth = 17;
 		}
@@ -159,9 +158,9 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 		this.font.draw(ms, oxygenText, (int) ((this.imageWidth - 5) / oyxgenScale) - oxygenWidth, (int) (this.inventoryLabelY / oyxgenScale), 0x333333);
 		ms.popPose();
 
-		String prefix = "gui." + BeyondEarthMod.MODID + ".oxygen_bubble_distributor.workingarea.";
+		String prefix = "gui." + BeyondEarth.MODID + ".oxygen_bubble_distributor.workingarea.";
 		String method = this.cachedWorkingAreaVisible ? "hide" : "show";
-		this.font.draw(ms, new TranslatableComponent(prefix + method), workingAreaLeft + sideWidth + sidePadding + (this.cachedWorkingAreaVisible ? -30 : -32), workingAreaTop + 9, 0x339900);
+		this.font.draw(ms, Component.translatable(prefix + method), workingAreaLeft + sideWidth + sidePadding + (this.cachedWorkingAreaVisible ? -30 : -32), workingAreaTop + 9, 0x339900);
 	}
 
 	private void updateWorkingAreaVisibleButton() {

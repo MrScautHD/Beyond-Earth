@@ -11,8 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 
 public class GaugeTextBuilder {
 	private final IGaugeValue value;
@@ -56,10 +54,10 @@ public class GaugeTextBuilder {
 		for (int i = 0; i < this.getExtraValues().size(); i++) {
 			Object extraValue = this.getExtraValues().get(i);
 			Style extraStyle = this.getExtraStyle(i);
-			list.add(new TranslatableComponent("%s", extraValue).setStyle(extraStyle));
+			list.add(Component.translatable("%s", extraValue).setStyle(extraStyle));
 		}
 
-		return new TranslatableComponent(this.getTranslationKey(), list.toArray()).setStyle(this.getTextStyle());
+		return Component.translatable(this.getTranslationKey(), list.toArray()).setStyle(this.getTextStyle());
 	}
 
 	public MutableComponent format(String valueText, Style valueStyle, String unitText, Style unitStyle) {
@@ -71,11 +69,11 @@ public class GaugeTextBuilder {
 	}
 
 	public MutableComponent format(String text, Style style) {
-		return new TextComponent(text).setStyle(style);
+		return Component.literal(text).setStyle(style);
 	}
 
 	public MutableComponent format(Component text, Style style) {
-		return new TextComponent("").append(text).setStyle(style);
+		return Component.literal("").append(text).setStyle(style);
 	}
 
 	public final IGaugeValue getValue() {

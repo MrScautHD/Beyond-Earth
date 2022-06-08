@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import net.mrscauthd.beyond_earth.registries.FluidsRegistry;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
@@ -123,10 +123,10 @@ public class OilFluid extends FlowingFluid {
     @Override
     protected FluidAttributes createAttributes() {
         return net.minecraftforge.fluids.FluidAttributes.builder(
-                 new ResourceLocation(BeyondEarthMod.MODID,"blocks/fluid_oil_still"),
-                 new ResourceLocation(BeyondEarthMod.MODID,"blocks/fluid_oil_flow"))
-                .overlay(new ResourceLocation(BeyondEarthMod.MODID,"blocks/oil_overlay"))
-                .translationKey("block." + BeyondEarthMod.MODID + ".oil")
+                 new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_oil_still"),
+                 new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_oil_flow"))
+                .overlay(new ResourceLocation(BeyondEarth.MODID,"blocks/oil_overlay"))
+                .translationKey("block." + BeyondEarth.MODID + ".oil")
                 .sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY)
                 .build(this);
     }

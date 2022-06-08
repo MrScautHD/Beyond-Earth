@@ -1,14 +1,7 @@
 package net.mrscauthd.beyond_earth.compats.mekanism;
 
-import mekanism.api.Action;
-import mekanism.api.chemical.gas.Gas;
-import mekanism.api.chemical.gas.GasStack;
-import mekanism.api.chemical.gas.IGasHandler;
-import mekanism.common.registries.MekanismGases;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
-
-public class OxygenStorageGasAdapter implements IGasHandler {
-
+public class OxygenStorageGasAdapter /*implements IGasHandler*/ {
+/*
 	private IOxygenStorage oxygenStorage;
 	private boolean canExtract;
 	private boolean canInsert;
@@ -90,4 +83,5 @@ public class OxygenStorageGasAdapter implements IGasHandler {
 	public boolean isCanInsert() {
 		return this.canInsert;
 	}
+	*/
 }

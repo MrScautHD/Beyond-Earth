@@ -1,27 +1,8 @@
 package net.mrscauthd.beyond_earth.jei.jeiguihandlers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+public class RocketGuiContainerHandler /*implements IGuiContainerHandler<RocketGuiWindow>*/ {
 
-import mezz.jei.api.gui.handlers.IGuiClickableArea;
-import mezz.jei.api.gui.handlers.IGuiContainerHandler;
-import mezz.jei.api.recipe.IFocusFactory;
-import mezz.jei.api.runtime.IRecipesGui;
-import net.minecraft.client.renderer.Rect2i;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
-import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
-import net.mrscauthd.beyond_earth.entities.RocketTier3Entity;
-import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
-import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
-import net.mrscauthd.beyond_earth.jei.JeiPlugin;
-
-public class RocketGuiContainerHandler implements IGuiContainerHandler<RocketGuiWindow> {
-
+    /*
     public RocketGuiContainerHandler() {
 
     }
@@ -58,5 +39,5 @@ public class RocketGuiContainerHandler implements IGuiContainerHandler<RocketGui
                 return list;
             }
         });
-    }
+    }*/
 }

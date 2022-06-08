@@ -9,7 +9,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {
@@ -174,6 +174,6 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation(BeyondEarthMod.MODID, "fuel");
+		return new ResourceLocation(BeyondEarth.MODID, "fuel");
 	}
 }

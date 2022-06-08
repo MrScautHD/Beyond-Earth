@@ -20,7 +20,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.rendertypes.TranslucentArmorRenderType;
 
@@ -29,9 +29,9 @@ public class JetSuitModel {
 
     public static class JET_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
-        private static final ResourceLocation jetSuit = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/jet_suit_oxygen_mask.png");
+        private static final ResourceLocation jetSuit = new ResourceLocation(BeyondEarth.MODID, "textures/armor/jet_suit_oxygen_mask.png");
 
-        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarthMod.MODID, "jet_suit_p1"), "main");
+        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p1"), "main");
 
         public LivingEntity entity;
 
@@ -104,11 +104,24 @@ public class JetSuitModel {
             this.leftLeg.copyFrom(livingModel.leftLeg);
 
             /** Not Translucent Armor Parts */
-            body.render(poseStack, buffer, packedLight, packedOverlay);
-            rightArm.render(poseStack, buffer, packedLight, packedOverlay);
-            leftArm.render(poseStack, buffer, packedLight, packedOverlay);
-            rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            poseStack.pushPose();
+            if (this.young) {
+                poseStack.scale(0.5f, 0.5f, 0.5f);
+                poseStack.translate(0, 1.5f, 0);
+            }
+
+            this.body.render(poseStack, buffer, packedLight, packedOverlay);
+            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay);
+            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay);
+            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            poseStack.popPose();
+
+            poseStack.pushPose();
+            if (this.young) {
+                poseStack.scale(0.8f, 0.8f, 0.8f);
+                poseStack.translate(0, 1.0f, 0);
+            }
 
             /** Translucent Armor Parts */
             if (stack.getItem() == ItemsRegistry.JET_SUIT_OXYGEN_MASK.get()) {
@@ -117,6 +130,8 @@ public class JetSuitModel {
             else {
                 head.render(poseStack, buffer, packedLight, packedOverlay);
             }
+
+            poseStack.popPose();
         }
 
         public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {
@@ -127,7 +142,7 @@ public class JetSuitModel {
 
     public static class JET_SUIT_P2<T extends LivingEntity> extends HumanoidModel<T> {
 
-        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarthMod.MODID, "jet_suit_p2"), "main");
+        public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p2"), "main");
 
         public LivingEntity entity;
 
@@ -170,8 +185,15 @@ public class JetSuitModel {
             this.rightLeg.copyFrom(livingModel.rightLeg);
             this.leftLeg.copyFrom(livingModel.leftLeg);
 
-            rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            poseStack.pushPose();
+            if (this.young) {
+                poseStack.scale(0.5f, 0.5f, 0.5f);
+                poseStack.translate(0, 1.5f, 0);
+            }
+
+            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            poseStack.popPose();
         }
     }
 }

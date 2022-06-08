@@ -8,15 +8,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 
 public class GaugeValueSerializer<T extends INBTSerializable<CompoundTag>> {
 
 	public static final GaugeValueSerializer<IGaugeValue> Serializer = new GaugeValueSerializer<>();
 
 	static {
-		Serializer.addCodec(new ResourceLocation(BeyondEarthMod.MODID, "fluidstack"), GaugeValueFluidStack.class);
-		Serializer.addCodec(new ResourceLocation(BeyondEarthMod.MODID, "simple"), GaugeValueSimple.class);
+		Serializer.addCodec(new ResourceLocation(BeyondEarth.MODID, "fluidstack"), GaugeValueFluidStack.class);
+		Serializer.addCodec(new ResourceLocation(BeyondEarth.MODID, "simple"), GaugeValueSimple.class);
 	}
 
 	private final Map<ResourceLocation, Class<? extends T>> location_class_map = new LinkedHashMap<>();

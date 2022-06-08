@@ -30,21 +30,21 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class EarthOrbitSky {
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "earth_orbit");
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "earth_orbit");
 
     @Nullable
     public static VertexBuffer starBuffer;
-    private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
-    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/no_a_sun.png");
+    private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/no_a_sun.png");
 
-    private static final ResourceLocation MOON_PHASES_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/moon_phases_1.png");
-    private static final ResourceLocation MOON_PHASES_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/moon_phases_2.png");
+    private static final ResourceLocation MOON_PHASES_1_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/moon_phases_1.png");
+    private static final ResourceLocation MOON_PHASES_2_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/moon_phases_2.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -147,7 +147,7 @@ public class EarthOrbitSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             f12 = 20.0F;
 
@@ -168,7 +168,7 @@ public class EarthOrbitSky {
                             bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** MOON PHASE 1 */
                             RenderSystem.disableBlend();
@@ -180,7 +180,7 @@ public class EarthOrbitSky {
                             bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(f13, f14).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(f15, f14).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.enableBlend();
 
@@ -204,7 +204,7 @@ public class EarthOrbitSky {
                             bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.enableBlend();
 

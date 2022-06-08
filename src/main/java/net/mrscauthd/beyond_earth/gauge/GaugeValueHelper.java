@@ -5,19 +5,19 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.machines.tile.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.PowerSystemFuelBurnTime;
 
 public class GaugeValueHelper {
 
-	public static final ResourceLocation ENERGY_NAME = new ResourceLocation(BeyondEarthMod.MODID, "energy");
-	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation(BeyondEarthMod.MODID, "oxygen");
-	public static final ResourceLocation FLUID_NAME = new ResourceLocation(BeyondEarthMod.MODID, "fluid");
-	public static final ResourceLocation FUEL_NAME = new ResourceLocation(BeyondEarthMod.MODID, "fuel");
-	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation(BeyondEarthMod.MODID, "burntime");
-	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation(BeyondEarthMod.MODID, "cooktime");
+	public static final ResourceLocation ENERGY_NAME = new ResourceLocation(BeyondEarth.MODID, "energy");
+	public static final ResourceLocation OXYGEN_NAME = new ResourceLocation(BeyondEarth.MODID, "oxygen");
+	public static final ResourceLocation FLUID_NAME = new ResourceLocation(BeyondEarth.MODID, "fluid");
+	public static final ResourceLocation FUEL_NAME = new ResourceLocation(BeyondEarth.MODID, "fuel");
+	public static final ResourceLocation BURNTIME_NAME = new ResourceLocation(BeyondEarth.MODID, "burntime");
+	public static final ResourceLocation COOKTIME_NAME = new ResourceLocation(BeyondEarth.MODID, "cooktime");
 
 	public static final int ENERGY_COLOR = 0xA0FF404B;
 	public static final int OXYGEN_COLOR = 0xA000FFFF;

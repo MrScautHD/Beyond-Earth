@@ -1,7 +1,7 @@
 package net.mrscauthd.beyond_earth.machines.tile;
 
 import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 
 public class PowerSystemNone extends PowerSystem {
 	public PowerSystemNone(AbstractMachineBlockEntity blockEntity) {
@@ -40,6 +40,6 @@ public class PowerSystemNone extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation(BeyondEarthMod.MODID, "none");
+		return new ResourceLocation(BeyondEarth.MODID, "none");
 	}
 }

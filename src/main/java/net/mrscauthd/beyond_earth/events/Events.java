@@ -16,13 +16,13 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class Events {
 
     @SubscribeEvent
@@ -50,7 +50,7 @@ public class Events {
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
             if (player instanceof ServerPlayer) {
-                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open"));
+                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open"));
             }
         }
     }
@@ -154,7 +154,7 @@ public class Events {
 
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
+        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
             Player player = (Player) event.getEntity();
 
             player.closeContainer();

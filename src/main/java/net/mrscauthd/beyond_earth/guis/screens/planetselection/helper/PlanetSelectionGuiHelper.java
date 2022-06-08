@@ -8,12 +8,11 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.simple.SimpleChannel;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.ClientMethods;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.guis.helper.ImageButtonPlacer;
@@ -82,7 +81,7 @@ public class PlanetSelectionGuiHelper {
         }
 
         bufferBuilder.end();
-        BufferUploader.end(bufferBuilder);
+        BufferUploader.drawWithShader(bufferBuilder.end());
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -130,16 +129,16 @@ public class PlanetSelectionGuiHelper {
     public static boolean checkTier(String rocketType, int stage) {
         int tier = 0;
 
-        if (rocketType.equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
+        if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t1")) {
             tier = 1;
         }
-        else if (rocketType.equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
+        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t2")) {
             tier = 2;
         }
-        else if (rocketType.equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
+        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t3")) {
             tier = 3;
         }
-        else if (rocketType.equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
+        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t4")) {
             tier = 4;
         }
 
@@ -148,7 +147,7 @@ public class PlanetSelectionGuiHelper {
 
     /** ADDON MODS SHOULD USE A OWN TL METHOD */
     public static Component tl(String text) {
-        return new TranslatableComponent("gui." + BeyondEarthMod.MODID + ".planet_selection." + text);
+        return Component.translatable("gui." + BeyondEarth.MODID + ".planet_selection." + text);
     }
 
     /** ADDON MODS SHOULD DO A OWN HANDLER EXTENDED OF "AbstractNetworkHandler" */

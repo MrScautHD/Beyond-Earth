@@ -4,7 +4,7 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGui;
 import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGui;
 import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGui;
@@ -20,7 +20,7 @@ import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGui;
 
 public class ScreensRegistry {
 
-    public static final DeferredRegister<MenuType<?>> SCREENS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarthMod.MODID);
+    public static final DeferredRegister<MenuType<?>> SCREENS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarth.MODID);
 
     /** SCREENS */
     public static final RegistryObject<MenuType<RocketGui.GuiContainer>> ROCKET_GUI = SCREENS.register("rocket_gui", () -> new MenuType(new RocketGui.GuiContainerFactory()));

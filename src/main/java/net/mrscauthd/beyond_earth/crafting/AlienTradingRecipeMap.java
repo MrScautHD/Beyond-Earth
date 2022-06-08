@@ -4,9 +4,13 @@ import java.util.Locale;
 import java.util.Random;
 
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.registries.RecipeSerializersRegistry;
 import org.apache.commons.lang3.tuple.Triple;
 
@@ -14,7 +18,6 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.GsonHelper;
@@ -25,7 +28,6 @@ import net.minecraft.world.item.MapItem;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -59,17 +61,17 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 		buffer.writeEnum(this.mapDecorationType);
 	}
 
-	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "entities/oxygen"));
+	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));
 	
 	@Override
 	public Triple<ItemStack, ItemStack, ItemStack> getTrade(Entity trader, Random rand) {
 		Level level = trader.level;
-		StructureFeature<?> structure = ForgeRegistries.STRUCTURE_FEATURES.getValue(this.getStructureName());
+		StructureType<?> structure = Registry.STRUCTURE_TYPE_REGISTRY.getValue(this.getStructureName());
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP);
 
 		if (level instanceof ServerLevel) {
 			ServerLevel serverWorld = (ServerLevel) level;
-			BlockPos blockpos = serverWorld.findNearestMapFeature(TagKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, structure.getRegistryName()), trader.blockPosition(), 100, true);
+			BlockPos blockpos = serverWorld.findNearestMapStructure(TagKey.create(Registry.CONFIGURED_FEATURE_REGISTRY, structure.codec()), trader.blockPosition(), 100, true);
 
 			if (blockpos != null) {
 				itemstack = MapItem.create(level, blockpos.getX(), blockpos.getZ(), (byte) 2, true, true);
@@ -79,7 +81,7 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 			MapItem.renderBiomePreviewMap(serverWorld, itemstack);
 		}
 
-		itemstack.setHoverName(new TranslatableComponent("filled_map." + structure.getRegistryName().toString().toLowerCase(Locale.ROOT)));
+		itemstack.setHoverName(new Component.translatable("filled_map." + structure.getRegistryName().toString().toLowerCase(Locale.ROOT)));
 		return Triple.of(this.getCostA(), this.getCostB(), itemstack);
 	}
 

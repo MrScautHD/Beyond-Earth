@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.registries;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
@@ -7,7 +8,7 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.armormaterials.JetSuitMaterial;
 import net.mrscauthd.beyond_earth.armormaterials.NetheriteSpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.armormaterials.SpaceSuitMaterial;
@@ -20,7 +21,7 @@ import net.mrscauthd.beyond_earth.items.*;
 
 public class ItemsRegistry {
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BeyondEarthMod.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BeyondEarth.MODID);
 
     /** ROCKET ITEMS */
     public static final RegistryObject<Tier1RocketItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().tab(ItemGroups.tab_normal).stacksTo(1)));
@@ -41,12 +42,12 @@ public class ItemsRegistry {
     public static final RegistryObject<ForgeSpawnEggItem> MARTIAN_RAPTOR_SPAWN_EGG = ITEMS.register("martian_raptor_spawn_egg",() -> new ForgeSpawnEggItem(EntitiesRegistry.MARTIAN_RAPTOR::get, 5349438, -13312, new Item.Properties().tab(ItemGroups.tab_spawn_eggs)));
 
     /** GLOBE ITEMS */
-    public static final RegistryObject<BlockItem> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new GlobeItem(BlocksRegistry.EARTH_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
-    public static final RegistryObject<BlockItem> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new GlobeItem(BlocksRegistry.MOON_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
-    public static final RegistryObject<BlockItem> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new GlobeItem(BlocksRegistry.MARS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
-    public static final RegistryObject<BlockItem> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new GlobeItem(BlocksRegistry.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
-    public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlocksRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
-    public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(BlocksRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1)));
+    public static final RegistryObject<BlockItem> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new GlobeItem(BlocksRegistry.EARTH_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/earth_globe.png")));
+    public static final RegistryObject<BlockItem> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new GlobeItem(BlocksRegistry.MOON_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/moon_globe.png")));
+    public static final RegistryObject<BlockItem> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new GlobeItem(BlocksRegistry.MARS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/mars_globe.png")));
+    public static final RegistryObject<BlockItem> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new GlobeItem(BlocksRegistry.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/mercury_globe.png")));
+    public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlocksRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/venus_globe.png")));
+    public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(BlocksRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/glacio_globe.png")));
 
     /** FLAG ITEMS */
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new DoubleHighBlockItem(BlocksRegistry.FLAG_BLOCK.get(), new Item.Properties().tab(ItemGroups.tab_flags)));

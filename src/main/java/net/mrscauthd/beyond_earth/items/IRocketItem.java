@@ -23,22 +23,21 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class IRocketItem extends VehicleItem {
 
-    public static final String fuelTag = BeyondEarthMod.MODID + ":fuel";
-    public static final String bucketTag = BeyondEarthMod.MODID + ":buckets";
+    public static final String fuelTag = BeyondEarth.MODID + ":fuel";
+    public static final String bucketTag = BeyondEarth.MODID + ":buckets";
 
     public IRocketItem(Properties p_41383_) {
         super(p_41383_);

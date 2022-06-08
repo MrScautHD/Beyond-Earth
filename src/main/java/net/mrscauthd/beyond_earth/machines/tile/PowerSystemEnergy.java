@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.machines.tile;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 
 public abstract class PowerSystemEnergy extends PowerSystem {
 	private final IEnergyStorage energyStorage;
@@ -42,6 +42,6 @@ public abstract class PowerSystemEnergy extends PowerSystem {
 
 	@Override
 	public ResourceLocation getName() {
-		return new ResourceLocation(BeyondEarthMod.MODID, "energy");
+		return new ResourceLocation(BeyondEarth.MODID, "energy");
 	}
 }

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
@@ -21,7 +21,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class CompressorGuiWindow extends AbstractContainerScreen<CompressorGui.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/compressor.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/compressor.png");
 
 	public static final int ENERGY_LEFT = 144;
 	public static final int ENERGY_TOP = 21;

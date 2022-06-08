@@ -1,10 +1,7 @@
 package net.mrscauthd.beyond_earth.jei;
 
-import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.compats.CompatibleMod;
-
-public class JeiCompat extends CompatibleMod {
-
+public class JeiCompat /*extends CompatibleMod*/ {
+/*
 	public static final String MODID = "jei";
 
 	public static ResourceLocation rl(String path) {
@@ -19,5 +16,5 @@ public class JeiCompat extends CompatibleMod {
 	@Override
 	protected void onLoad() {
 
-	}
+	}*/
 }

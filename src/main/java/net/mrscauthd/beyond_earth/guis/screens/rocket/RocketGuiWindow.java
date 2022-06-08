@@ -1,8 +1,5 @@
 package net.mrscauthd.beyond_earth.guis.screens.rocket;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -17,8 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.compats.CompatibleManager;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
@@ -30,7 +26,7 @@ import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 @OnlyIn(Dist.CLIENT)
 public class RocketGuiWindow extends AbstractContainerScreen<RocketGui.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/rocket.png");
+	private static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rocket.png");
 
 	public RocketGuiWindow(RocketGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -45,11 +41,12 @@ public class RocketGuiWindow extends AbstractContainerScreen<RocketGui.GuiContai
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
 
+		/*
 		if (!CompatibleManager.JEI.isLoaded() && GuiHelper.isHover(this.getFluidBounds(), mouseX - this.leftPos, mouseY - this.topPos)) {
 			List<Component> fuelToolTip = new ArrayList<Component>();
 			fuelToolTip.add(this.getFuelGaugeComponent());
 			this.renderComponentTooltip(ms, fuelToolTip, mouseX, mouseY);
-		}
+		}*/
 	}
 
 	@Override

@@ -20,7 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class RoverItem extends VehicleItem {
-    public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
+    public static String fuelTag = BeyondEarth.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
         super(properties);
@@ -117,7 +117,7 @@ public class RoverItem extends VehicleItem {
     @Override
     public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
         super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowdedIn(p_41391_)) {
+        if (this.allowedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
             itemStack.getOrCreateTag().putInt(fuelTag, 3000);
             p_41392_.add(itemStack);

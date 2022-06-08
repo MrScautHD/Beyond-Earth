@@ -29,18 +29,18 @@ import net.minecraft.client.Minecraft;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.jetbrains.annotations.Nullable;
 
-@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MarsSky {
 
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "mars");
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "mars");
 
-	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/blue_sun.png");
-	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/phobos.png");
-	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/deimos.png");
-	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/earth.png");
+	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/blue_sun.png");
+	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/phobos.png");
+	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/deimos.png");
+	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
 
     private static final float[] sunriseCol = new float[4];
 
@@ -149,7 +149,7 @@ public class MarsSky {
                                 }
 
                                 bufferbuilder.end();
-                                BufferUploader.end(bufferbuilder);
+                                BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
 
@@ -176,7 +176,7 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** PHOBOS ROT */
                             p_181410_.mulPose(Vector3f.YP.rotationDegrees(-130.0F));
@@ -190,7 +190,7 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 3.0F, -100.0F, -3.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -3.0F, -100.0F, -3.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** EARTH ROT */
                             p_181410_.mulPose(Vector3f.YP.rotationDegrees(-130.0F));
@@ -204,7 +204,7 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 1.0F, -100.0F, -1.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -1.0F, -100.0F, -1.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** DEIMOS ROT */
                             p_181410_.mulPose(Vector3f.YP.rotationDegrees(-110.0F));
@@ -218,7 +218,7 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 4.0F, -100.0F, -4.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -4.0F, -100.0F, -4.0F).uv(0.0F, 1.0F).endVertex();
                             bufferbuilder.end();
-                            BufferUploader.end(bufferbuilder);
+                            BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();
 
