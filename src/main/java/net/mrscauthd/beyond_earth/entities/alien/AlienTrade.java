@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
+import net.minecraft.util.RandomSource;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -26,6 +27,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipe;
 import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeType;
+import org.jetbrains.annotations.Nullable;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class AlienTrade implements ItemListing {
@@ -91,7 +93,7 @@ public class AlienTrade implements ItemListing {
 	}
 
 	@Override
-	public MerchantOffer getOffer(Entity entity, Random random) {
+	public MerchantOffer getOffer(Entity entity, RandomSource random) {
 		AlienTradingRecipe recipe = this.getRecipe();
 		Triple<ItemStack, ItemStack, ItemStack> trade = recipe.getTrade(entity, random);
 		return new MerchantOffer(trade.getLeft(), trade.getMiddle(), trade.getRight(), 0, recipe.getMaxUses(), recipe.getXP(), recipe.getPriceMultiplier());

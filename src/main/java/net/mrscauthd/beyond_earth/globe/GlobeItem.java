@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeItemRenderer;
+import net.mrscauthd.beyond_earth.renderers.globe.GlobeItemRenderer;
 
 import java.util.function.Consumer;
 

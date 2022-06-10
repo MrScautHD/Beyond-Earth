@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
-import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;

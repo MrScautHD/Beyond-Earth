@@ -21,7 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.guis.screens.lander.LanderGui;
+import net.mrscauthd.beyond_earth.guis.screens.lander.LanderMenu;
 
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.items.ItemStackHandler;
@@ -167,7 +167,7 @@ public class LanderEntity extends VehicleEntity {
 					public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
 						FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
 						packetBuffer.writeVarInt(LanderEntity.this.getId());
-						return new LanderGui.GuiContainer(id, inventory, packetBuffer);
+						return new LanderMenu.GuiContainer(id, inventory, packetBuffer);
 					}
 				}, buf -> {
 					buf.writeVarInt(this.getId());

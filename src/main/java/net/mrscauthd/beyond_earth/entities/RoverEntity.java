@@ -43,8 +43,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
-import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
+import net.mrscauthd.beyond_earth.guis.screens.rover.RoverMenu;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
@@ -274,7 +273,7 @@ public class RoverEntity extends VehicleEntity {
                     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
                         FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
                         packetBuffer.writeVarInt(RoverEntity.this.getId());
-                        return new RoverGui.GuiContainer(id, inventory, packetBuffer);
+                        return new RoverMenu.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
                     buf.writeVarInt(this.getId());

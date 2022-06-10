@@ -18,6 +18,7 @@ import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
 import net.mrscauthd.beyond_earth.registries.RocketPartsRegistry;
 import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
 
+//TODO NEED FULL REWORK (GENEREL ALL MACHINE BLOCKS GUIS)
 public class NasaWorkbenchGui {
 
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {

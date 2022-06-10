@@ -258,7 +258,8 @@ public abstract class IRocketEntity extends VehicleEntity {
 
                 pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
                 pass.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", this.getType().toString());
-                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().getRegistryName().toString());
+                //TODO CHECK IT AGAIN
+                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().builtInRegistryHolder().key().toString());
                 pass.setNoGravity(true);
 
                 /** STOP ROCKET SOUND */

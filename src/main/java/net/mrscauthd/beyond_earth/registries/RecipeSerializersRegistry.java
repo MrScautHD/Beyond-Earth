@@ -12,6 +12,7 @@ public class RecipeSerializersRegistry {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BeyondEarth.MODID);
 
     /** RECIPES */
+    /*
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_COMPRESSOR = RECIPE_SERIALIZERS.register("compressor", () -> new CompressingRecipeSerializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_COAL_GENERATOR = RECIPE_SERIALIZERS.register("coal_generator", () -> new GeneratingRecipeSerializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_OXYGEN_LOADER = RECIPE_SERIALIZERS.register("oxygen_loader", () -> new OxygenLoaderRecipeSerializer());
@@ -24,5 +25,5 @@ public class RecipeSerializersRegistry {
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_MAP = RECIPE_SERIALIZERS.register("alien_trading_map", () -> new AlienTradingRecipeMap.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_POTIONED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_potioned_item", () -> new AlienTradingRecipePotionedItem.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_DYED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_dyed_item", () -> new AlienTradingRecipeDyedItem.Serializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_SPACE_STATION = RECIPE_SERIALIZERS.register("space_station", () -> new SpaceStationRecipeSerializer());
+    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_SPACE_STATION = RECIPE_SERIALIZERS.register("space_station", () -> new SpaceStationRecipeSerializer());*/
 }

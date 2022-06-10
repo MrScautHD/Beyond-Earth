@@ -39,7 +39,7 @@ import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.*;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
 
@@ -458,7 +458,7 @@ public class Methods {
     }
 
     public static void openPlanetGui(Player player) {
-        if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+        if (!(player.containerMenu instanceof PlanetSelectionMenu.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
             if (player instanceof ServerPlayer) {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 
@@ -473,7 +473,7 @@ public class Methods {
                     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
                         FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
                         packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
-                        return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
+                        return new PlanetSelectionMenu.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
                     buf.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
