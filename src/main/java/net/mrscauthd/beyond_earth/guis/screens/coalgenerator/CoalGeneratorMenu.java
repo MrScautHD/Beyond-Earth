@@ -1,20 +1,7 @@
 package net.mrscauthd.beyond_earth.guis.screens.coalgenerator;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
-import net.mrscauthd.beyond_earth.machines.tile.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
-
 public class CoalGeneratorMenu {
-
+/*
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
 			BlockPos pos = extraData.readBlockPos();
@@ -49,5 +36,5 @@ public class CoalGeneratorMenu {
 		public ItemStack quickMoveStack(Player playerIn, int index) {
 			return ContainerHelper.transferStackInSlot(this, playerIn, index, this.getBlockEntity(), this::moveItemStackTo);
 		}
-	}
+	}*/
 }

@@ -3,30 +3,20 @@ package net.mrscauthd.beyond_earth.guis.screens.rocket;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.entities.*;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
-import net.mrscauthd.beyond_earth.utils.Rectangle2d;
+import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
 
 @OnlyIn(Dist.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rocket.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rocket.png");
 
 	public RocketScreen(RocketMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -51,17 +41,15 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_98414_, int p_98415_, int p_98416_) {
-
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-		RenderSystem.setShaderTexture(0, texture);
-		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-
+		ScreenHelper.addTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE);
+/*
 		IGaugeValue fuelGaugeValue = this.getFuelGaugeValue();
 
 		FluidStack fluidStack = new FluidStack(BlocksRegistry.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
-		GuiHelper.drawRocketFluidTank(ms, this.leftPos + 67, this.topPos + 22, fluidStack, fuelGaugeValue.getCapacity());
+		ScreenHelper.drawRocketFluidTank(ms, this.leftPos + 67, this.topPos + 22, fluidStack, fuelGaugeValue.getCapacity());*/
 	}
 
 	@Override
@@ -71,9 +59,11 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 		this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
 	}
 
+	/*
 	public Component getFuelGaugeComponent() {
 		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
 	}
+
 
 	public IGaugeValue getFuelGaugeValue() {
 		int fuel = 0;
@@ -86,10 +76,10 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 	}
 
 	public Rectangle2d getFluidBounds() {
-		return GuiHelper.getRocketFluidTankBounds(66, 21);
+		return ScreenHelper.getRocketFluidTankBounds(66, 21);
 	}
 
 	public Entity getRocket() {
 		return menu.rocket;
-	}
+	}*/
 }

@@ -18,6 +18,7 @@ import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiButtonVisibilit
 import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiInitEvent;
 import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiRenderEvent;
 import net.mrscauthd.beyond_earth.guis.buttons.ImageButtonPlacer;
+import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.CategoryHelper;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.PlanetSelectionScreenHelper;
 import net.mrscauthd.beyond_earth.registries.NetworksRegistry;
@@ -219,7 +220,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		PlanetSelectionScreenHelper.enableRenderSystem();
 
 		/** BACKGROUND RENDERER */
-		PlanetSelectionScreenHelper.addTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
+		ScreenHelper.addTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
 
 		/** SUN SOLAR SYSTEM RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
@@ -242,23 +243,24 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 		/** SUN RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
-			PlanetSelectionScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
+			ScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
 		}
 
 		/** BLUE SUN RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
-			PlanetSelectionScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
+			ScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
 		}
 
 		/** SMALL MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 0, 1) || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 6)) {
-			PlanetSelectionScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
-			this.renderScroller(poseStack);
+			ScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
+			this.renderScroller(poseStack, 92);
 		}
 
 		/** LARGE MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5)  || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
-			PlanetSelectionScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
+			ScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
+			this.renderScroller(poseStack, 210);
 		}
 
 		PlanetSelectionScreenHelper.disableRenderSystem();
@@ -420,7 +422,13 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 	@Override
 	public void onClose() {
+		this.menu.player.closeContainer();
+		super.onClose();
+	}
 
+	@Override
+	public boolean shouldCloseOnEsc() {
+		return false;
 	}
 
 	@Override
@@ -539,15 +547,15 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		}
 	}
 
-	public void renderScroller(PoseStack poseStack) {
-		if (this.visibleButtons.size() > this.rowEnd) {
+	public void renderScroller(PoseStack poseStack, int x) {
+		if (this.getVisibleButtons(1).size() > this.rowEnd) {
 
 			int buttonStartY = (this.height / 2) - 67 / 2;
-			int scrollSize = this.visibleButtons.size() - this.rowEnd;
+			int scrollSize = this.getVisibleButtons(1).size() - this.rowEnd;
 
 			float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
 
-			PlanetSelectionScreenHelper.addTexture(poseStack, 92, (int) y, 4, 8, SCROLLER_TEXTURE);
+			ScreenHelper.addTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE);
 		}
 	}
 

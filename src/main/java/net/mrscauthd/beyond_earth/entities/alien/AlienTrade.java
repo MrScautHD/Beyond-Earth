@@ -25,10 +25,6 @@ import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipe;
-import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeType;
-import org.jetbrains.annotations.Nullable;
-
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class AlienTrade implements ItemListing {
 	public static int MAX_USES = 9999;
@@ -39,6 +35,7 @@ public class AlienTrade implements ItemListing {
 	}
 
 	public static void registerTrades(RecipeManager recipeManager) {
+		/*
 		Map<VillagerProfession, Int2ObjectMap<List<ItemListing>>> jobMap = new HashMap<>();
 		VillagerProfession[] jobs = ForgeRegistries.PROFESSIONS.getValues().toArray(new VillagerProfession[0]);
 
@@ -69,7 +66,7 @@ public class AlienTrade implements ItemListing {
 			}
 
 		}
-
+*/
 	}
 
 	@SubscribeEvent
@@ -86,20 +83,24 @@ public class AlienTrade implements ItemListing {
 		}
 	}
 
+
+	/*
 	private AlienTradingRecipe recipe;
 
 	private AlienTrade(AlienTradingRecipe recipe) {
 		this.recipe = recipe;
-	}
+	}*/
 
 	@Override
 	public MerchantOffer getOffer(Entity entity, RandomSource random) {
-		AlienTradingRecipe recipe = this.getRecipe();
-		Triple<ItemStack, ItemStack, ItemStack> trade = recipe.getTrade(entity, random);
-		return new MerchantOffer(trade.getLeft(), trade.getMiddle(), trade.getRight(), 0, recipe.getMaxUses(), recipe.getXP(), recipe.getPriceMultiplier());
+		//AlienTradingRecipe recipe = this.getRecipe();
+		//Triple<ItemStack, ItemStack, ItemStack> trade = recipe.getTrade(entity, random);
+		//return new MerchantOffer(trade.getLeft(), trade.getMiddle(), trade.getRight(), 0, recipe.getMaxUses(), recipe.getXP(), recipe.getPriceMultiplier());
+		return null;
 	}
 
+	/*
 	public AlienTradingRecipe getRecipe() {
 		return this.recipe;
-	}
+	}*/
 }

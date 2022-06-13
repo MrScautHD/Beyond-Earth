@@ -1,26 +1,8 @@
 package net.mrscauthd.beyond_earth.guis.screens.fuelrefinery;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.machines.tile.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.utils.Rectangle2d;
-
-@OnlyIn(Dist.CLIENT)
-public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu.GuiContainer> {
-
+//@OnlyIn(Dist.CLIENT)
+public class FuelRefineryScreen /*extends AbstractContainerScreen<FuelRefineryMenu.GuiContainer>*/ {
+/*
 	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/fuel_refinery.png");
 
 	public static final int INPUT_TANK_LEFT = 9;
@@ -50,13 +32,13 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 
 		FuelRefineryBlockEntity blockEntity = (FuelRefineryBlockEntity) this.getMenu().getBlockEntity();
 
-		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
+		if (ScreenHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(), mouseX, mouseY);
-		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
+		} else if (ScreenHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getOutputTank())).build(), mouseX, mouseY);
-		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
+		} else if (ScreenHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);
 		}
@@ -71,20 +53,20 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
 		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
 		FuelRefineryBlockEntity blockEntity = this.getMenu().getBlockEntity();
-		GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP, blockEntity.getPrimaryEnergyStorage());
-		GuiHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP, blockEntity.getInputTank());
-		GuiHelper.drawFluidTank(ms, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP, blockEntity.getOutputTank());
+		ScreenHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP, blockEntity.getPrimaryEnergyStorage());
+		ScreenHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP, blockEntity.getInputTank());
+		ScreenHelper.drawFluidTank(ms, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP, blockEntity.getOutputTank());
 	}
 
 	public Rectangle2d getInputTankBounds() {
-		return GuiHelper.getFluidTankBounds(this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP);
+		return ScreenHelper.getFluidTankBounds(this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP);
 	}
 
 	public Rectangle2d getOutputTankBounds() {
-		return GuiHelper.getFluidTankBounds(this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP);
+		return ScreenHelper.getFluidTankBounds(this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP);
 	}
 
 	public Rectangle2d getEnergyBounds() {
-		return GuiHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
-	}
+		return ScreenHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
+	}*/
 }

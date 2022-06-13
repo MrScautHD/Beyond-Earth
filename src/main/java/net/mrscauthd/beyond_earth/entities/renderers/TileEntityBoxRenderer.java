@@ -1,31 +1,10 @@
 package net.mrscauthd.beyond_earth.entities.renderers;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Matrix3f;
-import com.mojang.math.Matrix4f;
+//TODO EY DO NOT FORGOT THIS
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
-
-@OnlyIn(Dist.CLIENT)
-public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDistributorBlockEntity> {
-
+//@OnlyIn(Dist.CLIENT)
+public class TileEntityBoxRenderer /*implements BlockEntityRenderer<OxygenBubbleDistributorBlockEntity> */ {
+/*
     public static TextureAtlasSprite atlas = null;
 
     public TileEntityBoxRenderer(BlockEntityRendererProvider.Context context) {
@@ -158,7 +137,7 @@ public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDi
         builder.vertex(matrix,   endX, botY,   endZ).color(r, g, b, 0xAA).uv(maxU, minV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 1, 0, 0).endVertex();
 
         /** Inside */
-
+/*
         //Down
         builder.vertex(matrix,   endX, botY, startZ).color(r, g, b, 0xAA).uv(minU, minV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 0, -1, 0).endVertex();
         builder.vertex(matrix, startX, botY, startZ).color(r, g, b, 0xAA).uv(maxU, minV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 0, -1, 0).endVertex();
@@ -194,5 +173,5 @@ public class TileEntityBoxRenderer implements BlockEntityRenderer<OxygenBubbleDi
         builder.vertex(matrix,   startX, topY, startZ).color(r, g, b, 0xAA).uv(minU, maxV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 1, 0, 0).endVertex();
         builder.vertex(matrix,   startX, topY,   endZ).color(r, g, b, 0xAA).uv(maxU, maxV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 1, 0, 0).endVertex();
         builder.vertex(matrix,   startX, botY,   endZ).color(r, g, b, 0xAA).uv(maxU, minV).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(240).normal(normal, 1, 0, 0).endVertex();
-    }
+    }*/
 }

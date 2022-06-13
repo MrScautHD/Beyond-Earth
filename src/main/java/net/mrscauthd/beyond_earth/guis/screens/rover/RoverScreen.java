@@ -3,27 +3,16 @@ package net.mrscauthd.beyond_earth.guis.screens.rover;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
-import net.mrscauthd.beyond_earth.utils.Rectangle2d;
 
 @OnlyIn(Dist.CLIENT)
 public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer> {
@@ -57,7 +46,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
-
+/*
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -66,7 +55,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 
 		IGaugeValue fuelGaugeValue = this.getFuelGaugeValue();
 		FluidStack fluidStack = new FluidStack(BlocksRegistry.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
-		GuiHelper.drawFluidTank(ms, this.leftPos + 9, this.topPos + 11, fluidStack, fuelGaugeValue.getCapacity());
+		ScreenHelper.drawFluidTank(ms, this.leftPos + 9, this.topPos + 11, fluidStack, fuelGaugeValue.getCapacity());*/
 	}
 
 	@Override
@@ -75,6 +64,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 		this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
 	}
 
+	/*
 	public Component getFuelGaugeComponent() {
 		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
 	}
@@ -85,6 +75,6 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 	}
 
 	public Rectangle2d getFluidBounds() {
-		return GuiHelper.getFluidTankBounds(9, 11);
-	}
+		return ScreenHelper.getFluidTankBounds(9, 11);
+	}*/
 }

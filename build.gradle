@@ -1,7 +1,7 @@
 plugins {
     id "eclipse"
     id "maven-publish"
-    id "net.minecraftforge.gradle" version "5.+"
+    id "net.minecraftforge.gradle" version "5.1+"
     id "org.spongepowered.mixin" version "0.7-SNAPSHOT"
 }
 
@@ -108,7 +108,7 @@ dependencies {
     //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
     //The One Probe
-    implementation fg.deobf("curse.maven:the-one-probe-245211:${the_one_probe_version}")
+    //implementation fg.deobf("curse.maven:the-one-probe-245211:${the_one_probe_version}")
 
     //Jade
     //implementation fg.deobf("curse.maven:jade-324717:${jade_version}")

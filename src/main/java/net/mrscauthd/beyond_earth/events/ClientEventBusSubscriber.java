@@ -107,7 +107,7 @@ public class ClientEventBusSubscriber {
 
 		event.registerEntityRenderer(EntitiesRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
-		event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
+		//event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
 
 		event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), TileEntityHeadRenderer::new);
 		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
@@ -142,14 +142,14 @@ public class ClientEventBusSubscriber {
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		//GUIS
 		MenuScreens.register(ScreensRegistry.ROCKET_GUI.get(), RocketScreen::new);
-		MenuScreens.register(ScreensRegistry.COMPRESSOR_GUI.get(), CompressorScreen::new);
+		/*MenuScreens.register(ScreensRegistry.COMPRESSOR_GUI.get(), CompressorScreen::new);
 		MenuScreens.register(ScreensRegistry.FUEL_REFINERY_GUI.get(), FuelRefineryScreen::new);
 		MenuScreens.register(ScreensRegistry.COAL_GENERATOR_GUI.get(), CoalGeneratorScreen::new);
 		MenuScreens.register(ScreensRegistry.NASA_WORKBENCH_GUI.get(), NasaWorkbenchGuiWindow::new);
 		MenuScreens.register(ScreensRegistry.OXYGEN_LOADER_GUI.get(), OxygenLoaderScreen::new);
 		MenuScreens.register(ScreensRegistry.SOLAR_PANEL_GUI.get(), SolarPanelScreen::new);
 		MenuScreens.register(ScreensRegistry.WATER_PUMP_GUI.get(), WaterPumpScreen::new);
-		MenuScreens.register(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);
+		MenuScreens.register(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);*/
 		MenuScreens.register(ScreensRegistry.LANDER_GUI.get(), LanderScreen::new);
 		MenuScreens.register(ScreensRegistry.ROVER_GUI.get(), RoverScreen::new);
 		MenuScreens.register(ScreensRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionScreen::new);
@@ -169,9 +169,10 @@ public class ClientEventBusSubscriber {
 		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.COAL_LANTERN_BLOCK.get(), RenderType.translucent());
 
 		//Cutout
-		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
+		//TODO DONT FORGOT IT TO REWORK IT
+		//ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
 
-		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
+		//ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
 
 		//OVERLAY
 		OverlayRegistry.registerOverlayTop("warning", Overlays.WARNING);

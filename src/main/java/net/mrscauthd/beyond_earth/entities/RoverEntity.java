@@ -25,6 +25,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -223,6 +224,10 @@ public class RoverEntity extends VehicleEntity {
         }
     };
 
+    public ItemStackHandler getInventory() {
+        return inventory;
+    }
+
     private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory);
 
     @Override
@@ -301,11 +306,12 @@ public class RoverEntity extends VehicleEntity {
         this.resetFallDistance();
 
         //Fuel Load up
-        if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
-
-            if (this.entityData.get(FUEL) <= 2000) {
-                this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
-                this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+        if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {
+            if (Methods.tagCheck(((BucketItem) this.inventory.getStackInSlot(0).getItem()).getFluid(), TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
+                if (this.entityData.get(FUEL) <= 2000) {
+                    this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
+                    this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
+                }
             }
         }
 

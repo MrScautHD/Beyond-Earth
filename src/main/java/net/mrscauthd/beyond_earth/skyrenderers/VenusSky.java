@@ -256,21 +256,20 @@ public class VenusSky {
                                 minecraft.levelRenderer.prevCloudZ = k;
                                 minecraft.levelRenderer.prevCloudColor = vec3;
                                 minecraft.levelRenderer.prevCloudsType = minecraft.options.getCloudsType();
-                                //minecraft.levelRenderer.generateClouds = true;
+                                minecraft.levelRenderer.generateClouds = true;
                             }
 
-                            //TODO FINISH IT
-                            if (/*minecraft.levelRenderer.generateClouds*/ false) {
-                               // minecraft.levelRenderer.generateClouds = false;
+                            if (minecraft.levelRenderer.generateClouds) {
+                                minecraft.levelRenderer.generateClouds = false;
                                 BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
                                 if (minecraft.levelRenderer.cloudBuffer != null) {
                                     minecraft.levelRenderer.cloudBuffer.close();
                                 }
 
                                 minecraft.levelRenderer.cloudBuffer = new VertexBuffer();
-                                //BufferBuilder.RenderedBuffer bufferbuilder$renderedbuffer = minecraft.levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
+                                BufferBuilder.RenderedBuffer bufferbuilder$renderedbuffer = minecraft.levelRenderer.buildClouds(bufferbuilder, d2, d3, d4, vec3);
                                 minecraft.levelRenderer.cloudBuffer.bind();
-                                //minecraft.levelRenderer.cloudBuffer.upload(bufferbuilder$renderedbuffer);
+                                minecraft.levelRenderer.cloudBuffer.upload(bufferbuilder$renderedbuffer);
                                 VertexBuffer.unbind();
                             }
 

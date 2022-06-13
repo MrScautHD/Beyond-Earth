@@ -1,9 +1,6 @@
 package net.mrscauthd.beyond_earth.guis.screens.planetselection.helper;
 
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.mrscauthd.beyond_earth.crafting.IngredientStack;
-import net.mrscauthd.beyond_earth.crafting.SpaceStationRecipe;
 
 public abstract class PlanetSelectionMenuNetworkHandlerHelper {
 
@@ -18,6 +15,7 @@ public abstract class PlanetSelectionMenuNetworkHandlerHelper {
 
     /** DELETE ITEMS FOR THE SPACE STATION */
     public void deleteItems(Player player) {
+        /*
         if (player.getAbilities().instabuild || player.isSpectator()) {
             return;
         }
@@ -27,6 +25,6 @@ public abstract class PlanetSelectionMenuNetworkHandlerHelper {
 
         for (IngredientStack ingredientStack : recipe.getIngredientStacks()) {
             inv.clearOrCountMatchingItems(ingredientStack::testWithoutCount, ingredientStack.getCount(), inv);
-        }
+        }*/
     }
 }

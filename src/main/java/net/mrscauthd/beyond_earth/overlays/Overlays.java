@@ -2,10 +2,11 @@ package net.mrscauthd.beyond_earth.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
@@ -24,15 +25,14 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.PlanetOverlayEvent;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
+import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, value = Dist.CLIENT)
 public class Overlays {
@@ -213,25 +213,26 @@ public class Overlays {
         public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Player player = Minecraft.getInstance().player;
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
+            Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */
-            IOxygenStorage oxygenStorage = chest.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
-            double oxygenStoredRatio = oxygenStorage != null ? oxygenStorage.getOxygenStoredRatio() : 0.0D;
-
-            int x = 5;
-            int y = 5;
-
-            int textureWidth = 62;
-            int textureHeight = 52;
-
-            GuiHelper.drawVerticalReverse(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE, oxygenStoredRatio);
-            GuiHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_FULL_TEXTURE, oxygenStoredRatio);
-
-            /** OXYGEN AMOUNT TEXT */
+            OxygenStorage oxygenStorage = chest.getCapability(OxygenCapability.OXYGEN).orElse(null);
             if (oxygenStorage != null) {
-                MutableComponent text = GaugeTextHelper.getPercentText(GaugeValueHelper.getOxygen(oxygenStorage)).build();
-                int textWidth = Minecraft.getInstance().font.width(text);
-                Minecraft.getInstance().font.drawShadow(mStack, text, (x + (textureWidth - textWidth) / 2), y + textureHeight + 3, 0xFFFFFF);
+
+                int x = 5;
+                int y = 5;
+
+                int textureWidth = 62;
+                int textureHeight = 52;
+
+                ScreenHelper.addTexture(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
+                ScreenHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored(), OXYGEN_TANK_FULL_TEXTURE);
+
+                /** OXYGEN AMOUNT TEXT */
+                //TODO CHECK AGAIN TEXT
+                Font font = mc.font;
+                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygenStored() / 48 + "%");
+                font.drawShadow(mStack, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
         }
     };
@@ -254,19 +255,19 @@ public class Overlays {
 
             ResourceLocation planet;
 
-            if (Methods.isWorld(level, Methods.moon)) {
+            if (Methods.isWorld(level, LevelRegistry.MOON)) {
                 planet = MOON_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, Methods.mars)) {
+            else if (Methods.isWorld(level, LevelRegistry.MARS)) {
                 planet = MARS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, Methods.mercury)) {
+            else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
                 planet = MERCURY_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, Methods.venus)) {
+            else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
                 planet = VENUS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, Methods.glacio)) {
+            else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
                 planet = GLACIO_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isOrbitWorld(level)) {
@@ -289,7 +290,7 @@ public class Overlays {
 
             /** ROCKET_Y IMAGE */
             RenderSystem.setShaderTexture(0, ROCKET_PLANET_BAR_TEXTURE);
-            GuiHelper.blit(mStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
+            ScreenHelper.renderWithFloat.blit(mStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
         }
     };
 }

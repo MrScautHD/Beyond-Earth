@@ -5,6 +5,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.PlanetSelectionMenuNetworkHandlerHelper;
+import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
 import java.util.function.Supplier;
 
@@ -38,103 +39,103 @@ public class PlanetSelectionMenuNetworkHandler extends PlanetSelectionMenuNetwor
                 /** (SUN CATEGORY) TELEPORT BUTTONS */
                 case 0:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.overworld, false);
+                    Methods.teleportButton(player, LevelRegistry.EARTH, false);
                     break;
 
                 case 1:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.moon, false);
+                    Methods.teleportButton(player, LevelRegistry.MOON, false);
                     break;
 
                 case 2:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.mars, false);
+                    Methods.teleportButton(player, LevelRegistry.MARS, false);
                     break;
 
                 case 3:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.mercury, false);
+                    Methods.teleportButton(player, LevelRegistry.MERCURY, false);
                     break;
 
                 case 4:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.venus, false);
+                    Methods.teleportButton(player, LevelRegistry.VENUS, false);
                     break;
 
                 /** (SUN CATEGORY) TELEPORT ORBIT BUTTONS */
                 case 5:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.earth_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.EARTH_ORBIT, false);
                     break;
 
                 case 6:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.moon_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.MOON_ORBIT, false);
                     break;
 
                 case 7:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.mars_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.MARS_ORBIT, false);
                     break;
 
                 case 8:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.mercury_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.MERCURY_ORBIT, false);
                     break;
 
                 case 9:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.venus_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.VENUS_ORBIT, false);
                     break;
 
                 /** (SUN CATEGORY) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
                 case 10:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.earth_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.EARTH_ORBIT, true);
                     break;
 
                 case 11:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.moon_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.MOON_ORBIT, true);
                     break;
 
                 case 12:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.mars_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.MARS_ORBIT, true);
                     break;
 
                 case 13:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.mercury_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.MERCURY_ORBIT, true);
                     break;
 
                 case 14:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.venus_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.VENUS_ORBIT, true);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT BUTTONS */
                 case 15:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.glacio, false);
+                    Methods.teleportButton(player, LevelRegistry.GLACIO, false);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT ORBIT BUTTONS */
                 case 16:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, Methods.glacio_orbit, false);
+                    Methods.teleportButton(player, LevelRegistry.GLACIO_ORBIT, false);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
                 case 17:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, Methods.glacio_orbit, true);
+                    Methods.teleportButton(player, LevelRegistry.GLACIO_ORBIT, true);
                     break;
             }
         });

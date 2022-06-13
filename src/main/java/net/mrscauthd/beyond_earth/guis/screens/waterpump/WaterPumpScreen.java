@@ -1,26 +1,8 @@
 package net.mrscauthd.beyond_earth.guis.screens.waterpump;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
-import net.mrscauthd.beyond_earth.machines.tile.WaterPumpBlockEntity;
-import net.mrscauthd.beyond_earth.utils.Rectangle2d;
-
-@OnlyIn(Dist.CLIENT)
-public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiContainer> {
-
+//@OnlyIn(Dist.CLIENT)
+public class WaterPumpScreen /*extends AbstractContainerScreen<WaterPumpMenu.GuiContainer>*/ {
+/*
 	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/water_pump.png");
 
 	public static final int WATER_TANK_LEFT = 75;
@@ -37,11 +19,11 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
 	}
 
 	public Rectangle2d getOutputTankBounds() {
-		return GuiHelper.getFluidTankBounds(this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP);
+		return ScreenHelper.getFluidTankBounds(this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP);
 	}
 
 	public Rectangle2d getEnergyBounds() {
-		return GuiHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
+		return ScreenHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
 	}
 
 	@Override
@@ -52,10 +34,10 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
 
 		WaterPumpBlockEntity blockEntity = (WaterPumpBlockEntity) this.getMenu().getBlockEntity();
 
-		if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
+		if (ScreenHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getWaterTank())).build(), mouseX, mouseY);
-		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
+		} else if (ScreenHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);
 		}
@@ -70,7 +52,7 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
 		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
 		WaterPumpBlockEntity blockEntity = this.getMenu().getBlockEntity();
-		GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP, blockEntity.getPrimaryEnergyStorage());
-		GuiHelper.drawFluidTank(ms, this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP, blockEntity.getWaterTank());
-	}
+		ScreenHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP, blockEntity.getPrimaryEnergyStorage());
+		ScreenHelper.drawFluidTank(ms, this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP, blockEntity.getWaterTank());
+	}*/
 }

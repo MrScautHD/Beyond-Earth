@@ -24,13 +24,13 @@ public class ItemsRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BeyondEarth.MODID);
 
     /** ROCKET ITEMS */
-    public static final RegistryObject<Tier1RocketItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Tier2RocketItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Tier3RocketItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1)));
-    public static final RegistryObject<Tier4RocketItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1)));
+    public static final RegistryObject<Tier1RocketItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().tab(Tabs.tab_normal).rarity(Rarity.RARE).stacksTo(1)));
+    public static final RegistryObject<Tier2RocketItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().tab(Tabs.tab_normal).rarity(Rarity.RARE).stacksTo(1)));
+    public static final RegistryObject<Tier3RocketItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().tab(Tabs.tab_normal).rarity(Rarity.RARE).stacksTo(1)));
+    public static final RegistryObject<Tier4RocketItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().tab(Tabs.tab_normal).rarity(Rarity.RARE).stacksTo(1)));
 
     /** ROVER ITEMS */
-    public static final RegistryObject<RoverItem> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1)));
+    public static final RegistryObject<RoverItem> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().tab(Tabs.tab_normal).stacksTo(1).rarity(Rarity.RARE)));
 
     /** SPAWN EGG ITEMS */
     public static final RegistryObject<ForgeSpawnEggItem> ALIEN_SPAWN_EGG = ITEMS.register("alien_spawn_egg", () -> new ForgeSpawnEggItem(EntitiesRegistry.ALIEN::get, -13382401, -11650781, new Item.Properties().tab(Tabs.tab_spawn_eggs)));
@@ -142,6 +142,9 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlocksRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_basics)));
 
     //MACHINE BLOCK ITEMS
+
+    //TODO DON'T FORGOT IT TO REWORK IT
+    /*
     public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlocksRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(BlocksRegistry.COAL_GENERATOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
@@ -151,6 +154,7 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(BlocksRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(BlocksRegistry.WATER_PUMP_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
 
+    */
     // NORMAL BLOCK ITEMS
     public static final RegistryObject<BlockItem> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlocksRegistry.STEEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(BlocksRegistry.DESH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));

@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.entities;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -259,7 +260,7 @@ public abstract class IRocketEntity extends VehicleEntity {
                 pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
                 pass.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", this.getType().toString());
                 //TODO CHECK IT AGAIN
-                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().builtInRegistryHolder().key().toString());
+                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItemHolder().value().toString());
                 pass.setNoGravity(true);
 
                 /** STOP ROCKET SOUND */

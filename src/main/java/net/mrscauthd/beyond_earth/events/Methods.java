@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.events;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -34,8 +33,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.*;
@@ -43,72 +42,10 @@ import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionMe
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
 
-import java.util.Set;
 import java.util.function.Function;
 
 public class Methods {
-
-    public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon"));
-    public static final ResourceKey<Level> moon_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon_orbit"));
-    public static final ResourceKey<Level> mars = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars"));
-    public static final ResourceKey<Level> mars_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars_orbit"));
-    public static final ResourceKey<Level> mercury = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury"));
-    public static final ResourceKey<Level> mercury_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury_orbit"));
-    public static final ResourceKey<Level> venus = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus"));
-    public static final ResourceKey<Level> venus_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus_orbit"));
-    public static final ResourceKey<Level> glacio = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio"));
-    public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio_orbit"));
-    public static final ResourceKey<Level> overworld = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
-    public static final ResourceKey<Level> earth_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
-
-    public static final ResourceLocation space_station = new ResourceLocation(BeyondEarth.MODID, "space_station");
-
-    public static Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
-            moon,
-            moon_orbit,
-            mars_orbit,
-            mercury,
-            mercury_orbit,
-            venus_orbit,
-            glacio_orbit,
-            earth_orbit
-    );
-
-    public static Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
-            moon,
-            moon_orbit,
-            mars,
-            mars_orbit,
-            mercury,
-            mercury_orbit,
-            venus,
-            venus_orbit,
-            glacio_orbit,
-            earth_orbit
-    );
-
-    public static Set<ResourceKey<Level>> spaceWorlds = Set.of(
-            moon,
-            moon_orbit,
-            mars,
-            mars_orbit,
-            mercury,
-            mercury_orbit,
-            venus,
-            venus_orbit,
-            glacio,
-            glacio_orbit,
-            earth_orbit
-    );
-
-    public static Set<ResourceKey<Level>> orbitWorlds = Set.of(
-            earth_orbit,
-            moon_orbit,
-            mars_orbit,
-            mercury_orbit,
-            venus_orbit,
-            glacio_orbit
-    );
+    public static final ResourceLocation SPACE_STATION = new ResourceLocation(BeyondEarth.MODID, "space_station");
 
     public static void entityWorldTeleporter(Entity entity, ResourceKey<Level> planet, double high) {
         if (entity.canChangeDimensions()) {
@@ -214,15 +151,15 @@ public class Methods {
     }
 
     public static boolean isSpaceWorld(Level world) {
-        return spaceWorlds.contains(world.dimension());
+        return LevelRegistry.WORLDS.contains(world.dimension());
     }
 
     public static boolean isSpaceWorldWithoutOxygen(Level world) {
-        return spaceWorldsWithoutOxygen.contains(world.dimension());
+        return LevelRegistry.WORLDS_WITHOUT_OXYGEN.contains(world.dimension());
     }
 
     public static boolean isOrbitWorld(Level world) {
-        return orbitWorlds.contains(world.dimension());
+        return LevelRegistry.ORBITS.contains(world.dimension());
     }
 
     public static boolean isWorld(Level world, ResourceKey<Level> loc) {
@@ -428,6 +365,7 @@ public class Methods {
 
             String itemId = player.getPersistentData().getString(BeyondEarth.MODID + ":slot0");
 
+            //TODO MAYBE TAKE A LOOK AGAIN ON IT
             landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
 
@@ -446,7 +384,7 @@ public class Methods {
 
     public static void createSpaceStation(Player player, ServerLevel serverWorld) {
         BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
-        serverWorld.getStructureManager().getOrCreate(space_station).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
+        serverWorld.getStructureManager().getOrCreate(SPACE_STATION).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
     }
 
     public static void cleanUpPlayerNBT(Player player) {
@@ -498,46 +436,57 @@ public class Methods {
         Methods.rocketTeleport(player, planet, itemStack, SpaceStation);
     }
 
-    public static void landerTeleportOrbit(Player player, Level world) {
-        if (Methods.isWorld(world, Methods.earth_orbit)) {
-            Methods.landerTeleport(player, Methods.overworld);
-        } else if (Methods.isWorld(world, Methods.moon_orbit)) {
-            Methods.landerTeleport(player, Methods.moon);
-        } else if (Methods.isWorld(world, Methods.mars_orbit)) {
-            Methods.landerTeleport(player, Methods.mars);
-        } else if (Methods.isWorld(world, Methods.glacio_orbit)) {
-            Methods.landerTeleport(player, Methods.glacio);
-        } else if (Methods.isWorld(world, Methods.mercury_orbit)) {
-            Methods.landerTeleport(player, Methods.mercury);
-        } else if (Methods.isWorld(world, Methods.venus_orbit)) {
-            Methods.landerTeleport(player, Methods.venus);
+    public static void landerTeleportOrbit(Player player, Level level) {
+        if (Methods.isWorld(level, LevelRegistry.EARTH_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.EARTH);
+        }
+        else if (Methods.isWorld(level, LevelRegistry.MOON_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.MOON);
+        }
+        else if (Methods.isWorld(level, LevelRegistry.MARS_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.MARS);
+        }
+        else if (Methods.isWorld(level, LevelRegistry.MERCURY_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.MERCURY);
+        }
+        else if (Methods.isWorld(level, LevelRegistry.VENUS_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.VENUS);
+        }
+        else if (Methods.isWorld(level, LevelRegistry.GLACIO_ORBIT)) {
+            Methods.landerTeleport(player, LevelRegistry.GLACIO);
         }
     }
 
-    public static void entityFallToPlanet(Level world, Entity entity) {
-        ResourceKey<Level> world2 = world.dimension();
+    public static void entityFallToPlanet(Level level, Entity entity) {
+        ResourceKey<Level> world2 = level.dimension();
 
-        if (world2 == Methods.earth_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.overworld, 450);
-        } else if (world2 == Methods.moon_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.moon, 450);
-        } else if (world2 == Methods.mars_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.mars, 450);
-        } else if (world2 == Methods.mercury_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.mercury, 450);
-        } else if (world2 == Methods.venus_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.venus, 450);
-        } else if (world2 == Methods.glacio_orbit) {
-            Methods.entityWorldTeleporter(entity, Methods.glacio, 450);
+        if (world2 == LevelRegistry.EARTH_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.EARTH, 450);
+        }
+        else if (world2 == LevelRegistry.MOON_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.MOON, 450);
+        }
+        else if (world2 == LevelRegistry.MARS_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.MARS, 450);
+        }
+        else if (world2 == LevelRegistry.MERCURY_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.MERCURY, 450);
+        }
+        else if (world2 == LevelRegistry.VENUS_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.VENUS, 450);
+        }
+        else if (world2 == LevelRegistry.GLACIO_ORBIT) {
+            Methods.entityWorldTeleporter(entity, LevelRegistry.GLACIO, 450);
         }
     }
 
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
 		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
+            OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();
 			String key = BeyondEarth.MODID + ":oxygen_timer";
+
 			int oxygenTimer = persistentData.getInt(key);
 			oxygenTimer++;
 

@@ -21,6 +21,7 @@ import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class Events {
@@ -64,11 +65,11 @@ public class Events {
         Methods.entityOxygen(entity, level);
 
         /** VENUS RAIN SYSTEM */
-        Methods.venusRain(entity, Methods.venus);
+        Methods.venusRain(entity, LevelRegistry.VENUS);
 
         /** PLANET FIRE SYSTEM */
-        Methods.planetFire(entity, Methods.venus);
-        Methods.planetFire(entity, Methods.mercury);
+        Methods.planetFire(entity, LevelRegistry.VENUS);
+        Methods.planetFire(entity, LevelRegistry.MERCURY);
     }
 
     @SubscribeEvent
@@ -110,10 +111,10 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             Level level = event.world;
 
-            if (Methods.worldsWithoutRain.contains(level.dimension())) {
+            if (LevelRegistry.WORLDS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
-            } else if (Methods.isWorld(level, Methods.venus)) {
+            } else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
                 level.thunderLevel = 0;
             }
         }
@@ -168,15 +169,19 @@ public class Events {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
-        if (Methods.isWorld(level, Methods.moon)) {
+        if (Methods.isWorld(level, LevelRegistry.MOON)) {
             event.setDistance(event.getDistance() - 5.5F);
-        } else if (Methods.isWorld(level, Methods.mars)) {
+        }
+        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
             event.setDistance(event.getDistance() - 5.0F);
-        } else if (Methods.isWorld(level, Methods.glacio)) {
+        }
+        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
             event.setDistance(event.getDistance() - 5.0F);
-        } else if (Methods.isWorld(level, Methods.mercury)) {
+        }
+        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
             event.setDistance(event.getDistance() - 5.5F);
-        } else if (Methods.isOrbitWorld(level)) {
+        }
+        else if (Methods.isOrbitWorld(level)) {
             event.setDistance(event.getDistance() - 8.5F);
         }
     }

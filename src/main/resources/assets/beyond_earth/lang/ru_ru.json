@@ -314,27 +314,24 @@
   "gui.beyond_earth.planet_selection.proxima_centauri": "Проксима Центавра",
   "gui.beyond_earth.planet_selection.glacio": "Глизе",
 
-
   "jei.tooltip.beyond_earth.oil": "Нефть можно найти в океане",
   "jei.category.beyond_earth.space_station": "Орбитальная станция",
   "jei.tooltip.beyond_earth.space_station": "Ингредиенты для создания\nорбитальной станции",
 
-  "gauge_text.beyond_earth.using": "Использование %1$s: %2$s",
-  "gauge_text.beyond_earth.using2": "Использование %1$s: %2$s/%4$s t",
-  "gauge_text.beyond_earth.generating": "Генерация %1$s: %2$s",
-  "gauge_text.beyond_earth.maxgeneration": "Макс. генерация %1$s: %2$s",
-  "gauge_text.beyond_earth.total": "Общее кол-во %1S: %2$s",
-  "gauge_text.beyond_earth.stored": "Накоплено %1$s: %2$s",
-  "gauge_text.beyond_earth.capacity": "Вместимость %1$s: %2$s",
-  "gauge_text.beyond_earth.transfer": "Передача %1$s: %2$s",
+  "general.beyond_earth.using": "Использование %1$s: %2$s",
+  "general.beyond_earth.using2": "Использование %1$s: %2$s/%4$s t",
+  "general.beyond_earth.generating": "Генерация %1$s: %2$s",
+  "general.beyond_earth.maxgeneration": "Макс. генерация %1$s: %2$s",
+  "general.beyond_earth.total": "Общее кол-во %1S: %2$s",
+  "general.beyond_earth.stored": "Накоплено %1$s: %2$s",
+  "general.beyond_earth.capacity": "Вместимость %1$s: %2$s",
+  "general.beyond_earth.transfer": "Передача %1$s: %2$s",
 
-  "gauge.beyond_earth.energy": "энергии",
-  "gauge.beyond_earth.fluid": "жидкости",
-  "gauge.beyond_earth.fuel": "Топливо",
-  "gauge.beyond_earth.oxygen": "Кислород",
-  "gauge.beyond_earth.burntime": "Время горения",
-  "gauge.beyond_earth.cooktime": "Время приготовления",
-  "gauge.beyond_earth.oxygenloading": "Загрузка",
-
-  "_eof": "eof"
+  "general.beyond_earth.energy": "энергии",
+  "general.beyond_earth.fluid": "жидкости",
+  "general.beyond_earth.fuel": "Топливо",
+  "general.beyond_earth.oxygen": "Кислород",
+  "general.beyond_earth.burntime": "Время горения",
+  "general.beyond_earth.cooktime": "Время приготовления",
+  "general.beyond_earth.oxygenloading": "Загрузка",
 }

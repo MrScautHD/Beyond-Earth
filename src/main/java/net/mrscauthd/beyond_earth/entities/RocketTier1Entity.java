@@ -15,6 +15,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -117,13 +118,15 @@ public class RocketTier1Entity extends IRocketEntity {
 
 	@Override
 	public void fillUpRocket() {
-		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
-			this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getEntityData().set(BUCKETS, 1);
-		}
+		if (this.getInventory().getStackInSlot(0).getItem() instanceof BucketItem) {
+			if (Methods.tagCheck(((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid(), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
+				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
+				this.getEntityData().set(BUCKETS, 1);
+			}
 
-		if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
-			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
+			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
+				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
+			}
 		}
 	}
 }

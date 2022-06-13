@@ -15,7 +15,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.ClientMethods;
 import net.mrscauthd.beyond_earth.guis.buttons.ImageButtonPlacer;
-import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
+import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionMenuNetworkHandler;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionScreen;
 
@@ -94,16 +94,10 @@ public class PlanetSelectionScreenHelper {
         ms.mulPose(new Quaternion(Vector3f.ZP, rotation, true));
 
         RenderSystem.setShaderTexture(0, texture);
-        GuiHelper.blit(ms, x, y, 0, 0, width, height, width, height);
+        ScreenHelper.renderWithFloat.blit(ms, x, y, 0, 0, width, height, width, height);
 
         ms.translate(-screen.width / 2, -screen.height / 2, 0);
         ms.popPose();
-    }
-
-    /** USE THIS TO ADD TEXTURES */
-    public static void addTexture(PoseStack poseStack, int x, int y, int width, int height, ResourceLocation texture) {
-        RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(poseStack, x, y, 0, 0, width, height, width, height);
     }
 
     /** USE THIS TO ENABLE THE BLEND SYSTEM */
