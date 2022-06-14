@@ -220,7 +220,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		PlanetSelectionScreenHelper.enableRenderSystem();
 
 		/** BACKGROUND RENDERER */
-		ScreenHelper.addTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
+		ScreenHelper.drawTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
 
 		/** SUN SOLAR SYSTEM RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
@@ -243,23 +243,23 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 		/** SUN RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
-			ScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
 		}
 
 		/** BLUE SUN RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
-			ScreenHelper.addTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
 		}
 
 		/** SMALL MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 0, 1) || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 6)) {
-			ScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
+			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
 			this.renderScroller(poseStack, 92);
 		}
 
 		/** LARGE MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5)  || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
-			ScreenHelper.addTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
 			this.renderScroller(poseStack, 210);
 		}
 
@@ -555,7 +555,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 			float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
 
-			ScreenHelper.addTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE);
 		}
 	}
 

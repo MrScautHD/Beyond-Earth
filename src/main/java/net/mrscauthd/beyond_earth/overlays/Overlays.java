@@ -225,7 +225,7 @@ public class Overlays {
                 int textureWidth = 62;
                 int textureHeight = 52;
 
-                ScreenHelper.addTexture(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
+                ScreenHelper.drawTexture(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
                 ScreenHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored(), OXYGEN_TANK_FULL_TEXTURE);
 
                 /** OXYGEN AMOUNT TEXT */

@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class RoverItem extends VehicleItem {
-    public static String fuelTag = BeyondEarth.MODID + ":fuel";
+    public static String FUEL_TAG = BeyondEarth.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
         super(properties);
@@ -39,7 +39,8 @@ public class RoverItem extends VehicleItem {
     @Override
     public void appendHoverText(ItemStack itemStack, Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(itemStack, level, list, tooltipFlag);
-        int fuel = itemStack.getOrCreateTag().getInt(fuelTag);
+
+        int fuel = itemStack.getOrCreateTag().getInt(FUEL_TAG);
         list.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + fuel + " mb" + "\u00A78" + " | " + "\u00A77" + "3000 mb"));
     }
 
@@ -86,7 +87,7 @@ public class RoverItem extends VehicleItem {
 
                 world.addFreshEntity(rover);
 
-                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
+                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -117,7 +118,7 @@ public class RoverItem extends VehicleItem {
         super.fillItemCategory(p_41391_, p_41392_);
         if (this.allowedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(fuelTag, 3000);
+            itemStack.getOrCreateTag().putInt(FUEL_TAG, 3000);
             p_41392_.add(itemStack);
         }
     }

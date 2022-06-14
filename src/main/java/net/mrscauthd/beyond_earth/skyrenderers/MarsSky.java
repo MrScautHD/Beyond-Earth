@@ -175,7 +175,6 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** PHOBOS ROT */
@@ -189,7 +188,6 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 3.0F, -100.0F, 3.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 3.0F, -100.0F, -3.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -3.0F, -100.0F, -3.0F).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** EARTH ROT */
@@ -203,7 +201,6 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 1.0F, -100.0F, 1.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 1.0F, -100.0F, -1.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -1.0F, -100.0F, -1.0F).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** DEIMOS ROT */
@@ -217,7 +214,6 @@ public class MarsSky {
                             bufferbuilder.vertex(matrix4f1, 4.0F, -100.0F, 4.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 4.0F, -100.0F, -4.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -4.0F, -100.0F, -4.0F).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();

@@ -3,13 +3,31 @@ package net.mrscauthd.beyond_earth.guis.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
 
 public class ScreenHelper {
 
+    /** USE IT TO DRAW WITH FLOAT AND NOT INT */
     public static class renderWithFloat {
+
+        public static void blit(PoseStack p_93201_, float p_93202_, float p_93203_, float p_93204_, float p_93205_, float p_93206_, TextureAtlasSprite p_93207_) {
+            innerBlit(p_93201_.last().pose(), p_93202_, p_93202_ + p_93205_, p_93203_, p_93203_ + p_93206_, p_93204_, p_93207_.getU0(), p_93207_.getU1(), p_93207_.getV0(), p_93207_.getV1());
+        }
+
+        public void blit(PoseStack p_93229_, float p_93230_, float p_93231_, float blitOffset, float p_93232_, float p_93233_, float p_93234_, float p_93235_) {
+            blit(p_93229_, p_93230_, p_93231_, blitOffset, p_93232_, p_93233_, p_93234_, p_93235_, 256, 256);
+        }
+
         public static void blit(PoseStack p_93144_, float p_93145_, float p_93146_, float p_93147_, float p_93148_, float p_93149_, float p_93150_, float p_93151_, float p_93152_, float p_93153_) {
             innerBlit(p_93144_, p_93145_, p_93145_ + p_93150_, p_93146_, p_93146_ + p_93151_, p_93147_, p_93150_, p_93151_, p_93148_, p_93149_, p_93152_, p_93153_);
         }
@@ -38,26 +56,75 @@ public class ScreenHelper {
         }
     }
 
-    public static void drawVertical(PoseStack poseStack, int left, int top, int width, int height, double min, double max, ResourceLocation resourceLocation) {
+    public static class renderFluid {
+
+        /** USE IT TO DRAW FLUID */
+        public static void drawFluid(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height, int xOffset, int yOffset) {
+            if (fluidStack.getFluid() == null) {
+                return;
+            }
+
+            Minecraft mc = Minecraft.getInstance();
+            TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStack.getFluid().getAttributes().getStillTexture());
+            RenderSystem.setShaderTexture(0, sprite.atlas().location());
+            int color = fluidStack.getFluid().getAttributes().getColor();
+            int scale = (int) mc.getWindow().getGuiScale();
+
+            int screenX = mc.getWindow().getScreenWidth();
+            int maxX = ((screenX / 2) + xOffset / 2) * scale;
+
+            int screenY = mc.getWindow().getScreenHeight();
+            int maxY = ((screenY / 2) + yOffset / 2) * scale;
+
+            System.out.println(maxX + " " + maxY + " " + ((width - 2) * scale) + " " +  ((height - 2) * scale));
+
+            /** CUT IT EXACT */
+            RenderSystem.enableScissor(leftPos * scale, maxY, width * scale, ((height - 1) * scale));
+
+            /** SET COLOR */
+            RenderSystem.setShaderColor((color >> 16 & 255) / 255.0f, (float) (color >> 8 & 255) / 255.0f, (float) (color & 255) / 255.0f, 1.0f);
+
+            /** RENDER FLUID NOT EXACT */
+            for (int f1 = leftPos; f1 < leftPos + width; f1 += 16) {
+                for (int f2 = topPos; f2 < topPos + height; f2 += 16) {
+
+                    /** RENDERER */
+                    GuiComponent.blit(poseStack, f1, f2, 0, sprite.getWidth(), sprite.getHeight(), sprite);
+                }
+            }
+
+            RenderSystem.disableScissor();
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        }
+    }
+
+    /** USE IT TO DRAW VERTICAL */
+    public static void drawVertical(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation) {
         double ratio = min / max;
         int ratioHeight = (int) Math.ceil(height * ratio);
         int remainHeight = height - ratioHeight;
 
         RenderSystem.setShaderTexture(0, resourceLocation);
-        GuiComponent.blit(poseStack, left, top + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+        GuiComponent.blit(poseStack, leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
     }
 
-    public static void drawHorizontal(PoseStack poseStack, int left, int top, int width, int height, double min, double max, ResourceLocation resourceLocation) {
+    /** USE IT TO DRAW HORIZONTAL */
+    public static void drawHorizontal(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation) {
         double ratio = min / max;
         int ratioWidth = (int) Math.ceil(width * ratio);
 
         RenderSystem.setShaderTexture(0, resourceLocation);
-        GuiComponent.blit(poseStack, left, top, 0, 0, ratioWidth, height, width, height);
+        GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, ratioWidth, height, width, height);
     }
 
     /** USE IT TO RENDER TEXTURES */
-    public static void addTexture(PoseStack poseStack, int x, int y, int width, int height, ResourceLocation texture) {
+    public static void drawTexture(PoseStack poseStack, int leftPos, int topPos, int width, int height, ResourceLocation texture) {
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(poseStack, x, y, 0, 0, width, height, width, height);
+        GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, width, height, width, height);
+    }
+
+    /** USE IT TO CHECK IF MOUSE IN A AREA */
+    public static boolean isInArea(float mouseX, float mouseY, float x, float y, float width, float height) {
+        return mouseX > x && mouseX < x + width && mouseY > y && mouseY < y + height;
     }
 }

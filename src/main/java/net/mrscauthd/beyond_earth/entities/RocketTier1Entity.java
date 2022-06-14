@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -19,13 +18,12 @@ import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.events.forge.RocketPickResultEvent;
+import net.mrscauthd.beyond_earth.events.forge.RocketItemStackEvent;
 
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketMenu;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
@@ -45,24 +43,13 @@ public class RocketTier1Entity extends IRocketEntity {
 	}
 
 	@Override
-	public ItemStack getPickedResult(HitResult target) {
+	public ItemStack getRocketItem() {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
 		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
 		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":buckets", this.getEntityData().get(BUCKETS));
-		MinecraftForge.EVENT_BUS.post(new RocketPickResultEvent(this, itemStack));
+		MinecraftForge.EVENT_BUS.post(new RocketItemStackEvent(this, itemStack));
 
 		return itemStack;
-	}
-
-	@Override
-	protected void spawnRocketItem() {
-		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
-		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":buckets", this.getEntityData().get(BUCKETS));
-
-		ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
-		entityToSpawn.setPickUpDelay(10);
-		level.addFreshEntity(entityToSpawn);
 	}
 
 	@Override
@@ -102,15 +89,15 @@ public class RocketTier1Entity extends IRocketEntity {
 	public void particleSpawn() {
 		Vec3 vec = this.getDeltaMovement();
 
-		if (level instanceof ServerLevel) {
+		if (this.level instanceof ServerLevel) {
 			if (this.entityData.get(START_TIMER) == 200) {
-				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+				for (ServerPlayer p : ((ServerLevel) this.level).getServer().getPlayerList().getPlayers()) {
+					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
 				}
 			} else {
-				for (ServerPlayer p : ((ServerLevel) level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
+				for (ServerPlayer p : ((ServerLevel) this.level).getServer().getPlayerList().getPlayers()) {
+					((ServerLevel) this.level).sendParticles(p, ParticleTypes.CAMPFIRE_COSY_SMOKE, true, this.getX() - vec.x, this.getY() - vec.y - 0.1, this.getZ() - vec.z, 6, 0.1, 0.1, 0.1, 0.023);
 				}
 			}
 		}
@@ -124,8 +111,8 @@ public class RocketTier1Entity extends IRocketEntity {
 				this.getEntityData().set(BUCKETS, 1);
 			}
 
-			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
-				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
+			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 3000) {
+				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
 			}
 		}
 	}

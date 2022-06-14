@@ -62,7 +62,6 @@ public class RocketMenu {
 				ItemStack itemstack1 = slot.getItem();
 				itemstack = itemstack1.copy();
 
-				//TODO CHECK IF THAT WORK RIGHT ( rocket.getInventory().getSlots()) use as example HopperMenu or try just (to cast rocket)
 				int containerIndex = rocket.getInventory().getSlots();
 				if (index < containerIndex) {
 					if (!this.moveItemStackTo(itemstack1, containerIndex, this.slots.size(), true)) {

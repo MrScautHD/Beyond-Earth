@@ -35,8 +35,8 @@ import java.util.function.Consumer;
 
 public abstract class IRocketItem extends VehicleItem {
 
-    public static final String fuelTag = BeyondEarth.MODID + ":fuel";
-    public static final String bucketTag = BeyondEarth.MODID + ":buckets";
+    public static final String FUEL_TAG = BeyondEarth.MODID + ":fuel";
+    public static final String BUCKET_TAG = BeyondEarth.MODID + ":buckets";
 
     public IRocketItem(Properties p_41383_) {
         super(p_41383_);
@@ -90,8 +90,8 @@ public abstract class IRocketItem extends VehicleItem {
                     level.addFreshEntity(rocket);
 
                     /** SET TAGS */
-                    rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
-                    rocket.getEntityData().set(RocketTier1Entity.BUCKETS, itemStack.getOrCreateTag().getInt(bucketTag));
+                    rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
+                    rocket.getEntityData().set(RocketTier1Entity.BUCKETS, itemStack.getOrCreateTag().getInt(BUCKET_TAG));
 
                     /** CALL PLACE ROCKET EVENT */
                     MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));
@@ -116,7 +116,7 @@ public abstract class IRocketItem extends VehicleItem {
     public void appendHoverText(ItemStack itemstack, Level level, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, level, list, flag);
 
-        int fuel = itemstack.getOrCreateTag().getInt(fuelTag) / 3;
+        int fuel = itemstack.getOrCreateTag().getInt(FUEL_TAG) / 30;
         list.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + fuel + "%"));
     }
 

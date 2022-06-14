@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.entities;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +25,7 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -52,10 +53,10 @@ public abstract class IRocketEntity extends VehicleEntity {
     public double ay = 0;
     public double ap = 0;
 
-    public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(RocketTier1Entity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(RocketTier1Entity.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RocketTier1Entity.class, EntityDataSerializers.INT);
-    public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(RocketTier1Entity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
 
     public IRocketEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
@@ -66,7 +67,7 @@ public abstract class IRocketEntity extends VehicleEntity {
     }
 
     protected void setRocketSpeed(double speed) {
-        this.ROCKET_SPEED = speed;
+        ROCKET_SPEED = speed;
     }
 
     @Override
@@ -113,11 +114,23 @@ public abstract class IRocketEntity extends VehicleEntity {
         return false;
     }
 
-    protected abstract void spawnRocketItem();
+    public abstract ItemStack getRocketItem();
+
+    @Override
+    public ItemStack getPickedResult(HitResult target) {
+        return this.getRocketItem();
+    }
+
+    protected void spawnRocketItem() {
+        ItemEntity entityToSpawn = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getRocketItem());
+        entityToSpawn.setPickUpDelay(10);
+
+        this.level.addFreshEntity(entityToSpawn);
+    }
 
     protected void dropEquipment() {
-        for (int i = 0; i < inventory.getSlots(); ++i) {
-            ItemStack itemstack = inventory.getStackInSlot(i);
+        for (int i = 0; i < this.inventory.getSlots(); ++i) {
+            ItemStack itemstack = this.inventory.getStackInSlot(i);
             if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
                 this.spawnAtLocation(itemstack);
             }
@@ -132,15 +145,15 @@ public abstract class IRocketEntity extends VehicleEntity {
     };
 
     public ItemStackHandler getInventory() {
-        return inventory;
+        return this.inventory;
     }
 
-    private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory);
+    private final CombinedInvWrapper combined = new CombinedInvWrapper(this.inventory);
 
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
         if (this.isAlive() && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && side == null) {
-            return LazyOptional.of(() -> combined).cast();
+            return LazyOptional.of(() -> this.combined).cast();
         }
         return super.getCapability(capability, side);
     }
@@ -152,7 +165,7 @@ public abstract class IRocketEntity extends VehicleEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.put("InventoryCustom", inventory.serializeNBT());
+        compound.put("InventoryCustom", this.inventory.serializeNBT());
 
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
         compound.putInt("buckets", this.getEntityData().get(BUCKETS));
@@ -166,7 +179,7 @@ public abstract class IRocketEntity extends VehicleEntity {
 
         Tag inventoryCustom = compound.get("InventoryCustom");
         if (inventoryCustom instanceof CompoundTag) {
-            inventory.deserializeNBT((CompoundTag) inventoryCustom);
+            this.inventory.deserializeNBT((CompoundTag) inventoryCustom);
         }
 
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
@@ -184,7 +197,7 @@ public abstract class IRocketEntity extends VehicleEntity {
 
             BlockState state2 = this.level.getBlockState(new BlockPos(Math.floor(this.getX()), this.getY() - 0.2, Math.floor(this.getZ())));
 
-            if (!level.isEmptyBlock(pos) && ((state2.getBlock() instanceof RocketLaunchPad && !state2.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
+            if (!this.level.isEmptyBlock(pos) && ((state2.getBlock() instanceof RocketLaunchPad && !state2.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
 
                 this.dropEquipment();
                 this.spawnRocketItem();
@@ -222,14 +235,14 @@ public abstract class IRocketEntity extends VehicleEntity {
     }
 
     public void rocketAnimation() {
-        ar = ar + 1;
-        if (ar == 1) {
-            ay = ay + 0.006;
-            ap = ap + 0.006;
-        } else if (ar == 2) {
-            ar = 0;
-            ay = 0;
-            ap = 0;
+        this.ar = this.ar + 1;
+        if (this.ar == 1) {
+            this.ay = this.ay + 0.006;
+            this.ap = this.ap + 0.006;
+        } else if (this.ar == 2) {
+            this.ar = 0;
+            this.ay = 0;
+            this.ap = 0;
         }
     }
 
@@ -259,8 +272,7 @@ public abstract class IRocketEntity extends VehicleEntity {
 
                 pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
                 pass.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", this.getType().toString());
-                //TODO CHECK IT AGAIN
-                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItemHolder().value().toString());
+                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().builtInRegistryHolder().key().location().toString());
                 pass.setNoGravity(true);
 
                 /** STOP ROCKET SOUND */

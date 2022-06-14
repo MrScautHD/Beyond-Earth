@@ -363,10 +363,9 @@ public class Methods {
             landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
             newLevel.addFreshEntity(landerSpawn);
 
-            String itemId = player.getPersistentData().getString(BeyondEarth.MODID + ":slot0");
+            ResourceLocation itemKey = new ResourceLocation(player.getPersistentData().getString(BeyondEarth.MODID + ":slot0"));
 
-            //TODO MAYBE TAKE A LOOK AGAIN ON IT
-            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
+            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(itemKey), 1));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
 
             if (SpaceStation) {
