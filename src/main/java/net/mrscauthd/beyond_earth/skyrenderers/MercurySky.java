@@ -24,8 +24,6 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
 
-import javax.annotation.Nullable;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -34,14 +32,17 @@ import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MercurySky {
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "mercury");
+    private static VertexBuffer starBuffer;
 
-    @Nullable
-    public static VertexBuffer starBuffer;
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "mercury");
     private static final ResourceLocation SUN_TEXTURES = new ResourceLocation(BeyondEarth.MODID, "textures/sky/no_a_sun.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, 160, 190, -1);
+        });
+
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
             public Vec3 getBrightnessDependentFogColor(Vec3 p_108878_, float p_108879_) {
@@ -123,7 +124,6 @@ public class MercurySky {
                                     bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
                                 }
 
-                                bufferbuilder.end();
                                 BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
@@ -150,16 +150,16 @@ public class MercurySky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();
 
                             /** STAR */
-                            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, 160, 190, -1);
-                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             FogRenderer.setupNoFog();
+                            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                            starBuffer.bind();
                             starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionColorShader());
+                            VertexBuffer.unbind();
 
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             RenderSystem.disableBlend();

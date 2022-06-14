@@ -54,8 +54,8 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class VenusSky {
 
-    private static final float[] rainSizeX = new float[1024];
-    private static final float[] rainSizeZ = new float[1024];
+    private static float[] rainSizeX;
+    private static float[] rainSizeZ;
     private static int rainSoundTime;
 
     private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "venus");
@@ -67,6 +67,11 @@ public class VenusSky {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            rainSizeX = new float[1024];
+            rainSizeZ = new float[1024];
+        });
+
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
             public Vec3 getBrightnessDependentFogColor(Vec3 p_108878_, float p_108879_) {
@@ -138,7 +143,6 @@ public class VenusSky {
                                     bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
                                 }
 
-                                bufferbuilder.end();
                                 BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
@@ -165,7 +169,6 @@ public class VenusSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             /** EARTH ROT */
@@ -179,7 +182,6 @@ public class VenusSky {
                             bufferbuilder.vertex(matrix4f1, 2.0F, -100.0F, 2.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 2.0F, -100.0F, -2.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -2.0F, -100.0F, -2.0F).uv(0.0F, 1.0F).endVertex();
-                            bufferbuilder.end();
                             BufferUploader.drawWithShader(bufferbuilder.end());
 
                             RenderSystem.disableTexture();
@@ -187,9 +189,11 @@ public class VenusSky {
                             /** STAR */
                             float f10 = level.getStarBrightness(p_181412_) * 1.0F - level.getRainLevel(p_181412_);
                             if (f10 > 0.0F) {
-                                RenderSystem.setShaderColor(f10, f10, f10, f10);
                                 FogRenderer.setupNoFog();
-                                Minecraft.getInstance().levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                                RenderSystem.setShaderColor(f10, f10, f10, f10);
+                                minecraft.levelRenderer.starBuffer.bind();
+                                minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                                VertexBuffer.unbind();
                             }
 
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

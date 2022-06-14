@@ -2,7 +2,6 @@
   "temperature": 1.6,
   "downfall": 1,
   "precipitation": "rain",
-  "category": "desert",
   "effects": {
     "sky_color": -3044526,
     "fog_color": -3044526,
@@ -26,5 +25,12 @@
       "minecraft:canyon"
     ]
   },
-  "features": []
+  "features": [
+    [
+      "beyond_earth:venus_coal_ore",
+      "beyond_earth:venus_gold_ore",
+      "beyond_earth:venus_diamond_ore",
+      "beyond_earth:venus_calorite_ore"
+    ]
+  ]
 }

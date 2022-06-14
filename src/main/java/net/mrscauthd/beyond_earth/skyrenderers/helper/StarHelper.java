@@ -35,9 +35,9 @@ public class StarHelper {
         }
 
         starBuffer = new VertexBuffer();
-        BufferBuilder.RenderedBuffer renderedbuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
+        BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
         starBuffer.bind();
-        starBuffer.upload(renderedbuffer);
+        starBuffer.upload(renderedBuffer);
         VertexBuffer.unbind();
         return starBuffer;
     }

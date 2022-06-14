@@ -30,22 +30,24 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import org.jetbrains.annotations.Nullable;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MarsSky {
 
-	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "mars");
+    private static float[] sunriseCol;
 
+	private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "mars");
 	private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/blue_sun.png");
 	private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/phobos.png");
 	private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/deimos.png");
 	private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
 
-    private static final float[] sunriseCol = new float[4];
-
 	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> {
+            sunriseCol = new float[4];
+        });
+
 		DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
 			@Override
 			public Vec3 getBrightnessDependentFogColor(Vec3 p_108878_, float p_108879_) {
@@ -67,12 +69,9 @@ public class MarsSky {
                 };
             }
 
-            @Nullable
             @Override
             public float[] getSunriseColor(float p_108872_, float p_108873_) {
-                float f = 0.4F;
                 float f1 = Mth.cos(p_108872_ * ((float)Math.PI * 2F)) - 0.0F;
-                float f2 = -0.0F;
                 if (f1 >= -0.4F && f1 <= 0.4F) {
                     float f3 = (f1 - -0.0F) / 0.4F * 0.5F + 0.5F;
                     float f4 = 1.0F - (1.0F - Mth.sin(f3 * (float)Math.PI)) * 0.99F;
@@ -139,7 +138,6 @@ public class MarsSky {
                                 matrix4f = p_181410_.last().pose();
                                 bufferbuilder.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
                                 bufferbuilder.vertex(matrix4f, 0.0F, 100.0F, 0.0F).color(f4, f5, f6, afloat[3]).endVertex();
-                                int i = 16;
 
                                 for (int j = 0; j <= 16; ++j) {
                                     float f7 = (float) j * ((float) Math.PI * 2F) / 16.0F;
@@ -148,7 +146,6 @@ public class MarsSky {
                                     bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
                                 }
 
-                                bufferbuilder.end();
                                 BufferUploader.drawWithShader(bufferbuilder.end());
                                 p_181410_.popPose();
                             }
@@ -221,9 +218,12 @@ public class MarsSky {
                             /** STAR */
                             float f10 = level.getStarBrightness(p_181412_) * 1;
                             if (f10 > 0.0F) {
-                                RenderSystem.setShaderColor(f10, f10, f10, f10);
                                 FogRenderer.setupNoFog();
+                                RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
+                                minecraft.levelRenderer.starBuffer.bind();
                                 minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
+                                VertexBuffer.unbind();
+                                p_181410_.popPose();
                             }
 
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

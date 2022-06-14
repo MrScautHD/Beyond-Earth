@@ -90,7 +90,7 @@ public class ScreenHelper {
             /** SET COLOR */
             RenderSystem.setShaderColor((color >> 16 & 255) / 255.0f, (float) (color >> 8 & 255) / 255.0f, (float) (color & 255) / 255.0f, 1.0f);
 
-            /** RENDER FLUID NOT EXACT CUT */
+            /** RENDER FLUID WITH A NOT EXACT CUT */
             for (int f1 = leftPos; f1 < leftPos + width; f1 += 16) {
                 for (int f2 = topPos; f2 < topPos + height; f2 += 16) {
 
