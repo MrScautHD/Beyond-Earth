@@ -6,13 +6,9 @@ import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ScreenHelper {
@@ -41,25 +37,34 @@ public class ScreenHelper {
         }
 
         private static void innerBlit(PoseStack p_93188_, float p_93189_, float p_93190_, float p_93191_, float p_93192_, float p_93193_, float p_93194_, float p_93195_, float p_93196_, float p_93197_, float p_93198_, float p_93199_) {
-            innerBlit(p_93188_.last().pose(), p_93189_, p_93190_, p_93191_, p_93192_, p_93193_, (p_93196_ + 0.0F) / (float) p_93198_, (p_93196_ + (float) p_93194_) / (float) p_93198_, (p_93197_ + 0.0F) / (float) p_93199_, (p_93197_ + (float) p_93195_) / (float) p_93199_);
+            innerBlit(p_93188_.last().pose(), p_93189_, p_93190_, p_93191_, p_93192_, p_93193_, (p_93196_ + 0.0F) / p_93198_, (p_93196_ + p_93194_) / p_93198_, (p_93197_ + 0.0F) / p_93199_, (p_93197_ + p_93195_) / p_93199_);
         }
 
         private static void innerBlit(Matrix4f p_93113_, float p_93114_, float p_93115_, float p_93116_, float p_93117_, float p_93118_, float p_93119_, float p_93120_, float p_93121_, float p_93122_) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
             bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-            bufferbuilder.vertex(p_93113_, (float) p_93114_, (float) p_93117_, (float) p_93118_).uv(p_93119_, p_93122_).endVertex();
-            bufferbuilder.vertex(p_93113_, (float) p_93115_, (float) p_93117_, (float) p_93118_).uv(p_93120_, p_93122_).endVertex();
-            bufferbuilder.vertex(p_93113_, (float) p_93115_, (float) p_93116_, (float) p_93118_).uv(p_93120_, p_93121_).endVertex();
-            bufferbuilder.vertex(p_93113_, (float) p_93114_, (float) p_93116_, (float) p_93118_).uv(p_93119_, p_93121_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93114_, p_93117_, p_93118_).uv(p_93119_, p_93122_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93115_, p_93117_, p_93118_).uv(p_93120_, p_93122_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93115_, p_93116_, p_93118_).uv(p_93120_, p_93121_).endVertex();
+            bufferbuilder.vertex(p_93113_, p_93114_, p_93116_, p_93118_).uv(p_93119_, p_93121_).endVertex();
             BufferUploader.drawWithShader(bufferbuilder.end());
         }
     }
 
     public static class renderFluid {
 
+        /** USE IT TO DRAW FLUID VERTICAL */
+        public static void drawFluidVertical(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height, double maxAmount) {
+            double ratio = fluidStack.getAmount() / maxAmount;
+            int ratioHeight = (int) Math.ceil(height * ratio);
+            int remainHeight = height - ratioHeight;
+
+            drawFluid(poseStack, fluidStack, leftPos, topPos + remainHeight, width, ratioHeight);
+        }
+
         /** USE IT TO DRAW FLUID */
-        public static void drawFluid(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height, int xOffset, int yOffset) {
+        public static void drawFluid(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height) {
             if (fluidStack.getFluid() == null) {
                 return;
             }
@@ -67,32 +72,34 @@ public class ScreenHelper {
             Minecraft mc = Minecraft.getInstance();
             TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStack.getFluid().getAttributes().getStillTexture());
             RenderSystem.setShaderTexture(0, sprite.atlas().location());
+
+            /** BASIC PARAMETERS  */
             int color = fluidStack.getFluid().getAttributes().getColor();
             int scale = (int) mc.getWindow().getGuiScale();
 
-            int screenX = mc.getWindow().getScreenWidth();
-            int maxX = ((screenX / 2) + xOffset / 2) * scale;
+            /** SCALE PARAMETERS */
+            int x = leftPos * scale;
+            int y = (mc.getWindow().getHeight() - ((height + topPos) * scale));
 
-            int screenY = mc.getWindow().getScreenHeight();
-            int maxY = ((screenY / 2) + yOffset / 2) * scale;
-
-            System.out.println(maxX + " " + maxY + " " + ((width - 2) * scale) + " " +  ((height - 2) * scale));
+            int w = width * scale;
+            int h = height * scale;
 
             /** CUT IT EXACT */
-            RenderSystem.enableScissor(leftPos * scale, maxY, width * scale, ((height - 1) * scale));
+            RenderSystem.enableScissor(x, y, w, h);
 
             /** SET COLOR */
             RenderSystem.setShaderColor((color >> 16 & 255) / 255.0f, (float) (color >> 8 & 255) / 255.0f, (float) (color & 255) / 255.0f, 1.0f);
 
-            /** RENDER FLUID NOT EXACT */
+            /** RENDER FLUID NOT EXACT CUT */
             for (int f1 = leftPos; f1 < leftPos + width; f1 += 16) {
                 for (int f2 = topPos; f2 < topPos + height; f2 += 16) {
 
                     /** RENDERER */
-                    GuiComponent.blit(poseStack, f1, f2, 0, sprite.getWidth(), sprite.getHeight(), sprite);
+                    GuiComponent.blit(poseStack, f1, f2, 0, 16, 16, sprite);
                 }
             }
 
+            /** DISABLE RENDER SYSTEM SETTINGS */
             RenderSystem.disableScissor();
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         }

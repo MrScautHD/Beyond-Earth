@@ -110,10 +110,10 @@ public class RocketTier1Entity extends IRocketEntity {
 				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
 				this.getEntityData().set(BUCKETS, 1);
 			}
+		}
 
-			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 3000) {
-				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
-			}
+		if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 3000) {
+			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
 		}
 	}
 }

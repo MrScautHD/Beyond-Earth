@@ -4,15 +4,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
@@ -62,7 +58,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 
 		/** FUEL RENDERER */
 		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
-		ScreenHelper.renderFluid.drawFluid(ms, fluidStack, this.leftPos + 67, this.topPos + 22, 46, 46, 37, 37);
+		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 67, this.topPos + 22, 46, 46, 3000);
 	}
 
 	@Override

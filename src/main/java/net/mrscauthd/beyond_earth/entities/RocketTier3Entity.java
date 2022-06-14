@@ -118,14 +118,14 @@ public class RocketTier3Entity extends IRocketEntity {
 					this.getEntityData().set(BUCKETS, this.getEntityData().get(BUCKETS) + 1);
 				}
 			}
+		}
 
-			if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 1000) {
-				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
-			} else if (this.getEntityData().get(BUCKETS) == 2 && this.getEntityData().get(FUEL) < 2000) {
-				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
-			} else if (this.getEntityData().get(BUCKETS) == 3 && this.getEntityData().get(FUEL) < 3000) {
-				this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
-			}
+		if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 1000) {
+			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
+		} else if (this.getEntityData().get(BUCKETS) == 2 && this.getEntityData().get(FUEL) < 2000) {
+			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
+		} else if (this.getEntityData().get(BUCKETS) == 3 && this.getEntityData().get(FUEL) < 3000) {
+			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 10);
 		}
 	}
 }
