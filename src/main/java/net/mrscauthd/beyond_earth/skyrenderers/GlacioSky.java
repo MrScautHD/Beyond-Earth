@@ -23,15 +23,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+import javax.annotation.Nullable;
+
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class GlacioSky {
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "glacio");
-    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/blue_sun.png");
-    private static final ResourceLocation VICINUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/vicinus.png");
-    private static final ResourceLocation VICINUS_LIGHT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/vicinus_light.png");
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "glacio");
+
+    @Nullable
+    public static VertexBuffer starBuffer;
+
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/blue_sun.png");
+    private static final ResourceLocation VICINUS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/vicinus.png");
+    private static final ResourceLocation VICINUS_LIGHT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/vicinus_light.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
@@ -107,7 +113,8 @@ public class GlacioSky {
                                     bufferbuilder.vertex(matrix4f, f8 * 120.0F, f9 * 120.0F, -f9 * 40.0F * afloat[3]).color(afloat[0], afloat[1], afloat[2], 0.0F).endVertex();
                                 }
 
-                                BufferUploader.drawWithShader(bufferbuilder.end());
+                                bufferbuilder.end();
+                                BufferUploader.end(bufferbuilder);
                                 p_181410_.popPose();
                             }
 
@@ -120,9 +127,7 @@ public class GlacioSky {
                             /** STAR */
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             FogRenderer.setupNoFog();
-                            minecraft.levelRenderer.starBuffer.bind();
                             minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
-                            VertexBuffer.unbind();
                             p_181410_.popPose();
 
                             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -146,7 +151,8 @@ public class GlacioSky {
                             bufferbuilder.vertex(matrix4f1, 48.0F, -100.0F, 48.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 48.0F, -100.0F, -48.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -48.0F, -100.0F, -48.0F).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
                             /** VICINUS */
                             RenderSystem.disableBlend();
@@ -157,7 +163,8 @@ public class GlacioSky {
                             bufferbuilder.vertex(matrix4f1, 16.0F, -100.0F, 16.0F).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, 16.0F, -100.0F, -16.0F).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -16.0F, -100.0F, -16.0F).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
                             RenderSystem.enableBlend();
 
@@ -176,7 +183,8 @@ public class GlacioSky {
                             bufferbuilder.vertex(matrix4f1, f12, -100.0F, f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, -100.0F, -f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, -100.0F, -f12).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
                             RenderSystem.disableTexture();
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

@@ -1,9 +1,22 @@
 package net.mrscauthd.beyond_earth.guis.screens.nasaworkbench;
 
-//@OnlyIn(Dist.CLIENT)
-public class NasaWorkbenchGuiWindow/* extends AbstractContainerScreen<NasaWorkbenchGui.GuiContainer>*/ {
-/*
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/nasa_workbench.png");
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+
+@OnlyIn(Dist.CLIENT)
+public class NasaWorkbenchGuiWindow extends AbstractContainerScreen<NasaWorkbenchGui.GuiContainer> {
+
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarthMod.MODID, "textures/screens/nasa_workbench.png");
 
 	public NasaWorkbenchGuiWindow(NasaWorkbenchGui.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -25,5 +38,5 @@ public class NasaWorkbenchGuiWindow/* extends AbstractContainerScreen<NasaWorkbe
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, texture);
 		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
-	}*/
+	}
 }

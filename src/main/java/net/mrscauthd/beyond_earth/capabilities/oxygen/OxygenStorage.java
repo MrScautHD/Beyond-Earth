@@ -1,91 +1,81 @@
 package net.mrscauthd.beyond_earth.capabilities.oxygen;
 
-import net.minecraft.nbt.IntTag;
-import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.INBTSerializable;
+import java.util.Optional;
 
-public class OxygenStorage implements IOxygenStorage, INBTSerializable<Tag> {
+import net.minecraft.nbt.CompoundTag;
 
-    protected int oxygen;
-    protected int capacity;
-    protected int maxReceive;
-    protected int maxExtract;
+public class OxygenStorage implements IOxygenStorage {
+	private IOxygenStorageHolder holder;
+	protected int oxygen;
+	protected int capacity;
 
-    public OxygenStorage(int capacity) {
-        this(capacity, capacity, capacity, 0);
-    }
+	public OxygenStorage(IOxygenStorageHolder holder, int capacity) {
+		this(holder, capacity, 0);
+	}
 
-    public OxygenStorage(int capacity, int maxTransfer) {
-        this(capacity, maxTransfer, maxTransfer, 0);
-    }
+	public OxygenStorage(IOxygenStorageHolder holder, int capacity, int oxygen) {
+		this.holder = holder;
+		this.capacity = capacity;
+		this.oxygen = Math.max(0, Math.min(capacity, oxygen));
+	}
 
-    public OxygenStorage(int capacity, int maxReceive, int maxExtract) {
-        this(capacity, maxReceive, maxExtract, 0);
-    }
+	public int receiveOxygen(int maxReceive, boolean simulate) {
+		int oxygen = this.getOxygenStored();
+		int oxygenReceived = Math.min(this.getMaxOxygenStored() - oxygen, Math.max(0, maxReceive));
 
-    public OxygenStorage(int capacity, int maxReceive, int maxExtract, int oxygen) {
-        this.capacity = capacity;
-        this.maxReceive = maxReceive;
-        this.maxExtract = maxExtract;
-        this.oxygen = Math.max(0 , Math.min(capacity, oxygen));
-    }
+		if (!simulate) {
+			this.setOxygenStored(oxygen + oxygenReceived);
+		}
 
-    @Override
-    public int receiveOxygen(int maxReceive, boolean simulate) {
-        if (!canReceive()) {
-            return 0;
-        }
+		return oxygenReceived;
+	}
 
-        int energyReceived = Math.min(capacity - oxygen, Math.min(this.maxReceive, maxReceive));
-        if (!simulate) {
-            oxygen += energyReceived;
-        }
-        return energyReceived;
-    }
+	public int extractOxygen(int maxExtract, boolean simulate) {
+		int oxygen = this.getOxygenStored();
+		int oxygenExtracted = Math.min(oxygen, Math.max(0, maxExtract));
 
-    @Override
-    public int extractOxygen(int maxExtract, boolean simulate) {
-        if (!canExtract()) {
-            return 0;
-        }
+		if (!simulate) {
+			this.setOxygenStored(oxygen - oxygenExtracted);
+		}
 
-        int energyExtracted = Math.min(oxygen, Math.min(this.maxExtract, maxExtract));
-        if (!simulate) {
-            oxygen -= energyExtracted;
-        }
-        return energyExtracted;
-    }
+		return oxygenExtracted;
+	}
 
-    @Override
-    public int getOxygenStored() {
-        return oxygen;
-    }
+	public IOxygenStorageHolder getHolder() {
+		return this.holder;
+	}
 
-    @Override
-    public int getMaxOxygenStored() {
-        return capacity;
-    }
+	public int getOxygenStored() {
+		return this.oxygen;
+	}
 
-    @Override
-    public boolean canExtract() {
-        return this.maxExtract > 0;
-    }
+	@Override
+	public void setOxygenStored(int oxygen) {
+		oxygen = Math.max(Math.min(oxygen, this.getMaxOxygenStored()), 0);
+		int oxygenPrev = this.getOxygenStored();
 
-    @Override
-    public boolean canReceive() {
-        return this.maxReceive > 0;
-    }
+		if (oxygenPrev != oxygen) {
+			this.oxygen = oxygen;
 
-    @Override
-    public Tag serializeNBT() {
-        return IntTag.valueOf(this.getOxygenStored());
-    }
+			int delta = oxygen - oxygenPrev;
+			Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onOxygenChanged(this, delta));
+		}
+	}
 
-    @Override
-    public void deserializeNBT(Tag nbt) {
-        if (!(nbt instanceof IntTag intNbt)) {
-            throw new IllegalArgumentException("Can not deserialize to an instance that isn't the default implementation");
-        }
-        this.oxygen = intNbt.getAsInt();
-    }
+	public int getMaxOxygenStored() {
+		return this.capacity;
+	}
+
+	@Override
+	public CompoundTag serializeNBT() {
+		CompoundTag compound = new CompoundTag();
+		compound.putInt("oxygen", this.getOxygenStored());
+		return compound;
+	}
+
+	@Override
+	public void deserializeNBT(CompoundTag compound) {
+		this.setOxygenStored(compound.getInt("oxygen"));
+	}
+
 }

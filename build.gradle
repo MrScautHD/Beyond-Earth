@@ -1,9 +1,35 @@
-plugins {
-    id "eclipse"
-    id "maven-publish"
-    id "net.minecraftforge.gradle" version "5.1+"
-    id "org.spongepowered.mixin" version "0.7-SNAPSHOT"
+buildscript {
+    repositories {
+        maven { url = "https://maven.minecraftforge.net" }
+        maven { url = "https://repo.spongepowered.org/maven" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
+        classpath "org.spongepowered:mixingradle:0.7-SNAPSHOT"
+    }
 }
+
+repositories {
+  maven {
+    name = "Progwml6 maven"
+    url = "https://dvs1.progwml6.com/files/maven/"
+  }
+  maven {
+    name = "ModMaven"
+    url = "https://modmaven.k-4u.nl/"
+  }
+}
+
+repositories {
+    maven {
+        url = "https://www.cursemaven.com"
+    }
+}
+
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "eclipse"
+apply plugin: "org.spongepowered.mixin"
 
 version = "${mc_version}-${mod_version}"
 group = "net.mrscauthd.beyond_earth"
@@ -12,20 +38,19 @@ archivesBaseName = "Beyond-Earth"
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-
     mappings channel: "official", version: "${mc_version}"
     accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
     runs {
         client {
             workingDirectory project.file("run")
+
             property "forge.logging.markers", "REGISTRIES"
             property "forge.logging.console.level", "debug"
-            property "forge.enabledGameTestNamespaces", "beyond_earth"
             arg "-mixin.config=beyond_earth.mixin.json"
 
             mods {
-                beyond_earth {
+                examplemod {
                     source sourceSets.main
                 }
             }
@@ -33,66 +58,18 @@ minecraft {
 
         server {
             workingDirectory project.file("run")
+
             property "forge.logging.markers", "REGISTRIES"
             property "forge.logging.console.level", "debug"
-            property "forge.enabledGameTestNamespaces", "beyond_earth"
             arg "-mixin.config=beyond_earth.mixin.json"
 
             mods {
-                beyond_earth {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        gameTestServer {
-            workingDirectory project.file("run")
-            property "forge.logging.markers", "REGISTRIES"
-            property "forge.logging.console.level", "debug"
-            property "forge.enabledGameTestNamespaces", "beyond_earth"
-            arg "-mixin.config=beyond_earth.mixin.json"
-
-            mods {
-                beyond_earth {
-                    source sourceSets.main
-                }
-            }
-        }
-
-        data {
-            workingDirectory project.file("run")
-            property "forge.logging.markers", "REGISTRIES"
-            property "forge.logging.console.level", "debug"
-            args "--mod", "beyond_earth", "--all", "--output", file("src/generated/resources/"), "--existing", file("src/main/resources/")
-            arg "-mixin.config=beyond_earth.mixin.json"
-
-            mods {
-                beyond_earth {
+                examplemod {
                     source sourceSets.main
                 }
             }
         }
     }
-}
-
-sourceSets.main.resources { srcDir 'src/generated/resources' }
-
-repositories {
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"
-    }
-    maven {
-        url = "https://www.cursemaven.com"
-    }
-}
-
-mixin {
-    add sourceSets.main, "beyond_earth.mixin-refmap.json"
 }
 
 dependencies {
@@ -104,68 +81,40 @@ dependencies {
     }
 
     //JEI
-    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
 
     //The One Probe
-    //implementation fg.deobf("curse.maven:the-one-probe-245211:${the_one_probe_version}")
-
+    implementation fg.deobf("curse.maven:the-one-probe-245211:${the_one_probe_version}")
+    
     //Jade
-    //implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
+    implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
 
     //TConstruct
-    //implementation fg.deobf("slimeknights.mantle:Mantle:${mc_version}-${mantle_version}")
-    //implementation fg.deobf("slimeknights.tconstruct:TConstruct:${mc_version}-${tconstruct_version}")
+    implementation fg.deobf("slimeknights.mantle:Mantle:${mc_version}-${mantle_version}")
+    implementation fg.deobf("slimeknights.tconstruct:TConstruct:${mc_version}-${tconstruct_version}")
 
 
     //Mekanism
-    //compileOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:additions")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:generators")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:tools")
+    compileOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:additions")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:generators")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:tools")
 }
 
-jar {
-    manifest {
-        attributes([
-                "Specification-Title"     : "beyond_earth",
-                "Specification-Vendor"    : "MrScautHD",
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "MrScautHD",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                "MixinConfigs"            : "beyond_earth.mixin.json"
-        ])
-    }
+mixin {
+    add sourceSets.main, "beyond_earth.mixin-refmap.json"
 }
 
 jar.finalizedBy("reobfJar")
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = "UTF-8"
-}
-
-def resourceTargets = ["META-INF/mods.toml", "pack.mcmeta"]
+def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
 def intoTargets = ["$rootDir/out/production/resources/", "$rootDir/out/production/${project.name}.main/", "$rootDir/bin/main/"]
 def replaceProperties = [mod_version: mod_version, mc_version: mc_version, forge_version: forge_version, loader_version: loader_version]
 processResources {
     inputs.properties replaceProperties
-    replaceProperties.put "project", project
+    replaceProperties.put 'project', project
 
     filesMatching(resourceTargets) {
         expand replaceProperties
@@ -181,5 +130,21 @@ processResources {
                 into target
             }
         }
+    }
+}
+
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "beyond_earth",
+                "Specification-Vendor": "MrScautHD",
+                "Specification-Version": "1",
+                "Implementation-Title": project.name,
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"MrScautHD",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs" : "beyond_earth.mixin.json"
+        ])
     }
 }

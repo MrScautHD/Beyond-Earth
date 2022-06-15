@@ -170,8 +170,7 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	@Override
 	public void setPlacedBy(Level worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		super.setPlacedBy(worldIn, pos, state, placer, stack);
-		boolean flag = worldIn.getFluidState(pos.above()).is(Fluids.WATER);
-		worldIn.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER).setValue(WATERLOGGED, flag), 3);
+		worldIn.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), 3);
 
 		BlockEntity tileentity = worldIn.getBlockEntity(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()));
 

@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -34,12 +33,9 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public static final VoxelShape SHAPE = Shapes.box(0.2, 0, 0.2, 0.8, 1, 0.8);
 
-    public ResourceLocation texture;
-
-    public GlobeBlock(Properties p_49224_, ResourceLocation texture) {
+    public GlobeBlock(Properties p_49224_) {
         super(p_49224_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
-        this.texture = texture;
     }
 
     @Override
@@ -49,7 +45,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
 
     public boolean canSurvive(BlockState p_49325_, LevelReader p_49326_, BlockPos p_49327_) {
         BlockPos blockpos = p_49327_.below();
-        return canSupportRigidBlock(p_49326_, blockpos);
+        return canSupportRigidBlock(p_49326_, blockpos) || canSupportCenter(p_49326_, blockpos, Direction.UP);
     }
 
     @Override

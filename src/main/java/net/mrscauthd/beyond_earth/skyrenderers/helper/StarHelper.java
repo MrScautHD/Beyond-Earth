@@ -35,18 +35,17 @@ public class StarHelper {
         }
 
         starBuffer = new VertexBuffer();
-        BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
-        starBuffer.bind();
-        starBuffer.upload(renderedBuffer);
-        VertexBuffer.unbind();
+        drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
+        bufferbuilder.end();
+        starBuffer.upload(bufferbuilder);
         return starBuffer;
     }
 
-    private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder p_109555_, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
+    private static void drawStars(BufferBuilder p_109555_, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Random random = new Random(10842L);
         p_109555_.begin(VertexFormat.Mode.QUADS, colorSystem ? DefaultVertexFormat.POSITION_COLOR : DefaultVertexFormat.POSITION);
 
-        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode().get();
+        GraphicsStatus graphicsMode = Minecraft.getInstance().options.graphicsMode;
 
         int stars = 1500;
 
@@ -58,11 +57,11 @@ public class StarHelper {
             }
         }
 
-        for(int i = 0; i < stars; ++i) {
-            double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d3 = (double)(scale + random.nextFloat() * 0.1F);
+        for (int i = 0; i < stars; ++i) {
+            double d0 = (double) (random.nextFloat() * 2.0F - 1.0F);
+            double d1 = (double) (random.nextFloat() * 2.0F - 1.0F);
+            double d2 = (double) (random.nextFloat() * 2.0F - 1.0F);
+            double d3 = (double) (scale + random.nextFloat() * 0.1F);
             double d4 = d0 * d0 + d1 * d1 + d2 * d2;
             if (d4 < 1.0D && d4 > 0.01D) {
                 d4 = 1.0D / Math.sqrt(d4);
@@ -82,15 +81,18 @@ public class StarHelper {
                 double d15 = Math.sin(d14);
                 double d16 = Math.cos(d14);
 
-                for(int j = 0; j < 4; ++j) {
-                    double d18 = (double)((j & 2) - 1) * d3;
-                    double d19 = (double)((j + 1 & 2) - 1) * d3;
+                for (int j = 0; j < 4; ++j) {
+                    double d17 = 0.0D;
+                    double d18 = (double) ((j & 2) - 1) * d3;
+                    double d19 = (double) ((j + 1 & 2) - 1) * d3;
+                    double d20 = 0.0D;
                     double d21 = d18 * d16 - d19 * d15;
                     double d22 = d19 * d16 + d18 * d15;
                     double d23 = d21 * d12 + 0.0D * d13;
                     double d24 = 0.0D * d12 - d21 * d13;
                     double d25 = d24 * d9 - d22 * d10;
                     double d26 = d22 * d9 + d24 * d10;
+
                     if (colorSystem) {
                         int color1 = r == -1 ? i : r;
                         int color2 = g == -1 ? i : g;
@@ -103,7 +105,5 @@ public class StarHelper {
                 }
             }
         }
-
-        return p_109555_.end();
     }
 }

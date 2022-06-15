@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.events;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -12,7 +13,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -21,17 +22,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.entities.renderers.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.entities.renderers.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
 
-    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/space_suit.png");
-    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/netherite_space_suit.png");
-    public static final ResourceLocation JET_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/jet_suit.png");
+    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/space_suit.png");
+    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/netherite_space_suit.png");
+    public static final ResourceLocation JET_SUIT_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/armor/jet_suit.png");
 
     public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, boolean armModel) {
         SpaceSuitModel.SPACE_SUIT_P1 spaceSuit = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
@@ -95,6 +96,6 @@ public class ClientMethods {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
 
-        player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".hold_key").append(" ").append(mc.options.keyJump.getKey().getDisplayName()), false);
+        player.displayClientMessage(new TranslatableComponent("message." + BeyondEarthMod.MODID + ".hold_key").append(" ").append(mc.options.keyJump.getKey().getDisplayName()), false);
     }
 }

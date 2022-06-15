@@ -30,24 +30,21 @@ import javax.annotation.Nullable;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class VenusOrbitSky {
 
-    private static VertexBuffer starBuffer;
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "venus_orbit");
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "venus_orbit");
-    private static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/venus.png");
-    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/no_a_sun.png");
+    @Nullable
+    public static VertexBuffer starBuffer;
+    private static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/venus.png");
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/no_a_sun.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
-        });
-
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, false, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
             public Vec3 getBrightnessDependentFogColor(Vec3 p_108878_, float p_108879_) {
@@ -116,11 +113,10 @@ public class VenusOrbitSky {
                             p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
                             /** STAR */
-                            FogRenderer.setupNoFog();
+                            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
                             RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
-                            starBuffer.bind();
+                            FogRenderer.setupNoFog();
                             starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
-                            VertexBuffer.unbind();
                             p_181410_.popPose();
 
                             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -147,7 +143,9 @@ public class VenusOrbitSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
+
 
                             /** VENUS ROT */
                             p_181410_.mulPose(Vector3f.YP.rotationDegrees(0.0F));
@@ -168,7 +166,8 @@ public class VenusOrbitSky {
                             bufferbuilder.vertex(matrix4f1, scale, -100.0F, scale).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
                             RenderSystem.enableBlend();
 

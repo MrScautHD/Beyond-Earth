@@ -24,7 +24,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import net.mrscauthd.beyond_earth.registries.FluidsRegistry;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
@@ -124,10 +124,10 @@ public class FuelFluid extends FlowingFluid {
 	@Override
 	protected FluidAttributes createAttributes() {
 		return net.minecraftforge.fluids.FluidAttributes.builder(
-			new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_fuel_still"),
-			new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_fuel_flow"))
-				.overlay(new ResourceLocation(BeyondEarth.MODID,"blocks/fuel_overlay"))
-				.translationKey("block." + BeyondEarth.MODID + ".fuel")
+			new ResourceLocation(BeyondEarthMod.MODID,"blocks/fluid_fuel_still"),
+			new ResourceLocation(BeyondEarthMod.MODID,"blocks/fluid_fuel_flow"))
+				.overlay(new ResourceLocation(BeyondEarthMod.MODID,"blocks/fuel_overlay"))
+				.translationKey("block." + BeyondEarthMod.MODID + ".fuel")
 				.sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY)
 				.build(this);
 	}

@@ -8,13 +8,13 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.blocks.CoalLanternBlock;
 import net.mrscauthd.beyond_earth.blocks.WallCoalTorchBlock;
 import net.mrscauthd.beyond_earth.events.forge.BlockSetEvent;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class FireSystemEvents {
 
     @SubscribeEvent

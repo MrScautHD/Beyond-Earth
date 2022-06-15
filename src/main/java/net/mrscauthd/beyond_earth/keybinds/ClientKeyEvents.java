@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.keybinds;
 
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.registries.NetworksRegistry;
 import org.lwjgl.glfw.GLFW;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class ClientKeyEvents {
 
 	@SubscribeEvent

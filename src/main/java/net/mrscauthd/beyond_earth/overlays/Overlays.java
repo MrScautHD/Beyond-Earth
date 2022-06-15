@@ -2,11 +2,11 @@ package net.mrscauthd.beyond_earth.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
@@ -24,17 +24,19 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.events.forge.PlanetOverlayEvent;
-import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
+import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
-import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, value = Dist.CLIENT)
 public class Overlays {
 
     /** WARNING OVERLAY VARIABLES */
@@ -42,35 +44,35 @@ public class Overlays {
     private static float counter = 0;
 
     /** WARNING TEXTURE */
-    public static final ResourceLocation WARNING_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/warning.png");
+    public static final ResourceLocation WARNING_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/warning.png");
 
     /** TIMER TEXTURES */
-    public static final ResourceLocation TIMER_1_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer1.png");
-    public static final ResourceLocation TIMER_2_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer2.png");
-    public static final ResourceLocation TIMER_3_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer3.png");
-    public static final ResourceLocation TIMER_4_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer4.png");
-    public static final ResourceLocation TIMER_5_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer5.png");
-    public static final ResourceLocation TIMER_6_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer6.png");
-    public static final ResourceLocation TIMER_7_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer7.png");
-    public static final ResourceLocation TIMER_8_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer8.png");
-    public static final ResourceLocation TIMER_9_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer9.png");
-    public static final ResourceLocation TIMER_10_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/timer/timer10.png");
+    public static final ResourceLocation TIMER_1_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer1.png");
+    public static final ResourceLocation TIMER_2_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer2.png");
+    public static final ResourceLocation TIMER_3_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer3.png");
+    public static final ResourceLocation TIMER_4_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer4.png");
+    public static final ResourceLocation TIMER_5_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer5.png");
+    public static final ResourceLocation TIMER_6_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer6.png");
+    public static final ResourceLocation TIMER_7_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer7.png");
+    public static final ResourceLocation TIMER_8_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer8.png");
+    public static final ResourceLocation TIMER_9_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer9.png");
+    public static final ResourceLocation TIMER_10_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/timer/timer10.png");
 
     /** OXYGEN TANK TEXTURES */
-    public static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_empty.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_empty.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/overlay/oxygen_tank_full.png");
 
     /** PLANET BAR TEXTURES */
-    public static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/moon_planet_bar.png");
-    public static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mars_planet_bar.png");
-    public static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mercury_planet_bar.png");
-    public static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/venus_planet_bar.png");
-    public static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/glacio_planet_bar.png");
-    public static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/earth_planet_bar.png");
-    public static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/orbit_planet_bar.png");
+    public static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/moon_planet_bar.png");
+    public static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mars_planet_bar.png");
+    public static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/mercury_planet_bar.png");
+    public static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/venus_planet_bar.png");
+    public static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/glacio_planet_bar.png");
+    public static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/earth_planet_bar.png");
+    public static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/orbit_planet_bar.png");
 
     /** ROCKET TEXTURE */
-    public static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/rocket.png");
+    public static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/planet_bar/rocket.png");
 
     /** OVERLAY ENABLE OR DISABLE EVENT */
     @SubscribeEvent
@@ -143,7 +145,7 @@ public class Overlays {
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             double speed = Math.round(100.0 * (vehicle).getDeltaMovement().y()) / 100.0;
 
-            Component message = Component.translatable("message." + BeyondEarth.MODID + ".speed", speed);
+            Component message = new TranslatableComponent("message." + BeyondEarthMod.MODID + ".speed", speed);
             Minecraft.getInstance().font.draw(mStack, message, width / 2 - 29, 80 , -3407872);
         }
     };
@@ -213,26 +215,25 @@ public class Overlays {
         public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Player player = Minecraft.getInstance().player;
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-            Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */
-            OxygenStorage oxygenStorage = chest.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = chest.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+            double oxygenStoredRatio = oxygenStorage != null ? oxygenStorage.getOxygenStoredRatio() : 0.0D;
+
+            int x = 5;
+            int y = 5;
+
+            int textureWidth = 62;
+            int textureHeight = 52;
+
+            GuiHelper.drawVerticalReverse(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE, oxygenStoredRatio);
+            GuiHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_FULL_TEXTURE, oxygenStoredRatio);
+
+            /** OXYGEN AMOUNT TEXT */
             if (oxygenStorage != null) {
-
-                int x = 5;
-                int y = 5;
-
-                int textureWidth = 62;
-                int textureHeight = 52;
-
-                ScreenHelper.drawTexture(mStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
-                ScreenHelper.drawVertical(mStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored(), OXYGEN_TANK_FULL_TEXTURE);
-
-                /** OXYGEN AMOUNT TEXT */
-                //TODO CHECK AGAIN TEXT
-                Font font = mc.font;
-                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygenStored() / 48 + "%");
-                font.drawShadow(mStack, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
+                MutableComponent text = GaugeTextHelper.getPercentText(GaugeValueHelper.getOxygen(oxygenStorage)).build();
+                int textWidth = Minecraft.getInstance().font.width(text);
+                Minecraft.getInstance().font.drawShadow(mStack, text, (x + (textureWidth - textWidth) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
         }
     };
@@ -255,19 +256,19 @@ public class Overlays {
 
             ResourceLocation planet;
 
-            if (Methods.isWorld(level, LevelRegistry.MOON)) {
+            if (Methods.isWorld(level, Methods.moon)) {
                 planet = MOON_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+            else if (Methods.isWorld(level, Methods.mars)) {
                 planet = MARS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+            else if (Methods.isWorld(level, Methods.mercury)) {
                 planet = MERCURY_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
+            else if (Methods.isWorld(level, Methods.venus)) {
                 planet = VENUS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+            else if (Methods.isWorld(level, Methods.glacio)) {
                 planet = GLACIO_PLANET_BAR_TEXTURE;
             }
             else if (Methods.isOrbitWorld(level)) {
@@ -290,7 +291,7 @@ public class Overlays {
 
             /** ROCKET_Y IMAGE */
             RenderSystem.setShaderTexture(0, ROCKET_PLANET_BAR_TEXTURE);
-            ScreenHelper.renderWithFloat.blit(mStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
+            GuiHelper.blit(mStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
         }
     };
 }

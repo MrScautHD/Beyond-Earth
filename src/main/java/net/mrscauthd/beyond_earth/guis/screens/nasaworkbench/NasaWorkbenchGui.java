@@ -1,8 +1,25 @@
 package net.mrscauthd.beyond_earth.guis.screens.nasaworkbench;
 
-//TODO NEED FULL REWORK (GENEREL ALL MACHINE BLOCKS GUIS)
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.IContainerFactory;
+import net.mrscauthd.beyond_earth.crafting.WorkbenchingRecipe;
+import net.mrscauthd.beyond_earth.guis.helper.ContainerHelper;
+import net.mrscauthd.beyond_earth.guis.helper.GridPlacer;
+import net.mrscauthd.beyond_earth.guis.helper.RocketPartGridPlacer;
+import net.mrscauthd.beyond_earth.inventory.RocketPartsItemHandler;
+import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.registries.RocketPartsRegistry;
+import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
+
 public class NasaWorkbenchGui {
-/*
+
 	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
 		public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
 			BlockPos pos = extraData.readBlockPos();
@@ -118,5 +135,5 @@ public class NasaWorkbenchGui {
 		public Slot getResultSlot() {
 			return this.resultSlot;
 		}
-	}*/
+	}
 }

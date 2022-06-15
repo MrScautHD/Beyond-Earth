@@ -7,9 +7,6 @@ public class JetSuitMovement {
     public static void movement(Player player) {
         if (!player.isPassenger()) {
             //System.out.println(player.isShiftKeyDown());
-            if (!player.isFallFlying()) {
-
-            }
         }
     }
 }

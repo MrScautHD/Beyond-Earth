@@ -1,24 +1,16 @@
 package net.mrscauthd.beyond_earth.globe;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.entities.renderers.globe.GlobeItemRenderer;
+import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 
 import java.util.function.Consumer;
 
 public class GlobeItem extends BlockItem {
-
-    @OnlyIn(Dist.CLIENT)
-    private GlobeItemRenderer renderer;
-
-    public GlobeItem(Block p_40565_, Properties p_40566_, ResourceLocation texture) {
+    public GlobeItem(Block p_40565_, Properties p_40566_) {
         super(p_40565_, p_40566_);
-        this.renderer = new GlobeItemRenderer<>(texture);
     }
 
     @Override
@@ -27,7 +19,7 @@ public class GlobeItem extends BlockItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-                return GlobeItem.this.renderer;
+                return ClientEventBusSubscriber.GLOBE_RENDERER;
             }
         });
     }

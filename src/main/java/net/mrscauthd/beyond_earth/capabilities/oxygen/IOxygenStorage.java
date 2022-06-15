@@ -1,16 +1,21 @@
 package net.mrscauthd.beyond_earth.capabilities.oxygen;
 
-public interface IOxygenStorage {
+import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.util.INBTSerializable;
 
-    int receiveOxygen(int maxReceive, boolean simulate);
+public interface IOxygenStorage extends INBTSerializable<CompoundTag> {
 
-    int extractOxygen(int maxExtract, boolean simulate);
+	int receiveOxygen(int maxReceive, boolean simulate);
 
-    int getOxygenStored();
+	int extractOxygen(int maxExtract, boolean simulate);
 
-    int getMaxOxygenStored();
+	int getOxygenStored();
 
-    boolean canExtract();
+	void setOxygenStored(int oxygen);
 
-    boolean canReceive();
+	int getMaxOxygenStored();
+
+	public default double getOxygenStoredRatio() {
+		return (double) this.getOxygenStored() / (double) this.getMaxOxygenStored();
+	}
 }

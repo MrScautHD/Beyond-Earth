@@ -1,7 +1,12 @@
 package net.mrscauthd.beyond_earth.guis.screens.nasaworkbench;
 
-public class NasaWorkbenchResultSlot/* extends Slot*/ {
-/*
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.mrscauthd.beyond_earth.machines.tile.NASAWorkbenchBlockEntity;
+
+public class NasaWorkbenchResultSlot extends Slot {
+
 	private final NASAWorkbenchBlockEntity blockEntity;
 
 	public NasaWorkbenchResultSlot(Container inventory, int slotIndex, int xPos, int yPos, NASAWorkbenchBlockEntity blockEntity) {
@@ -16,5 +21,5 @@ public class NasaWorkbenchResultSlot/* extends Slot*/ {
 
 	public NASAWorkbenchBlockEntity getBlockEntity() {
 		return this.blockEntity;
-	}*/
+	}
 }

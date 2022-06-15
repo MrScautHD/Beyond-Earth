@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;
@@ -16,6 +15,7 @@ import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureCo
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 import javax.annotation.Nullable;
+import java.util.Random;
 
 public class VenusDeltas extends Feature<ColumnFeatureConfiguration> {
     private static final ImmutableList<Block> CANNOT_PLACE_ON = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.MAGMA_BLOCK, Blocks.SOUL_SAND, Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_FENCE, Blocks.NETHER_BRICK_STAIRS, Blocks.NETHER_WART, Blocks.CHEST, Blocks.SPAWNER);
@@ -32,7 +32,7 @@ public class VenusDeltas extends Feature<ColumnFeatureConfiguration> {
         int i = p_159444_.chunkGenerator().getSeaLevel();
         BlockPos blockpos = p_159444_.origin();
         WorldGenLevel worldgenlevel = p_159444_.level();
-        RandomSource random = p_159444_.random();
+        Random random = p_159444_.random();
         ColumnFeatureConfiguration columnfeatureconfiguration = p_159444_.config();
         if (!canPlaceAt(worldgenlevel, i, blockpos.mutable())) {
             return false;

@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,6 +24,7 @@ import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
@@ -85,7 +85,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
     }
 
     @Override
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
+    public void tick(BlockState state, ServerLevel world, BlockPos pos, Random random) {
         int y = pos.getY();
 
         /** POS FOR 3x3 */
@@ -105,7 +105,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             for (int f2 = z; f2 < z + 3; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
 
-                flag1.add(level.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()));
+                flag1.add(world.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()));
             }
         }
 
@@ -114,8 +114,8 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             for (int f2 = z2; f2 < z2 + 5; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
 
-                if (level.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()) && !pos2.equals(pos)) {
-                    flag2.add(level.getBlockState(pos2).getValue(STAGE));
+                if (world.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()) && !pos2.equals(pos)) {
+                    flag2.add(world.getBlockState(pos2).getValue(STAGE));
                 }
             }
         }
@@ -123,15 +123,15 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         /** VARIABLE SETTER */
         if (!flag1.contains(false)) {
             if (!state.getValue(STAGE) && !flag2.contains(true)) {
-                level.setBlock(pos, state.setValue(STAGE, true), 2);
+                world.setBlock(pos, state.setValue(STAGE, true), 2);
             }
         } else {
             if (state.getValue(STAGE)) {
-                level.setBlock(pos, state.setValue(STAGE, false), 2);
+                world.setBlock(pos, state.setValue(STAGE, false), 2);
             }
         }
 
-        level.scheduleTick(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this, 1);
+        world.scheduleTick(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this, 1);
     }
 
     @Override

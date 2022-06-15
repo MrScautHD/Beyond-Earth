@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.armors;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,13 +13,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
-import net.mrscauthd.beyond_earth.entities.renderers.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.SpaceSuitCapabilityProvider;
+import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import org.jetbrains.annotations.Nullable;
@@ -65,7 +65,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarth.MODID + ":textures/armor/netherite_oxygen_mask.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_oxygen_mask.png";
 		}
 	}
 
@@ -104,34 +104,30 @@ public class NetheriteSpaceSuit {
 		@Override
 		public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
 			super.fillItemCategory(p_41391_, p_41392_);
-			if (this.allowedIn(p_41391_)) {
+			if (this.allowdedIn(p_41391_)) {
 				ItemStack itemStack = new ItemStack(this);
-				IOxygenStorage oxygenStorage = itemStack.getCapability(OxygenCapability.OXYGEN).orElse(null);
-				if (oxygenStorage != null) {
-					oxygenStorage.receiveOxygen(oxygenStorage.getMaxOxygenStored(), false);
-				}
+				IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
+				oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
 				p_41392_.add(itemStack);
 			}
 		}
 
 		@Override
 		public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-			return new OxygenProvider(48000);
+			return new SpaceSuitCapabilityProvider(stack, 48000);
 		}
 
 		@Override
 		public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
 			super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-			OxygenStorage oxygenStorage = p_41421_.getCapability(OxygenCapability.OXYGEN).orElse(null);
-			if (oxygenStorage != null) {
-				p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygenStorage.getOxygenStored() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygenStorage.getMaxOxygenStored() + " mb"));
-			}
+			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(p_41421_);
+			p_41423_.add(GaugeTextHelper.buildSpacesuitOxygenTooltip(oxygenStorage));
 		}
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarth.MODID + ":textures/armor/netherite_space_suit.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_suit.png";
 		}
 
 		@Override
@@ -175,7 +171,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarth.MODID + ":textures/armor/netherite_space_pants.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_pants.png";
 		}
 	}
 
@@ -214,7 +210,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarth.MODID + ":textures/armor/netherite_space_suit.png";
+			return BeyondEarthMod.MODID + ":textures/armor/netherite_space_suit.png";
 		}
 	}
 }

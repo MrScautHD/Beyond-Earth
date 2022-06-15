@@ -45,12 +45,6 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
     }
 
     @Override
-    protected void doPostHurtEffects(LivingEntity p_36744_) {
-        super.doPostHurtEffects(p_36744_);
-        p_36744_.setArrowCount(p_36744_.getArrowCount() - 1);
-    }
-
-    @Override
     public void tick() {
         super.tick();
         double x = this.getX();

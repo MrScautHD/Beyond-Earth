@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.items;
 
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -21,27 +20,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
+import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class RoverItem extends VehicleItem {
-    public static String FUEL_TAG = BeyondEarth.MODID + ":fuel";
+    public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, Level level, List<Component> list, TooltipFlag tooltipFlag) {
-        super.appendHoverText(itemStack, level, list, tooltipFlag);
-
-        int fuel = itemStack.getOrCreateTag().getInt(FUEL_TAG);
-        list.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + fuel + " mb" + "\u00A78" + " | " + "\u00A77" + "3000 mb"));
+    public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
+        super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
+        int fuel = p_41421_.getOrCreateTag().getInt(fuelTag);
+        p_41423_.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE))));
     }
 
     @Override
@@ -87,7 +88,7 @@ public class RoverItem extends VehicleItem {
 
                 world.addFreshEntity(rover);
 
-                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
+                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -116,9 +117,9 @@ public class RoverItem extends VehicleItem {
     @Override
     public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
         super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowedIn(p_41391_)) {
+        if (this.allowdedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(FUEL_TAG, 3000);
+            itemStack.getOrCreateTag().putInt(fuelTag, 3000);
             p_41392_.add(itemStack);
         }
     }

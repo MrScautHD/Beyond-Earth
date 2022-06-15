@@ -1,0 +1,12 @@
+{
+  "type": "beyond_earth:meteor",
+  "config": {
+    "start_pool": "beyond_earth:meteor/meteor",
+    "size": 1
+  },
+  "biomes": "#beyond_earth:has_structure/meteor_biomes",
+  "adapt_noise": false,
+  "spawn_overrides": {
+
+  }
+}

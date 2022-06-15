@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.events.forge.EntityGravityEvent;
-import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
 public class EntityGravity {
 
@@ -19,16 +18,16 @@ public class EntityGravity {
     public static final float ORBIT_GRAVITY = 0.02F;
 
     public static void gravity(LivingEntity entity, Level level) {
-        if (Methods.isWorld(level, LevelRegistry.MOON)) {
+        if (Methods.isWorld(level, Methods.moon)) {
             gravitySystem(entity, MOON_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+        else if (Methods.isWorld(level, Methods.mars)) {
             gravitySystem(entity, MARS_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+        else if (Methods.isWorld(level, Methods.mercury)) {
             gravitySystem(entity, MERCURY_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+        else if (Methods.isWorld(level, Methods.glacio)) {
             gravitySystem(entity, GLACIO_GRAVITY);
         }
         else if (Methods.isOrbitWorld(level)) {

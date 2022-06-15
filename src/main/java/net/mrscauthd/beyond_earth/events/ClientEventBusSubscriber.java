@@ -18,66 +18,67 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.entities.renderers.TileEntityBoxRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.alien.AlienModel;
-import net.mrscauthd.beyond_earth.entities.renderers.alienzombie.AlienZombieModel;
-import net.mrscauthd.beyond_earth.entities.renderers.alienzombie.AlienZombieRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.entities.renderers.flag.TileEntityHeadModel;
-import net.mrscauthd.beyond_earth.entities.renderers.flag.TileEntityHeadRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.globe.GlobeBlockRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.globe.GlobeModel;
-import net.mrscauthd.beyond_earth.entities.renderers.lander.LanderModel;
-import net.mrscauthd.beyond_earth.entities.renderers.lander.LanderRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.martianraptor.MartianRaptorModel;
-import net.mrscauthd.beyond_earth.entities.renderers.martianraptor.MartianRaptorRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.mogler.MoglerModel;
-import net.mrscauthd.beyond_earth.entities.renderers.mogler.MoglerRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.pygro.PygroModel;
-import net.mrscauthd.beyond_earth.entities.renderers.pygro.PygroRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.pygrobrute.PygroBruteRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier1.RocketTier1ItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier1.RocketTier1Model;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier1.RocketTier1Renderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier2.RocketTier2ItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier2.RocketTier2Model;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier2.RocketTier2Renderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier3.RocketTier3ItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier3.RocketTier3Model;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier3.RocketTier3Renderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier4.RocketTier4ItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier4.RocketTier4Model;
-import net.mrscauthd.beyond_earth.entities.renderers.rockettier4.RocketTier4Renderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rover.RoverItemRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.rover.RoverModel;
-import net.mrscauthd.beyond_earth.entities.renderers.rover.RoverRenderer;
-import net.mrscauthd.beyond_earth.entities.renderers.armors.SpaceSuitModel;
-import net.mrscauthd.beyond_earth.entities.renderers.starcrawler.StarCrawlerModel;
-import net.mrscauthd.beyond_earth.entities.renderers.starcrawler.StarCrawlerRenderer;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorScreen;
-import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorScreen;
-import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryScreen;
-import net.mrscauthd.beyond_earth.guis.screens.lander.LanderScreen;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.entities.renderer.TileEntityBoxRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienModel;
+import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieModel;
+import net.mrscauthd.beyond_earth.entities.renderer.alienzombie.AlienZombieRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadModel;
+import net.mrscauthd.beyond_earth.entities.renderer.flag.TileEntityHeadRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeModel;
+import net.mrscauthd.beyond_earth.entities.renderer.globe.GlobeRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.lander.LanderModel;
+import net.mrscauthd.beyond_earth.entities.renderer.lander.LanderRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.martianraptor.MartianRaptorModel;
+import net.mrscauthd.beyond_earth.entities.renderer.martianraptor.MartianRaptorRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.mogler.MoglerModel;
+import net.mrscauthd.beyond_earth.entities.renderer.mogler.MoglerRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.pygro.PygroModel;
+import net.mrscauthd.beyond_earth.entities.renderer.pygro.PygroRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.pygrobrute.PygroBruteRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1ItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1Model;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier1.RocketTier1Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2ItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2Model;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier2.RocketTier2Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3ItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3Model;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier3.RocketTier3Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4ItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4Model;
+import net.mrscauthd.beyond_earth.entities.renderer.rockettier4.RocketTier4Renderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverItemRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverModel;
+import net.mrscauthd.beyond_earth.entities.renderer.rover.RoverRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.entities.renderer.starcrawler.StarCrawlerModel;
+import net.mrscauthd.beyond_earth.entities.renderer.starcrawler.StarCrawlerRenderer;
+import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.lander.LanderGuiWindow;
 import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGuiWindow;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorScreen;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderScreen;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionScreen;
-import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketScreen;
-import net.mrscauthd.beyond_earth.guis.screens.rover.RoverScreen;
-import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelScreen;
-import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpScreen;
+import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGuiWindow;
 import net.mrscauthd.beyond_earth.overlays.Overlays;
 import net.mrscauthd.beyond_earth.particles.*;
-import net.mrscauthd.beyond_earth.entities.renderers.alien.AlienRenderer;
+import net.mrscauthd.beyond_earth.entities.renderer.alien.AlienRenderer;
 import net.mrscauthd.beyond_earth.registries.*;
 import org.lwjgl.glfw.GLFW;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEventBusSubscriber {
 	public static KeyMapping key1;
 
-	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarth.MODID, "entities/tile_entity_box_oxygen_generator");
+	public static final ResourceLocation OXYGEN_BUBBLE = new ResourceLocation(BeyondEarthMod.MODID, "entities/tile_entity_box_oxygen_generator");
+	public static final GlobeRenderer GLOBE_RENDERER = new GlobeRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 
 	public static final RocketTier1ItemRenderer ROCKET_TIER_1_ITEM_RENDERER = new RocketTier1ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
 	public static final RocketTier2ItemRenderer ROCKET_TIER_2_ITEM_RENDERER = new RocketTier2ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
@@ -107,10 +108,10 @@ public class ClientEventBusSubscriber {
 
 		event.registerEntityRenderer(EntitiesRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
-		//event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
 
 		event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), TileEntityHeadRenderer::new);
-		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
+		event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GLOBE_RENDERER);
 	}
 
 	@SubscribeEvent
@@ -141,21 +142,21 @@ public class ClientEventBusSubscriber {
 	@SubscribeEvent
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		//GUIS
-		MenuScreens.register(ScreensRegistry.ROCKET_GUI.get(), RocketScreen::new);
-		/*MenuScreens.register(ScreensRegistry.COMPRESSOR_GUI.get(), CompressorScreen::new);
-		MenuScreens.register(ScreensRegistry.FUEL_REFINERY_GUI.get(), FuelRefineryScreen::new);
-		MenuScreens.register(ScreensRegistry.COAL_GENERATOR_GUI.get(), CoalGeneratorScreen::new);
+		MenuScreens.register(ScreensRegistry.ROCKET_GUI.get(), RocketGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.COMPRESSOR_GUI.get(), CompressorGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.FUEL_REFINERY_GUI.get(), FuelRefineryGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.COAL_GENERATOR_GUI.get(), CoalGeneratorGuiWindow::new);
 		MenuScreens.register(ScreensRegistry.NASA_WORKBENCH_GUI.get(), NasaWorkbenchGuiWindow::new);
-		MenuScreens.register(ScreensRegistry.OXYGEN_LOADER_GUI.get(), OxygenLoaderScreen::new);
-		MenuScreens.register(ScreensRegistry.SOLAR_PANEL_GUI.get(), SolarPanelScreen::new);
-		MenuScreens.register(ScreensRegistry.WATER_PUMP_GUI.get(), WaterPumpScreen::new);
-		MenuScreens.register(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);*/
-		MenuScreens.register(ScreensRegistry.LANDER_GUI.get(), LanderScreen::new);
-		MenuScreens.register(ScreensRegistry.ROVER_GUI.get(), RoverScreen::new);
-		MenuScreens.register(ScreensRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionScreen::new);
+		MenuScreens.register(ScreensRegistry.OXYGEN_LOADER_GUI.get(), OxygenLoaderGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.SOLAR_PANEL_GUI.get(), SolarPanelGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.WATER_PUMP_GUI.get(), WaterPumpGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.LANDER_GUI.get(), LanderGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.ROVER_GUI.get(), RoverGuiWindow::new);
+		MenuScreens.register(ScreensRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionGuiWindow::new);
 
 		//Key Binding Registrys
-		key1 = new KeyMapping("key." + BeyondEarth.MODID + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BeyondEarth.MODID);
+		key1 = new KeyMapping("key." + BeyondEarthMod.MODID + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BeyondEarthMod.MODID);
 		ClientRegistry.registerKeyBinding(key1);
 
 		//Fluid Translucent Renderer
@@ -169,10 +170,9 @@ public class ClientEventBusSubscriber {
 		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.COAL_LANTERN_BLOCK.get(), RenderType.translucent());
 
 		//Cutout
-		//TODO DONT FORGOT IT TO REWORK IT
-		//ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());
 
-		//ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
 
 		//OVERLAY
 		OverlayRegistry.registerOverlayTop("warning", Overlays.WARNING);

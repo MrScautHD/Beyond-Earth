@@ -16,14 +16,13 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
-import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID)
 public class Events {
 
     @SubscribeEvent
@@ -51,7 +50,7 @@ public class Events {
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
             if (player instanceof ServerPlayer) {
-                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open"));
+                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open"));
             }
         }
     }
@@ -65,11 +64,11 @@ public class Events {
         Methods.entityOxygen(entity, level);
 
         /** VENUS RAIN SYSTEM */
-        Methods.venusRain(entity, LevelRegistry.VENUS);
+        Methods.venusRain(entity, Methods.venus);
 
         /** PLANET FIRE SYSTEM */
-        Methods.planetFire(entity, LevelRegistry.VENUS);
-        Methods.planetFire(entity, LevelRegistry.MERCURY);
+        Methods.planetFire(entity, Methods.venus);
+        Methods.planetFire(entity, Methods.mercury);
     }
 
     @SubscribeEvent
@@ -111,10 +110,10 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             Level level = event.world;
 
-            if (LevelRegistry.WORLDS_WITHOUT_RAIN.contains(level.dimension())) {
+            if (Methods.worldsWithoutRain.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
-            } else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
+            } else if (Methods.isWorld(level, Methods.venus)) {
                 level.thunderLevel = 0;
             }
         }
@@ -155,7 +154,7 @@ public class Events {
 
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
             Player player = (Player) event.getEntity();
 
             player.closeContainer();
@@ -169,19 +168,15 @@ public class Events {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
-        if (Methods.isWorld(level, LevelRegistry.MOON)) {
+        if (Methods.isWorld(level, Methods.moon)) {
             event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+        } else if (Methods.isWorld(level, Methods.mars)) {
             event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+        } else if (Methods.isWorld(level, Methods.glacio)) {
             event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+        } else if (Methods.isWorld(level, Methods.mercury)) {
             event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isOrbitWorld(level)) {
+        } else if (Methods.isOrbitWorld(level)) {
             event.setDistance(event.getDistance() - 8.5F);
         }
     }

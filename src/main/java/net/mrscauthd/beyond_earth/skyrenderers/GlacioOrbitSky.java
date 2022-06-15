@@ -26,24 +26,23 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+import javax.annotation.Nullable;
+
+@Mod.EventBusSubscriber(modid = BeyondEarthMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class GlacioOrbitSky {
 
-    private static VertexBuffer starBuffer;
+    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit");
 
-    private static final ResourceLocation DIM_RENDER_INFO = new ResourceLocation(BeyondEarth.MODID, "glacio_orbit");
-    private static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/glacio.png");
-    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/no_a_sun.png");
+    @Nullable
+    public static VertexBuffer starBuffer;
+    private static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/glacio.png");
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarthMod.MODID, "textures/sky/no_a_sun.png");
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(() -> {
-            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
-        });
-
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, false, DimensionSpecialEffects.SkyType.NORMAL, false, false) {
             @Override
             public Vec3 getBrightnessDependentFogColor(Vec3 p_108878_, float p_108879_) {
@@ -112,11 +111,10 @@ public class GlacioOrbitSky {
                             p_181410_.mulPose(Vector3f.XP.rotationDegrees(-30.0F));
 
                             /** STAR */
-                            FogRenderer.setupNoFog();
+                            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
                             RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
-                            starBuffer.bind();
+                            FogRenderer.setupNoFog();
                             starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
-                            VertexBuffer.unbind();
                             p_181410_.popPose();
 
                             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
@@ -143,7 +141,8 @@ public class GlacioOrbitSky {
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, -f12).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, f12, 100.0F, f12).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -f12, 100.0F, f12).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
 
                             /** GLACIO ROT */
@@ -165,7 +164,8 @@ public class GlacioOrbitSky {
                             bufferbuilder.vertex(matrix4f1, scale, -100.0F, scale).uv(1.0F, 0.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, scale, -100.0F, -scale).uv(1.0F, 1.0F).endVertex();
                             bufferbuilder.vertex(matrix4f1, -scale, -100.0F, -scale).uv(0.0F, 1.0F).endVertex();
-                            BufferUploader.drawWithShader(bufferbuilder.end());
+                            bufferbuilder.end();
+                            BufferUploader.end(bufferbuilder);
 
                             RenderSystem.enableBlend();
 

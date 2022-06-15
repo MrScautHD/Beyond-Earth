@@ -2,9 +2,12 @@ package net.mrscauthd.beyond_earth.events;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundStopSoundPacket;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -32,20 +35,82 @@ import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.*;
-import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionMenu;
+import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionGui;
 import net.mrscauthd.beyond_earth.items.VehicleItem;
 import net.mrscauthd.beyond_earth.registries.*;
 
+import java.util.Set;
 import java.util.function.Function;
 
 public class Methods {
-    public static final ResourceLocation SPACE_STATION = new ResourceLocation(BeyondEarth.MODID, "space_station");
+
+    public static final ResourceKey<Level> moon = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon"));
+    public static final ResourceKey<Level> moon_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "moon_orbit"));
+    public static final ResourceKey<Level> mars = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars"));
+    public static final ResourceKey<Level> mars_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mars_orbit"));
+    public static final ResourceKey<Level> mercury = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury"));
+    public static final ResourceKey<Level> mercury_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "mercury_orbit"));
+    public static final ResourceKey<Level> venus = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus"));
+    public static final ResourceKey<Level> venus_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "venus_orbit"));
+    public static final ResourceKey<Level> glacio = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio"));
+    public static final ResourceKey<Level> glacio_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID, "glacio_orbit"));
+    public static final ResourceKey<Level> overworld = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
+    public static final ResourceKey<Level> earth_orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarthMod.MODID,"earth_orbit"));
+
+    public static final ResourceLocation space_station = new ResourceLocation(BeyondEarthMod.MODID, "space_station");
+
+    public static Set<ResourceKey<Level>> worldsWithoutRain = Set.of(
+            moon,
+            moon_orbit,
+            mars_orbit,
+            mercury,
+            mercury_orbit,
+            venus_orbit,
+            glacio_orbit,
+            earth_orbit
+    );
+
+    public static Set<ResourceKey<Level>> spaceWorldsWithoutOxygen = Set.of(
+            moon,
+            moon_orbit,
+            mars,
+            mars_orbit,
+            mercury,
+            mercury_orbit,
+            venus,
+            venus_orbit,
+            glacio_orbit,
+            earth_orbit
+    );
+
+    public static Set<ResourceKey<Level>> spaceWorlds = Set.of(
+            moon,
+            moon_orbit,
+            mars,
+            mars_orbit,
+            mercury,
+            mercury_orbit,
+            venus,
+            venus_orbit,
+            glacio,
+            glacio_orbit,
+            earth_orbit
+    );
+
+    public static Set<ResourceKey<Level>> orbitWorlds = Set.of(
+            earth_orbit,
+            moon_orbit,
+            mars_orbit,
+            mercury_orbit,
+            venus_orbit,
+            glacio_orbit
+    );
 
     public static void entityWorldTeleporter(Entity entity, ResourceKey<Level> planet, double high) {
         if (entity.canChangeDimensions()) {
@@ -57,7 +122,7 @@ public class Methods {
             ServerLevel nextLevel = entity.getServer().getLevel(planet);
 
             if (nextLevel == null) {
-                BeyondEarth.LOGGER.error(planet.registry() + " not existing!");
+                BeyondEarthMod.LOGGER.error(planet.getRegistryName() + " not existing!");
                 return;
             }
 
@@ -92,15 +157,6 @@ public class Methods {
         return true;
     }
 
-    public static boolean jetSuitCheck(LivingEntity entity) {
-        if (!checkArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get())) return false;
-        if (!checkArmor(entity, 2, ItemsRegistry.JET_SUIT.get())) return false;
-        if (!checkArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
-        if (!checkArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
-
-        return true;
-    }
-
     public static boolean spaceSuitCheck(LivingEntity entity) {
         if (!checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
         if (!checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
@@ -113,33 +169,29 @@ public class Methods {
     public static boolean spaceSuitCheckBoth(LivingEntity entity) {
         boolean item3 = checkArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get());
         boolean item3b = checkArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get());
-        boolean item3c = checkArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get());
 
-        if (!item3 && !item3b && !item3c) {
+        if (!item3 && !item3b) {
             return false;
         }
 
         boolean item2 = checkArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get());
         boolean item2b = checkArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get());
-        boolean item2c = checkArmor(entity, 2, ItemsRegistry.JET_SUIT.get());
 
-        if (!item2 && !item2b && !item2c) {
+        if (!item2 && !item2b) {
             return false;
         }
 
         boolean item1 = checkArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get());
         boolean item1b = checkArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get());
-        boolean item1c = checkArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get());
 
-        if (!item1 && !item1b && !item1c) {
+        if (!item1 && !item1b) {
             return false;
         }
 
         boolean item0 = checkArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get());
         boolean item0b = checkArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
-        boolean item0c = checkArmor(entity, 0, ItemsRegistry.JET_SUIT_PANTS.get());
 
-        if (!item0 && !item0b && !item0c) {
+        if (!item0 && !item0b) {
             return false;
         }
 
@@ -151,15 +203,15 @@ public class Methods {
     }
 
     public static boolean isSpaceWorld(Level world) {
-        return LevelRegistry.WORLDS.contains(world.dimension());
+        return spaceWorlds.contains(world.dimension());
     }
 
     public static boolean isSpaceWorldWithoutOxygen(Level world) {
-        return LevelRegistry.WORLDS_WITHOUT_OXYGEN.contains(world.dimension());
+        return spaceWorldsWithoutOxygen.contains(world.dimension());
     }
 
     public static boolean isOrbitWorld(Level world) {
-        return LevelRegistry.ORBITS.contains(world.dimension());
+        return orbitWorlds.contains(world.dimension());
     }
 
     public static boolean isWorld(Level world, ResourceKey<Level> loc) {
@@ -272,15 +324,15 @@ public class Methods {
 
             if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
-                entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") + 1);
+                entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") + 1);
 
-                if (entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") > 15) {
+                if (entity.getPersistentData().getDouble(BeyondEarthMod.MODID + ":oxygen_tick") > 15) {
 
                     if (!level.isClientSide) {
                         Methods.oxygenDamage(entity);
                     }
 
-                    entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", 0);
+                    entity.getPersistentData().putDouble(BeyondEarthMod.MODID + ":oxygen_tick", 0);
                 }
             }
         }
@@ -363,9 +415,9 @@ public class Methods {
             landerSpawn.moveTo(player.getX(), player.getY(), player.getZ(), 0, 0);
             newLevel.addFreshEntity(landerSpawn);
 
-            ResourceLocation itemKey = new ResourceLocation(player.getPersistentData().getString(BeyondEarth.MODID + ":slot0"));
+            String itemId = player.getPersistentData().getString(BeyondEarthMod.MODID + ":slot0");
 
-            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(itemKey), 1));
+            landerSpawn.getInventory().setStackInSlot(0, new ItemStack(ForgeRegistries.ITEMS.getValue(new ResourceLocation(itemId)), 1));
             landerSpawn.getInventory().setStackInSlot(1, rocketItem);
 
             if (SpaceStation) {
@@ -383,19 +435,19 @@ public class Methods {
 
     public static void createSpaceStation(Player player, ServerLevel serverWorld) {
         BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
-        serverWorld.getStructureManager().getOrCreate(SPACE_STATION).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
+        serverWorld.getStructureManager().getOrCreate(space_station).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
     }
 
     public static void cleanUpPlayerNBT(Player player) {
-        player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", false);
-        player.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", "");
-        player.getPersistentData().putString(BeyondEarth.MODID + ":slot0", "");
+        player.getPersistentData().putBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open", false);
+        player.getPersistentData().putString(BeyondEarthMod.MODID + ":rocket_type", "");
+        player.getPersistentData().putString(BeyondEarthMod.MODID + ":slot0", "");
 
         MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionGuiEvent(player));
     }
 
     public static void openPlanetGui(Player player) {
-        if (!(player.containerMenu instanceof PlanetSelectionMenu.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+        if (!(player.containerMenu instanceof PlanetSelectionGui.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarthMod.MODID + ":planet_selection_gui_open")) {
             if (player instanceof ServerPlayer) {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 
@@ -403,17 +455,17 @@ public class Methods {
                 NetworkHooks.openGui(serverPlayer, new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
-                        return Component.literal("Planet Selection");
+                        return new TextComponent("Planet Selection");
                     }
 
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
                         FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
-                        return new PlanetSelectionMenu.GuiContainer(id, inventory, packetBuffer);
+                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
+                        return new PlanetSelectionGui.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
-                    buf.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
+                    buf.writeUtf(player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type"));
                 });
             }
         }
@@ -422,70 +474,59 @@ public class Methods {
     public static void teleportButton(Player player, ResourceKey<Level> planet, boolean SpaceStation) {
         ItemStack itemStack = new ItemStack(Items.AIR, 1);
 
-        if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t1")) {
+        if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t1")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t2")) {
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t2")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_2_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t3")) {
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t3")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
-        } else if (player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type").equals("entity." + BeyondEarth.MODID + ".rocket_t4")) {
+        } else if (player.getPersistentData().getString(BeyondEarthMod.MODID + ":rocket_type").equals("entity." + BeyondEarthMod.MODID + ".rocket_t4")) {
             itemStack = new ItemStack(ItemsRegistry.TIER_4_ROCKET_ITEM.get(), 1);
         }
 
         Methods.rocketTeleport(player, planet, itemStack, SpaceStation);
     }
 
-    public static void landerTeleportOrbit(Player player, Level level) {
-        if (Methods.isWorld(level, LevelRegistry.EARTH_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.EARTH);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.MOON_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.MOON);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.MARS_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.MARS);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.MERCURY);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.VENUS_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.VENUS);
-        }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO_ORBIT)) {
-            Methods.landerTeleport(player, LevelRegistry.GLACIO);
+    public static void landerTeleportOrbit(Player player, Level world) {
+        if (Methods.isWorld(world, Methods.earth_orbit)) {
+            Methods.landerTeleport(player, Methods.overworld);
+        } else if (Methods.isWorld(world, Methods.moon_orbit)) {
+            Methods.landerTeleport(player, Methods.moon);
+        } else if (Methods.isWorld(world, Methods.mars_orbit)) {
+            Methods.landerTeleport(player, Methods.mars);
+        } else if (Methods.isWorld(world, Methods.glacio_orbit)) {
+            Methods.landerTeleport(player, Methods.glacio);
+        } else if (Methods.isWorld(world, Methods.mercury_orbit)) {
+            Methods.landerTeleport(player, Methods.mercury);
+        } else if (Methods.isWorld(world, Methods.venus_orbit)) {
+            Methods.landerTeleport(player, Methods.venus);
         }
     }
 
-    public static void entityFallToPlanet(Level level, Entity entity) {
-        ResourceKey<Level> world2 = level.dimension();
+    public static void entityFallToPlanet(Level world, Entity entity) {
+        ResourceKey<Level> world2 = world.dimension();
 
-        if (world2 == LevelRegistry.EARTH_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.EARTH, 450);
-        }
-        else if (world2 == LevelRegistry.MOON_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.MOON, 450);
-        }
-        else if (world2 == LevelRegistry.MARS_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.MARS, 450);
-        }
-        else if (world2 == LevelRegistry.MERCURY_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.MERCURY, 450);
-        }
-        else if (world2 == LevelRegistry.VENUS_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.VENUS, 450);
-        }
-        else if (world2 == LevelRegistry.GLACIO_ORBIT) {
-            Methods.entityWorldTeleporter(entity, LevelRegistry.GLACIO, 450);
+        if (world2 == Methods.earth_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.overworld, 450);
+        } else if (world2 == Methods.moon_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.moon, 450);
+        } else if (world2 == Methods.mars_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.mars, 450);
+        } else if (world2 == Methods.mercury_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.mercury, 450);
+        } else if (world2 == Methods.venus_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.venus, 450);
+        } else if (world2 == Methods.glacio_orbit) {
+            Methods.entityWorldTeleporter(entity, Methods.glacio, 450);
         }
     }
 
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
 		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.spaceSuitCheckBoth(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-            OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
+			IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
 
             CompoundTag persistentData = player.getPersistentData();
-			String key = BeyondEarth.MODID + ":oxygen_timer";
-
+			String key = BeyondEarthMod.MODID + ":oxygen_timer";
 			int oxygenTimer = persistentData.getInt(key);
 			oxygenTimer++;
 
@@ -515,7 +556,7 @@ public class Methods {
 
     public static void noFuelMessage(Player player) {
         if (!player.level.isClientSide) {
-            player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".no_fuel"), false);
+            player.displayClientMessage(new TranslatableComponent("message." + BeyondEarthMod.MODID + ".no_fuel"), false);
         }
     }
 }

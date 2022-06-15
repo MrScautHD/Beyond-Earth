@@ -312,24 +312,27 @@
   "gui.beyond_earth.planet_selection.proxima_centauri": "Proxima Centauri",
   "gui.beyond_earth.planet_selection.glacio": "Glacio",
 
+
   "jei.tooltip.beyond_earth.oil": "Du kannst Öl im Ozean finden",
   "jei.category.beyond_earth.space_station": "Raumstation",
   "jei.tooltip.beyond_earth.space_station": "Materialien für eine Raumstation",
 
-  "general.beyond_earth.using": "%1$s Nutze: %2$s",
-  "general.beyond_earth.using2": "%1$s Nutze: %2$s/%4$s t",
-  "general.beyond_earth.generating": "%1$s Generiere: %2$s",
-  "general.beyond_earth.maxgeneration": "Max. %1$s Generation: %2$s",
-  "general.beyond_earth.total": "Total %1S: %2$s",
-  "general.beyond_earth.stored": "Gelagert %1$s: %2$s",
-  "general.beyond_earth.capacity": "%1$s Kapazität: %2$s",
-  "general.beyond_earth.transfer": "%1$s Transfer: %2$s",
+  "gauge_text.beyond_earth.using": "%1$s Nutze: %2$s",
+  "gauge_text.beyond_earth.using2": "%1$s Nutze: %2$s/%4$s t",
+  "gauge_text.beyond_earth.generating": "%1$s Generiere: %2$s",
+  "gauge_text.beyond_earth.maxgeneration": "Max. %1$s Generation: %2$s",
+  "gauge_text.beyond_earth.total": "Total %1S: %2$s",
+  "gauge_text.beyond_earth.stored": "Gelagert %1$s: %2$s",
+  "gauge_text.beyond_earth.capacity": "%1$s Kapazität: %2$s",
+  "gauge_text.beyond_earth.transfer": "%1$s Transfer: %2$s",
 
-  "general.beyond_earth.energy": "Energie",
-  "general.beyond_earth.fluid": "Flüssigkeit",
-  "general.beyond_earth.fuel": "Treibstoff",
-  "general.beyond_earth.oxygen": "Sauerstoff",
-  "general.beyond_earth.burntime": "Brenndauer",
-  "general.beyond_earth.cooktime": "Kochdauer",
-  "general.beyond_earth.oxygenloading": "Lade"
+  "gauge.beyond_earth.energy": "Energie",
+  "gauge.beyond_earth.fluid": "Flüssigkeit",
+  "gauge.beyond_earth.fuel": "Treibstoff",
+  "gauge.beyond_earth.oxygen": "Sauerstoff",
+  "gauge.beyond_earth.burntime": "Brenndauer",
+  "gauge.beyond_earth.cooktime": "Kochdauer",
+  "gauge.beyond_earth.oxygenloading": "Lade",
+
+  "_eof": "eof"
 }
