@@ -140,7 +140,7 @@
                   "type": "minecraft:blend_density",
                   "argument": {
                     "type": "minecraft:add",
-                    "argument1": 0.1171875,
+                    "argument1": 0.0171875,
                     "argument2": {
                       "type": "minecraft:mul",
                       "argument1": {
@@ -152,7 +152,7 @@
                       },
                       "argument2": {
                         "type": "minecraft:add",
-                        "argument1": -0.1171875,
+                        "argument1": -0.0171875,
                         "argument2": {
                           "type": "minecraft:add",
                           "argument1": -0.078125,
@@ -167,7 +167,7 @@
                             },
                             "argument2": {
                               "type": "minecraft:add",
-                              "argument1": 0.078125,
+                              "argument1": 0.778125,
                               "argument2": {
                                 "type": "minecraft:range_choice",
                                 "input": "minecraft:overworld/sloped_cheese",
@@ -370,7 +370,7 @@
               "if_true": {
                 "type": "minecraft:y_above",
                 "anchor": {
-                  "absolute": 87
+                  "absolute": 45
                 },
                 "surface_depth_multiplier": 2,
                 "add_stone_depth": false

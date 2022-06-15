@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.guis.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -60,11 +61,11 @@ public class ScreenHelper {
             int ratioHeight = (int) Math.ceil(height * ratio);
             int remainHeight = height - ratioHeight;
 
-            drawFluid(poseStack, fluidStack, leftPos, topPos + remainHeight, width, ratioHeight);
+            drawFluid(poseStack, fluidStack, leftPos, topPos, width, height, 0, -remainHeight);
         }
 
         /** USE IT TO DRAW FLUID */
-        public static void drawFluid(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height) {
+        public static void drawFluid(PoseStack poseStack, FluidStack fluidStack, int leftPos, int topPos, int width, int height, int xOffset, int yOffset) {
             if (fluidStack.getFluid() == null) {
                 return;
             }
@@ -81,8 +82,8 @@ public class ScreenHelper {
             int x = leftPos * scale;
             int y = (mc.getWindow().getHeight() - ((height + topPos) * scale));
 
-            int w = width * scale;
-            int h = height * scale;
+            int w = (width + xOffset) * scale;
+            int h = (height + yOffset) * scale;
 
             /** CUT IT EXACT */
             RenderSystem.enableScissor(x, y, w, h);
