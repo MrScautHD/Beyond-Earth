@@ -1,16 +1,22 @@
 package net.mrscauthd.beyond_earth.fluids.types;
 
+import com.mojang.blaze3d.shaders.FogShape;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.math.Vector3f;
+import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IFluidTypeRenderProperties;
 import net.minecraftforge.fluids.FluidType;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
@@ -21,17 +27,46 @@ public class OilFluidType extends FluidType {
     }
 
     @Override
-    public @Nullable BlockPathTypes getBlockPathType(FluidState state, BlockGetter level, BlockPos pos, @Nullable Mob mob, boolean canFluidLog) {
-        return canFluidLog ? super.getBlockPathType(state, level, pos, mob, true) : null;
+    public boolean move(FluidState state, LivingEntity entity, Vec3 movementVector, double gravity) {
+        boolean flag = entity.getDeltaMovement().y <= 0.0D;
+        double d8 = entity.getY();
+
+        entity.moveRelative(0.02F, movementVector);
+        entity.move(MoverType.SELF, entity.getDeltaMovement());
+
+        if (entity.getFluidTypeHeight(state.getFluidType()) <= entity.getFluidJumpThreshold()) {
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.5D, (double)0.8F, 0.5D));
+            Vec3 vec33 = entity.getFluidFallingAdjustedMovement(gravity, flag, entity.getDeltaMovement());
+            entity.setDeltaMovement(vec33);
+        } else {
+            entity.setDeltaMovement(entity.getDeltaMovement().scale(0.5D));
+        }
+
+        if (!entity.isNoGravity()) {
+            entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, -gravity / 4.0D, 0.0D));
+        }
+
+        Vec3 vec34 = entity.getDeltaMovement();
+        if (entity.horizontalCollision && entity.isFree(vec34.x, vec34.y + (double)0.6F - entity.getY() + d8, vec34.z)) {
+            entity.setDeltaMovement(vec34.x, (double)0.3F, vec34.z);
+        }
+
+        return true;
+    }
+
+    @Override
+    public void setItemMovement(ItemEntity entity) {
+        Vec3 vec3 = entity.getDeltaMovement();
+        entity.setDeltaMovement(vec3.x * (double)0.95F, vec3.y + (double)(vec3.y < (double)0.06F ? 5.0E-4F : 0.0F), vec3.z * (double)0.95F);
     }
 
     @Override
     public void initializeClient(Consumer<IFluidTypeRenderProperties> consumer) {
         consumer.accept(new IFluidTypeRenderProperties() {
             private static final ResourceLocation UNDERWATER_LOCATION = new ResourceLocation(BeyondEarth.MODID, "textures/blocks/under_oil.png");
-            private static final ResourceLocation WATER_STILL = new ResourceLocation(BeyondEarth.MODID, "textures/blocks/fluid_oil_still");
-            private static final ResourceLocation WATER_FLOW = new ResourceLocation(BeyondEarth.MODID, "textures/blocks/fluid_oil_flow");
-            private static final ResourceLocation WATER_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "textures/blocks/oil_overlay");
+            private static final ResourceLocation WATER_STILL = new ResourceLocation(BeyondEarth.MODID, "blocks/fluid_oil_still");
+            private static final ResourceLocation WATER_FLOW = new ResourceLocation(BeyondEarth.MODID, "blocks/fluid_oil_flow");
+            private static final ResourceLocation WATER_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "blocks/oil_overlay");
 
             @Override
             public ResourceLocation getStillTexture() {
@@ -55,13 +90,19 @@ public class OilFluidType extends FluidType {
             }
 
             @Override
-            public int getColorTint() {
-                return 0x00000000;
+            public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level, int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                return new Vector3f(0.09F, 0.09F, 0.09F);
             }
 
             @Override
-            public int getColorTint(FluidState state, BlockAndTintGetter getter, BlockPos pos) {
-                return 0xFF000000;
+            public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick, float nearDistance, float farDistance, FogShape shape) {
+                nearDistance = -8.0F;
+                farDistance = 10;
+                shape = FogShape.CYLINDER;
+
+                RenderSystem.setShaderFogStart(nearDistance);
+                RenderSystem.setShaderFogEnd(farDistance);
+                RenderSystem.setShaderFogShape(shape);
             }
         });
     }
