@@ -32,6 +32,7 @@ public class BeyondEarth {
 		/** DEFAULT REGISTRIES */
 		ItemsRegistry.ITEMS.register(bus);
 		BlocksRegistry.BLOCKS.register(bus);
+		FluidTypesRegistry.FLUID_TYPES.register(bus);
 		FluidsRegistry.FLUIDS.register(bus);
 		EntitiesRegistry.ENTITIES.register(bus);
 		BlockEntitiesRegistry.BLOCK_ENTITIES.register(bus);

@@ -4,10 +4,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -21,16 +21,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.minecraftforge.fluids.FluidType;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.registries.FluidTypesRegistry;
 import net.mrscauthd.beyond_earth.registries.FluidsRegistry;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 import javax.annotation.Nullable;
-import java.util.Random;
 
 public class OilFluid extends FlowingFluid {
     @Override
@@ -48,14 +45,15 @@ public class OilFluid extends FlowingFluid {
         return ItemsRegistry.OIL_BUCKET.get();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void animateTick(Level worldIn, BlockPos pos, FluidState state, Random random) {
+    @Override
+    protected void animateTick(Level level, BlockPos blockPos, FluidState state, RandomSource randomSource) {
+        super.animateTick(level, blockPos, state, randomSource);
         if (!state.isSource() && !state.getValue(FALLING)) {
-            if (random.nextInt(64) == 0) {
-                worldIn.playLocalSound((double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, random.nextFloat() * 0.25F + 0.75F, random.nextFloat() + 0.5F, false);
+            if (randomSource.nextInt(64) == 0) {
+                level.playLocalSound((double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.5D, (double)blockPos.getZ() + 0.5D, SoundEvents.WATER_AMBIENT, SoundSource.BLOCKS, randomSource.nextFloat() * 0.25F + 0.75F, randomSource.nextFloat() + 0.5F, false);
             }
-        } else if (random.nextInt(10) == 0) {
-            worldIn.addParticle(ParticleTypes.UNDERWATER, (double)pos.getX() + random.nextDouble(), (double)pos.getY() + random.nextDouble(), (double)pos.getZ() + random.nextDouble(), 0.0D, 0.0D, 0.0D);
+        } else if (randomSource.nextInt(10) == 0) {
+            level.addParticle(ParticleTypes.UNDERWATER, (double)blockPos.getX() + randomSource.nextDouble(), (double)blockPos.getY() + randomSource.nextDouble(), (double)blockPos.getZ() + randomSource.nextDouble(), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -72,8 +70,8 @@ public class OilFluid extends FlowingFluid {
 
     @Override
     protected void beforeDestroyingBlock(LevelAccessor worldIn, BlockPos pos, BlockState state) {
-        BlockEntity tileentity = state.hasBlockEntity() ? worldIn.getBlockEntity(pos) : null;
-        Block.dropResources(state, worldIn, pos, tileentity);
+        BlockEntity blockEntity = state.hasBlockEntity() ? worldIn.getBlockEntity(pos) : null;
+        Block.dropResources(state, worldIn, pos, blockEntity);
     }
 
     @Override
@@ -121,14 +119,8 @@ public class OilFluid extends FlowingFluid {
     }
 
     @Override
-    protected FluidAttributes createAttributes() {
-        return net.minecraftforge.fluids.FluidAttributes.builder(
-                 new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_oil_still"),
-                 new ResourceLocation(BeyondEarth.MODID,"blocks/fluid_oil_flow"))
-                .overlay(new ResourceLocation(BeyondEarth.MODID,"blocks/oil_overlay"))
-                .translationKey("block." + BeyondEarth.MODID + ".oil")
-                .sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY)
-                .build(this);
+    public FluidType getFluidType() {
+        return FluidTypesRegistry.OIL_TYPE.get();
     }
 
     public static class Flowing extends OilFluid {

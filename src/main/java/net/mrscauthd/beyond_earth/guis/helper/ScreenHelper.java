@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraftforge.client.IFluidTypeRenderProperties;
+import net.minecraftforge.client.RenderProperties;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ScreenHelper {
@@ -71,11 +73,12 @@ public class ScreenHelper {
             }
 
             Minecraft mc = Minecraft.getInstance();
-            TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(fluidStack.getFluid().getAttributes().getStillTexture());
+            IFluidTypeRenderProperties renderProperties = RenderProperties.get(fluidStack.getFluid());
+            TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(renderProperties.getStillTexture());
             RenderSystem.setShaderTexture(0, sprite.atlas().location());
 
             /** BASIC PARAMETERS  */
-            int color = fluidStack.getFluid().getAttributes().getColor();
+            int color = renderProperties.getColorTint();
             int scale = (int) mc.getWindow().getGuiScale();
 
             /** SCALE PARAMETERS */
