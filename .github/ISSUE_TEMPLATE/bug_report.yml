@@ -1,0 +1,61 @@
+name: Bug Report
+labels:
+  - bug
+description: Report an issue with Beyond Earth
+body:
+  - type: dropdown
+    id: modloader
+    attributes:
+      label: Mod loader
+      options:
+        - Forge
+        - Fabric
+        - Quilt
+    validations:
+      required: true
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft version
+      placeholder: eg. 1.18.2/1.19
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: Beyond Earth version
+      placeholder: eg. 1.18.2-6.2/1.19-6.3
+    validations:
+      required: true
+  - type: input
+    id: modloader-version
+    attributes:
+      label: Modloader version
+      description: |
+        List the version of the mod loader you are using.
+      placeholder: "eg. Forge: 40.1.0/Fabric: 0.14.8/Quilt: 0.17.1-Beta.2"
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: "The latest.log file"
+      description: "Please use a paste site such as [gist](https://gist.github.com/) / [pastebin](https://pastebin.com/) / etc."
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Issue description
+      placeholder: A description of the issue.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. First step
+        2. Second step
+        3. etc...
+  - type: textarea
+    attributes:
+      label: Other information
+      description: Any other relevant information that is related to this issue, such as other mods and their versions.
