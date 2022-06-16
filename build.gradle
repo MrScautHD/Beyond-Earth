@@ -78,17 +78,7 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"
-    }
-    maven {
-        url = "https://www.cursemaven.com"
-    }
+
 }
 
 mixin {
@@ -104,26 +94,7 @@ dependencies {
     }
 
     //JEI
-    //compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
-    //runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-
-    //The One Probe
-    //implementation fg.deobf("curse.maven:the-one-probe-245211:${the_one_probe_version}")
-
-    //Jade
-    //implementation fg.deobf("curse.maven:jade-324717:${jade_version}")
-
-    //TConstruct
-    //implementation fg.deobf("slimeknights.mantle:Mantle:${mc_version}-${mantle_version}")
-    //implementation fg.deobf("slimeknights.tconstruct:TConstruct:${mc_version}-${tconstruct_version}")
-
-
-    //Mekanism
-    //compileOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:additions")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:generators")
-    //runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:tools")
+    compileOnly fg.deobf("mezz.jei:jei-1.19-common-api:11.0.0.203")
 }
 
 jar {

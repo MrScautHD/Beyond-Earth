@@ -223,7 +223,6 @@ public class MarsSky {
                                 minecraft.levelRenderer.starBuffer.bind();
                                 minecraft.levelRenderer.starBuffer.drawWithShader(p_181410_.last().pose(), starMatrix4f, GameRenderer.getPositionShader());
                                 VertexBuffer.unbind();
-                                p_181410_.popPose();
                             }
 
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

@@ -46,7 +46,5 @@ public class BeyondEarth {
 		FeatureRegistry.FEATURES.register(bus);
 		FeatureRegistry.CONFIGURED_FEATURES.register(bus);
 		FeatureRegistry.PLACED_FEATURES.register(bus);
-		OresRegistry.CONFIGURED_FEATURES.register(bus);
-		OresRegistry.PLACED_FEATURES.register(bus);
 	}
 }

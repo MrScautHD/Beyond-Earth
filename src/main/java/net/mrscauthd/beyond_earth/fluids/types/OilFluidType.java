@@ -26,6 +26,8 @@ public class OilFluidType extends FluidType {
         super(properties);
     }
 
+    //TODO CHECK IF IT WORKS AFTER PACHTING JUMP
+
     @Override
     public boolean move(FluidState state, LivingEntity entity, Vec3 movementVector, double gravity) {
         boolean flag = entity.getDeltaMovement().y <= 0.0D;
@@ -34,7 +36,7 @@ public class OilFluidType extends FluidType {
         entity.moveRelative(0.02F, movementVector);
         entity.move(MoverType.SELF, entity.getDeltaMovement());
 
-        if (entity.getFluidTypeHeight(state.getFluidType()) <= entity.getFluidJumpThreshold()) {
+        if (entity.getFluidTypeHeight(this) <= entity.getFluidJumpThreshold()) {
             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.5D, (double)0.8F, 0.5D));
             Vec3 vec33 = entity.getFluidFallingAdjustedMovement(gravity, flag, entity.getDeltaMovement());
             entity.setDeltaMovement(vec33);
