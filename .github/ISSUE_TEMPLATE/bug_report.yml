@@ -24,7 +24,7 @@ body:
     id: mod-version
     attributes:
       label: Beyond Earth version
-      placeholder: eg. 1.18.2-6.2/1.19-6.3
+      placeholder: eg. 6.2/6.3
     validations:
       required: true
   - type: input
