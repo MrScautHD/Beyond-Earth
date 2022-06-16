@@ -47,8 +47,7 @@ import java.util.Set;
 
 public abstract class IRocketEntity extends VehicleEntity {
 
-    public double ROCKET_SPEED;
-
+    //TODO REWORK ANIMTION
     public double ar = 0;
     public double ay = 0;
     public double ap = 0;
@@ -66,9 +65,9 @@ public abstract class IRocketEntity extends VehicleEntity {
         this.entityData.define(START_TIMER, 0);
     }
 
-    protected void setRocketSpeed(double speed) {
-        ROCKET_SPEED = speed;
-    }
+    public abstract double getRocketSpeed();
+
+    public abstract int getTier();
 
     @Override
     public boolean isPushable() {
@@ -252,10 +251,10 @@ public abstract class IRocketEntity extends VehicleEntity {
         }
 
         if (this.entityData.get(START_TIMER) == 200) {
-            if (this.getDeltaMovement().y < ROCKET_SPEED - 0.1) {
+            if (this.getDeltaMovement().y < this.getRocketSpeed() - 0.1) {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y + 0.1, this.getDeltaMovement().z);
             } else {
-                this.setDeltaMovement(this.getDeltaMovement().x, ROCKET_SPEED, this.getDeltaMovement().z);
+                this.setDeltaMovement(this.getDeltaMovement().x, this.getRocketSpeed(), this.getDeltaMovement().z);
             }
         }
     }
@@ -271,7 +270,7 @@ public abstract class IRocketEntity extends VehicleEntity {
                 }
 
                 pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
-                pass.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", this.getType().toString());
+                pass.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_type", this.getTier());
                 pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().builtInRegistryHolder().key().location().toString());
                 pass.setNoGravity(true);
 

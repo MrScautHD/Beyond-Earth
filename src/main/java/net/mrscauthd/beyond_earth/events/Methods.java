@@ -409,11 +409,11 @@ public class Methods {
                     @Override
                     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
                         FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                        packetBuffer.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
+                        packetBuffer.writeInt(player.getPersistentData().getInt(BeyondEarth.MODID + ":rocket_type"));
                         return new PlanetSelectionMenu.GuiContainer(id, inventory, packetBuffer);
                     }
                 }, buf -> {
-                    buf.writeUtf(player.getPersistentData().getString(BeyondEarth.MODID + ":rocket_type"));
+                    buf.writeInt(player.getPersistentData().getInt(BeyondEarth.MODID + ":rocket_type"));
                 });
             }
         }

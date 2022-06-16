@@ -17,12 +17,12 @@ public class PlanetSelectionMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        String rocket;
-        Player player;
+        private int tier;
+        private Player player;
 
         public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
             super(ScreensRegistry.PLANET_SELECTION_GUI.get(), id);
-            this.rocket = extraData.readUtf();
+            this.tier = extraData.readInt();
             this.player = inv.player;
         }
 
@@ -35,8 +35,8 @@ public class PlanetSelectionMenu {
             return !player.isDeadOrDying();
         }
 
-        public String getRocket() {
-            return rocket;
+        public int getTier() {
+            return tier;
         }
 
         public Player getPlayer() {

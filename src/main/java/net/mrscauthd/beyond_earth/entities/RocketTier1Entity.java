@@ -34,7 +34,16 @@ public class RocketTier1Entity extends IRocketEntity {
 
 	public RocketTier1Entity(EntityType type, Level world) {
 		super(type, world);
-		this.setRocketSpeed(0.63);
+	}
+
+	@Override
+	public double getRocketSpeed() {
+		return 0.63;
+	}
+
+	@Override
+	public int getTier() {
+		return 1;
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -25,22 +24,23 @@ import java.util.List;
 public class PlanetSelectionScreenHelper {
 
     /** USE IT FOR CATEGORY BUTTONS */
-    public static ImageButtonPlacer addCategoryButton(PlanetSelectionScreen screen, CategoryHelper categoryHelper, int x, int row, int width, int height, int newCategory, boolean condition, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
-            if (condition) {
+    public static ImageButtonPlacer addCategoryButton(PlanetSelectionScreen screen, CategoryHelper categoryHelper, int x, int row, int width, int height, int newCategory, boolean pressCondition, boolean startVisibility, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+            if (pressCondition) {
                 categoryHelper.set(newCategory);
                 screen.scrollIndex = 0;
                 screen.updateButtonVisibility();
             }
         });
 
+        screen.visibleButton(button, startVisibility);
         return button;
     }
 
     /** USE IT FOR TELEPORT BUTTONS */
-    public static ImageButtonPlacer addHandlerButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean condition, boolean holdKeyMessage, SimpleChannel simpleChannel, PlanetSelectionMenuNetworkHandlerHelper handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, condition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
-            if (condition) {
+    public static ImageButtonPlacer addHandlerButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean pressCondition, boolean startVisibility, boolean holdKeyMessage, SimpleChannel simpleChannel, PlanetSelectionMenuNetworkHandlerHelper handler, ImageButtonPlacer.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
+        ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+            if (pressCondition) {
                 callPacketHandler(simpleChannel, handler);
 
                 if (holdKeyMessage) {
@@ -52,13 +52,15 @@ public class PlanetSelectionScreenHelper {
             }
         });
 
+        screen.visibleButton(button, startVisibility);
         return button;
     }
 
     /** USE IT FOR BACK BUTTONS */
-    public static ImageButtonPlacer addBackButton(PlanetSelectionScreen screen, int x, int row, int width, int height, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
+    public static ImageButtonPlacer addBackButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean startVisibility, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
         ImageButtonPlacer button = screen.addButton(x, 0, row, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
 
+        screen.visibleButton(button, startVisibility);
         return button;
     }
 
@@ -116,26 +118,6 @@ public class PlanetSelectionScreenHelper {
     /** USE THIS TO CHECK THE CATEGORY RANGE */
     public static boolean categoryRange(int category, int start, int end) {
         return category >= start && category <= end;
-    }
-
-    /** USE THIS TO CHECK ROCKET TIERS (IF YOU ADDED A OWN ROCKET DO A NEW METHOD) */
-    public static boolean checkTier(String rocketType, int stage) {
-        int tier = 0;
-
-        if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t1")) {
-            tier = 1;
-        }
-        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t2")) {
-            tier = 2;
-        }
-        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t3")) {
-            tier = 3;
-        }
-        else if (rocketType.equals("entity." + BeyondEarth.MODID + ".rocket_t4")) {
-            tier = 4;
-        }
-
-        return tier >= stage;
     }
 
     /** ADDON MODS SHOULD USE A OWN TL METHOD */
