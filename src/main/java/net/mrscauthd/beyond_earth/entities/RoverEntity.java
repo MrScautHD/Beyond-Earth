@@ -67,8 +67,6 @@ public class RoverEntity extends VehicleEntity {
 
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
-	public static final int FUEL_BUCKETS = 3;
-
     public RoverEntity(EntityType type, Level worldIn) {
         super(type, worldIn);
         this.entityData.define(FUEL, 0);

@@ -73,7 +73,7 @@ public class KeyMethods {
                 IRocketEntity rocket = (IRocketEntity) player.getVehicle();
                 SynchedEntityData data = rocket.getEntityData();
 
-                if (data.get(IRocketEntity.FUEL) == 300) {
+                if (data.get(IRocketEntity.FUEL) == 3000) {
                     if (!data.get(IRocketEntity.ROCKET_START)) {
                         data.set(IRocketEntity.ROCKET_START, true);
                         Methods.playRocketSound(rocket, rocket.level);
