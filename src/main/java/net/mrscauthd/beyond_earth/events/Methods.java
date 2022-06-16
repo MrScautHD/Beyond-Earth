@@ -391,7 +391,7 @@ public class Methods {
         player.getPersistentData().putString(BeyondEarth.MODID + ":rocket_type", "");
         player.getPersistentData().putString(BeyondEarth.MODID + ":slot0", "");
 
-        MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionGuiEvent(player));
+        MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionMenuEvent(player));
     }
 
     public static void openPlanetGui(Player player) {

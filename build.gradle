@@ -78,7 +78,9 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
-
+    /** JEI */
+    maven { name = "Progwml6 maven"; url = "https://dvs1.progwml6.com/files/maven/" }
+    maven { name = "ModMaven"; url = "https://modmaven.dev" }
 }
 
 mixin {
@@ -88,13 +90,14 @@ mixin {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    //Mixin
+    /** MIXIN */
     if (System.getProperty("idea.sync.active") != "true") {
         annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"
     }
 
-    //JEI
-    compileOnly fg.deobf("mezz.jei:jei-1.19-common-api:11.0.0.203")
+    /** JEI */
+    compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-common:${jei_version}")
 }
 
 jar {

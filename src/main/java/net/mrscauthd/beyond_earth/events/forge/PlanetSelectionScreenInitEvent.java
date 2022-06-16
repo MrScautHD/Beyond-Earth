@@ -4,20 +4,20 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-public class PlanetSelectionGuiButtonVisibilityEvent extends ScreenEvent {
+public class PlanetSelectionScreenInitEvent extends ScreenEvent {
 
-    public PlanetSelectionGuiButtonVisibilityEvent(Screen screen) {
+    public PlanetSelectionScreenInitEvent(Screen screen) {
         super(screen);
     }
 
     @Cancelable
-    public static class Pre extends PlanetSelectionGuiButtonVisibilityEvent {
+    public static class Pre extends PlanetSelectionScreenInitEvent {
         public Pre(Screen screen) {
             super(screen);
         }
     }
 
-    public static class Post extends PlanetSelectionGuiButtonVisibilityEvent {
+    public static class Post extends PlanetSelectionScreenInitEvent {
         public Post(Screen screen) {
             super(screen);
         }

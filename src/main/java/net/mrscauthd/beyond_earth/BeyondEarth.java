@@ -44,7 +44,5 @@ public class BeyondEarth {
 		ScreensRegistry.SCREENS.register(bus);
 		StructuresRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
-		FeatureRegistry.CONFIGURED_FEATURES.register(bus);
-		FeatureRegistry.PLACED_FEATURES.register(bus);
 	}
 }

@@ -17,14 +17,10 @@ import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
 import javax.annotation.Nullable;
 
-public class VenusDeltas extends Feature<ColumnFeatureConfiguration> {
+public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
     private static final ImmutableList<Block> CANNOT_PLACE_ON = ImmutableList.of(Blocks.LAVA, Blocks.BEDROCK, Blocks.MAGMA_BLOCK, Blocks.SOUL_SAND, Blocks.NETHER_BRICKS, Blocks.NETHER_BRICK_FENCE, Blocks.NETHER_BRICK_STAIRS, Blocks.NETHER_WART, Blocks.CHEST, Blocks.SPAWNER);
-    private static final int CLUSTERED_REACH = 5;
-    private static final int CLUSTERED_SIZE = 50;
-    private static final int UNCLUSTERED_REACH = 8;
-    private static final int UNCLUSTERED_SIZE = 15;
 
-    public VenusDeltas(Codec<ColumnFeatureConfiguration> p_65153_) {
+    public InfernalSpireColumn(Codec<ColumnFeatureConfiguration> p_65153_) {
         super(p_65153_);
     }
 

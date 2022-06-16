@@ -6,10 +6,6 @@ pluginManagement {
 
         /** MIXIN */
         maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
-
-        /** JEI */
-        maven { name = "JEI" url = "https://dvs1.progwml6.com/files/maven/" }
-        maven { name = "ModMaven" url = "https://modmaven.dev" }
     }
     resolutionStrategy {
         eachPlugin {

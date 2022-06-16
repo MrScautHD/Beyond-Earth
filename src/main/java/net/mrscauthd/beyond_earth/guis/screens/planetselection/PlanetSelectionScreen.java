@@ -13,10 +13,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiBackgroundRenderEvent;
-import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiButtonVisibilityEvent;
-import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiInitEvent;
-import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionGuiRenderEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionScreenBackgroundRenderEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionScreenButtonVisibilityEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionScreenInitEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlanetSelectionScreenRenderEvent;
 import net.mrscauthd.beyond_earth.guis.buttons.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.guis.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.helper.CategoryHelper;
@@ -199,7 +199,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		super.render(poseStack, mouseX, mouseY, partialTicks);
 
 		/** RENDER PRE EVENT FOR ADDONS */
-		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
 			return;
 		}
 
@@ -207,13 +207,13 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		this.font.draw(poseStack, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
 
 		/** RENDER POST EVENT FOR ADDONS */
-		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
 	}
 
 	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
 
 		/** RENDER BACKGROUND PRE EVENT FOR ADDONS */
-		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiBackgroundRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenBackgroundRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
 			return;
 		}
 
@@ -266,7 +266,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		PlanetSelectionScreenHelper.disableRenderSystem();
 
 		/** RENDER BACKGROUND POST EVENT FOR ADDONS */
-		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiBackgroundRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenBackgroundRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
 	}
 
 	@Override
@@ -274,7 +274,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		super.init();
 
 		/** INIT PRE EVENT FOR ADDONS */
-		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiInitEvent.Pre(this))) {
+		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenInitEvent.Pre(this))) {
 			return;
 		}
 
@@ -414,7 +414,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		this.visibleButton(glacioSpaceStationButton, false);
 
 		/** INIT POST EVENT FOR ADDONS */
-		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiInitEvent.Post(this));
+		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenInitEvent.Post(this));
 
 		/** UPDATE BUTTON VISIBILITY */
 		this.updateButtonVisibility();
@@ -455,7 +455,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 	public void updateButtonVisibility() {
 
 		/** BUTTON VISIBILITY PRE EVENT FOR ADDONS */
-		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiButtonVisibilityEvent.Pre(this))) {
+		if (MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenButtonVisibilityEvent.Pre(this))) {
 			return;
 		}
 
@@ -508,7 +508,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		this.visibleButton(this.glacioSpaceStationButton, this.category.get() == 7);
 
 		/** BUTTON VISIBILITY POST EVENT FOR ADDONS */
-		MinecraftForge.EVENT_BUS.post(new PlanetSelectionGuiButtonVisibilityEvent.Post(this));
+		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenButtonVisibilityEvent.Post(this));
 	}
 
 	public void rotateObjects(float partialTicks) {

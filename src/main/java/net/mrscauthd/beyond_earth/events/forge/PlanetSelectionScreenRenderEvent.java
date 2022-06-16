@@ -5,14 +5,14 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.Cancelable;
 
-public class PlanetSelectionGuiRenderEvent extends ScreenEvent {
+public class PlanetSelectionScreenRenderEvent extends ScreenEvent {
 
     private PoseStack poseStack;
     private float partialTicks;
     private int mouseX;
     private int mouseY;
 
-    public PlanetSelectionGuiRenderEvent(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    public PlanetSelectionScreenRenderEvent(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
         super(screen);
         this.poseStack = poseStack;
         this.partialTicks = partialTicks;
@@ -37,13 +37,13 @@ public class PlanetSelectionGuiRenderEvent extends ScreenEvent {
     }
 
     @Cancelable
-    public static class Pre extends PlanetSelectionGuiRenderEvent {
+    public static class Pre extends PlanetSelectionScreenRenderEvent {
         public Pre(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
             super(screen, poseStack, partialTicks, mouseX, mouseY);
         }
     }
 
-    public static class Post extends PlanetSelectionGuiRenderEvent {
+    public static class Post extends PlanetSelectionScreenRenderEvent {
         public Post(Screen screen, PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
             super(screen, poseStack, partialTicks, mouseX, mouseY);
         }

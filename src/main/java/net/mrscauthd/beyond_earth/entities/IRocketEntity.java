@@ -37,7 +37,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionGuiEvent;
+import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionMenuEvent;
 import net.mrscauthd.beyond_earth.registries.SoundsRegistry;
 
 import javax.annotation.Nonnull;
@@ -280,7 +280,7 @@ public abstract class IRocketEntity extends VehicleEntity {
                     Methods.stopSounds((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
                 }
 
-                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionGuiEvent(pass, this));
+                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionMenuEvent(pass, this));
 
                 if (!this.level.isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
