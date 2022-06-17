@@ -39,103 +39,103 @@ public class PlanetSelectionMenuNetworkHandler extends PlanetSelectionMenuNetwor
                 /** (SUN CATEGORY) TELEPORT BUTTONS */
                 case 0:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.EARTH, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.EARTH, 700, false);
                     break;
 
                 case 1:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MOON, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MOON, 700, false);
                     break;
 
                 case 2:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MARS, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MARS, 700, false);
                     break;
 
                 case 3:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MERCURY, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MERCURY, 700, false);
                     break;
 
                 case 4:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.VENUS, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.VENUS, 700, false);
                     break;
 
                 /** (SUN CATEGORY) TELEPORT ORBIT BUTTONS */
                 case 5:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.EARTH_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.EARTH_ORBIT, 700, false);
                     break;
 
                 case 6:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MOON_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MOON_ORBIT, 700, false);
                     break;
 
                 case 7:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MARS_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MARS_ORBIT, 700, false);
                     break;
 
                 case 8:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.MERCURY_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MERCURY_ORBIT, 700, false);
                     break;
 
                 case 9:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.VENUS_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.VENUS_ORBIT, 700, false);
                     break;
 
                 /** (SUN CATEGORY) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
                 case 10:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.EARTH_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.EARTH_ORBIT, 700, true);
                     break;
 
                 case 11:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.MOON_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MOON_ORBIT, 700, true);
                     break;
 
                 case 12:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.MARS_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MARS_ORBIT, 700, true);
                     break;
 
                 case 13:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.MERCURY_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.MERCURY_ORBIT, 700, true);
                     break;
 
                 case 14:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.VENUS_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.VENUS_ORBIT, 700, true);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT BUTTONS */
                 case 15:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.GLACIO, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.GLACIO, 700, false);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT ORBIT BUTTONS */
                 case 16:
                     message.defaultOptions(player);
-                    Methods.teleportButton(player, LevelRegistry.GLACIO_ORBIT, false);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.GLACIO_ORBIT, 700, false);
                     break;
 
                 /** (PROXIMA CENTAURI) TELEPORT ORBIT AND CREATE A SPACE STATION BUTTON */
                 case 17:
                     message.defaultOptions(player);
                     message.deleteItems(player);
-                    Methods.teleportButton(player, LevelRegistry.GLACIO_ORBIT, true);
+                    Methods.createLanderAndTeleportTo(player, LevelRegistry.GLACIO_ORBIT, 700, true);
                     break;
             }
         });

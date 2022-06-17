@@ -305,7 +305,7 @@ public class RoverEntity extends VehicleEntity {
 
         //Fuel Load up
         if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {
-            if (Methods.tagCheck(((BucketItem) this.inventory.getStackInSlot(0).getItem()).getFluid(), TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
+            if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
                 if (this.entityData.get(FUEL) <= 2000) {
                     this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
                     this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));

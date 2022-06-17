@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -270,13 +271,20 @@ public abstract class IRocketEntity extends VehicleEntity {
                 }
 
                 pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
-                pass.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_type", this.getTier());
-                pass.getPersistentData().putString(BeyondEarth.MODID + ":slot0", this.getInventory().getStackInSlot(0).getItem().builtInRegistryHolder().key().location().toString());
+                pass.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
+
+                /** SAVE ITEMS IN THE PLAYER */
+                ListTag tag = new ListTag();
+
+                tag.add(this.getInventory().getStackInSlot(0).save(new CompoundTag()));
+                tag.add(new ItemStack(this.getRocketItem().getItem()).save(new CompoundTag()));
+
+                pass.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);
                 pass.setNoGravity(true);
 
                 /** STOP ROCKET SOUND */
                 if (pass instanceof ServerPlayer) {
-                    Methods.stopSounds((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
+                    Methods.stopSound((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
                 }
 
                 MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionMenuEvent(pass, this));
@@ -310,7 +318,7 @@ public abstract class IRocketEntity extends VehicleEntity {
             List<LivingEntity> entities = this.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, aabb);
 
             for (LivingEntity entity : entities) {
-                if (!Methods.netheriteSpaceSuitCheck(entity)) {
+                if (!Methods.isLivingInNetheriteSpaceSuit(entity)) {
                     entity.setSecondsOnFire(15);
                 }
             }

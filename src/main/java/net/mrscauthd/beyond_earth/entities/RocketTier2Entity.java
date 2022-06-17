@@ -117,7 +117,7 @@ public class RocketTier2Entity extends IRocketEntity {
 
 		//TODO NEED A REWORK
 		if (this.getInventory().getStackInSlot(0).getItem() instanceof BucketItem) {
-			if (Methods.tagCheck(((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid(), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
+			if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) < 3) {
 				if (this.entityData.get(FUEL) == 0 && this.entityData.get(BUCKETS) == 0) {
 					this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
 					this.getEntityData().set(BUCKETS, this.getEntityData().get(BUCKETS) + 1);

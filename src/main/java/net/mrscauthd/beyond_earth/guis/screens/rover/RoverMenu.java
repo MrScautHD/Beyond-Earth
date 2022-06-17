@@ -39,7 +39,7 @@ public class RoverMenu {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					if (stack.getItem() instanceof BucketItem) {
-						return Methods.tagCheck(((BucketItem) stack.getItem()).getFluid(), TagsRegistry.FLUID_VEHICLE_FUEL_TAG);
+						return ((BucketItem) stack.getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG);
 					}
 					return false;
 				}

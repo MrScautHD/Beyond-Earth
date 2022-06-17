@@ -10,7 +10,7 @@ import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
@@ -24,7 +24,6 @@ import net.mrscauthd.beyond_earth.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.events.forge.RenderHandItemEvent;
 import net.mrscauthd.beyond_earth.events.forge.RenderViewEvent;
 import net.mrscauthd.beyond_earth.events.forge.SetupLivingBipedAnimEvent;
-import net.mrscauthd.beyond_earth.items.VehicleItem;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, value = Dist.CLIENT)
 public class ClientEvents {
@@ -35,7 +34,7 @@ public class ClientEvents {
             return;
         }
 
-        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.level != null && ClientMethods.checkSound(event.getSound().getSource()) && Methods.isSpaceWorldWithoutOxygen(Minecraft.getInstance().player.level)) {
+        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.level != null && ClientMethods.isSoundSource(event.getSound().getSource()) && Methods.isSpaceWorldWithoutOxygen(Minecraft.getInstance().player.level)) {
 
             if (!(event.getSound() instanceof TickableSoundInstance)) {
                 event.setSound(new SpaceSoundSystem(event.getSound()));
@@ -54,22 +53,22 @@ public class ClientEvents {
 
         Player player = (Player) event.getLivingEntity();
 
-        /** Rocket */
+        /** DISABLE TO HOLD ITEMS IN ROCKET */
         if (Methods.isRocket(player.getVehicle())) {
             event.setCanceled(true);
         }
 
-        /** Arm not Rendering if you have a VehicleItem in your Hand */
+        /** DISABLE TO HOLD ITEMS IF YOU HAS IN ONE HAND A VEHICLE ITEM */
         if (event.getHandSide() == HumanoidArm.LEFT) {
-            Item item = player.getMainHandItem().getItem();
+            ItemStack itemStack = player.getMainHandItem();
 
-            if (item instanceof VehicleItem) {
+            if (Methods.isVehicleItem(itemStack)) {
                 event.setCanceled(true);
             }
         } else {
-            Item item = player.getOffhandItem().getItem();
+            ItemStack itemStack = player.getOffhandItem();
 
-            if (item instanceof VehicleItem) {
+            if (Methods.isVehicleItem(itemStack)) {
                 event.setCanceled(true);
             }
         }
@@ -100,7 +99,7 @@ public class ClientEvents {
                 event.setCanceled(true);
 
                 if (ridding.getEntityData().get(IRocketEntity.ROCKET_START)) {
-                    ClientMethods.bobView(event.getPoseStack(), event.getTick());
+                    ClientMethods.setBobView(event.getPoseStack(), event.getTick());
                 }
             }
         }
@@ -112,15 +111,15 @@ public class ClientEvents {
         PlayerRenderer renderer = (PlayerRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(player);
         PlayerModel<AbstractClientPlayer> playerModel = renderer.getModel();
 
-        Item item = player.getOffhandItem().getItem();
-        Item item2 = player.getMainHandItem().getItem();
+        ItemStack itemStack1 = player.getOffhandItem();
+        ItemStack itemStack2 = player.getMainHandItem();
 
-        if (item instanceof VehicleItem || item2 instanceof VehicleItem) {
+        if (Methods.isVehicleItem(itemStack1) || Methods.isVehicleItem(itemStack2)) {
             event.setCanceled(true);
             return;
         }
 
-        event.setCanceled(ClientMethods.armRenderer(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, event.getArm() == HumanoidArm.RIGHT));
+        event.setCanceled(ClientMethods.renderArmWithProperties(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, event.getArm() == HumanoidArm.RIGHT));
     }
 
     @SubscribeEvent
@@ -153,10 +152,10 @@ public class ClientEvents {
             model.leftArm.xRot = -0.07f;
         }
         else if (!Methods.isRocket(player.getVehicle())) {
-            Item item1 = player.getMainHandItem().getItem();
-            Item item2 = player.getOffhandItem().getItem();
+            ItemStack itemStack1 = player.getMainHandItem();
+            ItemStack itemStack2 = player.getOffhandItem();
 
-            if (item1 instanceof VehicleItem || item2 instanceof VehicleItem) {
+            if (Methods.isVehicleItem(itemStack1) || Methods.isVehicleItem(itemStack2)) {
                 model.rightArm.xRot = 10F;
                 model.leftArm.xRot = 10F;
                 model.rightArm.yRot = 0F;

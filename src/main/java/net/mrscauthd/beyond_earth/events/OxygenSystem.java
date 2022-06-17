@@ -17,10 +17,10 @@ public class OxygenSystem {
         if (Config.PLAYER_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(level) && !entity.isSpectator() && !entity.getAbilities().instabuild) {
 
             if (entity.getAirSupply() < 1) {
-                Methods.oxygenDamage(entity);
+                Methods.hurtLivingWithOxygenSource(entity);
             }
 
-            if (Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+            if (Methods.isLivingInAllSpaceSuits(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
                 ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
                 OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
@@ -35,7 +35,7 @@ public class OxygenSystem {
 
             }
 
-            if (!Methods.spaceSuitCheckBoth(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+            if (!Methods.isLivingInAllSpaceSuits(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
                 entity.setAirSupply(-4);
             }
 
@@ -45,7 +45,7 @@ public class OxygenSystem {
         }
 
         //Out of Space
-        if (Methods.spaceSuitCheckBoth(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+        if (Methods.isLivingInAllSpaceSuits(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
             ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
             OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);

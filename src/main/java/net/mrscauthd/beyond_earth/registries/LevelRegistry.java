@@ -1,12 +1,13 @@
 package net.mrscauthd.beyond_earth.registries;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
-import java.util.Set;
+import java.util.List;
 
 public class LevelRegistry {
     /** MOON */
@@ -33,10 +34,11 @@ public class LevelRegistry {
     public static final ResourceKey<Level> EARTH = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
     public static final ResourceKey<Level> EARTH_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
 
-    public static Set<ResourceKey<Level>> WORLDS_WITHOUT_RAIN = Set.of(
+    public static List<ResourceKey<Level>> WORLDS_WITHOUT_RAIN = List.of(
             MOON,
             MOON_ORBIT,
             MARS_ORBIT,
+
             MERCURY,
             MERCURY_ORBIT,
             VENUS_ORBIT,
@@ -44,7 +46,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static Set<ResourceKey<Level>> WORLDS_WITHOUT_OXYGEN = Set.of(
+    public static List<ResourceKey<Level>> WORLDS_WITHOUT_OXYGEN = List.of(
             MOON,
             MOON_ORBIT,
             MARS,
@@ -57,7 +59,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static Set<ResourceKey<Level>> WORLDS = Set.of(
+    public static List<ResourceKey<Level>> SPACE_WORLDS = List.of(
             MOON,
             MOON_ORBIT,
             MARS,
@@ -71,7 +73,17 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static Set<ResourceKey<Level>> ORBITS = Set.of(
+    public static List<Pair<ResourceKey<Level>, ResourceKey<Level>>> WORLDS_WITH_ORBITS = List.of(
+            new Pair<>(MOON, MOON_ORBIT),
+            new Pair<>(MARS, MARS_ORBIT),
+            new Pair<>(MERCURY, MERCURY_ORBIT),
+            new Pair<>(VENUS, VENUS_ORBIT),
+            new Pair<>(GLACIO, GLACIO_ORBIT),
+            new Pair<>(MOON, MOON_ORBIT),
+            new Pair<>(EARTH, EARTH_ORBIT)
+    );
+
+    public static List<ResourceKey<Level>> ORBITS = List.of(
             EARTH_ORBIT,
             MOON_ORBIT,
             MARS_ORBIT,

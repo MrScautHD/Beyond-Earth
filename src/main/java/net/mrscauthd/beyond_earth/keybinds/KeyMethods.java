@@ -4,6 +4,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -12,6 +13,7 @@ import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.Methods;
+import net.mrscauthd.beyond_earth.registries.SoundsRegistry;
 
 public class KeyMethods {
 
@@ -76,10 +78,10 @@ public class KeyMethods {
                 if (data.get(IRocketEntity.FUEL) == 3000) {
                     if (!data.get(IRocketEntity.ROCKET_START)) {
                         data.set(IRocketEntity.ROCKET_START, true);
-                        Methods.playRocketSound(rocket, rocket.level);
+                        rocket.level.playSound(null, rocket, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
                     }
                 } else {
-                    Methods.noFuelMessage(player);
+                    Methods.sendVehicleHasNoFuelMessage(player);
                 }
             }
         }

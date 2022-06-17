@@ -1,7 +1,6 @@
 package net.mrscauthd.beyond_earth.registries;
 
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.SoundActions;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,10 +26,9 @@ public class FluidTypesRegistry {
 
     public static final RegistryObject<FluidType> OIL_TYPE = FLUID_TYPES.register("oil", () -> new OilFluidType(FluidType.Properties.create()
             .descriptionId("block." + BeyondEarth.MODID + ".oil")
+            .fallDistanceModifier(0F)
             .density(3000)
             .viscosity(6000)
-            .pathType(BlockPathTypes.LAVA)
-            .adjacentPathType(null)
             .canSwim(false)
             .canExtinguish(true)
             .supportsBoating(true)

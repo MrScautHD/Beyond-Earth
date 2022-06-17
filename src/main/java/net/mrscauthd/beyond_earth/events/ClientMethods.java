@@ -33,32 +33,32 @@ public class ClientMethods {
     public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/netherite_space_suit.png");
     public static final ResourceLocation JET_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/jet_suit.png");
 
-    public static boolean armRenderer(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, boolean armModel) {
+    public static boolean renderArmWithProperties(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, boolean armModel) {
         SpaceSuitModel.SPACE_SUIT_P1 spaceSuit = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
         JetSuitModel.JET_SUIT_P1 jetSuit = new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION));
 
-        if (Methods.checkArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
+        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
 
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
+            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
             return true;
         }
 
-        if (Methods.checkArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
+        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
 
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
+            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
             return true;
         }
 
-        if (Methods.checkArmor(player, 2, ItemsRegistry.JET_SUIT.get())) {
+        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.JET_SUIT.get())) {
 
-            ClientMethods.renderArm(poseStack, multiBufferSource, light, JET_SUIT_TEXTURE, player, playerModel, renderer, armModel ? jetSuit.rightArm : jetSuit.leftArm);
+            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, JET_SUIT_TEXTURE, player, playerModel, renderer, armModel ? jetSuit.rightArm : jetSuit.leftArm);
             return true;
         }
 
         return false;
     }
 
-    public static void renderArm(PoseStack poseStack, MultiBufferSource bufferSource, int light, ResourceLocation texture, AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playermodel, PlayerRenderer renderer, ModelPart arm) {
+    public static void renderArmWithProperties(PoseStack poseStack, MultiBufferSource bufferSource, int light, ResourceLocation texture, AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playermodel, PlayerRenderer renderer, ModelPart arm) {
         renderer.setModelProperties(player);
 
         playermodel.attackTime = 0.0F;
@@ -73,15 +73,16 @@ public class ClientMethods {
         arm.render(poseStack, vertex, light, OverlayTexture.NO_OVERLAY);
     }
 
-    public static boolean checkSound(SoundSource sound) {
+    public static boolean isSoundSource(SoundSource sound) {
         return sound == SoundSource.BLOCKS || sound == SoundSource.NEUTRAL || sound == SoundSource.RECORDS || sound == SoundSource.WEATHER || sound == SoundSource.HOSTILE || sound == SoundSource.PLAYERS || sound == SoundSource.AMBIENT;
     }
 
-    public static void bobView(PoseStack poseStack, float tick) {
+    public static void setBobView(PoseStack poseStack, float tick) {
         Minecraft mc = Minecraft.getInstance();
 
         if (mc.getCameraEntity() instanceof Player) {
             Player player = (Player) mc.getCameraEntity();
+
             float f = player.walkDist - player.walkDistO;
             float f1 = -(player.walkDist + f * tick);
             float f2 = Mth.lerp(tick, 0.075F, -0.075F);
@@ -91,7 +92,7 @@ public class ClientMethods {
         }
     }
 
-    public static void holdKeyMessage() {
+    public static void sendPressKeyMessage() {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
 

@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.guis.screens.planetselection.helper;
 import net.minecraft.world.entity.player.Player;
 
 public abstract class PlanetSelectionMenuNetworkHandlerHelper {
-
+//TODO ADDING BACK AFTER RECPIES
     /** SET EVERYTHING BACK AS BEFORE THE SCREEN OPEN */
     public void defaultOptions(Player player) {
         if (!player.level.isClientSide) {

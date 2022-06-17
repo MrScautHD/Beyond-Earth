@@ -44,7 +44,7 @@ public class PlanetSelectionScreenHelper {
                 callPacketHandler(simpleChannel, handler);
 
                 if (holdKeyMessage) {
-                    ClientMethods.holdKeyMessage();
+                    ClientMethods.sendPressKeyMessage();
                 }
 
                 screen.scrollIndex = 0;

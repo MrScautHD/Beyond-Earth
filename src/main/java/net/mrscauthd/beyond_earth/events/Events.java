@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.events;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,62 +31,55 @@ public class Events {
             Player player = event.player;
             Level level = player.level;
 
-            /** LANDER ORBIT TELEPORT SYSTEM */
-            if (player.getVehicle() instanceof LanderEntity) {
-                Methods.landerTeleportOrbit(player, level);
-            }
-
             /** DISABLE CLOSE PLANET GUI SYSTEM */
             Methods.openPlanetGui(player);
 
             /** PLAYER OXYGEN SYSTEM */
             OxygenSystem.OxygenSystem(player, level);
 
-            /** DROP OFF HAND VEHICLE ITEM */
-            Methods.dropRocket(player);
-
             /** JET SUIT MOVEMENT */
             JetSuitMovement.movement(player);
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
-            if (player instanceof ServerPlayer) {
-                Methods.disableFlyAntiCheat((ServerPlayer) player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open"));
-            }
+            Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open"));
         }
     }
 
     @SubscribeEvent
     public static void livingEntityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        Level level = entity.level;
+        LivingEntity livingEntity = event.getEntityLiving();
+        Level level = livingEntity.level;
+
+        /** DROP OFF HAND VEHICLE ITEM */
+        Methods.dropOffHandVehicle(livingEntity);
 
         /** ENTITY OXYGEN SYSTEM */
-        Methods.entityOxygen(entity, level);
+        Methods.entityOxygen(livingEntity, level);
 
         /** VENUS RAIN SYSTEM */
-        Methods.venusRain(entity, LevelRegistry.VENUS);
+        Methods.venusRain(livingEntity, LevelRegistry.VENUS);
 
         /** PLANET FIRE SYSTEM */
-        Methods.planetFire(entity, LevelRegistry.VENUS);
-        Methods.planetFire(entity, LevelRegistry.MERCURY);
+        Methods.planetFire(livingEntity, LevelRegistry.VENUS);
+        Methods.planetFire(livingEntity, LevelRegistry.MERCURY);
     }
 
     @SubscribeEvent
     public static void livingEntityEndTick(LivingEntityTickEndEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        Level level = entity.level;
+        LivingEntity livingEntity = event.getEntityLiving();
+        Level level = livingEntity.level;
 
         /** ENTITY GRAVITY SYSTEM */
-        EntityGravity.gravity(entity, level);
+        EntityGravity.gravity(livingEntity, level);
     }
 
     @SubscribeEvent
     public static void itemEntityEndTick(ItemEntityTickEndEvent event) {
-        ItemEntity entity = event.getEntityItem();
-        Level level = entity.level;
+        ItemEntity itemEntity = event.getEntityItem();
+        Level level = itemEntity.level;
 
         /** ITEM ENTITY GRAVITY SYSTEM */
-        ItemGravity.gravity(entity, level);
+        ItemGravity.gravity(itemEntity, level);
     }
 
     @SubscribeEvent
@@ -95,14 +87,18 @@ public class Events {
         Entity entity = event.getEntity();
         Level level = entity.level;
 
-        /** ORBIT TELEPORT SYSTEM */
-        if (entity.getY() < 1 && !(entity.getVehicle() instanceof LanderEntity)) {
+        /** LANDER ORBIT TELEPORT SYSTEM */
+        if (entity.getVehicle() instanceof LanderEntity) {
+            Methods.entityFallWithLanderToPlanet(entity, level);
+        }
 
+        /** ORBIT TELEPORT SYSTEM */
+        if (!(entity.getVehicle() instanceof LanderEntity)) {
             if ((entity instanceof LanderEntity) && entity.isVehicle()) {
                 return;
             }
 
-            Methods.entityFallToPlanet(level, entity);
+            Methods.entityFallToPlanet(entity, level);
         }
     }
 
@@ -132,7 +128,7 @@ public class Events {
 
         Player entity = (Player) event.getEntity();
 
-        if (!Methods.netheriteSpaceSuitCheck(entity)) {
+        if (!Methods.isLivingInNetheriteSpaceSuit(entity)) {
             return;
         }
 
@@ -159,7 +155,7 @@ public class Events {
             Player player = (Player) event.getEntity();
 
             player.closeContainer();
-            Methods.cleanUpPlayerNBT(player);
+            Methods.resetPlanetSelectionMenuNeededNbt(player);
             player.setNoGravity(false);
         }
     }
