@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.forge.EntityTickEvent;
-import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickAtEndEvent;
 import net.mrscauthd.beyond_earth.events.forge.LivingEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.registries.LevelRegistry;
 
@@ -41,7 +41,7 @@ public class Events {
             JetSuitMovement.movement(player);
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
-            Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open"));
+            Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open"));
         }
     }
 
@@ -74,7 +74,7 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void itemEntityEndTick(ItemEntityTickEndEvent event) {
+    public static void itemEntityEndTick(ItemEntityTickAtEndEvent event) {
         ItemEntity itemEntity = event.getEntityItem();
         Level level = itemEntity.level;
 
@@ -151,7 +151,7 @@ public class Events {
 
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
             Player player = (Player) event.getEntity();
 
             player.closeContainer();

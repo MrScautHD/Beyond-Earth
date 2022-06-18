@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -172,8 +173,8 @@ public class Methods {
     }
 
     public static Pair<ResourceKey<Level>, ResourceKey<Level>> getAllWorldsWithOrbit() {
-        for (int i = 0; i <= LevelRegistry.WORLDS_WITH_ORBITS.size(); i++) {
-            return LevelRegistry.WORLDS_WITH_ORBITS.get(i);
+        for (int i = 0; i <= LevelRegistry.WORLDS_WITH_ORBIT.size(); i++) {
+            return LevelRegistry.WORLDS_WITH_ORBIT.get(i);
         }
 
         return null;
@@ -208,16 +209,19 @@ public class Methods {
         if (isVehicleItem(itemStack1) && isVehicleItem(itemStack2)) {
 
             /** DROP ITEM */
-            double d0 = livingEntity.getEyeY() - 0.3;
-            ItemEntity itementity = new ItemEntity(livingEntity.level, livingEntity.getX(), d0, livingEntity.getZ(), itemStack2);
-            itementity.setPickUpDelay(0);
-            livingEntity.level.addFreshEntity(itementity);
+            if (!livingEntity.level.isClientSide) {
+                double d0 = livingEntity.getEyeY() - 0.3;
+                ItemEntity itementity = new ItemEntity(livingEntity.level, livingEntity.getX(), d0, livingEntity.getZ(), itemStack2.copy());
+                itementity.setPickUpDelay(0);
+                livingEntity.level.addFreshEntity(itementity);
+            }
 
             /** DELETE ITEM */
-            itemStack2.setCount(0);
+            itemStack2.shrink(1);
         }
     }
 
+    //TODO REWORK
     /** IF A ENTITY SHOULD NOT GET ON FIRE ADD IT TO TAG "venus_fire" */
     public static void planetFire(LivingEntity entity, ResourceKey<Level> planet) {
         Level level = entity.level;
@@ -249,6 +253,7 @@ public class Methods {
         entity.setSecondsOnFire(10);
     }
 
+    //TODO REWORK
     /** IF A ENTITY SHOULD NOT GET DAMAGE FROM ACID RAIN ADD IT TO TAG "venus_rain" */
     public static void venusRain(LivingEntity entity, ResourceKey<Level> planet) {
         if (!isWorld(entity.level, planet)) {
@@ -282,6 +287,7 @@ public class Methods {
         }
     }
 
+    //TODO REWORK
     /** IF A ENTITY SHOULD GET DAMAGE BECAUSE NO OXYGEN IN SPACE ADD IT TO TAG "oxygen" */
     public static void entityOxygen(LivingEntity entity, Level level) {
         if (entity instanceof Player) {
@@ -311,7 +317,7 @@ public class Methods {
         }
     }
 
-    public static void vehicleRotation(Entity vehicle, float rotation) {
+    public static void setEntityRotation(Entity vehicle, float rotation) {
         vehicle.setYRot(vehicle.getYRot() + rotation);
         vehicle.setYBodyRot(vehicle.getYRot());
         vehicle.yRotO = vehicle.getYRot();
@@ -368,15 +374,15 @@ public class Methods {
     }
 
     public static void resetPlanetSelectionMenuNeededNbt(Player player) {
-        player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", false);
+        player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", false);
         player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", 0);
         player.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", new CompoundTag());
 
-        MinecraftForge.EVENT_BUS.post(new PlayerExitPlanetSelectionMenuEvent(player));
+        MinecraftForge.EVENT_BUS.post(new ResetPlanetSelectionMenuNeededNbtEvent(player));
     }
 
     public static void openPlanetGui(Player player) {
-        if (!(player.containerMenu instanceof PlanetSelectionMenu.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+        if (!(player.containerMenu instanceof PlanetSelectionMenu.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
             if (player instanceof ServerPlayer) {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 

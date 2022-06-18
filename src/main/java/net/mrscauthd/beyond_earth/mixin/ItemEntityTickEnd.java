@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.mixin;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickEndEvent;
+import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickAtEndEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,6 +14,6 @@ public class ItemEntityTickEnd {
     private void tick(CallbackInfo info) {
         ItemEntity w = (ItemEntity) ((Object) this);
 
-        MinecraftForge.EVENT_BUS.post(new ItemEntityTickEndEvent(w));
+        MinecraftForge.EVENT_BUS.post(new ItemEntityTickAtEndEvent(w));
     }
 }

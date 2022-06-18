@@ -23,8 +23,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
 import io.netty.buffer.Unpooled;
-import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.events.forge.RocketItemStackEvent;
+import net.mrscauthd.beyond_earth.events.forge.SetRocketItemStackEvent;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketMenu;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
@@ -56,7 +55,7 @@ public class RocketTier3Entity extends IRocketEntity {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_3_ROCKET_ITEM.get(), 1);
 		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
 		itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":buckets", this.getEntityData().get(BUCKETS));
-		MinecraftForge.EVENT_BUS.post(new RocketItemStackEvent(this, itemStack));
+		MinecraftForge.EVENT_BUS.post(new SetRocketItemStackEvent(this, itemStack));
 
 		return itemStack;
 	}

@@ -22,7 +22,7 @@ public class KeyMethods {
             if (player.getVehicle() instanceof IRocketEntity) {
                 IRocketEntity rocket = (IRocketEntity) player.getVehicle();
 
-                Methods.vehicleRotation(rocket, rotation);
+                Methods.setEntityRotation(rocket, rotation);
             }
         }
     }
@@ -36,9 +36,9 @@ public class KeyMethods {
                 if (player.getVehicle().getEntityData().get(RoverEntity.FUEL) != 0 && !player.getVehicle().isEyeInFluid(FluidTags.WATER)) {
 
                     if (forward > 0) {
-                        Methods.vehicleRotation(rover, rotationForward);
+                        Methods.setEntityRotation(rover, rotationForward);
                     } else {
-                        Methods.vehicleRotation(rover, rotationBackward);
+                        Methods.setEntityRotation(rover, rotationBackward);
                     }
                 }
             }

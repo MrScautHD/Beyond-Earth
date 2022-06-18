@@ -39,7 +39,7 @@ public class OxygenSystem {
                 entity.setAirSupply(-4);
             }
 
-            if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_gui_open")) {
+            if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
                 entity.setAirSupply(300);
             }
         }

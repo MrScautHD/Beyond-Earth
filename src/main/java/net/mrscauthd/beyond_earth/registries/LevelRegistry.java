@@ -38,7 +38,6 @@ public class LevelRegistry {
             MOON,
             MOON_ORBIT,
             MARS_ORBIT,
-
             MERCURY,
             MERCURY_ORBIT,
             VENUS_ORBIT,
@@ -73,7 +72,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static List<Pair<ResourceKey<Level>, ResourceKey<Level>>> WORLDS_WITH_ORBITS = List.of(
+    public static List<Pair<ResourceKey<Level>, ResourceKey<Level>>> WORLDS_WITH_ORBIT = List.of(
             new Pair<>(MOON, MOON_ORBIT),
             new Pair<>(MARS, MARS_ORBIT),
             new Pair<>(MERCURY, MERCURY_ORBIT),

@@ -38,7 +38,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.events.Methods;
-import net.mrscauthd.beyond_earth.events.forge.PlayerEnterPlanetSelectionMenuEvent;
+import net.mrscauthd.beyond_earth.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.registries.SoundsRegistry;
 
 import javax.annotation.Nonnull;
@@ -260,7 +260,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         }
     }
 
-    public void openPlanetSelectionGui() {
+    public void openPlanetSelectionMenu() {
         if (this.getY() > 600 && !this.getPassengers().isEmpty()) {
             if (this.getPassengers().get(0) instanceof Player) {
 
@@ -270,7 +270,7 @@ public abstract class IRocketEntity extends VehicleEntity {
                     pass.closeContainer();
                 }
 
-                pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_gui_open", true);
+                pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
                 pass.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
 
                 /** SAVE ITEMS IN THE PLAYER */
@@ -287,7 +287,7 @@ public abstract class IRocketEntity extends VehicleEntity {
                     Methods.stopSound((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
                 }
 
-                MinecraftForge.EVENT_BUS.post(new PlayerEnterPlanetSelectionMenuEvent(pass, this));
+                MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(pass, this));
 
                 if (!this.level.isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
@@ -338,7 +338,7 @@ public abstract class IRocketEntity extends VehicleEntity {
             this.particleSpawn();
             this.rocketAnimation();
             this.startTimerAndFlyMovement();
-            this.openPlanetSelectionGui();
+            this.openPlanetSelectionMenu();
         }
     }
 
