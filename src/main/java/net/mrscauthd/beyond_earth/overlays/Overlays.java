@@ -255,22 +255,22 @@ public class Overlays {
 
             ResourceLocation planet;
 
-            if (Methods.isWorld(level, LevelRegistry.MOON)) {
+            if (Methods.isLevel(level, LevelRegistry.MOON)) {
                 planet = MOON_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+            else if (Methods.isLevel(level, LevelRegistry.MARS)) {
                 planet = MARS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+            else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
                 planet = MERCURY_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
+            else if (Methods.isLevel(level, LevelRegistry.VENUS)) {
                 planet = VENUS_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+            else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
                 planet = GLACIO_PLANET_BAR_TEXTURE;
             }
-            else if (Methods.isOrbitWorld(level)) {
+            else if (Methods.isOrbitLevel(level)) {
                 planet = ORBIT_PLANET_BAR_TEXTURE;
             }
             else {

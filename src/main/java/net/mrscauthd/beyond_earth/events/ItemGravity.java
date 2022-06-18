@@ -16,19 +16,19 @@ public class ItemGravity {
     public static final float ORBIT_GRAVITY = 0.05F;
 
     public static void gravity(ItemEntity itemEntity, Level level) {
-        if (Methods.isWorld(level, LevelRegistry.MOON)) {
+        if (Methods.isLevel(level, LevelRegistry.MOON)) {
             gravitySystem(itemEntity, MOON_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+        else if (Methods.isLevel(level, LevelRegistry.MARS)) {
             gravitySystem(itemEntity, MARS_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+        else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
             gravitySystem(itemEntity, MERCURY_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+        else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
             gravitySystem(itemEntity, GLACIO_GRAVITY);
         }
-        else if (Methods.isOrbitWorld(level)) {
+        else if (Methods.isOrbitLevel(level)) {
             gravitySystem(itemEntity, ORBIT_GRAVITY);
         }
     }

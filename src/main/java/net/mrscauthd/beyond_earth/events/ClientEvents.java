@@ -34,7 +34,7 @@ public class ClientEvents {
             return;
         }
 
-        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.level != null && ClientMethods.isSoundSource(event.getSound().getSource()) && Methods.isSpaceWorldWithoutOxygen(Minecraft.getInstance().player.level)) {
+        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.level != null && ClientMethods.isSoundSource(event.getSound().getSource()) && Methods.isSpaceLevelWithoutOxygen(Minecraft.getInstance().player.level)) {
 
             if (!(event.getSound() instanceof TickableSoundInstance)) {
                 event.setSound(new SpaceSoundSystem(event.getSound()));

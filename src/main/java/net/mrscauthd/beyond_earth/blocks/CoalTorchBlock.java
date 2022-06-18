@@ -18,8 +18,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
-import java.util.Random;
-
 public class CoalTorchBlock extends TorchBlock {
 
     public CoalTorchBlock(Properties p_57491_) {
@@ -30,7 +28,7 @@ public class CoalTorchBlock extends TorchBlock {
     public InteractionResult use(BlockState p_51274_, Level p_51275_, BlockPos p_51276_, Player p_51277_, InteractionHand p_51278_, BlockHitResult p_51279_) {
         ItemStack itemstack = p_51277_.getItemInHand(p_51278_);
 
-        if (p_51275_.getBlockState(p_51276_).getBlock() == BlocksRegistry.WALL_COAL_TORCH_BLOCK.get() && !Methods.isSpaceWorldWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
+        if (p_51275_.getBlockState(p_51276_).getBlock() == BlocksRegistry.WALL_COAL_TORCH_BLOCK.get() && !Methods.isSpaceLevelWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
             if (!p_51275_.isClientSide) {
 
                 BlockState state = p_51275_.getBlockState(p_51276_);
@@ -42,7 +40,7 @@ public class CoalTorchBlock extends TorchBlock {
             }
         }
 
-        if (p_51275_.getBlockState(p_51276_).getBlock() == BlocksRegistry.COAL_TORCH_BLOCK.get() && !Methods.isSpaceWorldWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
+        if (p_51275_.getBlockState(p_51276_).getBlock() == BlocksRegistry.COAL_TORCH_BLOCK.get() && !Methods.isSpaceLevelWithoutOxygen(p_51275_) && (itemstack.getItem() == Items.FLINT_AND_STEEL || itemstack.getItem() == Items.FIRE_CHARGE)) {
             if (!p_51275_.isClientSide) {
 
                 p_51275_.setBlock(p_51276_, Blocks.TORCH.defaultBlockState(), 3);

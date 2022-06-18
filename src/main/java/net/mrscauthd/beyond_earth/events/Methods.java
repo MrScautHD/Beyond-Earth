@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -47,7 +46,7 @@ public class Methods {
     public static final ResourceLocation SPACE_STATION = new ResourceLocation(BeyondEarth.MODID, "space_station");
 
     public static Entity teleportTo(Entity entity, ResourceKey<Level> levelKey, double yPos) {
-        if (!isWorld(entity.level, levelKey)) {
+        if (!isLevel(entity.level, levelKey)) {
             if (entity.canChangeDimensions()) {
 
                 if (entity.getServer() == null) {
@@ -156,30 +155,21 @@ public class Methods {
         return entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, number)).getItem() == item;
     }
 
-    public static boolean isSpaceWorld(Level world) {
-        return LevelRegistry.SPACE_WORLDS.contains(world.dimension());
+    public static boolean isSpaceLevel(Level level) {
+        return LevelRegistry.SPACE_LEVELS.contains(level.dimension());
     }
 
-    public static boolean isSpaceWorldWithoutOxygen(Level world) {
-        return LevelRegistry.WORLDS_WITHOUT_OXYGEN.contains(world.dimension());
+    public static boolean isSpaceLevelWithoutOxygen(Level level) {
+        return LevelRegistry.LEVELS_WITHOUT_OXYGEN.contains(level.dimension());
     }
 
-    public static boolean isOrbitWorld(Level world) {
-        return LevelRegistry.ORBITS.contains(world.dimension());
+    public static boolean isOrbitLevel(Level level) {
+        return LevelRegistry.ORBIT_LEVELS.contains(level.dimension());
     }
 
-    public static boolean isWorld(Level world, ResourceKey<Level> loc) {
-        return world.dimension() == loc;
+    public static boolean isLevel(Level level, ResourceKey<Level> loc) {
+        return level.dimension() == loc;
     }
-
-    public static Pair<ResourceKey<Level>, ResourceKey<Level>> getAllWorldsWithOrbit() {
-        for (int i = 0; i <= LevelRegistry.WORLDS_WITH_ORBIT.size(); i++) {
-            return LevelRegistry.WORLDS_WITH_ORBIT.get(i);
-        }
-
-        return null;
-    }
-
 
     public static void hurtLivingWithOxygenSource(LivingEntity entity) {
         entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
@@ -226,7 +216,7 @@ public class Methods {
     public static void planetFire(LivingEntity entity, ResourceKey<Level> planet) {
         Level level = entity.level;
 
-        if (!isWorld(level, planet)) {
+        if (!isLevel(level, planet)) {
             return;
         }
 
@@ -256,7 +246,7 @@ public class Methods {
     //TODO REWORK
     /** IF A ENTITY SHOULD NOT GET DAMAGE FROM ACID RAIN ADD IT TO TAG "venus_rain" */
     public static void venusRain(LivingEntity entity, ResourceKey<Level> planet) {
-        if (!isWorld(entity.level, planet)) {
+        if (!isLevel(entity.level, planet)) {
             return;
         }
 
@@ -294,7 +284,7 @@ public class Methods {
             return;
         }
 
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && isSpaceWorldWithoutOxygen(level) && entity.getType().is(TagsRegistry.ENTITY_OXYGEN_TAG)) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && isSpaceLevelWithoutOxygen(level) && entity.getType().is(TagsRegistry.ENTITY_OXYGEN_TAG)) {
 
             if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
 
@@ -368,9 +358,9 @@ public class Methods {
         }
     }
 
-    public static void placeSpaceStation(Player player, ServerLevel serverWorld) {
+    public static void placeSpaceStation(Player player, ServerLevel serverLevel) {
         BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
-        serverWorld.getStructureManager().getOrCreate(SPACE_STATION).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
+        serverLevel.getStructureManager().getOrCreate(SPACE_STATION).placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
     }
 
     public static void resetPlanetSelectionMenuNeededNbt(Player player) {
@@ -408,23 +398,29 @@ public class Methods {
 
     public static void entityFallWithLanderToPlanet(Entity entity, Level level) {
         if (entity.getVehicle().getY() < 1) {
-            if (Methods.isWorld(level, getAllWorldsWithOrbit().getFirst())) {
-                teleportWithEntityTo(entity, entity.getVehicle(), getAllWorldsWithOrbit().getSecond(), 700);
+
+            for (Pair<ResourceKey<Level>, ResourceKey<Level>> levelPair : LevelRegistry.LEVELS_WITH_ORBIT) {
+                if (Methods.isLevel(level, levelPair.getSecond())) {
+                    teleportWithEntityTo(entity, entity.getVehicle(), levelPair.getFirst(), 700);
+                }
             }
         }
     }
 
     public static void entityFallToPlanet(Entity entity, Level level) {
         if (entity.getY() < 1) {
-            if (Methods.isWorld(level, getAllWorldsWithOrbit().getFirst())) {
-                Methods.teleportTo(entity, getAllWorldsWithOrbit().getSecond(), 550);
+
+            for (Pair<ResourceKey<Level>, ResourceKey<Level>> levelPair : LevelRegistry.LEVELS_WITH_ORBIT) {
+                if (Methods.isLevel(level, levelPair.getSecond())) {
+                    Methods.teleportTo(entity, levelPair.getFirst(), 550);
+                }
             }
         }
     }
 
     //TODO REWORK THAT
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAllSpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceWorldWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAllSpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
             OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();

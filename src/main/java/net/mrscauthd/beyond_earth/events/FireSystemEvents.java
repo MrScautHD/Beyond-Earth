@@ -21,7 +21,7 @@ public class FireSystemEvents {
     public static void onBlockPlace(BlockSetEvent event) {
         Level level = (Level) event.getWorld();
 
-        if (Methods.isSpaceWorldWithoutOxygen(level)) {
+        if (Methods.isSpaceLevelWithoutOxygen(level)) {
 
             BlockPos pos = event.getPos();
             BlockState state = level.getBlockState(pos);

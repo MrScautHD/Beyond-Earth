@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 public class OxygenSystem {
 
     public static void OxygenSystem(Player entity, Level level) {
-        if (Config.PLAYER_OXYGEN_SYSTEM.get() && Methods.isSpaceWorldWithoutOxygen(level) && !entity.isSpectator() && !entity.getAbilities().instabuild) {
+        if (Config.PLAYER_OXYGEN_SYSTEM.get() && Methods.isSpaceLevelWithoutOxygen(level) && !entity.isSpectator() && !entity.getAbilities().instabuild) {
 
             if (entity.getAirSupply() < 1) {
                 Methods.hurtLivingWithOxygenSource(entity);

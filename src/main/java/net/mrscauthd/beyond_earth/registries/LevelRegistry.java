@@ -34,7 +34,7 @@ public class LevelRegistry {
     public static final ResourceKey<Level> EARTH = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation("overworld"));
     public static final ResourceKey<Level> EARTH_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
 
-    public static List<ResourceKey<Level>> WORLDS_WITHOUT_RAIN = List.of(
+    public static List<ResourceKey<Level>> LEVELS_WITHOUT_RAIN = List.of(
             MOON,
             MOON_ORBIT,
             MARS_ORBIT,
@@ -45,7 +45,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static List<ResourceKey<Level>> WORLDS_WITHOUT_OXYGEN = List.of(
+    public static List<ResourceKey<Level>> LEVELS_WITHOUT_OXYGEN = List.of(
             MOON,
             MOON_ORBIT,
             MARS,
@@ -58,7 +58,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static List<ResourceKey<Level>> SPACE_WORLDS = List.of(
+    public static List<ResourceKey<Level>> SPACE_LEVELS = List.of(
             MOON,
             MOON_ORBIT,
             MARS,
@@ -72,7 +72,7 @@ public class LevelRegistry {
             EARTH_ORBIT
     );
 
-    public static List<Pair<ResourceKey<Level>, ResourceKey<Level>>> WORLDS_WITH_ORBIT = List.of(
+    public static List<Pair<ResourceKey<Level>, ResourceKey<Level>>> LEVELS_WITH_ORBIT = List.of(
             new Pair<>(MOON, MOON_ORBIT),
             new Pair<>(MARS, MARS_ORBIT),
             new Pair<>(MERCURY, MERCURY_ORBIT),
@@ -82,7 +82,7 @@ public class LevelRegistry {
             new Pair<>(EARTH, EARTH_ORBIT)
     );
 
-    public static List<ResourceKey<Level>> ORBITS = List.of(
+    public static List<ResourceKey<Level>> ORBIT_LEVELS = List.of(
             EARTH_ORBIT,
             MOON_ORBIT,
             MARS_ORBIT,

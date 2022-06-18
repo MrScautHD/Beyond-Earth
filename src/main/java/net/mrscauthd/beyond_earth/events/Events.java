@@ -107,10 +107,10 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             Level level = event.world;
 
-            if (LevelRegistry.WORLDS_WITHOUT_RAIN.contains(level.dimension())) {
+            if (LevelRegistry.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
-            } else if (Methods.isWorld(level, LevelRegistry.VENUS)) {
+            } else if (Methods.isLevel(level, LevelRegistry.VENUS)) {
                 level.thunderLevel = 0;
             }
         }
@@ -165,19 +165,19 @@ public class Events {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
-        if (Methods.isWorld(level, LevelRegistry.MOON)) {
+        if (Methods.isLevel(level, LevelRegistry.MOON)) {
             event.setDistance(event.getDistance() - 5.5F);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+        else if (Methods.isLevel(level, LevelRegistry.MARS)) {
             event.setDistance(event.getDistance() - 5.0F);
         }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+        else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
             event.setDistance(event.getDistance() - 5.0F);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+        else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
             event.setDistance(event.getDistance() - 5.5F);
         }
-        else if (Methods.isOrbitWorld(level)) {
+        else if (Methods.isOrbitLevel(level)) {
             event.setDistance(event.getDistance() - 8.5F);
         }
     }

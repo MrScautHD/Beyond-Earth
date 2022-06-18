@@ -19,19 +19,19 @@ public class EntityGravity {
     public static final float ORBIT_GRAVITY = 0.02F;
 
     public static void gravity(LivingEntity entity, Level level) {
-        if (Methods.isWorld(level, LevelRegistry.MOON)) {
+        if (Methods.isLevel(level, LevelRegistry.MOON)) {
             gravitySystem(entity, MOON_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MARS)) {
+        else if (Methods.isLevel(level, LevelRegistry.MARS)) {
             gravitySystem(entity, MARS_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.MERCURY)) {
+        else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
             gravitySystem(entity, MERCURY_GRAVITY);
         }
-        else if (Methods.isWorld(level, LevelRegistry.GLACIO)) {
+        else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
             gravitySystem(entity, GLACIO_GRAVITY);
         }
-        else if (Methods.isOrbitWorld(level)) {
+        else if (Methods.isOrbitLevel(level)) {
             gravitySystem(entity, ORBIT_GRAVITY);
         }
     }
