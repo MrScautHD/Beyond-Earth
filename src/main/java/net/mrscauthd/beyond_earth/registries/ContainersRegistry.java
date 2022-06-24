@@ -5,27 +5,19 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorMenu;
-import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorMenu;
-import net.mrscauthd.beyond_earth.guis.screens.fuelrefinery.FuelRefineryMenu;
 import net.mrscauthd.beyond_earth.guis.screens.lander.LanderMenu;
-import net.mrscauthd.beyond_earth.guis.screens.nasaworkbench.NasaWorkbenchGui;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenbubbledistributor.OxygenBubbleDistributorMenu;
-import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderMenu;
 import net.mrscauthd.beyond_earth.guis.screens.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketMenu;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverMenu;
-import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelMenu;
-import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpMenu;
 
-public class ScreensRegistry {
+public class ContainersRegistry {
 
-    public static final DeferredRegister<MenuType<?>> SCREENS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarth.MODID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarth.MODID);
 
     /** SCREENS */
     //TODO REWORK THIS WITH MACHINES
 
-    public static final RegistryObject<MenuType<RocketMenu.GuiContainer>> ROCKET_GUI = SCREENS.register("rocket_gui", () -> new MenuType(new RocketMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<RocketMenu.GuiContainer>> ROCKET_GUI = CONTAINERS.register("rocket_gui", () -> new MenuType(new RocketMenu.GuiContainerFactory()));
     /*
     public static final RegistryObject<MenuType<CompressorMenu.GuiContainer>> COMPRESSOR_GUI = SCREENS.register("compressor_gui", () -> new MenuType(new CompressorMenu.GuiContainerFactory()));
     public static final RegistryObject<MenuType<FuelRefineryMenu.GuiContainer>> FUEL_REFINERY_GUI = SCREENS.register("fuel_refinery_gui", () -> new MenuType(new FuelRefineryMenu.GuiContainerFactory()));
@@ -36,7 +28,7 @@ public class ScreensRegistry {
     public static final RegistryObject<MenuType<WaterPumpMenu.GuiContainer>> WATER_PUMP_GUI = SCREENS.register("water_pump_gui", () -> new MenuType(new WaterPumpMenu.GuiContainerFactory()));
     public static final RegistryObject<MenuType<OxygenBubbleDistributorMenu.GuiContainer>> OXYGEN_BUBBLE_DISTRIBUTOR_GUI = SCREENS.register("oxygen_bubble_distributor_gui", () -> new MenuType(new OxygenBubbleDistributorMenu.GuiContainerFactory()));
     */
-    public static final RegistryObject<MenuType<LanderMenu.GuiContainer>> LANDER_GUI = SCREENS.register("lander_gui", () -> new MenuType(new LanderMenu.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<RoverMenu.GuiContainer>> ROVER_GUI = SCREENS.register("rover_gui", () -> new MenuType(new RoverMenu.GuiContainerFactory()));
-    public static final RegistryObject<MenuType<PlanetSelectionMenu.GuiContainer>> PLANET_SELECTION_GUI = SCREENS.register("planet_selection_gui", () -> new MenuType(new PlanetSelectionMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<LanderMenu.GuiContainer>> LANDER_GUI = CONTAINERS.register("lander_gui", () -> new MenuType(new LanderMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<RoverMenu.GuiContainer>> ROVER_GUI = CONTAINERS.register("rover_gui", () -> new MenuType(new RoverMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<PlanetSelectionMenu.GuiContainer>> PLANET_SELECTION_GUI = CONTAINERS.register("planet_selection_gui", () -> new MenuType(new PlanetSelectionMenu.GuiContainerFactory()));
 }

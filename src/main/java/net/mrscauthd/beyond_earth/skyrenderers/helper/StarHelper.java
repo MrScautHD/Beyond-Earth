@@ -5,41 +5,46 @@ import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.GraphicsStatus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Random;
 
+@OnlyIn(Dist.CLIENT)
 public class StarHelper {
 
-    public static VertexBuffer createStars(VertexBuffer starBuffer, float scale, int amountFast, int amountFancy, int r, int g, int b) {
-        return createStars(starBuffer, scale, false, amountFast, amountFancy, true, r, g, b);
+    public static VertexBuffer createStars(float scale, int amountFast, int amountFancy, int r, int g, int b) {
+        return createStars(scale, false, amountFast, amountFancy, true, r, g, b);
     }
 
-    public static VertexBuffer createStars(VertexBuffer starBuffer, float scale, int r, int g, int b) {
-        return createStars(starBuffer, scale, true, 0, 0, true, r, g, b);
+    public static VertexBuffer createStars(float scale, int r, int g, int b) {
+        return createStars(scale, true, 0, 0, true, r, g, b);
     }
 
-    public static VertexBuffer createStars(VertexBuffer starBuffer, float scale, int amountFast, int amountFancy) {
-        return createStars(starBuffer, scale, false, amountFast, amountFancy, false, 0, 0, 0);
+    public static VertexBuffer createStars(float scale, int amountFast, int amountFancy) {
+        return createStars(scale, false, amountFast, amountFancy, false, 0, 0, 0);
     }
 
-    public static VertexBuffer createStars(VertexBuffer starBuffer, float scale) {
-        return createStars(starBuffer, scale, true, 0, 0, false, 0, 0, 0);
+    public static VertexBuffer createStars(float scale) {
+        return createStars(scale, true, 0, 0, false, 0, 0, 0);
     }
 
-    private static VertexBuffer createStars(VertexBuffer starBuffer, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
+    private static VertexBuffer createStars(float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {
         Tesselator tesselator = Tesselator.getInstance();
         BufferBuilder bufferbuilder = tesselator.getBuilder();
         RenderSystem.setShader(colorSystem ? GameRenderer::getPositionColorShader : GameRenderer::getPositionShader);
-        if (starBuffer != null) {
-            starBuffer.close();
+
+        VertexBuffer vertexBuffer = new VertexBuffer();
+
+        if (vertexBuffer != null) {
+            vertexBuffer.close();
         }
 
-        starBuffer = new VertexBuffer();
         BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
-        starBuffer.bind();
-        starBuffer.upload(renderedBuffer);
+        vertexBuffer.bind();
+        vertexBuffer.upload(renderedBuffer);
         VertexBuffer.unbind();
-        return starBuffer;
+        return vertexBuffer;
     }
 
     private static BufferBuilder.RenderedBuffer drawStars(BufferBuilder p_109555_, float scale, boolean amountDefault, int amountFast, int amountFancy, boolean colorSystem, int r, int g, int b) {

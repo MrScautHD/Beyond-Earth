@@ -1,9 +1,9 @@
-package net.mrscauthd.beyond_earth.entities.renderers;
+package net.mrscauthd.beyond_earth.entities.renderers.oxygenbubble;
 
 //TODO EY DO NOT FORGOT THIS
 
 //@OnlyIn(Dist.CLIENT)
-public class TileEntityBoxRenderer /*implements BlockEntityRenderer<OxygenBubbleDistributorBlockEntity> */ {
+public class OxygenBubbleRenderer /*implements BlockEntityRenderer<OxygenBubbleDistributorBlockEntity> */ {
 /*
     public static TextureAtlasSprite atlas = null;
 

@@ -41,7 +41,7 @@ public class GlacioOrbitSky {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            starBuffer = StarHelper.createStars(starBuffer, 0.075F, 6000, 13000);
+           // starBuffer = StarHelper.createStars(0.075F, 6000, 13000);
         });
 
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, false, DimensionSpecialEffects.SkyType.NORMAL, false, false) {

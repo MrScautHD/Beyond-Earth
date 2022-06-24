@@ -40,7 +40,7 @@ public class MercurySky {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            starBuffer = StarHelper.createStars(starBuffer, 0.1F, 6000, 13000, 160, 190, -1);
+            //starBuffer = StarHelper.createStars(0.1F, 6000, 13000, 160, 190, -1);
         });
 
         DimensionSpecialEffects.EFFECTS.put(DIM_RENDER_INFO, new DimensionSpecialEffects(192, true, DimensionSpecialEffects.SkyType.NORMAL, false, false) {

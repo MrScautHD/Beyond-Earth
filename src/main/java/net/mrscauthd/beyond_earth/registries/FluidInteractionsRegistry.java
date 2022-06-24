@@ -13,7 +13,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 public class FluidInteractionsRegistry {
 
     @SubscribeEvent
-    public static void init(FMLCommonSetupEvent event) {
+    public static void register(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             addInteraction(FluidTypesRegistry.FUEL_TYPE.get());
             addInteraction(FluidTypesRegistry.OIL_TYPE.get());

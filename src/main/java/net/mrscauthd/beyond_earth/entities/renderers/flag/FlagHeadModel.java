@@ -17,13 +17,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
 @OnlyIn(Dist.CLIENT)
-public class TileEntityHeadModel extends SkullModelBase {
+public class FlagHeadModel extends SkullModelBase {
 	private final ModelPart root;
 	protected final ModelPart head;
 
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "flag"), "main");
 
-	public TileEntityHeadModel(ModelPart p_170945_) {
+	public FlagHeadModel(ModelPart p_170945_) {
 		this.root = p_170945_;
 		this.head = p_170945_.getChild("head");
 	}

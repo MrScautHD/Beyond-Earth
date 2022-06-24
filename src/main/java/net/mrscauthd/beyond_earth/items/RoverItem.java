@@ -23,8 +23,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
+import net.mrscauthd.beyond_earth.registries.client.ItemRenderersRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -108,7 +108,7 @@ public class RoverItem extends VehicleItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
-                return ClientEventBusSubscriber.ROVER_ITEM_RENDERER;
+                return ItemRenderersRegistry.ROVER_ITEM_RENDERER;
             }
         });
     }

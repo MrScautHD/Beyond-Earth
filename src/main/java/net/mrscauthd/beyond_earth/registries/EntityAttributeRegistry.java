@@ -12,7 +12,7 @@ import net.mrscauthd.beyond_earth.entities.pygro.PygroEntity;
 public class EntityAttributeRegistry {
 
     @SubscribeEvent
-    public static void defaultAttributes(EntityAttributeCreationEvent event) {
+    public static void register(EntityAttributeCreationEvent event) {
         event.put(EntitiesRegistry.ALIEN.get(), AlienEntity.setCustomAttributes().build());
         event.put(EntitiesRegistry.PYGRO.get(), PygroEntity.setCustomAttributes().build());
         event.put(EntitiesRegistry.PYGRO_BRUTE.get(), PygroBruteEntity.setCustomAttributes().build());

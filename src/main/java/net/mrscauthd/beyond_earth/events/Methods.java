@@ -31,6 +31,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.config.Config;
@@ -421,7 +422,7 @@ public class Methods {
     //TODO REWORK THAT
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
 		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAllSpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-            OxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();
 			String key = BeyondEarth.MODID + ":oxygen_timer";

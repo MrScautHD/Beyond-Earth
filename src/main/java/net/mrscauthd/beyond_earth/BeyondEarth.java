@@ -41,7 +41,7 @@ public class BeyondEarth {
 		SoundsRegistry.SOUNDS.register(bus);
 		EffectsRegistry.EFFECTS.register(bus);
 		ParticlesRegistry.PARTICLES.register(bus);
-		ScreensRegistry.SCREENS.register(bus);
+		ContainersRegistry.CONTAINERS.register(bus);
 		StructuresRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
 	}

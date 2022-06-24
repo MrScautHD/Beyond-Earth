@@ -16,7 +16,7 @@ public class StructureProcessorsRegistry {
     public static final StructureProcessorType<StructureVoidProcessor> STRUCTURE_VOID_PROCESSOR = () -> StructureVoidProcessor.CODEC;
 
     @SubscribeEvent
-    public static void init(FMLCommonSetupEvent event) {
+    public static void register(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
 
             /** STRUCTURE VOID PROCESSOR */

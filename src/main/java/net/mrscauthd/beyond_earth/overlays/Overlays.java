@@ -25,6 +25,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.entities.*;
@@ -216,7 +217,7 @@ public class Overlays {
             Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */
-            OxygenStorage oxygenStorage = chest.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = chest.getCapability(OxygenCapability.OXYGEN).orElse(null);
             if (oxygenStorage != null) {
 
                 int x = 5;

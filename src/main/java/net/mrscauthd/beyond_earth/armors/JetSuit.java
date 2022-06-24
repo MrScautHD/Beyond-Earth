@@ -142,7 +142,7 @@ public class JetSuit {
         @Override
         public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
             super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-            OxygenStorage oxygenStorage = p_41421_.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = p_41421_.getCapability(OxygenCapability.OXYGEN).orElse(null);
             if (oxygenStorage != null) {
                 p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygenStorage.getOxygenStored() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygenStorage.getMaxOxygenStored() + " mb"));
             }

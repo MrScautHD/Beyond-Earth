@@ -32,9 +32,9 @@ import net.mrscauthd.beyond_earth.flag.FlagBlock;
 import net.mrscauthd.beyond_earth.flag.FlagTileEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class TileEntityHeadRenderer implements BlockEntityRenderer<FlagTileEntity> {
+public class FlagHeadRenderer implements BlockEntityRenderer<FlagTileEntity> {
 
-	public TileEntityHeadRenderer(BlockEntityRendererProvider.Context context) {
+	public FlagHeadRenderer(BlockEntityRendererProvider.Context context) {
 
 	}
 
@@ -51,13 +51,13 @@ public class TileEntityHeadRenderer implements BlockEntityRenderer<FlagTileEntit
 		return Vec3.atCenterOf(p_173568_.getBlockPos()).multiply(1.0D, 0.0D, 1.0D).closerThan(p_173569_.multiply(1.0D, 0.0D, 1.0D), (double)this.getViewDistance());
 	}
 
-	private static final Map<FlagBlock.ISkullType, TileEntityHeadModel> MODELS = Util.make(Maps.newHashMap(), (p_209262_0_) -> {
+	private static final Map<FlagBlock.ISkullType, FlagHeadModel> MODELS = Util.make(Maps.newHashMap(), (p_209262_0_) -> {
 
 		Minecraft minecraft = Minecraft.getInstance();
-		Map<String, ModelPart> map = Map.of("head", new TileEntityHeadModel(minecraft.getEntityModels().bakeLayer(TileEntityHeadModel.LAYER_LOCATION)).head);
+		Map<String, ModelPart> map = Map.of("head", new FlagHeadModel(minecraft.getEntityModels().bakeLayer(FlagHeadModel.LAYER_LOCATION)).head);
 		ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
 
-		TileEntityHeadModel genericheadmodel = new TileEntityHeadModel(modelPart);
+		FlagHeadModel genericheadmodel = new FlagHeadModel(modelPart);
 
 		p_209262_0_.put(FlagBlock.Types.PLAYER, genericheadmodel);
 	});
@@ -78,7 +78,7 @@ public class TileEntityHeadRenderer implements BlockEntityRenderer<FlagTileEntit
 	}
 
 	public static void render(@Nullable Direction directionIn, float p_228879_1_, FlagBlock.ISkullType skullType, @Nullable GameProfile gameProfileIn, float animationProgress, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight) {
-		TileEntityHeadModel genericheadmodel = MODELS.get(skullType);
+		FlagHeadModel genericheadmodel = MODELS.get(skullType);
 		matrixStackIn.pushPose();
 		if (directionIn == null) {
 			matrixStackIn.translate(0.5D, 0.0D, 0.5D);

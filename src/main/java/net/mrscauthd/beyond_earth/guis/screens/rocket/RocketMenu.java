@@ -11,9 +11,8 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.network.IContainerFactory;
 
 import net.mrscauthd.beyond_earth.entities.*;
-import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.guis.helper.MenuHelper;
-import net.mrscauthd.beyond_earth.registries.ScreensRegistry;
+import net.mrscauthd.beyond_earth.registries.ContainersRegistry;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +28,7 @@ public class RocketMenu {
 		public IRocketEntity rocket;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ScreensRegistry.ROCKET_GUI.get(), id);
+			super(ContainersRegistry.ROCKET_GUI.get(), id);
 
 			this.rocket = (IRocketEntity) inv.player.level.getEntity(extraData.readVarInt());
 

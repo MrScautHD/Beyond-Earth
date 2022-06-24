@@ -3,8 +3,8 @@ package net.mrscauthd.beyond_earth.keybinds;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.registries.NetworksRegistry;
+import net.mrscauthd.beyond_earth.registries.client.KeyMappingsRegistry;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -49,7 +49,7 @@ public class ClientKeyEvents {
 
 	@SubscribeEvent
 	public static void keyPressed(InputEvent.KeyInputEvent event) {
-		if (event.getKey() == ClientEventBusSubscriber.key1.getKey().getValue()) {
+		if (event.getKey() == KeyMappingsRegistry.ROCKET_START.getKey().getValue()) {
 			if (event.getAction() == GLFW.GLFW_PRESS) {
 				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(6));
 			}
