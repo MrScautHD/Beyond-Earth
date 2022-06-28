@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.skyrenderers.EarthOrbitSky;
 import net.mrscauthd.beyond_earth.skyrenderers.MoonSky;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -15,7 +16,8 @@ public class SkyRenderersRegistry {
     @SubscribeEvent
     public static void register(FMLClientSetupEvent event) {
         event.enqueueWork(()-> {
-            DimensionSpecialEffects.EFFECTS.put(new ResourceLocation(BeyondEarth.MODID, "moon"), new MoonSky(0, true, DimensionSpecialEffects.SkyType.NORMAL, false, false));
+            DimensionSpecialEffects.EFFECTS.put(new ResourceLocation(BeyondEarth.MODID, "moon"), new MoonSky(0, true, DimensionSpecialEffects.SkyType.NONE, false, false));
+            DimensionSpecialEffects.EFFECTS.put(new ResourceLocation(BeyondEarth.MODID, "earth_orbit"), new EarthOrbitSky(0, true, DimensionSpecialEffects.SkyType.NONE, false, false));
         });
     }
 }

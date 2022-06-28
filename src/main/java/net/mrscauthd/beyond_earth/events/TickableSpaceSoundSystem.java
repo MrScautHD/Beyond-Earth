@@ -62,7 +62,7 @@ public class TickableSpaceSoundSystem implements TickableSoundInstance {
 
     @Override
     public float getPitch() {
-        return delegate.getPitch();
+        return delegate.getPitch() / 10;
     }
 
     @Override

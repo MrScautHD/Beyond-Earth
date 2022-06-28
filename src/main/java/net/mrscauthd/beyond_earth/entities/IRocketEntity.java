@@ -193,7 +193,7 @@ public abstract class IRocketEntity extends VehicleEntity {
     public abstract void fillUpRocket();
 
     public boolean doesDrop(BlockState state, BlockPos pos) {
-        if (this.isOnGround() || this.isInWater()) {
+        if (this.isOnGround() || this.isInFluidType()) {
 
             BlockState state2 = this.level.getBlockState(new BlockPos(Math.floor(this.getX()), this.getY() - 0.2, Math.floor(this.getZ())));
 

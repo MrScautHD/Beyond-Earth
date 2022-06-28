@@ -57,12 +57,12 @@ public class SpaceSoundSystem implements SoundInstance {
 
     @Override
     public float getVolume() {
-        return 0.09F;
+        return delegate.getVolume() / 12;
     }
 
     @Override
     public float getPitch() {
-        return delegate.getPitch();
+        return delegate.getPitch() / 10;
     }
 
     @Override

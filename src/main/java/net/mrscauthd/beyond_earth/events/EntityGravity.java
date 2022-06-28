@@ -69,6 +69,6 @@ public class EntityGravity {
 
     /** ENTITY GRAVITY CHECK */
     private static boolean getEntityCondition(Entity entity) {
-        return !entity.isInWater() && !entity.isInLava() && !entity.isNoGravity() && !Methods.isVehicle(entity);
+        return !entity.isInFluidType() && !entity.isInLava() && !entity.isNoGravity() && !Methods.isVehicle(entity);
     }
 }

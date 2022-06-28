@@ -36,9 +36,9 @@ public class StarHelper {
 
         VertexBuffer vertexBuffer = new VertexBuffer();
 
-        if (vertexBuffer != null) {
+        /*if (vertexBuffer != null) {
             vertexBuffer.close();
-        }
+        }*/
 
         BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
         vertexBuffer.bind();

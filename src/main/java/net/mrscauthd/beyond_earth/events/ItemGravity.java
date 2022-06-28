@@ -47,6 +47,6 @@ public class ItemGravity {
 
     /** GRAVITY CHECK */
     private static boolean getCondition(ItemEntity entity) {
-        return !entity.isInWater() && !entity.isInLava() && !entity.isNoGravity();
+        return !entity.isInFluidType() && !entity.isInLava() && !entity.isNoGravity();
     }
 }
