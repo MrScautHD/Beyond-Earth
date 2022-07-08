@@ -46,6 +46,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public abstract class IRocketEntity extends VehicleEntity {
 
     //TODO REWORK ANIMTION

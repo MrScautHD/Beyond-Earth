@@ -27,6 +27,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

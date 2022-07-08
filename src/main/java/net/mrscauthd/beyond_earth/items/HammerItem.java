@@ -3,6 +3,8 @@ package net.mrscauthd.beyond_earth.items;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class HammerItem extends Item {
 	public HammerItem(Properties properties) {
 		super(properties);

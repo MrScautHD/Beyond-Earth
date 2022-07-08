@@ -15,7 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class SpaceSuit {
 
 	public static class OxygenMask extends ArmorItem {
@@ -40,8 +42,8 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
 				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
@@ -77,8 +79,8 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
 				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
@@ -150,8 +152,8 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
 				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
@@ -189,8 +191,8 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
 				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {

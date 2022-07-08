@@ -16,10 +16,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
+import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -74,36 +74,36 @@ public class Overlays {
 
     /** OVERLAY ENABLE OR DISABLE EVENT */
     @SubscribeEvent
-    public static void overlayEnableOrDisable(RenderGameOverlayEvent.PostLayer event) {
+    public static void overlayEnableOrDisable(RenderGuiOverlayEvent.Post event) {
         Player player = Minecraft.getInstance().player;
         Item chestItem = player.getItemBySlot(EquipmentSlot.CHEST).getItem();
 
         /** WARNING OVERLAY */
         if (player.getVehicle() instanceof LanderEntity && !player.getVehicle().isOnGround() && !player.isEyeInFluid(FluidTags.WATER)) {
-                OverlayRegistry.enableOverlay(Overlays.WARNING, true);
+                GuiOverlayManager.enableOverlay(Overlays.WARNING, true);
         } else {
-            OverlayRegistry.enableOverlay(Overlays.WARNING, false);
+            GuiOverlayManager.enableOverlay(Overlays.WARNING, false);
         }
 
         /** ROCKET TIMER */
         if (Methods.isRocket(player.getVehicle())) {
-            OverlayRegistry.enableOverlay(Overlays.ROCKET_TIMER, true);
+            GuiOverlayManager.enableOverlay(Overlays.ROCKET_TIMER, true);
         } else {
-            OverlayRegistry.enableOverlay(Overlays.ROCKET_TIMER, false);
+            GuiOverlayManager.enableOverlay(Overlays.ROCKET_TIMER, false);
         }
 
         /** OXYGEN TANK */
         if (chestItem == ItemsRegistry.SPACE_SUIT.get() || chestItem == ItemsRegistry.NETHERITE_SPACE_SUIT.get()) {
-            OverlayRegistry.enableOverlay(Overlays.OXYGEN_TANK, true);
+            GuiOverlayManager.enableOverlay(Overlays.OXYGEN_TANK, true);
         } else {
-            OverlayRegistry.enableOverlay(Overlays.OXYGEN_TANK, false);
+            GuiOverlayManager.enableOverlay(Overlays.OXYGEN_TANK, false);
         }
 
         /** ROCKET HEIGHT */
         if (Methods.isRocket(player.getVehicle()) || player.getVehicle() instanceof LanderEntity) {
-            OverlayRegistry.enableOverlay(Overlays.ROCKET_HEIGHT, true);
+            GuiOverlayManager.enableOverlay(Overlays.ROCKET_HEIGHT, true);
         } else {
-            OverlayRegistry.enableOverlay(Overlays.ROCKET_HEIGHT, false);
+            GuiOverlayManager.enableOverlay(Overlays.ROCKET_HEIGHT, false);
         }
     }
 
@@ -126,9 +126,9 @@ public class Overlays {
     }
 
     /** WARNING OVERLAY */
-    public static IIngameOverlay WARNING = new IIngameOverlay() {
+    public static IGuiOverlay WARNING = new IGuiOverlay() {
         @Override
-        public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
+        public void render(ForgeGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Entity vehicle = Minecraft.getInstance().player.getVehicle();
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
@@ -149,9 +149,9 @@ public class Overlays {
     };
 
     /** ROCKET TIMER OVERLAY */
-    public static IIngameOverlay ROCKET_TIMER = new IIngameOverlay() {
+    public static IGuiOverlay ROCKET_TIMER = new IGuiOverlay() {
         @Override
-        public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
+        public void render(ForgeGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Entity vehicle = Minecraft.getInstance().player.getVehicle();
             int timer = 0;
 
@@ -208,9 +208,9 @@ public class Overlays {
     };
 
     /** OXYGEN TANK OVERLAY */
-    public static IIngameOverlay OXYGEN_TANK = new IIngameOverlay() {
+    public static IGuiOverlay OXYGEN_TANK = new IGuiOverlay() {
         @Override
-        public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
+        public void render(ForgeGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Player player = Minecraft.getInstance().player;
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             Minecraft mc = Minecraft.getInstance();
@@ -238,9 +238,9 @@ public class Overlays {
     };
 
     /** ROCKET HEIGHT OVERLAY */
-    public static IIngameOverlay ROCKET_HEIGHT = new IIngameOverlay() {
+    public static IGuiOverlay ROCKET_HEIGHT = new IGuiOverlay() {
         @Override
-        public void render(ForgeIngameGui gui, PoseStack mStack, float partialTicks, int width, int height) {
+        public void render(ForgeGui gui, PoseStack mStack, float partialTicks, int width, int height) {
             Player player = Minecraft.getInstance().player;
             Level level = Minecraft.getInstance().level;
 

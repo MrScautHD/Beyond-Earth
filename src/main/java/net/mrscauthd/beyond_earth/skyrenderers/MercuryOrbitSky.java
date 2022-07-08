@@ -19,8 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.client.ISkyRenderHandler;
-import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 import net.minecraft.client.renderer.FogRenderer;

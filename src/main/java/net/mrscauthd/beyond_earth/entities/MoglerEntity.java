@@ -15,6 +15,8 @@ import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class MoglerEntity extends Hoglin {
     public MoglerEntity(EntityType<MoglerEntity> type, Level world) {
         super(type, world);

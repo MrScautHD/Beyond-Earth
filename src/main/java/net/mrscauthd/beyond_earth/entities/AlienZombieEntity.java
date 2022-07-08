@@ -25,6 +25,8 @@ import net.mrscauthd.beyond_earth.config.Config;
 
 import net.minecraftforge.registries.ForgeRegistries;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class AlienZombieEntity extends Monster implements RangedAttackMob {
 	public AlienZombieEntity(EntityType type, Level world) {
 		super(type, world);

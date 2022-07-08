@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.gui.overlay.GuiOverlayManager;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -175,14 +175,14 @@ public class ClientEventBusSubscriber {
 		//ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.WATER_PUMP_BLOCK.get(), RenderType.cutout());
 
 		//OVERLAY
-		OverlayRegistry.registerOverlayTop("warning", Overlays.WARNING);
-		OverlayRegistry.registerOverlayTop("rocket_timer", Overlays.ROCKET_TIMER);
-		OverlayRegistry.registerOverlayBottom("oxygen_tank", Overlays.OXYGEN_TANK);
-		OverlayRegistry.registerOverlayBottom("rocket_height", Overlays.ROCKET_HEIGHT);
+		GuiOverlayManager.registerOverlayTop("warning", Overlays.WARNING);
+		GuiOverlayManager.registerOverlayTop("rocket_timer", Overlays.ROCKET_TIMER);
+		GuiOverlayManager.registerOverlayBottom("oxygen_tank", Overlays.OXYGEN_TANK);
+		GuiOverlayManager.registerOverlayBottom("rocket_height", Overlays.ROCKET_HEIGHT);
 	}
 
 	@SubscribeEvent
-	public static void registerParticlesFactory(ParticleFactoryRegisterEvent event) {
+	public static void registerParticlesFactory(RegisterParticleProvidersEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 		mc.particleEngine.register(ParticlesRegistry.VENUS_RAIN_PARTICLE.get(), VenusRainParticle.ParticleFactory::new);
 		mc.particleEngine.register(ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), LargeFlameParticle.ParticleFactory::new);

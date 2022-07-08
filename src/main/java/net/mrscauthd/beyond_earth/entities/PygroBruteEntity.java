@@ -13,6 +13,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.config.Config;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class PygroBruteEntity extends PiglinBrute {
     public PygroBruteEntity(EntityType<? extends PiglinBrute> p_35048_, Level p_35049_) {
         super(p_35048_, p_35049_);

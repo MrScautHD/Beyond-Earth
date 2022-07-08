@@ -26,6 +26,8 @@ import net.mrscauthd.beyond_earth.config.Config;
 
 import net.minecraftforge.registries.ForgeRegistries;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class StarCrawlerEntity extends Monster {
 	public StarCrawlerEntity(EntityType type, Level world) {
 		super(type, world);

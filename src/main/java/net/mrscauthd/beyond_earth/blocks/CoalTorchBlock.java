@@ -18,6 +18,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class CoalTorchBlock extends TorchBlock {
 
     public CoalTorchBlock(Properties p_57491_) {

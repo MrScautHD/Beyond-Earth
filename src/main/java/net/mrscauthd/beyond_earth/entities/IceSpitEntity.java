@@ -19,6 +19,8 @@ import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 
 import java.util.Random;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
     public IceSpitEntity(EntityType type, Level world) {
         super(type, world);

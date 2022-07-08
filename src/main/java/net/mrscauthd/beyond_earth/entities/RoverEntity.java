@@ -52,6 +52,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class RoverEntity extends VehicleEntity {
     private double speed = 0;
 

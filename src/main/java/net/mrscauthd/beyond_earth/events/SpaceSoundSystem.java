@@ -11,6 +11,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.client.resources.sounds.SoundInstance.Attenuation;
+
 @OnlyIn(Dist.CLIENT)
 public class SpaceSoundSystem implements SoundInstance {
     private final SoundInstance delegate;

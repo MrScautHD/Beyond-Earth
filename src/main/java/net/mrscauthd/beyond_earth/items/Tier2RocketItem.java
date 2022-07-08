@@ -13,6 +13,8 @@ import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class Tier2RocketItem extends IRocketItem {
     public Tier2RocketItem(Properties properties) {
         super(properties);

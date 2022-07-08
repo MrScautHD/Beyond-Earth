@@ -12,7 +12,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
+import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
@@ -75,7 +75,7 @@ public class ClientEvents {
     }
 
     @SubscribeEvent
-    public static void cameraPos(EntityViewRenderEvent.CameraSetup event) {
+    public static void cameraPos(ViewportEvent.ComputeCameraAngles event) {
         Entity ridding = event.getCamera().getEntity().getVehicle();
 
         if (Methods.isRocket(ridding) || ridding instanceof LanderEntity) {

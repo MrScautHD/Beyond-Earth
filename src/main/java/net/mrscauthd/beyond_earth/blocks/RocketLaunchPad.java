@@ -26,6 +26,8 @@ import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+
 public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;

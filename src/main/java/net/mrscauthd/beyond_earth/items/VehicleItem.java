@@ -9,6 +9,8 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import net.minecraft.world.item.Item.Properties;
+
 public class VehicleItem extends Item {
     public VehicleItem(Properties p_41383_) {
         super(p_41383_);

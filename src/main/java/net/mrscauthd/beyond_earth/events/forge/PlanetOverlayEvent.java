@@ -2,19 +2,19 @@ package net.mrscauthd.beyond_earth.events.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.eventbus.api.Event;
 
 public class PlanetOverlayEvent extends Event {
 
-    private ForgeIngameGui gui;
+    private ForgeGui gui;
     private ResourceLocation resourceLocation;
     private PoseStack poseStack;
     private float partialTicks;
     private int width;
     private int height;
 
-    public PlanetOverlayEvent(ForgeIngameGui gui, ResourceLocation resourceLocation, PoseStack poseStack, float partialTicks, int width, int height) {
+    public PlanetOverlayEvent(ForgeGui gui, ResourceLocation resourceLocation, PoseStack poseStack, float partialTicks, int width, int height) {
         this.gui = gui;
         this.resourceLocation = resourceLocation;
         this.poseStack = poseStack;
@@ -23,7 +23,7 @@ public class PlanetOverlayEvent extends Event {
         this.height = width;
     }
 
-    public ForgeIngameGui getGui() {
+    public ForgeGui getGui() {
         return gui;
     }
 

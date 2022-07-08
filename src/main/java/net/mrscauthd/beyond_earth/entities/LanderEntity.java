@@ -34,6 +34,8 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class LanderEntity extends VehicleEntity {
 
 	public LanderEntity(EntityType type, Level world) {

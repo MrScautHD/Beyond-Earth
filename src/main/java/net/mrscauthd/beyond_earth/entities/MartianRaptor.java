@@ -23,6 +23,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.config.Config;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class MartianRaptor extends Monster {
 
     private float AttackAnim = 0;

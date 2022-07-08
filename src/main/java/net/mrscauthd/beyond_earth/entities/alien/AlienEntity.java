@@ -48,6 +48,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 
+import net.minecraft.world.entity.Entity.RemovalReason;
+
 public class AlienEntity extends Villager implements Merchant, Npc {
 
 	//TODO SHOULD GET REPLACED WITH VillagerGoalPackages#getCorePackage

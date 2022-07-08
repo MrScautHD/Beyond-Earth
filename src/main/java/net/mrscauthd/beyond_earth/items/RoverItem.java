@@ -20,7 +20,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
@@ -28,6 +28,8 @@ import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class RoverItem extends VehicleItem {
     public static String FUEL_TAG = BeyondEarth.MODID + ":fuel";
@@ -103,8 +105,8 @@ public class RoverItem extends VehicleItem {
     }
 
     @Override
-    public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-        consumer.accept(new IItemRenderProperties() {
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
 
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer() {
