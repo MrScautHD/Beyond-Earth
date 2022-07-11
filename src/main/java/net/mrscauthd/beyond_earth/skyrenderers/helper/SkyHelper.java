@@ -64,11 +64,11 @@ public class SkyHelper {
         float f14 = (float)(i1 + 0) / 2.0F;
         float f15 = (float)(l + 1) / 4.0F;
         float f16 = (float)(i1 + 1) / 2.0F;
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -scale, -y, scale).uv(f15, f16).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, -y, scale).uv(f13, f16).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, -y, -scale).uv(f13, f14).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, -y, -scale).uv(f15, f14).color(r, g, b, 0xAA).endVertex();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        bufferBuilder.vertex(matrix4f, -scale, -y, scale).color(r, g, b, 255).uv(f15, f16).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, -y, scale).color(r, g, b, 255).uv(f13, f16).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, -y, -scale).color(r, g, b, 255).uv(f13, f14).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale, -y, -scale).color(r, g, b, 255).uv(f15, f14).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 
@@ -94,13 +94,13 @@ public class SkyHelper {
         float b = (float) lightColor.z();
 
         RenderSystem.enableTexture();
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -scale, y, -scale).uv(0.0F, 0.0F).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, -scale).uv(1.0F, 0.0F).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, scale).uv(1.0F, 1.0F).color(r, g, b, 0xAA).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, y, scale).uv(0.0F, 1.0F).color(r, g, b, 0xAA).endVertex();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        bufferBuilder.vertex(matrix4f, -scale, y, -scale).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, -scale).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, scale).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale, y, scale).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 
