@@ -103,5 +103,7 @@ public class MoonSky extends DimensionSpecialEffects {
                 RenderSystem.depthMask(true);
             }
         }
+
+        return true;
     }
 }
