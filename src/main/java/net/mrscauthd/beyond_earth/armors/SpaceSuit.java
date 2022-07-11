@@ -8,23 +8,22 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.entities.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -40,11 +39,11 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
-				public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+				public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of("head", new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION)).head,
 
@@ -58,7 +57,7 @@ public class SpaceSuit {
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
-					armorModel.entity = living;
+					armorModel.entity = livingEntity;
 
 					return armorModel;
 				}
@@ -77,11 +76,11 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
-				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+				public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
 							"body", new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION)).body,
@@ -96,7 +95,7 @@ public class SpaceSuit {
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
-					armorModel.entity = living;
+					armorModel.entity = livingEntity;
 
 					return armorModel;
 				}
@@ -150,11 +149,11 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
-				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+				public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
 							"right_leg", new SpaceSuitModel.SPACE_SUIT_P2(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P2.LAYER_LOCATION)).rightLeg,
@@ -170,7 +169,7 @@ public class SpaceSuit {
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
 					SpaceSuitModel.SPACE_SUIT_P2 armorModel = new SpaceSuitModel.SPACE_SUIT_P2(modelPart);
 
-					armorModel.entity = living;
+					armorModel.entity = livingEntity;
 
 					return armorModel;
 				}
@@ -189,11 +188,11 @@ public class SpaceSuit {
 		}
 
 		@Override
-		public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-			consumer.accept(new IItemRenderProperties() {
+		public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+			consumer.accept(new IClientItemExtensions() {
 
 				@Override
-				public Model getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+				public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
 							"right_leg", new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION)).rightLeg,
@@ -209,7 +208,7 @@ public class SpaceSuit {
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
-					armorModel.entity = living;
+					armorModel.entity = livingEntity;
 
 					return armorModel;
 				}

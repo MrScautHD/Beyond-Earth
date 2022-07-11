@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.armors;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -14,15 +15,15 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.entities.renderers.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.events.Methods;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -38,11 +39,11 @@ public class JetSuit {
         }
 
         @Override
-        public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-            consumer.accept(new IItemRenderProperties() {
+        public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+            consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of("head", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).head,
 
@@ -56,7 +57,7 @@ public class JetSuit {
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
-                    armorModel.entity = living;
+                    armorModel.entity = livingEntity;
 
                     return armorModel;
                 }
@@ -75,11 +76,11 @@ public class JetSuit {
         }
 
         @Override
-        public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-            consumer.accept(new IItemRenderProperties() {
+        public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+            consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
                             "body", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).body,
@@ -94,7 +95,7 @@ public class JetSuit {
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
-                    armorModel.entity = living;
+                    armorModel.entity = livingEntity;
 
                     return armorModel;
                 }
@@ -165,11 +166,11 @@ public class JetSuit {
         }
 
         @Override
-        public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-            consumer.accept(new IItemRenderProperties() {
+        public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+            consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
+                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
                             "right_leg", new JetSuitModel.JET_SUIT_P2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION)).rightLeg,
@@ -185,10 +186,11 @@ public class JetSuit {
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
                     JetSuitModel.JET_SUIT_P2 armorModel = new JetSuitModel.JET_SUIT_P2(modelPart);
 
-                    armorModel.entity = living;
+                    armorModel.entity = livingEntity;
 
                     return armorModel;
                 }
+
             });
         }
 
@@ -204,12 +206,11 @@ public class JetSuit {
         }
 
         @Override
-        public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-            consumer.accept(new IItemRenderProperties() {
+        public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+            consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public HumanoidModel getBaseArmorModel(LivingEntity living, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> defaultModel) {
-
+                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                     Map<String, ModelPart> map = Map.of(
                             "right_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).rightLeg,
                             "left_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).leftLeg,
@@ -224,7 +225,7 @@ public class JetSuit {
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
-                    armorModel.entity = living;
+                    armorModel.entity = livingEntity;
 
                     return armorModel;
                 }

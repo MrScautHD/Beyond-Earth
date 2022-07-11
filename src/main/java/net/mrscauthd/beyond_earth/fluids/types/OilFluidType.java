@@ -13,7 +13,7 @@ import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.client.IFluidTypeRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidType;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.jetbrains.annotations.NotNull;
@@ -63,8 +63,8 @@ public class OilFluidType extends FluidType {
     }
 
     @Override
-    public void initializeClient(Consumer<IFluidTypeRenderProperties> consumer) {
-        consumer.accept(new IFluidTypeRenderProperties() {
+    public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+        consumer.accept(new IClientFluidTypeExtensions() {
             private static final ResourceLocation UNDERWATER_LOCATION = new ResourceLocation(BeyondEarth.MODID, "textures/blocks/under_oil.png");
             private static final ResourceLocation WATER_STILL = new ResourceLocation(BeyondEarth.MODID, "blocks/fluid_oil_still");
             private static final ResourceLocation WATER_FLOW = new ResourceLocation(BeyondEarth.MODID, "blocks/fluid_oil_flow");

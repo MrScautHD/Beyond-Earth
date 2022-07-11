@@ -1,21 +1,23 @@
 package net.mrscauthd.beyond_earth.registries.client;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.overlays.Overlays;
+import net.mrscauthd.beyond_earth.overlays.OxygenTankOverlay;
+import net.mrscauthd.beyond_earth.overlays.RocketHeightBarOverlay;
+import net.mrscauthd.beyond_earth.overlays.RocketTimerOverlay;
+import net.mrscauthd.beyond_earth.overlays.WarningOverlay;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class OverlaysRegistry {
 
     @SubscribeEvent
-    public static void register(FMLClientSetupEvent event) {
-        OverlayRegistry.registerOverlayTop("warning", Overlays.WARNING);
-        OverlayRegistry.registerOverlayTop("rocket_timer", Overlays.ROCKET_TIMER);
-        OverlayRegistry.registerOverlayBottom("oxygen_tank", Overlays.OXYGEN_TANK);
-        OverlayRegistry.registerOverlayBottom("rocket_height", Overlays.ROCKET_HEIGHT);
+    public static void register(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll("warning", new WarningOverlay());
+        event.registerAboveAll("rocket_timer", new RocketTimerOverlay());
+        event.registerBelowAll("oxygen_tank", new OxygenTankOverlay());
+        event.registerBelowAll("rocket_height", new RocketHeightBarOverlay());
     }
 }

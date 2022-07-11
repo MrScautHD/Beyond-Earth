@@ -19,8 +19,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.client.ISkyRenderHandler;
-import net.minecraftforge.client.ICloudRenderHandler;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 import net.minecraft.client.renderer.FogRenderer;
@@ -29,7 +27,6 @@ import net.minecraft.client.Minecraft;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class MoonOrbitSky {

@@ -19,8 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ICloudRenderHandler;
-import net.minecraftforge.client.ISkyRenderHandler;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +29,7 @@ import net.mrscauthd.beyond_earth.skyrenderers.helper.StarHelper;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class GlacioOrbitSky {
+    
 
     private static VertexBuffer starBuffer;
 
