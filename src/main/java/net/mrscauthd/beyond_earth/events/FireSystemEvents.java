@@ -19,7 +19,7 @@ public class FireSystemEvents {
 
     @SubscribeEvent
     public static void onBlockPlace(BlockSetEvent event) {
-        Level level = (Level) event.getWorld();
+        Level level = (Level) event.getLevel();
 
         if (Methods.isSpaceLevelWithoutOxygen(level)) {
 

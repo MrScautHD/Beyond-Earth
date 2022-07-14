@@ -14,7 +14,7 @@ public class HammerItem extends Item {
 	}
 
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack) {
+	public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
 		ItemStack retval = new ItemStack(this);
 		retval.setDamageValue(itemStack.getDamageValue() + 1);
 		if (retval.getDamageValue() >= retval.getMaxDamage()) {

@@ -266,7 +266,7 @@ public class RoverEntity extends VehicleEntity {
 
         if (!this.level.isClientSide) {
             if (player.isCrouching()) {
-                NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+                NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
                         return RoverEntity.this.getDisplayName();

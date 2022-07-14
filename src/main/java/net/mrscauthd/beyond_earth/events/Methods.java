@@ -378,7 +378,7 @@ public class Methods {
                 ServerPlayer serverPlayer = (ServerPlayer) player;
 
                 /** OPEN MENU */
-                NetworkHooks.openGui(serverPlayer, new MenuProvider() {
+                NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
                     @Override
                     public Component getDisplayName() {
                         return Component.literal("Planet Selection");

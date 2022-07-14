@@ -13,7 +13,7 @@ import net.mrscauthd.beyond_earth.entities.pygro.PygroEntity;
 
 public class EntitiesRegistry {
 
-    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, BeyondEarth.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BeyondEarth.MODID);
 
     /** LIVING ENTITIES */
     public static final RegistryObject<EntityType<AlienEntity>> ALIEN = ENTITIES.register("alien", () -> EntityType.Builder.of(AlienEntity::new, MobCategory.CREATURE).sized(0.75f, 2.5f).build(new ResourceLocation(BeyondEarth.MODID, "alien").toString()));

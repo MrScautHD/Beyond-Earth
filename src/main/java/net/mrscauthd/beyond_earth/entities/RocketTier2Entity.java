@@ -67,7 +67,7 @@ public class RocketTier2Entity extends IRocketEntity {
 
 		if (!this.level.isClientSide) {
 			if (player.isCrouching()) {
-				NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+				NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
 					@Override
 					public Component getDisplayName() {
 						return Component.translatable("container.entity." + BeyondEarth.MODID + ".rocket_t2");

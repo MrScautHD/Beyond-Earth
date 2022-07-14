@@ -180,7 +180,7 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 			CompoundTag compoundnbt = new CompoundTag();
 			NbtUtils.writeGameProfile(compoundnbt, new GameProfile(placer.getUUID(), placer.getName().getString()));
-			flagtileentity.getTileData().put("FlagOwner", compoundnbt);
+			flagtileentity.getPersistentData().put("FlagOwner", compoundnbt);
 
 			if (placer instanceof Player) {
 				Player player = (Player) placer;

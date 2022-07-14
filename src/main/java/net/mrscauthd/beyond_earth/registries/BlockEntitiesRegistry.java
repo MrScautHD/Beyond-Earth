@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.globe.GlobeTileEntity;
 
 public class BlockEntitiesRegistry {
 
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, BeyondEarth.MODID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BeyondEarth.MODID);
 
     /** BLOCK ENTITIES (Machines) */
 

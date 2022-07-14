@@ -12,7 +12,7 @@ import net.mrscauthd.beyond_earth.guis.screens.rover.RoverMenu;
 
 public class ContainersRegistry {
 
-    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.CONTAINERS, BeyondEarth.MODID);
+    public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, BeyondEarth.MODID);
 
     /** SCREENS */
     //TODO REWORK THIS WITH MACHINES
