@@ -46,8 +46,8 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void livingEntityTick(LivingEvent.LivingUpdateEvent event) {
-        LivingEntity livingEntity = event.getEntityLiving();
+    public static void livingEntityTick(LivingEvent.LivingTickEvent event) {
+        LivingEntity livingEntity = event.getEntity();
         Level level = livingEntity.level;
 
         /** DROP OFF HAND VEHICLE ITEM */
@@ -103,9 +103,9 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void worldTick(TickEvent.WorldTickEvent event) {
+    public static void worldTick(TickEvent.LevelTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
-            Level level = event.world;
+            Level level = event.level;
 
             if (LevelRegistry.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
