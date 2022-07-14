@@ -66,7 +66,7 @@ public class Events {
 
     @SubscribeEvent
     public static void livingEntityEndTick(LivingEntityTickEndEvent event) {
-        LivingEntity livingEntity = event.getEntityLiving();
+        LivingEntity livingEntity = event.getEntity();
         Level level = livingEntity.level;
 
         /** ENTITY GRAVITY SYSTEM */
@@ -75,7 +75,7 @@ public class Events {
 
     @SubscribeEvent
     public static void itemEntityEndTick(ItemEntityTickAtEndEvent event) {
-        ItemEntity itemEntity = event.getEntityItem();
+        ItemEntity itemEntity = event.getEntity();
         Level level = itemEntity.level;
 
         /** ITEM ENTITY GRAVITY SYSTEM */
@@ -162,7 +162,7 @@ public class Events {
 
     @SubscribeEvent
     public static void livingFall(LivingFallEvent event) {
-        LivingEntity entity = event.getEntityLiving();
+        LivingEntity entity = event.getEntity();
         Level level = entity.level;
 
         if (Methods.isLevel(level, LevelRegistry.MOON)) {
