@@ -11,13 +11,13 @@ Beyond Earth has a [discord server](https://discord.gg/Xb2nPmN) where you can ch
 # Beyond Earth API #
 
 ```groovy
-repositories {
-    maven { url 'https://jitpack.io' }
-}
+ maven {
+        url "https://cursemaven.com"
+    }
 
 
 dependencies {
-    implementation 'com.github.MrScautHD:Beyond-Earth:VERSION'
+    implementation fg.deobf("curse.maven:377448:VERSIONID") //Version id is like 3807783
 }
 ```
 
