@@ -82,7 +82,7 @@ public class Methods {
                 });
             }
         } else {
-            entity.teleportTo(entity.getX(), entity.getY(), entity.getZ());
+            entity.teleportTo(entity.getX(), yPos, entity.getZ());
             return entity;
         }
 

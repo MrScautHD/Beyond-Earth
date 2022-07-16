@@ -100,8 +100,8 @@ public class RocketTier4Entity extends IRocketEntity {
 		if (this.level instanceof ServerLevel) {
 			if (this.entityData.get(START_TIMER) == 200) {
 				for (ServerPlayer p : ((ServerLevel) this.level).getServer().getPlayerList().getPlayers()) {
-					float f2 = Mth.cos(this.getYRot() * ((float) Math.PI / 180F)) * (0.7F + 0.21F * (float) 1);
-					float f3 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F)) * (0.7F + 0.21F * (float) 1);
+					float f2 = Mth.cos(this.getYRot() * ((float) Math.PI / 180F)) * (1.0F + 0.21F * (float) 1.0F);
+					float f3 = Mth.sin(this.getYRot() * ((float) Math.PI / 180F)) * (1.0F + 0.21F * (float) 1.0F);
 
 					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.9, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
 					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.9, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);

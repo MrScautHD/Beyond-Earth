@@ -21,7 +21,7 @@ public class SkyHelper {
     public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_light.png");
     public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_phases_light.png");
 
-    public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, boolean blend) {
+    public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -30,7 +30,7 @@ public class SkyHelper {
 
         FogRenderer.setupNoFog();
         vertexBuffer.bind();
-        vertexBuffer.drawWithShader(matrix4f, projectionMatrix, GameRenderer.getPositionColorShader());
+        vertexBuffer.drawWithShader(matrix4f, projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
 
         if (blend) {
@@ -38,9 +38,9 @@ public class SkyHelper {
         }
     }
 
-    public static void drawPlanetWithMoonPhaseAndWithLight(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, Minecraft mc, boolean blend) {
-        drawPlanetWithMoonPhase(texture, color, bufferBuilder, matrix4f, scale, y, mc, blend);
-        drawPlanetWithMoonPhase(PLANET_PHASE_LIGHT, color, bufferBuilder, matrix4f, lightScale, y, mc, true);
+    public static void drawPlanetWithMoonPhaseAndWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, Minecraft mc, boolean blend) {
+        drawPlanetWithMoonPhase(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, mc, blend);
+        drawPlanetWithMoonPhase(PLANET_PHASE_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, mc, true);
     }
 
     public static void drawPlanetWithMoonPhase(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float y, Minecraft mc, boolean blend) {
@@ -50,12 +50,12 @@ public class SkyHelper {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
 
-        float r = (float) color.x();
-        float g = (float) color.y();
-        float b = (float) color.z();
+        int r = (int) color.x();
+        int g = (int) color.y();
+        int b = (int) color.z();
 
         RenderSystem.enableTexture();
-        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
+        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         int k = mc.level.getMoonPhase();
         int l = k % 4;
@@ -64,7 +64,7 @@ public class SkyHelper {
         float f14 = (float)(i1 + 0) / 2.0F;
         float f15 = (float)(l + 1) / 4.0F;
         float f16 = (float)(i1 + 1) / 2.0F;
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
         bufferBuilder.vertex(matrix4f, -scale, -y, scale).color(r, g, b, 255).uv(f15, f16).endVertex();
         bufferBuilder.vertex(matrix4f, scale, -y, scale).color(r, g, b, 255).uv(f13, f16).endVertex();
         bufferBuilder.vertex(matrix4f, scale, -y, -scale).color(r, g, b, 255).uv(f13, f14).endVertex();
@@ -82,25 +82,25 @@ public class SkyHelper {
         drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, true);
     }
 
-    public static void drawPlanet(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float y, boolean blend) {
+    public static void drawPlanet(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float y, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
 
-        float r = (float) lightColor.x();
-        float g = (float) lightColor.y();
-        float b = (float) lightColor.z();
+        int r = (int) color.x();
+        int g = (int) color.y();
+        int b = (int) color.z();
 
         RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
-        bufferBuilder.vertex(matrix4f, -scale, y, -scale).uv(0.0F, 0.0F).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, -scale).uv(1.0F, 0.0F).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, scale).uv(1.0F, 1.0F).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, y, scale).uv(0.0F, 1.0F).color(r, g, b, 255).endVertex();
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+        bufferBuilder.vertex(matrix4f, -scale, y, -scale).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, -scale).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, scale).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale, y, scale).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 

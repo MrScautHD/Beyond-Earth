@@ -12,6 +12,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.DimensionSpecialEffects;
 import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.material.FogType;
@@ -92,7 +93,7 @@ public class EarthOrbitSky extends DimensionSpecialEffects {
                 /** STARS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
                 RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
-                SkyHelper.drawStars(starBuffer, matrix4f, projectionMatrix, true);
+                SkyHelper.drawStars(starBuffer, matrix4f, projectionMatrix, GameRenderer.getPositionColorShader(), true);
 
                 /** SUN */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
@@ -108,11 +109,11 @@ public class EarthOrbitSky extends DimensionSpecialEffects {
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.XP.rotationDegrees(180), null, null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-                //TODO MADE TAKE A LOOK AGAIN ON THE SCALE SYSTEM THAT PLAYER UNDER 2 CHUNKS SEE IT TOO!
+                float posScale = -3000.0F + (float) y * 6F;
+                float scale = 50 * (0.2F - posScale / 10000.0F);
+                float yScale = Math.max(scale, 4.0F);
 
-                float scale = (float) Math.max(1000, 72 + 25 + y);
-
-                SkyHelper.drawPlanetWithLight(EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, 72, 72 * 3, 25 + (float) y, false);
+                SkyHelper.drawPlanetWithLight(EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, yScale, yScale * 3, 30, false);
 
                 /** SHADER COLOR */
                 SkyHelper.setUpShaderColor(mc, r, g, b);
