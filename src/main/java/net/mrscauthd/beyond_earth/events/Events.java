@@ -2,17 +2,17 @@ package net.mrscauthd.beyond_earth.events;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -70,7 +70,7 @@ public class Events {
         Level level = livingEntity.level;
 
         /** ENTITY GRAVITY SYSTEM */
-        EntityGravity.gravity(livingEntity, level);
+        //EntityGravity.gravity(livingEntity, level);
     }
 
     @SubscribeEvent
@@ -179,6 +179,19 @@ public class Events {
         }
         else if (Methods.isOrbitLevel(level)) {
             event.setDistance(event.getDistance() - 8.5F);
+        }
+    }
+
+    @SubscribeEvent
+    public static void entityJoinLevel(EntityJoinLevelEvent event) {
+        Entity entity = event.getEntity();
+        Level level = event.getLevel();
+
+        if (entity instanceof LivingEntity) {
+            LivingEntity livingEntity = (LivingEntity) entity;
+
+            /** ENTITY GRAVITY SYSTEM */
+            EntityGravity.gravity(livingEntity, level);
         }
     }
 }
