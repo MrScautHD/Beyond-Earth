@@ -37,7 +37,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.FlagBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
 
 public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;

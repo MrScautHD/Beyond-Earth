@@ -5,8 +5,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.FlagBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.GlobeTileEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
 public class BlockEntitiesRegistry {
 

@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.GlobeTileEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntityRenderer<GlobeTileEntity>, BlockEntityRendererProvider<T> {

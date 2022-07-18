@@ -26,7 +26,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.GlobeTileEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
 public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 

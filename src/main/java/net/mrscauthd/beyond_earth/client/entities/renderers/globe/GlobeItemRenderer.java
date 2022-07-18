@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.GlobeTileEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class GlobeItemRenderer<T extends GlobeTileEntity> extends BlockEntityWithoutLevelRenderer {

@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.blocks.blockentities;
+package net.mrscauthd.beyond_earth.common.blocks.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

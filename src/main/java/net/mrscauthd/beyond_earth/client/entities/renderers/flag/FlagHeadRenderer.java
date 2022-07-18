@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
-import net.mrscauthd.beyond_earth.common.blocks.blockentities.FlagBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class FlagHeadRenderer implements BlockEntityRenderer<FlagBlockEntity> {
