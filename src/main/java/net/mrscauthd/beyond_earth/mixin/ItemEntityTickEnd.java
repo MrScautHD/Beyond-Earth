@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.mixin;
 
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.events.forge.ItemEntityTickAtEndEvent;
+import net.mrscauthd.beyond_earth.common.events.forge.ItemEntityTickAtEndEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

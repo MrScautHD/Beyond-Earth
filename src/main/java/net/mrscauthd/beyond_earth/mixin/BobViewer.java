@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.mixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraftforge.common.MinecraftForge;
-import net.mrscauthd.beyond_earth.events.forge.RenderViewEvent;
+import net.mrscauthd.beyond_earth.client.events.forge.RenderViewEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
