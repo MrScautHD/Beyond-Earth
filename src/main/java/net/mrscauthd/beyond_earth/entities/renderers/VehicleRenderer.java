@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import java.util.List;
 import javax.annotation.Nullable;
 
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -150,6 +151,7 @@ public abstract class VehicleRenderer<T extends VehicleEntity, M extends EntityM
                 p_115318_.translate(shakeDirection1, shakeDirection2, shakeDirection3);
             }
         }
+        p_115318_.mulPose(Vector3f.YP.rotationDegrees(180.0F - p_115320_));
     }
 
     protected float getBob(T p_115305_, float p_115306_) {
