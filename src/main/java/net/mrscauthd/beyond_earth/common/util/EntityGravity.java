@@ -8,7 +8,6 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingGravityEvent;
-import net.mrscauthd.beyond_earth.common.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
 public class EntityGravity {
@@ -44,7 +43,7 @@ public class EntityGravity {
             } else if (Methods.isOrbitLevel(level)) {
                 setGravity(entity, attributeInstance, ORBIT_GRAVITY, true);
             } else {
-                MinecraftForge.EVENT_BUS.post(new LivingGravityEvent(entity, level, attribute, attributeInstance));
+                MinecraftForge.EVENT_BUS.post(new LivingGravityEvent(entity, attribute, attributeInstance));
             }
         }
     }
