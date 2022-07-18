@@ -18,7 +18,6 @@ import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.items.*;
 import net.mrscauthd.beyond_earth.common.items.GlobeItem;
 import net.mrscauthd.beyond_earth.common.tabs.Tabs;
-import net.mrscauthd.beyond_earth.items.*;
 
 public class ItemsRegistry {
 

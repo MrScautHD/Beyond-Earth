@@ -11,7 +11,6 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.network.IContainerFactory;
 
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
-import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.ContainersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;

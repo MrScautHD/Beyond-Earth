@@ -5,7 +5,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.*;
-import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
 import net.mrscauthd.beyond_earth.common.entities.pygro.PygroEntity;
 

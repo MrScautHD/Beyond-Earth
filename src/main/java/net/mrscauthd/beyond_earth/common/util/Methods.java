@@ -42,10 +42,8 @@ import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
 import net.mrscauthd.beyond_earth.common.registries.*;
-import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
-import net.mrscauthd.beyond_earth.registries.*;
 
 import java.util.function.Function;
 

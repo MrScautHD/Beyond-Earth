@@ -16,7 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.*;
-import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.common.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ItemEntityTickAtEndEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingEntityTickEndEvent;
