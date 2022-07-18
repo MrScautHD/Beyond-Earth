@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.entities.renderers;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -20,7 +19,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
@@ -132,7 +130,7 @@ public abstract class VehicleRenderer<T extends VehicleEntity, M extends EntityM
     }
 
     protected boolean isShaking(T p_115304_) {
-        return p_115304_.isFullyFrozen();
+        return false;
     }
 
     public static int getOverlayCoords(Entity p_115339_, float p_115340_) {
@@ -145,12 +143,12 @@ public abstract class VehicleRenderer<T extends VehicleEntity, M extends EntityM
 
     protected void setupRotations(T p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_) {
         if (this.isShaking(p_115317_)) {
-            p_115320_ += (float)(Math.cos((double)p_115317_.tickCount * 3.25D) * Math.PI * (double)0.4F);
-        }
-
-        Pose pose = p_115317_.getPose();
-        if (pose != Pose.SLEEPING) {
-            p_115318_.mulPose(Vector3f.YP.rotationDegrees(180.0F - p_115320_));
+            if (!Minecraft.getInstance().isPaused()) {
+                double shakeDirection1 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection2 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection3 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
+                p_115318_.translate(shakeDirection1, shakeDirection2, shakeDirection3);
+            }
         }
     }
 

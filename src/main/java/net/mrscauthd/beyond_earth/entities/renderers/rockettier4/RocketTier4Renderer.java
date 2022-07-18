@@ -3,6 +3,8 @@ package net.mrscauthd.beyond_earth.entities.renderers.rockettier4;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.entities.IRocketEntity;
+import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
 import net.mrscauthd.beyond_earth.entities.renderers.VehicleRenderer;
 
@@ -17,5 +19,10 @@ public class RocketTier4Renderer extends VehicleRenderer<RocketTier4Entity, Rock
     @Override
     public ResourceLocation getTextureLocation(RocketTier4Entity p_114482_) {
         return TEXTURE;
+    }
+
+    @Override
+    protected boolean isShaking(RocketTier4Entity p_115304_) {
+        return p_115304_.getEntityData().get(IRocketEntity.ROCKET_START);
     }
 }

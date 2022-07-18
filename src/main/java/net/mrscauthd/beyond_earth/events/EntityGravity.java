@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.events;
 
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -21,24 +22,24 @@ public class EntityGravity {
     public static final float GLACIO_GRAVITY = 0.03F;
     public static final float ORBIT_GRAVITY = 0.01F;
 
-    public static void gravity(LivingEntity entity, Level level) {
+    public static void setGravities(LivingEntity entity, Level level) {
         Attribute attribute = ForgeMod.ENTITY_GRAVITY.get();
         AttributeInstance attributeInstance = entity.getAttribute(attribute);
 
         if (Methods.isLevel(level, LevelRegistry.MOON)) {
-            setGravity(entity, attributeInstance, MOON_GRAVITY);
+            setGravity(entity, attributeInstance, MOON_GRAVITY, true);
         }
         else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-            setGravity(entity, attributeInstance, MARS_GRAVITY);
+            setGravity(entity, attributeInstance, MARS_GRAVITY, true);
         }
         else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-            setGravity(entity, attributeInstance, MERCURY_GRAVITY);
+            setGravity(entity, attributeInstance, MERCURY_GRAVITY, true);
         }
         else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-            setGravity(entity, attributeInstance, GLACIO_GRAVITY);
+            setGravity(entity, attributeInstance, GLACIO_GRAVITY, true);
         }
         else if (Methods.isOrbitLevel(level)) {
-            setGravity(entity, attributeInstance, ORBIT_GRAVITY);
+            setGravity(entity, attributeInstance, ORBIT_GRAVITY, true);
         }
         else if (entity.getPersistentData().getBoolean(TAG)) {
             attributeInstance.setBaseValue(attribute.getDefaultValue());
@@ -47,12 +48,12 @@ public class EntityGravity {
     }
 
     /** SET GRAVITY */
-    public static void setGravity(LivingEntity entity, AttributeInstance attributeInstance, double gravity) {
+    public static void setGravity(LivingEntity entity, AttributeInstance attributeInstance, double gravity, boolean condition) {
         if (MinecraftForge.EVENT_BUS.post(new EntityGravityEvent(entity, gravity))) {
             return;
         }
 
         attributeInstance.setBaseValue(gravity);
-        entity.getPersistentData().putBoolean(TAG, true);
+        entity.getPersistentData().putBoolean(TAG, condition);
     }
 }

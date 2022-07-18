@@ -48,11 +48,6 @@ import java.util.Set;
 
 public abstract class IRocketEntity extends VehicleEntity {
 
-    //TODO REWORK ANIMTION
-    public double ar = 0;
-    public double ay = 0;
-    public double ap = 0;
-
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
@@ -234,18 +229,6 @@ public abstract class IRocketEntity extends VehicleEntity {
         }
     }
 
-    public void rocketAnimation() {
-        this.ar = this.ar + 1;
-        if (this.ar == 1) {
-            this.ay = this.ay + 0.006;
-            this.ap = this.ap + 0.006;
-        } else if (this.ar == 2) {
-            this.ar = 0;
-            this.ay = 0;
-            this.ap = 0;
-        }
-    }
-
     public void startTimerAndFlyMovement() {
         if (this.entityData.get(START_TIMER) < 200) {
             this.entityData.set(START_TIMER, this.entityData.get(START_TIMER) + 1);
@@ -336,7 +319,6 @@ public abstract class IRocketEntity extends VehicleEntity {
 
         if (this.entityData.get(ROCKET_START)) {
             this.particleSpawn();
-            this.rocketAnimation();
             this.startTimerAndFlyMovement();
             this.openPlanetSelectionMenu();
         }

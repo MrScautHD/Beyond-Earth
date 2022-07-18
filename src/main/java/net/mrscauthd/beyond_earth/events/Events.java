@@ -1,7 +1,9 @@
 package net.mrscauthd.beyond_earth.events;
 
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -191,7 +193,7 @@ public class Events {
             LivingEntity livingEntity = (LivingEntity) entity;
 
             /** ENTITY GRAVITY SYSTEM */
-            EntityGravity.gravity(livingEntity, level);
+            EntityGravity.setGravities(livingEntity, level);
         }
     }
 }

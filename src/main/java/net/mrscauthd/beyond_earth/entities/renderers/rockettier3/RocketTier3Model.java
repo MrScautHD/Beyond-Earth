@@ -196,10 +196,6 @@ public class RocketTier3Model<T extends RocketTier3Entity> extends EntityModel<T
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.rocket.yRot = netHeadYaw / (180F / (float) Math.PI);
-
-        this.rocket.zRot = (float) entity.ay;
-
-        this.rocket.xRot = (float) entity.ap;
     }
 
     @Override
