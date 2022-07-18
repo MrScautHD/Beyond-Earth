@@ -15,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
+import net.mrscauthd.beyond_earth.common.events.forge.LivingGravityEvent;
 import net.mrscauthd.beyond_earth.common.util.*;
 import net.mrscauthd.beyond_earth.common.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ItemEntityTickAtEndEvent;
@@ -191,6 +192,15 @@ public class Events {
 
             /** ENTITY GRAVITY SYSTEM */
             EntityGravity.setGravities(livingEntity, level);
+        }
+    }
+
+    @SubscribeEvent
+    public static void test(LivingGravityEvent event) {
+        LivingEntity entity = event.getEntity();
+
+        if (Methods.isLevel(event.getLevel(), Level.NETHER)) {
+            EntityGravity.setGravity(entity, event.getAttributeInstance(), 0.1, true);
         }
     }
 }
