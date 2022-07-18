@@ -109,7 +109,7 @@ public class OilFluid extends FlowingFluid {
 
     @Override
     protected boolean canBeReplacedWith(FluidState p_76127_, BlockGetter p_76128_, BlockPos p_76129_, Fluid p_76130_, Direction p_76131_) {
-        return false;
+        return p_76131_ == Direction.DOWN && p_76127_.getFluidType() != FluidTypesRegistry.OIL_TYPE.get();
     }
 
     @Override
