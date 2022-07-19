@@ -1,7 +1,5 @@
 ![graphic](https://raw.githubusercontent.com/MrScautHD/Beyond-Earth/1.19/src/main/resources/logo.png)
 
-![graphic](https://user-images.githubusercontent.com/65916181/157454393-9aadd2a5-7039-4099-af5a-1438e8bd71d7.png)
-
 <a href="https://discord.gg/Xb2nPmN">
   <p align="center">
       <img src="https://img.shields.io/discord/698598471896268931?    color=blue&label=Discord&logo=discord&logoColor=ffffff&style=for-the-badge" alt="Discord" width="191"/> 
