@@ -1,4 +1,4 @@
-![graphic](https://raw.githubusercontent.com/MrScautHD/Beyond-Earth/1.19/src/main/resources/logo.png)
+![graphic](src/main/resources/logo.png)
 
 <a href="https://discord.gg/Xb2nPmN">
   <p align="center">
