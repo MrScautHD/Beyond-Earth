@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.menus.planetselection;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.helper.PlanetSelectionMenuNetworkHandlerHelper;
@@ -39,7 +40,7 @@ public class PlanetSelectionMenuNetworkHandler extends PlanetSelectionMenuNetwor
                 /** (SUN CATEGORY) TELEPORT BUTTONS */
                 case 0:
                     message.defaultOptions(player);
-                    Methods.createLanderAndTeleportTo(player, LevelRegistry.EARTH, 700, false);
+                    Methods.createLanderAndTeleportTo(player, Level.OVERWORLD, 700, false);
                     break;
 
                 case 1:

@@ -5,7 +5,7 @@
   "max_distance_from_center": 80,
   "biomes": "#beyond_earth:has_structure/meteor_biomes",
   "step": "surface_structures",
-  "terrain_adaptation": "bury",
+  "terrain_adaptation": "none",
   "start_height": {
     "absolute": -20
   },

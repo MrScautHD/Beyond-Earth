@@ -171,7 +171,7 @@
                             "max_exclusive": 1.5625,
                             "when_in_range": {
                               "type": "minecraft:min",
-                              "argument1": "minecraft:overworld/sloped_cheese",
+                              "argument1": "beyond_earth:moon_density",
                               "argument2": {
                                 "type": "minecraft:mul",
                                 "argument1": 5,
@@ -367,7 +367,7 @@
           "if_true": {
             "type": "minecraft:y_above",
             "anchor": {
-              "absolute": 87
+              "absolute": 42
             },
             "surface_depth_multiplier": 2,
             "add_stone_depth": false
@@ -404,7 +404,7 @@
           "if_true": {
             "type": "minecraft:y_above",
             "anchor": {
-              "absolute": 87
+              "absolute": 42
             },
             "surface_depth_multiplier": 2,
             "add_stone_depth": false
