@@ -18,7 +18,6 @@ import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.*;
 import net.mrscauthd.beyond_earth.common.events.forge.EntityTickEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ItemEntityTickAtEndEvent;
-import net.mrscauthd.beyond_earth.common.events.forge.LivingEntityTickEndEvent;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
@@ -64,21 +63,12 @@ public class Events {
     }
 
     @SubscribeEvent
-    public static void livingEntityEndTick(LivingEntityTickEndEvent event) {
-        LivingEntity livingEntity = event.getEntity();
-        Level level = livingEntity.level;
-
-        /** ENTITY GRAVITY SYSTEM */
-        //EntityGravity.gravity(livingEntity, level);
-    }
-
-    @SubscribeEvent
     public static void itemEntityEndTick(ItemEntityTickAtEndEvent event) {
         ItemEntity itemEntity = event.getEntity();
         Level level = itemEntity.level;
 
         /** ITEM ENTITY GRAVITY SYSTEM */
-        ItemGravity.gravity(itemEntity, level);
+        ItemGravity.setGravities(itemEntity, level);
     }
 
     @SubscribeEvent

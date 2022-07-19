@@ -15,25 +15,25 @@ public class ItemGravity {
     public static final float GLACIO_GRAVITY = 0.06F;
     public static final float ORBIT_GRAVITY = 0.05F;
 
-    public static void gravity(ItemEntity itemEntity, Level level) {
+    public static void setGravities(ItemEntity itemEntity, Level level) {
         if (Methods.isLevel(level, LevelRegistry.MOON)) {
-            gravitySystem(itemEntity, MOON_GRAVITY);
+            setGravity(itemEntity, MOON_GRAVITY);
         }
         else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-            gravitySystem(itemEntity, MARS_GRAVITY);
+            setGravity(itemEntity, MARS_GRAVITY);
         }
         else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-            gravitySystem(itemEntity, MERCURY_GRAVITY);
+            setGravity(itemEntity, MERCURY_GRAVITY);
         }
         else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-            gravitySystem(itemEntity, GLACIO_GRAVITY);
+            setGravity(itemEntity, GLACIO_GRAVITY);
         }
         else if (Methods.isOrbitLevel(level)) {
-            gravitySystem(itemEntity, ORBIT_GRAVITY);
+            setGravity(itemEntity, ORBIT_GRAVITY);
         }
     }
 
-    public static void gravitySystem(ItemEntity entity, double gravity) {
+    public static void setGravity(ItemEntity entity, double gravity) {
         if (!getCondition(entity)) {
             return;
         }

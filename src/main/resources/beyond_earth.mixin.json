@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.7",
   "mixins": [
-    "LivingEntityTickEnd",
     "ItemEntityTickEnd",
     "EntityTick",
     "BlockSet"
