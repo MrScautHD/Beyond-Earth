@@ -1,41 +1,21 @@
-![Beyond Earth Logo](src/main/resources/logo.png)
+![graphic](src/main/resources/logo.png)
 
-# Beyond Earth for Minecraft 1.18 (Forge) #
+<a href="https://discord.gg/Xb2nPmN">
+  <p align="center">
+      <img src="https://img.shields.io/discord/698598471896268931?    color=blue&label=Discord&logo=discord&logoColor=ffffff&style=for-the-badge" alt="Discord" width="191"/> 
+  </p>
+</a>
 
-![grafik](https://user-images.githubusercontent.com/65916181/157454393-9aadd2a5-7039-4099-af5a-1438e8bd71d7.png)
+# Beyond Earth
+Beyond Earth is a technology and space exploration mod for modern versions of Minecraft. It allows you to build rockets capable of space travel. You can explore multiple planets throughout the Solar System, build oxygenated space stations and bases and survive in space. You've always wanted to visit other planets, and now with Beyond Earth, you can fulfill your dreams of becoming an astronaut!
 
-# Discord #
+## Features
+- Five planets/moons in two solar systems: Moon, Mars, Venus, Mercury and Glacio
+- Vehicles: four different rocket tiers and a rover
+- Machines: generators, refineries and workbenches to safely traverse space and build rockets
+- 100+ blocks
+- Oxygen management and a custom gravity system
+- Guidebook for in-game documentation
+- Many more features to discover yourself!
 
-Beyond Earth has a [discord server](https://discord.gg/Xb2nPmN) where you can chat with other Beyond Earth users and us!
-
-# Beyond Earth API #
-
-```groovy
- maven {
-        url "https://cursemaven.com"
-    }
-
-
-dependencies {
-    implementation fg.deobf("curse.maven:377448:VERSIONID") //Version id is like 3807783
-}
-```
-
-You can see the List of Versions on the Github Tags
-
-# Credits #
-
-  * MrScautHD (Developer)
-  * ExistingEevee (Developer)
-  * [Mvbz](https://www.youtube.com/channel/UC2e-rv7O4zYaKfRfhsuDeow/videos) (Sound Artirst)
-  * FritzHackenstein (Texturer)
-  * Fizz (Texturer)
-  * jopken (Texturer)
-  * Scarecrow (Modeler)
-  * ShrekRightT*****le1 (Modeler)
-  * Barracuda (Builder)
-  * Solar (Builder)
-  * SpaceStar (Builder)
-  * Checheño (Builder)
-  * Retr0 (Builder)
-  * [Galacticraft](https://www.curseforge.com/minecraft/mc-mods/galacticraft-legacy) (Mod idea)
+The Fabric version can be found [here.](https://www.curseforge.com/minecraft/mc-mods/beyond-earth-fabric)
