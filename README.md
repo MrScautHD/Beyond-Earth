@@ -2,7 +2,7 @@
 
 # Beyond Earth for Minecraft 1.19 (Forge) #
 
-![grafik](https://cdn.discordapp.com/attachments/843086896669392896/998777111445778532/Beyond_Earth_Forge_Long_Logo_black.png)
+![grafik](https://user-images.githubusercontent.com/65916181/157454393-9aadd2a5-7039-4099-af5a-1438e8bd71d7.png)
 
 # Discord #
 
