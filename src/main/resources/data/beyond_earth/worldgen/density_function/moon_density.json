@@ -51,7 +51,7 @@
         "argument2": {
           "type": "minecraft:noise",
           "noise": "minecraft:gravel",
-          "xz_scale": 1.5,
+          "xz_scale": 1,
           "y_scale": 0.2
         }
       },

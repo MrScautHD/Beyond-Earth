@@ -2,30 +2,22 @@ package net.mrscauthd.beyond_earth.common.entities;
 
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
-import io.netty.buffer.Unpooled;
 import net.mrscauthd.beyond_earth.common.events.forge.SetRocketItemStackEvent;
-import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ParticlesRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;
@@ -68,22 +60,7 @@ public class RocketTier3Entity extends IRocketEntity {
 
 		if (!this.level.isClientSide) {
 			if (player.isCrouching()) {
-				NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
-					@Override
-					public Component getDisplayName() {
-						return Component.translatable("container.entity." + BeyondEarth.MODID + ".rocket_t3");
-					}
-
-					@Override
-					public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-						FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-						packetBuffer.writeVarInt(RocketTier3Entity.this.getId());
-						return new RocketMenu.GuiContainer(id, inventory, packetBuffer);
-					}
-				}, buf -> {
-					buf.writeVarInt(this.getId());
-				});
-
+				this.openCustomInventoryScreen(player);
 				return InteractionResult.CONSUME;
 			}
 
@@ -95,7 +72,7 @@ public class RocketTier3Entity extends IRocketEntity {
 	}
 
 	@Override
-	public void particleSpawn() {
+	public void spawnParticle() {
 		Vec3 vec = this.getDeltaMovement();
 
 		if (this.level instanceof ServerLevel) {

@@ -21,7 +21,7 @@ public class SkyHelper {
     public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_light.png");
     public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_phases_light.png");
 
-    public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, boolean blend) {
+    public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, Runnable setupFog, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -32,6 +32,7 @@ public class SkyHelper {
         vertexBuffer.bind();
         vertexBuffer.drawWithShader(matrix4f, projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
+        setupFog.run();
 
         if (blend) {
             RenderSystem.disableBlend();

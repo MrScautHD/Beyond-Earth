@@ -3,22 +3,29 @@ package net.mrscauthd.beyond_earth.client.screens;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
+import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer> {
 
-	private static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rover.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rover.png");
+	public static final ResourceLocation FLUID_TANK_TOP = new ResourceLocation(BeyondEarth.MODID, "textures/fluid_tank_top.png");
 
 	public RoverScreen(RoverMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
@@ -33,30 +40,30 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
 
-		List<Component> fuelToolTip = new ArrayList<Component>();
+		if (ScreenHelper.isInArea(mouseX, mouseY, this.leftPos + 8, this.topPos + 10, 15,49)) {
+			List<Component> toolTip = new ArrayList<>();
+			toolTip.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + this.getFuel() / 30 + "%"));
 
-		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
-
-		/*
-		if (!CompatibleManager.JEI.isLoaded() && GuiHelper.isHover(this.getFluidBounds(), mouseX - this.leftPos, mouseY - this.topPos)) {
-			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), ChatFormatting.WHITE));
-			this.renderComponentTooltip(ms, fuelToolTip, mouseX, mouseY);
+			this.renderComponentTooltip(ms, toolTip, mouseX, mouseY);
 		}
-		*/
 	}
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
-/*
+
+		/** DEFAULT RENDER SETTINGS */
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-		RenderSystem.setShaderTexture(0, texture);
-		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+		/** BACKGROUND */
+		ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE);
 
-		IGaugeValue fuelGaugeValue = this.getFuelGaugeValue();
-		FluidStack fluidStack = new FluidStack(BlocksRegistry.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
-		ScreenHelper.drawFluidTank(ms, this.leftPos + 9, this.topPos + 11, fluidStack, fuelGaugeValue.getCapacity());*/
+		/** FUEL RENDERER */
+		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
+		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 10, this.topPos + 12, 12, 46, 3000);
+
+		/** FUEL TANK TOP */
+		ScreenHelper.drawTexture(ms, this.leftPos + 9, this.topPos + 11, 14, 48, FLUID_TANK_TOP);
 	}
 
 	@Override
@@ -65,17 +72,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 		this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
 	}
 
-	/*
-	public Component getFuelGaugeComponent() {
-		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
+	public int getFuel() {
+		return menu.rover.getEntityData().get(RoverEntity.FUEL);
 	}
-
-	public IGaugeValue getFuelGaugeValue() {
-		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
-		return GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE);
-	}
-
-	public Rectangle2d getFluidBounds() {
-		return ScreenHelper.getFluidTankBounds(9, 11);
-	}*/
 }

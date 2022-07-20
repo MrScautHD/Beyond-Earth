@@ -1,25 +1,28 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
 import com.google.common.collect.Sets;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
@@ -35,8 +38,10 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.registries.SoundsRegistry;
@@ -46,7 +51,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public abstract class IRocketEntity extends VehicleEntity {
+public abstract class IRocketEntity extends VehicleEntity implements HasCustomInventoryScreen {
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
@@ -183,7 +188,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
     }
 
-    public abstract void particleSpawn();
+    public abstract void spawnParticle();
 
     public abstract void fillUpRocket();
 
@@ -240,6 +245,28 @@ public abstract class IRocketEntity extends VehicleEntity {
             } else {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getRocketSpeed(), this.getDeltaMovement().z);
             }
+        }
+    }
+
+    @Override
+    public void openCustomInventoryScreen(Player player) {
+        if (player instanceof ServerPlayer) {
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
+                @Override
+                public Component getDisplayName() {
+                    return IRocketEntity.this.getName();
+                }
+
+                @Override
+                public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                    packetBuffer.writeVarInt(IRocketEntity.this.getId());
+                    return new RocketMenu.GuiContainer(id, inventory, packetBuffer);
+                }
+            }, buf -> {
+                buf.writeVarInt(IRocketEntity.this.getId());
+            });
         }
     }
 
@@ -318,7 +345,7 @@ public abstract class IRocketEntity extends VehicleEntity {
         this.burnEntities();
 
         if (this.entityData.get(ROCKET_START)) {
-            this.particleSpawn();
+            this.spawnParticle();
             this.startTimerAndFlyMovement();
             this.openPlanetSelectionMenu();
         }
