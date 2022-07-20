@@ -70,7 +70,7 @@
         "type": "minecraft:mul",
         "argument1": {
           "type": "minecraft:y_clamped_gradient",
-          "from_y": 0,
+          "from_y": -64,
           "to_y": -40,
           "from_value": 0,
           "to_value": 1
@@ -114,7 +114,7 @@
                       }
                     }
                   },
-                  "min": 0,
+                  "min": -64,
                   "max": 64
                 }
               }
