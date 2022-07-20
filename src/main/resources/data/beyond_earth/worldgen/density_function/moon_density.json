@@ -8,10 +8,10 @@
         "type": "minecraft:add",
         "argument1": {
           "type": "minecraft:y_clamped_gradient",
-          "from_y": 0,
+          "from_y": -64,
           "to_y": 320,
-          "from_value": 1,
-          "to_value": -1
+          "from_value": 0.5,
+          "to_value": -0.5
         },
         "argument2": {
           "type": "minecraft:noise",
@@ -24,16 +24,16 @@
         "type": "minecraft:add",
         "argument1": {
           "type": "minecraft:y_clamped_gradient",
-          "from_y": 0,
+          "from_y": -64,
           "to_y": 320,
-          "from_value": 1,
-          "to_value": -1
+          "from_value": 0.5,
+          "to_value": -0.5
         },
         "argument2": {
           "type": "minecraft:noise",
           "noise": "minecraft:gravel",
-          "xz_scale": 0.1,
-          "y_scale": 0.2
+          "xz_scale": 0.05,
+          "y_scale": 0.1
         }
       }
     },
@@ -43,23 +43,23 @@
         "type": "minecraft:add",
         "argument1": {
           "type": "minecraft:y_clamped_gradient",
-          "from_y": 0,
+          "from_y": -64,
           "to_y": 320,
-          "from_value": 1,
-          "to_value": -1
+          "from_value": 0.5,
+          "to_value": -0.5
         },
         "argument2": {
           "type": "minecraft:noise",
-          "noise": "minecraft:erosion",
-          "xz_scale": 1.5,
-          "y_scale": 0.2
+          "noise": "minecraft:gravel",
+          "xz_scale": 0.5,
+          "y_scale": 0.1
         }
       },
       "argument2": {
         "type": "minecraft:add",
         "argument1": {
           "type": "minecraft:y_clamped_gradient",
-          "from_y": 0,
+          "from_y": -64,
           "to_y": 320,
           "from_value": 1,
           "to_value": -1
@@ -67,8 +67,8 @@
         "argument2": {
           "type": "minecraft:noise",
           "noise": "minecraft:gravel",
-          "xz_scale": 0.3,
-          "y_scale": 0.2
+          "xz_scale": 0.15,
+          "y_scale": 0.1
         }
       }
     }
