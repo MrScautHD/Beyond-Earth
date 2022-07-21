@@ -104,7 +104,8 @@ public class JetSuit {
 
         @Override
         public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            return Methods.isLivingInJetSuit(entity);
+            //return Methods.isLivingInJetSuit(entity);
+            return true;
         }
 
         @Override
