@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.common.util;
 import com.mojang.datafixers.util.Pair;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -123,7 +122,7 @@ public class Methods {
         return true;
     }
 
-    public static boolean isLivingInAllSpaceSuits(LivingEntity entity) {
+    public static boolean isLivingInAnySpaceSuits(LivingEntity entity) {
         boolean item3 = isLivingInArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get());
         boolean item3b = isLivingInArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get());
         boolean item3c = isLivingInArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get());
@@ -150,7 +149,7 @@ public class Methods {
 
         boolean item0 = isLivingInArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get());
         boolean item0b = isLivingInArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
-        boolean item0c = isLivingInArmor(entity, 0, ItemsRegistry.JET_SUIT_PANTS.get());
+        boolean item0c = isLivingInArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get());
 
         if (!item0 && !item0b && !item0c) {
             return false;
@@ -448,7 +447,7 @@ public class Methods {
 
     //TODO REWORK THAT
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAllSpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
             IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();

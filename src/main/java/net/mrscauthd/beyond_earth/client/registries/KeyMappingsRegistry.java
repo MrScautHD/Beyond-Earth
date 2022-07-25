@@ -12,9 +12,11 @@ import org.lwjgl.glfw.GLFW;
 public class KeyMappingsRegistry {
 
     public static final KeyMapping ROCKET_START = new KeyMapping("key." + BeyondEarth.MODID + ".rocket_start", GLFW.GLFW_KEY_SPACE, "key.categories." + BeyondEarth.MODID);
+    public static final KeyMapping SWITCH_JET_SUIT_MODE = new KeyMapping("key." + BeyondEarth.MODID + ".switch_jet_suit_mode", GLFW.GLFW_KEY_V, "key.categories." + BeyondEarth.MODID);
 
     @SubscribeEvent
     public static void register(RegisterKeyMappingsEvent event) {
         event.register(ROCKET_START);
+        event.register(SWITCH_JET_SUIT_MODE);
     }
 }

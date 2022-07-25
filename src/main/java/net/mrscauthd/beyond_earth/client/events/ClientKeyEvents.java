@@ -22,28 +22,16 @@ public class ClientKeyEvents {
 		if (event.phase == TickEvent.Phase.END) {
 			Minecraft mc = Minecraft.getInstance();
 
-			if (mc.options.keyUp.isDown()) {
+			if (mc.options.keyRight.isDown()) {
 				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(0));
 			}
 
-			if (mc.options.keyDown.isDown()) {
+			if (mc.options.keyLeft.isDown()) {
 				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(1));
 			}
 
-			if (mc.options.keyRight.isDown()) {
-				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(2));
-			}
-
-			if (mc.options.keyLeft.isDown()) {
-				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(3));
-			}
-
 			if (mc.options.keyJump.isDown()) {
-				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(4));
-			}
-
-			if (mc.options.keyShift.isDown()) {
-				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(5));
+				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(2));
 			}
 		}
 	}
@@ -53,7 +41,14 @@ public class ClientKeyEvents {
 		/** ROCKET START KEY */
 		if (event.getKey() == KeyMappingsRegistry.ROCKET_START.getKey().getValue()) {
 			if (event.getAction() == GLFW.GLFW_PRESS) {
-				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(6));
+				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(3));
+			}
+		}
+
+		/** SWITCH JET SUIT MODE KEY */
+		if (event.getKey() == KeyMappingsRegistry.SWITCH_JET_SUIT_MODE.getKey().getValue()) {
+			if (event.getAction() == GLFW.GLFW_PRESS) {
+				NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(4));
 			}
 		}
 	}

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -71,6 +72,9 @@ public class JetSuit {
     }
 
     public static class Suit extends ArmorItem {
+
+        public static String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
+
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -102,9 +106,61 @@ public class JetSuit {
             });
         }
 
+        public enum ModeType {
+            DISABLED(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_disabled_mode"), ChatFormatting.RED, 0),
+            NORMAL(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_normal_mode"), ChatFormatting.GREEN, 1),
+            ELYTRA(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 2);
+
+            private int mode;
+            private ChatFormatting chatFormatting;
+            private Component component;
+
+            ModeType(Component component, ChatFormatting chatFormatting, int mode) {
+                this.mode = mode;
+                this.chatFormatting = chatFormatting;
+                this.component = component;
+            }
+
+            public int getMode() {
+                return mode;
+            }
+
+            public ChatFormatting getChatFormatting() {
+                return chatFormatting;
+            }
+
+            public Component getTranslationKey() {
+                return component;
+            }
+        }
+
+        @Override
+        public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
+            super.inventoryTick(itemStack, level, entity, p_41407_, p_41408_);
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+
+                if (itemStack.getOrCreateTag().getInt(TAG_MODE) == 1) {
+                    Vec3 vec3 = player.getDeltaMovement();
+
+                    if (player.jumping && vec3.y < 0.2) {
+                        System.out.println("jump");
+                        player.setDeltaMovement(vec3.add(vec3.x, vec3.y + 0.1, vec3.z));
+                    }
+
+                    /*
+                    if (player.zza > 0) {
+
+                    } else if (player.zza < 0) {
+                        System.out.println("Backward");
+                    }*/
+                }
+            }
+        }
+
         @Override
         public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            return Methods.isLivingInJetSuit(entity);
+            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == 2;
         }
 
         @Override

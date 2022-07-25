@@ -236,6 +236,7 @@
 
   "key.categories.beyond_earth": "Beyond Earth",
   "key.beyond_earth.rocket_start": "Rocket Start",
+  "key.beyond_earth.switch_jet_suit_mode": "Switch Jet Suit Mode",
 
   "death.attack.oxygen": "%1$s couldn\u0027t breathe anymore",
   "death.attack.venus.acid": "%1$s was a sacrifice to the acid",
@@ -341,5 +342,9 @@
   "general.beyond_earth.oxygen": "Oxygen",
   "general.beyond_earth.burntime": "Burn Time",
   "general.beyond_earth.cooktime": "Cook Time",
-  "general.beyond_earth.oxygenloading": "Loading"
+  "general.beyond_earth.oxygenloading": "Loading",
+  "general.beyond_earth.jet_suit_mode": "Mode",
+  "general.beyond_earth.jet_suit_disabled_mode": "Disabled",
+  "general.beyond_earth.jet_suit_normal_mode": "Normal",
+  "general.beyond_earth.jet_suit_elytra_mode": "Elytra"
 }

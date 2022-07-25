@@ -1,14 +1,18 @@
 package net.mrscauthd.beyond_earth.common.keybinds;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
@@ -83,6 +87,19 @@ public class KeyMethods {
                 } else {
                     Methods.sendVehicleHasNoFuelMessage(player);
                 }
+            }
+        }
+    }
+
+    public static void switchJetSuitMode(Player player) {
+        if (Methods.isLivingInJetSuit(player)) {
+            ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+            CompoundTag compoundTag = itemStack.getOrCreateTag();
+
+            if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 2) {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
+            } else {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, 0);
             }
         }
     }

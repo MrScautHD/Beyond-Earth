@@ -54,24 +54,6 @@ public class RocketTier2Entity extends IRocketEntity {
 	}
 
 	@Override
-	public InteractionResult interact(Player player, InteractionHand hand) {
-		super.interact(player, hand);
-		InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
-
-		if (!this.level.isClientSide) {
-			if (player.isCrouching()) {
-				this.openCustomInventoryScreen(player);
-				return InteractionResult.CONSUME;
-			}
-
-			player.startRiding(this);
-			return InteractionResult.CONSUME;
-		}
-
-		return result;
-	}
-
-	@Override
 	public void spawnParticle() {
 		Vec3 vec = this.getDeltaMovement();
 

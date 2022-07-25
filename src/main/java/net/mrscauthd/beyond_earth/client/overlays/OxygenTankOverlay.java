@@ -15,7 +15,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
+import net.mrscauthd.beyond_earth.common.util.Methods;
 
 public class OxygenTankOverlay implements IGuiOverlay {
 
@@ -25,10 +25,9 @@ public class OxygenTankOverlay implements IGuiOverlay {
     @Override
     public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
         Player player = Minecraft.getInstance().player;
-        ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
 
-        //TODO CHECK EVERY IF CHECK (IF THAT WORKS LIKE THIS)
-        if (chest.getItem() == ItemsRegistry.SPACE_SUIT.get() || chest.getItem() == ItemsRegistry.NETHERITE_SPACE_SUIT.get() || chest.getItem() == ItemsRegistry.JET_SUIT.get()) {
+        if (Methods.isLivingInAnySpaceSuits(player)) {
+            ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
             Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */

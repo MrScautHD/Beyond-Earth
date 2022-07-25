@@ -15,6 +15,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -246,6 +248,24 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getRocketSpeed(), this.getDeltaMovement().z);
             }
         }
+    }
+
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        super.interact(player, hand);
+        InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
+
+        if (!this.level.isClientSide) {
+            if (player.isCrouching()) {
+                this.openCustomInventoryScreen(player);
+                return InteractionResult.CONSUME;
+            }
+
+            player.startRiding(this);
+            return InteractionResult.CONSUME;
+        }
+
+        return result;
     }
 
     @Override

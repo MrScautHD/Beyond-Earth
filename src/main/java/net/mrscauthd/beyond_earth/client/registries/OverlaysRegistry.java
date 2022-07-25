@@ -5,10 +5,7 @@ import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.overlays.OxygenTankOverlay;
-import net.mrscauthd.beyond_earth.client.overlays.RocketHeightBarOverlay;
-import net.mrscauthd.beyond_earth.client.overlays.RocketTimerOverlay;
-import net.mrscauthd.beyond_earth.client.overlays.WarningOverlay;
+import net.mrscauthd.beyond_earth.client.overlays.*;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class OverlaysRegistry {
@@ -18,6 +15,7 @@ public class OverlaysRegistry {
         event.registerAboveAll("warning", new WarningOverlay());
         event.registerAboveAll("rocket_timer", new RocketTimerOverlay());
         event.registerBelowAll("oxygen_tank", new OxygenTankOverlay());
+        event.registerBelowAll("jet_suit", new JetSuitOverlay());
         event.registerBelowAll("rocket_height", new RocketHeightBarOverlay());
     }
 }

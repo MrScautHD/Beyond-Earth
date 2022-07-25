@@ -32,22 +32,26 @@ public class KeyHandler {
             Player player = context.getSender();
 
             switch (message.key) {
-                case 2:
+                case 0:
                     KeyMethods.rotateRocket(player, 1);
                     KeyMethods.rotateRover(player, 1, -1);
                     break;
 
-                case 3:
+                case 1:
                     KeyMethods.rotateRocket(player, -1);
                     KeyMethods.rotateRover(player, -1, 1);
                     break;
 
-                case 4:
+                case 2:
                     KeyMethods.slowDownLander(player);
                     break;
 
-                case 6:
+                case 3:
                     KeyMethods.startRocket(player);
+                    break;
+
+                case 4:
+                    KeyMethods.switchJetSuitMode(player);
                     break;
             }
         });
