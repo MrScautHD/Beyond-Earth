@@ -40,7 +40,7 @@ public class GlobeModel<T extends GlobeTileEntity> extends Model {
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        globe.render(poseStack, buffer, packedLight, packedOverlay);
+        globe.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     public void setupAnim(T entity, float partialTicks) {

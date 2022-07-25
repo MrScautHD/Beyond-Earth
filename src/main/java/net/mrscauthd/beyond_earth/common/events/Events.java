@@ -201,7 +201,7 @@ public class Events {
     public static void fireworkRocketUse(FireworkRocketUseEvent event) {
         Player player = event.getEntity();
 
-        /** CANCEL BOOST BY JET SUIT */
+        /** CANCEL BOOST BY FLYING JET SUIT */
         if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
             event.getCallbackInfoReturnable().setReturnValue(InteractionResultHolder.pass(player.getItemInHand(event.getInteractionHand())));
         }

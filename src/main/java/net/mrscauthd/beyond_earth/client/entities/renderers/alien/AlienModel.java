@@ -71,11 +71,11 @@ public class AlienModel<T extends AlienEntity> extends EntityModel<T> {
 			matrixStack.scale(0.5f, 0.5f, 0.5f);
 			matrixStack.translate(0, 1.5f, 0);
 		}
-		head.render(matrixStack, buffer, packedLight, packedOverlay);
-		body.render(matrixStack, buffer, packedLight, packedOverlay);
-		leg0.render(matrixStack, buffer, packedLight, packedOverlay);
-		leg1.render(matrixStack, buffer, packedLight, packedOverlay);
-		arms.render(matrixStack, buffer, packedLight, packedOverlay);
-		head2.render(matrixStack, buffer, packedLight, packedOverlay);
+		head.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg0.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		leg1.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		arms.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+		head2.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

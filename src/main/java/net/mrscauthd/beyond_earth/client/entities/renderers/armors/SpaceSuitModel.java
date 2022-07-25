@@ -105,11 +105,11 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.body.render(poseStack, buffer, packedLight, packedOverlay);
-            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay);
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
 
             poseStack.pushPose();
@@ -120,13 +120,13 @@ public class SpaceSuitModel {
 
             /** Translucent Armor Parts */
             if (stack.getItem() == ItemsRegistry.OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(spaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
+                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(spaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
             }
             else if (stack.getItem() == ItemsRegistry.NETHERITE_OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(netheriteSpaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
+                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(netheriteSpaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
             }
             else {
-                head.render(poseStack, buffer, packedLight, packedOverlay);
+                head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             }
 
             poseStack.popPose();

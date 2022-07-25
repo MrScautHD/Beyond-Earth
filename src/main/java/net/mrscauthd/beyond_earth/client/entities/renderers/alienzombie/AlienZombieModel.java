@@ -95,16 +95,16 @@ public class AlienZombieModel<T extends AlienZombieEntity> extends EntityModel<T
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        head.render(poseStack, buffer, packedLight, packedOverlay);
-        body.render(poseStack, buffer, packedLight, packedOverlay);
-        leg0.render(poseStack, buffer, packedLight, packedOverlay);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay);
-        arm1.render(poseStack, buffer, packedLight, packedOverlay);
-        arm2.render(poseStack, buffer, packedLight, packedOverlay);
-        monsterarm1.render(poseStack, buffer, packedLight, packedOverlay);
-        monsterarm2.render(poseStack, buffer, packedLight, packedOverlay);
-        monsterarm3.render(poseStack, buffer, packedLight, packedOverlay);
-        monsterarm4.render(poseStack, buffer, packedLight, packedOverlay);
+        head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg0.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        monsterarm1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        monsterarm2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        monsterarm3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        monsterarm4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override

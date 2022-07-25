@@ -161,10 +161,10 @@ public class LanderModel<T extends LanderEntity> extends EntityModel<T> {
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        leg1.render(poseStack, buffer, packedLight, packedOverlay);
-        leg2.render(poseStack, buffer, packedLight, packedOverlay);
-        leg3.render(poseStack, buffer, packedLight, packedOverlay);
-        leg4.render(poseStack, buffer, packedLight, packedOverlay);
-        bb_main.render(poseStack, buffer, packedLight, packedOverlay);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        bb_main.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -106,8 +106,8 @@ public class MartianRaptorModel<T extends MartianRaptor> extends EntityModel<T> 
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        body.render(poseStack, buffer, packedLight, packedOverlay);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay);
-        leg2.render(poseStack, buffer, packedLight, packedOverlay);
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }

@@ -96,12 +96,12 @@ public class MoglerModel<T extends Mob & HoglinBase> extends AgeableListModel<T>
             poseStack.scale(0.5f, 0.5f, 0.5f);
             poseStack.translate(0, 1.5f, 0);
         }
-        body.render(poseStack, buffer, packedLight, packedOverlay);
-        head.render(poseStack, buffer, packedLight, packedOverlay);
-        leg1.render(poseStack, buffer, packedLight, packedOverlay);
-        leg2.render(poseStack, buffer, packedLight, packedOverlay);
-        leg3.render(poseStack, buffer, packedLight, packedOverlay);
-        leg4.render(poseStack, buffer, packedLight, packedOverlay);
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg1.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg2.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg3.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        leg4.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 
     @Override

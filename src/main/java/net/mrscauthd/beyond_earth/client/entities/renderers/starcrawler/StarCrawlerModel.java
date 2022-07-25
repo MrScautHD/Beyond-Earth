@@ -151,10 +151,10 @@ public class StarCrawlerModel<T extends StarCrawlerEntity> extends EntityModel<T
 
     @Override
     public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        body.render(poseStack, buffer, packedLight, packedOverlay);
-        arm1g.render(poseStack, buffer, packedLight, packedOverlay);
-        arm2g.render(poseStack, buffer, packedLight, packedOverlay);
-        arm3g.render(poseStack, buffer, packedLight, packedOverlay);
-        arm4g.render(poseStack, buffer, packedLight, packedOverlay);
+        body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm1g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm2g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm3g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+        arm4g.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
     }
 }
