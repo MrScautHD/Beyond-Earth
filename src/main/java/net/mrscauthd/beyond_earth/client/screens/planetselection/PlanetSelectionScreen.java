@@ -56,15 +56,15 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 	public static final ResourceLocation LARGE_RED_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_red_button.png");
 	public static final ResourceLocation LARGE_RED_LIGHT_BUTTON_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/buttons/big_red_button_2.png");
 
-	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/milky_way.png");
+	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/milky_way.png");
 
-	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/sun.png");
-	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/blue_sun.png");
-	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/mars.png");
-	public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/earth.png");
-	public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/venus.png");
-	public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/mercury.png");
-	public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/gui/glacio.png");
+	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/sun.png");
+	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/blue_sun.png");
+	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars.png");
+	public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+	public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/venus.png");
+	public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mercury.png");
+	public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/glacio.png");
 
 	public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_menu_list.png");
 	public static final ResourceLocation LARGE_MENU_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_menu_list_2.png");

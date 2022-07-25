@@ -13,9 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class BobViewer {
 
     @Inject(at = @At(value = "HEAD"), method = "bobView", cancellable = true)
-    private void bobView(PoseStack p_109139_, float p_109140_, CallbackInfo info) {
+    private void bobView(PoseStack poseStack, float tick, CallbackInfo info) {
 
-        if (MinecraftForge.EVENT_BUS.post(new RenderViewEvent(p_109139_, p_109140_))) {
+        if (MinecraftForge.EVENT_BUS.post(new RenderViewEvent(poseStack, tick))) {
             info.cancel();
         }
     }

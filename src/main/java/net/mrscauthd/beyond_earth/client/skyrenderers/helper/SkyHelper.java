@@ -18,6 +18,12 @@ import org.apache.commons.lang3.tuple.Triple;
 
 public class SkyHelper {
 
+    /** PLANETS */
+    public static final ResourceLocation WHITE_SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/white_sun.png");
+    public static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+    public static final ResourceLocation MOON_PHASE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/moon_phases.png");
+
+    /** LIGHTS */
     public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_light.png");
     public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_phases_light.png");
 
@@ -98,10 +104,10 @@ public class SkyHelper {
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -scale, y, -scale).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, -scale).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, scale).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, y, scale).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale, y, -scale).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, -scale).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, scale, y, scale).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale, y, scale).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 

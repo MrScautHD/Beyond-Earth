@@ -6,7 +6,9 @@
   "mixins": [
     "ItemEntityTickEnd",
     "EntityTick",
-    "BlockSet"
+    "BlockSet",
+    "FireworkRocketUse",
+    "TryStartFallFlying"
   ],
   "client": [
     "SetupLivingBipedAnim",

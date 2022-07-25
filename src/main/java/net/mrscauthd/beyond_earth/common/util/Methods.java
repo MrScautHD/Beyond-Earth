@@ -3,6 +3,8 @@ package net.mrscauthd.beyond_earth.common.util;
 import com.mojang.datafixers.util.Pair;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
@@ -196,7 +199,25 @@ public class Methods {
         return itemStack.getItem() instanceof VehicleItem;
     }
 
-    /** DROPS OFF HAND ITEM IF MAIN AND OFF HAND HAS THE SAME VEHICLE ITEM */
+    public static void boostWithJetSuit(Player player, double boost, boolean flashParticle) {
+        Vec3 vec31 = player.getLookAngle();
+
+        if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
+            Vec3 vec32 = player.getDeltaMovement();
+            player.setDeltaMovement(vec32.add(vec31.x * 0.1D + (vec31.x * boost - vec32.x) * 0.5D, vec31.y * 0.1D + (vec31.y * boost - vec32.y) * 0.5D, vec31.z * 0.1D + (vec31.z * boost - vec32.z) * 0.5D));
+
+            if (flashParticle) {
+                Vec3 vec33 = player.getLookAngle().scale(6.5D);
+
+                if (player.level instanceof ServerLevel) {
+                    for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
+                        ((ServerLevel) player.level).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                    }
+                }
+            }
+        }
+    }
+
     public static void dropOffHandVehicle(LivingEntity livingEntity) {
         ItemStack itemStack1 = livingEntity.getMainHandItem();
         ItemStack itemStack2 = livingEntity.getOffhandItem();
@@ -364,8 +385,10 @@ public class Methods {
     }
 
     public static void placeSpaceStation(Player player, ServerLevel serverLevel) {
-        BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
-        serverLevel.getStructureManager().getOrCreate(SPACE_STATION).placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
+        StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(SPACE_STATION);
+        BlockPos pos = new BlockPos(player.getX() - (structureTemplate.getSize().getX() / 2), 100, player.getZ() - (structureTemplate.getSize().getZ() / 2));
+
+        structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
     }
 
     public static void resetPlanetSelectionMenuNeededNbt(Player player) {

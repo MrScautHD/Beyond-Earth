@@ -7,16 +7,11 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.ShaderInstance;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.*;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.skyrenderers.helper.SkyHelper;
 import net.mrscauthd.beyond_earth.client.skyrenderers.helper.StarHelper;
 import org.apache.commons.lang3.tuple.Triple;
@@ -24,8 +19,6 @@ import org.apache.commons.lang3.tuple.Triple;
 @OnlyIn(Dist.CLIENT)
 public class MoonSky extends DimensionSpecialEffects {
 
-    private static final ResourceLocation SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/white_sun.png");
-    private static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
     private final VertexBuffer starBuffer = StarHelper.createStars(0.1F, 6000, 13000, 190, 160, -1);
 
     public MoonSky(float p_108866_, boolean p_108867_, SkyType p_108868_, boolean p_108869_, boolean p_108870_) {
@@ -81,18 +74,18 @@ public class MoonSky extends DimensionSpecialEffects {
 
                 /** STARS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
-                RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
+                RenderSystem.setShaderColor(0.9F, 0.9F, 0.9F, 0.9F);
                 SkyHelper.drawStars(starBuffer, matrix4f, projectionMatrix, GameRenderer.getPositionColorShader(), setupFog, true);
 
                 /** SUN */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawPlanet(SUN, new Vec3(255, 255, 255), bufferBuilder, matrix4f, 30, 100, true);
+                SkyHelper.drawPlanet(SkyHelper.WHITE_SUN, new Vec3(255, 255, 255), bufferBuilder, matrix4f, 30, 100, true);
 
                 /** EARTH */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.XP.rotationDegrees(30), null, null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawPlanetWithLight(EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, 8, 8 * 3, 100, false);
+                SkyHelper.drawPlanetWithLight(SkyHelper.EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, 8, 8 * 3, 100, false);
 
                 /** CUT OFF SKY SYSTEM */
                 SkyHelper.drawDarkSky(mc, poseStack, projectionMatrix, shaderInstance, partialTick);

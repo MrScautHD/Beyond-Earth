@@ -18,16 +18,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class RenderHandItem {
 
     @Inject(at = @At(value = "HEAD"), method = "renderArmWithItem", cancellable = true)
-    private void setRotationAnglesPre(LivingEntity p_117185_, ItemStack p_117186_, ItemTransforms.TransformType p_117187_, HumanoidArm p_117188_, PoseStack p_117189_, MultiBufferSource p_117190_, int p_117191_, CallbackInfo info) {
+    private void setRotationAnglesPre(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117191_, CallbackInfo info) {
 
-        if (MinecraftForge.EVENT_BUS.post(new RenderHandItemEvent.Pre(p_117185_, p_117186_, p_117187_, p_117188_, p_117189_, p_117190_, p_117191_))) {
+        if (MinecraftForge.EVENT_BUS.post(new RenderHandItemEvent.Pre(livingEntity, itemStack, transformType, humanoidArm, poseStack, multiBufferSource, p_117191_))) {
             info.cancel();
         }
     }
 
     @Inject(at = @At(value = "RETURN"), method = "renderArmWithItem")
-    private void setRotationAnglesPost(LivingEntity p_117185_, ItemStack p_117186_, ItemTransforms.TransformType p_117187_, HumanoidArm p_117188_, PoseStack p_117189_, MultiBufferSource p_117190_, int p_117191_, CallbackInfo info) {
+    private void setRotationAnglesPost(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117191_, CallbackInfo info) {
 
-        MinecraftForge.EVENT_BUS.post(new RenderHandItemEvent.Post(p_117185_, p_117186_, p_117187_, p_117188_, p_117189_, p_117190_, p_117191_));
+        MinecraftForge.EVENT_BUS.post(new RenderHandItemEvent.Post(livingEntity, itemStack, transformType, humanoidArm, poseStack, multiBufferSource, p_117191_));
     }
 }

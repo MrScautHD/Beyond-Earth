@@ -110,11 +110,11 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.body.render(poseStack, buffer, packedLight, packedOverlay);
-            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay);
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
 
             poseStack.pushPose();
@@ -125,10 +125,10 @@ public class JetSuitModel {
 
             /** Translucent Armor Parts */
             if (stack.getItem() == ItemsRegistry.JET_SUIT_OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(jetSuit), false, stack.isEnchanted()), packedLight, packedOverlay);
+                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(jetSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
             }
             else {
-                head.render(poseStack, buffer, packedLight, packedOverlay);
+                head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             }
 
             poseStack.popPose();
@@ -191,8 +191,8 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
         }
     }

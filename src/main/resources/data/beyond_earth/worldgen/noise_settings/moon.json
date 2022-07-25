@@ -107,7 +107,7 @@
                           "argument1": 0.078125,
                           "argument2": {
                             "type": "minecraft:range_choice",
-                            "input": "minecraft:overworld/sloped_cheese",
+                            "input": "beyond_earth:moon_density",
                             "min_inclusive": -1000000,
                             "max_exclusive": 1.5625,
                             "when_in_range": {
@@ -269,7 +269,7 @@
           "then_run": {
             "type": "minecraft:block",
             "result_state": {
-              "Name": "beyond_earth:moon_sand"
+              "Name": "minecraft:basalt"
             }
           }
         }

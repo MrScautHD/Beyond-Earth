@@ -104,8 +104,7 @@ public class JetSuit {
 
         @Override
         public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            //return Methods.isLivingInJetSuit(entity);
-            return true;
+            return Methods.isLivingInJetSuit(entity);
         }
 
         @Override
@@ -113,13 +112,11 @@ public class JetSuit {
             if (!entity.level.isClientSide) {
                 int nextFlightTick = flightTicks + 1;
                 if (nextFlightTick % 10 == 0) {
-                    if (nextFlightTick % 20 == 0) {
-                        stack.hurtAndBreak(1, entity, e -> e.broadcastBreakEvent(EquipmentSlot.CHEST));
-                    }
                     entity.gameEvent(GameEvent.ELYTRA_GLIDE);
                 }
             }
-            return false;
+
+            return true;
         }
 
         @Override

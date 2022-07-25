@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ItemEntityTickEnd {
     @Inject(at = @At(value = "RETURN"), method = "tick")
     private void tick(CallbackInfo info) {
-        ItemEntity w = (ItemEntity) ((Object) this);
+        ItemEntity itemEntity = (ItemEntity) ((Object) this);
 
-        MinecraftForge.EVENT_BUS.post(new ItemEntityTickAtEndEvent(w));
+        MinecraftForge.EVENT_BUS.post(new ItemEntityTickAtEndEvent(itemEntity));
     }
 }

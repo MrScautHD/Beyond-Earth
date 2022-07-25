@@ -13,8 +13,8 @@ public abstract class EntityTick {
 
     @Inject(at = @At(value = "HEAD"), method = "tick")
     private void tick(CallbackInfo info) {
-        Entity w = (Entity) ((Object) this);
+        Entity entity = (Entity) ((Object) this);
 
-        MinecraftForge.EVENT_BUS.post(new EntityTickEvent(w));
+        MinecraftForge.EVENT_BUS.post(new EntityTickEvent(entity));
     }
 }
