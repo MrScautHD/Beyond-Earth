@@ -54,6 +54,7 @@ public class ClientKeyEvents {
 
 		if ((key.getKey().getValue() == pressedKey && action == GLFW.GLFW_RELEASE) || !key.isConflictContextAndModifierActive()) {
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, false));
+			System.out.println("cancel");
 			return;
 		}
 
@@ -68,9 +69,9 @@ public class ClientKeyEvents {
 			return;
 		}
 
-		if (key.getKey().getValue() == pressedKey && action == GLFW.GLFW_PRESS) {
+		if ((key.getKey().getValue() == pressedKey && action == GLFW.GLFW_PRESS)) {
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
-			System.out.println("test");
+			System.out.println("send");
 		}
 	}
 }

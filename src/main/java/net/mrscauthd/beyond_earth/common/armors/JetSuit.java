@@ -140,8 +140,6 @@ public class JetSuit {
         public void switchJetSuitMode(Player player, ItemStack itemStack) {
             CompoundTag compoundTag = itemStack.getOrCreateTag();
 
-            System.out.println(compoundTag.get(JetSuit.Suit.TAG_MODE));
-
             if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 3) {
                 compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
             } else {
@@ -172,9 +170,8 @@ public class JetSuit {
                     }
 
                     /** MOVE DOWN */
-                    if (KeyVariables.isHoldingJump(player)) {
+                    if (player.isCrouching()) {
                         player.moveRelative(1.2F, new Vec3(0, -0.1, 0));
-                        player.resetFallDistance();
                     }
 
                     /** MOVE FORWARD AND BACKWARD */
