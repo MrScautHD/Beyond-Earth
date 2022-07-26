@@ -43,9 +43,11 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;
+import net.mrscauthd.beyond_earth.common.util.Methods;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -258,6 +260,47 @@ public class RoverEntity extends VehicleEntity {
         this.entityData.set(FORWARD, compound.getBoolean("forward"));
     }
 
+    public Player getFirstPlayerPassenger() {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
+            Player player = (Player) this.getPassengers().get(0);
+
+            return player;
+        }
+
+        return null;
+    }
+
+    public void rotateRover() {
+        Player player = this.getFirstPlayerPassenger();
+
+        if (player != null) {
+
+            if ((KeyVariables.isHoldingRight(player) && KeyVariables.isHoldingLeft(player)) || player.getVehicle().getEntityData().get(RoverEntity.FUEL) == 0 || player.getVehicle().isEyeInFluid(FluidTags.WATER)) {
+                return;
+            }
+
+            if (this.getforward()) {
+                if (KeyVariables.isHoldingRight(player)) {
+                    Methods.setEntityRotation(this, 1);
+                }
+            } else {
+                if (KeyVariables.isHoldingRight(player)) {
+                    Methods.setEntityRotation(this, -1);
+                }
+            }
+
+            if (this.getforward()) {
+                if (KeyVariables.isHoldingLeft(player)) {
+                    Methods.setEntityRotation(this, -1);
+                }
+            } else {
+                if (KeyVariables.isHoldingLeft(player)) {
+                    Methods.setEntityRotation(this, 1);
+                }
+            }
+        }
+    }
+
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
@@ -301,6 +344,7 @@ public class RoverEntity extends VehicleEntity {
 
         /** Reset Fall Damage for Passengers too */
         this.resetFallDistance();
+        this.rotateRover();
 
         //Fuel Load up
         if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {

@@ -158,8 +158,8 @@ public class Methods {
         return true;
     }
 
-    public static boolean isLivingInArmor(LivingEntity entity, int number, Item item) {
-        return entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, number)).getItem() == item;
+    public static boolean isLivingInArmor(LivingEntity entity, int armorSlot, Item item) {
+        return entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, armorSlot)).getItem() == item;
     }
 
     public static boolean isSpaceLevel(Level level) {

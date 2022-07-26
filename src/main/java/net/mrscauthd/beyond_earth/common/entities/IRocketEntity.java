@@ -43,6 +43,7 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
@@ -190,9 +191,147 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
     }
 
+    @Override
+    public InteractionResult interact(Player player, InteractionHand hand) {
+        super.interact(player, hand);
+        InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
+
+        if (!this.level.isClientSide) {
+            if (player.isCrouching()) {
+                this.openCustomInventoryScreen(player);
+                return InteractionResult.CONSUME;
+            }
+
+            player.startRiding(this);
+            return InteractionResult.CONSUME;
+        }
+
+        return result;
+    }
+
+    @Override
+    public void openCustomInventoryScreen(Player player) {
+        if (player instanceof ServerPlayer) {
+            ServerPlayer serverPlayer = (ServerPlayer) player;
+            NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
+                @Override
+                public Component getDisplayName() {
+                    return IRocketEntity.this.getName();
+                }
+
+                @Override
+                public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
+                    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
+                    packetBuffer.writeVarInt(IRocketEntity.this.getId());
+                    return new RocketMenu.GuiContainer(id, inventory, packetBuffer);
+                }
+            }, buf -> {
+                buf.writeVarInt(IRocketEntity.this.getId());
+            });
+        }
+    }
+
+    @Override
+    public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
+        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
+        Set<BlockPos> set = Sets.newLinkedHashSet();
+        double d0 = this.getBoundingBox().maxY;
+        double d1 = this.getBoundingBox().minY - 0.5D;
+        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
+
+        for(Vec3 vector3d : avector3d) {
+            blockpos$mutable.set(this.getX() + vector3d.x, d0, this.getZ() + vector3d.z);
+
+            for(double d2 = d0; d2 > d1; --d2) {
+                set.add(blockpos$mutable.immutable());
+                blockpos$mutable.move(Direction.DOWN);
+            }
+        }
+
+        for(BlockPos blockpos : set) {
+            if (!this.level.getFluidState(blockpos).is(FluidTags.LAVA)) {
+                double d3 = this.level.getBlockFloorHeight(blockpos);
+                if (DismountHelper.isBlockFloorValid(d3)) {
+                    Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
+
+                    for(Pose pose : livingEntity.getDismountPoses()) {
+                        if (DismountHelper.isBlockFloorValid(this.level.getBlockFloorHeight(blockpos))) {
+                            livingEntity.setPose(pose);
+                            return vector3d1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        this.rotateRocket();
+        this.checkOnBlocks();
+        this.fillUpRocket();
+        this.rocketExplosion();
+        this.burnEntities();
+
+        if (this.entityData.get(ROCKET_START)) {
+            this.spawnParticle();
+            this.startTimerAndFlyMovement();
+            this.openPlanetSelectionMenu();
+        }
+    }
+
     public abstract void spawnParticle();
 
     public abstract void fillUpRocket();
+
+    public Player getFirstPlayerPassenger() {
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
+            Player player = (Player) this.getPassengers().get(0);
+
+            return player;
+        }
+
+        return null;
+    }
+
+    public void rotateRocket() {
+        Player player = this.getFirstPlayerPassenger();
+
+        if (player != null) {
+            if (KeyVariables.isHoldingRight(player) && KeyVariables.isHoldingLeft(player)) {
+                return;
+            }
+
+            if (KeyVariables.isHoldingRight(player)) {
+                Methods.setEntityRotation(this, 1);
+            }
+
+            if (KeyVariables.isHoldingLeft(player)) {
+                Methods.setEntityRotation(this, -1);
+            }
+        }
+    }
+
+    public void startRocket() {
+        Player player = this.getFirstPlayerPassenger();
+
+        if (player != null) {
+            SynchedEntityData data = this.getEntityData();
+
+            if (data.get(IRocketEntity.FUEL) == 3000) {
+                if (!data.get(IRocketEntity.ROCKET_START)) {
+                    data.set(IRocketEntity.ROCKET_START, true);
+                    this.level.playSound(null, this, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
+                }
+            } else {
+                Methods.sendVehicleHasNoFuelMessage(player);
+            }
+        }
+    }
 
     public boolean doesDrop(BlockState state, BlockPos pos) {
         if (this.isOnGround() || this.isInFluidType()) {
@@ -250,80 +389,39 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
         }
     }
 
-    @Override
-    public InteractionResult interact(Player player, InteractionHand hand) {
-        super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
-
-        if (!this.level.isClientSide) {
-            if (player.isCrouching()) {
-                this.openCustomInventoryScreen(player);
-                return InteractionResult.CONSUME;
-            }
-
-            player.startRiding(this);
-            return InteractionResult.CONSUME;
-        }
-
-        return result;
-    }
-
-    @Override
-    public void openCustomInventoryScreen(Player player) {
-        if (player instanceof ServerPlayer) {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
-            NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
-                @Override
-                public Component getDisplayName() {
-                    return IRocketEntity.this.getName();
-                }
-
-                @Override
-                public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-                    FriendlyByteBuf packetBuffer = new FriendlyByteBuf(Unpooled.buffer());
-                    packetBuffer.writeVarInt(IRocketEntity.this.getId());
-                    return new RocketMenu.GuiContainer(id, inventory, packetBuffer);
-                }
-            }, buf -> {
-                buf.writeVarInt(IRocketEntity.this.getId());
-            });
-        }
-    }
-
     public void openPlanetSelectionMenu() {
-        if (this.getY() > 600 && !this.getPassengers().isEmpty()) {
-            if (this.getPassengers().get(0) instanceof Player) {
+        Player player = this.getFirstPlayerPassenger();
 
-                Player pass = (Player) this.getPassengers().get(0);
+        if (this.getY() > 600 && player != null) {
 
-                if (pass.containerMenu != null) {
-                    pass.closeContainer();
-                }
-
-                pass.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
-                pass.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
-
-                /** SAVE ITEMS IN THE PLAYER */
-                ListTag tag = new ListTag();
-
-                tag.add(this.getInventory().getStackInSlot(0).save(new CompoundTag()));
-                tag.add(new ItemStack(this.getRocketItem().getItem()).save(new CompoundTag()));
-
-                pass.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);
-                pass.setNoGravity(true);
-
-                /** STOP ROCKET SOUND */
-                if (pass instanceof ServerPlayer) {
-                    Methods.stopSound((ServerPlayer) pass, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
-                }
-
-                MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(pass, this));
-
-                if (!this.level.isClientSide) {
-                    this.remove(RemovalReason.DISCARDED);
-                }
+            if (player.containerMenu != null) {
+                player.closeContainer();
             }
-        } else if (this.getY() > 600 && this.getPassengers().isEmpty()) {
+
+            player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
+            player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
+
+            /** SAVE ITEMS IN THE PLAYER */
+            ListTag tag = new ListTag();
+
+            tag.add(this.getInventory().getStackInSlot(0).save(new CompoundTag()));
+            tag.add(new ItemStack(this.getRocketItem().getItem()).save(new CompoundTag()));
+
+            player.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);
+            player.setNoGravity(true);
+
+            /** STOP ROCKET SOUND */
+            if (player instanceof ServerPlayer) {
+                Methods.stopSound((ServerPlayer) player, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
+            }
+
+            MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(player, this));
+
+            if (!this.level.isClientSide) {
+                this.remove(RemovalReason.DISCARDED);
+            }
+
+        } else if (this.getY() > 600) {
             if (!this.level.isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
@@ -353,57 +451,5 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
                 }
             }
         }
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-
-        this.checkOnBlocks();
-        this.fillUpRocket();
-        this.rocketExplosion();
-        this.burnEntities();
-
-        if (this.entityData.get(ROCKET_START)) {
-            this.spawnParticle();
-            this.startTimerAndFlyMovement();
-            this.openPlanetSelectionMenu();
-        }
-    }
-
-    @Override
-    public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
-        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
-        Set<BlockPos> set = Sets.newLinkedHashSet();
-        double d0 = this.getBoundingBox().maxY;
-        double d1 = this.getBoundingBox().minY - 0.5D;
-        BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
-
-        for(Vec3 vector3d : avector3d) {
-            blockpos$mutable.set(this.getX() + vector3d.x, d0, this.getZ() + vector3d.z);
-
-            for(double d2 = d0; d2 > d1; --d2) {
-                set.add(blockpos$mutable.immutable());
-                blockpos$mutable.move(Direction.DOWN);
-            }
-        }
-
-        for(BlockPos blockpos : set) {
-            if (!this.level.getFluidState(blockpos).is(FluidTags.LAVA)) {
-                double d3 = this.level.getBlockFloorHeight(blockpos);
-                if (DismountHelper.isBlockFloorValid(d3)) {
-                    Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
-
-                    for(Pose pose : livingEntity.getDismountPoses()) {
-                        if (DismountHelper.isBlockFloorValid(this.level.getBlockFloorHeight(blockpos))) {
-                            livingEntity.setPose(pose);
-                            return vector3d1;
-                        }
-                    }
-                }
-            }
-        }
-
-        return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
     }
 }

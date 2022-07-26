@@ -17,12 +17,14 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.entities.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -109,7 +111,8 @@ public class JetSuit {
         public enum ModeType {
             DISABLED(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_disabled_mode"), ChatFormatting.RED, 0),
             NORMAL(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_normal_mode"), ChatFormatting.GREEN, 1),
-            ELYTRA(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 2);
+            HOVER(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_hover_mode"), ChatFormatting.GREEN, 2),
+            ELYTRA(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 3);
 
             private int mode;
             private ChatFormatting chatFormatting;
@@ -134,33 +137,101 @@ public class JetSuit {
             }
         }
 
+        public void switchJetSuitMode(Player player, ItemStack itemStack) {
+            CompoundTag compoundTag = itemStack.getOrCreateTag();
+
+            System.out.println(compoundTag.get(JetSuit.Suit.TAG_MODE));
+
+            if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 3) {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
+            } else {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, 0);
+            }
+        }
+
         @Override
-        public void inventoryTick(ItemStack itemStack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
-            super.inventoryTick(itemStack, level, entity, p_41407_, p_41408_);
-            if (entity instanceof Player) {
-                Player player = (Player) entity;
+        public void onArmorTick(ItemStack stack, Level level, Player player) {
+            /** OXYGEN SYSTEM */
+            Methods.extractArmorOxygenUsingTimer(stack, player);
 
-                if (itemStack.getOrCreateTag().getInt(TAG_MODE) == 1) {
-                    Vec3 vec3 = player.getDeltaMovement();
+            /** NORMAL FLY MOVEMENT */
+            this.normalFlyModeMovement(player, stack);
+        }
 
-                    if (player.jumping && vec3.y < 0.2) {
-                        System.out.println("jump");
-                        player.setDeltaMovement(vec3.add(vec3.x, vec3.y + 0.1, vec3.z));
+        public void normalFlyModeMovement(Player player, ItemStack stack) {
+            if (!player.getAbilities().flying) {
+
+                /** HOVER FLY */
+                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode()) {
+                    double gravity = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).getBaseValue();
+
+                    /** MOVE UP */
+                    if (KeyVariables.isHoldingJump(player)) {
+                        player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                        player.resetFallDistance();
                     }
 
-                    /*
-                    if (player.zza > 0) {
+                    /** MOVE DOWN */
+                    if (KeyVariables.isHoldingJump(player)) {
+                        player.moveRelative(1.2F, new Vec3(0, -0.1, 0));
+                        player.resetFallDistance();
+                    }
 
-                    } else if (player.zza < 0) {
-                        System.out.println("Backward");
-                    }*/
+                    /** MOVE FORWARD AND BACKWARD */
+                    if (!player.isOnGround()) {
+                        if (KeyVariables.isHoldingUp(player)) {
+                            player.moveRelative(1, new Vec3(0, 0, 0.03));
+                        }
+                        else if (KeyVariables.isHoldingDown(player)) {
+                            player.moveRelative(1, new Vec3(0, 0, -0.03));
+                        }
+                    }
+
+                    /** MOVE SIDEWAYS */
+                    if (!player.isOnGround()) {
+                        if (KeyVariables.isHoldingRight(player)) {
+                            player.moveRelative(1, new Vec3(-0.03, 0, 0));
+                        }
+                        else if (KeyVariables.isHoldingLeft(player)) {
+                            player.moveRelative(1, new Vec3(0.03, 0, 0));
+                        }
+                    }
+                }
+
+                /** NORMAL FLY */
+                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.NORMAL.getMode()) {
+                    /** MOVE UP */
+                    if (KeyVariables.isHoldingJump(player)) {
+                        player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                        player.resetFallDistance();
+                    }
+
+                    /** MOVE FORWARD AND BACKWARD */
+                    if (!player.isOnGround()) {
+                        if (KeyVariables.isHoldingUp(player)) {
+                            player.moveRelative(1, new Vec3(0, 0, 0.03));
+                        }
+                        else if (KeyVariables.isHoldingDown(player)) {
+                            player.moveRelative(1, new Vec3(0, 0, -0.03));
+                        }
+                    }
+
+                    /** MOVE SIDEWAYS */
+                    if (!player.isOnGround()) {
+                        if (KeyVariables.isHoldingRight(player)) {
+                            player.moveRelative(1, new Vec3(-0.03, 0, 0));
+                        }
+                        else if (KeyVariables.isHoldingLeft(player)) {
+                            player.moveRelative(1, new Vec3(0.03, 0, 0));
+                        }
+                    }
                 }
             }
         }
 
         @Override
         public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == 2;
+            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.ELYTRA.getMode();
         }
 
         @Override
@@ -206,11 +277,6 @@ public class JetSuit {
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return BeyondEarth.MODID + ":textures/armor/jet_suit.png";
-        }
-
-        @Override
-        public void onArmorTick(ItemStack stack, Level world, Player player) {
-            Methods.extractArmorOxygenUsingTimer(stack, player);
         }
     }
 

@@ -1,11 +1,14 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -18,9 +21,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
@@ -185,5 +190,47 @@ public class LanderEntity extends VehicleEntity {
 
 	public ItemStackHandler getInventory() {
 		return inventory;
+	}
+
+	@Override
+	public void tick() {
+		super.tick();
+		this.slowDownLander();
+	}
+
+	public Player getFirstPlayerPassenger() {
+		if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
+			Player player = (Player) this.getPassengers().get(0);
+
+			return player;
+		}
+
+		return null;
+	}
+
+	public void slowDownLander() {
+		Player player = this.getFirstPlayerPassenger();
+
+		if (player != null) {
+			if (KeyVariables.isHoldingJump(player)) {
+
+				Level level = this.level;
+				Vec3 vec = this.getDeltaMovement();
+
+				if (!this.isOnGround() && !this.isEyeInFluid(FluidTags.WATER)) {
+					if (vec.y() < -0.05) {
+						this.setDeltaMovement(vec.x(), vec.y() * 0.85, vec.z());
+					}
+
+					this.fallDistance = (float) (vec.y() * (-1) * 4.5);
+
+					if (level instanceof ServerLevel) {
+						for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
+							((ServerLevel) level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(), this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
+						}
+					}
+				}
+			}
+		}
 	}
 }

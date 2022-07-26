@@ -35,6 +35,10 @@ public class JetSuitOverlay implements IGuiOverlay {
                 modeText = JetSuit.Suit.ModeType.NORMAL.getTranslationKey();
                 chatFormatting = JetSuit.Suit.ModeType.NORMAL.getChatFormatting();
             }
+            else if (itemMode == JetSuit.Suit.ModeType.HOVER.getMode()) {
+                modeText = JetSuit.Suit.ModeType.HOVER.getTranslationKey();
+                chatFormatting = JetSuit.Suit.ModeType.HOVER.getChatFormatting();
+            }
             else if (itemMode == JetSuit.Suit.ModeType.ELYTRA.getMode()) {
                 modeText = JetSuit.Suit.ModeType.ELYTRA.getTranslationKey();
                 chatFormatting = JetSuit.Suit.ModeType.ELYTRA.getChatFormatting();

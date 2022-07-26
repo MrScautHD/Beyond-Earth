@@ -7,14 +7,17 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class KeyHandler {
-    public int key;
+    public String key;
+    public boolean condition;
 
-    public KeyHandler(int integer) {
-        this.key = integer;
+    public KeyHandler(String key, boolean condition) {
+        this.key = key;
+        this.condition = condition;
     }
 
     public KeyHandler(FriendlyByteBuf buffer) {
-        this.key = buffer.readInt();
+        this.key = buffer.readUtf();
+        this.condition = buffer.readBoolean();
     }
 
     public static KeyHandler decode(FriendlyByteBuf buffer) {
@@ -22,7 +25,8 @@ public class KeyHandler {
     }
 
     public static void encode(KeyHandler message, FriendlyByteBuf buffer) {
-        buffer.writeInt(message.key);
+        buffer.writeUtf(message.key);
+        buffer.writeBoolean(message.condition);
     }
 
     public static void handle(KeyHandler message, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -32,25 +36,31 @@ public class KeyHandler {
             Player player = context.getSender();
 
             switch (message.key) {
-                case 0:
-                    KeyMethods.rotateRocket(player, 1);
-                    KeyMethods.rotateRover(player, 1, -1);
+                case "key_up":
+                    KeyVariables.KEY_UP.put(player.getUUID(), message.condition);
                     break;
 
-                case 1:
-                    KeyMethods.rotateRocket(player, -1);
-                    KeyMethods.rotateRover(player, -1, 1);
+                case "key_down":
+                    KeyVariables.KEY_DOWN.put(player.getUUID(), message.condition);
                     break;
 
-                case 2:
-                    KeyMethods.slowDownLander(player);
+                case "key_right":
+                    KeyVariables.KEY_RIGHT.put(player.getUUID(), message.condition);
                     break;
 
-                case 3:
+                case "key_left":
+                    KeyVariables.KEY_LEFT.put(player.getUUID(), message.condition);
+                    break;
+
+                case "key_jump":
+                    KeyVariables.KEY_JUMP.put(player.getUUID(), message.condition);
+                    break;
+
+                case "rocket_start":
                     KeyMethods.startRocket(player);
                     break;
 
-                case 4:
+                case "switch_jet_suit_mode":
                     KeyMethods.switchJetSuitMode(player);
                     break;
             }
