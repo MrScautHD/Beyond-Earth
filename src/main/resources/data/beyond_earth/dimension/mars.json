@@ -9,37 +9,37 @@
         {
           "biome": "beyond_earth:mars_desert",
           "parameters": {
-            "temperature": -0.5,
+            "temperature": 0,
             "humidity": 0,
             "continentalness": 0,
-            "erosion": 0,
+            "erosion": 0.35,
             "weirdness": 0,
             "depth": 0,
-            "offset": 0.175
+            "offset": 0
           }
         },
         {
           "biome": "beyond_earth:mars_rocky_plains",
           "parameters": {
-            "temperature": -0.5,
+            "temperature": 0,
             "humidity": 0,
             "continentalness": 0,
-            "erosion": 0,
-            "weirdness": -0.25,
+            "erosion": 0.4,
+            "weirdness": 0,
             "depth": 0,
-            "offset": 0.0
+            "offset": 0
           }
         },
         {
           "biome": "beyond_earth:mars_ice_spikes",
           "parameters": {
-            "temperature": -0.5,
+            "temperature": 0,
             "humidity": 0,
             "continentalness": 0,
-            "erosion": 0,
-            "weirdness": -0.5,
+            "erosion": 0.7,
+            "weirdness": 0,
             "depth": 0,
-            "offset":0
+            "offset": 0
           }
         }
       ]
