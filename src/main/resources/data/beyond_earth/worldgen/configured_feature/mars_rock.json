@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:forest_rock",
+  "type": "beyond_earth:modified_block_blob",
   "config": {
     "state": {
       "Name": "minecraft:polished_granite"
