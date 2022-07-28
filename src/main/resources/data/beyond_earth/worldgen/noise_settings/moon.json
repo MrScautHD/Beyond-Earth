@@ -165,7 +165,7 @@
                                           "argument2": {
                                             "type": "minecraft:mul",
                                             "argument1": -0.64,
-                                            "argument2": "minecraft:overworld/sloped_cheese"
+                                            "argument2": "beyond_earth:moon_density"
                                           }
                                         },
                                         "min": 0,
