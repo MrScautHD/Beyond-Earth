@@ -105,7 +105,7 @@
                         "type": "minecraft:quarter_negative",
                         "argument": {
                           "type": "minecraft:mul",
-                          "argument1": "beyond_earth:mars_density",
+                          "argument1": "beyond_earth:mars/depth",
                           "argument2": {
                             "type": "minecraft:cache_2d",
                             "argument": "minecraft:overworld_large_biomes/factor"
@@ -166,12 +166,12 @@
                           "argument1": 0.078125,
                           "argument2": {
                             "type": "minecraft:range_choice",
-                            "input": "beyond_earth:mars_density",
+                            "input": "beyond_earth:mars/density",
                             "min_inclusive": -1000000,
                             "max_exclusive": 1.5625,
                             "when_in_range": {
                               "type": "minecraft:min",
-                              "argument1": "beyond_earth:mars_density",
+                              "argument1": "beyond_earth:mars/density",
                               "argument2": {
                                 "type": "minecraft:mul",
                                 "argument1": 5,
@@ -224,7 +224,7 @@
                                           "argument2": {
                                             "type": "minecraft:mul",
                                             "argument1": -0.64,
-                                            "argument2": "beyond_earth:mars_density"
+                                            "argument2": "beyond_earth:mars/density"
                                           }
                                         },
                                         "min": 0,
