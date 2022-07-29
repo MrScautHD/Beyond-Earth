@@ -9,7 +9,7 @@
 # Beyond Earth
 Beyond Earth is a technology and space exploration mod for modern versions of Minecraft. It allows you to build rockets capable of space travel. You can explore multiple planets throughout the Solar System, build oxygenated space stations and bases and survive in space. You've always wanted to visit other planets, and now with Beyond Earth, you can fulfill your dreams of becoming an astronaut!
 
-![grafik](https://user-images.githubusercontent.com/65916181/181699427-7fba82e8-0a84-4eb0-9288-9e660a6d822e.png)
+![grafik](https://i.imgur.com/I0ziXY4.jpg)
 
 ## Features
 - Five planets/moons in two solar systems: Moon, Mars, Venus, Mercury and Glacio
