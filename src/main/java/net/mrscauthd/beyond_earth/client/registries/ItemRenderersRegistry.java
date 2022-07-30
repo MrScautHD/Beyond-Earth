@@ -3,11 +3,11 @@ package net.mrscauthd.beyond_earth.client.registries;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier1.RocketTier1ItemRenderer;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier2.RocketTier2ItemRenderer;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier3.RocketTier3ItemRenderer;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier4.RocketTier4ItemRenderer;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rover.RoverItemRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier1.RocketTier1ItemRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier2.RocketTier2ItemRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTier3ItemRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4ItemRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverItemRenderer;
 
 @OnlyIn(Dist.CLIENT)
 public class ItemRenderersRegistry {

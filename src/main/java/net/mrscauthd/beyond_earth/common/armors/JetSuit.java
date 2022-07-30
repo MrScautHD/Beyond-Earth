@@ -23,7 +23,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.client.entities.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.NotNull;

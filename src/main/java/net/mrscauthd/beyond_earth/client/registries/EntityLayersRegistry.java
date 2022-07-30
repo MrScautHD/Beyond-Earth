@@ -5,22 +5,22 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.entities.renderers.alien.AlienModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.alienzombie.AlienZombieModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.armors.SpaceSuitModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.flag.FlagHeadModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.globe.GlobeModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.lander.LanderModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.martianraptor.MartianRaptorModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.mogler.MoglerModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.pygro.PygroModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier1.RocketTier1Model;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier2.RocketTier2Model;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier3.RocketTier3Model;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rockettier4.RocketTier4Model;
-import net.mrscauthd.beyond_earth.client.entities.renderers.rover.RoverModel;
-import net.mrscauthd.beyond_earth.client.entities.renderers.starcrawler.StarCrawlerModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.alien.AlienModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.alienzombie.AlienZombieModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.flag.FlagHeadModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.globe.GlobeModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.lander.LanderModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.martianraptor.MartianRaptorModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.mogler.MoglerModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier1.RocketTier1Model;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier2.RocketTier2Model;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTier3Model;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Model;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerModel;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class EntityLayersRegistry {

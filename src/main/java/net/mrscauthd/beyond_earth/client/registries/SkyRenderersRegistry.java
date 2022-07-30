@@ -7,8 +7,8 @@ import net.minecraftforge.client.event.RegisterDimensionSpecialEffectsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.skyrenderers.EarthOrbitSky;
-import net.mrscauthd.beyond_earth.client.skyrenderers.MoonSky;
+import net.mrscauthd.beyond_earth.client.renderers.sky.EarthOrbitSky;
+import net.mrscauthd.beyond_earth.client.renderers.sky.MoonSky;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class SkyRenderersRegistry {

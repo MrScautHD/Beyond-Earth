@@ -19,7 +19,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.client.entities.renderers.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.entities.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
