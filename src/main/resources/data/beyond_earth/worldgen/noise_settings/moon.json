@@ -108,7 +108,7 @@
                           "argument1": "beyond_earth:moon/depth",
                           "argument2": {
                             "type": "minecraft:cache_2d",
-                            "argument": "minecraft:overworld_large_biomes/factor"
+                            "argument": "beyond_earth:moon/factor"
                           }
                         }
                       }
