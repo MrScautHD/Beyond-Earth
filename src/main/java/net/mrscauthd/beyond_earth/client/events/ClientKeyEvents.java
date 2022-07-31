@@ -5,6 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.registries.NetworksRegistry;
 import net.mrscauthd.beyond_earth.client.registries.KeyMappingsRegistry;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyHandler;
@@ -22,56 +23,50 @@ public class ClientKeyEvents {
 	public static void keyPressed(InputEvent.Key event) {
 		Minecraft mc = Minecraft.getInstance();
 		Player player = mc.player;
-		int pressedKey = event.getKey();
-		int action = event.getAction();
 
 		/** UP */
-		sendKeyToServerVariable(player, pressedKey, action, mc.options.keyUp, "key_up");
+		sendKeyToServerVariable(event, player, mc.options.keyUp, "key_up", KeyVariables.isHoldingUp(player));
 
 		/** DOWN */
-		sendKeyToServerVariable(player, pressedKey, action, mc.options.keyDown, "key_down");
+		sendKeyToServerVariable(event, player, mc.options.keyDown, "key_down", KeyVariables.isHoldingDown(player));
 
 		/** RIGHT */
-		sendKeyToServerVariable(player, pressedKey, action, mc.options.keyRight, "key_right");
+		sendKeyToServerVariable(event, player, mc.options.keyRight, "key_right", KeyVariables.isHoldingRight(player));
 
 		/** LEFT */
-		sendKeyToServerVariable(player, pressedKey, action, mc.options.keyLeft, "key_left");
+		sendKeyToServerVariable(event, player, mc.options.keyLeft, "key_left", KeyVariables.isHoldingLeft(player));
 
 		/** JUMP */
-		sendKeyToServerVariable(player, pressedKey, action, mc.options.keyJump, "key_jump");
+		sendKeyToServerVariable(event, player, mc.options.keyJump, "key_jump", KeyVariables.isHoldingJump(player));
 
 		/** ROCKET START KEY */
-		sendKeyToServerMethod(player, pressedKey, action, KeyMappingsRegistry.ROCKET_START, "rocket_start");
+		sendKeyToServerMethod(event, player, KeyMappingsRegistry.ROCKET_START, "rocket_start");
 
 		/** SWITCH JET SUIT MODE KEY */
-		sendKeyToServerMethod(player, pressedKey, action, KeyMappingsRegistry.SWITCH_JET_SUIT_MODE, "switch_jet_suit_mode");
+		sendKeyToServerMethod(event, player, KeyMappingsRegistry.SWITCH_JET_SUIT_MODE, "switch_jet_suit_mode");
 	}
 
-	public static void sendKeyToServerVariable(Player player, int pressedKey, int action, KeyMapping key, String keyString) {
+	public static void sendKeyToServerVariable(InputEvent.Key event, Player player, KeyMapping key, String keyString, boolean isPressed) {
 		if (player == null) {
 			return;
 		}
 
-		if ((key.getKey().getValue() == pressedKey && action == GLFW.GLFW_RELEASE) || !key.isConflictContextAndModifierActive()) {
+		if ((key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_RELEASE && isPressed) || (!key.isConflictContextAndModifierActive() && isPressed)) {
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, false));
-			System.out.println("cancel");
-			return;
 		}
 
-		if (key.getKey().getValue() == pressedKey && action == GLFW.GLFW_PRESS) {
+		if (key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_PRESS && key.isConflictContextAndModifierActive() && !isPressed) {
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
 		}
 	}
 
-
-	public static void sendKeyToServerMethod(Player player, int pressedKey, int action, KeyMapping key, String keyString) {
+	public static void sendKeyToServerMethod(InputEvent.Key event, Player player, KeyMapping key, String keyString) {
 		if (player == null || !key.isConflictContextAndModifierActive()) {
 			return;
 		}
 
-		if ((key.getKey().getValue() == pressedKey && action == GLFW.GLFW_PRESS)) {
+		if (key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_PRESS) {
 			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
-			System.out.println("send");
 		}
 	}
 }

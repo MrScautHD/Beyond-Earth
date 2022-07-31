@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.client.registries;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -16,7 +17,14 @@ public class KeyMappingsRegistry {
 
     @SubscribeEvent
     public static void register(RegisterKeyMappingsEvent event) {
+        registerProperties();
+
         event.register(ROCKET_START);
         event.register(SWITCH_JET_SUIT_MODE);
+    }
+
+    public static void registerProperties() {
+        ROCKET_START.setKeyConflictContext(KeyConflictContext.IN_GAME);
+        SWITCH_JET_SUIT_MODE.setKeyConflictContext(KeyConflictContext.IN_GAME);
     }
 }
