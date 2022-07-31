@@ -1,8 +1,9 @@
-package net.mrscauthd.beyond_earth.client.renderers.entities.armors;
+package net.mrscauthd.beyond_earth.client.renderers.armors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
+import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -12,17 +13,25 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.armors.JetSuit;
+import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.client.rendertypes.TranslucentArmorRenderType;
+import net.mrscauthd.beyond_earth.common.util.Methods;
 
 @OnlyIn(Dist.CLIENT)
 public class JetSuitModel {
@@ -132,6 +141,47 @@ public class JetSuitModel {
             }
 
             poseStack.popPose();
+
+            /** RENDER FIRE */
+            if (Methods.isLivingInJetSuit(entity) && !entity.isOnGround()) {
+                ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
+
+                if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) != JetSuit.Suit.ModeType.DISABLED.getMode()) {
+                    this.renderFire(poseStack, this.rightArm, 0.2F, -0.75F, 2.55F, -0.49F);
+                    this.renderFire(poseStack, this.leftArm, 0.2F, -0.25F, 2.55F, -0.5F);
+
+                    this.renderFire(poseStack, this.rightLeg, 0.2F, -0.55F, 3.0F, -0.49F);
+                    this.renderFire(poseStack, this.leftLeg, 0.2F, -0.45F, 3.0F, -0.5F);
+                }
+            }
+        }
+
+        public void renderFire(PoseStack poseStack, ModelPart modelPart, float scale, float x, float y, float z) {
+            Minecraft mc = Minecraft.getInstance();
+            BlockRenderDispatcher blockRenderer = mc.getBlockRenderer();
+            MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
+
+            if (entity instanceof Player) {
+                Player player = (Player) entity;
+
+                float speed = (float) Mth.clamp(1 + player.getDeltaMovement().lengthSqr(), 1, 2);
+
+                poseStack.pushPose();
+                poseStack.translate(modelPart.x / 16.0F, modelPart.y / 16.0F, modelPart.z / 16.0F);
+
+                poseStack.scale(scale, scale, scale);
+
+                poseStack.mulPose(Vector3f.ZP.rotation(modelPart.zRot));
+                poseStack.mulPose(Vector3f.YP.rotation(modelPart.yRot));
+                poseStack.mulPose(Vector3f.XP.rotation(modelPart.xRot));
+
+                poseStack.translate(x, y, z);
+
+                poseStack.scale(1, 1 + speed, 1);
+                blockRenderer.renderSingleBlock(Blocks.SOUL_FIRE.defaultBlockState(), poseStack, bufferSource, 15728880, OverlayTexture.NO_OVERLAY);
+
+                poseStack.popPose();
+            }
         }
 
         public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {

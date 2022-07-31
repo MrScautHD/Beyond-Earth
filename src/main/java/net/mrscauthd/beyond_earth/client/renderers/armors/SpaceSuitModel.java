@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.client.renderers.entities.armors;
+package net.mrscauthd.beyond_earth.client.renderers.armors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

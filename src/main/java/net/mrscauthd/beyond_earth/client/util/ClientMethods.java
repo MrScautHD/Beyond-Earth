@@ -22,8 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.renderers.entities.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.client.renderers.entities.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
