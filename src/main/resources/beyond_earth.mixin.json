@@ -6,14 +6,14 @@
   "mixins": [
     "ItemEntityTickEnd",
     "EntityTick",
-    "BlockSet",
-    "FireworkRocketUse",
-    "TryStartFallFlying"
+    "BlockPlace",
+    "FireworkRocketItemUse",
+    "PlayerTryStartFallFlying"
   ],
   "client": [
     "SetupLivingBipedAnim",
     "RenderHandItem",
-    "BobViewer"
+    "RenderBobView"
   ],
   "injectors": {
     "defaultRequire": 1

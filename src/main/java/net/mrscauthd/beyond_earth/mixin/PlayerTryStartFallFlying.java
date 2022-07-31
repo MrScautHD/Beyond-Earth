@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
-public abstract class TryStartFallFlying {
+public abstract class PlayerTryStartFallFlying {
 
     @Inject(at = @At(value = "HEAD"), method = "tryToStartFallFlying", cancellable = true)
     private void use(CallbackInfoReturnable<Boolean> cir) {

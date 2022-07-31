@@ -4,7 +4,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.level.BlockEvent;
+import net.minecraftforge.eventbus.api.Cancelable;
 
+@Cancelable
 public class BlockSetEvent extends BlockEvent {
 
     private int p_46607_;

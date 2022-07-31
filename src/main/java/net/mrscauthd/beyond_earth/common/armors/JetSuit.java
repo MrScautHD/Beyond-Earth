@@ -5,9 +5,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -160,37 +162,48 @@ public class JetSuit {
             if (!player.getAbilities().flying) {
 
                 /** HOVER FLY */
-                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode()) {
+                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     double gravity = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).getBaseValue();
+                    Vec3 vec3 = player.getDeltaMovement();
 
-                    /** MOVE UP */
-                    if (KeyVariables.isHoldingJump(player)) {
-                        player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
+                    /** MAIN MOVEMENT */
+                    if (!player.isOnGround() && !player.isInFluidType()) {
+                        player.setDeltaMovement(vec3.x, vec3.y + gravity - 0.005, vec3.z);
                         player.resetFallDistance();
                     }
 
+                    /** MOVE UP */
+                    if (KeyVariables.isHoldingJump(player)) {
+                        player.moveRelative(2.0F, new Vec3(0, 0.008, 0));
+                    }
+
                     /** MOVE DOWN */
-                    if (player.isCrouching()) {
-                        player.moveRelative(1.2F, new Vec3(0, -0.1, 0));
+                    if (!player.isOnGround() && player.isCrouching()) {
+                        player.moveRelative(2.0F, new Vec3(0, -0.008, 0));
+
+                        if (player instanceof LocalPlayer) {
+                            LocalPlayer localPlayer = (LocalPlayer) player;
+                            localPlayer.crouching = false;
+                        }
                     }
 
                     /** MOVE FORWARD AND BACKWARD */
                     if (!player.isOnGround()) {
                         if (KeyVariables.isHoldingUp(player)) {
-                            player.moveRelative(1, new Vec3(0, 0, 0.03));
+                            player.moveRelative(1.0F, new Vec3(0, 0, 0.01));
                         }
                         else if (KeyVariables.isHoldingDown(player)) {
-                            player.moveRelative(1, new Vec3(0, 0, -0.03));
+                            player.moveRelative(1.0F, new Vec3(0, 0, -0.01));
                         }
                     }
 
                     /** MOVE SIDEWAYS */
                     if (!player.isOnGround()) {
                         if (KeyVariables.isHoldingRight(player)) {
-                            player.moveRelative(1, new Vec3(-0.03, 0, 0));
+                            player.moveRelative(1.0F, new Vec3(-0.01, 0, 0));
                         }
                         else if (KeyVariables.isHoldingLeft(player)) {
-                            player.moveRelative(1, new Vec3(0.03, 0, 0));
+                            player.moveRelative(1.0F, new Vec3(0.01, 0, 0));
                         }
                     }
                 }
@@ -206,20 +219,20 @@ public class JetSuit {
                     /** MOVE FORWARD AND BACKWARD */
                     if (!player.isOnGround()) {
                         if (KeyVariables.isHoldingUp(player)) {
-                            player.moveRelative(1, new Vec3(0, 0, 0.03));
+                            player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
                         }
                         else if (KeyVariables.isHoldingDown(player)) {
-                            player.moveRelative(1, new Vec3(0, 0, -0.03));
+                            player.moveRelative(1.0F, new Vec3(0, 0, -0.03));
                         }
                     }
 
                     /** MOVE SIDEWAYS */
                     if (!player.isOnGround()) {
                         if (KeyVariables.isHoldingRight(player)) {
-                            player.moveRelative(1, new Vec3(-0.03, 0, 0));
+                            player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
                         }
                         else if (KeyVariables.isHoldingLeft(player)) {
-                            player.moveRelative(1, new Vec3(0.03, 0, 0));
+                            player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
                         }
                     }
                 }
