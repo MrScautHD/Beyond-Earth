@@ -79,6 +79,8 @@ public class JetSuit {
 
         public static String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
 
+        public float spacePressTime = 0;
+
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
         }
@@ -156,6 +158,9 @@ public class JetSuit {
 
             /** NORMAL FLY MOVEMENT */
             this.normalFlyModeMovement(player, stack);
+
+            /** CALCULATE PRESS SPACE TIME */
+            this.calculateSpacePressTime(player, stack);
         }
 
         public void normalFlyModeMovement(Player player, ItemStack stack) {
@@ -236,6 +241,18 @@ public class JetSuit {
                         }
                     }
                 }
+            }
+        }
+
+        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
+            if (KeyVariables.isHoldingJump(player)) {
+                if (itemStack.getOrCreateTag().getInt(TAG_MODE) != ModeType.DISABLED.getMode()) {
+                    if (this.spacePressTime < 2.2) {
+                        this.spacePressTime = this.spacePressTime + 0.2F;
+                    }
+                }
+            } else if (this.spacePressTime > 0.2F) {
+                this.spacePressTime = this.spacePressTime - 0.2F;
             }
         }
 
