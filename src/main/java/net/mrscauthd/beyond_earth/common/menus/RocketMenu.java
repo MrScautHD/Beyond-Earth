@@ -12,8 +12,8 @@ import net.minecraftforge.network.IContainerFactory;
 
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
-import net.mrscauthd.beyond_earth.common.registries.ContainersRegistry;
-import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
+import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class RocketMenu {
@@ -28,7 +28,7 @@ public class RocketMenu {
 		public IRocketEntity rocket;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ContainersRegistry.ROCKET_GUI.get(), id);
+			super(ContainerRegistry.ROCKET_GUI.get(), id);
 
 			this.rocket = (IRocketEntity) inv.player.level.getEntity(extraData.readVarInt());
 
@@ -38,7 +38,7 @@ public class RocketMenu {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					if (stack.getItem() instanceof BucketItem) {
-						return ((BucketItem) stack.getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG);
+						return ((BucketItem) stack.getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG);
 					}
 					return false;
 				}

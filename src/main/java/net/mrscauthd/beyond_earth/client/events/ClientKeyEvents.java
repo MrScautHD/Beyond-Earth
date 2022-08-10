@@ -5,9 +5,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.registries.KeyMappingRegistry;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
-import net.mrscauthd.beyond_earth.common.registries.NetworksRegistry;
-import net.mrscauthd.beyond_earth.client.registries.KeyMappingsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyHandler;
 import org.lwjgl.glfw.GLFW;
 
@@ -40,10 +40,10 @@ public class ClientKeyEvents {
 		sendKeyToServerVariable(event, player, mc.options.keyJump, "key_jump", KeyVariables.isHoldingJump(player));
 
 		/** ROCKET START KEY */
-		sendKeyToServerMethod(event, player, KeyMappingsRegistry.ROCKET_START, "rocket_start");
+		sendKeyToServerMethod(event, player, KeyMappingRegistry.ROCKET_START, "rocket_start");
 
 		/** SWITCH JET SUIT MODE KEY */
-		sendKeyToServerMethod(event, player, KeyMappingsRegistry.SWITCH_JET_SUIT_MODE, "switch_jet_suit_mode");
+		sendKeyToServerMethod(event, player, KeyMappingRegistry.SWITCH_JET_SUIT_MODE, "switch_jet_suit_mode");
 	}
 
 	public static void sendKeyToServerVariable(InputEvent.Key event, Player player, KeyMapping key, String keyString, boolean isPressed) {
@@ -52,11 +52,11 @@ public class ClientKeyEvents {
 		}
 
 		if ((key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_RELEASE && isPressed) || (!key.isConflictContextAndModifierActive() && isPressed)) {
-			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, false));
+			NetworkRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, false));
 		}
 
 		if (key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_PRESS && key.isConflictContextAndModifierActive() && !isPressed) {
-			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
+			NetworkRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
 		}
 	}
 
@@ -66,7 +66,7 @@ public class ClientKeyEvents {
 		}
 
 		if (key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_PRESS) {
-			NetworksRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
+			NetworkRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
 		}
 	}
 }

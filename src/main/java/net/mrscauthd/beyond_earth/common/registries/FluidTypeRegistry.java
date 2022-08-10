@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.fluids.types.FuelFluidType;
 import net.mrscauthd.beyond_earth.common.fluids.types.OilFluidType;
 
-public class FluidTypesRegistry {
+public class FluidTypeRegistry {
     public static final DeferredRegister<FluidType> FLUID_TYPES = DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, BeyondEarth.MODID);
 
     public static final RegistryObject<FluidType> FUEL_TYPE = FLUID_TYPES.register("fuel", () -> new FuelFluidType(FluidType.Properties.create()

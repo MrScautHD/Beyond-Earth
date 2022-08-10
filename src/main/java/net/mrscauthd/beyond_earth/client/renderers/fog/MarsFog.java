@@ -22,7 +22,7 @@ public class MarsFog {
             float renderDistance = mc.gameRenderer.getRenderDistance();
 
             if (fogLevel > 0.0F) {
-                float farPlaneDistance = renderDistance - (fogLevel * renderDistance);
+                float farPlaneDistance = Math.max(renderDistance - (fogLevel * renderDistance), 10);
 
                 event.setNearPlaneDistance(event.getMode() == FogRenderer.FogMode.FOG_SKY ? 0.0F : farPlaneDistance * 0.9F);
                 event.setFarPlaneDistance(farPlaneDistance + 0.8F);

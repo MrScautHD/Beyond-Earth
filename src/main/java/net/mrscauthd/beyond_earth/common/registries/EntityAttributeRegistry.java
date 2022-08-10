@@ -13,12 +13,12 @@ public class EntityAttributeRegistry {
 
     @SubscribeEvent
     public static void register(EntityAttributeCreationEvent event) {
-        event.put(EntitiesRegistry.ALIEN.get(), AlienEntity.setCustomAttributes().build());
-        event.put(EntitiesRegistry.PYGRO.get(), PygroEntity.setCustomAttributes().build());
-        event.put(EntitiesRegistry.PYGRO_BRUTE.get(), PygroBruteEntity.setCustomAttributes().build());
-        event.put(EntitiesRegistry.MOGLER.get(), MoglerEntity.setCustomAttributes().build());
-        event.put(EntitiesRegistry.MARTIAN_RAPTOR.get(), MartianRaptor.setCustomAttributes().build());
-        event.put(EntitiesRegistry.ALIEN_ZOMBIE.get(), AlienZombieEntity.setCustomAttributes().build());
-        event.put(EntitiesRegistry.STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.ALIEN.get(), AlienEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.PYGRO.get(), PygroEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.PYGRO_BRUTE.get(), PygroBruteEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.MOGLER.get(), MoglerEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.MARTIAN_RAPTOR.get(), MartianRaptor.setCustomAttributes().build());
+        event.put(EntityRegistry.ALIEN_ZOMBIE.get(), AlienZombieEntity.setCustomAttributes().build());
+        event.put(EntityRegistry.STAR_CRAWLER.get(), StarCrawlerEntity.setCustomAttributes().build());
     }
 }

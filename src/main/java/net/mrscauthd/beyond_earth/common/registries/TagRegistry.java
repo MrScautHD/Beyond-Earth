@@ -7,7 +7,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.material.Fluid;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
-public class TagsRegistry {
+public class TagRegistry {
 
     /** ENTITIES */
     public static final TagKey<EntityType<?>> ENTITY_OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));

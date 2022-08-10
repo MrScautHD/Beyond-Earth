@@ -10,14 +10,14 @@ import net.mrscauthd.beyond_earth.client.screens.LanderScreen;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
 import net.mrscauthd.beyond_earth.client.screens.RocketScreen;
 import net.mrscauthd.beyond_earth.client.screens.RoverScreen;
-import net.mrscauthd.beyond_earth.common.registries.ContainersRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class ScreensRegistry {
+public class ScreenRegistry {
 
     @SubscribeEvent
     public static void register(FMLClientSetupEvent event) {
-        MenuScreens.register(ContainersRegistry.ROCKET_GUI.get(), RocketScreen::new);
+        MenuScreens.register(ContainerRegistry.ROCKET_GUI.get(), RocketScreen::new);
         //TODO ADD BACK LAITER
 		/*
 		MenuScreens.register(ScreensRegistry.COMPRESSOR_GUI.get(), CompressorScreen::new);
@@ -29,8 +29,8 @@ public class ScreensRegistry {
 		MenuScreens.register(ScreensRegistry.WATER_PUMP_GUI.get(), WaterPumpScreen::new);
 		MenuScreens.register(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);
 		*/
-        MenuScreens.register(ContainersRegistry.LANDER_GUI.get(), LanderScreen::new);
-        MenuScreens.register(ContainersRegistry.ROVER_GUI.get(), RoverScreen::new);
-        MenuScreens.register(ContainersRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionScreen::new);
+        MenuScreens.register(ContainerRegistry.LANDER_GUI.get(), LanderScreen::new);
+        MenuScreens.register(ContainerRegistry.ROVER_GUI.get(), RoverScreen::new);
+        MenuScreens.register(ContainerRegistry.PLANET_SELECTION_GUI.get(), PlanetSelectionScreen::new);
     }
 }

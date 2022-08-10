@@ -9,7 +9,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.fluids.FuelFluid;
 import net.mrscauthd.beyond_earth.common.fluids.OilFluid;
 
-public class FluidsRegistry {
+public class FluidRegistry {
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, BeyondEarth.MODID);
 

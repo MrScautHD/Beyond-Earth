@@ -7,7 +7,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.pygro.PygroMobsSensor;
 
-public class SensorsRegistry {
+public class SensorRegistry {
 
     public static final DeferredRegister<SensorType<?>> SENSOR = DeferredRegister.create(ForgeRegistries.SENSOR_TYPES, BeyondEarth.MODID);
 

@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMe
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 
-public class ContainersRegistry {
+public class ContainerRegistry {
 
     public static final DeferredRegister<MenuType<?>> CONTAINERS = DeferredRegister.create(ForgeRegistries.MENU_TYPES, BeyondEarth.MODID);
 

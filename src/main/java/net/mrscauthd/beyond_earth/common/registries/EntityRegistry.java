@@ -11,7 +11,7 @@ import net.mrscauthd.beyond_earth.common.entities.*;
 import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
 import net.mrscauthd.beyond_earth.common.entities.pygro.PygroEntity;
 
-public class EntitiesRegistry {
+public class EntityRegistry {
 
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, BeyondEarth.MODID);
 

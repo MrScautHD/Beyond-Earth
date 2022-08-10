@@ -7,7 +7,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.world.structures.LargeJigsawStructure;
 
-public class StructuresRegistry {
+public class StructureRegistry {
 
     public static final DeferredRegister<StructureType<?>> STRUCTURES = DeferredRegister.create(Registry.STRUCTURE_TYPE_REGISTRY, BeyondEarth.MODID);
 

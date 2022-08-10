@@ -6,7 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.registries.ContainersRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
 public class PlanetSelectionMenu {
 
@@ -21,7 +21,7 @@ public class PlanetSelectionMenu {
         private Player player;
 
         public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-            super(ContainersRegistry.PLANET_SELECTION_GUI.get(), id);
+            super(ContainerRegistry.PLANET_SELECTION_GUI.get(), id);
             this.tier = extraData.readInt();
             this.player = inv.player;
         }

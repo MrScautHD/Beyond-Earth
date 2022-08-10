@@ -22,9 +22,9 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidType;
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
-import net.mrscauthd.beyond_earth.common.registries.FluidTypesRegistry;
-import net.mrscauthd.beyond_earth.common.registries.FluidsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
+import net.mrscauthd.beyond_earth.common.registries.FluidTypeRegistry;
+import net.mrscauthd.beyond_earth.common.registries.FluidRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 import javax.annotation.Nullable;
@@ -32,12 +32,12 @@ import javax.annotation.Nullable;
 public class OilFluid extends FlowingFluid {
     @Override
     public Fluid getFlowing() {
-        return FluidsRegistry.FLOWING_OIL.get();
+        return FluidRegistry.FLOWING_OIL.get();
     }
 
     @Override
     public Fluid getSource() {
-        return FluidsRegistry.OIL_STILL.get();
+        return FluidRegistry.OIL_STILL.get();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class OilFluid extends FlowingFluid {
 
     @Override
     protected BlockState createLegacyBlock(FluidState p_76136_) {
-        return BlocksRegistry.OIL_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, Integer.valueOf(getLegacyLevel(p_76136_)));
+        return BlockRegistry.OIL_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, Integer.valueOf(getLegacyLevel(p_76136_)));
     }
 
     @Override
@@ -96,7 +96,7 @@ public class OilFluid extends FlowingFluid {
 
     @Override
     public boolean isSame(Fluid fluidIn) {
-        return fluidIn == FluidsRegistry.OIL_STILL.get() || fluidIn == FluidsRegistry.FLOWING_OIL.get();
+        return fluidIn == FluidRegistry.OIL_STILL.get() || fluidIn == FluidRegistry.FLOWING_OIL.get();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class OilFluid extends FlowingFluid {
 
     @Override
     public FluidType getFluidType() {
-        return FluidTypesRegistry.OIL_TYPE.get();
+        return FluidTypeRegistry.OIL_TYPE.get();
     }
 
     public static class Flowing extends OilFluid {

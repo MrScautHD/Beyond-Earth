@@ -21,9 +21,9 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidType;
-import net.mrscauthd.beyond_earth.common.registries.FluidTypesRegistry;
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
-import net.mrscauthd.beyond_earth.common.registries.FluidsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.FluidTypeRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
+import net.mrscauthd.beyond_earth.common.registries.FluidRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 import javax.annotation.Nullable;
@@ -31,12 +31,12 @@ import javax.annotation.Nullable;
 public class FuelFluid extends FlowingFluid {
 	@Override
 	public Fluid getFlowing() {
-		return FluidsRegistry.FLOWING_FUEL.get();
+		return FluidRegistry.FLOWING_FUEL.get();
 	}
 
 	@Override
 	public Fluid getSource() {
-		return FluidsRegistry.FUEL_STILL.get();
+		return FluidRegistry.FUEL_STILL.get();
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class FuelFluid extends FlowingFluid {
 
 	@Override
 	protected BlockState createLegacyBlock(FluidState p_76136_) {
-		return BlocksRegistry.FUEL_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, Integer.valueOf(getLegacyLevel(p_76136_)));
+		return BlockRegistry.FUEL_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, Integer.valueOf(getLegacyLevel(p_76136_)));
 	}
 
 	@Override
@@ -95,7 +95,7 @@ public class FuelFluid extends FlowingFluid {
 
 	@Override
 	public boolean isSame(Fluid fluidIn) {
-		return fluidIn == FluidsRegistry.FUEL_STILL.get() || fluidIn == FluidsRegistry.FLOWING_FUEL.get();
+		return fluidIn == FluidRegistry.FUEL_STILL.get() || fluidIn == FluidRegistry.FLOWING_FUEL.get();
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class FuelFluid extends FlowingFluid {
 
 	@Override
 	protected boolean canBeReplacedWith(FluidState p_76127_, BlockGetter p_76128_, BlockPos p_76129_, Fluid p_76130_, Direction p_76131_) {
-		return p_76131_ == Direction.DOWN && p_76127_.getFluidType() != FluidTypesRegistry.FUEL_TYPE.get();
+		return p_76131_ == Direction.DOWN && p_76127_.getFluidType() != FluidTypeRegistry.FUEL_TYPE.get();
 	}
 
 	@Override
@@ -120,7 +120,7 @@ public class FuelFluid extends FlowingFluid {
 
 	@Override
 	public FluidType getFluidType() {
-		return FluidTypesRegistry.FUEL_TYPE.get();
+		return FluidTypeRegistry.FUEL_TYPE.get();
 	}
 
 	public static class Flowing extends FuelFluid {

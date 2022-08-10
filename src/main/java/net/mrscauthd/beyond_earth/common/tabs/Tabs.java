@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.common.tabs;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 public class Tabs {
@@ -37,19 +37,19 @@ public class Tabs {
 	public static CreativeModeTab tab_flags = new CreativeModeTab("tab_flags") {
 		@Override
 		public ItemStack makeIcon() {
-			return new ItemStack(BlocksRegistry.FLAG_PURPLE_BLOCK.get(), 1);
+			return new ItemStack(BlockRegistry.FLAG_PURPLE_BLOCK.get(), 1);
 		}
 	};
 	public static CreativeModeTab tab_globes = new CreativeModeTab("tab_globes") {
 		@Override
 		public ItemStack makeIcon() {
-			return new ItemStack(BlocksRegistry.GLACIO_GLOBE_BLOCK.get(), 1);
+			return new ItemStack(BlockRegistry.GLACIO_GLOBE_BLOCK.get(), 1);
 		}
 	};
 	public static CreativeModeTab tab_blocks = new CreativeModeTab("tab_blocks") {
 		@Override
 		public ItemStack makeIcon() {
-			return new ItemStack(BlocksRegistry.MOON_IRON_ORE.get(), 1);
+			return new ItemStack(BlockRegistry.MOON_IRON_ORE.get(), 1);
 		}
 	};
 	public static CreativeModeTab tab_spawn_eggs = new CreativeModeTab("tab_spawn_eggs") {

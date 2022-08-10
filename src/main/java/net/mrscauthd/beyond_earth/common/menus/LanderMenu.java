@@ -10,7 +10,7 @@ import net.minecraftforge.items.*;
 import net.minecraftforge.network.IContainerFactory;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
-import net.mrscauthd.beyond_earth.common.registries.ContainersRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class LanderMenu {
@@ -25,7 +25,7 @@ public class LanderMenu {
 		LanderEntity lander;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
-			super(ContainersRegistry.LANDER_GUI.get(), id);
+			super(ContainerRegistry.LANDER_GUI.get(), id);
 
 			this.lander = (LanderEntity) inv.player.level.getEntity(extraData.readVarInt());
 

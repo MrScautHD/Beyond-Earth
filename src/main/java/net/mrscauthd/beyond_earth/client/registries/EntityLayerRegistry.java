@@ -23,7 +23,7 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerModel;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class EntityLayersRegistry {
+public class EntityLayerRegistry {
 
     @SubscribeEvent
     public static void register(EntityRenderersEvent.RegisterLayerDefinitions event) {

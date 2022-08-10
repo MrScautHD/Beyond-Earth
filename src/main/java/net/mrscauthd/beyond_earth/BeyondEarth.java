@@ -27,22 +27,22 @@ public class BeyondEarth {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC, "beyond_earth-common.toml");
 
 		/** NETWORK REGISTRIES */
-		NetworksRegistry.register();
+		NetworkRegistry.register();
 
 		/** DEFAULT REGISTRIES */
 		ItemsRegistry.ITEMS.register(bus);
-		BlocksRegistry.BLOCKS.register(bus);
-		FluidTypesRegistry.FLUID_TYPES.register(bus);
-		FluidsRegistry.FLUIDS.register(bus);
-		EntitiesRegistry.ENTITIES.register(bus);
-		BlockEntitiesRegistry.BLOCK_ENTITIES.register(bus);
-		PaintingsRegistry.PAINTINGS.register(bus);
-		SensorsRegistry.SENSOR.register(bus);
-		SoundsRegistry.SOUNDS.register(bus);
-		EffectsRegistry.EFFECTS.register(bus);
-		ParticlesRegistry.PARTICLES.register(bus);
-		ContainersRegistry.CONTAINERS.register(bus);
-		StructuresRegistry.STRUCTURES.register(bus);
+		BlockRegistry.BLOCKS.register(bus);
+		FluidTypeRegistry.FLUID_TYPES.register(bus);
+		FluidRegistry.FLUIDS.register(bus);
+		EntityRegistry.ENTITIES.register(bus);
+		BlockEntityRegistry.BLOCK_ENTITIES.register(bus);
+		PaintingRegistry.PAINTINGS.register(bus);
+		SensorRegistry.SENSOR.register(bus);
+		SoundRegistry.SOUNDS.register(bus);
+		EffectRegistry.EFFECTS.register(bus);
+		ParticleRegistry.PARTICLES.register(bus);
+		ContainerRegistry.CONTAINERS.register(bus);
+		StructureRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
 	}
 }

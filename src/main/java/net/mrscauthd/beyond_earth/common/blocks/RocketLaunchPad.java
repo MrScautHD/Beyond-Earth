@@ -21,7 +21,7 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +105,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             for (int f2 = z; f2 < z + 3; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
 
-                flag1.add(level.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()));
+                flag1.add(level.getBlockState(pos2).is(BlockRegistry.ROCKET_LAUNCH_PAD.get()));
             }
         }
 
@@ -114,7 +114,7 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
             for (int f2 = z2; f2 < z2 + 5; f2++) {
                 BlockPos pos2 = new BlockPos(f1, y, f2);
 
-                if (level.getBlockState(pos2).is(BlocksRegistry.ROCKET_LAUNCH_PAD.get()) && !pos2.equals(pos)) {
+                if (level.getBlockState(pos2).is(BlockRegistry.ROCKET_LAUNCH_PAD.get()) && !pos2.equals(pos)) {
                     flag2.add(level.getBlockState(pos2).getValue(STAGE));
                 }
             }

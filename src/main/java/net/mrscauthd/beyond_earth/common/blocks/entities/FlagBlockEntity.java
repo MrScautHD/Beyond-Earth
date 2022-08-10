@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.common.registries.BlockEntitiesRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 
 public class FlagBlockEntity extends BlockEntity {
 
@@ -24,7 +24,7 @@ public class FlagBlockEntity extends BlockEntity {
     private GameProfile owner;
 
     public FlagBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.FLAG_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

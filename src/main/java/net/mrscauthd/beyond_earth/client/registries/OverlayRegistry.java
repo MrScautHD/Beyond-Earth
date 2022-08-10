@@ -8,7 +8,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.overlays.*;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class OverlaysRegistry {
+public class OverlayRegistry {
 
     @SubscribeEvent
     public static void register(RegisterGuiOverlaysEvent event) {

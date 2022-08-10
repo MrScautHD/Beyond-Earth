@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.world.processors.StructureVoidProcessor;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class StructureProcessorsRegistry {
+public class StructureProcessorRegistry {
 
     /** STRUCTURE VOID PROCESSOR */
     public static final StructureProcessorType<StructureVoidProcessor> STRUCTURE_VOID_PROCESSOR = () -> StructureVoidProcessor.CODEC;

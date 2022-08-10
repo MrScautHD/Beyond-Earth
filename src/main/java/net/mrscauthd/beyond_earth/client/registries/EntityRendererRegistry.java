@@ -23,41 +23,41 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTi
 import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Renderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerRenderer;
-import net.mrscauthd.beyond_earth.common.registries.BlockEntitiesRegistry;
-import net.mrscauthd.beyond_earth.common.registries.EntitiesRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class EntityRenderersRegistry {
+public class EntityRendererRegistry {
 
     @SubscribeEvent
     public static void register(EntityRenderersEvent.RegisterRenderers event) {
         /** MOBS */
-        event.registerEntityRenderer(EntitiesRegistry.ALIEN.get(), AlienRenderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.ALIEN_ZOMBIE.get(), AlienZombieRenderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.STAR_CRAWLER.get(), StarCrawlerRenderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.PYGRO.get(), (p_174068_) -> {
+        event.registerEntityRenderer(EntityRegistry.ALIEN.get(), AlienRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ALIEN_ZOMBIE.get(), AlienZombieRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.STAR_CRAWLER.get(), StarCrawlerRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.PYGRO.get(), (p_174068_) -> {
             return new PygroRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_INNER_ARMOR, ModelLayers.PIGLIN_OUTER_ARMOR);
         });
-        event.registerEntityRenderer(EntitiesRegistry.PYGRO_BRUTE.get(), (p_174068_) -> {
+        event.registerEntityRenderer(EntityRegistry.PYGRO_BRUTE.get(), (p_174068_) -> {
             return new PygroBruteRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_BRUTE_INNER_ARMOR, ModelLayers.PIGLIN_BRUTE_OUTER_ARMOR);
         });
-        event.registerEntityRenderer(EntitiesRegistry.MOGLER.get(), MoglerRenderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.MARTIAN_RAPTOR.get(), MartianRaptorRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.MOGLER.get(), MoglerRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.MARTIAN_RAPTOR.get(), MartianRaptorRenderer::new);
 
         /** PROJECT TILES */
-        event.registerEntityRenderer(EntitiesRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
+        event.registerEntityRenderer(EntityRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
         /** VEHICLES */
-        event.registerEntityRenderer(EntitiesRegistry.TIER_1_ROCKET.get(), RocketTier1Renderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.TIER_2_ROCKET.get(), RocketTier2Renderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.TIER_3_ROCKET.get(), RocketTier3Renderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.TIER_4_ROCKET.get(), RocketTier4Renderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.LANDER.get(), LanderRenderer::new);
-        event.registerEntityRenderer(EntitiesRegistry.ROVER.get(), RoverRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_1_ROCKET.get(), RocketTier1Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_2_ROCKET.get(), RocketTier2Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_3_ROCKET.get(), RocketTier3Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_4_ROCKET.get(), RocketTier4Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.ROVER.get(), RoverRenderer::new);
 
         /** BLOCK ENTITIES */
-        event.registerBlockEntityRenderer(BlockEntitiesRegistry.FLAG_BLOCK_ENTITY.get(), FlagHeadRenderer::new);
-        event.registerBlockEntityRenderer(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityRegistry.FLAG_BLOCK_ENTITY.get(), FlagHeadRenderer::new);
+        event.registerBlockEntityRenderer(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
         //TODO ADD IT BACK
         //event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
     }

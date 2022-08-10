@@ -23,8 +23,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.common.registries.EntitiesRegistry;
-import net.mrscauthd.beyond_earth.client.registries.ItemRenderersRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
+import net.mrscauthd.beyond_earth.client.registries.ItemRendererRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -65,7 +65,7 @@ public class RoverItem extends VehicleItem {
         BlockPlaceContext blockplacecontext = new BlockPlaceContext(context);
         BlockPos blockpos = blockplacecontext.getClickedPos();
         Vec3 vec3 = Vec3.atBottomCenterOf(blockpos);
-        AABB aabb = EntitiesRegistry.ROVER.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+        AABB aabb = EntityRegistry.ROVER.get().getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
         if (level.noCollision(aabb)) {
 
@@ -73,7 +73,7 @@ public class RoverItem extends VehicleItem {
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
             if (entities.isEmpty()) {
-                RoverEntity rover = new RoverEntity(EntitiesRegistry.ROVER.get(), world);
+                RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), world);
 
                 rover.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
                 double d0 = this.getYOffset(world, pos, true, rover.getBoundingBox());
@@ -108,7 +108,7 @@ public class RoverItem extends VehicleItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return ItemRenderersRegistry.ROVER_ITEM_RENDERER;
+                return ItemRendererRegistry.ROVER_ITEM_RENDERER;
             }
         });
     }

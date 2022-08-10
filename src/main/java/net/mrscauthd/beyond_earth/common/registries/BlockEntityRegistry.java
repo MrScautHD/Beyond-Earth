@@ -8,7 +8,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
-public class BlockEntitiesRegistry {
+public class BlockEntityRegistry {
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BeyondEarth.MODID);
 
@@ -27,8 +27,8 @@ public class BlockEntitiesRegistry {
 */
 
     /** BLOCK ENTITIES (Globes) */
-    public static final RegistryObject<BlockEntityType<GlobeTileEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITIES.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new, BlocksRegistry.EARTH_GLOBE_BLOCK.get(), BlocksRegistry.MOON_GLOBE_BLOCK.get(), BlocksRegistry.MARS_GLOBE_BLOCK.get(), BlocksRegistry.MERCURY_GLOBE_BLOCK.get(), BlocksRegistry.VENUS_GLOBE_BLOCK.get(), BlocksRegistry.GLACIO_GLOBE_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<GlobeTileEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITIES.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new, BlockRegistry.EARTH_GLOBE_BLOCK.get(), BlockRegistry.MOON_GLOBE_BLOCK.get(), BlockRegistry.MARS_GLOBE_BLOCK.get(), BlockRegistry.MERCURY_GLOBE_BLOCK.get(), BlockRegistry.VENUS_GLOBE_BLOCK.get(), BlockRegistry.GLACIO_GLOBE_BLOCK.get()).build(null));
 
     /** BLOCK ENTITIES (Flags) */
-    public static final RegistryObject<BlockEntityType<FlagBlockEntity>> FLAG_BLOCK_ENTITY = BLOCK_ENTITIES.register("flag", () -> BlockEntityType.Builder.of(FlagBlockEntity::new, BlocksRegistry.FLAG_BLOCK.get(), BlocksRegistry.FLAG_BLUE_BLOCK.get(), BlocksRegistry.FLAG_BROWN_BLOCK.get(), BlocksRegistry.FLAG_CYAN_BLOCK.get(), BlocksRegistry.FLAG_GRAY_BLOCK.get(), BlocksRegistry.FLAG_GRAY_BLOCK.get(), BlocksRegistry.FLAG_GREEN_BLOCK.get(), BlocksRegistry.FLAG_LIGHT_BLUE_BLOCK.get(), BlocksRegistry.FLAG_LIME_BLOCK.get(), BlocksRegistry.FLAG_MAGENTA_BLOCk.get(), BlocksRegistry.FLAG_ORANGE_BLOCK.get(), BlocksRegistry.FLAG_PINK_BLOCK.get(), BlocksRegistry.FLAG_PURPLE_BLOCK.get(), BlocksRegistry.FLAG_RED_BLOCK.get(), BlocksRegistry.FLAG_YELLOW_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<FlagBlockEntity>> FLAG_BLOCK_ENTITY = BLOCK_ENTITIES.register("flag", () -> BlockEntityType.Builder.of(FlagBlockEntity::new, BlockRegistry.FLAG_BLOCK.get(), BlockRegistry.FLAG_BLUE_BLOCK.get(), BlockRegistry.FLAG_BROWN_BLOCK.get(), BlockRegistry.FLAG_CYAN_BLOCK.get(), BlockRegistry.FLAG_GRAY_BLOCK.get(), BlockRegistry.FLAG_GRAY_BLOCK.get(), BlockRegistry.FLAG_GREEN_BLOCK.get(), BlockRegistry.FLAG_LIGHT_BLUE_BLOCK.get(), BlockRegistry.FLAG_LIME_BLOCK.get(), BlockRegistry.FLAG_MAGENTA_BLOCk.get(), BlockRegistry.FLAG_ORANGE_BLOCK.get(), BlockRegistry.FLAG_PINK_BLOCK.get(), BlockRegistry.FLAG_PURPLE_BLOCK.get(), BlockRegistry.FLAG_RED_BLOCK.get(), BlockRegistry.FLAG_YELLOW_BLOCK.get()).build(null));
 }

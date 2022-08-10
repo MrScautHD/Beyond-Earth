@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
 import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
 import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
 
-public class BlocksRegistry {
+public class BlockRegistry {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BeyondEarth.MODID);
 
@@ -152,8 +152,8 @@ public class BlocksRegistry {
 
     /** FLUID BLOCKS */
     //FUEL
-    public static final RegistryObject<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel",() -> new LiquidBlock(FluidsRegistry.FUEL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noLootTable()));
+    public static final RegistryObject<LiquidBlock> FUEL_BLOCK = BLOCKS.register("fuel",() -> new LiquidBlock(FluidRegistry.FUEL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noLootTable()));
 
     //OIL
-    public static final RegistryObject<LiquidBlock> OIL_BLOCK = BLOCKS.register("oil",() -> new LiquidBlock(FluidsRegistry.OIL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noLootTable()));
+    public static final RegistryObject<LiquidBlock> OIL_BLOCK = BLOCKS.register("oil",() -> new LiquidBlock(FluidRegistry.OIL_STILL, Block.Properties.of(Material.WATER).noCollission().strength(100f).noLootTable()));
 }

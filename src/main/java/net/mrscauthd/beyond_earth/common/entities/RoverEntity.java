@@ -46,7 +46,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
-import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 import javax.annotation.Nonnull;
@@ -348,7 +348,7 @@ public class RoverEntity extends VehicleEntity {
 
         //Fuel Load up
         if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {
-            if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
+            if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG)) {
                 if (this.entityData.get(FUEL) <= 2000) {
                     this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
                     this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));

@@ -12,7 +12,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
 import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
 import net.mrscauthd.beyond_earth.common.events.forge.BlockSetEvent;
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class FireSystemEvents {
@@ -35,14 +35,14 @@ public class FireSystemEvents {
             /** WALL TORCH */
             else if (block == Blocks.WALL_TORCH) {
 
-                level.setBlock(pos, BlocksRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)), 3);
+                level.setBlock(pos, BlockRegistry.WALL_COAL_TORCH_BLOCK.get().defaultBlockState().setValue(WallCoalTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)), 3);
 
                 playFireExtinguish(pos, level);
             }
 
             /** TORCH */
             else if (block == Blocks.TORCH) {
-                level.setBlock(pos, BlocksRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
+                level.setBlock(pos, BlockRegistry.COAL_TORCH_BLOCK.get().defaultBlockState(), 3);
 
                 playFireExtinguish(pos, level);
             }
@@ -50,9 +50,9 @@ public class FireSystemEvents {
             /** LANTERN */
             else if (block == Blocks.LANTERN) {
                 if (state.getValue(LanternBlock.HANGING)) {
-                    level.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
+                    level.setBlock(pos, BlockRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState().setValue(CoalLanternBlock.HANGING, true), 3);
                 } else {
-                    level.setBlock(pos, BlocksRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
+                    level.setBlock(pos, BlockRegistry.COAL_LANTERN_BLOCK.get().defaultBlockState(), 3);
                 }
 
                 playFireExtinguish(pos, level);

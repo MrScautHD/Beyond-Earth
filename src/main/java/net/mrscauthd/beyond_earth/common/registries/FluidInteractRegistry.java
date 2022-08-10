@@ -10,13 +10,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class FluidInteractionsRegistry {
+public class FluidInteractRegistry {
 
     @SubscribeEvent
     public static void register(FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            addInteraction(FluidTypesRegistry.FUEL_TYPE.get());
-            addInteraction(FluidTypesRegistry.OIL_TYPE.get());
+            addInteraction(FluidTypeRegistry.FUEL_TYPE.get());
+            addInteraction(FluidTypeRegistry.OIL_TYPE.get());
         });
     }
 

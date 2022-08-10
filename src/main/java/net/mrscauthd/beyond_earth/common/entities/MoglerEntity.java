@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.registries.EntitiesRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 
 import javax.annotation.Nullable;
 
@@ -46,7 +46,7 @@ public class MoglerEntity extends Hoglin {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_149900_, AgeableMob p_149901_) {
-        MoglerEntity moglerentity = EntitiesRegistry.MOGLER.get().create(p_149900_);
+        MoglerEntity moglerentity = EntityRegistry.MOGLER.get().create(p_149900_);
         if (moglerentity != null) {
             moglerentity.setPersistenceRequired();
         }

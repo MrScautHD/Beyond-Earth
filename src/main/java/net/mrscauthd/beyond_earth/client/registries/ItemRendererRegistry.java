@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTi
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverItemRenderer;
 
 @OnlyIn(Dist.CLIENT)
-public class ItemRenderersRegistry {
+public class ItemRendererRegistry {
 
     /** RENDERERS */
     public static final RocketTier1ItemRenderer ROCKET_TIER_1_ITEM_RENDERER = new RocketTier1ItemRenderer(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());

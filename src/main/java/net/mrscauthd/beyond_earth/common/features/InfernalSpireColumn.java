@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.ColumnFeatureConfiguration;
-import net.mrscauthd.beyond_earth.common.registries.BlocksRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 
 import javax.annotation.Nullable;
 
@@ -61,11 +61,11 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
 
                 for(BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos1.mutable(); j >= 0; --j) {
                     if (isAirOrLavaOcean(p_65168_, p_65169_, blockpos$mutableblockpos)) {
-                        this.setBlock(p_65168_, blockpos$mutableblockpos, BlocksRegistry.INFERNAL_SPIRE_BLOCK.get().defaultBlockState());
+                        this.setBlock(p_65168_, blockpos$mutableblockpos, BlockRegistry.INFERNAL_SPIRE_BLOCK.get().defaultBlockState());
                         blockpos$mutableblockpos.move(Direction.UP);
                         flag = true;
                     } else {
-                        if (!p_65168_.getBlockState(blockpos$mutableblockpos).is(BlocksRegistry.INFERNAL_SPIRE_BLOCK.get())) {
+                        if (!p_65168_.getBlockState(blockpos$mutableblockpos).is(BlockRegistry.INFERNAL_SPIRE_BLOCK.get())) {
                             break;
                         }
 

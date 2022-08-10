@@ -9,7 +9,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.registries.EffectsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 
 public class OxygenSystem {
 
@@ -20,7 +20,7 @@ public class OxygenSystem {
                 Methods.hurtLivingWithOxygenSource(entity);
             }
 
-            if (Methods.isLivingInAnySpaceSuits(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+            if (Methods.isLivingInAnySpaceSuits(entity) && !entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
 
                 ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
                 IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
@@ -35,17 +35,17 @@ public class OxygenSystem {
 
             }
 
-            if (!Methods.isLivingInAnySpaceSuits(entity) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+            if (!Methods.isLivingInAnySpaceSuits(entity) && !entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
                 entity.setAirSupply(-4);
             }
 
-            if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
+            if (entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) || entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
                 entity.setAirSupply(300);
             }
         }
 
         //Out of Space
-        if (Methods.isLivingInAnySpaceSuits(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+        if (Methods.isLivingInAnySpaceSuits(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
 
             ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
             IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
@@ -54,7 +54,7 @@ public class OxygenSystem {
             }
         }
 
-        if (entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+        if (entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
             entity.setAirSupply(300);
         }
     }

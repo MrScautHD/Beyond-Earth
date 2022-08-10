@@ -12,7 +12,7 @@ import net.mrscauthd.beyond_earth.client.renderers.sky.MarsSky;
 import net.mrscauthd.beyond_earth.client.renderers.sky.MoonSky;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-public class SkyRenderersRegistry {
+public class SkyRendererRegistry {
 
     @SubscribeEvent
     public static void register(RegisterDimensionSpecialEffectsEvent event) {

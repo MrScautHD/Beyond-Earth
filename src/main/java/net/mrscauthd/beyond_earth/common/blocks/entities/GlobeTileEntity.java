@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mrscauthd.beyond_earth.common.registries.BlockEntitiesRegistry;
+import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 
 public class GlobeTileEntity extends BlockEntity {
 
@@ -19,7 +19,7 @@ public class GlobeTileEntity extends BlockEntity {
     private float yaw0 = 0.0f;
 
     public GlobeTileEntity(BlockPos pos, BlockState state) {
-        super(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
     }
 
     @Override

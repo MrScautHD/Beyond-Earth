@@ -10,8 +10,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
-import net.mrscauthd.beyond_earth.common.registries.EntitiesRegistry;
-import net.mrscauthd.beyond_earth.client.registries.ItemRenderersRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
+import net.mrscauthd.beyond_earth.client.registries.ItemRendererRegistry;
 
 public class Tier4RocketItem extends IRocketItem {
     public Tier4RocketItem(Properties properties) {
@@ -21,17 +21,17 @@ public class Tier4RocketItem extends IRocketItem {
     @OnlyIn(Dist.CLIENT)
     @Override
     public BlockEntityWithoutLevelRenderer getRenderer() {
-        return ItemRenderersRegistry.ROCKET_TIER_4_ITEM_RENDERER;
+        return ItemRendererRegistry.ROCKET_TIER_4_ITEM_RENDERER;
     }
 
     @Override
     public EntityType getEntityType() {
-        return EntitiesRegistry.TIER_4_ROCKET.get();
+        return EntityRegistry.TIER_4_ROCKET.get();
     }
 
     @Override
     public IRocketEntity getRocket(Level level) {
-        return new RocketTier4Entity(EntitiesRegistry.TIER_4_ROCKET.get(), level);
+        return new RocketTier4Entity(EntityRegistry.TIER_4_ROCKET.get(), level);
     }
 
     @Override

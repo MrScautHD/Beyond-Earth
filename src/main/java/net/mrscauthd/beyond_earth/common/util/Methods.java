@@ -180,11 +180,11 @@ public class Methods {
     }
 
     public static void hurtLivingWithOxygenSource(LivingEntity entity) {
-        entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
+        entity.hurt(DamageSourceRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
     }
 
     public static void hurtLivingWithAcidRainSource(LivingEntity entity) {
-        entity.hurt(DamageSourcesRegistry.DAMAGE_SOURCE_ACID_RAIN, 1.0F);
+        entity.hurt(DamageSourceRegistry.DAMAGE_SOURCE_ACID_RAIN, 1.0F);
     }
 
     public static boolean isRocket(Entity entity) {
@@ -274,7 +274,7 @@ public class Methods {
             return;
         }
 
-        if (entity.getType().is(TagsRegistry.ENTITY_PLANET_FIRE_TAG)) {
+        if (entity.getType().is(TagRegistry.ENTITY_PLANET_FIRE_TAG)) {
             return;
         }
 
@@ -304,7 +304,7 @@ public class Methods {
             return;
         }
 
-        if (entity.getType().is(TagsRegistry.ENTITY_VENUS_RAIN_TAG)) {
+        if (entity.getType().is(TagRegistry.ENTITY_VENUS_RAIN_TAG)) {
             return;
         }
 
@@ -322,9 +322,9 @@ public class Methods {
             return;
         }
 
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && isSpaceLevelWithoutOxygen(level) && entity.getType().is(TagsRegistry.ENTITY_OXYGEN_TAG)) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && isSpaceLevelWithoutOxygen(level) && entity.getType().is(TagRegistry.ENTITY_OXYGEN_TAG)) {
 
-            if (!entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+            if (!entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
 
                 entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") + 1);
 
@@ -340,7 +340,7 @@ public class Methods {
         }
 
         //Out of Space
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && entity.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get())) {
+        if (Config.ENTITY_OXYGEN_SYSTEM.get() && entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
             entity.setAirSupply(300);
         }
     }
@@ -367,7 +367,7 @@ public class Methods {
         Level newLevel = serverPlayer.level;
 
         if (!newLevel.isClientSide) {
-            LanderEntity landerEntity = new LanderEntity(EntitiesRegistry.LANDER.get(), newLevel);
+            LanderEntity landerEntity = new LanderEntity(EntityRegistry.LANDER.get(), newLevel);
             landerEntity.moveTo(serverPlayer.position());
 
             CompoundTag playerTag = serverPlayer.getPersistentData();
@@ -460,7 +460,7 @@ public class Methods {
 
     //TODO REWORK THAT
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectsRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
             IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();
