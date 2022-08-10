@@ -15,8 +15,8 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.events.forge.SetRocketItemStackEvent;
 
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
-import net.mrscauthd.beyond_earth.common.registries.ParticlesRegistry;
-import net.mrscauthd.beyond_earth.common.registries.TagsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ParticleRegistry;
+import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 
 public class RocketTier1Entity extends IRocketEntity {
 
@@ -56,8 +56,8 @@ public class RocketTier1Entity extends IRocketEntity {
 		if (this.level instanceof ServerLevel) {
 			if (this.entityData.get(START_TIMER) == 200) {
 				for (ServerPlayer p : ((ServerLevel) this.level).getServer().getPlayerList().getPlayers()) {
-					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
-					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticlesRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
+					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticleRegistry.LARGE_FLAME_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 2.2, this.getZ() - vec.z, 20, 0.1, 0.1, 0.1, 0.001);
+					((ServerLevel) this.level).sendParticles(p, (ParticleOptions) ParticleRegistry.LARGE_SMOKE_PARTICLE.get(), true, this.getX() - vec.x, this.getY() - vec.y - 3.2, this.getZ() - vec.z, 10, 0.1, 0.1, 0.1, 0.04);
 				}
 			} else {
 				for (ServerPlayer p : ((ServerLevel) this.level).getServer().getPlayerList().getPlayers()) {
@@ -70,7 +70,7 @@ public class RocketTier1Entity extends IRocketEntity {
 	@Override
 	public void fillUpRocket() {
 		if (this.getInventory().getStackInSlot(0).getItem() instanceof BucketItem) {
-			if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
+			if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
 				this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
 				this.getEntityData().set(BUCKETS, 1);
 			}

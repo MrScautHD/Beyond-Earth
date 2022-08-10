@@ -8,7 +8,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.mrscauthd.beyond_earth.common.registries.StructureProcessorsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.StructureProcessorRegistry;
 
 public class StructureVoidProcessor extends StructureProcessor {
 
@@ -33,6 +33,6 @@ public class StructureVoidProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return StructureProcessorsRegistry.STRUCTURE_VOID_PROCESSOR;
+        return StructureProcessorRegistry.STRUCTURE_VOID_PROCESSOR;
     }
 }

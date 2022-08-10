@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.*;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
-import net.mrscauthd.beyond_earth.common.registries.StructuresRegistry;
+import net.mrscauthd.beyond_earth.common.registries.StructureRegistry;
 
 import java.util.Optional;
 
@@ -69,6 +69,6 @@ public class LargeJigsawStructure extends Structure {
 
     @Override
     public StructureType<?> type() {
-        return StructuresRegistry.LARGE_JIGSAW_STRUCTURE.get();
+        return StructureRegistry.LARGE_JIGSAW_STRUCTURE.get();
     }
 }

@@ -47,7 +47,7 @@ import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
-import net.mrscauthd.beyond_earth.common.registries.SoundsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -325,7 +325,7 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
             if (data.get(IRocketEntity.FUEL) == 3000) {
                 if (!data.get(IRocketEntity.ROCKET_START)) {
                     data.set(IRocketEntity.ROCKET_START, true);
-                    this.level.playSound(null, this, SoundsRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
+                    this.level.playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
                 }
             } else {
                 Methods.sendVehicleHasNoFuelMessage(player);
@@ -412,7 +412,7 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
 
             /** STOP ROCKET SOUND */
             if (player instanceof ServerPlayer) {
-                Methods.stopSound((ServerPlayer) player, SoundsRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
+                Methods.stopSound((ServerPlayer) player, SoundRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
             }
 
             MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(player, this));
