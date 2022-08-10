@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -9,7 +10,6 @@ import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.EntitiesRegistry;
 
@@ -27,6 +27,10 @@ public class MoglerEntity extends Hoglin {
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)
                 .add(Attributes.ATTACK_KNOCKBACK, 0.6)
                 .add(Attributes.ATTACK_DAMAGE, 6);
+    }
+
+    public static boolean checkMoglerSpawnRules(EntityType<MoglerEntity> p_219182_, LevelAccessor p_219183_, MobSpawnType p_219184_, BlockPos p_219185_, RandomSource p_219186_) {
+        return !p_219183_.getBlockState(p_219185_.below()).is(Blocks.NETHER_WART_BLOCK);
     }
 
     @Override
@@ -47,17 +51,6 @@ public class MoglerEntity extends Hoglin {
             moglerentity.setPersistenceRequired();
         }
         return moglerentity;
-    }
-
-    @Override
-    public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
-        BlockState blockState = level.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ()));
-
-        if (blockState.is(Blocks.LAVA) || blockState.is(Blocks.AIR)) {
-            return false;
-        }
-
-        return super.checkSpawnRules(p_21686_, p_21687_);
     }
 
     @Override

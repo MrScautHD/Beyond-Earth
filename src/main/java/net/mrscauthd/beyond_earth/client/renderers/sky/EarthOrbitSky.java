@@ -110,7 +110,7 @@ public class EarthOrbitSky extends DimensionSpecialEffects {
                 SkyHelper.drawPlanetWithLight(SkyHelper.EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, yScale, yScale * 3, 30, false);
 
                 /** SHADER COLOR */
-                SkyHelper.setUpShaderColor(mc, r, g, b);
+                SkyHelper.setupShaderColor(mc, r, g, b);
 
                 /** DISABLE DEPTH MASK */
                 RenderSystem.depthMask(true);

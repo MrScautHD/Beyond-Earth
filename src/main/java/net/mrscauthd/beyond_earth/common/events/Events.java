@@ -109,8 +109,6 @@ public class Events {
             if (LevelRegistry.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
-            } else if (Methods.isLevel(level, LevelRegistry.VENUS)) {
-                level.thunderLevel = 0;
             }
         }
     }

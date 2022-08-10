@@ -58,8 +58,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 	public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/milky_way.png");
 
-	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/sun.png");
-	public static final ResourceLocation BLUE_SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/screen/blue_sun.png");
+	public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/sun.png");
 	public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars.png");
 	public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
 	public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/venus.png");
@@ -243,13 +242,8 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		this.renderRotatedObjects(poseStack);
 
 		/** SUN RENDERER */
-		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
+		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 7)) {
 			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
-		}
-
-		/** BLUE SUN RENDERER */
-		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
-			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, BLUE_SUN_TEXTURE);
 		}
 
 		/** SMALL MENU RENDERER */
@@ -259,7 +253,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		}
 
 		/** LARGE MENU RENDERER */
-		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5)  || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
+		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5) || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
 			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
 			this.renderScroller(poseStack, 210);
 		}

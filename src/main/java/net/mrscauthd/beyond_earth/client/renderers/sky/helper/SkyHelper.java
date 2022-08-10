@@ -20,12 +20,20 @@ public class SkyHelper {
 
     /** PLANETS */
     public static final ResourceLocation WHITE_SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/white_sun.png");
-    public static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+    public static final ResourceLocation SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/sun.png");
     public static final ResourceLocation MOON_PHASE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/moon_phases.png");
+    public static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
+    public static final ResourceLocation MARS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars.png");
+    public static final ResourceLocation PHOBOS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/phobos.png");
+    public static final ResourceLocation DEIMOS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/deimos.png");
 
     /** LIGHTS */
     public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_light.png");
     public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_phases_light.png");
+
+    /** RAIN */
+    public static final ResourceLocation MARS_DUST = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars_dust.png");
+    public static final ResourceLocation SNOW = new ResourceLocation("textures/environment/snow.png");
 
     public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, Runnable setupFog, boolean blend) {
         if (blend) {
@@ -84,6 +92,11 @@ public class SkyHelper {
         }
     }
 
+    public static void drawSunWithLight(ResourceLocation texture, Vec3 sunColor, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, boolean blend) {
+        drawPlanet(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, blend);
+        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, true);
+    }
+
     public static void drawPlanetWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, boolean blend) {
         drawPlanet(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, blend);
         drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, true);
@@ -116,7 +129,7 @@ public class SkyHelper {
         }
     }
 
-    public static void setUpSunRiseColor(PoseStack poseStack, BufferBuilder bufferBuilder, float partialTick, Minecraft mc, boolean blend) {
+    public static void setupSunRiseColor(PoseStack poseStack, BufferBuilder bufferBuilder, float partialTick, Minecraft mc, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -156,7 +169,7 @@ public class SkyHelper {
         }
     }
 
-    public static void setUpShaderColor(Minecraft mc, float r, float g, float b) {
+    public static void setupShaderColor(Minecraft mc, float r, float g, float b) {
         if (mc.level.effects().hasGround()) {
             RenderSystem.setShaderColor(r * 0.2F + 0.04F, g * 0.2F + 0.04F, b * 0.6F + 0.1F, 1.0F);
         } else {
@@ -180,6 +193,18 @@ public class SkyHelper {
             mc.levelRenderer.darkBuffer.drawWithShader(poseStack.last().pose(), projectionMatrix, shaderInstance);
             VertexBuffer.unbind();
             poseStack.popPose();
+        }
+    }
+
+    public static void setupRainSize(float[] rainSizeX, float[] rainSizeZ) {
+        for(int i = 0; i < 32; ++i) {
+            for(int j = 0; j < 32; ++j) {
+                float f9 = (float)(j - 16);
+                float f1 = (float)(i - 16);
+                float f2 = Mth.sqrt(f9 * f9 + f1 * f1);
+                rainSizeX[i << 5 | j] = -f1 / f2;
+                rainSizeZ[i << 5 | j] = f9 / f2;
+            }
         }
     }
 

@@ -1,12 +1,10 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -17,9 +15,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.common.config.Config;
 
 import net.minecraftforge.registries.ForgeRegistries;
@@ -70,17 +65,6 @@ public class StarCrawlerEntity extends Monster {
 		if (source == DamageSource.CACTUS)
 			return false;
 		return super.hurt(source, amount);
-	}
-
-	@Override
-	public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
-		BlockState blockState = level.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ()));
-
-		if (blockState.is(Blocks.LAVA) || blockState.is(Blocks.AIR)) {
-			return false;
-		}
-
-		return super.checkSpawnRules(p_21686_, p_21687_);
 	}
 
 	@Override

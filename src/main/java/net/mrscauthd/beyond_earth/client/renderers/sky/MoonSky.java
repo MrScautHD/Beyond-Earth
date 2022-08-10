@@ -70,7 +70,7 @@ public class MoonSky extends DimensionSpecialEffects {
                 SkyHelper.drawSky(mc, matrix4f, projectionMatrix, shaderInstance);
 
                 /** SUN RISE COLOR */
-                SkyHelper.setUpSunRiseColor(poseStack, bufferBuilder, partialTick, mc, true);
+                SkyHelper.setupSunRiseColor(poseStack, bufferBuilder, partialTick, mc, true);
 
                 /** STARS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
@@ -91,7 +91,7 @@ public class MoonSky extends DimensionSpecialEffects {
                 SkyHelper.drawDarkSky(mc, poseStack, projectionMatrix, shaderInstance, partialTick);
 
                 /** SHADER COLOR */
-                SkyHelper.setUpShaderColor(mc, r, g, b);
+                SkyHelper.setupShaderColor(mc, r, g, b);
 
                 /** DISABLE DEPTH MASK */
                 RenderSystem.depthMask(true);

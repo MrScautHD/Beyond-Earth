@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -16,9 +15,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.common.config.Config;
 
 public class MartianRaptor extends Monster {
@@ -85,17 +81,6 @@ public class MartianRaptor extends Monster {
         if (this.AttackAnim > 0) {
             --this.AttackAnim;
         }
-    }
-
-    @Override
-    public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
-        BlockState blockState = level.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ()));
-
-        if (blockState.is(Blocks.LAVA) || blockState.is(Blocks.AIR)) {
-            return false;
-        }
-
-        return super.checkSpawnRules(p_21686_, p_21687_);
     }
 
     @Override
