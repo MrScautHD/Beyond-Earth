@@ -1,0 +1,41 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "registry": "minecraft:item",
+      "tags": [
+        "forge:ores/calorite",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_intersection_present"
+    },
+    {
+      "modid": "tconstruct",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "forge:ores/calorite"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "beyond_earth:molten_calorite",
+    "amount": 540
+  },
+  "temperature": 500,
+  "time": 225,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_gold",
+      "amount": 540
+    }
+  ]
+}
