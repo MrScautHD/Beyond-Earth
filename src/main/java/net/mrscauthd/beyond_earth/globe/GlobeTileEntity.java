@@ -114,13 +114,13 @@ public class GlobeTileEntity extends BlockEntity {
     public void setYaw0(float value) {
         this.yaw0 = value;
     }
-    
+
     public boolean isPowered() {
-		return powered;
-	}
-    
+        return powered;
+    }
+
     public void setPowered(boolean powered) {
-		this.powered = powered;
-	}
-    
+        this.powered = powered;
+    }
+
 }
