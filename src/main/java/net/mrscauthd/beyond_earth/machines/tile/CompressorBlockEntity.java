@@ -35,7 +35,7 @@ public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 		super.createEnergyStorages(registry);
 		int capacity = Config.COMPRESSOR_ENERGY_CAPACITY.get();
 		int maxTransfer = Config.COMPRESSOR_ENERGY_TRANSFER.get();
-        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+		registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	@Override

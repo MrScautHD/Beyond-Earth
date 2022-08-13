@@ -59,9 +59,9 @@ public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 
 	@Override
 	protected IEnergyStorage createGeneratingEnergyStorage() {
-        int capacity = Config.SOLAR_PANEL_ENERGY_CAPACITY.get();
-        int maxTransfer = Config.SOLAR_PANEL_ENERGY_TRANSFER.get();
-        return new EnergyStorageBasic(this, capacity, maxTransfer, capacity);
+		int capacity = Config.SOLAR_PANEL_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.SOLAR_PANEL_ENERGY_TRANSFER.get();
+		return new EnergyStorageBasic(this, capacity, maxTransfer, capacity);
 	}
 
 }

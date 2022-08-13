@@ -62,12 +62,12 @@ import net.mrscauthd.beyond_earth.machines.AbstractMachineBlock;
 public abstract class AbstractMachineBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer, IEnergyStorageHolder, IGaugeValuesProvider {
 
 	public static final String KEY_ACTIVATED = "activated";
-	
 
-    public static final int DEFAULT_ENERGY_STORAGE_CAPACITY = 9000;
-    public static final int DEFAULT_ENERGY_STORAGE_TRANSFER = 200;
-    public static final int DEFAULT_TANK_CAPACITY = 3000;
-    public static final int DEFAULT_TANK_TRANSFER = 256;
+
+	public static final int DEFAULT_ENERGY_STORAGE_CAPACITY = 9000;
+	public static final int DEFAULT_ENERGY_STORAGE_TRANSFER = 200;
+	public static final int DEFAULT_TANK_CAPACITY = 3000;
+	public static final int DEFAULT_TANK_TRANSFER = 256;
 
 	private Map<Object, Object> selectedPrimaries;
 	private Map<ResourceLocation, IEnergyStorage> energyStorages;

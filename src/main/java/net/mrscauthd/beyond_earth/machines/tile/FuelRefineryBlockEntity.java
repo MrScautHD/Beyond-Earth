@@ -60,9 +60,9 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-        int capacity = Config.FUEL_REFINERY_ENERGY_CAPACITY.get();
-        int maxTransfer = Config.FUEL_REFINERY_ENERGY_TRANSFER.get();
-        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+		int capacity = Config.FUEL_REFINERY_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.FUEL_REFINERY_ENERGY_TRANSFER.get();
+		registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	@Override

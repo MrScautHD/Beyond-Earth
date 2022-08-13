@@ -33,8 +33,8 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 
 	public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final int DEFAULT_ENERGY_USAGE_PER_RANGE = 0;
-    public static final int DEFAULT_RANGE_MIN = 1;
-    public static final int DEFAULT_RANGE_MAX = 15;
+	public static final int DEFAULT_RANGE_MIN = 1;
+	public static final int DEFAULT_RANGE_MAX = 15;
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
@@ -71,22 +71,22 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-        int capacity = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY.get();
-        int maxTransfer = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER.get();
-        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+		int capacity = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER.get();
+		registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
-	
+
 	@Override
 	protected int getInitialTankCapacity(ResourceLocation name) {
-        if (name.equals(this.getInputTankName())) {
-            return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY.get();
-        } else if (name.equals(this.getOutputTankName())) {
-            return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY.get();
-        } else {
-            return super.getInitialTankCapacity(name);
-        }
-    }
-	
+		if (name.equals(this.getInputTankName())) {
+			return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY.get();
+		} else if (name.equals(this.getOutputTankName())) {
+			return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY.get();
+		} else {
+			return super.getInitialTankCapacity(name);
+		}
+	}
+
 	@Override
 	public int getTransferPerTick() {
 	    return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER.get();
