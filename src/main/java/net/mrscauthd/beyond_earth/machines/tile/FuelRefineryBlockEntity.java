@@ -21,7 +21,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidMultiTank;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.FluidIngredient;
@@ -33,7 +35,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_PER_TICK = 1;
 	public static final int TANK_CAPACITY = 3000;
 	public static final int TRANSFER_PER_TICK = 256;
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
@@ -60,7 +62,9 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
+        int capacity = Config.FUEL_REFINERY_ENERGY_CAPACITY.get();
+        int maxTransfer = Config.FUEL_REFINERY_ENERGY_TRANSFER.get();
+        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	@Override
@@ -97,7 +101,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.FUEL_REFINERY_ENERGY_USAGE.get();
 	}
 
 	@Override

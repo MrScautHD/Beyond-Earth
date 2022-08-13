@@ -52,7 +52,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.energy.IEnergyStorageHolder;
 import net.mrscauthd.beyond_earth.crafting.FluidIngredient;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
@@ -63,6 +62,10 @@ import net.mrscauthd.beyond_earth.machines.AbstractMachineBlock;
 public abstract class AbstractMachineBlockEntity extends RandomizableContainerBlockEntity implements WorldlyContainer, IEnergyStorageHolder, IGaugeValuesProvider {
 
 	public static final String KEY_ACTIVATED = "activated";
+	
+
+    public static final int DEFAULT_ENERGY_STORAGE_CAPACITY = 9000;
+    public static final int DEFAULT_ENERGY_STORAGE_TRANSFER = 200;
 
 	private Map<Object, Object> selectedPrimaries;
 	private Map<ResourceLocation, IEnergyStorage> energyStorages;
@@ -449,10 +452,6 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
 	@Nullable
 	public IEnergyStorage getPrimaryEnergyStorage() {
 		return this.getPrimaryComponent(this.getEnergyStorages());
-	}
-
-	protected IEnergyStorage createEnergyStorageCommon() {
-		return new EnergyStorageBasic(this, 9000, 200, 200);
 	}
 
 	@SuppressWarnings("unchecked")

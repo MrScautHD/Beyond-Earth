@@ -10,8 +10,10 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
@@ -20,7 +22,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_PER_TICK = 1;
 	public static final int SLOT_OUTPUT_SINK = 2;
 	public static final int SLOT_OUTPUT_SOURCE = 3;
 
@@ -76,9 +78,11 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
-		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
-	}
+        super.createEnergyStorages(registry);
+        int capacity = Config.OXYGEN_LOADER_ENERGY_CAPACITY.get();
+        int maxTransfer = Config.OXYGEN_LOADER_ENERGY_TRANSFER.get();
+        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+    }
 
 	@Override
 	protected void createPowerSystems(PowerSystemRegistry map) {
@@ -93,7 +97,7 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.OXYGEN_LOADER_ENERGY_USAGE.get();
 	}
 
 	@Override

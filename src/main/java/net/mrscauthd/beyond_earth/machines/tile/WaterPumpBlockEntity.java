@@ -21,13 +21,16 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidHandlerWrapper;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGui;
 import net.mrscauthd.beyond_earth.machines.WaterPump;
 import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
+    public static final int DEFAULT_ENERGY_PER_TICK = 1;
 	public static final int TRANSFER_PER_TICK = 10;
 	
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
@@ -140,11 +143,13 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     @Override
     protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
         super.createEnergyStorages(registry);
-        registry.put(this.createEnergyStorageCommon());
+        int capacity = Config.WATER_PUMP_ENERGY_CAPACITY.get();
+        int maxTransfer = Config.WATER_PUMP_ENERGY_TRANSFER.get();
+        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
     }
 
     public int getBasePowerForOperation() {
-        return 1;
+        return Config.WATER_PUMP_ENERGY_USAGE.get();
     }
 
     @Override

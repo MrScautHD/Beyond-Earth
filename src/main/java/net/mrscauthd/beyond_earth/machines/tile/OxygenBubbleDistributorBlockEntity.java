@@ -18,7 +18,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkEvent;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
@@ -28,7 +30,7 @@ import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_PER_TICK = 1;
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
@@ -68,7 +70,9 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
+        int capacity = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY.get();
+        int maxTransfer = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER.get();
+        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	protected void tickProcessing() {
@@ -190,7 +194,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE.get();
 	}
 
 	@Override

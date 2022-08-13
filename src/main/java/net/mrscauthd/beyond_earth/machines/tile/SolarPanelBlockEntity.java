@@ -7,17 +7,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.guis.screens.solarpanel.SolarPanelGui;
 import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 5;
+	public static final int DEFAULT_ENERGY_PER_TICK = 5;
 
 	public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
 		super(BlockEntitiesRegistry.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);
@@ -34,7 +34,7 @@ public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 
 	@Override
 	public int getMaxGeneration() {
-		return ENERGY_PER_TICK;
+		return Config.SOLAR_PANEL_ENERGY_GENERATION.get();
 	}
 
 	@Override
@@ -56,4 +56,12 @@ public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 		list.addAll(Arrays.stream(Direction.values()).filter(d -> d != Direction.UP).toList());
 		return list;
 	}
+
+	@Override
+	protected IEnergyStorage createGeneratingEnergyStorage() {
+        int capacity = Config.SOLAR_PANEL_ENERGY_CAPACITY.get();
+        int maxTransfer = Config.SOLAR_PANEL_ENERGY_TRANSFER.get();
+        return new EnergyStorageBasic(this, capacity, maxTransfer, capacity);
+	}
+
 }

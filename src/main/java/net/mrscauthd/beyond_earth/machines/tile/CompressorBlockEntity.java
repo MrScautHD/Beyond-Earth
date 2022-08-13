@@ -5,6 +5,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.beyond_earth.guis.screens.compressor.CompressorGui;
@@ -12,7 +14,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_PER_TICK = 1;
 
 	public CompressorBlockEntity(BlockPos pos, BlockState state) {
 		super(BlockEntitiesRegistry.COMPRESSOR_BLOCK_ENTITY.get(), pos, state);
@@ -31,7 +33,9 @@ public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
+		int capacity = Config.COMPRESSOR_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.COMPRESSOR_ENERGY_TRANSFER.get();
+        registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	@Override
@@ -46,6 +50,6 @@ public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.COMPRESSOR_ENERGY_USAGE.get();
 	}
 }
