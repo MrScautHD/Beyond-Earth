@@ -102,29 +102,18 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    public void neighborChanged(BlockState p_60509_, Level p_60510_, BlockPos p_60511_, Block p_60512_, BlockPos p_60513_, boolean p_60514_) {
-        super.neighborChanged(p_60509_, p_60510_, p_60511_, p_60512_, p_60513_, p_60514_);
-
-        BlockEntity blockEntity = p_60510_.getBlockEntity(p_60511_);
-
-        if (blockEntity instanceof GlobeTileEntity) {
-            GlobeTileEntity globeTileEntity = (GlobeTileEntity) blockEntity;
-            boolean newPowered = p_60510_.hasNeighborSignal(p_60511_);
-
-            if (globeTileEntity.isPowered() != newPowered) {
-                globeTileEntity.setPowered(newPowered);
-                globeTileEntity.setChanged();
-            }
-
-        }
-
-    }
-
-    @Override
     public <T2 extends BlockEntity> BlockEntityTicker<T2> getTicker(Level level, BlockState state, BlockEntityType<T2> type) {
         return (l, p, s, e) -> {
             if (e instanceof GlobeTileEntity) {
-                ((GlobeTileEntity) e).tick();
+                GlobeTileEntity globeTileEntity = (GlobeTileEntity) e;
+                boolean newPowered = level.hasNeighborSignal(globeTileEntity.getBlockPos());
+
+                if (globeTileEntity.isPowered() != newPowered) {
+                    globeTileEntity.setPowered(newPowered);
+                    globeTileEntity.setChanged();
+                }
+
+                globeTileEntity.tick();
             }
         };
     }
