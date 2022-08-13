@@ -32,8 +32,6 @@ import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.inventory.StackCacher;
 
 public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity {
-	public static final int TANK_CAPACITY = 3000;
-	public static final int TRANSFER_PER_TICK = 256;
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarthMod.MODID, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
@@ -85,7 +83,7 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 	}
 
 	protected int getInitialTankCapacity(ResourceLocation name) {
-		return TANK_CAPACITY;
+		return DEFAULT_TANK_CAPACITY;
 	}
 
 	protected FluidTank creatFluidTank(ResourceLocation name) {
@@ -280,7 +278,7 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 	}
 
 	public int getTransferPerTick() {
-		return TRANSFER_PER_TICK;
+		return DEFAULT_TANK_TRANSFER;
 	}
 
 }

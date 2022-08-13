@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Mob;
@@ -73,6 +74,22 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
         int capacity = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY.get();
         int maxTransfer = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER.get();
         registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+	}
+	
+	@Override
+	protected int getInitialTankCapacity(ResourceLocation name) {
+        if (name.equals(this.getInputTankName())) {
+            return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY.get();
+        } else if (name.equals(this.getOutputTankName())) {
+            return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY.get();
+        } else {
+            return super.getInitialTankCapacity(name);
+        }
+    }
+	
+	@Override
+	public int getTransferPerTick() {
+	    return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER.get();
 	}
 
 	protected void tickProcessing() {

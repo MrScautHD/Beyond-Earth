@@ -84,6 +84,22 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
         registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
     }
 
+    @Override
+    protected int getInitialTankCapacity(ResourceLocation name) {
+        if (name.equals(this.getInputTankName())) {
+            return Config.OXYGEN_LOADER_TANK_FLUID_CAPACITY.get();
+        } else if (name.equals(this.getOutputTankName())) {
+            return Config.OXYGEN_LOADER_TANK_OXYGEN_CAPACITY.get();
+        } else {
+            return super.getInitialTankCapacity(name);
+        }
+    }
+    
+    @Override
+    public int getTransferPerTick() {
+        return Config.OXYGEN_LOADER_TANK_TRANSFER.get();
+    }
+
 	@Override
 	protected void createPowerSystems(PowerSystemRegistry map) {
 		super.createPowerSystems(map);

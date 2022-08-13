@@ -15,6 +15,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.machines.tile.WaterPumpBlockEntity;
@@ -90,7 +91,7 @@ public class WaterPump extends AbstractMachineBlock<WaterPumpBlockEntity> {
     @Override
 	public void appendHoverText(ItemStack itemstack, BlockGetter level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, level, list, flag);
-		list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getTransferPerTickText(GaugeValueHelper.getFluid(WaterPumpBlockEntity.TRANSFER_PER_TICK))));
+		list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getTransferPerTickText(GaugeValueHelper.getFluid(Config.WATER_PUMP_TANK_TRANSFER.get()))));
     }
 
     @Override

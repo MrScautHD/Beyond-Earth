@@ -31,14 +31,14 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     public static final int DEFAULT_ENERGY_PER_TICK = 1;
-	public static final int TRANSFER_PER_TICK = 10;
+	public static final int DEFAULT_TANK_TRANSFER = 10;
 	
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntitiesRegistry.WATER_PUMP_BLOCK_ENTITY.get(), pos, state);
     }
 
     public static final ResourceLocation WATER_TANK = new ResourceLocation(BeyondEarthMod.MODID, "water_tank");
-    public static final int TANK_CAPACITY = 6000;
+    public static final int DEFAULT_TANK_CAPACITY = 6000;
     public double WATER_TIMER = 0;
     private FluidTank waterTank;
 
@@ -93,7 +93,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     }
     
     public int getTransferPerTick() {
-		return TRANSFER_PER_TICK;
+		return Config.WATER_PUMP_TANK_TRANSFER.get();
 	}
 
     public boolean hasSpaceInWaterTank(int water) {
@@ -101,7 +101,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     }
 
     public boolean hasSpaceIn(int water, FluidStack storage) {
-        return water < TANK_CAPACITY - 999;
+        return water < this.getWaterTank().getCapacity() - 999;
     }
 
     @Override
@@ -159,7 +159,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     }
 
     protected int getInitialTankCapacity(ResourceLocation name) {
-        return TANK_CAPACITY;
+        return Config.WATER_PUMP_TANK_CAPACITY.get();
     }
 
     protected Predicate<FluidStack> getInitialTankValidator(ResourceLocation name) {

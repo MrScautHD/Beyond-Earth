@@ -36,8 +36,6 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 
 	public static final int DEFAULT_ENERGY_PER_TICK = 1;
-	public static final int TANK_CAPACITY = 3000;
-	public static final int TRANSFER_PER_TICK = 256;
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarthMod.MODID, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
@@ -76,7 +74,13 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	protected int getInitialTankCapacity(ResourceLocation name) {
-		return TANK_CAPACITY;
+	    if (name.equals(this.getInputTankName())) {
+	        return Config.FUEL_REFINERY_TANK_INPUT_CAPACITY.get();
+	    } else if (name.equals(this.getOutputTankName())) {
+	        return Config.FUEL_REFINERY_TANK_OUTPUT_CAPACITY.get();
+	    } else {
+	        return DEFAULT_TANK_CAPACITY;
+	    }
 	}
 
 	protected FluidTank creatTank(ResourceLocation name) {
@@ -292,7 +296,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public int getTransferPerTick() {
-		return TRANSFER_PER_TICK;
+		return Config.FUEL_REFINERY_TANK_TRANSFER.get();
 	}
 
 	public FluidMultiTank getTanks() {
