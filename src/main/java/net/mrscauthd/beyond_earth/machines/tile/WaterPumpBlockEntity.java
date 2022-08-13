@@ -32,6 +32,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final int DEFAULT_TANK_TRANSFER = 10;
+	public static final int DEFAULT_WORK_INTERVAL = 10;
 	
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntitiesRegistry.WATER_PUMP_BLOCK_ENTITY.get(), pos, state);
@@ -61,7 +62,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
 
                     WATER_TIMER = WATER_TIMER + 1;
 
-                    if (WATER_TIMER > 10) {
+                    if (WATER_TIMER > Config.WATER_PUMP_WORK_INTERVAL.get()) {
 
                         this.level.setBlock(pickupPos, Blocks.AIR.defaultBlockState(), 3);
 

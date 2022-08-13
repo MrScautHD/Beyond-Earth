@@ -13,6 +13,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.machines.tile.OxygenBubbleDistributorBlockEntity;
 
 public class OxygenBubbleDistributorBlock extends AbstractMachineBlock<OxygenBubbleDistributorBlockEntity> {
@@ -35,8 +36,8 @@ public class OxygenBubbleDistributorBlock extends AbstractMachineBlock<OxygenBub
 	public void appendHoverText(ItemStack itemstack, BlockGetter level, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, level, list, flag);
 
-		int min = OxygenBubbleDistributorBlockEntity.RANGE_MIN * 2 + 1;
-		int max = OxygenBubbleDistributorBlockEntity.RANGE_MAX * 2 + 1;
+		int min = Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN.get() * 2 + 1;
+		int max = Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX.get()  * 2 + 1;
 		list.add(new TranslatableComponent("tooltip." + BeyondEarthMod.MODID + ".oxygen_bubble_distributor", min, max).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 	}
 

@@ -32,12 +32,12 @@ import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
 
 	public static final int DEFAULT_ENERGY_USAGE = 1;
+	public static final int DEFAULT_ENERGY_USAGE_PER_RANGE = 0;
+    public static final int DEFAULT_RANGE_MIN = 1;
+    public static final int DEFAULT_RANGE_MAX = 15;
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
-
-	public static final int RANGE_MAX = 15;
-	public static final int RANGE_MIN = 1;
 
 	/**
 	 * Interval Ticks, 4 = every 4 ticks
@@ -167,11 +167,11 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	}
 
 	public int getRange() {
-		return Math.max(this.getTileData().getInt(KEY_RANGE), RANGE_MIN);
+		return Math.max(this.getTileData().getInt(KEY_RANGE), Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN.get());
 	}
 
 	public void setRange(int range) {
-		range = Math.min(Math.max(range, RANGE_MIN), RANGE_MAX);
+		range = Math.min(Math.max(range, Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN.get()), Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX.get());
 
 		if (this.getRange() != range) {
 			this.getTileData().putInt(KEY_RANGE, range);
