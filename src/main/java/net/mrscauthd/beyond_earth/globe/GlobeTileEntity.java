@@ -116,7 +116,7 @@ public class GlobeTileEntity extends BlockEntity {
     }
 
     public boolean isPowered() {
-        return powered;
+        return this.powered;
     }
 
     public void setPowered(boolean powered) {
