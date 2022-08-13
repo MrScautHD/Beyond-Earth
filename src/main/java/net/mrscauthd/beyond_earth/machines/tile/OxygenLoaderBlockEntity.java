@@ -22,7 +22,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
 
-	public static final int DEFAULT_ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final int SLOT_OUTPUT_SINK = 2;
 	public static final int SLOT_OUTPUT_SOURCE = 3;
 

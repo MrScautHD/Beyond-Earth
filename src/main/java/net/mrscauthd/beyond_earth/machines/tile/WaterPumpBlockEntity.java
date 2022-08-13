@@ -30,7 +30,7 @@ import net.mrscauthd.beyond_earth.machines.WaterPump;
 import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
-    public static final int DEFAULT_ENERGY_PER_TICK = 1;
+    public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final int DEFAULT_TANK_TRANSFER = 10;
 	
     public WaterPumpBlockEntity(BlockPos pos, BlockState state) {

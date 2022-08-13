@@ -35,7 +35,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 
-	public static final int DEFAULT_ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarthMod.MODID, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;

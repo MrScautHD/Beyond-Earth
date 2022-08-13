@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class CompressorBlockEntity extends ItemStackToItemStackBlockEntity {
 
-	public static final int DEFAULT_ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
 
 	public CompressorBlockEntity(BlockPos pos, BlockState state) {
 		super(BlockEntitiesRegistry.COMPRESSOR_BLOCK_ENTITY.get(), pos, state);

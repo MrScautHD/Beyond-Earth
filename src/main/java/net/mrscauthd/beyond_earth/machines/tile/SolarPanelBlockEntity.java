@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class SolarPanelBlockEntity extends GeneratorBlockEntity {
 
-	public static final int DEFAULT_ENERGY_PER_TICK = 5;
+	public static final int DEFAULT_ENERGY_USAGE = 5;
 
 	public SolarPanelBlockEntity(BlockPos pos, BlockState state) {
 		super(BlockEntitiesRegistry.SOLAR_PANEL_BLOCK_ENTITY.get(), pos, state);

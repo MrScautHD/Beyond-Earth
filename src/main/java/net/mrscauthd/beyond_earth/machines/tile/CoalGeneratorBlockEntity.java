@@ -16,7 +16,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 
 	public static final int SLOT_FUEL = 0;
-	public static final int DEFAULT_ENERGY_PER_TICK = 2;
+	public static final int DEFAULT_ENERGY_USAGE = 2;
 
 	private PowerSystemFuelGeneratingRecipe powerSystemGenerating;
 

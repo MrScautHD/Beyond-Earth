@@ -31,7 +31,7 @@ import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
 
-	public static final int DEFAULT_ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
