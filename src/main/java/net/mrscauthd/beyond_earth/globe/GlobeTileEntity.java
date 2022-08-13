@@ -7,6 +7,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,6 +18,7 @@ public class GlobeTileEntity extends BlockEntity {
     private float rotationalInertia = 0.0f;
     private float yaw = 0.0f;
     private float yaw0 = 0.0f;
+    private boolean powered = false;
 
     public GlobeTileEntity(BlockPos pos, BlockState state) {
         super(BlockEntitiesRegistry.GLOBE_BLOCK_ENTITY.get(), pos, state);
@@ -28,6 +30,7 @@ public class GlobeTileEntity extends BlockEntity {
         this.rotationalInertia = p_155245_.getFloat("inertia");
         this.yaw = p_155245_.getFloat("yaw");
         this.yaw0 = p_155245_.getFloat("yaw0");
+        this.powered = p_155245_.getBoolean("powered");
     }
 
     @Override
@@ -36,6 +39,7 @@ public class GlobeTileEntity extends BlockEntity {
         p_187471_.putFloat("inertia", this.rotationalInertia);
         p_187471_.putFloat("yaw", this.yaw);
         p_187471_.putFloat("yaw0", this.yaw0);
+        p_187471_.putBoolean("powered", this.powered);
     }
 
     @Override
@@ -64,6 +68,11 @@ public class GlobeTileEntity extends BlockEntity {
     }
 
     public void tick() {
+
+        if (this.isPowered()) {
+            this.setRotationalInertia(Math.max(this.getRotationalInertia(), Mth.PI * 0.125F));
+        }
+
         if (this.getRotationalInertia() > 0) {
             this.setRotationalInertia(this.getRotationalInertia() - 0.0075f);
 
@@ -105,4 +114,13 @@ public class GlobeTileEntity extends BlockEntity {
     public void setYaw0(float value) {
         this.yaw0 = value;
     }
+    
+    public boolean isPowered() {
+		return powered;
+	}
+    
+    public void setPowered(boolean powered) {
+		this.powered = powered;
+	}
+    
 }
