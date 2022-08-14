@@ -21,7 +21,9 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.fluid.FluidMultiTank;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.FluidIngredient;
@@ -33,9 +35,7 @@ import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
-	public static final int TANK_CAPACITY = 3000;
-	public static final int TRANSFER_PER_TICK = 256;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
 	public static final ResourceLocation TANK_INPUT = new ResourceLocation(BeyondEarthMod.MODID, "input");
 	public static final ResourceLocation TANK_OUTPUT = new ResourceLocation(BeyondEarthMod.MODID, "output");
 	public static final int SLOT_INPUT_SOURCE = 0;
@@ -60,7 +60,9 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
+		int capacity = Config.FUEL_REFINERY_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.FUEL_REFINERY_ENERGY_TRANSFER.get();
+		registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
 	}
 
 	@Override
@@ -72,7 +74,13 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	protected int getInitialTankCapacity(ResourceLocation name) {
-		return TANK_CAPACITY;
+	    if (name.equals(this.getInputTankName())) {
+	        return Config.FUEL_REFINERY_TANK_INPUT_CAPACITY.get();
+	    } else if (name.equals(this.getOutputTankName())) {
+	        return Config.FUEL_REFINERY_TANK_OUTPUT_CAPACITY.get();
+	    } else {
+	        return DEFAULT_TANK_CAPACITY;
+	    }
 	}
 
 	protected FluidTank creatTank(ResourceLocation name) {
@@ -97,7 +105,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.FUEL_REFINERY_ENERGY_USAGE.get();
 	}
 
 	@Override
@@ -288,7 +296,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	public int getTransferPerTick() {
-		return TRANSFER_PER_TICK;
+		return Config.FUEL_REFINERY_TANK_TRANSFER.get();
 	}
 
 	public FluidMultiTank getTanks() {

@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Mob;
@@ -18,7 +19,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.network.NetworkEvent;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.crafting.BeyondEarthRecipeTypes;
 import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
@@ -28,13 +31,13 @@ import net.mrscauthd.beyond_earth.registries.EffectsRegistry;
 
 public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
 
-	public static final int ENERGY_PER_TICK = 1;
+	public static final int DEFAULT_ENERGY_USAGE = 1;
+	public static final int DEFAULT_ENERGY_USAGE_PER_RANGE = 0;
+	public static final int DEFAULT_RANGE_MIN = 1;
+	public static final int DEFAULT_RANGE_MAX = 15;
 	public static final String KEY_TIMER = "timer";
 	public static final String KEY_RANGE = "range";
 	public static final String KEY_WORKINGAREA_VISIBLE = "workingAreaVisible";
-
-	public static final int RANGE_MAX = 15;
-	public static final int RANGE_MIN = 1;
 
 	/**
 	 * Interval Ticks, 4 = every 4 ticks
@@ -68,7 +71,25 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	@Override
 	protected void createEnergyStorages(NamedComponentRegistry<IEnergyStorage> registry) {
 		super.createEnergyStorages(registry);
-		registry.put(this.createEnergyStorageCommon());
+		int capacity = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY.get();
+		int maxTransfer = Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER.get();
+		registry.put(new EnergyStorageBasic(this, capacity, maxTransfer, capacity));
+	}
+
+	@Override
+	protected int getInitialTankCapacity(ResourceLocation name) {
+		if (name.equals(this.getInputTankName())) {
+			return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY.get();
+		} else if (name.equals(this.getOutputTankName())) {
+			return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY.get();
+		} else {
+			return super.getInitialTankCapacity(name);
+		}
+	}
+
+	@Override
+	public int getTransferPerTick() {
+	    return Config.OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER.get();
 	}
 
 	protected void tickProcessing() {
@@ -146,11 +167,11 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	}
 
 	public int getRange() {
-		return Math.max(this.getTileData().getInt(KEY_RANGE), RANGE_MIN);
+		return Math.max(this.getTileData().getInt(KEY_RANGE), Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN.get());
 	}
 
 	public void setRange(int range) {
-		range = Math.min(Math.max(range, RANGE_MIN), RANGE_MAX);
+		range = Math.min(Math.max(range, Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN.get()), Config.OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX.get());
 
 		if (this.getRange() != range) {
 			this.getTileData().putInt(KEY_RANGE, range);
@@ -190,7 +211,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
 	}
 
 	public int getBasePowerForOperation() {
-		return ENERGY_PER_TICK;
+		return Config.OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE.get();
 	}
 
 	@Override

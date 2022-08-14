@@ -7,13 +7,16 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.capabilities.energy.EnergyStorageBasic;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.guis.screens.coalgenerator.CoalGeneratorGui;
 import net.mrscauthd.beyond_earth.registries.BlockEntitiesRegistry;
 
 public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 
 	public static final int SLOT_FUEL = 0;
-	public static final int ENERGY_PER_TICK = 2;
+	public static final int DEFAULT_ENERGY_USAGE = 2;
 
 	private PowerSystemFuelGeneratingRecipe powerSystemGenerating;
 
@@ -28,7 +31,7 @@ public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 
 	@Override
 	public int getMaxGeneration() {
-		return ENERGY_PER_TICK;
+		return Config.COAL_GENERATOR_ENERGY_GENERATION.get();
 	}
 
 	protected int getGenerationInTick() {
@@ -57,6 +60,13 @@ public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 	protected void createPowerSystems(PowerSystemRegistry map) {
 		super.createPowerSystems(map);
 		map.put(this.powerSystemGenerating = new PowerSystemFuelGeneratingRecipe(this, this.getFuelSlot()));
+	}
+
+	@Override
+	protected IEnergyStorage createGeneratingEnergyStorage() {
+		int capacity = Config.COAL_GENERATOR_ENERGY_CAPACITY.get();
+		int maxReceive = Config.COAL_GENERATOR_ENERGY_TRANSFER.get();
+		return new EnergyStorageBasic(this, capacity, maxReceive, capacity);
 	}
 
 	public PowerSystemFuelGeneratingRecipe getPowerSystemGenerating() {

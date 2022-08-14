@@ -61,9 +61,7 @@ public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
 		registry.put(this.internalEnergyStorage);
 	}
 
-	protected IEnergyStorage createGeneratingEnergyStorage() {
-		return this.createEnergyStorageCommon();
-	}
+	protected abstract IEnergyStorage createGeneratingEnergyStorage();
 
 	public class EjectingTuple {
 		public final IEnergyStorage energyStorage;
@@ -219,7 +217,7 @@ public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
 	}
 
 	protected int getEjectingExtractEnergy() {
-		return this.getMaxGeneration();
+		return this.getGeneratingEnergyStorage().getEnergyStored();
 	}
 
 	protected List<Direction> getEjectDirections() {

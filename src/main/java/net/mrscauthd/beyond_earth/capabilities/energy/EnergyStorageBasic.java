@@ -35,7 +35,7 @@ public class EnergyStorageBasic extends EnergyStorage {
 		if (!this.canReceive()) {
 			return 0;
 		} else {
-			int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), maxReceive);
+			int energyReceived = Math.min(this.getMaxEnergyStored() - this.getEnergyStored(), Math.min(this.maxReceive, maxReceive));
 			if (!simulate && energyReceived > 0) {
 				this.energy += energyReceived;
 				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, +energyReceived));
@@ -50,7 +50,7 @@ public class EnergyStorageBasic extends EnergyStorage {
 		if (!this.canExtract()) {
 			return 0;
 		} else {
-			int energyExtracted = Math.min(this.getEnergyStored(), maxExtract);
+			int energyExtracted = Math.min(this.getEnergyStored(), Math.min(this.maxExtract, maxExtract));
 			if (!simulate && energyExtracted > 0) {
 				this.energy -= energyExtracted;
 				Optional.ofNullable(this.getHolder()).ifPresent(h -> h.onEnergyChanged(this, -energyExtracted));
