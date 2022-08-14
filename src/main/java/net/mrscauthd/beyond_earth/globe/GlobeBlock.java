@@ -105,7 +105,15 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     public <T2 extends BlockEntity> BlockEntityTicker<T2> getTicker(Level level, BlockState state, BlockEntityType<T2> type) {
         return (l, p, s, e) -> {
             if (e instanceof GlobeTileEntity) {
-                ((GlobeTileEntity) e).tick();
+                GlobeTileEntity globeTileEntity = (GlobeTileEntity) e;
+                boolean newPowered = level.hasNeighborSignal(globeTileEntity.getBlockPos());
+
+                if (globeTileEntity.isPowered() != newPowered) {
+                    globeTileEntity.setPowered(newPowered);
+                    globeTileEntity.setChanged();
+                }
+
+                globeTileEntity.tick();
             }
         };
     }
