@@ -1,9 +1,9 @@
 {
-  "type": "tconstruct:ore_melting",
+  "type": "tconstruct:melting",
   "conditions": [
     {
       "value": {
-        "tag": "forge:storage_blocks/raw_ostrum",
+        "tag": "forge:geore_shards/ostrum",
         "type": "forge:tag_empty"
       },
       "type": "forge:not"
@@ -13,20 +13,13 @@
       "type": "forge:mod_loaded"
     }
   ],
-  "rate": "metal",
   "ingredient": {
-    "tag": "forge:storage_blocks/raw_ostrum"
+    "tag": "forge:geore_shards/ostrum"
   },
   "result": {
     "fluid": "beyond_earth:molten_ostrum",
-    "amount": 810
+    "amount": 90
   },
   "temperature": 500,
-  "time": 300,
-  "byproducts": [
-    {
-      "fluid": "tconstruct:molten_iron",
-      "amount": 810
-    }
-  ]
+  "time": 50
 }

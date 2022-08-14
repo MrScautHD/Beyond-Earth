@@ -2,11 +2,12 @@
   "type": "tconstruct:ore_melting",
   "conditions": [
     {
-      "value": {
-        "tag": "forge:raw_materials/calorite",
-        "type": "forge:tag_empty"
-      },
-      "type": "forge:not"
+      "registry": "minecraft:item",
+      "tags": [
+        "forge:ores/calorite",
+        "forge:ore_rates/sparse"
+      ],
+      "type": "tconstruct:tag_intersection_present"
     },
     {
       "modid": "tconstruct",
@@ -15,7 +16,15 @@
   ],
   "rate": "metal",
   "ingredient": {
-    "tag": "forge:raw_materials/calorite"
+    "type": "forge:intersection",
+    "children": [
+      {
+        "tag": "forge:ores/calorite"
+      },
+      {
+        "tag": "forge:ore_rates/sparse"
+      }
+    ]
   },
   "result": {
     "fluid": "beyond_earth:molten_calorite",
