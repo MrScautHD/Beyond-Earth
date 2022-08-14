@@ -19,5 +19,3 @@ Beyond Earth is a technology and space exploration mod for modern versions of Mi
 - Oxygen management and a custom gravity system
 - Guidebook for in-game documentation
 - Many more features to discover yourself!
-
-The Fabric version can be found [here.](https://www.curseforge.com/minecraft/mc-mods/beyond-earth-fabric)
