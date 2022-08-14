@@ -7,7 +7,7 @@ plugins {
 
 version = "${mc_version}-${mod_version}"
 group = "net.mrscauthd.beyond_earth"
-archivesBaseName = "beyond_earth"
+archivesBaseName = "Beyond-Earth"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
