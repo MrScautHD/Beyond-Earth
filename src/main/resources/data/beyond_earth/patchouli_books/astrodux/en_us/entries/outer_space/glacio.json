@@ -1,0 +1,13 @@
+{
+    "name": "Glacio",
+    "icon": "beyond_earth:/textures/sky/glacio.png",
+    "category": "beyond_earth:space",
+    "sortnum":"5",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Glacio is what you would call the opposite of warm.There are ice spikes all over thae place, and the rest just barren lands of snow.easily a source of water for future expeditions.$(br)absolutly no mobs reside here due to the harsh cold that envelopes the planet"
+        }
+        
+    ]
+}

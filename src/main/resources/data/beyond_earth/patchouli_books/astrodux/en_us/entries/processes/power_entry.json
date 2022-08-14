@@ -1,0 +1,24 @@
+{
+    "name": "Power",
+    "icon": "beyond_earth:solar_panel",
+    "category": "beyond_earth:process",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "All machines in Beyond Earth require power/RF in order to function.It is best to use power sources/generators from other mods in order to reach energy requirements. $(br2) Under circumstances where no other power generation is available,Beyond Earth does provide with a some generators to satisfy energy needs."
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe":"beyond_earth:coal_generator",
+            "text": "Using coal as fuel, this machines generates 2FE/tick, however it requires a constant supply of coal to provide power",
+            "title":"Coal Generator"
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe":"beyond_earth:solar_panel",
+            "text": "A reliable and more effective source of power, the Solar panel generates 5FE/tick, although it is a passive source of energy, as all solar panels, this machine requies daylight to function",
+            "title":"Solar Panel"
+        }
+
+    ]
+}

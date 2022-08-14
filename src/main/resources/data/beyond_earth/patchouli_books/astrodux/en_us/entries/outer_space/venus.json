@@ -1,0 +1,17 @@
+{
+    "name": "Venus",
+    "icon": "beyond_earth:/textures/sky/venus.png",
+    "category": "beyond_earth:space",
+    "sortnum":"3",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "$(br)Although very hot,Venus shows proof that the nether is not simply a dimension,but an actual place in our universe.There is clear evidence,Fauna and Flora alike,that prove that the roots of the nether have originated from some place else."
+        },
+        {
+            "type":"patchouli:text",
+            "text":"$(br2)Maybe one day,Venus will reveal: either the nether is a parasitic/fungal entity that spreads from one planet to the next,Or the Venus was already a 'nether' and the biomes have died out leaving pockets of material and bit of civilisation as proof that a nether once resided there"
+        }
+        
+    ]
+}

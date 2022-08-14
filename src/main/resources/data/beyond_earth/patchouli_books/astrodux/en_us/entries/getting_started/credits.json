@@ -1,0 +1,23 @@
+{
+    "name":"Credits",
+    "icon": "beyond_earth:/textures/painting/painting_galaxy.png",
+    "category": "beyond_earth:getting_started",
+    "sortnum":"2",
+    "pages": [
+        {
+            "type": "patchouli:link",
+            "title":"Bonus",
+            "item":"minecraft:writable_book",
+            "text": "Thank you for playing Beyond Earth! $(br) This mod is currently a work in progress and has a lot of new and exiting features Planned!$(br)Feel free to check the CurseForge page to see what new updates are coing out.",
+            "url":"https://www.curseforge.com/minecraft/mc-mods/beyond-earth",
+            "link_text":"Mod Page"
+        },
+        {
+            "type":"patchouli:text",
+            "text":"Many people have collaborated together to build this mod:$(br)$(li)Main Dev: MrScautHD$()$(li)Dev: ExistingEevee$()$(li)Sound Artist:Mvbz$()$(li)Texturer:FritzHackenstien,Fizz,SeagullBoi,Jopken,Lego245$()$(li)Modeler:Scarecrow,ShreksRightT***e1$()$(li)Builder: Barracuda,Solar,Spacestar,Checheño,Rer0$()$(li)Book Writer: Kraaven$()"
+        }
+        
+        
+        
+    ]
+}

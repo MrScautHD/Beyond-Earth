@@ -22,6 +22,8 @@ minecraft {
             property "forge.logging.markers", "REGISTRIES"
             property "forge.logging.console.level", "debug"
             property "forge.enabledGameTestNamespaces", "beyond_earth"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             arg "-mixin.config=beyond_earth.mixin.json"
 
             mods {
@@ -81,6 +83,8 @@ repositories {
     /** JEI */
     maven { name = "Progwml6 maven"; url = "https://dvs1.progwml6.com/files/maven/" }
     maven { name = "ModMaven"; url = "https://modmaven.dev" }
+    maven { url 'https://maven.blamejared.com' }
+
 }
 
 mixin {
@@ -99,6 +103,11 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+
+    /** Patchouli */
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_mc_version}-${patchouli_version}")
+
 }
 
 jar {
