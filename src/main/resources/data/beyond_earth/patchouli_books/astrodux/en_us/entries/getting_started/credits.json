@@ -1,8 +1,8 @@
 {
     "name":"Credits",
-    "icon": "beyond_earth:/textures/painting/painting_galaxy.png",
+    "icon": "beyond_earth:textures/painting/the_milky_way.png",
     "category": "beyond_earth:getting_started",
-    "sortnum":"2",
+    "sortnum": 2,
     "pages": [
         {
             "type": "patchouli:link",

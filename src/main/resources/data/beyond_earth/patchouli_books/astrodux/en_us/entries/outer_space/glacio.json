@@ -1,8 +1,8 @@
 {
     "name": "Glacio",
-    "icon": "beyond_earth:/textures/sky/glacio.png",
+    "icon": "beyond_earth:textures/sky/glacio.png",
     "category": "beyond_earth:space",
-    "sortnum":"5",
+    "sortnum": 5,
     "pages": [
         {
             "type": "patchouli:text",

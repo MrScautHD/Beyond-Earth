@@ -54,6 +54,8 @@
   "item.beyond_earth.raw_ostrum_block": "오스트룸 원석 블록",
   "item.beyond_earth.rocket_t4": "4 티어 로켓",
   "item.beyond_earth.ice_shard": "얼음 조각",
+  "item.beyond_earth.astrodux": "Astrodux",
+
 
   "item.beyond_earth.calorite_ingot": "칼로라이트 주괴",
   "item.beyond_earth.compressed_calorite": "압축 칼로라이트",
@@ -331,5 +333,8 @@
   "general.beyond_earth.oxygen": "산소",
   "general.beyond_earth.burntime": "연료",
   "general.beyond_earth.cooktime": "가공 시간",
-  "general.beyond_earth.oxygenloading": "층전"
+  "general.beyond_earth.oxygenloading": "층전",
+
+  "message.beyond_earth.error.patchouli": "&4Patchouli&r이(가) 설치되지 않은 것 같습니다. 이 아이템을 사용하려면 이 모드가 필요합니다"
+
 }

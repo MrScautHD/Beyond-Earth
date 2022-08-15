@@ -1,8 +1,8 @@
 {
     "name": "Desh",
     "icon": "beyond_earth:desh_ingot",
-    "category": "patchouli:resources",
-    "sortnum":"2",
+    "category": "beyond_earth:resources",
+    "sortnum": 2,
     "pages": [
         {
             "type": "patchouli:text",

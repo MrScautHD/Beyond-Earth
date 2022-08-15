@@ -17,8 +17,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 public class AstroduxItem extends Item {
 
-    public static final Component PATCHOULI_ERROR = Component.translatable("message." + BeyondEarth.MODID + "error.patchouli");
-
+    public static final Component PATCHOULI_ERROR = Component.translatable("message." + BeyondEarth.MODID + ".error.patchouli");
 
     public AstroduxItem(Properties properties) {
         super(properties);

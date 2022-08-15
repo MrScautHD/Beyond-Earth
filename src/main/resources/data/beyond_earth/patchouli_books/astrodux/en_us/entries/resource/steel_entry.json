@@ -1,8 +1,8 @@
 {
     "name": "Steel",
     "icon": "beyond_earth:steel_ingot",
-    "category": "patchouli:resources",
-    "sortnum":"1",
+    "category": "beyond_earth:resources",
+    "sortnum": 1,
     "pages": [
         {
             "type": "patchouli:text",

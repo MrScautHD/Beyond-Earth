@@ -1,8 +1,8 @@
 {
     "name": "Venus",
-    "icon": "beyond_earth:/textures/sky/venus.png",
+    "icon": "beyond_earth:textures/sky/venus.png",
     "category": "beyond_earth:space",
-    "sortnum":"3",
+    "sortnum": 3,
     "pages": [
         {
             "type": "patchouli:text",

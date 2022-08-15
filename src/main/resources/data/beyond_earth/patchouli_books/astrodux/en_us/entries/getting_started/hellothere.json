@@ -2,7 +2,7 @@
     "name": "Well hello there!",
     "icon": "beyond_earth:oxygen_tank",
     "category": "beyond_earth:getting_started",
-    "priority":"true",
+    "priority": true,
     "pages": [
         {
             

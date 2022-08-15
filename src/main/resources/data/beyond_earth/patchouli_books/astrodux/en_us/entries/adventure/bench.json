@@ -2,7 +2,7 @@
     "name": "The correct Bench",
     "icon": "beyond_earth:nasa_workbench",
     "category": "beyond_earth:rocket_travel",
-    "priority":"true",
+    "priority": true,
     "pages": [
         {
             "type": "patchouli:text",

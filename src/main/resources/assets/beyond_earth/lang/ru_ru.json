@@ -55,6 +55,8 @@
   "item.beyond_earth.raw_ostrum_block": "Блок рудного острия",
   "item.beyond_earth.rocket_t4": "Ракета 4 уровня",
   "item.beyond_earth.ice_shard": "Осколок льда",
+  "item.beyond_earth.astrodux": "Астродукс",
+
 
   "item.beyond_earth.calorite_ingot": "Слиток калорита",
   "item.beyond_earth.compressed_calorite": "Пресованный калорит",
@@ -334,4 +336,8 @@
   "general.beyond_earth.burntime": "Время горения",
   "general.beyond_earth.cooktime": "Время приготовления",
   "general.beyond_earth.oxygenloading": "Загрузка",
+  
+  "message.beyond_earth.error.patchouli": "Я думаю, что &4Patchouli&r не установлен. Вам нужен этот мод, чтобы использовать этот предмет"
+
+
 }

@@ -70,6 +70,7 @@
   "item.beyond_earth.raw_calorite": "Raw Calorite",
   "item.beyond_earth.calorite_engine": "Calorite Engine",
   "item.beyond_earth.calorite_tank": "Calorite Tank",
+  "item.beyond_earth.astrodux": "Astrodux",
 
 
   "itemGroup.tab_normal": "Beyond Earth",
@@ -347,5 +348,8 @@
   "general.beyond_earth.jet_suit_disabled_mode": "Disabled",
   "general.beyond_earth.jet_suit_normal_mode": "Normal",
   "general.beyond_earth.jet_suit_hover_mode": "Hover",
-  "general.beyond_earth.jet_suit_elytra_mode": "Elytra"
+  "general.beyond_earth.jet_suit_elytra_mode": "Elytra",
+
+  "message.beyond_earth.error.patchouli": "I think &4patchouli&r is not installed. You need this mod to use this item"
+
 }
