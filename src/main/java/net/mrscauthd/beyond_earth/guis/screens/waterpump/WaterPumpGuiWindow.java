@@ -54,7 +54,7 @@ public class WaterPumpGuiWindow extends AbstractContainerScreen<WaterPumpGui.Gui
 
 		if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getWaterTank())).build(), mouseX, mouseY);
+			this.renderComponentTooltip(ms, GaugeTextHelper.getFluidTooltip(blockEntity.getWaterTank()), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);

@@ -75,7 +75,7 @@ public class OxygenBubbleDistributorGuiWindow extends AbstractContainerScreen<Ox
 
 		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(), mouseX, mouseY);
+			this.renderComponentTooltip(ms, GaugeTextHelper.getFluidTooltip(blockEntity.getInputTank()), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(blockEntity.getOutputTank())).build(), mouseX, mouseY);
