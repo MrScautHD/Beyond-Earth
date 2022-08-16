@@ -59,7 +59,7 @@
   "item.beyond_earth.netherite_space_pants": "下界合金太空裤",
   "item.beyond_earth.netherite_space_boots": "下界合金太空靴",
   "item.beyond_earth.jet_suit": "喷气胸甲",
-  "item.beyond_earth.jet_suit_boots": "喷气靴"
+  "item.beyond_earth.jet_suit_boots": "喷气靴",
   "item.beyond_earth.jet_suit_oxygen_mask": "氧气面罩(喷气套装)",
   "item.beyond_earth.jet_suit_pants": "喷气护腿",
   
@@ -234,6 +234,7 @@
 
   "key.categories.beyond_earth": "Beyond Earth",
   "key.beyond_earth.rocket_start": "启动火箭",
+  "key.beyond_earth.switch_jet_suit_mode": "切换喷气套装模式",
 
   "death.attack.oxygen": "%1$s缺氧窒息而亡",
   "death.attack.venus.acid": "%1$s在酸雨中化为灰烬",
@@ -333,6 +334,12 @@
   "general.beyond_earth.stored": "存储%1$s：%2$s",
   "general.beyond_earth.capacity": "%1$s容量：%2$s",
   "general.beyond_earth.transfer": "%1$s传输：%2$s",
+  
+  "general.beyond_earth.jet_suit_disabled_mode": "关闭",
+  "general.beyond_earth.jet_suit_elytra_mode": "鞘翅",
+  "general.beyond_earth.jet_suit_hover_mode": "悬浮",
+  "general.beyond_earth.jet_suit_mode": "模式",
+  "general.beyond_earth.jet_suit_normal_mode": "正常",
 
   "general.beyond_earth.energy": "能量",
   "general.beyond_earth.fluid": "流体",
@@ -340,5 +347,5 @@
   "general.beyond_earth.oxygen": "氧气",
   "general.beyond_earth.burntime": "燃烧时间",
   "general.beyond_earth.cooktime": "进度",
-  "general.beyond_earth.oxygenloading": "装载中",
+  "general.beyond_earth.oxygenloading": "装载中"
 }
