@@ -1,13 +1,20 @@
 package net.mrscauthd.beyond_earth.gauge;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.Lists;
 
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.ModList;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 
@@ -47,6 +54,24 @@ public class GaugeTextHelper {
 
 	public static GaugeTextBuilder getStorageText(IGaugeValue value) {
 		return getText(value, "%1$s: %2$s \u00A78| %3$s");
+	}
+
+	public static List<Component> getFluidTooltip(IFluidTank tank) {
+		List<Component> tooltip = new ArrayList<>();
+		tooltip.add(getStorageText(GaugeValueHelper.getFluid(tank)).build());
+
+		ResourceLocation registryName = tank.getFluid().getFluid().getRegistryName();
+
+		if (registryName != null) {
+			ModContainer container = ModList.get().getModContainerById(registryName.getNamespace()).orElse(null);
+
+			if (container != null) {
+				tooltip.add(new TextComponent(container.getModInfo().getDisplayName()).withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC));
+			}
+
+		}
+
+		return tooltip;
 	}
 
 	public static GaugeTextBuilder getPercentText(IGaugeValue value, int decimals) {

@@ -52,10 +52,10 @@ public class FuelRefineryGuiWindow extends AbstractContainerScreen<FuelRefineryG
 
 		if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(), mouseX, mouseY);
+			this.renderComponentTooltip(ms, GaugeTextHelper.getFluidTooltip(blockEntity.getInputTank()), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getOutputTank())).build(), mouseX, mouseY);
+			this.renderComponentTooltip(ms, GaugeTextHelper.getFluidTooltip(blockEntity.getOutputTank()), mouseX, mouseY);
 		} else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
 			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);
