@@ -1,7 +1,7 @@
 {
    "type":"beyond_earth:fuel_refinery",
    "input":{
-      "tag":"beyond_earth:oil",
+      "tag":"forge:crude_oil",
       "amount":2
    },
    "output":{
