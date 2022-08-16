@@ -85,6 +85,7 @@ import net.mrscauthd.beyond_earth.guis.screens.oxygenloader.OxygenLoaderGuiWindo
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGuiWindow;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGuiWindow;
+import net.mrscauthd.beyond_earth.guis.screens.waterpump.WaterPumpGuiWindow;
 import net.mrscauthd.beyond_earth.jei.jeiguihandlers.*;
 import net.mrscauthd.beyond_earth.machines.tile.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.machines.tile.CompressorBlockEntity;
@@ -156,8 +157,12 @@ public class JeiPlugin implements IModPlugin {
 		registration.addRecipeClickArea(OxygenBubbleDistributorGuiWindow.class, OxygenBubbleDistributorGuiWindow.ARROW_LEFT, OxygenBubbleDistributorGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, OxygenBubbleDistributorJeiCategory.recipeType);
 		registration.addRecipeClickArea(FuelRefineryGuiWindow.class, FuelRefineryGuiWindow.ARROW_LEFT, FuelRefineryGuiWindow.ARROW_TOP, GuiHelper.ARROW_WIDTH, GuiHelper.ARROW_HEIGHT, FuelRefineryJeiCategory.recipeType);
 
+		registration.addGuiContainerHandler(OxygenLoaderGuiWindow.class, new OxygenLoaderGuiContainerHandler());
+		registration.addGuiContainerHandler(OxygenBubbleDistributorGuiWindow.class, new OxygenBubbleDistributorGuiContainerHandler());
 		registration.addGuiContainerHandler(CoalGeneratorGuiWindow.class, new CoalGeneratorGuiContainerHandler());
 		registration.addGuiContainerHandler(CompressorGuiWindow.class, new CompressorGuiContainerHandler());
+		registration.addGuiContainerHandler(FuelRefineryGuiWindow.class, new FuelRefineryGuiContainerHandler());
+		registration.addGuiContainerHandler(WaterPumpGuiWindow.class, new WaterPumpGuiContainerHandler());
 		registration.addGuiContainerHandler(RocketGuiWindow.class, new RocketGuiContainerHandler());
 		registration.addGuiContainerHandler(RoverGuiWindow.class, new RoverGuiContainerHandler());
 	}
