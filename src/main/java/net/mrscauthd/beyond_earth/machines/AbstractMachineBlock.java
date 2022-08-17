@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Containers;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -122,19 +122,6 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
-	public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
-			T blockEntity = this.getBlockEntity(level, pos);
-
-			if (blockEntity != null) {
-				Containers.dropContents(level, pos, blockEntity);
-			}
-		}
-
-		super.onRemove(state, level, pos, newState, isMoving);
-	}
-
 	@Override
 	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult raytrace) {
 		if (entity instanceof ServerPlayer) {
@@ -162,16 +149,18 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		@SuppressWarnings("deprecation")
-		List<ItemStack> dropsOriginal = super.getDrops(state, builder);
-		if (!dropsOriginal.isEmpty()) {
-			return dropsOriginal;
-		} else {
-			return Collections.singletonList(new ItemStack(this));
-		}
+		BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
 
+		if (blockEntity instanceof AbstractMachineBlockEntity) {
+			ItemStack itemStack = new ItemStack(this);
+			blockEntity.saveToItem(itemStack);
+			return Collections.singletonList(itemStack);
+		} else {
+			return super.getDrops(state, builder);
+		}
 	}
 
 	@Override
