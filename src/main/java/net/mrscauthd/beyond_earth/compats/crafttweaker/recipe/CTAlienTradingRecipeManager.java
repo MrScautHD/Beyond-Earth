@@ -101,11 +101,11 @@ public class CTAlienTradingRecipeManager {
 		this.foreach(recipeManager -> recipeManager.removeByRegex(regex, exclude));
 	}
 
-	public void foreach(Consumer<IRecipeManager<? extends AlienTradingRecipe>> consumer) {
+	@SuppressWarnings("unchecked")
+	public <T extends AlienTradingRecipe> void foreach(Consumer<IRecipeManager<T>> consumer) {
 		for (AlienTradingRecipeType<?> recipeType : AlienTradingRecipeType.getTypes()) {
-			@SuppressWarnings("unchecked")
-			IRecipeManager<? extends AlienTradingRecipe> recipeManager = (IRecipeManager<? extends AlienTradingRecipe>) RecipeTypeBracketHandler.getOrDefault(recipeType);
-			consumer.accept(recipeManager);
+			IRecipeManager<?> recipeManager = RecipeTypeBracketHandler.getOrDefault(recipeType);
+			consumer.accept((IRecipeManager<T>) recipeManager);
 		}
 	}
 
