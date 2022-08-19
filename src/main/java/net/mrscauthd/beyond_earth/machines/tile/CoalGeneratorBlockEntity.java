@@ -65,8 +65,8 @@ public class CoalGeneratorBlockEntity extends GeneratorBlockEntity {
 	@Override
 	protected IEnergyStorage createGeneratingEnergyStorage() {
 		int capacity = Config.COAL_GENERATOR_ENERGY_CAPACITY.get();
-		int maxReceive = Config.COAL_GENERATOR_ENERGY_TRANSFER.get();
-		return new EnergyStorageBasic(this, capacity, maxReceive, capacity);
+		int maxExtract = Config.COAL_GENERATOR_ENERGY_TRANSFER.get();
+		return new EnergyStorageBasic(this, capacity, capacity, maxExtract);
 	}
 
 	public PowerSystemFuelGeneratingRecipe getPowerSystemGenerating() {
