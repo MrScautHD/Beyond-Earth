@@ -30,9 +30,9 @@ public class CTBracketHandlers {
 		ResourceLocation registryName = ResourceLocation.tryParse(name);
 
 		if (registryName == null) {
-			throw new IllegalArgumentException("Invalid name");
+			throw new IllegalArgumentException("Invalid name : " + name);
 		} else if (!registry.containsKey(registryName)) {
-			throw new IllegalArgumentException("RegistryEntry not found by typeName :<" + (bracket + ":" + name) + ">");
+			throw new IllegalArgumentException("RegistryEntry not found by registryName :" + registryName);
 		} else {
 			return registry.getValue(registryName);
 		}
