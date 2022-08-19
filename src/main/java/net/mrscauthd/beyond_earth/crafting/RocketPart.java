@@ -6,9 +6,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class RocketPart extends ForgeRegistryEntry<RocketPart> {
 
-    @Nonnull
-    public static final RocketPart EMPTY = new RocketPart(0);
-    
+	@Nonnull
+	public static final RocketPart EMPTY = new RocketPart(0);
+
 	private final int slots;
 
 	public RocketPart(int slots) {
@@ -17,5 +17,10 @@ public class RocketPart extends ForgeRegistryEntry<RocketPart> {
 
 	public int getSlots() {
 		return this.slots;
+	}
+
+	@Override
+	public String toString() {
+		return this.getRegistryName().toString();
 	}
 }

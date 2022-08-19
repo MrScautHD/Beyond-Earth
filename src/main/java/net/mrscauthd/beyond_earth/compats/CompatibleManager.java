@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import net.mrscauthd.beyond_earth.compats.crafttweaker.CraftTweakerCompat;
 import net.mrscauthd.beyond_earth.compats.mekanism.MekanismCompat;
 import net.mrscauthd.beyond_earth.compats.theoneprobe.TOPCompat;
 import net.mrscauthd.beyond_earth.compats.tinkers.TinkersCompat;
@@ -18,6 +19,7 @@ public class CompatibleManager {
 	public static final TOPCompat TOP;
 	public static final WailaCompat WAILA;
 	public static final MekanismCompat MEKANISM;
+	public static final CraftTweakerCompat CRAFTTWEAKER;
 
 	static {
 		List<CompatibleMod> mods = new ArrayList<>();
@@ -26,6 +28,7 @@ public class CompatibleManager {
 		mods.add(TOP = new TOPCompat());
 		mods.add(WAILA = new WailaCompat());
 		mods.add(MEKANISM = new MekanismCompat());
+		mods.add(CRAFTTWEAKER = new CraftTweakerCompat());
 
 		for (CompatibleMod mod : mods) {
 			mod.tryLoad();

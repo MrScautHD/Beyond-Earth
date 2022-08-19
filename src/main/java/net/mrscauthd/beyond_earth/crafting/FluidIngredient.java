@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonElement;
@@ -118,6 +119,11 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
 
 	public static FluidIngredient of(List<Fluid> fluids, int amount) {
 		return new FluidMatch(fluids, amount);
+	}
+
+	public static FluidIngredient of(Stream<FluidIngredient> fluids) {
+		int amount = fluids.findAny().map(FluidIngredient::getAmount).orElse(0);
+		return new FluidMatch(fluids.map(FluidIngredient::getFluids).flatMap(List::stream).toList(), amount);
 	}
 
 	public static FluidIngredient of(TagKey<Fluid> tag) {
