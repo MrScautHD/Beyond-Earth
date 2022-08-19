@@ -1,12 +1,8 @@
 package net.mrscauthd.beyond_earth.compats.crafttweaker;
 
-import net.minecraft.resources.ResourceLocation;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 
 public class CTConstants {
-	public static final ResourceLocation SOURCE_LOADER_ID = new ResourceLocation(BeyondEarthMod.MODID, "ct_source");
-	public static final String SOURCE_LOADER_NAME = BeyondEarthMod.MODID + "ct_source_loader";
-
 	public static final String BRACKET_HANDLER = "mods." + BeyondEarthMod.MODID + ".BracketHandler";
 
 	public static final String BRACKET_ROCKET_PART = "rocket_part";
