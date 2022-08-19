@@ -14,11 +14,11 @@ import net.mrscauthd.beyond_earth.crafting.OxygenMakingRecipeAbstract;
 
 @ZenRegister
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_OXYGEN)
-public abstract class CTRecipeManagerOxygen<T extends OxygenMakingRecipeAbstract> extends CTRecipeManager<T> {
+public abstract class CTOxygenMakingRecipeManager<T extends OxygenMakingRecipeAbstract> extends CTRecipeManager<T> {
 
 	private final OxygenMakingRecipeConstructor<T> constructor;
 
-	public CTRecipeManagerOxygen(OxygenMakingRecipeConstructor<T> constructor) {
+	public CTOxygenMakingRecipeManager(OxygenMakingRecipeConstructor<T> constructor) {
 		this.constructor = constructor;
 	}
 

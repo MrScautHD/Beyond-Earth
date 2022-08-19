@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.crafting.OxygenBubbleDistributorRecipe;
 @ZenRegister
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_OXYGEN_BUBBLE_DISTRIBUTING)
 @IRecipeHandler.For(OxygenBubbleDistributorRecipe.class)
-public class CTOxygenBubbleDistributingRecipeManager extends CTRecipeManagerOxygen<OxygenBubbleDistributorRecipe> {
+public class CTOxygenBubbleDistributingRecipeManager extends CTOxygenMakingRecipeManager<OxygenBubbleDistributorRecipe> {
 
 	public static final CTOxygenBubbleDistributingRecipeManager INSTANCE = new CTOxygenBubbleDistributingRecipeManager();
 

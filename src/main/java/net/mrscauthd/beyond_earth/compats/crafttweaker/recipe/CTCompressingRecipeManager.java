@@ -13,7 +13,7 @@ import net.mrscauthd.beyond_earth.crafting.CompressingRecipe;
 @ZenRegister
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_COMPRESSING)
 @IRecipeHandler.For(CompressingRecipe.class)
-public class CTCompressingRecipeManager extends CTRecipeManagerItemStackToItemStack<CompressingRecipe> {
+public class CTCompressingRecipeManager extends CTItemStackToItemStackRecipeManager<CompressingRecipe> {
 
 	public static final CTCompressingRecipeManager INSTANCE = new CTCompressingRecipeManager();
 

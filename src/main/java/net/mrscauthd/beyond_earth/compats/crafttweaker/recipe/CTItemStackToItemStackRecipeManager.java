@@ -15,11 +15,11 @@ import net.mrscauthd.beyond_earth.crafting.ItemStackToItemStackRecipe;
 
 @ZenRegister
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_IS2IS)
-public abstract class CTRecipeManagerItemStackToItemStack<T extends ItemStackToItemStackRecipe> extends CTRecipeManager<T> {
+public abstract class CTItemStackToItemStackRecipeManager<T extends ItemStackToItemStackRecipe> extends CTRecipeManager<T> {
 
 	private final ItemStackToItemStackRecipeConstructor<T> constructor;
 
-	public CTRecipeManagerItemStackToItemStack(ItemStackToItemStackRecipeConstructor<T> constructor) {
+	public CTItemStackToItemStackRecipeManager(ItemStackToItemStackRecipeConstructor<T> constructor) {
 		this.constructor = constructor;
 	}
 

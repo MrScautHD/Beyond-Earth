@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.crafting.OxygenLoaderRecipe;
 @ZenRegister
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_OXYGEN_LOADING)
 @IRecipeHandler.For(OxygenLoaderRecipe.class)
-public class CTOxygenLoadingRecipeManager extends CTRecipeManagerOxygen<OxygenLoaderRecipe> {
+public class CTOxygenLoadingRecipeManager extends CTOxygenMakingRecipeManager<OxygenLoaderRecipe> {
 
 	public static final CTOxygenLoadingRecipeManager INSTANCE = new CTOxygenLoadingRecipeManager();
 
