@@ -28,12 +28,12 @@ public abstract class CTRecipeManagerItemStackToItemStack<T extends ItemStackToI
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IIngredient input, IItemStack output) {
-		this.addRecipe(name, input, output, this.getDefaultCookTime());
+	public void addRecipe(String name, IItemStack output, IIngredient input) {
+		this.addRecipe(name, output, input, this.getDefaultCookTime());
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IIngredient input, IItemStack output, int cookTime) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int cookTime) {
 		ResourceLocation id = this.getId(name);
 		T recipe = this.getConstructor().construct(id, input.asVanillaIngredient(), output.getImmutableInternal(), cookTime);
 		this.addRecipe(recipe);

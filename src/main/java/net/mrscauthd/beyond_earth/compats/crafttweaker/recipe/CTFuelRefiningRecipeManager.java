@@ -22,7 +22,7 @@ public class CTFuelRefiningRecipeManager extends CTRecipeManager<FuelRefiningRec
 	public static final CTFuelRefiningRecipeManager INSTANCE = new CTFuelRefiningRecipeManager();
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, CommandStringDisplayable fluidInput, IFluidStack fluidOutput) {
+	public void addRecipe(String name, IFluidStack fluidOutput, CommandStringDisplayable fluidInput) {
 		this.addRecipe(new FuelRefiningRecipe(this.getId(name), CTUtils.toFluidIngredient(fluidInput), CTUtils.toFluidIngredient(fluidOutput.asFluidIngredient())));
 	}
 

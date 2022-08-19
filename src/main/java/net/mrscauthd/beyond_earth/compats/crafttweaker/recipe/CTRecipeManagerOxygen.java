@@ -23,7 +23,7 @@ public abstract class CTRecipeManagerOxygen<T extends OxygenMakingRecipeAbstract
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, CommandStringDisplayable fluidInput, int oxygenOutput) {
+	public void addRecipe(String name, int oxygenOutput, CommandStringDisplayable fluidInput) {
 		ResourceLocation id = this.getId(name);
 		T recipe = this.getConstructor().construct(id, CTUtils.toFluidIngredient(fluidInput), oxygenOutput);
 		this.addRecipe(recipe);

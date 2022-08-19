@@ -20,7 +20,7 @@ public class CTCoalGeneratingRecipeManager extends CTRecipeManager<GeneratingRec
 	public static final CTCoalGeneratingRecipeManager INSTANCE = new CTCoalGeneratingRecipeManager();
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IIngredient ingredient, int burnTime) {
+	public void addRecipe(String name, int burnTime, IIngredient ingredient) {
 		this.addRecipe(new GeneratingRecipe(this.getId(name), ingredient.asVanillaIngredient(), burnTime));
 	}
 

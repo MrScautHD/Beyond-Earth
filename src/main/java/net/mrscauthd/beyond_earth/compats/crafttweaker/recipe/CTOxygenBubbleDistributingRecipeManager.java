@@ -23,14 +23,14 @@ public class CTOxygenBubbleDistributingRecipeManager extends CTRecipeManagerOxyg
 	}
 
 	@ZenCodeType.Method
-	public void addRecipePair(String name, CommandStringDisplayable fluidInput, int loadingOxygen) {
-		this.addRecipePair(name, fluidInput, loadingOxygen, loadingOxygen * 4);
+	public void addRecipePair(String name, int loadingOxygen, CommandStringDisplayable fluidInput) {
+		this.addRecipePair(name, loadingOxygen, loadingOxygen * 4, fluidInput);
 	}
 
 	@ZenCodeType.Method
-	public void addRecipePair(String name, CommandStringDisplayable fluidInput, int loadingOxygen, int bubbleOxygen) {
-		CTOxygenLoadingRecipeManager.INSTANCE.addRecipe(name + "/loading", fluidInput, loadingOxygen);
-		CTOxygenBubbleDistributingRecipeManager.INSTANCE.addRecipe(name + "/bubble_distributing", fluidInput, bubbleOxygen);
+	public void addRecipePair(String name, int loadingOxygen, int bubbleOxygen, CommandStringDisplayable fluidInput) {
+		CTOxygenLoadingRecipeManager.INSTANCE.addRecipe(name + "/loading", loadingOxygen, fluidInput);
+		CTOxygenBubbleDistributingRecipeManager.INSTANCE.addRecipe(name + "/bubble_distributing", bubbleOxygen, fluidInput);
 	}
 
 	@Override

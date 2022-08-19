@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.compats.crafttweaker;
 
 import com.blamejared.crafttweaker.api.bracket.CommandStringDisplayable;
 import com.blamejared.crafttweaker.api.fluid.CTFluidIngredient;
+import com.blamejared.crafttweaker.api.fluid.IFluidStack;
 import com.blamejared.crafttweaker.api.fluid.MCFluidStack;
 import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.ingredient.IIngredientWithAmount;
@@ -53,17 +54,34 @@ public class CTUtils {
 
 	@SuppressWarnings("unchecked")
 	public static FluidIngredient toFluidIngredient(CommandStringDisplayable input) {
-		if (input instanceof CTFluidIngredient fluidIngredient) {
+		if (input instanceof IFluidStack fluidStack) {
+			return toFluidIngredient(fluidStack);
+		} else if (input instanceof CTFluidIngredient fluidIngredient) {
 			return toFluidIngredient(fluidIngredient);
 		} else if (input instanceof Many<?> many) {
-			return toFluidIngredient(new CTFluidIngredient.FluidTagWithAmountIngredient((Many<KnownTag<Fluid>>) many));
+			return toFluidIngredient((Many<KnownTag<Fluid>>) many);
+		} else if (input instanceof KnownTag<?> tag) {
+			return toFluidIngredient((KnownTag<Fluid>) tag);
 		} else {
 			return new FluidIngredient.Empty();
 		}
 	}
 
+	public static FluidIngredient toFluidIngredient(IFluidStack input) {
+		return FluidIngredient.of(input.getImmutableInternal());
+	}
+
 	public static FluidIngredient toFluidIngredient(CTFluidIngredient input) {
 		return input.mapTo(FluidIngredient::of, FluidIngredient::of, FluidIngredient::of);
+	}
+
+	public static FluidIngredient toFluidIngredient(Many<KnownTag<Fluid>> input) {
+		return toFluidIngredient(new CTFluidIngredient.FluidTagWithAmountIngredient(input));
+	}
+
+	public static FluidIngredient toFluidIngredient(KnownTag<Fluid> input) {
+		TagKey<Fluid> tagKey = input.getTagKey();
+		return FluidIngredient.of(tagKey);
 	}
 
 	public static CTFluidIngredient toFluidIngredient(FluidIngredient input) {
