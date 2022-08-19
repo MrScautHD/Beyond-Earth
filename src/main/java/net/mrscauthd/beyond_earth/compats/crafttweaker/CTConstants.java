@@ -7,6 +7,10 @@ public class CTConstants {
 	public static final ResourceLocation SOURCE_LOADER_ID = new ResourceLocation(BeyondEarthMod.MODID, "ct_source");
 	public static final String SOURCE_LOADER_NAME = BeyondEarthMod.MODID + "ct_source_loader";
 
+    public static final String BRACKET_HANDLER = "mods." + BeyondEarthMod.MODID + ".BracketHandler";
+    
+    public static final String BRACKET_ROCKET_PART = "rocket_part";
+
 	public static final String RECIPE_MANAGER = "mods." + BeyondEarthMod.MODID + ".recipe.manager";
 	public static final String RECIPE_MANAGER_IS2IS = RECIPE_MANAGER + ".IS2IS";
 	public static final String RECIPE_MANAGER_COMPRESSING = RECIPE_MANAGER + ".Compressing";

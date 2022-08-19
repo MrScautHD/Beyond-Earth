@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.compats.crafttweaker.recipe;
 
 import java.util.List;
+import java.util.function.Function;
 
 import org.openzen.zencode.java.ZenCodeType;
 
@@ -54,21 +55,28 @@ public abstract class CTRecipeManager<T extends BeyondEarthRecipe> implements IR
 		return builder.append(");").toString();
 	}
 
+	protected <R> String toStringValues(List<R> values, String prefix, String suffix, Function<R, String> toStringFunction) {
+		StringBuilder builder = new StringBuilder(prefix);
+
+		for (int i = 0; i < values.size(); i++) {
+			if (i > 0) {
+				builder.append(", ");
+			}
+
+			R child = values.get(i);
+			builder.append(toStringFunction.apply(child));
+		}
+		builder.append(suffix);
+		return builder.toString();
+	}
+
+	protected <R> String toStringValues(List<R> values, Function<R, String> toStringFunction) {
+		return this.toStringValues(values, "[", "]", toStringFunction);
+	}
+
 	protected String toStringValue(Object value) {
 		if (value instanceof List<?> list) {
-			StringBuilder builder = new StringBuilder("[");
-
-			for (int i = 0; i < list.size(); i++) {
-				if (i > 0) {
-					builder.append(", ");
-				}
-
-				Object child = list.get(i);
-				builder.append(this.toStringValue(child));
-			}
-			builder.append("]");
-			return builder.toString();
-
+			return this.toStringValues(list, this::toStringValue);
 		} else if (value instanceof ItemStack itemStack) {
 			return this.toStringValue(new MCItemStack(itemStack));
 
