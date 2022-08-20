@@ -156,6 +156,10 @@ public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate
 			}
 
 			for (int i = 0; i < subHandlerSlots; i++) {
+				if (i >= ingredients.size()) {
+					continue;
+				}
+
 				ItemStack stack = subHandler.getStackInSlot(i);
 				Ingredient ingredient = ingredients.get(i);
 
