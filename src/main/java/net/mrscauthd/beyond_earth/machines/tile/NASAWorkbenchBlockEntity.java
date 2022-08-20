@@ -274,10 +274,12 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
 
 		RocketPartsItemHandler partsItemHandler = this.getPartsItemHandler();
 
-		for (RocketPart part : recipe.getParts().keySet()) {
-			IItemHandlerModifiable subHandler = partsItemHandler.getSubHandlers().get(part);
+		for (Entry<RocketPart, List<Ingredient>> entry : recipe.getParts().entrySet()) {
+			IItemHandlerModifiable subHandler = partsItemHandler.getSubHandlers().get(entry.getKey());
 
-			for (int i = 0; i < part.getSlots(); i++) {
+			int ingredientKinds = entry.getValue().size();
+
+			for (int i = 0; i < ingredientKinds; i++) {
 				subHandler.extractItem(i, 1, false);
 			}
 		}
