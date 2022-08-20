@@ -8,25 +8,17 @@ import org.openzen.zencode.java.ZenCodeType;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.CraftTweakerConstants;
-import com.blamejared.crafttweaker.api.action.recipe.ActionAddRecipe;
 import com.blamejared.crafttweaker.api.action.recipe.ActionRemoveRecipe;
 import com.blamejared.crafttweaker.api.annotation.ZenRegister;
 import com.blamejared.crafttweaker.api.bracket.custom.RecipeTypeBracketHandler;
 import com.blamejared.crafttweaker.api.data.MapData;
-import com.blamejared.crafttweaker.api.data.base.visitor.DataToJsonStringVisitor;
 import com.blamejared.crafttweaker.api.ingredient.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.recipe.manager.base.IRecipeManager;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.item.crafting.Recipe;
-import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.compats.crafttweaker.CTConstants;
@@ -37,18 +29,13 @@ import net.mrscauthd.beyond_earth.crafting.AlienTradingRecipeType;
 @ZenCodeType.Name(CTConstants.RECIPE_MANAGER_ALIEN_TRADING)
 public class CTAlienTradingRecipeManager {
 
-	Gson JSON_RECIPE_GSON = new GsonBuilder().create();
-
 	@ZenCodeGlobals.Global(BeyondEarthMod.MODID + "_alien_trading")
 	public static final CTAlienTradingRecipeManager INSTANCE = new CTAlienTradingRecipeManager();
 
 	@ZenCodeType.Method
 	public void addJsonRecipe(String name, MapData mapData) {
-		JsonObject recipeObject = JSON_RECIPE_GSON.fromJson(mapData.accept(DataToJsonStringVisitor.INSTANCE), JsonObject.class);
-		AlienTradingRecipe recipe = (AlienTradingRecipe) RecipeManager.fromJson(new ResourceLocation(CraftTweakerConstants.MOD_ID, name), recipeObject, IContext.EMPTY);
-		RecipeType<?> recipeType = recipe.getType();
-		IRecipeManager<Recipe<?>> recipeManager = RecipeTypeBracketHandler.getOrDefault(recipeType);
-		CraftTweakerAPI.apply(new ActionAddRecipe<>(recipeManager, recipe, ""));
+		Recipe<?> recipe = CTRecipeUtils.parseRecipe(new ResourceLocation(CraftTweakerConstants.MOD_ID, name), mapData);
+		CTRecipeUtils.addRecipe(recipe);
 	}
 
 	@ZenCodeType.Method
