@@ -19,6 +19,10 @@ repositories {
     name = "ModMaven"
     url = "https://modmaven.k-4u.nl/"
   }
+  maven {
+    name = "CraftTweaker"
+    url = "https://maven.blamejared.com/"
+  }
 }
 
 repositories {
@@ -101,6 +105,10 @@ dependencies {
     runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:additions")
     runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:generators")
     runtimeOnly fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}:tools")
+
+    //Craft Tweaker
+    implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
+    implementation fg.deobf("com.blamejared.jeitweaker:JEITweaker-${mc_version}:${jeitweaker_version}")
 }
 
 mixin {
