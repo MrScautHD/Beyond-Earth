@@ -3,11 +3,13 @@ package net.mrscauthd.beyond_earth.client.renderers.entities.globe;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -21,9 +23,13 @@ public class GlobeItemRenderer<T extends GlobeTileEntity> extends BlockEntityWit
     private ResourceLocation texture;
     private GlobeModel model;
 
-    public GlobeItemRenderer(ResourceLocation texture) {
-        super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
+    public GlobeItemRenderer(BlockEntityRenderDispatcher p_172550_, EntityModelSet p_172551_) {
+        super(p_172550_, p_172551_);
+    }
+
+    public GlobeItemRenderer setTexture(ResourceLocation texture) {
         this.texture = texture;
+        return this;
     }
 
     @Override

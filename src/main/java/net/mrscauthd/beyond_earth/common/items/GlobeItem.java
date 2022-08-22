@@ -4,21 +4,22 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.mrscauthd.beyond_earth.client.renderers.entities.globe.GlobeItemRenderer;
+import net.mrscauthd.beyond_earth.client.registries.ItemRendererRegistry;
 
 import java.util.function.Consumer;
 
 public class GlobeItem extends BlockItem {
 
-    @OnlyIn(Dist.CLIENT)
-    private GlobeItemRenderer renderer;
+    private ResourceLocation texture;
 
     public GlobeItem(Block p_40565_, Properties p_40566_, ResourceLocation texture) {
         super(p_40565_, p_40566_);
-        this.renderer = new GlobeItemRenderer<>(texture);
+        this.texture = texture;
+    }
+
+    public ResourceLocation getTexture() {
+        return this.texture;
     }
 
     @Override
@@ -27,7 +28,7 @@ public class GlobeItem extends BlockItem {
 
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return GlobeItem.this.renderer;
+                return ItemRendererRegistry.GLOBE_ITEM_RENDERER.setTexture(GlobeItem.this.getTexture());
             }
         });
     }

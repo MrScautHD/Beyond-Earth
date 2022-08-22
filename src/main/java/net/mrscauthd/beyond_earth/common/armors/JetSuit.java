@@ -164,7 +164,7 @@ public class JetSuit {
         }
 
         public void normalFlyModeMovement(Player player, ItemStack stack) {
-            if (!player.getAbilities().flying) {
+            if (!player.getAbilities().flying && Methods.isLivingInJetSuit(player)) {
 
                 /** HOVER FLY */
                 if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
