@@ -176,8 +176,6 @@ public abstract class IRocketEntity extends VehicleEntity {
 
     public abstract void particleSpawn();
 
-    public abstract void fillUpRocket();
-
     public boolean doesDrop(BlockState state, BlockPos pos) {
         if (this.isOnGround() || this.isInWater()) {
 
@@ -309,7 +307,6 @@ public abstract class IRocketEntity extends VehicleEntity {
         super.tick();
 
         this.checkOnBlocks();
-        this.fillUpRocket();
         this.rocketExplosion();
         this.burnEntities();
 
@@ -356,4 +353,8 @@ public abstract class IRocketEntity extends VehicleEntity {
 
         return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
     }
+
+    public abstract boolean canStart();
+
+    public abstract void sendCantStartMessage(Player player);
 }

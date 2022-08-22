@@ -73,13 +73,13 @@ public class KeyMethods {
                 IRocketEntity rocket = (IRocketEntity) player.getVehicle();
                 SynchedEntityData data = rocket.getEntityData();
 
-                if (data.get(IRocketEntity.FUEL) == 300) {
+                if (rocket.canStart()) {
                     if (!data.get(IRocketEntity.ROCKET_START)) {
                         data.set(IRocketEntity.ROCKET_START, true);
                         Methods.playRocketSound(rocket, rocket.level);
                     }
                 } else {
-                    Methods.noFuelMessage(player);
+                    rocket.sendCantStartMessage(player);
                 }
             }
         }

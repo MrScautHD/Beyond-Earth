@@ -17,23 +17,23 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.RocketPickResultEvent;
-import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
+import net.mrscauthd.beyond_earth.items.IFuelRocketItem;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
-import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
-public class RocketTier1Entity extends IRocketEntity {
+public class RocketTier1Entity extends IFuelRocketEntity {
+
+	public static final int FUEL_OF_BUCKET = 300;
+	public static final int FUEL_BUCKETS = 1;
 
 	public RocketTier1Entity(EntityType type, Level world) {
 		super(type, world);
@@ -48,8 +48,8 @@ public class RocketTier1Entity extends IRocketEntity {
 	@Override
 	public ItemStack getPickedResult(HitResult target) {
 		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
+		itemStack.getOrCreateTag().putInt(IFuelRocketItem.fuelTag, this.getFuel());
+		itemStack.getOrCreateTag().putInt(IFuelRocketItem.bucketTag, this.getBuckets());
 		MinecraftForge.EVENT_BUS.post(new RocketPickResultEvent(this, itemStack));
 
 		return itemStack;
@@ -57,10 +57,7 @@ public class RocketTier1Entity extends IRocketEntity {
 
 	@Override
 	protected void spawnRocketItem() {
-		ItemStack itemStack = new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":buckets", this.getEntityData().get(BUCKETS));
-
+		ItemStack itemStack = this.getPickedResult(null);
 		ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
 		entityToSpawn.setPickUpDelay(10);
 		level.addFreshEntity(entityToSpawn);
@@ -118,14 +115,12 @@ public class RocketTier1Entity extends IRocketEntity {
 	}
 
 	@Override
-	public void fillUpRocket() {
-		if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.getInventory().getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(BUCKETS) != 1) {
-			this.getInventory().setStackInSlot(0, new ItemStack(Items.BUCKET));
-			this.getEntityData().set(BUCKETS, 1);
-		}
+	public int getFuelOfBucket() {
+		return FUEL_OF_BUCKET;
+	}
 
-		if (this.getEntityData().get(BUCKETS) == 1 && this.getEntityData().get(FUEL) < 300) {
-			this.getEntityData().set(FUEL, this.getEntityData().get(FUEL) + 1);
-		}
+	@Override
+	public int getRequiredFuelBuckets() {
+		return FUEL_BUCKETS;
 	}
 }
