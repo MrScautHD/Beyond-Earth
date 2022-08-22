@@ -45,6 +45,7 @@ import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.guis.screens.rover.RoverGui;
+import net.mrscauthd.beyond_earth.items.RoverItem;
 import net.mrscauthd.beyond_earth.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
@@ -52,7 +53,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class RoverEntity extends VehicleEntity {
+public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
     private double speed = 0;
 
     public float flyingSpeed = 0.02F;
@@ -68,6 +69,7 @@ public class RoverEntity extends VehicleEntity {
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
 	public static final int FUEL_BUCKETS = 3;
+	public static final int FUEL_CAPACITY = FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE;
 
     public RoverEntity(EntityType type, Level worldIn) {
         super(type, worldIn);
@@ -169,7 +171,7 @@ public class RoverEntity extends VehicleEntity {
     @Override
     public ItemStack getPickedResult(HitResult target) {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.entityData.get(FUEL));
+        itemStack.getOrCreateTag().putInt(RoverItem.fuelTag, this.getFuel());
 
         return itemStack;
     }
@@ -206,7 +208,7 @@ public class RoverEntity extends VehicleEntity {
 
     protected void spawnRoverItem() {
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getEntityData().get(FUEL));
+        itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getFuel());
 
         ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
         entityToSpawn.setPickUpDelay(10);
@@ -247,7 +249,7 @@ public class RoverEntity extends VehicleEntity {
     public void addAdditionalSaveData(CompoundTag compound) {
         compound.put("InventoryCustom", inventory.serializeNBT());
 
-        compound.putInt("fuel", this.getEntityData().get(FUEL));
+        compound.putInt("fuel", this.getFuel());
         compound.putBoolean("forward", this.getEntityData().get(FORWARD));
     }
 
@@ -258,7 +260,7 @@ public class RoverEntity extends VehicleEntity {
             inventory.deserializeNBT((CompoundTag) inventoryCustom);
         }
 
-        this.entityData.set(FUEL, compound.getInt("fuel"));
+        this.setFuel(compound.getInt("fuel"));
         this.entityData.set(FORWARD, compound.getBoolean("forward"));
     }
 
@@ -309,8 +311,8 @@ public class RoverEntity extends VehicleEntity {
         //Fuel Load up
         if (Methods.tagCheck(FluidUtil2.findBucketFluid(this.inventory.getStackInSlot(0).getItem()), TagsRegistry.FLUID_VEHICLE_FUEL_TAG)) {
 
-            if (this.entityData.get(FUEL) <= 2000) {
-                this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
+            if (this.canPutFuelMuchAsBucket()) {
+                this.putFuelMuchAsBucket();
                 this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
             }
         }
@@ -333,17 +335,17 @@ public class RoverEntity extends VehicleEntity {
 
         passanger.resetFallDistance();
 
-        if (passanger.zza > 0.01 && this.getEntityData().get(FUEL) != 0) {
+        if (passanger.zza > 0.01 && this.getFuel() != 0) {
 
             if (FUEL_TIMER > FUEL_USE_TICK) {
-                this.entityData.set(FUEL, this.getEntityData().get(FUEL) - 1);
+                this.setFuel(this.getFuel() - 1);
                 FUEL_TIMER = 0;
             }
             this.entityData.set(FORWARD, true);
-        } else if (passanger.zza < -0.01 && this.getEntityData().get(FUEL) != 0) {
+        } else if (passanger.zza < -0.01 && this.getFuel() != 0) {
 
             if (FUEL_TIMER > FUEL_USE_TICK) {
-                this.entityData.set(FUEL, this.getEntityData().get(FUEL) - 1);
+                this.setFuel(this.getFuel() - 1);
                 FUEL_TIMER = 0;
             }
             this.entityData.set(FORWARD, false);
@@ -368,7 +370,7 @@ public class RoverEntity extends VehicleEntity {
 
             double pmovement = passanger.zza;
 
-            if (pmovement == 0 || this.getEntityData().get(FUEL) == 0 || this.isEyeInFluid(FluidTags.WATER)) {
+            if (pmovement == 0 || this.getFuel() == 0 || this.isEyeInFluid(FluidTags.WATER)) {
                 pmovement = 0;
                 this.setSpeed(0f);
 
@@ -377,7 +379,7 @@ public class RoverEntity extends VehicleEntity {
                 }
             }
 
-            if (this.entityData.get(FORWARD) && this.getEntityData().get(FUEL) != 0) {
+            if (this.entityData.get(FORWARD) && this.getFuel() != 0) {
                 if (this.getSpeed() >= 0.01) {
                     if (speed <= 0.32) {
                         speed = speed + 0.02;
@@ -392,7 +394,7 @@ public class RoverEntity extends VehicleEntity {
 
             if (!this.entityData.get(FORWARD)) {
 
-                if (this.getEntityData().get(FUEL) != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
+                if (this.getFuel() != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
 
                     if (this.getSpeed() <= 0.04) {
                         this.setSpeed(this.getSpeed() + 0.02f);
@@ -451,4 +453,29 @@ public class RoverEntity extends VehicleEntity {
         p_21044_.animationSpeed += (f - p_21044_.animationSpeed) * 0.4F;
         p_21044_.animationPosition += p_21044_.animationSpeed;
     }
+
+	@Override
+	public int getFuel() {
+		return this.getEntityData().get(FUEL);
+	}
+
+	@Override
+	public void setFuel(int fuel) {
+		this.getEntityData().set(FUEL, Mth.clamp(fuel, 0, this.getFuelCapacity()));
+	}
+
+	@Override
+	public int getFuelCapacity() {
+		return FUEL_CAPACITY;
+	}
+
+	@Override
+	public void putFuelMuchAsBucket() {
+		this.setFuel(this.getFuel() + FluidUtil2.BUCKET_SIZE);
+	}
+
+	@Override
+	public boolean canPutFuelMuchAsBucket() {
+		return (this.getFuel() + FluidUtil2.BUCKET_SIZE) <= this.getFuelCapacity();
+	}
 }

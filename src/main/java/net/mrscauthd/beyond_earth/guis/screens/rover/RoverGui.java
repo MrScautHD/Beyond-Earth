@@ -1,7 +1,6 @@
 package net.mrscauthd.beyond_earth.guis.screens.rover;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -26,12 +25,12 @@ public class RoverGui {
 	}
 
 	public static class GuiContainer extends AbstractContainerMenu {
-		Entity rover;
+		private final RoverEntity rover;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
 			super(ScreensRegistry.ROVER_GUI.get(), id);
 
-			this.rover = inv.player.level.getEntity(extraData.readVarInt());
+			this.rover = (RoverEntity) inv.player.level.getEntity(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = ((RoverEntity) rover).getItemHandler();
 			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {
@@ -62,6 +61,10 @@ public class RoverGui {
 		@Override
 		public ItemStack quickMoveStack(Player playerIn, int index) {
 			return ContainerHelper.transferStackInSlot(this, playerIn, index, 0, 9, this::moveItemStackTo);
+		}
+		
+		public RoverEntity getRover() {
+			return this.rover;
 		}
 	}
 }
