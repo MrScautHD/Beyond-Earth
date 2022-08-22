@@ -23,15 +23,14 @@ import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
-import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
 
 import java.util.List;
 import java.util.function.Consumer;
 
-public class RoverItem extends VehicleItem {
+public class RoverItem extends VehicleItem implements IFuelVehicleItem {
     public static String fuelTag = BeyondEarthMod.MODID + ":fuel";
 
     public RoverItem(Properties properties) {
@@ -41,8 +40,9 @@ public class RoverItem extends VehicleItem {
     @Override
     public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        int fuel = p_41421_.getOrCreateTag().getInt(fuelTag);
-        p_41423_.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE))));
+
+        IGaugeValue fuelGauge = this.getFuelGauge(p_41421_);
+        p_41423_.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(fuelGauge)));
     }
 
     @Override
@@ -88,7 +88,7 @@ public class RoverItem extends VehicleItem {
 
                 world.addFreshEntity(rover);
 
-                rover.getEntityData().set(RoverEntity.FUEL, itemStack.getOrCreateTag().getInt(fuelTag));
+                rover.setFuel(this.getFuel(itemStack));
 
                 if (!player.getAbilities().instabuild) {
                     player.setItemInHand(hand, ItemStack.EMPTY);
@@ -119,12 +119,27 @@ public class RoverItem extends VehicleItem {
         super.fillItemCategory(p_41391_, p_41392_);
         if (this.allowdedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(fuelTag, 3000);
+            this.setFuel(itemStack, this.getFuelCapacity(itemStack));
             p_41392_.add(itemStack);
         }
     }
 
     public static void roverPlaceSound(BlockPos pos, Level world) {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
+    }
+
+    @Override
+    public int getFuel(ItemStack itemStack) {
+    	return itemStack.getOrCreateTag().getInt(fuelTag);
+    }
+
+    @Override
+    public void setFuel(ItemStack itemStack, int fuel) {
+    	itemStack.getOrCreateTag().putInt(fuelTag, Mth.clamp(fuel, 0, this.getFuelCapacity(itemStack)));
+    }
+
+    @Override
+    public int getFuelCapacity(ItemStack itemStack) {
+    	return RoverEntity.FUEL_CAPACITY;
     }
 }

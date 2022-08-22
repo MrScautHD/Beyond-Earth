@@ -80,19 +80,17 @@ public class RocketGuiWindow extends AbstractContainerScreen<RocketGui.GuiContai
 
 	public IGaugeValue getFuelGaugeValue() {
 		int fuel = 0;
+		int capacity = 0;
 
-		if (menu.rocket instanceof IRocketEntity) {
-			fuel = menu.rocket.getEntityData().get(IRocketEntity.FUEL);
+		if (menu.getRocket() instanceof IFuelRocketEntity fuelRocket) {
+			fuel = fuelRocket.getFuel();
+			capacity = fuelRocket.getFuelCapacity();
 		}
 
-		return GaugeValueHelper.getFuel(fuel / 3, 100);
+		return GaugeValueHelper.getFuel(fuel, capacity);
 	}
 
 	public Rectangle2d getFluidBounds() {
 		return GuiHelper.getRocketFluidTankBounds(66, 21);
-	}
-
-	public Entity getRocket() {
-		return menu.rocket;
 	}
 }

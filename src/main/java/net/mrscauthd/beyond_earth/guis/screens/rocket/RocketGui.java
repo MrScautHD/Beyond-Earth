@@ -27,12 +27,12 @@ public class RocketGui {
 
 
 	public static class GuiContainer extends AbstractContainerMenu {
-		Entity rocket;
+		private final IRocketEntity rocket;
 
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
 			super(ScreensRegistry.ROCKET_GUI.get(), id);
 
-			this.rocket = inv.player.level.getEntity(extraData.readVarInt());
+			this.rocket = (IRocketEntity) inv.player.level.getEntity(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = null;
 
@@ -58,6 +58,10 @@ public class RocketGui {
 		@Override
 		public ItemStack quickMoveStack(Player playerIn, int index) {
 			return ContainerHelper.transferStackInSlot(this, playerIn, index, 0, 1, this::moveItemStackTo);
+		}
+
+		public IRocketEntity getRocket() {
+			return this.rocket;
 		}
 	}
 }

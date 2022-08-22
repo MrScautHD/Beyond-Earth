@@ -18,10 +18,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
-import net.mrscauthd.beyond_earth.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.guis.helper.GuiHelper;
 import net.mrscauthd.beyond_earth.registries.BlocksRegistry;
@@ -47,10 +44,8 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 
 		List<Component> fuelToolTip = new ArrayList<Component>();
 
-		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
-
 		if (!CompatibleManager.JEI.isLoaded() && GuiHelper.isHover(this.getFluidBounds(), mouseX - this.leftPos, mouseY - this.topPos)) {
-			fuelToolTip.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE)), ChatFormatting.WHITE));
+			fuelToolTip.add(this.getFuelGaugeComponent());
 			this.renderComponentTooltip(ms, fuelToolTip, mouseX, mouseY);
 		}
 	}
@@ -64,7 +59,7 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 		RenderSystem.setShaderTexture(0, texture);
 		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
 
-		IGaugeValue fuelGaugeValue = this.getFuelGaugeValue();
+		IGaugeValue fuelGaugeValue = this.getMenu().getRover().getFuelGauge();
 		FluidStack fluidStack = new FluidStack(BlocksRegistry.FUEL_BLOCK.get().getFluid(), fuelGaugeValue.getAmount());
 		GuiHelper.drawFluidTank(ms, this.leftPos + 9, this.topPos + 11, fluidStack, fuelGaugeValue.getCapacity());
 	}
@@ -76,12 +71,7 @@ public class RoverGuiWindow extends AbstractContainerScreen<RoverGui.GuiContaine
 	}
 
 	public Component getFuelGaugeComponent() {
-		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
-	}
-
-	public IGaugeValue getFuelGaugeValue() {
-		int fuel = menu.rover.getEntityData().get(RoverEntity.FUEL);
-		return GaugeValueHelper.getFuel(fuel, RoverEntity.FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE);
+		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(this.getMenu().getRover().getFuelGauge()), ChatFormatting.WHITE);
 	}
 
 	public Rectangle2d getFluidBounds() {
