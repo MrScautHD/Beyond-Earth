@@ -41,7 +41,7 @@ public class ProbeInfoBlockProvider implements IProbeInfoProvider {
 		}
 
 		if (blockEntity instanceof IGaugeValuesProvider) {
-			((IGaugeValuesProvider) blockEntity).getGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
+			((IGaugeValuesProvider) blockEntity).getDisplayGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
 		}
 
 	}

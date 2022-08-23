@@ -567,7 +567,7 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
 	}
 
 	@Override
-	public List<IGaugeValue> getGaugeValues() {
+	public List<IGaugeValue> getDisplayGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
 		this.getPowerSystems().values().stream().map(PowerSystem::getGaugeValues).forEach(list::addAll);
 		return list;

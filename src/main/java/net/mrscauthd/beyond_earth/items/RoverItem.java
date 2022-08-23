@@ -21,8 +21,10 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.IItemRenderProperties;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.registries.EntitiesRegistry;
@@ -40,7 +42,7 @@ public class RoverItem extends VehicleItem implements IFuelVehicleItem {
     @Override
     public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-
+        
         IGaugeValue fuelGauge = this.getFuelGauge(p_41421_);
         p_41423_.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(fuelGauge)));
     }
@@ -140,6 +142,6 @@ public class RoverItem extends VehicleItem implements IFuelVehicleItem {
 
     @Override
     public int getFuelCapacity(ItemStack itemStack) {
-    	return RoverEntity.FUEL_CAPACITY;
+    	return Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE;
     }
 }

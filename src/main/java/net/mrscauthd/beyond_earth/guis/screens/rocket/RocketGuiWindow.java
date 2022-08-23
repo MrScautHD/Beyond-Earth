@@ -75,19 +75,15 @@ public class RocketGuiWindow extends AbstractContainerScreen<RocketGui.GuiContai
 	}
 
 	public Component getFuelGaugeComponent() {
-		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
+		return GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(this.getFuelGaugeValue()), ChatFormatting.WHITE);
 	}
 
 	public IGaugeValue getFuelGaugeValue() {
-		int fuel = 0;
-		int capacity = 0;
-
-		if (menu.getRocket() instanceof IFuelRocketEntity fuelRocket) {
-			fuel = fuelRocket.getFuel();
-			capacity = fuelRocket.getFuelCapacity();
+		if (this.getMenu().getRocket()instanceof IFuelRocketEntity fuelRocket) {
+			return fuelRocket.getFuelGuageAsBucket();
+		} else {
+			return GaugeValueHelper.getFuel(0, 0);
 		}
-
-		return GaugeValueHelper.getFuel(fuel, capacity);
 	}
 
 	public Rectangle2d getFluidBounds() {
