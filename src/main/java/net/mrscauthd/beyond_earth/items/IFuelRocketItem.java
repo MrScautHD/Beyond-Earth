@@ -12,7 +12,9 @@ import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.entities.IFuelRocketEntity;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
+import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 
 public abstract class IFuelRocketItem extends IRocketItem implements IFuelVehicleItem {
@@ -24,12 +26,18 @@ public abstract class IFuelRocketItem extends IRocketItem implements IFuelVehicl
 		super(properties);
 	}
 
+	public IGaugeValue getFuelGuageAsBucket(ItemStack itemStack) {
+		int fuel = (this.getFuel(itemStack) * FluidUtil2.BUCKET_SIZE) / this.getFuelOfBucket(itemStack);
+		int capacity = (this.getFuelCapacity(itemStack) * FluidUtil2.BUCKET_SIZE) / this.getFuelOfBucket(itemStack);
+		return GaugeValueHelper.getFuel(fuel, capacity);
+	}
+
 	@Override
 	public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
 		super.appendHoverText(itemstack, world, list, flag);
 
-		IGaugeValue fuelGauge = this.getFuelGauge(itemstack);
-		list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getPercentText(fuelGauge)));
+		IGaugeValue fuelGauge = this.getFuelGuageAsBucket(itemstack);
+		list.add(GaugeTextHelper.buildBlockTooltip(GaugeTextHelper.getStorageText(fuelGauge)));
 	}
 
 	@Override

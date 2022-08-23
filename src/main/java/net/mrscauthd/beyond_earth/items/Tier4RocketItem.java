@@ -6,6 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
 import net.mrscauthd.beyond_earth.events.ClientEventBusSubscriber;
@@ -39,6 +40,6 @@ public class Tier4RocketItem extends IFuelRocketItem {
 
 	@Override
 	public int getRequiredFuelBuckets(ItemStack itemStack) {
-		return RocketTier4Entity.FUEL_BUCKETS;
+		return Config.ROCKET_TIER_4_FUEL_BUCKETS.get();
 	}
 }

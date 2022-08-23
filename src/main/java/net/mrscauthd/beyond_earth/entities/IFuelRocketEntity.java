@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
@@ -13,7 +12,6 @@ import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.gauge.GaugeValueSimple;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.registries.TagsRegistry;
 
@@ -59,10 +57,14 @@ public abstract class IFuelRocketEntity extends IRocketEntity implements IFuelVe
 	@Override
 	public List<IGaugeValue> getDisplayGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
-		int fuel = this.getFuel();
-		int capacity = this.getFuelCapacity();
-		list.add(new GaugeValueSimple(GaugeValueHelper.FUEL_NAME, (int) Math.round(fuel / (capacity / 100.0D)), 100, (Component) null, "%").color(GaugeValueHelper.FUEL_COLOR));
+		list.add(this.getFuelGuageAsBucket());
 		return list;
+	}
+
+	public IGaugeValue getFuelGuageAsBucket() {
+		int fuel = (this.getFuel() * FluidUtil2.BUCKET_SIZE) / this.getFuelOfBucket();
+		int capacity = (this.getFuelCapacity() * FluidUtil2.BUCKET_SIZE) / this.getFuelOfBucket();
+		return GaugeValueHelper.getFuel(fuel, capacity);
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public abstract class IFuelRocketEntity extends IRocketEntity implements IFuelVe
 	public void setFuel(int fuel) {
 		this.getEntityData().set(FUEL, Mth.clamp(fuel, 0, this.getFuelCapacity()));
 	}
-	
+
 	@Override
 	public int getFuelCapacity() {
 		return this.getRequiredFuelBuckets() * this.getFuelOfBucket();

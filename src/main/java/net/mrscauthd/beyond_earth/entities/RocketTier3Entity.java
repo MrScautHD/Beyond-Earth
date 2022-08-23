@@ -21,7 +21,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
-
+import net.mrscauthd.beyond_earth.config.Config;
 import io.netty.buffer.Unpooled;
 import net.mrscauthd.beyond_earth.events.forge.RocketPickResultEvent;
 import net.mrscauthd.beyond_earth.guis.screens.rocket.RocketGui;
@@ -31,8 +31,9 @@ import net.mrscauthd.beyond_earth.registries.ParticlesRegistry;
 
 public class RocketTier3Entity extends IFuelRocketEntity {
 
+	public static final int DEFAULT_FUEL_BUCKETS = 3;
+	public static final int DEFAULT_FILL_UP_SPPED = 1;
 	public static final int FUEL_OF_BUCKET = 100;
-	public static final int FUEL_BUCKETS = 3;
 
 	public RocketTier3Entity(EntityType type, Level world) {
 		super(type, world);
@@ -120,6 +121,11 @@ public class RocketTier3Entity extends IFuelRocketEntity {
 
 	@Override
 	public int getRequiredFuelBuckets() {
-		return FUEL_BUCKETS;
+		return Config.ROCKET_TIER_3_FUEL_BUCKETS.get();
+	}
+
+	@Override
+	protected int getFillUpSpeed() {
+		return Config.ROCKET_TIER_3_FILL_UP_SPEED.get();
 	}
 }

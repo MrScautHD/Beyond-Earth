@@ -1,6 +1,10 @@
 package net.mrscauthd.beyond_earth.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.mrscauthd.beyond_earth.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier2Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier3Entity;
+import net.mrscauthd.beyond_earth.entities.RocketTier4Entity;
 import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.machines.tile.*;
 
@@ -68,6 +72,18 @@ public class Config {
 	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_BUCKETS;
 	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_USE_TICKS;
 	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_USE_AMOUNT;
+
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_1_FUEL_BUCKETS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_1_FILL_UP_SPEED;
+
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_2_FUEL_BUCKETS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_2_FILL_UP_SPEED;
+
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_3_FUEL_BUCKETS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_3_FILL_UP_SPEED;
+
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FUEL_BUCKETS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FILL_UP_SPEED;
 
 	static {
 		BUILDER.push("Beyond Earth Config");
@@ -157,6 +173,26 @@ public class Config {
 		ROVER_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RoverEntity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RoverEntity.DEFAULT_FUEL_BUCKETS);
 		ROVER_FUEL_USE_TICKS = BUILDER.comment("Set rover's fuel using interval ticks, default: " + RoverEntity.DEFAULT_FUEL_USE_TICKS + " ticks").define("FuelUseTicks", RoverEntity.DEFAULT_FUEL_USE_TICKS);
 		ROVER_FUEL_USE_AMOUNT = BUILDER.comment("Set rover's fuel using amount at every interval, default: " + RoverEntity.DEFAULT_FUEL_USE_AMOUNT + " mb").define("FuelUseAmount", RoverEntity.DEFAULT_FUEL_USE_AMOUNT);
+		BUILDER.pop();
+
+		BUILDER.push("Rocket Tier 1");
+		ROCKET_TIER_1_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier1Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier1Entity.DEFAULT_FUEL_BUCKETS);
+		ROCKET_TIER_1_FILL_UP_SPEED = BUILDER.comment("Set fuel filling up speed", "duration for filling much as bucket amount is '" + RocketTier1Entity.FUEL_OF_BUCKET + " / speed' ticks", "default: " + RocketTier1Entity.DEFAULT_FILL_UP_SPPED + " => duration is " + (RocketTier1Entity.FUEL_OF_BUCKET / RocketTier1Entity.DEFAULT_FILL_UP_SPPED) + " ticks").defineInRange("FillUpSpeed", RocketTier1Entity.DEFAULT_FILL_UP_SPPED, 1, RocketTier1Entity.FUEL_OF_BUCKET);
+		BUILDER.pop();
+
+		BUILDER.push("Rocket Tier 2");
+		ROCKET_TIER_2_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier2Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier2Entity.DEFAULT_FUEL_BUCKETS);
+		ROCKET_TIER_2_FILL_UP_SPEED = BUILDER.comment("Set fuel filling up speed", "duration for filling much as bucket amount is '" + RocketTier2Entity.FUEL_OF_BUCKET + " / speed' ticks", "default: " + RocketTier2Entity.DEFAULT_FILL_UP_SPPED + " => duration is " + (RocketTier2Entity.FUEL_OF_BUCKET / RocketTier2Entity.DEFAULT_FILL_UP_SPPED) + " ticks").defineInRange("FillUpSpeed", RocketTier2Entity.DEFAULT_FILL_UP_SPPED, 1, RocketTier2Entity.FUEL_OF_BUCKET);
+		BUILDER.pop();
+
+		BUILDER.push("Rocket Tier 3");
+		ROCKET_TIER_3_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier3Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier3Entity.DEFAULT_FUEL_BUCKETS);
+		ROCKET_TIER_3_FILL_UP_SPEED = BUILDER.comment("Set fuel filling up speed", "duration for filling much as bucket amount is '" + RocketTier3Entity.FUEL_OF_BUCKET + " / speed' ticks", "default: " + RocketTier3Entity.DEFAULT_FILL_UP_SPPED + " => duration is " + (RocketTier3Entity.FUEL_OF_BUCKET / RocketTier3Entity.DEFAULT_FILL_UP_SPPED) + " ticks").defineInRange("FillUpSpeed", RocketTier3Entity.DEFAULT_FILL_UP_SPPED, 1, RocketTier3Entity.FUEL_OF_BUCKET);
+		BUILDER.pop();
+
+		BUILDER.push("Rocket Tier 4");
+		ROCKET_TIER_4_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier4Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier4Entity.DEFAULT_FUEL_BUCKETS);
+		ROCKET_TIER_4_FILL_UP_SPEED = BUILDER.comment("Set fuel filling up speed", "duration for filling much as bucket amount is '" + RocketTier4Entity.FUEL_OF_BUCKET + " / speed' ticks", "default: " + RocketTier4Entity.DEFAULT_FILL_UP_SPPED + " => duration is " + (RocketTier4Entity.FUEL_OF_BUCKET / RocketTier4Entity.DEFAULT_FILL_UP_SPPED) + " ticks").defineInRange("FillUpSpeed", RocketTier4Entity.DEFAULT_FILL_UP_SPPED, 1, RocketTier4Entity.FUEL_OF_BUCKET);
 		BUILDER.pop();
 
 		BUILDER.pop();
