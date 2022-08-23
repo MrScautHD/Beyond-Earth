@@ -53,6 +53,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
+import net.mrscauthd.beyond_earth.config.Config;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.fluids.FluidUtil2;
 import net.mrscauthd.beyond_earth.gauge.IGaugeValue;
@@ -69,15 +70,15 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 	public float animationSpeed;
 	public float animationPosition;
 
-	private float FUEL_USE_TICK = 8;
 	private float FUEL_TIMER = 0;
 
 	public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
 
 	public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
-	public static final int FUEL_BUCKETS = 3;
-	public static final int FUEL_CAPACITY = FUEL_BUCKETS * FluidUtil2.BUCKET_SIZE;
+	public static final int DEFAULT_FUEL_BUCKETS = 3;
+	public static final int DEFAULT_FUEL_USE_TICKS = 8;
+	public static final int DEFAULT_FUEL_USE_AMOUNT = 1;
 
 	public RoverEntity(EntityType type, Level worldIn) {
 		super(type, worldIn);
@@ -215,9 +216,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 	}
 
 	protected void spawnRoverItem() {
-		ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
-		itemStack.getOrCreateTag().putInt(BeyondEarthMod.MODID + ":fuel", this.getFuel());
-
+		ItemStack itemStack = this.getPickedResult(null);
 		ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
 		entityToSpawn.setPickUpDelay(10);
 		level.addFreshEntity(entityToSpawn);
@@ -343,17 +342,17 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 
 		passanger.resetFallDistance();
 
-		if (passanger.zza > 0.01 && this.getFuel() != 0) {
+		if (passanger.zza > 0.01 && this.getFuel() >= this.getFuelUseAmount()) {
 
-			if (FUEL_TIMER > FUEL_USE_TICK) {
-				this.setFuel(this.getFuel() - 1);
+			if (FUEL_TIMER > this.getFuelUseTicks()) {
+				this.setFuel(this.getFuel() - this.getFuelUseAmount());
 				FUEL_TIMER = 0;
 			}
 			this.entityData.set(FORWARD, true);
-		} else if (passanger.zza < -0.01 && this.getFuel() != 0) {
+		} else if (passanger.zza < -0.01 && this.getFuel() >= this.getFuelUseAmount()) {
 
-			if (FUEL_TIMER > FUEL_USE_TICK) {
-				this.setFuel(this.getFuel() - 1);
+			if (FUEL_TIMER > this.getFuelUseTicks()) {
+				this.setFuel(this.getFuel() - this.getFuelUseAmount());
 				FUEL_TIMER = 0;
 			}
 			this.entityData.set(FORWARD, false);
@@ -378,7 +377,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 
 			double pmovement = passanger.zza;
 
-			if (pmovement == 0 || this.getFuel() == 0 || this.isEyeInFluid(FluidTags.WATER)) {
+			if (pmovement == 0 || this.getFuel() < this.getFuelUseAmount() || this.isEyeInFluid(FluidTags.WATER)) {
 				pmovement = 0;
 				this.setSpeed(0f);
 
@@ -387,7 +386,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 				}
 			}
 
-			if (this.entityData.get(FORWARD) && this.getFuel() != 0) {
+			if (this.entityData.get(FORWARD) && this.FUEL_TIMER != 0) {
 				if (this.getSpeed() >= 0.01) {
 					if (speed <= 0.32) {
 						speed = speed + 0.02;
@@ -402,7 +401,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 
 			if (!this.entityData.get(FORWARD)) {
 
-				if (this.getFuel() != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
+				if (this.FUEL_TIMER != 0 && !this.isEyeInFluid(FluidTags.WATER)) {
 
 					if (this.getSpeed() <= 0.04) {
 						this.setSpeed(this.getSpeed() + 0.02f);
@@ -474,7 +473,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 
 	@Override
 	public int getFuelCapacity() {
-		return FUEL_CAPACITY;
+		return Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE;
 	}
 
 	@Override
@@ -485,6 +484,14 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 	@Override
 	public boolean canPutFuelMuchAsBucket() {
 		return (this.getFuel() + FluidUtil2.BUCKET_SIZE) <= this.getFuelCapacity();
+	}
+	
+	public int getFuelUseTicks() {
+		return Config.ROVER_FUEL_USE_TICKS.get();
+	}
+	
+	public int getFuelUseAmount() {
+		return Config.ROVER_FUEL_USE_AMOUNT.get();
 	}
 
 	@Override

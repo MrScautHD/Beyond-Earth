@@ -1229,7 +1229,7 @@ public class JeiPlugin implements IModPlugin {
 			IRecipeSlotBuilder input = builder.addSlot(RecipeIngredientRole.INPUT, 8, 60);
 			input.addItemStacks(recipe.getFuelTagBuckets());
 
-			int capacity = FluidUtil2.BUCKET_SIZE * 3;
+			int capacity = FluidUtil2.BUCKET_SIZE * Config.ROVER_FUEL_BUCKETS.get();
 			IRecipeSlotBuilder tank = builder.addSlot(RecipeIngredientRole.INPUT, 9, 8);
 			tank.setFluidRenderer(capacity, true, GuiHelper.FLUID_TANK_WIDTH, GuiHelper.FLUID_TANK_HEIGHT).setOverlay(fluidOverlay, 0, 0);
 			tank.addIngredients(ForgeTypes.FLUID_STACK, recipe.getFluidStacks(capacity));

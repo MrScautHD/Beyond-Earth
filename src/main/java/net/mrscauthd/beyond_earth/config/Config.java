@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.mrscauthd.beyond_earth.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.machines.tile.*;
 
 public class Config {
@@ -62,6 +63,11 @@ public class Config {
 	public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_CAPACITY;
 	public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_TRANSFER;
 	public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_WORK_INTERVAL;
+
+	/** Vehicles */
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_BUCKETS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_USE_TICKS;
+	public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_USE_AMOUNT;
 
 	static {
 		BUILDER.push("Beyond Earth Config");
@@ -142,6 +148,19 @@ public class Config {
 		BUILDER.pop();
 
 		BUILDER.pop();
+		/** End of Machines */
+
+		/** Vehicles */
+		BUILDER.push("Vehicles");
+
+		BUILDER.push("Rover");
+		ROVER_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RoverEntity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RoverEntity.DEFAULT_FUEL_BUCKETS);
+		ROVER_FUEL_USE_TICKS = BUILDER.comment("Set rover's fuel using interval ticks, default: " + RoverEntity.DEFAULT_FUEL_USE_TICKS + " ticks").define("FuelUseTicks", RoverEntity.DEFAULT_FUEL_USE_TICKS);
+		ROVER_FUEL_USE_AMOUNT = BUILDER.comment("Set rover's fuel using amount at every interval, default: " + RoverEntity.DEFAULT_FUEL_USE_AMOUNT + " mb").define("FuelUseAmount", RoverEntity.DEFAULT_FUEL_USE_AMOUNT);
+		BUILDER.pop();
+
+		BUILDER.pop();
+		/** End of Vehicles */
 
 		BUILDER.pop();
 		SPEC = BUILDER.build();
