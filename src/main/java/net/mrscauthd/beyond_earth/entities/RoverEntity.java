@@ -488,7 +488,7 @@ public class RoverEntity extends VehicleEntity implements IFuelVehicleEntity {
 	}
 
 	@Override
-	public List<IGaugeValue> getGaugeValues() {
+	public List<IGaugeValue> getDisplayGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
 		list.add(this.getFuelGauge());
 		return list;

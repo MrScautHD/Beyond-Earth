@@ -35,8 +35,8 @@ public abstract class ItemStackToItemStackBlockEntity extends AbstractMachineBlo
 	}
 
 	@Override
-	public List<IGaugeValue> getGaugeValues() {
-		List<IGaugeValue> list = super.getGaugeValues();
+	public List<IGaugeValue> getDisplayGaugeValues() {
+		List<IGaugeValue> list = super.getDisplayGaugeValues();
 
 		if (this.cachedRecipe != null) {
 			list.add(this.getCookTimeGaugeValue());

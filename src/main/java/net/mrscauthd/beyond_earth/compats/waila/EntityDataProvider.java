@@ -25,7 +25,7 @@ public class EntityDataProvider implements IServerDataProvider<Entity>, IEntityC
 		List<IGaugeValue> list = new ArrayList<>();
 
 		if (entity instanceof IGaugeValuesProvider) {
-			((IGaugeValuesProvider) entity).getGaugeValues().forEach(list::add);
+			((IGaugeValuesProvider) entity).getDisplayGaugeValues().forEach(list::add);
 		}
 
 		WailaPlugin.put(data, WailaPlugin.write(list));

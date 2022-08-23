@@ -65,8 +65,8 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 	}
 
 	@Override
-	public List<IGaugeValue> getGaugeValues() {
-		List<IGaugeValue> list = super.getGaugeValues();
+	public List<IGaugeValue> getDisplayGaugeValues() {
+		List<IGaugeValue> list = super.getDisplayGaugeValues();
 
 		if (!CompatibleManager.MEKANISM.isLoaded()) {
 			list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));

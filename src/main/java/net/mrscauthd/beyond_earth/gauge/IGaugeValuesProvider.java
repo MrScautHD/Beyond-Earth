@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IGaugeValuesProvider {
 
-	public List<IGaugeValue> getGaugeValues();
+	public List<IGaugeValue> getDisplayGaugeValues();
 }

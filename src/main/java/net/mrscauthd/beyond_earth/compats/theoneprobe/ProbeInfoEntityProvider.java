@@ -23,7 +23,7 @@ public class ProbeInfoEntityProvider implements IProbeInfoEntityProvider {
 	public void addProbeEntityInfo(ProbeMode probeMode, IProbeInfo probeInfo, Player player, Level level, Entity entity, IProbeHitEntityData hitData) {
 
 		if (entity instanceof IGaugeValuesProvider) {
-			((IGaugeValuesProvider) entity).getGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
+			((IGaugeValuesProvider) entity).getDisplayGaugeValues().forEach(g -> probeInfo.element(new GaugeValueElement(g)));
 		}
 
 	}

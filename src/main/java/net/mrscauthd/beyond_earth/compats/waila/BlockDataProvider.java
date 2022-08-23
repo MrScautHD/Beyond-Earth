@@ -25,7 +25,7 @@ public class BlockDataProvider implements IServerDataProvider<BlockEntity>, ICom
 		List<IGaugeValue> list = new ArrayList<>();
 
 		if (blockEntity instanceof IGaugeValuesProvider) {
-			((IGaugeValuesProvider) blockEntity).getGaugeValues().forEach(list::add);
+			((IGaugeValuesProvider) blockEntity).getDisplayGaugeValues().forEach(list::add);
 		}
 
 		WailaPlugin.put(data, WailaPlugin.write(list));

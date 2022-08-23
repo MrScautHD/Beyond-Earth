@@ -57,7 +57,7 @@ public abstract class IFuelRocketEntity extends IRocketEntity implements IFuelVe
 	}
 
 	@Override
-	public List<IGaugeValue> getGaugeValues() {
+	public List<IGaugeValue> getDisplayGaugeValues() {
 		List<IGaugeValue> list = new ArrayList<>();
 		int fuel = this.getFuel();
 		int capacity = this.getFuelCapacity();
