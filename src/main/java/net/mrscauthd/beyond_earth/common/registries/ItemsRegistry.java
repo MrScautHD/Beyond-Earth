@@ -17,6 +17,7 @@ import net.mrscauthd.beyond_earth.common.armors.NetheriteSpaceSuit;
 import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.items.*;
 import net.mrscauthd.beyond_earth.common.items.GlobeItem;
+import net.mrscauthd.beyond_earth.common.items.drills.DashDrill;
 import net.mrscauthd.beyond_earth.common.tabs.Tabs;
 
 public class ItemsRegistry {
@@ -106,7 +107,16 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> CALORITE_TANK = ITEMS.register("calorite_tank", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
 
+    // DRILLS
+    public static final RegistryObject<Item> DESH_DRILL_OFF = ITEMS.register("desh_drill_off", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> DESH_DRILL = ITEMS.register("desh_drill", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> OSTRUM_DRILL_OFF = ITEMS.register("ostrum_drill_off", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> OSTRUM_DRILL = ITEMS.register("ostrum_drill", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> CALORITE_DRILL_OFF = ITEMS.register("calorite_drill_off", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> CALORITE_DRILL = ITEMS.register("calorite_drill", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+
     // INGOTS
+    public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> OSTRUM_INGOT = ITEMS.register("ostrum_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
@@ -115,25 +125,31 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> ICE_SHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     // PLATES
+    public static final RegistryObject<Item> LEAD_PLATE = ITEMS.register("lead_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> IRON_PLATE = ITEMS.register("iron_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> DESH_PLATE = ITEMS.register("desh_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
+    public static final RegistryObject<Item> STEEL_PLATE = ITEMS.register("steel_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     // COMPRESSED
+    public static final RegistryObject<Item> COMPRESSED_LEAD = ITEMS.register("compressed_lead", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_STEEL = ITEMS.register("compressed_steel", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_DESH = ITEMS.register("compressed_desh", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_OSTRUM = ITEMS.register("compressed_ostrum", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> COMPRESSED_CALORITE = ITEMS.register("compressed_calorite", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     // NUGGETS
+    public static final RegistryObject<Item> LEAD_NUGGET = ITEMS.register("lead_nugget", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> STEEL_NUGGET = ITEMS.register("steel_nugget", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> DESH_NUGGET = ITEMS.register("desh_nugget", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> OSTRUM_NUGGET = ITEMS.register("ostrum_nugget", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> CALORITE_NUGGET = ITEMS.register("calorite_nugget", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     // RAW MATERIALS
+    public static final RegistryObject<Item> RAW_LEAD = ITEMS.register("raw_lead", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> RAW_DESH = ITEMS.register("raw_desh", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> RAW_OSTRUM = ITEMS.register("raw_ostrum", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> RAW_CALORITE = ITEMS.register("raw_calorite", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
+
 
     /** BLOCK ITEMS */
 
@@ -143,8 +159,8 @@ public class ItemsRegistry {
 
     //MACHINE BLOCK ITEMS
 
-    //TODO DON'T FORGOT IT TO REWORK IT
-    /*
+    //TODO DON'T FORGET IT TO REWORK THIS
+    /**
     public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlocksRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(BlocksRegistry.COAL_GENERATOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
@@ -157,6 +173,10 @@ public class ItemsRegistry {
     */
     // NORMAL BLOCK ITEMS
     public static final RegistryObject<BlockItem> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlockRegistry.STEEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> LEAD_BLOCK_ITEM = ITEMS.register("lead_block", () -> new BlockItem(BlockRegistry.LEAD_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> RAW_LEAD_BLOCK_ITEM = ITEMS.register("raw_lead_block", () -> new BlockItem(BlockRegistry.RAW_LEAD_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> LEAD_ORE_ITEM = ITEMS.register("lead_ore", () -> new BlockItem(BlockRegistry.LEAD_ORE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> DEEPSLATE_LEAD_ORE_ITEM = ITEMS.register("deepslate_lead_ore", () -> new BlockItem(BlockRegistry.DEEPSLATE_LEAD_ORE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(BlockRegistry.DESH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> OSTRUM_BLOCK_ITEM = ITEMS.register("ostrum_block", () -> new BlockItem(BlockRegistry.OSTRUM_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> CALORITE_BLOCK_ITEM = ITEMS.register("calorite_block", () -> new BlockItem(BlockRegistry.CALORITE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));

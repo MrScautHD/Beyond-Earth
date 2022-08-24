@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "all": "beyond_earth:blocks/lead_block"
+  }
+}

@@ -37,6 +37,7 @@
   "item.beyond_earth.desh_nugget": "Desh Nugget",
   "item.beyond_earth.ostrum_nugget": "Ostrum Nugget",
   "item.beyond_earth.steel_nugget": "Steel Nugget",
+  "item.beyond_earth.steel_plate": "Steel Plate",
   "item.beyond_earth.water_pump": "Water Pump",
   "item.beyond_earth.raw_desh": "Raw Desh",
   "item.beyond_earth.raw_ostrum": "Raw Ostrum",
@@ -70,6 +71,25 @@
   "item.beyond_earth.raw_calorite": "Raw Calorite",
   "item.beyond_earth.calorite_engine": "Calorite Engine",
   "item.beyond_earth.calorite_tank": "Calorite Tank",
+
+  "item.beyond_earth.lead_ingot": "Lead Ingot",
+  "item.beyond_earth.compressed_lead": "Compressed Lead",
+  "item.beyond_earth.lead_nugget": "Lead Nugget",
+  "item.beyond_earth.raw_lead": "Raw Lead",
+  "item.beyond_earth.lead_plate": "Lead Plate",
+
+  "item.beyond_earth.raw_lead_block": "Raw Lead Block",
+  "item.beyond_earth.lead_block": "Lead Block",
+  "item.beyond_earth.lead_ore": "Lead Ore",
+  "item.beyond_earth.deepslate_lead_ore": "Deepslate Lead Ore",
+
+  "item.beyond_earth.desh_drill": "Desh Drill",
+  "item.beyond_earth.desh_drill_off": "Desh Drill Off",
+  "item.beyond_earth.ostrum_drill": "Ostrum Drill",
+  "item.beyond_earth.ostrum_drill_off": "Ostrum Drill Off",
+  "item.beyond_earth.calorite_drill": "Calorite Drill",
+  "item.beyond_earth.calorite_drill_off": "Calorite Drill Off",
+
 
 
   "itemGroup.tab_normal": "Beyond Earth",
@@ -142,6 +162,10 @@
   "block.beyond_earth.moon_ice_shard_ore": "Moon Ice Shard Ore",
   "block.beyond_earth.mars_ice_shard_ore": "Mars Ice Shard Ore",
   "block.beyond_earth.glacio_ice_shard_ore": "Glacio Ice Shard Ore",
+  "block.beyond_earth.raw_lead_block": "Raw Lead Block",
+  "block.beyond_earth.lead_block": "Lead Block",
+  "block.beyond_earth.lead_ore": "Lead Ore",
+  "block.beyond_earth.deepslate_lead_ore": "Deepslate Lead Ore",
 
   "block.beyond_earth.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.beyond_earth.moon_stone_bricks": "Moon Stone Bricks",

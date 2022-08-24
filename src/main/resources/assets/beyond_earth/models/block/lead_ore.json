@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:blocks/lead_ore",
+    "up": "beyond_earth:blocks/lead_ore",
+    "north": "beyond_earth:blocks/lead_ore",
+    "east": "beyond_earth:blocks/lead_ore",
+    "south": "beyond_earth:blocks/lead_ore",
+    "west": "beyond_earth:blocks/lead_ore",
+    "particle": "beyond_earth:blocks/lead_ore"
+  }
+}
