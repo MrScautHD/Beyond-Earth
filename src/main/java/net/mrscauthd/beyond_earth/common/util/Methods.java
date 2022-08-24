@@ -458,26 +458,6 @@ public class Methods {
         }
     }
 
-    //TODO REWORK THAT
-	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
-		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-            OxygenStorage oxygen = itemstack.getCapability(OxygenProvider.OXYGEN).orElse(null);
-
-            CompoundTag persistentData = player.getPersistentData();
-			String key = BeyondEarth.MODID + ":oxygen_timer";
-
-			int oxygenTimer = persistentData.getInt(key);
-			oxygenTimer++;
-
-			if (oxygen.getOxygen() > 0 && oxygenTimer > 3) {
-				oxygen.setOxygen(oxygen.getOxygen() - 1);
-				oxygenTimer = 0;
-			}
-
-			persistentData.putInt(key, oxygenTimer);
-		}
-	}
-
     public static void disableFlyAntiCheat(Player player, boolean condition) {
         if (player instanceof ServerPlayer) {
             if (condition) {

@@ -8,6 +8,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +20,8 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.config.Config;
+import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -70,6 +73,9 @@ public class SpaceSuit {
 	}
 
 	public static class Suit extends ArmorItem {
+
+		public float oxygenTime = 0;
+
 		public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
 		}
@@ -136,7 +142,25 @@ public class SpaceSuit {
 
 		@Override
 		public void onArmorTick(ItemStack stack, Level world, Player player) {
-			Methods.extractArmorOxygenUsingTimer(stack, player);
+			/** OXYGEN SYSTEM */
+			this.calculateOxygenTime(stack, player);
+		}
+
+		public void calculateOxygenTime(ItemStack stack, Player player) {
+			if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+				OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+
+				if (oxygen != null) {
+					if (oxygen.getOxygen() > 0) {
+						this.oxygenTime++;
+
+						if (this.oxygenTime > 3) {
+							oxygen.setOxygen(oxygen.getOxygen() - 1);
+							this.oxygenTime = 0;
+						}
+					}
+				}
+			}
 		}
 	}
 

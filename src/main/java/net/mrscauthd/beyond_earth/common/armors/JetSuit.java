@@ -9,6 +9,7 @@ import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,7 +26,9 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
+import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -79,6 +82,7 @@ public class JetSuit {
         public static String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
 
         public float spacePressTime = 0;
+        public float oxygenTime = 0;
 
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
@@ -153,7 +157,7 @@ public class JetSuit {
         @Override
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             /** OXYGEN SYSTEM */
-            Methods.extractArmorOxygenUsingTimer(stack, player);
+            this.calculateOxygenTime(stack, player);
 
             /** NORMAL FLY MOVEMENT */
             this.normalFlyModeMovement(player, stack);
@@ -241,6 +245,23 @@ public class JetSuit {
                         }
                         else if (KeyVariables.isHoldingLeft(player)) {
                             player.moveRelative(1.0F, new Vec3(0.03, 0, 0));
+                        }
+                    }
+                }
+            }
+        }
+
+        public void calculateOxygenTime(ItemStack stack, Player player) {
+            if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
+                OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+
+                if (oxygen != null) {
+                    if (oxygen.getOxygen() > 0) {
+                        this.oxygenTime++;
+
+                        if (this.oxygenTime > 3) {
+                            oxygen.setOxygen(oxygen.getOxygen() - 1);
+                            this.oxygenTime = 0;
                         }
                     }
                 }

@@ -15,7 +15,7 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
     public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>(){});
 
     private OxygenStorage oxygen;
-    private int capacity;
+    private final int capacity;
     private final LazyOptional<OxygenStorage> cap;
 
     public OxygenProvider(int capacity) {
