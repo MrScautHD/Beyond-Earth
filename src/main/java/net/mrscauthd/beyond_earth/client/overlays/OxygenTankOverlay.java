@@ -12,9 +12,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 public class OxygenTankOverlay implements IGuiOverlay {
@@ -31,7 +31,7 @@ public class OxygenTankOverlay implements IGuiOverlay {
             Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */
-            IOxygenStorage oxygenStorage = chest.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            OxygenStorage oxygenStorage = chest.getCapability(OxygenProvider.OXYGEN).orElse(null);
             if (oxygenStorage != null) {
 
                 int x = 5;
@@ -41,11 +41,11 @@ public class OxygenTankOverlay implements IGuiOverlay {
                 int textureHeight = 52;
 
                 ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
-                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygenStored(), oxygenStorage.getMaxOxygenStored(), OXYGEN_TANK_FULL_TEXTURE);
+                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL_TEXTURE);
 
                 /** OXYGEN AMOUNT TEXT */
                 Font font = mc.font;
-                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygenStored() / 48 + "%");
+                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygen() / 480 + "%");
                 font.drawShadow(poseStack, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
         }

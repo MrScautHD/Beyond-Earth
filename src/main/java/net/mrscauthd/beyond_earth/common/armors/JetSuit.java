@@ -22,10 +22,9 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.NotNull;
@@ -282,9 +281,9 @@ public class JetSuit {
             super.fillItemCategory(p_41391_, p_41392_);
             if (this.allowedIn(p_41391_)) {
                 ItemStack itemStack = new ItemStack(this);
-                IOxygenStorage oxygenStorage = itemStack.getCapability(OxygenCapability.OXYGEN).orElse(null);
-                if (oxygenStorage != null) {
-                    oxygenStorage.receiveOxygen(oxygenStorage.getMaxOxygenStored(), false);
+                OxygenStorage oxygen = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+                if (oxygen != null) {
+                    oxygen.setOxygen(oxygen.getMaxCapacity());
                 }
 
                 p_41392_.add(itemStack);
@@ -299,9 +298,9 @@ public class JetSuit {
         @Override
         public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
             super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-            IOxygenStorage oxygenStorage = p_41421_.getCapability(OxygenCapability.OXYGEN).orElse(null);
-            if (oxygenStorage != null) {
-                p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygenStorage.getOxygenStored() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygenStorage.getMaxOxygenStored() + " mb"));
+            OxygenStorage oxygen = p_41421_.getCapability(OxygenProvider.OXYGEN).orElse(null);
+            if (oxygen != null) {
+                p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));
             }
         }
 

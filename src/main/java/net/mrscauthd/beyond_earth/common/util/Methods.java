@@ -34,8 +34,8 @@ import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenCapability;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -461,7 +461,7 @@ public class Methods {
     //TODO REWORK THAT
 	public static void extractArmorOxygenUsingTimer(ItemStack itemstack, Player player) {
 		if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-            IOxygenStorage oxygenStorage = itemstack.getCapability(OxygenCapability.OXYGEN).orElse(null);
+            OxygenStorage oxygen = itemstack.getCapability(OxygenProvider.OXYGEN).orElse(null);
 
             CompoundTag persistentData = player.getPersistentData();
 			String key = BeyondEarth.MODID + ":oxygen_timer";
@@ -469,8 +469,8 @@ public class Methods {
 			int oxygenTimer = persistentData.getInt(key);
 			oxygenTimer++;
 
-			if (oxygenStorage.getOxygenStored() > 0 && oxygenTimer > 3) {
-				oxygenStorage.extractOxygen(1, false);
+			if (oxygen.getOxygen() > 0 && oxygenTimer > 3) {
+				oxygen.setOxygen(oxygen.getOxygen() - 1);
 				oxygenTimer = 0;
 			}
 
