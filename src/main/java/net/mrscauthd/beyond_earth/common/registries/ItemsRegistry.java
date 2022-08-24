@@ -241,8 +241,8 @@ public class ItemsRegistry {
 
     /** BUCKET ITEMS */
     // FUEL BUCKET
-    public static final RegistryObject<BucketItem> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new BucketItem(FluidRegistry.FUEL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal)));
+    public static final RegistryObject<BucketItem> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new ModifiedBucketItem(FluidRegistry.FUEL_STILL.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal)));
 
     // OIL BUCKET
-    public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(FluidRegistry.OIL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal)));
+    public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new ModifiedBucketItem(FluidRegistry.OIL_STILL.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal)));
 }

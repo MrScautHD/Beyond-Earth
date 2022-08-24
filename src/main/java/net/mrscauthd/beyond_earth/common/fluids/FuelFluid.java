@@ -6,6 +6,7 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
@@ -111,6 +112,11 @@ public class FuelFluid extends FlowingFluid {
 	@Override
 	protected boolean canBeReplacedWith(FluidState p_76127_, BlockGetter p_76128_, BlockPos p_76129_, Fluid p_76130_, Direction p_76131_) {
 		return p_76131_ == Direction.DOWN && p_76127_.getFluidType() != FluidTypeRegistry.FUEL_TYPE.get();
+	}
+
+	@Override
+	protected boolean canSpreadTo(BlockGetter p_75978_, BlockPos p_75979_, BlockState p_75980_, Direction p_75981_, BlockPos p_75982_, BlockState p_75983_, FluidState p_75984_, Fluid p_75985_) {
+		return super.canSpreadTo(p_75978_, p_75979_, p_75980_, p_75981_, p_75982_, p_75983_, p_75984_, p_75985_) && !p_75978_.getFluidState(p_75979_.below()).is(FluidTags.WATER);
 	}
 
 	@Override
