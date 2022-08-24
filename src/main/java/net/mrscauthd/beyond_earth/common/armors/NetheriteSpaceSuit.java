@@ -76,12 +76,10 @@ public class NetheriteSpaceSuit {
 	}
 
 	public static class Suit extends ArmorItem {
-		public OxygenProvider oxygenProvider;
 		public float oxygenTime = 0;
 
 		public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
 			super(p_40386_, p_40387_, p_40388_);
-			this.oxygenProvider = new OxygenProvider(48000);
 		}
 
 		@Override
@@ -127,16 +125,7 @@ public class NetheriteSpaceSuit {
 
 		@Override
 		public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-			return new ICapabilityProvider() {
-				@Override
-				public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-					if (cap == OxygenProvider.OXYGEN) {
-						return oxygenProvider.getCap().cast();
-					}
-
-					return LazyOptional.empty();
-				}
-			};
+			return new OxygenProvider(48000);
 		}
 
 		@Override
