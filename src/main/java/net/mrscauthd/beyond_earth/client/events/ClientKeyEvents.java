@@ -16,6 +16,9 @@ import net.minecraftforge.api.distmarker.Dist;
 
 import net.minecraft.client.Minecraft;
 
+import java.util.Map;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, value = Dist.CLIENT)
 public class ClientKeyEvents {
 
@@ -25,19 +28,19 @@ public class ClientKeyEvents {
 		Player player = mc.player;
 
 		/** UP */
-		sendKeyToServerVariable(event, player, mc.options.keyUp, "key_up", KeyVariables.isHoldingUp(player));
+		sendKeyToServerAndClientHashMap(event, player, mc.options.keyUp, KeyVariables.KEY_UP, "key_up", KeyVariables.isHoldingUp(player));
 
 		/** DOWN */
-		sendKeyToServerVariable(event, player, mc.options.keyDown, "key_down", KeyVariables.isHoldingDown(player));
+		sendKeyToServerAndClientHashMap(event, player, mc.options.keyDown, KeyVariables.KEY_DOWN, "key_down", KeyVariables.isHoldingDown(player));
 
 		/** RIGHT */
-		sendKeyToServerVariable(event, player, mc.options.keyRight, "key_right", KeyVariables.isHoldingRight(player));
+		sendKeyToServerAndClientHashMap(event, player, mc.options.keyRight, KeyVariables.KEY_RIGHT, "key_right", KeyVariables.isHoldingRight(player));
 
 		/** LEFT */
-		sendKeyToServerVariable(event, player, mc.options.keyLeft, "key_left", KeyVariables.isHoldingLeft(player));
+		sendKeyToServerAndClientHashMap(event, player, mc.options.keyLeft, KeyVariables.KEY_LEFT, "key_left", KeyVariables.isHoldingLeft(player));
 
 		/** JUMP */
-		sendKeyToServerVariable(event, player, mc.options.keyJump, "key_jump", KeyVariables.isHoldingJump(player));
+		sendKeyToServerAndClientHashMap(event, player, mc.options.keyJump, KeyVariables.KEY_JUMP, "key_jump", KeyVariables.isHoldingJump(player));
 
 		/** ROCKET START KEY */
 		sendKeyToServerMethod(event, player, KeyMappingRegistry.ROCKET_START, "rocket_start");
@@ -46,20 +49,34 @@ public class ClientKeyEvents {
 		sendKeyToServerMethod(event, player, KeyMappingRegistry.SWITCH_JET_SUIT_MODE, "switch_jet_suit_mode");
 	}
 
-	public static void sendKeyToServerVariable(InputEvent.Key event, Player player, KeyMapping key, String keyString, boolean isPressed) {
+	/**
+	 *
+	 * Send to server and client side!
+	 * Save key press in KeyVariables
+	 *
+	 * */
+	public static void sendKeyToServerAndClientHashMap(InputEvent.Key event, Player player, KeyMapping key, Map<UUID, Boolean> variableKey, String keyString, boolean isPressed) {
 		if (player == null) {
 			return;
 		}
 
 		if ((key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_RELEASE && isPressed) || (!key.isConflictContextAndModifierActive() && isPressed)) {
+			variableKey.put(player.getUUID(), false);
 			NetworkRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, false));
 		}
 
 		if (key.getKey().getValue() == event.getKey() && event.getAction() == GLFW.GLFW_PRESS && key.isConflictContextAndModifierActive() && !isPressed) {
+			variableKey.put(player.getUUID(), true);
 			NetworkRegistry.PACKET_HANDLER.sendToServer(new KeyHandler(keyString, true));
 		}
 	}
 
+	/**
+	 *
+	 * Send to server side only!
+	 * Call a Method in KeyHandler.
+	 *
+	 * */
 	public static void sendKeyToServerMethod(InputEvent.Key event, Player player, KeyMapping key, String keyString) {
 		if (player == null || !key.isConflictContextAndModifierActive()) {
 			return;

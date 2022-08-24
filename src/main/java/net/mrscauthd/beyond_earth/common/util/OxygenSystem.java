@@ -13,7 +13,7 @@ import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 
 public class OxygenSystem {
 
-    public static void OxygenSystem(Player entity, Level level) {
+    public static void oxygenSystem(Player entity, Level level) {
         if (Config.PLAYER_OXYGEN_SYSTEM.get() && Methods.isSpaceLevelWithoutOxygen(level) && !entity.isSpectator() && !entity.getAbilities().instabuild) {
 
             if (entity.getAirSupply() < 1) {

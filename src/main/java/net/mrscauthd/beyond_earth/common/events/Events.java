@@ -33,7 +33,7 @@ public class Events {
             Methods.openPlanetGui(player);
 
             /** PLAYER OXYGEN SYSTEM */
-            OxygenSystem.OxygenSystem(player, level);
+            OxygenSystem.oxygenSystem(player, level);
 
             /** JET SUIT FAST BOOST */
             if (player.isSprinting()) {

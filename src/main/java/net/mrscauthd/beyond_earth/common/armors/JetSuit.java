@@ -164,7 +164,7 @@ public class JetSuit {
         }
 
         public void normalFlyModeMovement(Player player, ItemStack stack) {
-            if (!player.getAbilities().flying && Methods.isLivingInJetSuit(player)) {
+            if (!player.getAbilities().flying && !player.isPassenger() && Methods.isLivingInJetSuit(player)) {
 
                 /** HOVER FLY */
                 if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
@@ -175,11 +175,13 @@ public class JetSuit {
                     if (!player.isOnGround() && !player.isInFluidType()) {
                         player.setDeltaMovement(vec3.x, vec3.y + gravity - 0.005, vec3.z);
                         player.resetFallDistance();
+                        Methods.disableFlyAntiCheat(player, true);
                     }
 
                     /** MOVE UP */
                     if (KeyVariables.isHoldingJump(player)) {
                         player.moveRelative(2.0F, new Vec3(0, 0.008, 0));
+                        Methods.disableFlyAntiCheat(player, true);
                     }
 
                     /** MOVE DOWN */
@@ -215,10 +217,12 @@ public class JetSuit {
 
                 /** NORMAL FLY */
                 if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.NORMAL.getMode()) {
+
                     /** MOVE UP */
                     if (KeyVariables.isHoldingJump(player)) {
                         player.moveRelative(1.2F, new Vec3(0, 0.1, 0));
                         player.resetFallDistance();
+                        Methods.disableFlyAntiCheat(player, true);
                     }
 
                     /** MOVE FORWARD AND BACKWARD */
