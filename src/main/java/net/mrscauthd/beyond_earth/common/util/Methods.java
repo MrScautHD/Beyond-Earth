@@ -223,7 +223,7 @@ public class Methods {
             ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
             if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                if (player.isShiftKeyDown() && !player.isOnGround() && !player.isInFluidType() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
+                if (player.isShiftKeyDown() && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
                     player.setPose(Pose.STANDING);
                 }
             }
