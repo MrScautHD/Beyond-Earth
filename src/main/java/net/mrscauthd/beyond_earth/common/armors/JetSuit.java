@@ -6,6 +6,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -21,7 +22,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
@@ -78,7 +81,7 @@ public class JetSuit {
     }
 
     public static class Suit extends ArmorItem {
-
+        public OxygenProvider oxygenProvider;
         public static String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
 
         public float spacePressTime = 0;
@@ -86,6 +89,7 @@ public class JetSuit {
 
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
+            this.oxygenProvider = new OxygenProvider(48000);
         }
 
         @Override
@@ -313,7 +317,16 @@ public class JetSuit {
 
         @Override
         public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-            return new OxygenProvider(48000);
+            return new ICapabilityProvider() {
+                @Override
+                public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+                    if (cap == OxygenProvider.OXYGEN) {
+                        return oxygenProvider.getCap().cast();
+                    }
+
+                    return LazyOptional.empty();
+                }
+            };
         }
 
         @Override
