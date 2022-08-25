@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "beyond_earth:desh_drill_bit"
+        },
+        {
+            "item": "beyond_earth:drill_handle"
+        }
+    ],
+    "result": {
+        "item": "beyond_earth:desh_drill",
+        "count": 1
+    }
+}

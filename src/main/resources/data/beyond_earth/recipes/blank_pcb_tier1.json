@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#",
+        "S",
+        "B"
+    ],
+    "key": {
+        "#": {
+            "item": "beyond_earth:desh_plate"
+        },
+        "S": {
+            "item": "minecraft:slime_ball"
+        },
+        "B": {
+            "item": "beyond_earth:fired_clay_plate"
+        }
+    },
+    "result": {
+        "item": "beyond_earth:blank_pcb_tier1",
+        "count": 1
+    }
+}

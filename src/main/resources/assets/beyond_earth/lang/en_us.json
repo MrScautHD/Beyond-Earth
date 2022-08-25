@@ -6,6 +6,7 @@
   "item.beyond_earth.oxygen_tank": "Oxygen Tank",
   "item.beyond_earth.iron_plate": "Iron Plate",
   "item.beyond_earth.desh_plate": "Desh Plate",
+  "item.beyond_earth.steel_plate": "Steel Plate",
   "item.beyond_earth.space_station": "Space Station",
   "item.beyond_earth.compressed_ostrum": "Compressed Ostrum",
   "item.beyond_earth.engine_frame": "Engine Frame",
@@ -37,13 +38,18 @@
   "item.beyond_earth.desh_nugget": "Desh Nugget",
   "item.beyond_earth.ostrum_nugget": "Ostrum Nugget",
   "item.beyond_earth.steel_nugget": "Steel Nugget",
-  "item.beyond_earth.steel_plate": "Steel Plate",
   "item.beyond_earth.water_pump": "Water Pump",
   "item.beyond_earth.raw_desh": "Raw Desh",
   "item.beyond_earth.raw_ostrum": "Raw Ostrum",
   "item.beyond_earth.raw_desh_block": "Raw Desh Block",
   "item.beyond_earth.raw_ostrum_block": "Raw Ostrum Block",
   "item.beyond_earth.ice_shard": "Ice Shard",
+  "item.beyond_earth.silicon": "Silicon",
+  "item.beyond_earth.clay_plate": "Clay Plate",
+  "item.beyond_earth.fired_clay_plate": "Fired Clay Plate",
+
+  "item.beyond_earth.led": "LED",
+  "item.beyond_earth.cryolithic_led": "Cryolithic LED",
 
   "item.beyond_earth.rocket_t1": "Tier 1 Rocket",
   "item.beyond_earth.rocket_t2": "Tier 2 Rocket",
@@ -83,12 +89,26 @@
   "item.beyond_earth.lead_ore": "Lead Ore",
   "item.beyond_earth.deepslate_lead_ore": "Deepslate Lead Ore",
 
+  "item.beyond_earth.drill_handle": "Drill Handle",
+
   "item.beyond_earth.desh_drill": "Desh Drill",
   "item.beyond_earth.desh_drill_off": "Desh Drill Off",
   "item.beyond_earth.ostrum_drill": "Ostrum Drill",
   "item.beyond_earth.ostrum_drill_off": "Ostrum Drill Off",
   "item.beyond_earth.calorite_drill": "Calorite Drill",
   "item.beyond_earth.calorite_drill_off": "Calorite Drill Off",
+
+  "item.beyond_earth.desh_drill_bit": "Desh Drill Bit",
+  "item.beyond_earth.ostrum_drill_bit": "Ostrum Drill Bit",
+  "item.beyond_earth.calorite_drill_bit": "Calorite Drill Bit",
+
+  "item.beyond_earth.lead_cathode": "Lead Cathode",
+  "item.beyond_earth.lead_oxide_anode": "Lead Oxide Anode",
+
+  "item.beyond_earth.blank_pcb_tier1": "Blank Desh Circuit",
+  "item.beyond_earth.pcb_tier1": "Desh Circuit",
+
+  "item.beyond_earth.battery_tier1": "Lead-Acid Battery",
 
 
 

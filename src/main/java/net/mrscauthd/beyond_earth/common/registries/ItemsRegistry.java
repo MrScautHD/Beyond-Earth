@@ -87,6 +87,9 @@ public class ItemsRegistry {
     /** NORMAL ITEMS */
     // SPECIAL ITEMS
     public static final RegistryObject<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(BlockRegistry.COAL_TORCH_BLOCK.get(), BlockRegistry.WALL_COAL_TORCH_BLOCK.get(),new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> CRYOLITHIC_LED = ITEMS.register("cryolithic_led", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> LED = ITEMS.register("led", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+
 
     public static final RegistryObject<Item> CHEESE = ITEMS.register("cheese", () -> new Item(new Item.Properties().tab(Tabs.tab_normal).food((new FoodProperties.Builder()).nutrition(4).saturationMod(3f).build())));
     public static final RegistryObject<Item> HAMMER = ITEMS.register("hammer", () -> new HammerItem(new Item.Properties().tab(Tabs.tab_basics).durability(9).setNoRepair()));
@@ -106,6 +109,22 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> OSTRUM_TANK = ITEMS.register("ostrum_tank", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> CALORITE_TANK = ITEMS.register("calorite_tank", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> LEAD_CATHODE = ITEMS.register("lead_cathode", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> LEAD_OXIDE_ANODE = ITEMS.register("lead_oxide_anode", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> CLAY_PLATE = ITEMS.register("clay_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> FIRED_CLAY_PLATE = ITEMS.register("fired_clay_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+
+    // BLANK PCBs
+    public static final RegistryObject<Item> BLANK_PCB_TIER1 = ITEMS.register("blank_pcb_tier1", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+
+    // PBCs
+    public static final RegistryObject<Item> PCB_TIER1 = ITEMS.register("pcb_tier1", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+
+    // BATTERIES
+    public static final RegistryObject<Item> BATTERY_TIER1 = ITEMS.register("battery_tier1", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+
+    // DRILL HANDLE
+    public static final RegistryObject<Item> DRILL_HANDLE = ITEMS.register("drill_handle", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
 
     // DRILLS
     public static final RegistryObject<Item> DESH_DRILL_OFF = ITEMS.register("desh_drill_off", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
@@ -115,6 +134,10 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> CALORITE_DRILL_OFF = ITEMS.register("calorite_drill_off", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
     public static final RegistryObject<Item> CALORITE_DRILL = ITEMS.register("calorite_drill", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
 
+    // DRILL BITS
+    public static final RegistryObject<Item> DESH_DRILL_BIT = ITEMS.register("desh_drill_bit", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> OSTRUM_DRILL_BIT = ITEMS.register("ostrum_drill_bit", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
+    public static final RegistryObject<Item> CALORITE_DRILL_BIT = ITEMS.register("calorite_drill_bit", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
     // INGOTS
     public static final RegistryObject<Item> LEAD_INGOT = ITEMS.register("lead_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
@@ -123,6 +146,7 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> CALORITE_INGOT = ITEMS.register("calorite_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     public static final RegistryObject<Item> ICE_SHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
+    public static final RegistryObject<Item> SILICON = ITEMS.register("silicon", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));
 
     // PLATES
     public static final RegistryObject<Item> LEAD_PLATE = ITEMS.register("lead_plate", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));

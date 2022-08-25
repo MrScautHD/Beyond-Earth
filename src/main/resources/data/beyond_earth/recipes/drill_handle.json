@@ -1,0 +1,29 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " AB",
+        "TFR",
+        "BRB"
+    ],
+    "key": {
+        "A": {
+            "item": "beyond_earth:battery_tier1"
+        },
+        "B": {
+            "item": "beyond_earth:steel_plate"
+        },
+        "T": {
+            "item": "beyond_earth:pcb_tier1"
+        },
+        "F": {
+            "item": "beyond_earth:cryolithic_led"
+        },
+        "R": {
+            "item": "beyond_earth:steel_ingot"
+        }
+    },
+    "result": {
+        "item": "beyond_earth:drill_handle",
+        "count": 1
+    }
+}

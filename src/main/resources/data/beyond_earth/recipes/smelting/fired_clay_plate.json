@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "beyond_earth:clay_plate"
+    },
+    "result": "beyond_earth:fired_clay_plate",
+    "experience": 0.1,
+    "cookingtime": 200
+}

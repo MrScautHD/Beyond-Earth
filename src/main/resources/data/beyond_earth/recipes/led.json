@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "#B#",
+        "G G"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:glass_pane"
+        },
+        "B": {
+            "item": "beyond_earth:silicon"
+        },
+        "G": {
+            "item": "beyond_earth:iron_plate"
+        }
+    },
+    "result": {
+        "item": "beyond_earth:led",
+        "count": 1
+    }
+}

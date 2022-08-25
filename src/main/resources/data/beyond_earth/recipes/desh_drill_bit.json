@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#B ",
+        "BVZ",
+        " Z "
+    ],
+    "key": {
+        "#": {
+            "item": "beyond_earth:desh_nugget"
+        },
+        "B": {
+            "item": "beyond_earth:desh_plate"
+        },
+        "V": {
+            "item": "beyond_earth:compressed_desh"
+        },
+        "Z": {
+            "item": "beyond_earth:desh_ingot"
+        }
+    },
+    "result": {
+        "item": "beyond_earth:desh_drill_bit",
+        "count": 1
+    }
+}
