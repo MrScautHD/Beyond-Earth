@@ -6,8 +6,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.CapabilityOxygen;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 
@@ -23,7 +23,7 @@ public class OxygenSystem {
             if (Methods.isLivingInAnySpaceSuits(entity) && !entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
 
                 ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
-                OxygenStorage oxygenStorage = itemstack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+                IOxygenStorage oxygenStorage = itemstack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
                 if (oxygenStorage.getOxygen() == 0) {
                     entity.setAirSupply(-4);
@@ -48,7 +48,7 @@ public class OxygenSystem {
         if (Methods.isLivingInAnySpaceSuits(entity) && entity.isEyeInFluid(FluidTags.WATER) && !entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get())) {
 
             ItemStack itemstack = entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
-            OxygenStorage oxygenStorage = itemstack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = itemstack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
             if (oxygenStorage.getOxygen() > 0) {
                 entity.setAirSupply(300);
             }

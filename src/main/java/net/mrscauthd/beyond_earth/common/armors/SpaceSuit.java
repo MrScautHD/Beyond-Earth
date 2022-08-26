@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -17,12 +16,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.CapabilityOxygen;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
@@ -114,7 +111,7 @@ public class SpaceSuit {
 			super.fillItemCategory(p_41391_, p_41392_);
 			if (this.allowedIn(p_41391_)) {
 				ItemStack itemStack = new ItemStack(this);
-				OxygenStorage oxygen = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+				IOxygenStorage oxygen = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 				if (oxygen != null) {
 					oxygen.setOxygen(oxygen.getMaxCapacity());
 				}
@@ -125,13 +122,13 @@ public class SpaceSuit {
 
 		@Override
 		public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-			return new OxygenProvider(48000);
+			return new SpaceSuitCapabilityProvider(stack, 48000);
 		}
 
 		@Override
 		public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
 			super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-			OxygenStorage oxygen = p_41421_.getCapability(OxygenProvider.OXYGEN).orElse(null);
+			IOxygenStorage oxygen = p_41421_.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 			if (oxygen != null) {
 				p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));
 			}
@@ -149,8 +146,11 @@ public class SpaceSuit {
 		}
 
 		public void calculateOxygenTime(ItemStack stack, Player player) {
+			if (player.level.isClientSide) {
+				return;
+			}
 			if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-				OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+				IOxygenStorage oxygen = stack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
 
 				if (oxygen != null) {
 					if (oxygen.getOxygen() > 0) {
