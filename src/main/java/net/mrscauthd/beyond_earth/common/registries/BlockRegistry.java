@@ -10,12 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
-import net.mrscauthd.beyond_earth.common.blocks.CoalTorchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
-import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
-import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
+import net.mrscauthd.beyond_earth.common.blocks.*;
 
 public class BlockRegistry {
 
@@ -88,10 +83,14 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_LAPIS_ORE = BLOCKS.register("glacio_lapis_ore", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops(), UniformInt.of(2, 5)));
 
     /** RAW BLOCKS */
-    public static final RegistryObject<Block> RAW_LEAD_BLOCK = BLOCKS.register("raw_lead_block", () -> new DropExperienceBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(3.0F, 3.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RAW_LEAD_BLOCK = BLOCKS.register("raw_lead_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5F, 1F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RAW_DESH_BLOCK = BLOCKS.register("raw_desh_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RAW_OSTRUM_BLOCK = BLOCKS.register("raw_ostrum_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RAW_CALORITE_BLOCK = BLOCKS.register("raw_calorite_block", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+
+    /** A MACHINE THAT IS USELESS FOR NOW */
+
+    public static final RegistryObject<Block> CIRCUIT_INSCRIBER = BLOCKS.register("circuit_inscriber", () -> new CircuitInscriber(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops().noOcclusion()));
 
     /** FALLING BLOCKS */
     public static final RegistryObject<Block> MOON_SAND = BLOCKS.register("moon_sand", () -> new FallingBlock(BlockBehaviour.Properties.of(Material.SAND, MaterialColor.COLOR_GRAY).sound(SoundType.SAND).strength(0.5f, 0.5f)));
@@ -109,6 +108,11 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RUSTED_IRON_PLATING_BLOCK = BLOCKS.register("rusted_iron_plating_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> BLUE_IRON_PLATING_BLOCK = BLOCKS.register("blue_iron_plating_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).lightLevel(state -> 15).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> IRON_MARK_BLOCK = BLOCKS.register("iron_mark_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+
+    // DECORATIVE BLOCKS
+    public static final RegistryObject<Block> STEEL_BARS = BLOCKS.register("steel_bars", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> STEEL_CHASSIS = BLOCKS.register("steel_chassis", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_VENT = BLOCKS.register("steel_vent", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
 
     // NATURAL BLOCKS (without category)
     public static final RegistryObject<Block> SKY_STONE = BLOCKS.register("sky_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));

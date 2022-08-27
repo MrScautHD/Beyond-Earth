@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "beyond_earth:block/circuit_inscriber"
+    },
+    "facing=east": {
+      "model": "beyond_earth:block/circuit_inscriber",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "beyond_earth:block/circuit_inscriber",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "beyond_earth:block/circuit_inscriber",
+      "y": 270
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:blocks/vent_back",
+    "up": "beyond_earth:blocks/vent_back",
+    "north": "beyond_earth:blocks/vent_back",
+    "east": "beyond_earth:blocks/vent_back",
+    "south": "beyond_earth:blocks/vent_back",
+    "west": "beyond_earth:blocks/vent_back",
+    "particle": "beyond_earth:blocks/vent_back"
+  }
+}

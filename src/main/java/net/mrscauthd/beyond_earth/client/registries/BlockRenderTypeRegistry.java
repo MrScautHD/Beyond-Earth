@@ -20,6 +20,8 @@ public class BlockRenderTypeRegistry {
         ItemBlockRenderTypes.setRenderLayer(FluidRegistry.FLOWING_OIL.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(FluidRegistry.OIL_STILL.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(BlockRegistry.COAL_LANTERN_BLOCK.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.STEEL_BARS.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CIRCUIT_INSCRIBER.get(), RenderType.translucent());
         //TODO DON'T FORGOT TO ADD IT BACK
         //TODO DO IT FOR JSON
         //ItemBlockRenderTypes.setRenderLayer(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), RenderType.cutout());

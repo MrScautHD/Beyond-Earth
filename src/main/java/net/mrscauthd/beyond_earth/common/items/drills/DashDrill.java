@@ -21,12 +21,9 @@ public class DashDrill extends Item {
     public DashDrill(Properties p_41383_) {
         super(p_41383_);
     }
-    /**
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
-        System.out.println("1");
 
-        return super.use(p_41432_, p_41433_, p_41434_);
+    @Override
+    public UseAnim getUseAnimation(ItemStack p_41452_) {
+        return super.getUseAnimation(p_41452_);
     }
-    */
 }

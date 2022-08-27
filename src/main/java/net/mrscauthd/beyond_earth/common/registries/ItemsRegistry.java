@@ -183,6 +183,7 @@ public class ItemsRegistry {
 
     //MACHINE BLOCK ITEMS
 
+    public static final RegistryObject<BlockItem> CIRCUIT_INSCRIBER_ITEM = ITEMS.register("circuit_inscriber", () -> new BlockItem(BlockRegistry.CIRCUIT_INSCRIBER.get(), new Item.Properties().tab(Tabs.tab_machines)));
     //TODO DON'T FORGET IT TO REWORK THIS
     /**
     public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
@@ -214,6 +215,12 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> INFERNAL_SPIRE_BLOCK_ITEM = ITEMS.register("infernal_spire_block", () -> new BlockItem(BlockRegistry.INFERNAL_SPIRE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> IRON_MARK_BLOCK_ITEM = ITEMS.register("iron_mark_block", () -> new BlockItem(BlockRegistry.IRON_MARK_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> SKY_STONE_ITEM = ITEMS.register("sky_stone", () -> new BlockItem(BlockRegistry.SKY_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+
+    // DECORATIVE BLOCKS
+    public static final RegistryObject<BlockItem> STEEL_BARS_ITEM = ITEMS.register("steel_bars", () -> new BlockItem(BlockRegistry.STEEL_BARS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> STEEL_CHASSIS_ITEM = ITEMS.register("steel_chassis", () -> new BlockItem(BlockRegistry.STEEL_CHASSIS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> STEEL_VENT_ITEM = ITEMS.register("steel_vent", () -> new BlockItem(BlockRegistry.STEEL_VENT.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+
 
     // MOON BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_STONE_ITEM = ITEMS.register("moon_stone", () -> new BlockItem(BlockRegistry.MOON_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
