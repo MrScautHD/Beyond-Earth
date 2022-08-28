@@ -129,6 +129,38 @@ public class SkyHelper {
         }
     }
 
+    public static void drawSatellites(Minecraft mc, int satellites, Vec3 color, BufferBuilder bufferBuilder, PoseStack poseStack, Matrix4f matrix4f, float scale, float y, boolean blend) {
+        if (blend) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        }
+
+        int r = (int) color.x();
+        int g = (int) color.y();
+        int b = (int) color.z();
+
+        RenderSystem.enableTexture();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+        float tick = (mc.level.getGameTime() + mc.getPartialTick()) / 20;
+        float x2 = (float) Math.sin(tick);
+        float y2 = (float) Math.cos(tick);
+
+        bufferBuilder.vertex(matrix4f, -scale + x2, y + y2, -scale).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, scale + x2, y + y2, -scale).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, scale + x2, y + y2, scale).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, -scale + x2, y + y2, scale).color(r, g, b, 255).endVertex();
+
+        BufferUploader.drawWithShader(bufferBuilder.end());
+        RenderSystem.disableTexture();
+
+        if (blend) {
+            RenderSystem.disableBlend();
+        }
+    }
+
     public static void setupSunRiseColor(PoseStack poseStack, BufferBuilder bufferBuilder, float partialTick, Minecraft mc, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();

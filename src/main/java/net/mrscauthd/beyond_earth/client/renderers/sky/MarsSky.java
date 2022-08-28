@@ -115,22 +115,22 @@ public class MarsSky extends DimensionSpecialEffects {
                 /** SUN */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawSunWithLight(SkyHelper.SUN, new Vec3(109, 131, 255), new Vec3(109, 131, 255), bufferBuilder, matrix4f, 5, 5 * 3, 100, true);
+                SkyHelper.drawSunWithLight(SkyHelper.SUN, new Vec3(109, 131, 255), new Vec3(109, 131, 255), bufferBuilder, matrix4f, 5, 5 * 4, 100, true);
 
                 /** PHOBOS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-40), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), Vector3f.ZP.rotationDegrees(30)));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawPlanetWithLight(SkyHelper.PHOBOS, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, 3 * 3, 100, false);
+                SkyHelper.drawPlanetWithLight(SkyHelper.PHOBOS, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, 3 * 4, 100, false);
 
                 /** DEIMOS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), Vector3f.ZP.rotationDegrees(10)));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawPlanetWithLight(SkyHelper.DEIMOS, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 2, 2 * 3, 100, false);
+                SkyHelper.drawPlanetWithLight(SkyHelper.DEIMOS, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 2, 2 * 4, 100, false);
 
                 /** EARTH */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), Vector3f.ZP.rotationDegrees(-30)));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawPlanetWithLight(SkyHelper.EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, 1, 1 * 3, 100, false);
+                SkyHelper.drawPlanetWithLight(SkyHelper.EARTH, new Vec3(0, 177, 242), bufferBuilder, matrix4f, 1, 1 * 4, 100, false);
 
                 /** CUT OFF SKY SYSTEM */
                 SkyHelper.drawDarkSky(mc, poseStack, projectionMatrix, shaderInstance, partialTick);

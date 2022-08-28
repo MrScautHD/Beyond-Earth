@@ -253,7 +253,7 @@ public class JetSuit {
             }
         }
 
-        public void calculateOxygenTime(ItemStack stack, Player player) {
+        public void calculateOxygenTime(ItemStack stack, Player player) {//TODO ADD FLUID TYPE SUPPORT
             if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
                 OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
 
@@ -316,6 +316,7 @@ public class JetSuit {
         @Override
         public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
             return new OxygenProvider(48000);
+            //TODO TRY TO ADD THE ENERGY PROVIDER TOO
         }
 
         @Override
