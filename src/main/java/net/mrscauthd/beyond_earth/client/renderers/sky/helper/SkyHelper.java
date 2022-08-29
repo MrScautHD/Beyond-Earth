@@ -144,14 +144,19 @@ public class SkyHelper {
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-        float tick = (mc.level.getGameTime() + mc.getPartialTick()) / 20;
-        float x2 = (float) Math.sin(tick);
-        float y2 = (float) Math.cos(tick);
+        float timeWithPartialTick = (mc.level.getGameTime() + mc.getPartialTick()) / 20.0f;
+        float sinTick = (float) Math.sin(timeWithPartialTick);
+        float cosTick = (float) Math.cos(timeWithPartialTick);
 
-        bufferBuilder.vertex(matrix4f, -scale + x2, y + y2, -scale).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, scale + x2, y + y2, -scale).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, scale + x2, y + y2, scale).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale + x2, y + y2, scale).color(r, g, b, 255).endVertex();
+        float size = 3.0f;
+        float xScale = 25.0f;
+        float yScale = 30.0f;
+        float zScale = 13.0f;
+
+        bufferBuilder.vertex(matrix4f, sinTick * xScale - size, y + cosTick * yScale, cosTick * zScale - size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xScale + size, y + cosTick * yScale, cosTick * zScale - size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xScale + size, y + cosTick * yScale, cosTick * zScale + size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xScale - size, y + cosTick * yScale, cosTick * zScale + size).color(r, g, b, 255).endVertex();
 
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
