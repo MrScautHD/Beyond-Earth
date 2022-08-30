@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:blocks/iron_hexagonal_plating",
+    "up": "beyond_earth:blocks/iron_hexagonal_plating",
+    "north": "beyond_earth:blocks/iron_hexagonal_plating",
+    "east": "beyond_earth:blocks/iron_hexagonal_plating",
+    "south": "beyond_earth:blocks/iron_hexagonal_plating",
+    "west": "beyond_earth:blocks/iron_hexagonal_plating",
+    "particle": "beyond_earth:blocks/iron_hexagonal_plating"
+  }
+}

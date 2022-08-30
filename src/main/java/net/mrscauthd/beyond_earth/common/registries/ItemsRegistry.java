@@ -208,19 +208,31 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> RAW_DESH_BLOCK_ITEM = ITEMS.register("raw_desh_block", () -> new BlockItem(BlockRegistry.RAW_DESH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> RAW_OSTRUM_BLOCK_ITEM = ITEMS.register("raw_ostrum_block", () -> new BlockItem(BlockRegistry.RAW_OSTRUM_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> RAW_CALORITE_BLOCK_ITEM = ITEMS.register("raw_calorite_block", () -> new BlockItem(BlockRegistry.RAW_CALORITE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> IRON_PILLAR_BLOCK_ITEM = ITEMS.register("iron_pillar_block", () -> new BlockItem(BlockRegistry.IRON_PILLAR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> IRON_PLATING_BLOCK_ITEM = ITEMS.register("iron_plating_block", () -> new BlockItem(BlockRegistry.IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> RUSTED_IRON_PILLAR_BLOCK_ITEM = ITEMS.register("rusted_iron_pillar_block", () -> new BlockItem(BlockRegistry.RUSTED_IRON_PILLAR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> RUSTED_IRON_PLATING_BLOCK_ITEM = ITEMS.register("rusted_iron_plating_block", () -> new BlockItem(BlockRegistry.RUSTED_IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> STEEL_PILLAR_BLOCK_ITEM = ITEMS.register("steel_pillar_block", () -> new BlockItem(BlockRegistry.STEEL_PILLAR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> STEEL_PLATING_BLOCK_ITEM = ITEMS.register("steel_plating_block", () -> new BlockItem(BlockRegistry.STEEL_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> BLUE_IRON_PLATING_BLOCK_ITEM = ITEMS.register("blue_iron_plating_block", () -> new BlockItem(BlockRegistry.BLUE_IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> INFERNAL_SPIRE_BLOCK_ITEM = ITEMS.register("infernal_spire_block", () -> new BlockItem(BlockRegistry.INFERNAL_SPIRE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> IRON_MARK_BLOCK_ITEM = ITEMS.register("iron_mark_block", () -> new BlockItem(BlockRegistry.IRON_MARK_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> SKY_STONE_ITEM = ITEMS.register("sky_stone", () -> new BlockItem(BlockRegistry.SKY_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
     // DECORATIVE BLOCKS
+    public static final RegistryObject<BlockItem> RUSTED_IRON_BARS_ITEM = ITEMS.register("rusted_iron_bars", () -> new BlockItem(BlockRegistry.RUSTED_IRON_BARS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> STEEL_BARS_ITEM = ITEMS.register("steel_bars", () -> new BlockItem(BlockRegistry.STEEL_BARS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> RUSTED_IRON_CHASSIS_ITEM = ITEMS.register("rusted_iron_chassis", () -> new BlockItem(BlockRegistry.RUSTED_IRON_CHASSIS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> RUSTED_IRON_VENT_ITEM = ITEMS.register("rusted_iron_vent", () -> new BlockItem(BlockRegistry.RUSTED_IRON_VENT.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> STEEL_CHASSIS_ITEM = ITEMS.register("steel_chassis", () -> new BlockItem(BlockRegistry.STEEL_CHASSIS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> STEEL_VENT_ITEM = ITEMS.register("steel_vent", () -> new BlockItem(BlockRegistry.STEEL_VENT.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> IRON_CHASSIS_ITEM = ITEMS.register("iron_chassis", () -> new BlockItem(BlockRegistry.IRON_CHASSIS.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> IRON_VENT_ITEM = ITEMS.register("iron_vent", () -> new BlockItem(BlockRegistry.IRON_VENT.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> IRON_HEXAGONAL_PLATING_ITEM = ITEMS.register("iron_hexagonal_plating", () -> new BlockItem(BlockRegistry.IRON_HEXAGONAL_PLATING.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> STEEL_HEXAGONAL_PLATING_ITEM = ITEMS.register("steel_hexagonal_plating", () -> new BlockItem(BlockRegistry.STEEL_HEXAGONAL_PLATING.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
+    //LED BLOCKS
+    public static final RegistryObject<BlockItem> WHITE_LED_BLOCK_ITEM = ITEMS.register("white_led_block", () -> new BlockItem(BlockRegistry.WHITE_LED_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
     // MOON BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_STONE_ITEM = ITEMS.register("moon_stone", () -> new BlockItem(BlockRegistry.MOON_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));

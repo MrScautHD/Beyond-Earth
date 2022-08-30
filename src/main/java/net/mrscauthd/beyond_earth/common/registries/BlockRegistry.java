@@ -103,16 +103,29 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DESH_BLOCK = BLOCKS.register("desh_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> OSTRUM_BLOCK = BLOCKS.register("ostrum_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> CALORITE_BLOCK = BLOCKS.register("calorite_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> IRON_PILLAR_BLOCK = BLOCKS.register("iron_pillar_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> IRON_PLATING_BLOCK = BLOCKS.register("iron_plating_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RUSTED_IRON_PILLAR_BLOCK = BLOCKS.register("rusted_iron_pillar_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> RUSTED_IRON_PLATING_BLOCK = BLOCKS.register("rusted_iron_plating_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_PILLAR_BLOCK = BLOCKS.register("steel_pillar_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_PLATING_BLOCK = BLOCKS.register("steel_plating_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> BLUE_IRON_PLATING_BLOCK = BLOCKS.register("blue_iron_plating_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).lightLevel(state -> 15).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> IRON_MARK_BLOCK = BLOCKS.register("iron_mark_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     // DECORATIVE BLOCKS
     public static final RegistryObject<Block> STEEL_BARS = BLOCKS.register("steel_bars", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()));
-    public static final RegistryObject<Block> STEEL_CHASSIS = BLOCKS.register("steel_chassis", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> STEEL_VENT = BLOCKS.register("steel_vent", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RUSTED_IRON_BARS = BLOCKS.register("rusted_iron_bars", () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.NONE).requiresCorrectToolForDrops().strength(5.0F, 6.0F).sound(SoundType.METAL).noOcclusion()));
+    public static final RegistryObject<Block> RUSTED_IRON_CHASSIS = BLOCKS.register("rusted_iron_chassis", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> RUSTED_IRON_VENT = BLOCKS.register("rusted_iron_vent", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_CHASSIS = BLOCKS.register("steel_chassis", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_VENT = BLOCKS.register("steel_vent", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> IRON_CHASSIS = BLOCKS.register("iron_chassis", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> IRON_VENT = BLOCKS.register("iron_vent", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> IRON_HEXAGONAL_PLATING = BLOCKS.register("iron_hexagonal_plating", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> STEEL_HEXAGONAL_PLATING = BLOCKS.register("steel_hexagonal_plating", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(1.5f, 1f).requiresCorrectToolForDrops()));
+
+    //LED BLOCKS
+    public static final RegistryObject<Block> WHITE_LED_BLOCK = BLOCKS.register("white_led_block", () -> new LedBlock(BlockBehaviour.Properties.of(Material.GLASS).sound(SoundType.GLASS).strength(1.5f, 1f).requiresCorrectToolForDrops().lightLevel(state -> state.getValue(LedBlock.ON) ? 15 : 0)));
 
     // NATURAL BLOCKS (without category)
     public static final RegistryObject<Block> SKY_STONE = BLOCKS.register("sky_stone", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));

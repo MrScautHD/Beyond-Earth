@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:blocks/white_led_block_off",
+    "up": "beyond_earth:blocks/white_led_block_off",
+    "north": "beyond_earth:blocks/white_led_block_off",
+    "east": "beyond_earth:blocks/white_led_block_off",
+    "south": "beyond_earth:blocks/white_led_block_off",
+    "west": "beyond_earth:blocks/white_led_block_off",
+    "particle": "beyond_earth:blocks/white_led_block_off"
+  }
+}

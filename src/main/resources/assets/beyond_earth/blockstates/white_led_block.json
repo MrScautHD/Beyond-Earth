@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "on=true": {
+      "model": "beyond_earth:block/white_led_block_on"
+    },
+    "on=false": {
+      "model": "beyond_earth:block/white_led_block_off"
+    }
+  }
+}

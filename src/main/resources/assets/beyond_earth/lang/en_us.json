@@ -48,6 +48,9 @@
   "item.beyond_earth.silicon": "Silicon",
   "item.beyond_earth.clay_plate": "Clay Plate",
   "item.beyond_earth.fired_clay_plate": "Fired Clay Plate",
+  "item.beyond_earth.iron_pillar_block": "Iron Pillar",
+  "item.beyond_earth.steel_plating_block": "Block of Steel Plating",
+  "item.beyond_earth.steel_pillar_block": "Steel Pillar",
 
   "item.beyond_earth.led": "LED",
   "item.beyond_earth.cryolithic_led": "Cryolithic LED",
@@ -112,6 +115,7 @@
   "item.beyond_earth.battery_tier1": "Lead-Acid Battery",
 
   "item.beyond_earth.steel_bars": "Steel Bars",
+  "item.beyond_earth.rusted_iron_bars": "Rusted Iron Bars",
 
 
 
@@ -155,6 +159,9 @@
   "block.beyond_earth.mars_diamond_ore": "Mars Diamond Ore",
   "block.beyond_earth.fuel_refinery": "Fuel Refinery",
   "block.beyond_earth.rusted_iron_plating_block": "Block of Rusted Iron Plating",
+  "block.beyond_earth.iron_pillar_block": "Iron Pillar",
+  "block.beyond_earth.steel_plating_block": "Block of Steel Plating",
+  "block.beyond_earth.steel_pillar_block": "Steel Pillar",
   "block.beyond_earth.venus_diamond_ore": "Venus Diamond Ore",
   "block.beyond_earth.moon_stone": "Moon Stone",
   "block.beyond_earth.moon_sand": "Moon Sand",
@@ -191,9 +198,18 @@
   "block.beyond_earth.lead_ore": "Lead Ore",
   "block.beyond_earth.deepslate_lead_ore": "Deepslate Lead Ore",
 
+  "block.beyond_earth.rusted_iron_bars": "Rusted Iron Bars",
   "block.beyond_earth.steel_bars": "Steel Bars",
   "block.beyond_earth.steel_vent": "Steel Vent",
   "block.beyond_earth.steel_chassis": "Steel Chassis",
+  "block.beyond_earth.iron_vent": "Iron Vent",
+  "block.beyond_earth.iron_chassis": "Iron Chassis",
+  "block.beyond_earth.rusted_iron_vent": "Rusted Iron Vent",
+  "block.beyond_earth.rusted_iron_chassis": "Rusted Iron Chassis",
+  "block.beyond_earth.iron_hexagonal_plating": "Iron Hexagonal Plating",
+  "block.beyond_earth.steel_hexagonal_plating": "Steel Hexagonal Plating",
+
+  "block.beyond_earth.white_led_block": "White LED Block",
 
   "block.beyond_earth.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.beyond_earth.moon_stone_bricks": "Moon Stone Bricks",

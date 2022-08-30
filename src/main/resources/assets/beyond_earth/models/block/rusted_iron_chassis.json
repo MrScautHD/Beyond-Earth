@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:blocks/rusted_iron_machine_top",
+    "up": "beyond_earth:blocks/rusted_iron_machine_top",
+    "north": "beyond_earth:blocks/rusted_iron_machine_top",
+    "east": "beyond_earth:blocks/rusted_iron_machine_top",
+    "south": "beyond_earth:blocks/rusted_iron_machine_top",
+    "west": "beyond_earth:blocks/rusted_iron_machine_top",
+    "particle": "beyond_earth:blocks/rusted_iron_machine_top"
+  }
+}
