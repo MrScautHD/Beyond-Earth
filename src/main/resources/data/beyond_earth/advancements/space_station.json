@@ -1,0 +1,33 @@
+{
+	"parent": "beyond_earth:rocket_advancement",
+	"display": {
+		"icon": {
+			"item": "beyond_earth:space_station_icon"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.space_station.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.space_station.descr"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"player_create_space_station": {
+			"trigger": "beyond_earth:player_create_space_station",
+			"conditions": {
+			}
+		}
+	},
+	"requirements": [
+		[
+			"player_create_space_station"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

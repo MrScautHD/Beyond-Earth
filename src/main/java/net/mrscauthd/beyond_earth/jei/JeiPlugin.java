@@ -1271,7 +1271,6 @@ public class JeiPlugin implements IModPlugin {
 		public static final RecipeType recipeType = new RecipeType<>(new ResourceLocation(BeyondEarthMod.MODID, "space_station"), SpaceStationRecipe.class);
 
 		public static final ResourceLocation BACKGROUND = new ResourceLocation(BeyondEarthMod.MODID, "textures/jei/space_station.png");
-		public static final ResourceLocation ICON = new ResourceLocation(BeyondEarthMod.MODID, "textures/jei/space_station_icon.png");
 
 		private static final String path = BeyondEarthMod.MODID + ".space_station";
 		private static final Component title = new TranslatableComponent("jei.category." + path);
@@ -1290,7 +1289,7 @@ public class JeiPlugin implements IModPlugin {
 		public SpaceStationJeiCategory(IGuiHelper guiHelper) {
 			this.tooltips = Arrays.stream(tooltip.getString().split("\n")).map(TextComponent::new).toArray(Component[]::new);
 			this.background = guiHelper.drawableBuilder(BACKGROUND, 0, 0, 144, 51).setTextureSize(144, 51).build();
-			this.icon = guiHelper.drawableBuilder(ICON, 0, 0, 16, 16).setTextureSize(16, 16).build();
+			this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ItemsRegistry.SPACE_STATION_ICON.get()));
 			this.slot = guiHelper.getSlotDrawable();
 		}
 

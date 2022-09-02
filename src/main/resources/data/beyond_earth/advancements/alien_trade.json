@@ -1,0 +1,42 @@
+{
+	"parent": "beyond_earth:moon_advancement",
+	"display": {
+		"icon": {
+			"item": "minecraft:emerald"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.alien_trade.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.alien_trade.descr"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"traded": {
+			"trigger": "minecraft:villager_trade",
+			"conditions": {
+				"villager": [
+					{
+						"condition": "minecraft:entity_properties",
+						"entity": "this",
+						"predicate": {
+							"type": "beyond_earth:alien"
+						}
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"traded"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

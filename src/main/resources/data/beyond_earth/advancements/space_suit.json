@@ -1,0 +1,55 @@
+{
+	"parent": "beyond_earth:root",
+	"display": {
+		"icon": {
+			"item": "beyond_earth:space_suit"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.space_suit.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.space_suit.descr"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"inventory_changed": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"beyond_earth:oxygen_mask"
+						]
+					},
+					{
+						"items": [
+							"beyond_earth:space_suit"
+						]
+					},
+					{
+						"items": [
+							"beyond_earth:space_pants"
+						]
+					},
+					{
+						"items": [
+							"beyond_earth:space_boots"
+						]
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"inventory_changed"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

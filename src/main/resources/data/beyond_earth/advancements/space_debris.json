@@ -1,0 +1,34 @@
+{
+	"parent": "beyond_earth:rocket_advancement",
+	"display": {
+		"icon": {
+			"item": "minecraft:rotten_flesh"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.space_debris.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.space_debris.descr"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"throw_on_orbit": {
+			"trigger": "beyond_earth:throw_on_orbit",
+			"conditions": {
+				"item": null
+			}
+		}
+	},
+	"requirements": [
+		[
+			"throw_on_orbit"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

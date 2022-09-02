@@ -436,6 +436,8 @@ public class Methods {
     public static void createSpaceStation(Player player, ServerLevel serverWorld) {
         BlockPos pos = new BlockPos(player.getX() - 15.5, 100, player.getZ() - 15.5);
         serverWorld.getStructureManager().getOrCreate(space_station).placeInWorld(serverWorld, pos, pos, new StructurePlaceSettings(), serverWorld.random, 2);
+        
+        MinecraftForge.EVENT_BUS.post(new PlayerCreateSpaceStationEvent(player));
     }
 
     public static void cleanUpPlayerNBT(Player player) {
