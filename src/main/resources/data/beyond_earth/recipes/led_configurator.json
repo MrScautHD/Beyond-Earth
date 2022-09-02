@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "  #",
+        "BX ",
+        "CB "
+    ],
+    "key": {
+        "#": {
+            "item": "beyond_earth:desh_nugget"
+        },
+        "B": {
+            "item": "beyond_earth:steel_plate"
+        },
+        "X": {
+            "item": "beyond_earth:cryolithic_led"
+        },
+        "C": {
+            "item": "beyond_earth:battery_tier1"
+        }
+    },
+    "result": {
+        "item": "beyond_earth:led_configurator",
+        "count": 1
+    }
+}

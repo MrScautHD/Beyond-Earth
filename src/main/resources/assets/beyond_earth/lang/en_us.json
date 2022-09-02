@@ -54,6 +54,7 @@
 
   "item.beyond_earth.led": "LED",
   "item.beyond_earth.cryolithic_led": "Cryolithic LED",
+  "item.beyond_earth.led_configurator": "LED Configurator",
 
   "item.beyond_earth.rocket_t1": "Tier 1 Rocket",
   "item.beyond_earth.rocket_t2": "Tier 2 Rocket",

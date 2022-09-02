@@ -86,6 +86,7 @@ public class ItemsRegistry {
 
     /** NORMAL ITEMS */
     // SPECIAL ITEMS
+    public static final RegistryObject<Item> LED_CONFIGURATOR = ITEMS.register("led_configurator", () -> new Item(new Item.Properties().tab(Tabs.tab_basics).stacksTo(1)));
     public static final RegistryObject<Item> COAL_TORCH_ITEM = ITEMS.register("coal_torch", () -> new CoalTorchItem(BlockRegistry.COAL_TORCH_BLOCK.get(), BlockRegistry.WALL_COAL_TORCH_BLOCK.get(),new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> CRYOLITHIC_LED = ITEMS.register("cryolithic_led", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> LED = ITEMS.register("led", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
