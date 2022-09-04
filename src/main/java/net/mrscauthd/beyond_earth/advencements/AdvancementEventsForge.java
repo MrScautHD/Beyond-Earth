@@ -23,7 +23,7 @@ public class AdvancementEventsForge {
 		Player player = event.getPlayer();
 		Level level = player.level;
 
-		if (level.isClientSide() == true) {
+		if (level.isClientSide()) {
 			return;
 		}
 
@@ -40,7 +40,7 @@ public class AdvancementEventsForge {
 		ItemEntity item = event.getEntityItem();
 		Level level = item.level;
 
-		if (level.isClientSide() == true) {
+		if (level.isClientSide()) {
 			return;
 		}
 
