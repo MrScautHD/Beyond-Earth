@@ -1,6 +1,5 @@
 {
   "display": {
-    "background": "beyond_earth:textures/blocks/iron_plating_block.png",
     "icon": {
       "item": "beyond_earth:rocket_t1"
     },
@@ -31,5 +30,6 @@
   },
   "rewards": {
     "experience": 7
-  }
+  },
+  "parent": "beyond_earth:workbench_advancement"
 }

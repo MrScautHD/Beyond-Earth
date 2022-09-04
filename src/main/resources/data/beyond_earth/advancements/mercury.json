@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "beyond_earth:mercury_stone"
+    },
+    "title": {
+      "translate": "advancements.beyond_earth.mercury.title"
+    },
+    "description": {
+      "translate": "advancements.beyond_earth.mercury.descr"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "moon_advancement": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "beyond_earth:mercury"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 7
+  },
+  "parent": "beyond_earth:rocket_tier_3_advancement"
+}

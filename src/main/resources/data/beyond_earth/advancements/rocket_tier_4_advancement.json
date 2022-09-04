@@ -31,5 +31,5 @@
   "rewards": {
     "experience": 7
   },
-  "parent": "beyond_earth:rocket_advancement"
+  "parent": "beyond_earth:rocket_tier_3_advancement"
 }

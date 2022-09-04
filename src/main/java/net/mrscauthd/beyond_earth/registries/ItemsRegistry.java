@@ -240,4 +240,7 @@ public class ItemsRegistry {
 
     // OIL BUCKET
     public static final RegistryObject<Item> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new BucketItem(FluidsRegistry.OIL_STILL, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(ItemGroups.tab_normal)));
+    
+    /** MISC */
+    public static final RegistryObject<Item> SPACE_STATION_ICON = ITEMS.register("space_station_icon", () -> new Item(new Item.Properties()));
 }

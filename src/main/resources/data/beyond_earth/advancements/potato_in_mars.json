@@ -1,0 +1,37 @@
+{
+	"parent": "beyond_earth:mars",
+	"display": {
+		"icon": {
+			"item": "minecraft:potato"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.potato_in_mars.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.potato_in_mars.descr"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"placed_block": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"block": "minecraft:potatoes",
+				"location": {
+					"dimension": "beyond_earth:mars"
+				}
+			}
+		}
+	},
+	"requirements": [
+		[
+			"placed_block"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

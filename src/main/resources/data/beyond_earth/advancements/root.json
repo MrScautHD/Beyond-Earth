@@ -1,0 +1,37 @@
+{
+	"display": {
+		"background": "beyond_earth:textures/blocks/iron_plating_block.png",
+		"icon": {
+			"item": "beyond_earth:rocket_t1"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.root.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.root.descr"
+		},
+		"frame": "task",
+		"show_toast": false,
+		"announce_to_chat": false,
+		"hidden": false
+	},
+	"criteria": {
+		"tick": {
+			"trigger": "minecraft:tick",
+			"conditions": {
+				"items": [
+					{
+						"items": [
+							"beyond_earth:rocket_t1"
+						]
+					}
+				]
+			}
+		}
+	},
+	"requirements": [
+		[
+			"tick"
+		]
+	]
+}

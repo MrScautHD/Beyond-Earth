@@ -1,0 +1,39 @@
+{
+	"parent": "beyond_earth:moon_advancement",
+	"display": {
+		"icon": {
+			"item": "beyond_earth:flag"
+		},
+		"title": {
+			"translate": "advancements.beyond_earth.flag_in_moon.title"
+		},
+		"description": {
+			"translate": "advancements.beyond_earth.flag_in_moon.descr"
+		},
+		"frame": "goal",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"placed_block": {
+			"trigger": "minecraft:placed_block",
+			"conditions": {
+				"item": {
+					"tag": "beyond_earth:flags"
+				},
+				"location": {
+					"dimension": "beyond_earth:moon"
+				}
+			}
+		}
+	},
+	"requirements": [
+		[
+			"placed_block"
+		]
+	],
+	"rewards": {
+		"experience": 7
+	}
+}

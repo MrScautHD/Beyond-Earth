@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "beyond_earth:mars_stone"
+    },
+    "title": {
+      "translate": "advancements.beyond_earth.mars.title"
+    },
+    "description": {
+      "translate": "advancements.beyond_earth.mars.descr"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "moon_advancement": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "beyond_earth:mars"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 7
+  },
+  "parent": "beyond_earth:rocket_tier_2_advancement"
+}
