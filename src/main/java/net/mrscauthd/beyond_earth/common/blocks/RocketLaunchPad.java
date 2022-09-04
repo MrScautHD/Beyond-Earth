@@ -101,18 +101,18 @@ public class RocketLaunchPad extends Block implements SimpleWaterloggedBlock {
         List<Boolean> flag2 = new ArrayList<>();
 
         /** CHECK IF LAUNCH PAD 3x3 */
-        for (int f1 = x; f1 < x + 3; f1++) {
+        for (int i1 = x; i1 < x + 3; i1++) {
             for (int f2 = z; f2 < z + 3; f2++) {
-                BlockPos pos2 = new BlockPos(f1, y, f2);
+                BlockPos pos2 = new BlockPos(i1, y, f2);
 
                 flag1.add(level.getBlockState(pos2).is(BlockRegistry.ROCKET_LAUNCH_PAD.get()));
             }
         }
 
         /** CHECK IF LAUNCH PAD 5x5 (STAGE == FALSE) */
-        for (int f1 = x2; f1 < x2 + 5; f1++) {
+        for (int i1 = x2; i1 < x2 + 5; i1++) {
             for (int f2 = z2; f2 < z2 + 5; f2++) {
-                BlockPos pos2 = new BlockPos(f1, y, f2);
+                BlockPos pos2 = new BlockPos(i1, y, f2);
 
                 if (level.getBlockState(pos2).is(BlockRegistry.ROCKET_LAUNCH_PAD.get()) && !pos2.equals(pos)) {
                     flag2.add(level.getBlockState(pos2).getValue(STAGE));

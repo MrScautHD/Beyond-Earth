@@ -15,7 +15,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.apache.commons.lang3.tuple.Triple;
-import org.lwjgl.opengl.GL11;
 
 public class SkyHelper {
 
@@ -146,21 +145,31 @@ public class SkyHelper {
         int b = (int) satelliteColor.z();
 
         float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
-        float cosTick = (float) Math.cos(gameTick);
-        float yPos = y + cosTick * yAngle;
 
-        if (y < yPos) {
-            SkyHelper.drawSatellites(mc, new Vec3(r, g, b), bufferBuilder, matrix4f, satellites, satelliteSpeed, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+        for (int i = 0; i < satellites; i++) {
+            float sinTick = (float) Math.sin(gameTick + (((i * satellites) * 2)));
+            float cosTick = (float) Math.cos(gameTick + (((i * satellites) * 2)));
+            float yPos = y + cosTick * yAngle;
+
+            if (y < yPos) {
+                SkyHelper.drawSatellites(new Vec3(r, g, b), bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+            }
         }
 
         SkyHelper.drawPlanet(texture, color, bufferBuilder, matrix4f, size, y, blend);
 
-        if (y > yPos) {
-            SkyHelper.drawSatellites(mc, new Vec3(r, g, b), bufferBuilder, matrix4f, satellites, satelliteSpeed, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+        for (int i = 0; i < satellites; i++) {
+            float sinTick = (float) Math.sin(gameTick + (((i * satellites) * 2)));
+            float cosTick = (float) Math.cos(gameTick + (((i * satellites) * 2)));
+            float yPos = y + cosTick * yAngle;
+
+            if (y > yPos) {
+                SkyHelper.drawSatellites(new Vec3(r, g, b), bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+            }
         }
     }
 
-    public static void drawSatellites(Minecraft mc, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float size, float y, boolean blend) {
+    public static void drawSatellites(Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float sinTick, float cosTick, float xAngle, float yAngle, float zAngle, float size, float y, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -173,11 +182,6 @@ public class SkyHelper {
 
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-
-        float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
-        float sinTick = (float) Math.sin(gameTick);
-        float cosTick = (float) Math.cos(gameTick);
-
         bufferBuilder.vertex(matrix4f, sinTick * xAngle - size, y + cosTick * yAngle, cosTick * zAngle - size).color(r, g, b, 255).endVertex();
         bufferBuilder.vertex(matrix4f, sinTick * xAngle + size, y + cosTick * yAngle, cosTick * zAngle - size).color(r, g, b, 255).endVertex();
         bufferBuilder.vertex(matrix4f, sinTick * xAngle + size, y + cosTick * yAngle, cosTick * zAngle + size).color(r, g, b, 255).endVertex();
