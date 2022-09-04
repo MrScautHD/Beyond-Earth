@@ -86,12 +86,7 @@ public class EarthSky extends DimensionSpecialEffects {
                 /** SUN */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawSunWithLight(SkyHelper.SUN, new Vec3(247, 202, 56), new Vec3(244, 220, 85), bufferBuilder, matrix4f, 5, 5 * 4, 100, true);
-
-                /** SATELLITES */
-                matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                SkyHelper.drawSatellites(mc, 5, new Vec3(3, 1, 255), bufferBuilder, poseStack, matrix4f, 1.5F, 100, false);
+                SkyHelper.drawSunWithLightAndSatellites(mc, SkyHelper.SUN, new Vec3(247, 202 ,56),  new Vec3(244, 220, 85), new Vec3(210, 210, 210), bufferBuilder, matrix4f, 5, 5 * 4, 1.5F, 5, 30, 20, 20, 2, 100, false, false);
 
                 /** MOON */
                 matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(level.getTimeOfDay(partialTick) * 360.0F), null));

@@ -15,6 +15,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.apache.commons.lang3.tuple.Triple;
+import org.lwjgl.opengl.GL11;
 
 public class SkyHelper {
 
@@ -53,12 +54,12 @@ public class SkyHelper {
         }
     }
 
-    public static void drawPlanetWithMoonPhaseAndWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, Minecraft mc, boolean blend) {
-        drawPlanetWithMoonPhase(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, mc, blend);
-        drawPlanetWithMoonPhase(PLANET_PHASE_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, mc, true);
+    public static void drawPlanetWithMoonPhaseAndWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float lightSize, float y, Minecraft mc, boolean blend) {
+        drawPlanetWithMoonPhase(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, size, y, mc, blend);
+        drawPlanetWithMoonPhase(PLANET_PHASE_LIGHT, lightColor, bufferBuilder, matrix4f, lightSize, y, mc, true);
     }
 
-    public static void drawPlanetWithMoonPhase(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float y, Minecraft mc, boolean blend) {
+    public static void drawPlanetWithMoonPhase(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float y, Minecraft mc, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -80,10 +81,10 @@ public class SkyHelper {
         float f15 = (float)(l + 1) / 4.0F;
         float f16 = (float)(i1 + 1) / 2.0F;
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -scale, -y, scale).color(r, g, b, 255).uv(f15, f16).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, -y, scale).color(r, g, b, 255).uv(f13, f16).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, -y, -scale).color(r, g, b, 255).uv(f13, f14).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, -y, -scale).color(r, g, b, 255).uv(f15, f14).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, -y, size).color(r, g, b, 255).uv(f15, f16).endVertex();
+        bufferBuilder.vertex(matrix4f, size, -y, size).color(r, g, b, 255).uv(f13, f16).endVertex();
+        bufferBuilder.vertex(matrix4f, size, -y, -size).color(r, g, b, 255).uv(f13, f14).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, -y, -size).color(r, g, b, 255).uv(f15, f14).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 
@@ -92,17 +93,17 @@ public class SkyHelper {
         }
     }
 
-    public static void drawSunWithLight(ResourceLocation texture, Vec3 sunColor, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, boolean blend) {
-        drawPlanet(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, blend);
-        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, true);
+    public static void drawSunWithLight(ResourceLocation texture, Vec3 sunColor, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float lightSize, float y, boolean blend) {
+        drawPlanet(texture, sunColor, bufferBuilder, matrix4f, size, y, blend);
+        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightSize, y, true);
     }
 
-    public static void drawPlanetWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float lightScale, float y, boolean blend) {
-        drawPlanet(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, scale, y, blend);
-        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightScale, y, true);
+    public static void drawPlanetWithLight(ResourceLocation texture, Vec3 lightColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float lightSize, float y, boolean blend) {
+        drawPlanet(texture, new Vec3(255, 255, 255), bufferBuilder, matrix4f, size, y, blend);
+        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightSize, y, true);
     }
 
-    public static void drawPlanet(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float scale, float y, boolean blend) {
+    public static void drawPlanet(ResourceLocation texture, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float y, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -117,10 +118,10 @@ public class SkyHelper {
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -scale, y, -scale).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, -scale).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, scale, y, scale).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, -scale, y, scale).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, y, -size).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, size, y, -size).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, size, y, size).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, y, size).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 
@@ -129,7 +130,37 @@ public class SkyHelper {
         }
     }
 
-    public static void drawSatellites(Minecraft mc, int satellites, Vec3 color, BufferBuilder bufferBuilder, PoseStack poseStack, Matrix4f matrix4f, float scale, float y, boolean blend) {
+    public static void drawSunWithLightAndSatellites(Minecraft mc, ResourceLocation texture, Vec3 color, Vec3 lightColor, Vec3 satelliteColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float lightSize, float satelliteSize, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float y, boolean blend, boolean satelliteBlend) {
+        drawPlanetWithSatellites(mc, texture, color, satelliteColor, bufferBuilder, matrix4f, size, satelliteSize, satellites, satelliteSpeed, xAngle, yAngle, zAngle, y, blend, satelliteBlend);
+        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightSize, y, true);
+    }
+
+    public static void drawPlanetWithLightAndSatellites(Minecraft mc, ResourceLocation texture, Vec3 lightColor, Vec3 satelliteColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float lightSize, float satelliteSize, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float y, boolean blend, boolean satelliteBlend) {
+        drawPlanetWithSatellites(mc, texture, new Vec3(255, 255, 255), satelliteColor, bufferBuilder, matrix4f, size, satelliteSize, satellites, satelliteSpeed, xAngle, yAngle, zAngle, y, blend, satelliteBlend);
+        drawPlanet(SkyHelper.PLANET_LIGHT, lightColor, bufferBuilder, matrix4f, lightSize, y, true);
+    }
+
+    public static void drawPlanetWithSatellites(Minecraft mc, ResourceLocation texture, Vec3 color, Vec3 satelliteColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float satelliteSize, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float y, boolean blend, boolean satelliteBlend) {
+        int r = (int) satelliteColor.x();
+        int g = (int) satelliteColor.y();
+        int b = (int) satelliteColor.z();
+
+        float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
+        float cosTick = (float) Math.cos(gameTick);
+        float yPos = y + cosTick * yAngle;
+
+        if (y < yPos) {
+            SkyHelper.drawSatellites(mc, new Vec3(r, g, b), bufferBuilder, matrix4f, satellites, satelliteSpeed, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+        }
+
+        SkyHelper.drawPlanet(texture, color, bufferBuilder, matrix4f, size, y, blend);
+
+        if (y > yPos) {
+            SkyHelper.drawSatellites(mc, new Vec3(r, g, b), bufferBuilder, matrix4f, satellites, satelliteSpeed, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+        }
+    }
+
+    public static void drawSatellites(Minecraft mc, Vec3 color, BufferBuilder bufferBuilder, Matrix4f matrix4f, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float size, float y, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -140,26 +171,18 @@ public class SkyHelper {
         int g = (int) color.y();
         int b = (int) color.z();
 
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 
-        float timeWithPartialTick = (mc.level.getGameTime() + mc.getPartialTick()) / 20.0f;
-        float sinTick = (float) Math.sin(timeWithPartialTick);
-        float cosTick = (float) Math.cos(timeWithPartialTick);
+        float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
+        float sinTick = (float) Math.sin(gameTick);
+        float cosTick = (float) Math.cos(gameTick);
 
-        float size = 3.0f;
-        float xScale = 25.0f;
-        float yScale = 30.0f;
-        float zScale = 13.0f;
-
-        bufferBuilder.vertex(matrix4f, sinTick * xScale - size, y + cosTick * yScale, cosTick * zScale - size).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, sinTick * xScale + size, y + cosTick * yScale, cosTick * zScale - size).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, sinTick * xScale + size, y + cosTick * yScale, cosTick * zScale + size).color(r, g, b, 255).endVertex();
-        bufferBuilder.vertex(matrix4f, sinTick * xScale - size, y + cosTick * yScale, cosTick * zScale + size).color(r, g, b, 255).endVertex();
-
+        bufferBuilder.vertex(matrix4f, sinTick * xAngle - size, y + cosTick * yAngle, cosTick * zAngle - size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xAngle + size, y + cosTick * yAngle, cosTick * zAngle - size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xAngle + size, y + cosTick * yAngle, cosTick * zAngle + size).color(r, g, b, 255).endVertex();
+        bufferBuilder.vertex(matrix4f, sinTick * xAngle - size, y + cosTick * yAngle, cosTick * zAngle + size).color(r, g, b, 255).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.disableTexture();
 
         if (blend) {
             RenderSystem.disableBlend();
