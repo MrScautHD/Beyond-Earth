@@ -30,6 +30,7 @@ import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ITeleporter;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
@@ -47,6 +48,7 @@ import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 
 import java.util.function.Function;
 
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class Methods {
     public static final ResourceLocation SPACE_STATION = new ResourceLocation(BeyondEarth.MODID, "space_station");
 

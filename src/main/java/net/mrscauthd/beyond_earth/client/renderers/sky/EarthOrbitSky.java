@@ -59,6 +59,7 @@ public class EarthOrbitSky extends DimensionSpecialEffects {
         double y = cameraPos.y();
         double z = cameraPos.z();
 
+        setupFog.run();
         if (!isFoggy) {
             FogType fogtype = camera.getFluidInCamera();
             if (fogtype != FogType.POWDER_SNOW && fogtype != FogType.LAVA && !mc.levelRenderer.doesMobEffectBlockSky(camera)) {

@@ -147,8 +147,8 @@ public class SkyHelper {
         float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
 
         for (int i = 0; i < satellites; i++) {
-            float sinTick = (float) Math.sin(gameTick + (((i * satellites) * 2)));
-            float cosTick = (float) Math.cos(gameTick + (((i * satellites) * 2)));
+            float sinTick = (float) Math.sin(gameTick + (gameTick / satellites) * i);
+            float cosTick = (float) Math.cos(gameTick + (gameTick / satellites) * i);
             float yPos = y + cosTick * yAngle;
 
             if (y < yPos) {
@@ -159,8 +159,8 @@ public class SkyHelper {
         SkyHelper.drawPlanet(texture, color, bufferBuilder, matrix4f, size, y, blend);
 
         for (int i = 0; i < satellites; i++) {
-            float sinTick = (float) Math.sin(gameTick + (((i * satellites) * 2)));
-            float cosTick = (float) Math.cos(gameTick + (((i * satellites) * 2)));
+            float sinTick = (float) Math.sin(gameTick + (gameTick / satellites) * i);
+            float cosTick = (float) Math.cos(gameTick + (gameTick / satellites) * i);
             float yPos = y + cosTick * yAngle;
 
             if (y > yPos) {

@@ -45,6 +45,7 @@ public class EarthSky extends DimensionSpecialEffects {
     public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera, Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
         Minecraft mc = Minecraft.getInstance();
 
+        setupFog.run();
         if (!isFoggy) {
             FogType fogtype = camera.getFluidInCamera();
             if (fogtype != FogType.POWDER_SNOW && fogtype != FogType.LAVA && !mc.levelRenderer.doesMobEffectBlockSky(camera)) {
