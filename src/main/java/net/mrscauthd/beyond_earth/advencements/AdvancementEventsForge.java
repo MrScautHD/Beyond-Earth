@@ -29,7 +29,7 @@ public class AdvancementEventsForge {
 
 		ItemEntity item = event.getEntityItem();
 
-		if (player.getUUID().equals(item.getThrower()) == true && Methods.isOrbitWorld(level) == true) {
+		if (player.getUUID().equals(item.getThrower()) && Methods.isOrbitWorld(level)) {
 			CompoundTag persistent = item.getPersistentData();
 			persistent.putBoolean(NBT_KEY_THROW_ON_ORBIT, true);
 		}
@@ -46,8 +46,8 @@ public class AdvancementEventsForge {
 
 		CompoundTag persistent = item.getPersistentData();
 
-		if (persistent.getBoolean(NBT_KEY_THROW_ON_ORBIT) == true) {
-			if (Methods.isOrbitWorld(level) == true) {
+		if (persistent.getBoolean(NBT_KEY_THROW_ON_ORBIT)) {
+			if (Methods.isOrbitWorld(level)) {
 				if (item.position().y < 0.0D) {
 					Player player = level.getPlayerByUUID(item.getThrower());
 
