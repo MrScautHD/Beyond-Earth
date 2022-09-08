@@ -140,31 +140,29 @@ public class SkyHelper {
     }
 
     public static void drawPlanetWithSatellites(Minecraft mc, ResourceLocation texture, Vec3 color, Vec3 satelliteColor, BufferBuilder bufferBuilder, Matrix4f matrix4f, float size, float satelliteSize, int satellites, float satelliteSpeed, float xAngle, float yAngle, float zAngle, float y, boolean blend, boolean satelliteBlend) {
-        int r = (int) satelliteColor.x();
-        int g = (int) satelliteColor.y();
-        int b = (int) satelliteColor.z();
-
         float gameTick = (mc.level.getGameTime() + mc.getPartialTick()) / satelliteSpeed;
+        float distance = 6.3F / satellites;
 
         for (int i = 0; i < satellites; i++) {
-            float sinTick = (float) Math.sin(gameTick + (gameTick / satellites) * i);
-            float cosTick = (float) Math.cos(gameTick + (gameTick / satellites) * i);
+            float sinTick = (float) Math.sin(gameTick + (distance * i));
+            float cosTick = (float) Math.cos(gameTick + (distance * i));
             float yPos = y + cosTick * yAngle;
 
             if (y < yPos) {
-                SkyHelper.drawSatellites(new Vec3(r, g, b), bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+                SkyHelper.drawSatellites(satelliteColor, bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
             }
         }
 
         SkyHelper.drawPlanet(texture, color, bufferBuilder, matrix4f, size, y, blend);
 
         for (int i = 0; i < satellites; i++) {
-            float sinTick = (float) Math.sin(gameTick + (gameTick / satellites) * i);
-            float cosTick = (float) Math.cos(gameTick + (gameTick / satellites) * i);
+            float sinTick = (float) Math.sin(gameTick + (distance * i));
+            float cosTick = (float) Math.cos(gameTick + (distance * i));
+
             float yPos = y + cosTick * yAngle;
 
             if (y > yPos) {
-                SkyHelper.drawSatellites(new Vec3(r, g, b), bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
+                SkyHelper.drawSatellites(satelliteColor, bufferBuilder, matrix4f, sinTick, cosTick, xAngle, yAngle, zAngle, satelliteSize, y, satelliteBlend);
             }
         }
     }
