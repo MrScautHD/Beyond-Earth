@@ -1,10 +1,12 @@
 package net.mrscauthd.beyond_earth.common.events;
 
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -29,24 +31,11 @@ public class Events {
             Player player = event.player;
             Level level = player.level;
 
-            /** DISABLE CLOSE PLANET GUI SYSTEM */
+            /** OPEN AUTOMATIC PLANET GUI */
             Methods.openPlanetGui(player);
 
             /** PLAYER OXYGEN SYSTEM */
             OxygenSystem.oxygenSystem(player, level);
-
-            /** JET SUIT FAST BOOST */
-            if (player.isSprinting()) {
-                Methods.boostWithJetSuit(player, 1.3, true);
-            }
-
-            /** JET SUIT SLOW BOOST */
-            if (player.zza > 0 && !player.isSprinting()) {
-                Methods.boostWithJetSuit(player, 0.9, false);
-            }
-
-            /** JET SUIT HOVER POSE */
-            Methods.setJetSuitHoverPose(player);
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
             Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open"));
@@ -115,17 +104,13 @@ public class Events {
 
     @SubscribeEvent
     public static void livingEntityAttack(LivingAttackEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-
         if (!event.getSource().isFire()) {
             return;
         }
 
-        Player entity = (Player) event.getEntity();
+        LivingEntity entity = event.getEntity();
 
-        if (!Methods.isLivingInNetheriteSpaceSuit(entity)) {
+        if (!Methods.isLivingInNetheriteSpaceSuit(entity) && !Methods.isLivingInJetSuit(entity)) {
             return;
         }
 
@@ -148,12 +133,23 @@ public class Events {
 
     @SubscribeEvent
     public static void livingDeath(LivingDeathEvent event) {
-        if (event.getEntity() instanceof Player && event.getEntity().getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
-            Player player = (Player) event.getEntity();
+
+        LivingEntity entity = event.getEntity();
+
+        /** RESET PLANET GUI PARAMETERS */
+        if (entity instanceof Player && entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
+            Player player = (Player) entity;
 
             player.closeContainer();
             Methods.resetPlanetSelectionMenuNeededNbt(player);
             player.setNoGravity(false);
+        }
+
+        /** JET SUIT EXPLODE */
+        if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying() && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
+            if (!entity.level.isClientSide) {
+                entity.level.explode(null, entity.getX(), entity.getY(), entity.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
+            }
         }
     }
 

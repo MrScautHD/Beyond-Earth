@@ -446,7 +446,7 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
             List<LivingEntity> entities = this.getCommandSenderWorld().getEntitiesOfClass(LivingEntity.class, aabb);
 
             for (LivingEntity entity : entities) {
-                if (!Methods.isLivingInNetheriteSpaceSuit(entity)) {
+                if (!Methods.isLivingInNetheriteSpaceSuit(entity) && !Methods.isLivingInJetSuit(entity)) {
                     entity.setSecondsOnFire(15);
                 }
             }

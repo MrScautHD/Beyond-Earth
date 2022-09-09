@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.common.util;
 import com.mojang.datafixers.util.Pair;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -32,7 +31,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -93,6 +91,15 @@ public class Methods {
         return entity;
     }
 
+    public static boolean isLivingInSpaceSuit(LivingEntity entity) {
+        if (!isLivingInArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get())) return false;
+        if (!isLivingInArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get())) return false;
+
+        return true;
+    }
+
     public static boolean isLivingInNetheriteSpaceSuit(LivingEntity entity) {
         if (!isLivingInArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get())) return false;
         if (!isLivingInArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
@@ -107,15 +114,6 @@ public class Methods {
         if (!isLivingInArmor(entity, 2, ItemsRegistry.JET_SUIT.get())) return false;
         if (!isLivingInArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
         if (!isLivingInArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
-
-        return true;
-    }
-
-    public static boolean isLivingInSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
-        if (!isLivingInArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get())) return false;
 
         return true;
     }
@@ -196,37 +194,6 @@ public class Methods {
         return itemStack.getItem() instanceof VehicleItem;
     }
 
-    public static void boostWithJetSuit(Player player, double boost, boolean flashParticle) {
-        Vec3 vec31 = player.getLookAngle();
-
-        if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
-            Vec3 vec32 = player.getDeltaMovement();
-            player.setDeltaMovement(vec32.add(vec31.x * 0.1D + (vec31.x * boost - vec32.x) * 0.5D, vec31.y * 0.1D + (vec31.y * boost - vec32.y) * 0.5D, vec31.z * 0.1D + (vec31.z * boost - vec32.z) * 0.5D));
-
-            if (flashParticle) {
-                Vec3 vec33 = player.getLookAngle().scale(6.5D);
-
-                if (player.level instanceof ServerLevel) {
-                    for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
-                        ((ServerLevel) player.level).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
-                    }
-                }
-            }
-        }
-    }
-
-    public static void setJetSuitHoverPose(Player player) {
-        if (Methods.isLivingInJetSuit(player)) {
-            ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-
-            if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                if (player.isShiftKeyDown() && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
-                    player.setPose(Pose.STANDING);
-                }
-            }
-        }
-    }
-
     public static void dropOffHandVehicle(LivingEntity livingEntity) {
         ItemStack itemStack1 = livingEntity.getMainHandItem();
         ItemStack itemStack2 = livingEntity.getOffhandItem();
@@ -255,7 +222,7 @@ public class Methods {
             return;
         }
 
-        if ((entity instanceof Mob || entity instanceof Player) && (isLivingInNetheriteSpaceSuit(entity) || entity.hasEffect(MobEffects.FIRE_RESISTANCE) || entity.fireImmune())) {
+        if ((entity instanceof Mob || entity instanceof Player) && (Methods.isLivingInNetheriteSpaceSuit(entity) || Methods.isLivingInJetSuit(entity) || entity.hasEffect(MobEffects.FIRE_RESISTANCE) || entity.fireImmune())) {
             return;
         }
 

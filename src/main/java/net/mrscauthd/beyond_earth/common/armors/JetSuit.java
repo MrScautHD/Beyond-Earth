@@ -6,15 +6,18 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -22,9 +25,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.LazyOptional;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
@@ -81,10 +82,10 @@ public class JetSuit {
     }
 
     public static class Suit extends ArmorItem {
-        public static String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
+        public static final String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
 
-        public float spacePressTime = 0;
-        public float oxygenTime = 0;
+        public float spacePressTime;
+        public float oxygenTime;
 
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
@@ -158,6 +159,19 @@ public class JetSuit {
 
         @Override
         public void onArmorTick(ItemStack stack, Level level, Player player) {
+            /** JET SUIT FAST BOOST */
+            if (player.isSprinting()) {
+                this.boost(player, 1.3, true);
+            }
+
+            /** JET SUIT SLOW BOOST */
+            if (player.zza > 0 && !player.isSprinting()) {
+                this.boost(player, 0.9, false);
+            }
+
+            /** JET SUIT HOVER POSE */
+            this.setHoverPose(player, stack);
+
             /** OXYGEN SYSTEM */
             this.calculateOxygenTime(stack, player);
 
@@ -253,6 +267,89 @@ public class JetSuit {
             }
         }
 
+        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
+
+            int mode = itemStack.getOrCreateTag().getInt(TAG_MODE);
+
+            if (Methods.isLivingInJetSuit(player)) {
+
+                /** NORMAL MODE */
+                if (mode == ModeType.NORMAL.getMode()) {
+                    if (KeyVariables.isHoldingJump(player)) {
+                        if (this.spacePressTime < 2.2F) {
+                            this.spacePressTime = this.spacePressTime + 0.2F;
+                        }
+                    }
+                    else if (this.spacePressTime > 0.0F) {
+                        this.spacePressTime = this.spacePressTime - 0.2F;
+                    }
+                }
+
+                /** HOVER MODE */
+                if (mode == ModeType.HOVER.getMode()) {
+                    if (!player.isOnGround() && this.spacePressTime < 0.6F) {
+                        this.spacePressTime = this.spacePressTime + 0.2F;
+                    }
+                    else if (KeyVariables.isHoldingJump(player)) {
+                        if (this.spacePressTime < 1.4F) {
+                            this.spacePressTime = this.spacePressTime + 0.2F;
+                        }
+                    }
+                    else if (this.spacePressTime > 0.6F) {
+                        this.spacePressTime = this.spacePressTime - 0.2F;
+                    }
+                }
+
+                /** ELYTRA MODE */
+                if (mode == ModeType.ELYTRA.getMode()) {
+                    if (KeyVariables.isHoldingUp(player) && player.isFallFlying()) {
+                        if (player.isSprinting()) {
+                            if (this.spacePressTime < 2.8F) {
+                                this.spacePressTime = this.spacePressTime + 0.2F;
+                            }
+                        } else {
+                            if (this.spacePressTime < 2.2F) {
+                                this.spacePressTime = this.spacePressTime + 0.2F;
+                            }
+                        }
+                    }
+                    else if (this.spacePressTime > 0.0F) {
+                        this.spacePressTime = this.spacePressTime - 0.2F;
+                    }
+                }
+            }
+        }
+
+        public void boost(Player player, double boost, boolean flashParticle) {
+            Vec3 vec31 = player.getLookAngle();
+
+            if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
+                Vec3 vec32 = player.getDeltaMovement();
+                player.setDeltaMovement(vec32.add(vec31.x * 0.1D + (vec31.x * boost - vec32.x) * 0.5D, vec31.y * 0.1D + (vec31.y * boost - vec32.y) * 0.5D, vec31.z * 0.1D + (vec31.z * boost - vec32.z) * 0.5D));
+
+                if (flashParticle) {
+                    Vec3 vec33 = player.getLookAngle().scale(6.5D);
+
+                    if (player.level instanceof ServerLevel) {
+                        for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
+                            ((ServerLevel) player.level).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void setHoverPose(Player player, ItemStack itemStack) {
+            if (Methods.isLivingInJetSuit(player)) {
+
+                if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
+                    if (player.isShiftKeyDown() && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
+                        player.setPose(Pose.STANDING);
+                    }
+                }
+            }
+        }
+
         public void calculateOxygenTime(ItemStack stack, Player player) {//TODO ADD FLUID TYPE SUPPORT
             if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
                 OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
@@ -267,18 +364,6 @@ public class JetSuit {
                         }
                     }
                 }
-            }
-        }
-
-        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
-            if (KeyVariables.isHoldingJump(player)) {
-                if (itemStack.getOrCreateTag().getInt(TAG_MODE) != ModeType.DISABLED.getMode()) {
-                    if (this.spacePressTime < 2.2) {
-                        this.spacePressTime = this.spacePressTime + 0.2F;
-                    }
-                }
-            } else if (this.spacePressTime > 0.2F) {
-                this.spacePressTime = this.spacePressTime - 0.2F;
             }
         }
 

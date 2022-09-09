@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
@@ -21,14 +22,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
-import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.client.rendertypes.TranslucentArmorRenderType;
 import net.mrscauthd.beyond_earth.common.util.Methods;
@@ -147,25 +146,9 @@ public class JetSuitModel {
                 ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
                 JetSuit.Suit item = (JetSuit.Suit) itemStack.getItem();
 
-                if (entity instanceof Player) {
-                    Player player = (Player) entity;
-
-                    if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.NORMAL.getMode()) {
-                        if (KeyVariables.isHoldingJump(player)) {
-                            this.renderFireOnHandsAndFeeds(poseStack, item);
-                        }
-                    }
-
-                    if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                        if (!player.isOnGround()) {
-                            this.renderFireOnHandsAndFeeds(poseStack, item);
-                        }
-                    }
-
-                    if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.ELYTRA.getMode()) {
-                        if (player.isFallFlying()) {
-                            this.renderFireOnHandsAndFeeds(poseStack, item);
-                        }
+                if (entity instanceof LocalPlayer) {
+                    if (item.spacePressTime > 0) {
+                        this.renderFireOnHandsAndFeeds(poseStack, item);
                     }
                 }
             }
@@ -184,7 +167,7 @@ public class JetSuitModel {
             BlockRenderDispatcher blockRenderer = mc.getBlockRenderer();
             MultiBufferSource.BufferSource bufferSource = mc.renderBuffers().bufferSource();
 
-            float speed = Mth.clamp(1.0F + item.spacePressTime, 1.0F, 2.2F);
+            float speed = Mth.clamp(item.spacePressTime, 0.0F, 3.8F);
 
             poseStack.pushPose();
             poseStack.translate(modelPart.x / 16.0F, modelPart.y / 16.0F, modelPart.z / 16.0F);
