@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.renderers.armors;
 
+import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
@@ -15,25 +16,25 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
-import net.mrscauthd.beyond_earth.client.rendertypes.TranslucentArmorRenderType;
+import net.mrscauthd.beyond_earth.client.renderers.types.TranslucentArmorType;
+
+import java.util.HashMap;
 
 @OnlyIn(Dist.CLIENT)
 public class SpaceSuitModel {
     public static class SPACE_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
-        private static final ResourceLocation spaceSuit = new ResourceLocation(BeyondEarth.MODID, "textures/armor/oxygen_mask.png");
-        private static final ResourceLocation netheriteSpaceSuit = new ResourceLocation(BeyondEarth.MODID, "textures/armor/netherite_oxygen_mask.png");
-
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p1"), "main");
 
+        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
+
         public LivingEntity entity;
+        public ItemStack itemStack;
 
         public final ModelPart head;
         public final ModelPart body;
@@ -79,10 +80,6 @@ public class SpaceSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            EquipmentSlot slot = EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 3);
-            ItemStack stack = entity.getItemBySlot(slot);
-
-            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
@@ -98,37 +95,27 @@ public class SpaceSuitModel {
             this.rightLeg.copyFrom(livingModel.rightLeg);
             this.leftLeg.copyFrom(livingModel.leftLeg);
 
-            /** Not Translucent Armor Parts */
             poseStack.pushPose();
             if (this.young) {
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-
-            poseStack.pushPose();
-            if (this.young) {
-                poseStack.scale(0.8f, 0.8f, 0.8f);
-                poseStack.translate(0, 1.0f, 0);
+            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
+            ResourceLocation texture = TEXTURES.get(loc);
+            if (texture == null) {
+                texture = new ResourceLocation(loc);
+                TEXTURES.put(loc, texture);
             }
 
-            /** Translucent Armor Parts */
-            if (stack.getItem() == ItemsRegistry.OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(spaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
-            }
-            else if (stack.getItem() == ItemsRegistry.NETHERITE_OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(netheriteSpaceSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
-            }
-            else {
-                head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            }
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
 
+            this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
         }
 
@@ -142,7 +129,10 @@ public class SpaceSuitModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p2"), "main");
 
+        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
+
         public LivingEntity entity;
+        public ItemStack itemStack;
 
         public final ModelPart rightLeg;
         public final ModelPart leftLeg;
@@ -166,8 +156,6 @@ public class SpaceSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-
-            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
@@ -189,9 +177,23 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay);
+            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
+            ResourceLocation texture = TEXTURES.get(loc);
+            if (texture == null) {
+                texture = new ResourceLocation(loc);
+                TEXTURES.put(loc, texture);
+            }
+
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+
+            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
+        }
+
+        public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {
+            MultiBufferSource p_115185_ = Minecraft.getInstance().renderBuffers().bufferSource();
+            return p_115188_ ? VertexMultiConsumer.create(p_115185_.getBuffer(p_115187_ ? RenderType.armorGlint() : RenderType.armorEntityGlint()), p_115185_.getBuffer(p_115186_)) : p_115185_.getBuffer(p_115186_);
         }
     }
 }

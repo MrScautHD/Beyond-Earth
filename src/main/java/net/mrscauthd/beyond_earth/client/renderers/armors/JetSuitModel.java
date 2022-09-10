@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.renderers.armors;
 
+import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
@@ -27,21 +28,23 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.renderers.types.TranslucentArmorType;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
-import net.mrscauthd.beyond_earth.client.rendertypes.TranslucentArmorRenderType;
 import net.mrscauthd.beyond_earth.common.util.Methods;
+
+import java.util.HashMap;
 
 @OnlyIn(Dist.CLIENT)
 public class JetSuitModel {
 
     public static class JET_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
-        private static final ResourceLocation jetSuit = new ResourceLocation(BeyondEarth.MODID, "textures/armor/jet_suit_oxygen_mask.png");
-
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p1"), "main");
 
+        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
+
         public LivingEntity entity;
+        public ItemStack itemStack;
 
         public final ModelPart head;
         public final ModelPart body;
@@ -92,10 +95,6 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            EquipmentSlot slot = EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 3);
-            ItemStack stack = entity.getItemBySlot(slot);
-
-            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
@@ -111,34 +110,27 @@ public class JetSuitModel {
             this.rightLeg.copyFrom(livingModel.rightLeg);
             this.leftLeg.copyFrom(livingModel.leftLeg);
 
-            /** Not Translucent Armor Parts */
             poseStack.pushPose();
             if (this.young) {
                 poseStack.scale(0.5f, 0.5f, 0.5f);
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.body.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftArm.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            poseStack.popPose();
-
-            poseStack.pushPose();
-            if (this.young) {
-                poseStack.scale(0.8f, 0.8f, 0.8f);
-                poseStack.translate(0, 1.0f, 0);
+            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
+            ResourceLocation texture = TEXTURES.get(loc);
+            if (texture == null) {
+                texture = new ResourceLocation(loc);
+                TEXTURES.put(loc, texture);
             }
 
-            /** Translucent Armor Parts */
-            if (stack.getItem() == ItemsRegistry.JET_SUIT_OXYGEN_MASK.get()) {
-                head.render(poseStack, this.getVertex(TranslucentArmorRenderType.armorCutoutNoCull(jetSuit), false, stack.isEnchanted()), packedLight, packedOverlay, red, green, blue, alpha);
-            }
-            else {
-                head.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            }
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
 
+            this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
 
             /** RENDER FIRE */
@@ -196,7 +188,10 @@ public class JetSuitModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p2"), "main");
 
+        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
+
         public LivingEntity entity;
+        public ItemStack itemStack;
 
         public final ModelPart rightLeg;
         public final ModelPart leftLeg;
@@ -220,8 +215,6 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-
-            /** Setup Anim */
             HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
@@ -243,9 +236,23 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            this.rightLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftLeg.render(poseStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
+            ResourceLocation texture = TEXTURES.get(loc);
+            if (texture == null) {
+                texture = new ResourceLocation(loc);
+                TEXTURES.put(loc, texture);
+            }
+
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+
+            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             poseStack.popPose();
+        }
+
+        public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {
+            MultiBufferSource p_115185_ = Minecraft.getInstance().renderBuffers().bufferSource();
+            return p_115188_ ? VertexMultiConsumer.create(p_115185_.getBuffer(p_115187_ ? RenderType.armorGlint() : RenderType.armorEntityGlint()), p_115185_.getBuffer(p_115186_)) : p_115185_.getBuffer(p_115186_);
         }
     }
 }

@@ -63,6 +63,7 @@ public class NetheriteSpaceSuit {
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
 					armorModel.entity = livingEntity;
+					armorModel.itemStack = itemStack;
 
 					return armorModel;
 				}
@@ -103,6 +104,7 @@ public class NetheriteSpaceSuit {
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
 					armorModel.entity = livingEntity;
+					armorModel.itemStack = itemStack;
 
 					return armorModel;
 				}
@@ -193,6 +195,7 @@ public class NetheriteSpaceSuit {
 					SpaceSuitModel.SPACE_SUIT_P2 armorModel = new SpaceSuitModel.SPACE_SUIT_P2(modelPart);
 
 					armorModel.entity = livingEntity;
+					armorModel.itemStack = itemStack;
 
 					return armorModel;
 				}
@@ -233,6 +236,7 @@ public class NetheriteSpaceSuit {
 					SpaceSuitModel.SPACE_SUIT_P1 armorModel = new SpaceSuitModel.SPACE_SUIT_P1(modelPart);
 
 					armorModel.entity = livingEntity;
+					armorModel.itemStack = itemStack;
 
 					return armorModel;
 				}

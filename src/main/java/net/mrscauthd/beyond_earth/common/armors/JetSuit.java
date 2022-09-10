@@ -69,6 +69,7 @@ public class JetSuit {
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
                     armorModel.entity = livingEntity;
+                    armorModel.itemStack = itemStack;
 
                     return armorModel;
                 }
@@ -112,6 +113,7 @@ public class JetSuit {
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
                     armorModel.entity = livingEntity;
+                    armorModel.itemStack = itemStack;
 
                     return armorModel;
                 }
@@ -157,6 +159,12 @@ public class JetSuit {
             }
         }
 
+        //TODO IMPROVE FIRE MATH
+        //TODO FINISH ANIMATIONS
+        //TODO ADD ENERGY CAP
+        //TODO REWORK OVERLAY
+        //TODO ADD RECIPE
+
         @Override
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             /** JET SUIT FAST BOOST */
@@ -168,9 +176,6 @@ public class JetSuit {
             if (player.zza > 0 && !player.isSprinting()) {
                 this.boost(player, 0.9, false);
             }
-
-            /** JET SUIT HOVER POSE */
-            this.setHoverPose(player, stack);
 
             /** OXYGEN SYSTEM */
             this.calculateOxygenTime(stack, player);
@@ -339,17 +344,6 @@ public class JetSuit {
             }
         }
 
-        public void setHoverPose(Player player, ItemStack itemStack) {
-            if (Methods.isLivingInJetSuit(player)) {
-
-                if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                    if (player.isShiftKeyDown() && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
-                        player.setPose(Pose.STANDING);
-                    }
-                }
-            }
-        }
-
         public void calculateOxygenTime(ItemStack stack, Player player) {//TODO ADD FLUID TYPE SUPPORT
             if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
                 OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
@@ -446,6 +440,7 @@ public class JetSuit {
                     JetSuitModel.JET_SUIT_P2 armorModel = new JetSuitModel.JET_SUIT_P2(modelPart);
 
                     armorModel.entity = livingEntity;
+                    armorModel.itemStack = itemStack;
 
                     return armorModel;
                 }
@@ -485,6 +480,7 @@ public class JetSuit {
                     JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
 
                     armorModel.entity = livingEntity;
+                    armorModel.itemStack = itemStack;
 
                     return armorModel;
                 }

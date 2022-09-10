@@ -37,6 +37,9 @@ public class Events {
             /** PLAYER OXYGEN SYSTEM */
             OxygenSystem.oxygenSystem(player, level);
 
+            /** JET SUIT HOVER POSE */
+            Methods.setJetSuitHoverPose(player);
+
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
             Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open"));
         }
