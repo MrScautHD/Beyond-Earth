@@ -44,7 +44,7 @@ public class TickableJetSuitFlySound extends AbstractTickableSoundInstance {
             LocalPlayer player = mc.player;
 
             if (KeyVariables.isHoldingUp(player) && this.player.isFallFlying()) {
-                this.volume = Math.min(1.0F, this.volume + 0.05F);
+                this.volume = Math.min(0.7F, this.volume + 0.05F);
             } else {
                 this.volume = Math.max(0.0F, this.volume - 0.05F);
             }

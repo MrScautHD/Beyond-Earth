@@ -220,7 +220,7 @@ public class Events {
         /** JET SUIT SONIC BOOM SOUND */
         if (Methods.isLivingInJetSuit(player) && !player.isFallFlying()) {
             if (player.isSprinting()) {
-                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 0.8F, 1.0F);
+                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
         }
     }
@@ -231,7 +231,7 @@ public class Events {
 
         /** JET SUIT SONIC BOOM SOUND */
         if (Methods.isLivingInJetSuit(entity) && event.getSprinting() && entity.isFallFlying()) {
-            entity.level.playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 0.8F, 1.0F);
+            entity.level.playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
     }
 }
