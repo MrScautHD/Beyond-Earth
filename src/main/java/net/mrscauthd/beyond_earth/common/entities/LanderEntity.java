@@ -1,10 +1,6 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -31,6 +27,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
+import net.mrscauthd.beyond_earth.client.sounds.TickableLandingSound;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 
@@ -207,13 +204,21 @@ public class LanderEntity extends VehicleEntity {
 	@Override
 	public void onAddedToWorld() {
 		super.onAddedToWorld();
-		this.beepWarning();
+		this.beepWarningSound();
+		this.boostSound();
 	}
 
-	public void beepWarning() {
+	public void beepWarningSound() {
 		if (this.level.isClientSide) {
 			Minecraft mc = Minecraft.getInstance();
 			mc.getSoundManager().play(new TickableBeepSound(this));
+		}
+	}
+
+	public void boostSound() {
+		if (this.level.isClientSide) {
+			Minecraft mc = Minecraft.getInstance();
+			mc.getSoundManager().play(new TickableLandingSound(this));
 		}
 	}
 
@@ -240,13 +245,6 @@ public class LanderEntity extends VehicleEntity {
 						this.setDeltaMovement(vec.x(), vec.y() * 0.85, vec.z());
 					}
 
-					/*if (this.level.isClientSide) {
-						if (!this.landingSound) {
-							Minecraft.getInstance().getSoundManager().play(new TickableLandingSound((LocalPlayer) player));
-							this.landingSound = true;
-						}
-					}*/
-
 					this.fallDistance = (float) (vec.y() * (-1) * 4.5);
 
 					if (this.level instanceof ServerLevel) {
@@ -257,10 +255,5 @@ public class LanderEntity extends VehicleEntity {
 				}
 			}
 		}
-
-		/*
-		if (player == null || !KeyVariables.isHoldingJump(player)) {
-			this.landingSound = false;
-		}*/
 	}
 }

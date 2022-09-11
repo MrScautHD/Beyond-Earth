@@ -29,6 +29,11 @@ public class TickableBeepSound extends AbstractTickableSoundInstance {
     }
 
     @Override
+    public boolean canPlaySound() {
+        return !this.landerEntity.isSilent();
+    }
+
+    @Override
     public boolean canStartSilent() {
         return true;
     }
@@ -45,7 +50,7 @@ public class TickableBeepSound extends AbstractTickableSoundInstance {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
-            if (this.landerEntity.isOnGround() || this.landerEntity.isEyeInFluid(FluidTags.WATER) || KeyVariables.isHoldingJump(player) || !this.landerEntity.hasPassenger(player)) {
+            if (this.landerEntity.isOnGround() || this.landerEntity.isEyeInFluid(FluidTags.WATER) || !this.landerEntity.hasPassenger(player) || KeyVariables.isHoldingJump(player)) {
                 this.volume = Math.max(0, this.volume - 0.05F);
             } else {
                 this.volume = Math.min(0.5F, this.volume + 0.05F);
