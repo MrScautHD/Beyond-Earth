@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.common.events;
 
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +20,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.*;
+import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 import net.mrscauthd.beyond_earth.common.util.*;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
@@ -213,6 +215,23 @@ public class Events {
             } else {
                 event.getCallbackInfoReturnable().setReturnValue(true);
             }
+        }
+
+        /** JET SUIT SONIC BOOM SOUND */
+        if (Methods.isLivingInJetSuit(player) && !player.isFallFlying()) {
+            if (player.isSprinting()) {
+                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 0.8F, 1.0F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void livingSprinting(LivingSprintingEvent event) {
+        LivingEntity entity = event.getEntity();
+
+        /** JET SUIT SONIC BOOM SOUND */
+        if (Methods.isLivingInJetSuit(entity) && event.getSprinting() && entity.isFallFlying()) {
+            entity.level.playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 0.8F, 1.0F);
         }
     }
 }

@@ -6,6 +6,7 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +18,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -27,6 +27,7 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.sounds.TickableLandingSound;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
@@ -86,7 +87,7 @@ public class JetSuit {
         public static final String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
 
         public float spacePressTime;
-        public float oxygenTime;
+        private float oxygenTime;
 
         public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
             super(p_40386_, p_40387_, p_40388_);
@@ -325,14 +326,14 @@ public class JetSuit {
             }
         }
 
-        public void boost(Player player, double boost, boolean flashParticle) {
+        public void boost(Player player, double boost, boolean sonicBoom) {
             Vec3 vec31 = player.getLookAngle();
 
             if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
                 Vec3 vec32 = player.getDeltaMovement();
                 player.setDeltaMovement(vec32.add(vec31.x * 0.1D + (vec31.x * boost - vec32.x) * 0.5D, vec31.y * 0.1D + (vec31.y * boost - vec32.y) * 0.5D, vec31.z * 0.1D + (vec31.z * boost - vec32.z) * 0.5D));
 
-                if (flashParticle) {
+                if (sonicBoom) {
                     Vec3 vec33 = player.getLookAngle().scale(6.5D);
 
                     if (player.level instanceof ServerLevel) {

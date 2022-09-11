@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FireworkRocketItem.class)
-public abstract class FireworkRocketItemUse {
+public class FireworkRocketItemUse {
 
     @Inject(at = @At(value = "HEAD"), method = "use", cancellable = true)
     private void use(Level level, Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {

@@ -74,7 +74,7 @@ public class ClientMethods {
         arm.render(poseStack, vertex, light, OverlayTexture.NO_OVERLAY);
     }
 
-    public static boolean isSoundSource(SoundSource sound) {
+    public static boolean isNotGuiSoundSource(SoundSource sound) {
         return sound == SoundSource.BLOCKS || sound == SoundSource.NEUTRAL || sound == SoundSource.RECORDS || sound == SoundSource.WEATHER || sound == SoundSource.HOSTILE || sound == SoundSource.PLAYERS || sound == SoundSource.AMBIENT;
     }
 

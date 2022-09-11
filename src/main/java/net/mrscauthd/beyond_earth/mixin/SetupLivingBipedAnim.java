@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(HumanoidModel.class)
-public abstract class SetupLivingBipedAnim {
+public class SetupLivingBipedAnim {
 
     @Inject(at = @At(value = "HEAD"), method = "setupAnim", cancellable = true)
     private void setRotationAnglesPre(LivingEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo info) {

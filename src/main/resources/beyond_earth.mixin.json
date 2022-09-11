@@ -8,7 +8,8 @@
     "EntityTick",
     "BlockPlace",
     "FireworkRocketItemUse",
-    "PlayerTryStartFallFlying"
+    "PlayerTryStartFallFlying",
+    "LivingSprinting"
   ],
   "client": [
     "SetupLivingBipedAnim",

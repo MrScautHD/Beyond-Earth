@@ -15,4 +15,6 @@ public class SoundRegistry {
     public static final RegistryObject<SoundEvent> ROCKET_SOUND = SOUNDS.register("rocket_fly",() -> new SoundEvent(new ResourceLocation(BeyondEarth.MODID, "rocket_fly")));
     public static final RegistryObject<SoundEvent> LANDING_SOUND = SOUNDS.register("landing",() -> new SoundEvent(new ResourceLocation(BeyondEarth.MODID, "landing")));
     public static final RegistryObject<SoundEvent> BEEP_SOUND = SOUNDS.register("beep",() -> new SoundEvent(new ResourceLocation(BeyondEarth.MODID, "beep")));
+    public static final RegistryObject<SoundEvent> SONIC_BOOM_SOUND = SOUNDS.register("sonic_boom",() -> new SoundEvent(new ResourceLocation(BeyondEarth.MODID, "sonic_boom")));
+    public static final RegistryObject<SoundEvent> JET_SUIT_FLY_SOUND = SOUNDS.register("jet_suit_fly",() -> new SoundEvent(new ResourceLocation(BeyondEarth.MODID, "jet_suit_fly")));
 }

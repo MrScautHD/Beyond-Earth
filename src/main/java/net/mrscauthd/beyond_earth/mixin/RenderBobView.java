@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GameRenderer.class)
-public abstract class RenderBobView {
+public class RenderBobView {
 
     @Inject(at = @At(value = "HEAD"), method = "bobView", cancellable = true)
     private void bobView(PoseStack poseStack, float tick, CallbackInfo info) {

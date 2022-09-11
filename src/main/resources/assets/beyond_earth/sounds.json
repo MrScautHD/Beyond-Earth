@@ -22,6 +22,21 @@
         "stream": false
       }
     ]
+  },
+    "sonic_boom": {
+    "sounds": [
+      {
+        "name": "beyond_earth:sonic_boom",
+        "stream": false
+      }
+    ]
+  },
+    "jet_suit_fly": {
+    "sounds": [
+      {
+        "name": "beyond_earth:jet_suit_fly",
+        "stream": false
+      }
+    ]
   }
-}
 }

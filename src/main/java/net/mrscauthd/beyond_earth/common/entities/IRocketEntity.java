@@ -325,7 +325,7 @@ public abstract class IRocketEntity extends VehicleEntity implements HasCustomIn
             if (data.get(IRocketEntity.FUEL) == 3000) {
                 if (!data.get(IRocketEntity.ROCKET_START)) {
                     data.set(IRocketEntity.ROCKET_START, true);
-                    this.level.playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.AMBIENT, 1, 1);
+                    this.level.playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
             } else {
                 Methods.sendVehicleHasNoFuelMessage(player);

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Level.class)
-public abstract class BlockPlace {
+public class BlockPlace {
 
     @Inject(at = @At(value = "RETURN"), method = "setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;II)Z")
     private void setBlock(BlockPos blockPos, BlockState blockState, int p_46607_, int p_46608_, CallbackInfoReturnable<Boolean> cir) {

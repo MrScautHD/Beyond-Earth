@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemInHandLayer.class)
-public abstract class RenderHandItem {
+public class RenderHandItem {
 
     @Inject(at = @At(value = "HEAD"), method = "renderArmWithItem", cancellable = true)
     private void setRotationAnglesPre(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm humanoidArm, PoseStack poseStack, MultiBufferSource multiBufferSource, int p_117191_, CallbackInfo info) {
