@@ -18,7 +18,7 @@ public class TickableLandingSound extends AbstractTickableSoundInstance {
     private final LanderEntity landerEntity;
 
     public TickableLandingSound(LanderEntity landerEntity) {
-        super(SoundRegistry.LANDING_SOUND.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
+        super(SoundRegistry.BOOST_SOUND.get(), SoundSource.NEUTRAL, SoundInstance.createUnseededRandom());
         this.landerEntity = landerEntity;
         this.looping = true;
         this.pitch = 0.8F;

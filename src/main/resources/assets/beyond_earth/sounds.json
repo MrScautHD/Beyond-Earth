@@ -7,10 +7,10 @@
       }
     ]
   },
-    "landing": {
+    "boost": {
     "sounds": [
       {
-        "name": "beyond_earth:landing",
+        "name": "beyond_earth:boost",
         "stream": false
       }
     ]
@@ -27,14 +27,6 @@
     "sounds": [
       {
         "name": "beyond_earth:sonic_boom",
-        "stream": false
-      }
-    ]
-  },
-    "jet_suit_fly": {
-    "sounds": [
-      {
-        "name": "beyond_earth:jet_suit_fly",
         "stream": false
       }
     ]

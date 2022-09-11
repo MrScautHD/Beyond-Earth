@@ -16,7 +16,7 @@ public class TickableJetSuitFlySound extends AbstractTickableSoundInstance {
     private int time;
 
     public TickableJetSuitFlySound(LocalPlayer player) {
-        super(SoundRegistry.JET_SUIT_FLY_SOUND.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
+        super(SoundRegistry.BOOST_SOUND.get(), SoundSource.PLAYERS, SoundInstance.createUnseededRandom());
         this.player = player;
         this.looping = true;
         this.delay = 0;
