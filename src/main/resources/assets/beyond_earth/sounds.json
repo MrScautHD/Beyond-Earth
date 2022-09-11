@@ -6,5 +6,22 @@
         "stream": false
       }
     ]
+  },
+    "landing": {
+    "sounds": [
+      {
+        "name": "beyond_earth:landing",
+        "stream": false
+      }
+    ]
+  },
+    "beep": {
+    "sounds": [
+      {
+        "name": "beyond_earth:beep",
+        "stream": false
+      }
+    ]
   }
+}
 }

@@ -1,5 +1,10 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -25,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 
@@ -198,6 +204,19 @@ public class LanderEntity extends VehicleEntity {
 		this.slowDownLander();
 	}
 
+	@Override
+	public void onAddedToWorld() {
+		super.onAddedToWorld();
+		this.beepWarning();
+	}
+
+	public void beepWarning() {
+		if (this.level.isClientSide) {
+			Minecraft mc = Minecraft.getInstance();
+			mc.getSoundManager().play(new TickableBeepSound(this));
+		}
+	}
+
 	public Player getFirstPlayerPassenger() {
 		if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
 			Player player = (Player) this.getPassengers().get(0);
@@ -214,7 +233,6 @@ public class LanderEntity extends VehicleEntity {
 		if (player != null) {
 			if (KeyVariables.isHoldingJump(player)) {
 
-				Level level = this.level;
 				Vec3 vec = this.getDeltaMovement();
 
 				if (!this.isOnGround() && !this.isEyeInFluid(FluidTags.WATER)) {
@@ -222,15 +240,27 @@ public class LanderEntity extends VehicleEntity {
 						this.setDeltaMovement(vec.x(), vec.y() * 0.85, vec.z());
 					}
 
+					/*if (this.level.isClientSide) {
+						if (!this.landingSound) {
+							Minecraft.getInstance().getSoundManager().play(new TickableLandingSound((LocalPlayer) player));
+							this.landingSound = true;
+						}
+					}*/
+
 					this.fallDistance = (float) (vec.y() * (-1) * 4.5);
 
-					if (level instanceof ServerLevel) {
+					if (this.level instanceof ServerLevel) {
 						for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
-							((ServerLevel) level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(), this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
+							((ServerLevel) this.level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(), this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
 						}
 					}
 				}
 			}
 		}
+
+		/*
+		if (player == null || !KeyVariables.isHoldingJump(player)) {
+			this.landingSound = false;
+		}*/
 	}
 }

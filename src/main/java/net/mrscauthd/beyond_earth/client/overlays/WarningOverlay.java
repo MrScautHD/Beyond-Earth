@@ -31,8 +31,6 @@ public class WarningOverlay implements IGuiOverlay {
             float sin = (float) Math.sin((mc.level.getDayTime() + partialTick) / 6.0f);
             float flash = Mth.clamp(sin, 0.0f, 4.0f);
 
-            System.out.println(flash);
-
             RenderSystem.setShaderColor(flash, flash, flash, flash);
 
             /** WARNING IMAGE */
