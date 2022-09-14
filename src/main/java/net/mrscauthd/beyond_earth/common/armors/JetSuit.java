@@ -45,7 +45,7 @@ public class JetSuit {
                 @Override
                 public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
-                    Map<String, ModelPart> map = Map.of("head", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).head,
+                    Map<String, ModelPart> map = Map.of("head", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).head,
 
                             "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -55,7 +55,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
 
                     armorModel.entity = livingEntity;
                     armorModel.itemStack = itemStack;
@@ -87,9 +87,9 @@ public class JetSuit {
                 public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
-                            "body", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).body,
-                            "right_arm", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).rightArm,
-                            "left_arm", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).leftArm,
+                            "body", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).body,
+                            "right_arm", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).rightArm,
+                            "left_arm", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).leftArm,
 
                             "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -97,7 +97,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
 
                     armorModel.entity = livingEntity;
                     armorModel.itemStack = itemStack;
@@ -370,8 +370,8 @@ public class JetSuit {
                 public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
-                            "right_leg", new JetSuitModel.JET_SUIT_P2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION)).rightLeg,
-                            "left_leg", new JetSuitModel.JET_SUIT_P2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION)).leftLeg,
+                            "right_leg", new JetSuitModel.JetSuitP2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP2.LAYER_LOCATION)).rightLeg,
+                            "left_leg", new JetSuitModel.JetSuitP2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP2.LAYER_LOCATION)).leftLeg,
 
                             "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -381,7 +381,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JET_SUIT_P2 armorModel = new JetSuitModel.JET_SUIT_P2(modelPart);
+                    JetSuitModel.JetSuitP2 armorModel = new JetSuitModel.JetSuitP2(modelPart);
 
                     armorModel.entity = livingEntity;
                     armorModel.itemStack = itemStack;
@@ -409,8 +409,8 @@ public class JetSuit {
                 @Override
                 public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                     Map<String, ModelPart> map = Map.of(
-                            "right_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).rightLeg,
-                            "left_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).leftLeg,
+                            "right_leg", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).rightLeg,
+                            "left_leg", new JetSuitModel.JetSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).leftLeg,
 
                             "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -420,7 +420,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JET_SUIT_P1 armorModel = new JetSuitModel.JET_SUIT_P1(modelPart);
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
 
                     armorModel.entity = livingEntity;
                     armorModel.itemStack = itemStack;

@@ -26,9 +26,13 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.renderers.armors.ISpaceArmorModel;
+import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.client.sounds.TickableJetSuitFlySound;
 import net.mrscauthd.beyond_earth.client.util.ClientMethods;
 import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
+import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.Methods;
@@ -149,8 +153,17 @@ public class ClientEvents {
         Item item = itemStack.getItem();
 
         if (item instanceof ISpaceArmor) {
-            HumanoidModel<?> model = (HumanoidModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
-            ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? model.rightArm : model.leftArm);
+            ISpaceArmorModel<?> model = (ISpaceArmorModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
+
+            if (model instanceof SpaceSuitModel.SpaceSuitP1<?> spaceSuitModel) {
+                ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? spaceSuitModel.rightArm : spaceSuitModel.leftArm);
+                event.setCanceled(true);
+            }
+
+            if (model instanceof JetSuitModel.JetSuitP1<?> jetSuitModel) {
+                ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? jetSuitModel.rightArm : jetSuitModel.leftArm);
+                event.setCanceled(true);
+            }
         }
     }
 

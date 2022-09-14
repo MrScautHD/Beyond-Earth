@@ -44,10 +44,10 @@ public class EntityLayerRegistry {
         event.registerLayerDefinition(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 
         /** ARMORS **/
-        event.registerLayerDefinition(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION, SpaceSuitModel.SPACE_SUIT_P1::createBodyLayer);
-        event.registerLayerDefinition(SpaceSuitModel.SPACE_SUIT_P2.LAYER_LOCATION, SpaceSuitModel.SPACE_SUIT_P2::createBodyLayer);
-        event.registerLayerDefinition(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION, JetSuitModel.JET_SUIT_P1::createBodyLayer);
-        event.registerLayerDefinition(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION, JetSuitModel.JET_SUIT_P2::createBodyLayer);
+        event.registerLayerDefinition(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION, SpaceSuitModel.SpaceSuitP1::createBodyLayer);
+        event.registerLayerDefinition(SpaceSuitModel.SpaceSuitP2.LAYER_LOCATION, SpaceSuitModel.SpaceSuitP2::createBodyLayer);
+        event.registerLayerDefinition(JetSuitModel.JetSuitP1.LAYER_LOCATION, JetSuitModel.JetSuitP1::createBodyLayer);
+        event.registerLayerDefinition(JetSuitModel.JetSuitP2.LAYER_LOCATION, JetSuitModel.JetSuitP2::createBodyLayer);
 
         /** BLOCK ENTITIES */
         event.registerLayerDefinition(FlagHeadModel.LAYER_LOCATION, FlagHeadModel::createHumanoidHeadLayer);
