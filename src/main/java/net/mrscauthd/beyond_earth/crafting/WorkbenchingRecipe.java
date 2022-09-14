@@ -109,6 +109,11 @@ public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate
 	public boolean canCraftInDimensions(int var1, int var2) {
 		return false;
 	}
+	
+	@Override
+	public ItemStack getResultItem() {
+		return this.output.copy();
+	}
 
 	public ItemStack getOutput() {
 		return this.output.copy();
