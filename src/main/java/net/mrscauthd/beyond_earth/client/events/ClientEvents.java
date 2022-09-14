@@ -149,7 +149,7 @@ public class ClientEvents {
         Item item = itemStack.getItem();
 
         if (item instanceof ISpaceArmor) {
-            HumanoidModel<?> model = (HumanoidModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), null);
+            HumanoidModel<?> model = (HumanoidModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
             ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? model.rightArm : model.leftArm);
         }
     }

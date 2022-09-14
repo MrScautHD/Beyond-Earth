@@ -2,10 +2,8 @@ package net.mrscauthd.beyond_earth.client.renderers.armors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.blaze3d.vertex.VertexMultiConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
@@ -13,14 +11,11 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -35,7 +30,7 @@ import net.mrscauthd.beyond_earth.common.util.Methods;
 @OnlyIn(Dist.CLIENT)
 public class JetSuitModel {
 
-    public static class JET_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
+    public static class JET_SUIT_P1<T extends LivingEntity> extends ISpaceArmorModel<T> {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p1"), "main");
 
@@ -91,20 +86,7 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
-
-            this.attackTime = livingModel.attackTime;
-            this.riding = livingModel.riding;
-            this.young = livingModel.young;
-            this.leftArmPose = livingModel.leftArmPose;
-            this.rightArmPose = livingModel.rightArmPose;
-            this.crouching = livingModel.crouching;
-            this.head.copyFrom(livingModel.head);
-            this.body.copyFrom(livingModel.body);
-            this.rightArm.copyFrom(livingModel.rightArm);
-            this.leftArm.copyFrom(livingModel.leftArm);
-            this.rightLeg.copyFrom(livingModel.rightLeg);
-            this.leftLeg.copyFrom(livingModel.leftLeg);
+            this.updateProperties(this, this.entity);
 
             poseStack.pushPose();
             if (this.young) {
@@ -112,28 +94,27 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
+             if (this.itemStack.getItem() instanceof ISpaceArmor item) {
+                 VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
+                 this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 this.rightArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 this.leftArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
 
-            this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftArm.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                 /** RENDER FIRE */
+                 if (Methods.isLivingInJetSuit(this.entity) && item instanceof JetSuit.Suit jetSuitItem) {
+
+                     if (this.entity instanceof LocalPlayer) {
+                         if (jetSuitItem.spacePressTime > 0) {
+                             this.renderFireOnHandsAndFeeds(poseStack, jetSuitItem);
+                         }
+                     }
+                 }
+             }
             poseStack.popPose();
-
-            /** RENDER FIRE */
-            if (Methods.isLivingInJetSuit(this.entity)) {
-                JetSuit.Suit jetSuitItem = (JetSuit.Suit) item;
-
-                if (this.entity instanceof LocalPlayer) {
-                    if (jetSuitItem.spacePressTime > 0) {
-                        this.renderFireOnHandsAndFeeds(poseStack, jetSuitItem);
-                    }
-                }
-            }
         }
 
         public void renderFireOnHandsAndFeeds(PoseStack poseStack, JetSuit.Suit item) {
@@ -167,14 +148,9 @@ public class JetSuitModel {
 
             poseStack.popPose();
         }
-
-        public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {
-            MultiBufferSource p_115185_ = Minecraft.getInstance().renderBuffers().bufferSource();
-            return p_115188_ ? VertexMultiConsumer.create(p_115185_.getBuffer(p_115187_ ? RenderType.armorGlint() : RenderType.armorEntityGlint()), p_115185_.getBuffer(p_115186_)) : p_115185_.getBuffer(p_115186_);
-        }
     }
 
-    public static class JET_SUIT_P2<T extends LivingEntity> extends HumanoidModel<T> {
+    public static class JET_SUIT_P2<T extends LivingEntity> extends ISpaceArmorModel<T> {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p2"), "main");
 
@@ -203,20 +179,7 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
-
-            this.attackTime = livingModel.attackTime;
-            this.riding = livingModel.riding;
-            this.young = livingModel.young;
-            this.leftArmPose = livingModel.leftArmPose;
-            this.rightArmPose = livingModel.rightArmPose;
-            this.crouching = livingModel.crouching;
-            this.head.copyFrom(livingModel.head);
-            this.body.copyFrom(livingModel.body);
-            this.rightArm.copyFrom(livingModel.rightArm);
-            this.leftArm.copyFrom(livingModel.leftArm);
-            this.rightLeg.copyFrom(livingModel.rightLeg);
-            this.leftLeg.copyFrom(livingModel.leftLeg);
+            this.updateProperties(this, this.entity);
 
             poseStack.pushPose();
             if (this.young) {
@@ -224,18 +187,13 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
+            if (this.itemStack.getItem() instanceof ISpaceArmor item) {
+                VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
-
-            this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
-            this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+                this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
+            }
             poseStack.popPose();
-        }
-
-        public VertexConsumer getVertex(RenderType p_115186_, boolean p_115187_, boolean p_115188_) {
-            MultiBufferSource p_115185_ = Minecraft.getInstance().renderBuffers().bufferSource();
-            return p_115188_ ? VertexMultiConsumer.create(p_115185_.getBuffer(p_115187_ ? RenderType.armorGlint() : RenderType.armorEntityGlint()), p_115185_.getBuffer(p_115186_)) : p_115185_.getBuffer(p_115186_);
         }
     }
 }
