@@ -21,7 +21,7 @@ public abstract class ItemStackToItemStackRecipe extends BeyondEarthRecipe imple
 		super(id, json);
 		this.input = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "input"));
 		this.output = CraftingHelper.getItemStack(GsonHelper.getAsJsonObject(json, "output"), true);
-		this.cookTime = GsonHelper.getAsInt(json, "cookTime");
+		this.cookTime = GsonHelper.getAsInt(json, "cookTime", this.getDefaultCookTime());
 	}
 
 	public ItemStackToItemStackRecipe(ResourceLocation id, FriendlyByteBuf buffer) {
@@ -42,6 +42,10 @@ public abstract class ItemStackToItemStackRecipe extends BeyondEarthRecipe imple
 		this.getInput().toNetwork(buffer);
 		buffer.writeItem(this.getOutput());
 		buffer.writeInt(this.getCookTime());
+	}
+	
+	protected int getDefaultCookTime() {
+		return 200;
 	}
 
 	@Override
