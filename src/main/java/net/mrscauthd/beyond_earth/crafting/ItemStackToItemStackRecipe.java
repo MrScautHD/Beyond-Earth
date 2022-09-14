@@ -54,6 +54,11 @@ public abstract class ItemStackToItemStackRecipe extends BeyondEarthRecipe imple
 		return true;
 	}
 	
+	@Override
+	public ItemStack getResultItem() {
+		return this.output.copy();
+	}
+	
 	public ItemStack getOutput() {
 		return this.output.copy();
 	}
