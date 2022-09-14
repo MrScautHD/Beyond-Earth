@@ -23,10 +23,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
-import net.mrscauthd.beyond_earth.common.entities.VehicleEntity;
+import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class VehicleRenderer<T extends VehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
+public abstract class VehicleRenderer<T extends IVehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
     protected M model;
     protected final List<RenderLayer<T, M>> layers = Lists.newArrayList();
 

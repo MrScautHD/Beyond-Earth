@@ -35,7 +35,7 @@ import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
-import net.mrscauthd.beyond_earth.common.entities.VehicleEntity;
+import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
@@ -188,7 +188,7 @@ public class Methods {
     }
 
     public static boolean isVehicle(Entity entity) {
-        return entity instanceof VehicleEntity;
+        return entity instanceof IVehicleEntity;
     }
 
     public static boolean isVehicleItem(ItemStack itemStack) {

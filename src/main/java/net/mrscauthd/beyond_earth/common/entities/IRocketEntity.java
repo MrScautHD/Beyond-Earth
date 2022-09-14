@@ -54,7 +54,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
 
-public abstract class IRocketEntity extends VehicleEntity implements HasCustomInventoryScreen {
+public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);

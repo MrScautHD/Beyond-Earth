@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.client.renderers.armors;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
@@ -22,16 +21,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.types.TranslucentArmorType;
-
-import java.util.HashMap;
+import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
 
 @OnlyIn(Dist.CLIENT)
 public class SpaceSuitModel {
     public static class SPACE_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p1"), "main");
-
-        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
 
         public LivingEntity entity;
         public ItemStack itemStack;
@@ -101,14 +97,9 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
-            ResourceLocation texture = TEXTURES.get(loc);
-            if (texture == null) {
-                texture = new ResourceLocation(loc);
-                TEXTURES.put(loc, texture);
-            }
+            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
             this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
@@ -128,8 +119,6 @@ public class SpaceSuitModel {
     public static class SPACE_SUIT_P2<T extends LivingEntity> extends HumanoidModel<T> {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p2"), "main");
-
-        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
 
         public LivingEntity entity;
         public ItemStack itemStack;
@@ -177,14 +166,9 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
-            ResourceLocation texture = TEXTURES.get(loc);
-            if (texture == null) {
-                texture = new ResourceLocation(loc);
-                TEXTURES.put(loc, texture);
-            }
+            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
             this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);

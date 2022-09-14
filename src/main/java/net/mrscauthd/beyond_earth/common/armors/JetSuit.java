@@ -3,17 +3,13 @@ package net.mrscauthd.beyond_earth.common.armors;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -25,29 +21,21 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.sounds.TickableLandingSound;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
-import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
-import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
 public class JetSuit {
 
-    public static class OxygenMask extends ArmorItem {
-        public OxygenMask(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
-            super(p_40386_, p_40387_, p_40388_);
+    public static class OxygenMask extends ISpaceArmor.Helmet {
+        public OxygenMask(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+            super(armorMaterial, equipmentSlot, properties);
         }
 
         @Override
@@ -55,7 +43,7 @@ public class JetSuit {
             consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of("head", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).head,
 
@@ -83,14 +71,12 @@ public class JetSuit {
         }
     }
 
-    public static class Suit extends ArmorItem {
+    public static class Suit extends ISpaceArmor.Chestplate {
         public static final String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
-
         public float spacePressTime;
-        private float oxygenTime;
 
-        public Suit(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
-            super(p_40386_, p_40387_, p_40388_);
+        public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+            super(armorMaterial, equipmentSlot, properties);
         }
 
         @Override
@@ -98,7 +84,7 @@ public class JetSuit {
             consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
                             "body", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).body,
@@ -150,16 +136,6 @@ public class JetSuit {
             }
         }
 
-        public void switchJetSuitMode(Player player, ItemStack itemStack) {
-            CompoundTag compoundTag = itemStack.getOrCreateTag();
-
-            if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 3) {
-                compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
-            } else {
-                compoundTag.putInt(JetSuit.Suit.TAG_MODE, 0);
-            }
-        }
-
         //TODO IMPROVE FIRE MATH
         //TODO FINISH ANIMATIONS
         //TODO ADD ENERGY CAP
@@ -167,7 +143,26 @@ public class JetSuit {
         //TODO ADD RECIPE
 
         @Override
+        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
+            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.ELYTRA.getMode();
+        }
+
+        @Override
+        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
+            if (!entity.level.isClientSide) {
+                int nextFlightTick = flightTicks + 1;
+                if (nextFlightTick % 10 == 0) {
+                    entity.gameEvent(GameEvent.ELYTRA_GLIDE);
+                }
+            }
+
+            return true;
+        }
+
+        @Override
         public void onArmorTick(ItemStack stack, Level level, Player player) {
+            super.onArmorTick(stack, level, player);
+
             /** JET SUIT FAST BOOST */
             if (player.isSprinting()) {
                 this.boost(player, 1.3, true);
@@ -177,9 +172,6 @@ public class JetSuit {
             if (player.zza > 0 && !player.isSprinting()) {
                 this.boost(player, 0.9, false);
             }
-
-            /** OXYGEN SYSTEM */
-            this.calculateOxygenTime(stack, player);
 
             /** NORMAL FLY MOVEMENT */
             this.normalFlyModeMovement(player, stack);
@@ -273,8 +265,17 @@ public class JetSuit {
             }
         }
 
-        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
+        public void switchJetSuitMode(Player player, ItemStack itemStack) {
+            CompoundTag compoundTag = itemStack.getOrCreateTag();
 
+            if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 3) {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
+            } else {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, 0);
+            }
+        }
+
+        public void calculateSpacePressTime(Player player, ItemStack itemStack) {
             int mode = itemStack.getOrCreateTag().getInt(TAG_MODE);
 
             if (Methods.isLivingInJetSuit(player)) {
@@ -345,78 +346,20 @@ public class JetSuit {
             }
         }
 
-        public void calculateOxygenTime(ItemStack stack, Player player) {//TODO ADD FLUID TYPE SUPPORT
-            if (!player.getAbilities().instabuild && !player.isSpectator() && Methods.isLivingInAnySpaceSuits(player) && !player.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()) && Config.PLAYER_OXYGEN_SYSTEM.get() && (Methods.isSpaceLevelWithoutOxygen(player.level) || player.isEyeInFluid(FluidTags.WATER))) {
-                OxygenStorage oxygen = stack.getCapability(OxygenProvider.OXYGEN).orElse(null);
-
-                if (oxygen != null) {
-                    if (oxygen.getOxygen() > 0) {
-                        this.oxygenTime++;
-
-                        if (this.oxygenTime > 3) {
-                            oxygen.setOxygen(oxygen.getOxygen() - 1);
-                            this.oxygenTime = 0;
-                        }
-                    }
-                }
-            }
-        }
-
-        @Override
-        public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.ELYTRA.getMode();
-        }
-
-        @Override
-        public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
-            if (!entity.level.isClientSide) {
-                int nextFlightTick = flightTicks + 1;
-                if (nextFlightTick % 10 == 0) {
-                    entity.gameEvent(GameEvent.ELYTRA_GLIDE);
-                }
-            }
-
-            return true;
-        }
-
-        @Override
-        public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-            super.fillItemCategory(p_41391_, p_41392_);
-            if (this.allowedIn(p_41391_)) {
-                ItemStack itemStack = new ItemStack(this);
-                OxygenStorage oxygen = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
-                if (oxygen != null) {
-                    oxygen.setOxygen(oxygen.getMaxCapacity());
-                }
-
-                p_41392_.add(itemStack);
-            }
-        }
-
-        @Override
-        public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-            return new OxygenProvider(48000);
-            //TODO TRY TO ADD THE ENERGY PROVIDER TOO
-        }
-
-        @Override
-        public void appendHoverText(ItemStack p_41421_, Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
-            super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-            OxygenStorage oxygen = p_41421_.getCapability(OxygenProvider.OXYGEN).orElse(null);
-            if (oxygen != null) {
-                p_41423_.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));
-            }
-        }
-
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
             return BeyondEarth.MODID + ":textures/armor/jet_suit.png";
         }
+
+        @Override
+        public int getOxygenCapacity() {
+            return 60000;
+        }
     }
 
-    public static class Pants extends ArmorItem {
-        public Pants(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
-            super(p_40386_, p_40387_, p_40388_);
+    public static class Pants extends ISpaceArmor.Leggings {
+        public Pants(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+            super(armorMaterial, equipmentSlot, properties);
         }
 
         @Override
@@ -424,7 +367,7 @@ public class JetSuit {
             consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
                     Map<String, ModelPart> map = Map.of(
                             "right_leg", new JetSuitModel.JET_SUIT_P2(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P2.LAYER_LOCATION)).rightLeg,
@@ -445,7 +388,6 @@ public class JetSuit {
 
                     return armorModel;
                 }
-
             });
         }
 
@@ -455,9 +397,9 @@ public class JetSuit {
         }
     }
 
-    public static class Boots extends ArmorItem {
-        public Boots(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_) {
-            super(p_40386_, p_40387_, p_40388_);
+    public static class Boots extends ISpaceArmor.Boots {
+        public Boots(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+            super(armorMaterial, equipmentSlot, properties);
         }
 
         @Override
@@ -465,7 +407,7 @@ public class JetSuit {
             consumer.accept(new IClientItemExtensions() {
 
                 @Override
-                public @NotNull Model getGenericArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
                     Map<String, ModelPart> map = Map.of(
                             "right_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).rightLeg,
                             "left_leg", new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION)).leftLeg,

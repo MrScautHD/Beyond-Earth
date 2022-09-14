@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -22,42 +23,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
-import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
-import net.mrscauthd.beyond_earth.common.util.Methods;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
-
-    public static final ResourceLocation SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/space_suit.png");
-    public static final ResourceLocation NETHERITE_SPACE_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/netherite_space_suit.png");
-    public static final ResourceLocation JET_SUIT_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/armor/jet_suit.png");
-
-    public static boolean renderArmWithProperties(AbstractClientPlayer player, PoseStack poseStack, MultiBufferSource multiBufferSource, int light, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, boolean armModel) {
-        SpaceSuitModel.SPACE_SUIT_P1 spaceSuit = new SpaceSuitModel.SPACE_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SPACE_SUIT_P1.LAYER_LOCATION));
-        JetSuitModel.JET_SUIT_P1 jetSuit = new JetSuitModel.JET_SUIT_P1(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JET_SUIT_P1.LAYER_LOCATION));
-
-        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.SPACE_SUIT.get())) {
-
-            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
-            return true;
-        }
-
-        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) {
-
-            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, NETHERITE_SPACE_SUIT_TEXTURE, player, playerModel, renderer, armModel ? spaceSuit.rightArm : spaceSuit.leftArm);
-            return true;
-        }
-
-        if (Methods.isLivingInArmor(player, 2, ItemsRegistry.JET_SUIT.get())) {
-
-            ClientMethods.renderArmWithProperties(poseStack, multiBufferSource, light, JET_SUIT_TEXTURE, player, playerModel, renderer, armModel ? jetSuit.rightArm : jetSuit.leftArm);
-            return true;
-        }
-
-        return false;
-    }
 
     public static void renderArmWithProperties(PoseStack poseStack, MultiBufferSource bufferSource, int light, ResourceLocation texture, AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playermodel, PlayerRenderer renderer, ModelPart arm) {
         renderer.setModelProperties(player);

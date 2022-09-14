@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.client.renderers.armors;
 
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
@@ -29,10 +28,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.types.TranslucentArmorType;
+import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.util.Methods;
-
-import java.util.HashMap;
 
 @OnlyIn(Dist.CLIENT)
 public class JetSuitModel {
@@ -40,8 +38,6 @@ public class JetSuitModel {
     public static class JET_SUIT_P1<T extends LivingEntity> extends HumanoidModel<T> {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p1"), "main");
-
-        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
 
         public LivingEntity entity;
         public ItemStack itemStack;
@@ -95,7 +91,7 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
+            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
             this.riding = livingModel.riding;
@@ -116,14 +112,9 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
-            ResourceLocation texture = TEXTURES.get(loc);
-            if (texture == null) {
-                texture = new ResourceLocation(loc);
-                TEXTURES.put(loc, texture);
-            }
+            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
             this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
@@ -134,13 +125,12 @@ public class JetSuitModel {
             poseStack.popPose();
 
             /** RENDER FIRE */
-            if (Methods.isLivingInJetSuit(entity)) {
-                ItemStack itemStack = entity.getItemBySlot(EquipmentSlot.CHEST);
-                JetSuit.Suit item = (JetSuit.Suit) itemStack.getItem();
+            if (Methods.isLivingInJetSuit(this.entity)) {
+                JetSuit.Suit jetSuitItem = (JetSuit.Suit) item;
 
-                if (entity instanceof LocalPlayer) {
-                    if (item.spacePressTime > 0) {
-                        this.renderFireOnHandsAndFeeds(poseStack, item);
+                if (this.entity instanceof LocalPlayer) {
+                    if (jetSuitItem.spacePressTime > 0) {
+                        this.renderFireOnHandsAndFeeds(poseStack, jetSuitItem);
                     }
                 }
             }
@@ -188,8 +178,6 @@ public class JetSuitModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "jet_suit_p2"), "main");
 
-        private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
-
         public LivingEntity entity;
         public ItemStack itemStack;
 
@@ -215,7 +203,7 @@ public class JetSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)).getModel();
+            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
 
             this.attackTime = livingModel.attackTime;
             this.riding = livingModel.riding;
@@ -236,14 +224,9 @@ public class JetSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            String loc = itemStack.getItem().getArmorTexture(itemStack, entity, itemStack.getEquipmentSlot(), null);
-            ResourceLocation texture = TEXTURES.get(loc);
-            if (texture == null) {
-                texture = new ResourceLocation(loc);
-                TEXTURES.put(loc, texture);
-            }
+            ISpaceArmor item = (ISpaceArmor.Chestplate) this.itemStack.getItem();
 
-            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(texture), false, itemStack.isEnchanted());
+            VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
 
             this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
             this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);

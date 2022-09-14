@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 
-public class VehicleEntity extends Entity {
+public abstract class IVehicleEntity extends Entity {
     private int lerpSteps;
     private double lerpX;
     private double lerpY;
@@ -29,7 +29,7 @@ public class VehicleEntity extends Entity {
     public float yya;
     public float zza;
 
-    public VehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
+    public IVehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
         this.blocksBuilding = true;
     }

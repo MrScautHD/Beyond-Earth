@@ -12,10 +12,13 @@ import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.resources.sounds.TickableSoundInstance;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.ViewportEvent;
@@ -25,6 +28,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.sounds.TickableJetSuitFlySound;
 import net.mrscauthd.beyond_earth.client.util.ClientMethods;
+import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
+import net.mrscauthd.beyond_earth.common.armors.JetSuit;
+import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.Methods;
@@ -140,8 +146,14 @@ public class ClientEvents {
             return;
         }
 
-        /** RENDER SPACE SUIT ARM */
-        event.setCanceled(ClientMethods.renderArmWithProperties(player, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), playerModel, renderer, event.getArm() == HumanoidArm.RIGHT));
+        /** RENDER SPACE SUIT ARMS */
+        ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+        Item item = itemStack.getItem();
+
+        if (item instanceof ISpaceArmor) {
+            HumanoidModel<?> model = (HumanoidModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), null);
+            ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? model.rightArm : model.leftArm);
+        }
     }
 
     @SubscribeEvent

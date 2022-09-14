@@ -42,7 +42,7 @@ import javax.annotation.Nonnull;
 
 import io.netty.buffer.Unpooled;
 
-public class LanderEntity extends VehicleEntity {
+public class LanderEntity extends IVehicleEntity {
 
 	public LanderEntity(EntityType type, Level world) {
 		super(type, world);

@@ -53,7 +53,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class RoverEntity extends VehicleEntity {
+public class RoverEntity extends IVehicleEntity {
     private double speed = 0;
 
     public float flyingSpeed = 0.02F;
