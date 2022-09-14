@@ -29,8 +29,6 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.sounds.TickableJetSuitFlySound;
 import net.mrscauthd.beyond_earth.client.util.ClientMethods;
 import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
-import net.mrscauthd.beyond_earth.common.armors.JetSuit;
-import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.Methods;
