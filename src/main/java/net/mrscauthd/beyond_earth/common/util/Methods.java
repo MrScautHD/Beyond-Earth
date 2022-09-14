@@ -31,6 +31,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
@@ -93,70 +94,43 @@ public class Methods {
     }
 
     public static boolean isLivingInSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get())) return false;
-        if (!isLivingInArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACE_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACE_PANTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACE_BOOTS.get())) return false;
 
         return true;
     }
 
     public static boolean isLivingInNetheriteSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get())) return false;
-        if (!isLivingInArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.NETHERITE_OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.NETHERITE_SPACE_PANTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.NETHERITE_SPACE_BOOTS.get())) return false;
 
         return true;
     }
 
     public static boolean isLivingInJetSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get())) return false;
-        if (!isLivingInArmor(entity, 2, ItemsRegistry.JET_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JET_SUIT.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
 
         return true;
     }
 
     public static boolean isLivingInAnySpaceSuits(LivingEntity entity) {
-        boolean item3 = isLivingInArmor(entity, 3, ItemsRegistry.OXYGEN_MASK.get());
-        boolean item3b = isLivingInArmor(entity, 3, ItemsRegistry.NETHERITE_OXYGEN_MASK.get());
-        boolean item3c = isLivingInArmor(entity, 3, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get());
-
-        if (!item3 && !item3b && !item3c) {
-            return false;
-        }
-
-        boolean item2 = isLivingInArmor(entity, 2, ItemsRegistry.SPACE_SUIT.get());
-        boolean item2b = isLivingInArmor(entity, 2, ItemsRegistry.NETHERITE_SPACE_SUIT.get());
-        boolean item2c = isLivingInArmor(entity, 2, ItemsRegistry.JET_SUIT.get());
-
-        if (!item2 && !item2b && !item2c) {
-            return false;
-        }
-
-        boolean item1 = isLivingInArmor(entity, 1, ItemsRegistry.SPACE_PANTS.get());
-        boolean item1b = isLivingInArmor(entity, 1, ItemsRegistry.NETHERITE_SPACE_PANTS.get());
-        boolean item1c = isLivingInArmor(entity, 1, ItemsRegistry.JET_SUIT_PANTS.get());
-
-        if (!item1 && !item1b && !item1c) {
-            return false;
-        }
-
-        boolean item0 = isLivingInArmor(entity, 0, ItemsRegistry.SPACE_BOOTS.get());
-        boolean item0b = isLivingInArmor(entity, 0, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
-        boolean item0c = isLivingInArmor(entity, 0, ItemsRegistry.JET_SUIT_BOOTS.get());
-
-        if (!item0 && !item0b && !item0c) {
-            return false;
-        }
+        if (!(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ISpaceArmor)) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ISpaceArmor)) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ISpaceArmor)) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ISpaceArmor)) return false;
 
         return true;
     }
 
-    public static boolean isLivingInArmor(LivingEntity entity, int armorSlot, Item item) {
-        return entity.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, armorSlot)).getItem() == item;
+    public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
+        return entity.getItemBySlot(slot).getItem() == item;
     }
 
     public static boolean isSpaceLevel(Level level) {
