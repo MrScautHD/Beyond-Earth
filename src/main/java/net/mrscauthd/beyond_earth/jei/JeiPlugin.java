@@ -44,6 +44,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.material.Fluid;
@@ -228,6 +229,14 @@ public class JeiPlugin implements IModPlugin {
 		Component oilDescriptionKey = new TranslatableComponent("jei.tooltip." + BeyondEarthMod.MODID + ".oil");
 		registration.addIngredientInfo(new ItemStack(ItemsRegistry.OIL_BUCKET.get(), 1), VanillaTypes.ITEM_STACK, oilDescriptionKey);
 		registration.addIngredientInfo(new FluidStack(FluidsRegistry.OIL_STILL.get(), 1000), ForgeTypes.FLUID_STACK, oilDescriptionKey);
+
+		if (Config.STEEL_MANAGEMENT.get() >= 2) {
+			List<ItemStack> list = new ArrayList<>();
+			list.add(new ItemStack(ItemsRegistry.STEEL_BLOCK_ITEM.get()));
+			list.add(new ItemStack(ItemsRegistry.STEEL_INGOT.get()));
+			list.add(new ItemStack(ItemsRegistry.STEEL_NUGGET.get()));
+			registration.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM_STACK, list);
+		}
 	}
 
 	// Oxygen Loading

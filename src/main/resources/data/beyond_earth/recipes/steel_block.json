@@ -1,6 +1,12 @@
 {
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
+  "conditions": [
+    {
+        "type": "beyond_earth:steel_management",
+		"level": 2
+    }
+  ],
   "pattern": [
     "###",
     "#*#",
