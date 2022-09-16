@@ -16,8 +16,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public abstract class ISpaceArmorModel<T extends LivingEntity> extends HumanoidModel<T> {
 
-    public LivingEntity entity;
-    public ItemStack itemStack;
+    private final LivingEntity entity;
+    private final ItemStack itemStack;
 
     public ISpaceArmorModel(LivingEntity entity, ItemStack itemStack) {
         super(new EntityRendererProvider.Context(Minecraft.getInstance().getEntityRenderDispatcher(), Minecraft.getInstance().getItemRenderer(), Minecraft.getInstance().getBlockRenderer(), Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer(), Minecraft.getInstance().getResourceManager(), Minecraft.getInstance().getEntityModels(), Minecraft.getInstance().font).bakeLayer(ModelLayers.PLAYER_INNER_ARMOR));
