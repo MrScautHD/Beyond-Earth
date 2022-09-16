@@ -41,10 +41,7 @@ public class NetheriteSpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart);
-
-					armorModel.entity = livingEntity;
-					armorModel.itemStack = itemStack;
+					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -81,10 +78,7 @@ public class NetheriteSpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart);
-
-					armorModel.entity = livingEntity;
-					armorModel.itemStack = itemStack;
+					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -126,10 +120,7 @@ public class NetheriteSpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP2 armorModel = new SpaceSuitModel.SpaceSuitP2(modelPart);
-
-					armorModel.entity = livingEntity;
-					armorModel.itemStack = itemStack;
+					SpaceSuitModel.SpaceSuitP2 armorModel = new SpaceSuitModel.SpaceSuitP2(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -166,10 +157,7 @@ public class NetheriteSpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart);
-
-					armorModel.entity = livingEntity;
-					armorModel.itemStack = itemStack;
+					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}

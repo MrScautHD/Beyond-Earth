@@ -55,10 +55,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
-
-                    armorModel.entity = livingEntity;
-                    armorModel.itemStack = itemStack;
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart, livingEntity, itemStack);
 
                     return armorModel;
                 }
@@ -97,10 +94,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
-
-                    armorModel.entity = livingEntity;
-                    armorModel.itemStack = itemStack;
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart, livingEntity, itemStack);
 
                     return armorModel;
                 }
@@ -381,10 +375,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JetSuitP2 armorModel = new JetSuitModel.JetSuitP2(modelPart);
-
-                    armorModel.entity = livingEntity;
-                    armorModel.itemStack = itemStack;
+                    JetSuitModel.JetSuitP2 armorModel = new JetSuitModel.JetSuitP2(modelPart, livingEntity, itemStack);
 
                     return armorModel;
                 }
@@ -420,10 +411,7 @@ public class JetSuit {
                     );
 
                     ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart);
-
-                    armorModel.entity = livingEntity;
-                    armorModel.itemStack = itemStack;
+                    JetSuitModel.JetSuitP1 armorModel = new JetSuitModel.JetSuitP1(modelPart, livingEntity, itemStack);
 
                     return armorModel;
                 }

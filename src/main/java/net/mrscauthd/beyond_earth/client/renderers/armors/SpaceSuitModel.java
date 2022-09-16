@@ -5,11 +5,9 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,9 +24,6 @@ public class SpaceSuitModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p1"), "main");
 
-        public LivingEntity entity;
-        public ItemStack itemStack;
-
         public final ModelPart head;
         public final ModelPart body;
         public final ModelPart rightArm;
@@ -37,7 +32,17 @@ public class SpaceSuitModel {
         public final ModelPart leftLeg;
 
         public SpaceSuitP1(ModelPart root) {
-            super(new EntityRendererProvider.Context(Minecraft.getInstance().getEntityRenderDispatcher(), Minecraft.getInstance().getItemRenderer(), Minecraft.getInstance().getBlockRenderer(), Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer(), Minecraft.getInstance().getResourceManager(), Minecraft.getInstance().getEntityModels(), Minecraft.getInstance().font).bakeLayer(ModelLayers.PLAYER_INNER_ARMOR));
+            super(null, null);
+            this.head = root.getChild("head");
+            this.body = root.getChild("body");
+            this.rightArm = root.getChild("right_arm");
+            this.leftArm = root.getChild("left_arm");
+            this.rightLeg = root.getChild("right_leg");
+            this.leftLeg = root.getChild("left_leg");
+        }
+
+        public SpaceSuitP1(ModelPart root, LivingEntity entity, ItemStack itemStack) {
+            super(entity, itemStack);
             this.head = root.getChild("head");
             this.body = root.getChild("body");
             this.rightArm = root.getChild("right_arm");
@@ -73,7 +78,7 @@ public class SpaceSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
+            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.getEntity())).getModel();
 
             this.attackTime = livingModel.attackTime;
             this.riding = livingModel.riding;
@@ -94,8 +99,8 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            if (this.itemStack.getItem() instanceof ISpaceArmor item) {
-                VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
+            if (this.getItemStack().getItem() instanceof ISpaceArmor item) {
+                VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.getItemStack(), this.getEntity())), false, this.getItemStack().isEnchanted());
 
                 this.head.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
                 this.body.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
@@ -112,14 +117,17 @@ public class SpaceSuitModel {
 
         public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "space_suit_p2"), "main");
 
-        public LivingEntity entity;
-        public ItemStack itemStack;
-
         public final ModelPart rightLeg;
         public final ModelPart leftLeg;
 
         public SpaceSuitP2(ModelPart root) {
-            super(new EntityRendererProvider.Context(Minecraft.getInstance().getEntityRenderDispatcher(), Minecraft.getInstance().getItemRenderer(), Minecraft.getInstance().getBlockRenderer(), Minecraft.getInstance().getEntityRenderDispatcher().getItemInHandRenderer(), Minecraft.getInstance().getResourceManager(), Minecraft.getInstance().getEntityModels(), Minecraft.getInstance().font).bakeLayer(ModelLayers.PLAYER_INNER_ARMOR));
+            super(null, null);
+            this.rightLeg = root.getChild("right_leg");
+            this.leftLeg = root.getChild("left_leg");
+        }
+
+        public SpaceSuitP2(ModelPart root, LivingEntity entity, ItemStack itemStack) {
+            super(entity, itemStack);
             this.rightLeg = root.getChild("right_leg");
             this.leftLeg = root.getChild("left_leg");
         }
@@ -137,7 +145,7 @@ public class SpaceSuitModel {
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.entity)).getModel();
+            HumanoidModel livingModel = (HumanoidModel<LivingEntity>) ((LivingEntityRenderer) Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(this.getEntity())).getModel();
 
             this.attackTime = livingModel.attackTime;
             this.riding = livingModel.riding;
@@ -158,8 +166,8 @@ public class SpaceSuitModel {
                 poseStack.translate(0, 1.5f, 0);
             }
 
-            if (this.itemStack.getItem() instanceof ISpaceArmor item) {
-                VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.itemStack, this.entity)), false, this.itemStack.isEnchanted());
+            if (this.getItemStack().getItem() instanceof ISpaceArmor item) {
+                VertexConsumer vertex = this.getVertex(TranslucentArmorType.translucentArmor(item.getTexture(this.getItemStack(), this.getEntity())), false, this.getItemStack().isEnchanted());
 
                 this.rightLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);
                 this.leftLeg.render(poseStack, vertex, packedLight, packedOverlay, red, green, blue, alpha);

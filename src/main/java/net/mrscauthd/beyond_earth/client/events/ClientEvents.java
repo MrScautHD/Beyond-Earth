@@ -23,6 +23,7 @@ import net.minecraftforge.client.event.RenderArmEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import net.minecraftforge.client.event.sound.SoundEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -32,7 +33,6 @@ import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
 import net.mrscauthd.beyond_earth.client.sounds.TickableJetSuitFlySound;
 import net.mrscauthd.beyond_earth.client.util.ClientMethods;
 import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
-import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.Methods;
@@ -46,7 +46,7 @@ import net.mrscauthd.beyond_earth.client.events.forge.SetupLivingBipedAnimEvent;
 public class ClientEvents {
 
     @SubscribeEvent
-    public static void spaceSounds(PlaySoundEvent event) {
+    public static void playSounds(PlaySoundEvent event) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         SoundInstance instance = event.getSound();
@@ -57,7 +57,8 @@ public class ClientEvents {
         }
 
         /** JET SUIT FLY SOUND */
-        if (Methods.isLivingInJetSuit(player) && instance instanceof ElytraOnPlayerSoundInstance) {
+        if (instance instanceof ElytraOnPlayerSoundInstance) {
+
             mc.getSoundManager().play(new TickableJetSuitFlySound((LocalPlayer) player));
         }
 
@@ -149,22 +150,7 @@ public class ClientEvents {
         }
 
         /** RENDER SPACE SUIT ARMS */
-        ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
-        Item item = itemStack.getItem();
-
-        if (item instanceof ISpaceArmor) {
-            ISpaceArmorModel<?> model = (ISpaceArmorModel<?>) ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
-
-            if (model instanceof SpaceSuitModel.SpaceSuitP1<?> spaceSuitModel) {
-                ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? spaceSuitModel.rightArm : spaceSuitModel.leftArm);
-                event.setCanceled(true);
-            }
-
-            if (model instanceof JetSuitModel.JetSuitP1<?> jetSuitModel) {
-                ClientMethods.renderArmWithProperties(event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), ((ISpaceArmor) item).getTexture(itemStack, player), player, playerModel, renderer, event.getArm() == HumanoidArm.RIGHT ? jetSuitModel.rightArm : jetSuitModel.leftArm);
-                event.setCanceled(true);
-            }
-        }
+        event.setCanceled(ClientMethods.renderISpaceArmorArm(player, playerModel, renderer, event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight(), event.getArm()));
     }
 
     @SubscribeEvent

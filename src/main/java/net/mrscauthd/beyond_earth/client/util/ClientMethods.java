@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -17,14 +18,41 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.renderers.armors.JetSuitModel;
+import net.mrscauthd.beyond_earth.client.renderers.armors.SpaceSuitModel;
+import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientMethods {
+
+    public static boolean renderISpaceArmorArm(AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playerModel, PlayerRenderer renderer, PoseStack poseStack, MultiBufferSource bufferSource, int light, HumanoidArm arm) {
+        ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
+        Item item = itemStack.getItem();
+
+        if (item instanceof ISpaceArmor spaceArmorItem) {
+            Model model = ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
+
+            if (model instanceof SpaceSuitModel.SpaceSuitP1 spaceSuitModel) {
+                ClientMethods.renderArmWithProperties(poseStack, bufferSource, light, spaceArmorItem.getTexture(itemStack, player), player, playerModel, renderer, arm == HumanoidArm.RIGHT ? spaceSuitModel.rightArm : spaceSuitModel.leftArm);
+                return true;
+            }
+
+            if (model instanceof JetSuitModel.JetSuitP1 jetSuitModel) {
+                ClientMethods.renderArmWithProperties(poseStack, bufferSource, light, spaceArmorItem.getTexture(itemStack, player), player, playerModel, renderer, arm == HumanoidArm.RIGHT ? jetSuitModel.rightArm : jetSuitModel.leftArm);
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public static void renderArmWithProperties(PoseStack poseStack, MultiBufferSource bufferSource, int light, ResourceLocation texture, AbstractClientPlayer player, PlayerModel<AbstractClientPlayer> playermodel, PlayerRenderer renderer, ModelPart arm) {
         renderer.setModelProperties(player);

@@ -9,6 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
+import net.mrscauthd.beyond_earth.common.util.Methods;
 
 @OnlyIn(Dist.CLIENT)
 public class TickableJetSuitFlySound extends AbstractTickableSoundInstance {
@@ -43,7 +44,9 @@ public class TickableJetSuitFlySound extends AbstractTickableSoundInstance {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
-            if (KeyVariables.isHoldingUp(player) && this.player.isFallFlying()) {
+            if (!Methods.isLivingInJetSuit(this.player)) {
+                this.volume = 0;
+            } else if (KeyVariables.isHoldingUp(player) && this.player.isFallFlying()) {
                 this.volume = Math.min(0.7F, this.volume + 0.05F);
             } else {
                 this.volume = Math.max(0.0F, this.volume - 0.05F);
