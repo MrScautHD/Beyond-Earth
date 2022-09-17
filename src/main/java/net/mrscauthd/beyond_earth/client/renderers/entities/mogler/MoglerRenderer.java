@@ -11,7 +11,7 @@ import net.mrscauthd.beyond_earth.common.entities.MoglerEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class MoglerRenderer extends MobRenderer<MoglerEntity, MoglerModel<MoglerEntity>> {
-    private static final ResourceLocation HOGLIN_LOCATION = new ResourceLocation(BeyondEarth.MODID,"textures/entities/mogler_entity.png");
+    private static final ResourceLocation HOGLIN_LOCATION = new ResourceLocation(BeyondEarth.MODID,"textures/entity/mogler.png");
 
     public MoglerRenderer(EntityRendererProvider.Context p_174165_) {
         super(p_174165_, new MoglerModel<>(p_174165_.bakeLayer(MoglerModel.LAYER_LOCATION)), 0.7F);

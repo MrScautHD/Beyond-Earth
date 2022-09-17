@@ -11,7 +11,7 @@ import net.mrscauthd.beyond_earth.common.entities.AlienZombieEntity;
 @OnlyIn(Dist.CLIENT)
 public class AlienZombieRenderer extends MobRenderer<AlienZombieEntity, AlienZombieModel<AlienZombieEntity>> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entities/alien_zombie.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entity/alien_zombie.png");
 
     public AlienZombieRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new AlienZombieModel<>(renderManagerIn.bakeLayer(AlienZombieModel.LAYER_LOCATION)), 0.5f);

@@ -19,8 +19,8 @@ import net.mrscauthd.beyond_earth.common.util.Methods;
 
 public class OxygenTankOverlay implements IGuiOverlay {
 
-    public static final ResourceLocation OXYGEN_TANK_EMPTY_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_empty.png");
-    public static final ResourceLocation OXYGEN_TANK_FULL_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_full.png");
+    public static final ResourceLocation OXYGEN_TANK = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank.png");
+    public static final ResourceLocation OXYGEN_TANK_FULL = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_full.png");
 
     @Override
     public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
@@ -40,12 +40,13 @@ public class OxygenTankOverlay implements IGuiOverlay {
                 int textureWidth = 62;
                 int textureHeight = 52;
 
-                ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK_EMPTY_TEXTURE);
-                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL_TEXTURE);
+                /** DRAW OXYGEN TANK */
+                ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK);
+                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL);
 
                 /** OXYGEN AMOUNT TEXT */
                 Font font = mc.font;
-                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygen() / 480 + "%");
+                Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygen() / (oxygenStorage.getMaxCapacity() / 100) + "%");
                 font.drawShadow(poseStack, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
         }

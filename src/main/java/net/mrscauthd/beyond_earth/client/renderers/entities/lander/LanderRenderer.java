@@ -11,7 +11,7 @@ import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 
 @OnlyIn(Dist.CLIENT)
 public class LanderRenderer extends VehicleRenderer<LanderEntity, LanderModel<LanderEntity>> {
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicles/lander.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/lander.png");
 
     public LanderRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new LanderModel<>(renderManagerIn.bakeLayer(LanderModel.LAYER_LOCATION)), 0.5f);

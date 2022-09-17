@@ -44,8 +44,8 @@ import io.netty.buffer.Unpooled;
 
 public class LanderEntity extends IVehicleEntity {
 
-	public LanderEntity(EntityType type, Level world) {
-		super(type, world);
+	public LanderEntity(EntityType type, Level level) {
+		super(type, level);
 	}
 
 	@Override
@@ -124,14 +124,14 @@ public class LanderEntity extends IVehicleEntity {
 		}
 	}
 
-	private final ItemStackHandler inventory = new ItemStackHandler(2) {
+	private final ItemStackHandler inventory = new ItemStackHandler(11) {
 		@Override
 		public int getSlotLimit(int slot) {
 			return 64;
 		}
 	};
 
-	private final CombinedInvWrapper combined = new CombinedInvWrapper(inventory);
+	private final CombinedInvWrapper combined = new CombinedInvWrapper(this.inventory);
 
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
@@ -147,14 +147,14 @@ public class LanderEntity extends IVehicleEntity {
 
 	@Override
 	public void addAdditionalSaveData(CompoundTag compound) {
-		compound.put("InventoryCustom", inventory.serializeNBT());
+		compound.put("InventoryCustom", this.inventory.serializeNBT());
 	}
 
 	@Override
 	public void readAdditionalSaveData(CompoundTag compound) {
 		Tag inventoryCustom = compound.get("InventoryCustom");
 		if (inventoryCustom instanceof CompoundTag) {
-			inventory.deserializeNBT((CompoundTag) inventoryCustom);
+			this.inventory.deserializeNBT((CompoundTag) inventoryCustom);
 		}
 	}
 
@@ -192,7 +192,7 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	public ItemStackHandler getInventory() {
-		return inventory;
+		return this.inventory;
 	}
 
 	@Override

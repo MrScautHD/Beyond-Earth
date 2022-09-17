@@ -91,7 +91,6 @@ public abstract class IRocketItem extends VehicleItem {
 
                     /** SET TAGS */
                     rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
-                    rocket.getEntityData().set(RocketTier1Entity.BUCKETS, itemStack.getOrCreateTag().getInt(BUCKET_TAG));
 
                     /** CALL PLACE ROCKET EVENT */
                     MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));

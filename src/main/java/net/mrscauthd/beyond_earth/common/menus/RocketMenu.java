@@ -34,7 +34,8 @@ public class RocketMenu {
 
 			IItemHandlerModifiable itemHandler = rocket.getItemHandler();
 
-			this.addSlot(new SlotItemHandler(itemHandler, 0, 46, 22) {
+			/** FUEL SLOT 1 */
+			this.addSlot(new SlotItemHandler(itemHandler, 0, 20, 24) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					if (stack.getItem() instanceof BucketItem) {
@@ -44,8 +45,28 @@ public class RocketMenu {
 				}
 			});
 
-			/** CREATE INVENTORY SLOTS */
-			MenuHelper.createInventorySlots(inv, this::addSlot, 8, 84);
+			/** FUEL SLOT 2 */
+			this.addSlot(new SlotItemHandler(itemHandler, 1, 20, 54) {
+				@Override
+				public boolean mayPlace(@NotNull ItemStack stack) {
+					return false;
+				}
+			});
+
+			/** TOP */
+			this.addSlot(new SlotItemHandler(itemHandler, 2, 86, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 3, 104, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 4, 122, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 5, 140, 31));
+
+			/** BOTTOM */
+			this.addSlot(new SlotItemHandler(itemHandler, 6, 86, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 7, 104, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 8, 122, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 9, 140, 49));
+
+			/** INV */
+			MenuHelper.createInventorySlots(inv, this::addSlot, 8, 92);
 		}
 
 		@Override

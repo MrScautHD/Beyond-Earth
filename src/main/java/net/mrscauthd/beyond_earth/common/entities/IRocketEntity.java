@@ -25,7 +25,10 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -45,6 +48,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
+import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
@@ -57,14 +61,12 @@ import java.util.Set;
 public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Integer> BUCKETS = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> START_TIMER = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
 
-    public IRocketEntity(EntityType<?> p_19870_, Level p_19871_) {
-        super(p_19870_, p_19871_);
+    public IRocketEntity(EntityType<?> entityType, Level level) {
+        super(entityType, level);
         this.entityData.define(ROCKET_START, false);
-        this.entityData.define(BUCKETS, 0);
         this.entityData.define(FUEL, 0);
         this.entityData.define(START_TIMER, 0);
     }
@@ -140,7 +142,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         }
     }
 
-    private final ItemStackHandler inventory = new ItemStackHandler(1) {
+    private final ItemStackHandler inventory = new ItemStackHandler(10) {
         @Override
         public int getSlotLimit(int slot) {
             return 64;
@@ -171,7 +173,6 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         compound.put("InventoryCustom", this.inventory.serializeNBT());
 
         compound.putBoolean("rocket_start", this.getEntityData().get(ROCKET_START));
-        compound.putInt("buckets", this.getEntityData().get(BUCKETS));
         compound.putInt("fuel", this.getEntityData().get(FUEL));
         compound.putInt("start_timer", this.getEntityData().get(START_TIMER));
     }
@@ -186,7 +187,6 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         }
 
         this.getEntityData().set(ROCKET_START, compound.getBoolean("rocket_start"));
-        this.getEntityData().set(BUCKETS, compound.getInt("buckets"));
         this.getEntityData().set(FUEL, compound.getInt("fuel"));
         this.getEntityData().set(START_TIMER, compound.getInt("start_timer"));
     }
@@ -286,7 +286,21 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
     public abstract void spawnParticle();
 
-    public abstract void fillUpRocket();
+    public void fillUpRocket() {
+        ItemStack slotItem0 = this.getInventory().getStackInSlot(0);
+        ItemStack slotItem1 = this.getInventory().getStackInSlot(1);
+
+        if (slotItem0.getItem() instanceof BucketItem) {
+            if (((BucketItem) slotItem0.getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(FUEL) < 3000) {
+                if (slotItem1.getCount() != slotItem1.getMaxStackSize()) {
+                    this.getInventory().extractItem(0, 1, false);
+                    this.getInventory().insertItem(1, new ItemStack(Items.BUCKET), false);
+
+                    this.getEntityData().set(FUEL, this.entityData.get(FUEL) + 1000);
+                }
+            }
+        }
+    }
 
     public Player getFirstPlayerPassenger() {
         if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
@@ -392,38 +406,43 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     public void openPlanetSelectionMenu() {
         Player player = this.getFirstPlayerPassenger();
 
-        if (this.getY() > 600 && player != null) {
+        if (this.getY() > 600) {
+            if (player != null) {
 
-            if (player.containerMenu != null) {
-                player.closeContainer();
-            }
+                if (player.containerMenu == player.inventoryMenu) {
+                    player.closeContainer();
+                }
 
-            player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
-            player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
+                player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
+                player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
 
-            /** SAVE ITEMS IN THE PLAYER */
-            ListTag tag = new ListTag();
+                /** SAVE ITEMS IN THE PLAYER */
+                ListTag tag = new ListTag();
 
-            tag.add(this.getInventory().getStackInSlot(0).save(new CompoundTag()));
-            tag.add(new ItemStack(this.getRocketItem().getItem()).save(new CompoundTag()));
+                tag.add(new ItemStack(this.getRocketItem().getItem()).save(new CompoundTag()));
 
-            player.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);
-            player.setNoGravity(true);
+                for (int i = 0; i <= this.getInventory().getSlots() - 1; i++) {
+                    tag.add(this.getInventory().getStackInSlot(i).save(new CompoundTag()));
+                }
 
-            /** STOP ROCKET SOUND */
-            if (player instanceof ServerPlayer) {
-                Methods.stopSound((ServerPlayer) player, SoundRegistry.ROCKET_SOUND.getId(), SoundSource.AMBIENT);
-            }
+                player.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);
+                player.setNoGravity(true);
 
-            MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(player, this));
+                /** STOP ROCKET SOUND */
+                if (player instanceof ServerPlayer serverPlayer) {
+                    Methods.stopSound(serverPlayer, SoundRegistry.ROCKET_SOUND.getId(), SoundSource.NEUTRAL);
+                }
 
-            if (!this.level.isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
-            }
+                MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(player, this));
 
-        } else if (this.getY() > 600) {
-            if (!this.level.isClientSide) {
-                this.remove(RemovalReason.DISCARDED);
+                if (!this.level.isClientSide) {
+                    this.remove(RemovalReason.DISCARDED);
+                }
+            } else {
+                if (!this.level.isClientSide) {
+                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, false, Explosion.BlockInteraction.BREAK);
+                    this.remove(RemovalReason.DISCARDED);
+                }
             }
         }
     }

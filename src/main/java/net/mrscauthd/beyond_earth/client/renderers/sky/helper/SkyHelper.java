@@ -19,20 +19,20 @@ import org.apache.commons.lang3.tuple.Triple;
 public class SkyHelper {
 
     /** PLANETS */
-    public static final ResourceLocation WHITE_SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/white_sun.png");
-    public static final ResourceLocation SUN = new ResourceLocation(BeyondEarth.MODID, "textures/sky/sun.png");
-    public static final ResourceLocation MOON_PHASE = new ResourceLocation(BeyondEarth.MODID, "textures/sky/moon_phases.png");
-    public static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/sky/earth.png");
-    public static final ResourceLocation MARS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars.png");
-    public static final ResourceLocation PHOBOS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/phobos.png");
-    public static final ResourceLocation DEIMOS = new ResourceLocation(BeyondEarth.MODID, "textures/sky/deimos.png");
+    public static final ResourceLocation WHITE_SUN = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/white_sun.png");
+    public static final ResourceLocation SUN = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/sun.png");
+    public static final ResourceLocation MOON_PHASE = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/moon_phases.png");
+    public static final ResourceLocation EARTH = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/earth.png");
+    public static final ResourceLocation MARS = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/mars.png");
+    public static final ResourceLocation PHOBOS = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/phobos.png");
+    public static final ResourceLocation DEIMOS = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/deimos.png");
 
     /** LIGHTS */
-    public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_light.png");
-    public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/sky/planet_phases_light.png");
+    public static final ResourceLocation PLANET_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/planet_light.png");
+    public static final ResourceLocation PLANET_PHASE_LIGHT = new ResourceLocation(BeyondEarth.MODID, "textures/environment/planet/planet_phases_light.png");
 
     /** RAIN */
-    public static final ResourceLocation MARS_DUST = new ResourceLocation(BeyondEarth.MODID, "textures/sky/mars_dust.png");
+    public static final ResourceLocation MARS_DUST = new ResourceLocation(BeyondEarth.MODID, "textures/environment/mars_dust.png");
     public static final ResourceLocation SNOW = new ResourceLocation("textures/environment/snow.png");
 
     public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix, ShaderInstance shaderInstance, Runnable setupFog, boolean blend) {

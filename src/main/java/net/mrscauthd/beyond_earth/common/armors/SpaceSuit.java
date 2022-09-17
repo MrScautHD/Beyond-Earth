@@ -19,8 +19,8 @@ import java.util.function.Consumer;
 
 public class SpaceSuit {
 
-	public static class OxygenMask extends ISpaceArmor.Helmet {
-		public OxygenMask(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+	public static class Helmet extends ISpaceArmor.Helmet {
+		public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}
 
@@ -50,7 +50,7 @@ public class SpaceSuit {
 
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-			return BeyondEarth.MODID + ":textures/armor/oxygen_mask.png";
+			return BeyondEarth.MODID + ":textures/armor/space_suit.png";
 		}
 	}
 

@@ -33,8 +33,8 @@ import java.util.function.Consumer;
 
 public class JetSuit {
 
-    public static class OxygenMask extends ISpaceArmor.Helmet {
-        public OxygenMask(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+    public static class Helmet extends ISpaceArmor.Helmet {
+        public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -64,7 +64,7 @@ public class JetSuit {
 
         @Override
         public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-            return BeyondEarth.MODID + ":textures/armor/jet_suit_oxygen_mask.png";
+            return BeyondEarth.MODID + ":textures/armor/jet_suit.png";
         }
     }
 
@@ -75,6 +75,12 @@ public class JetSuit {
         public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
+
+        //TODO IMPROVE FIRE MATH
+        //TODO FINISH ANIMATIONS
+        //TODO ADD ENERGY CAP
+        //TODO REWORK OVERLAY
+        //TODO ADD RECIPE
 
         @Override
         public void initializeClient(Consumer<IClientItemExtensions> consumer) {
@@ -118,27 +124,41 @@ public class JetSuit {
             }
 
             public int getMode() {
-                return mode;
+                return this.mode;
             }
 
             public ChatFormatting getChatFormatting() {
-                return chatFormatting;
+                return this.chatFormatting;
             }
 
             public Component getTranslationKey() {
-                return component;
+                return this.component;
             }
         }
 
-        //TODO IMPROVE FIRE MATH
-        //TODO FINISH ANIMATIONS
-        //TODO ADD ENERGY CAP
-        //TODO REWORK OVERLAY
-        //TODO ADD RECIPE
+        public int getMode(ItemStack itemStack) {
+            return itemStack.getOrCreateTag().getInt(TAG_MODE);
+        }
+
+        public ModeType getModeType(ItemStack itemStack) {
+            int mode = this.getMode(itemStack);
+
+            if (mode == 1) {
+                return ModeType.NORMAL;
+            }
+            else if (mode == 2) {
+                return ModeType.HOVER;
+            }
+            else if (mode == 3) {
+                return ModeType.ELYTRA;
+            }
+
+            return ModeType.DISABLED;
+        }
 
         @Override
         public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-            return Methods.isLivingInJetSuit(entity) && stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.ELYTRA.getMode();
+            return Methods.isLivingInJetSuit(entity) && this.getMode(stack) == ModeType.ELYTRA.getMode();
         }
 
         @Override
@@ -178,7 +198,7 @@ public class JetSuit {
             if (!player.getAbilities().flying && !player.isPassenger() && Methods.isLivingInJetSuit(player)) {
 
                 /** HOVER FLY */
-                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
+                if (this.getMode(stack) == ModeType.HOVER.getMode() && !player.hasEffect(MobEffects.SLOW_FALLING)) {
                     double gravity = player.getAttribute(ForgeMod.ENTITY_GRAVITY.get()).getBaseValue();
                     Vec3 vec3 = player.getDeltaMovement();
 
@@ -227,7 +247,7 @@ public class JetSuit {
                 }
 
                 /** NORMAL FLY */
-                if (stack.getOrCreateTag().getInt(TAG_MODE) == ModeType.NORMAL.getMode()) {
+                if (this.getMode(stack) == ModeType.NORMAL.getMode()) {
 
                     /** MOVE UP */
                     if (KeyVariables.isHoldingJump(player)) {
@@ -262,15 +282,15 @@ public class JetSuit {
         public void switchJetSuitMode(Player player, ItemStack itemStack) {
             CompoundTag compoundTag = itemStack.getOrCreateTag();
 
-            if (compoundTag.getInt(JetSuit.Suit.TAG_MODE) < 3) {
-                compoundTag.putInt(JetSuit.Suit.TAG_MODE, compoundTag.getInt(JetSuit.Suit.TAG_MODE) + 1);
+            if (this.getMode(itemStack) < 3) {
+                compoundTag.putInt(JetSuit.Suit.TAG_MODE, this.getMode(itemStack) + 1);
             } else {
                 compoundTag.putInt(JetSuit.Suit.TAG_MODE, 0);
             }
         }
 
         public void calculateSpacePressTime(Player player, ItemStack itemStack) {
-            int mode = itemStack.getOrCreateTag().getInt(TAG_MODE);
+            int mode = this.getMode(itemStack);
 
             if (Methods.isLivingInJetSuit(player)) {
 

@@ -22,7 +22,7 @@ import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 public class RoverItemRenderer<T extends RoverEntity> extends BlockEntityWithoutLevelRenderer {
 
     /** TEXTURE */
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicles/rover.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rover.png");
 
     /** MODEL */
     private RoverModel model;

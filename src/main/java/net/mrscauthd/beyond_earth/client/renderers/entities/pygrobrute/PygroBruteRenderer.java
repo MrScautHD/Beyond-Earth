@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroModel;
 @OnlyIn(Dist.CLIENT)
 public class PygroBruteRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entities/pygro_brute.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entity/pygro_brute.png");
 
     public PygroBruteRenderer(EntityRendererProvider.Context p_174344_, ModelLayerLocation p_174345_, ModelLayerLocation p_174346_, ModelLayerLocation p_174347_) {
         super(p_174344_, createModel(p_174344_.getModelSet(), p_174345_), 0.5F, 1.0019531F, 1.0F, 1.0019531F);

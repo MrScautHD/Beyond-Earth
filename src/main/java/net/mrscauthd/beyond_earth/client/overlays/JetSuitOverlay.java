@@ -22,36 +22,20 @@ public class JetSuitOverlay implements IGuiOverlay {
 
         if (Methods.isLivingInJetSuit(player)) {
             Minecraft mc = Minecraft.getInstance();
-            ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
-            int itemMode = chest.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE);
+            ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
             int x = 5;
             int y = 5;
 
-            Component modeText;
-            ChatFormatting chatFormatting;
+            if (itemStack.getItem() instanceof JetSuit.Suit jetSuitItem) {
+                Component modeText = jetSuitItem.getModeType(itemStack).getTranslationKey();
+                ChatFormatting chatFormatting = jetSuitItem.getModeType(itemStack).getChatFormatting();
 
-            if (itemMode == JetSuit.Suit.ModeType.NORMAL.getMode()) {
-                modeText = JetSuit.Suit.ModeType.NORMAL.getTranslationKey();
-                chatFormatting = JetSuit.Suit.ModeType.NORMAL.getChatFormatting();
+                /** TEXT */
+                Font font = mc.font;
+                Component text = Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_mode").append(": ").withStyle(chatFormatting).append(modeText.copy().withStyle(ChatFormatting.GRAY));
+                font.drawShadow(poseStack, text, (x + (80 - font.width(text)) / 2), y + 80 + 3, 0xFFFFFF);
             }
-            else if (itemMode == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                modeText = JetSuit.Suit.ModeType.HOVER.getTranslationKey();
-                chatFormatting = JetSuit.Suit.ModeType.HOVER.getChatFormatting();
-            }
-            else if (itemMode == JetSuit.Suit.ModeType.ELYTRA.getMode()) {
-                modeText = JetSuit.Suit.ModeType.ELYTRA.getTranslationKey();
-                chatFormatting = JetSuit.Suit.ModeType.ELYTRA.getChatFormatting();
-            }
-            else {
-                modeText = JetSuit.Suit.ModeType.DISABLED.getTranslationKey();
-                chatFormatting = JetSuit.Suit.ModeType.DISABLED.getChatFormatting();
-            }
-
-            /** TEXT */
-            Font font = mc.font;
-            Component text = Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_mode").append(": ").withStyle(chatFormatting).append(modeText.copy().withStyle(ChatFormatting.GRAY));
-            font.drawShadow(poseStack, text, (x + (80 - font.width(text)) / 2), y + 80 + 3, 0xFFFFFF);
         }
     }
 }

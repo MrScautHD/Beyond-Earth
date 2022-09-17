@@ -9,7 +9,7 @@ import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
 
 public class RocketTier4Renderer extends VehicleRenderer<RocketTier4Entity, RocketTier4Model<RocketTier4Entity>> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicles/rocket_t4.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t4.png");
 
     public RocketTier4Renderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RocketTier4Model<>(renderManagerIn.bakeLayer(RocketTier4Model.LAYER_LOCATION)), 0.5f);

@@ -22,7 +22,7 @@ import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
 public class RocketTier1ItemRenderer<T extends RocketTier1Entity> extends BlockEntityWithoutLevelRenderer {
 
     /** TEXTURE */
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicles/rocket_t1.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t1.png");
 
     /** MODEL */
     private RocketTier1Model model;

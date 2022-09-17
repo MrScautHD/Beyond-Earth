@@ -25,8 +25,8 @@ import java.util.List;
 public class PlanetSelectionScreenHelper {
 
     /** USE IT FOR CATEGORY BUTTONS */
-    public static ModifiedButton addCategoryButton(PlanetSelectionScreen screen, CategoryHelper categoryHelper, int x, int row, int width, int height, int newCategory, boolean pressCondition, boolean startVisibility, ModifiedButton.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ModifiedButton button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ModifiedButton addCategoryButton(PlanetSelectionScreen screen, CategoryHelper categoryHelper, int x, int row, int width, int height, int newCategory, boolean pressCondition, boolean startVisibility, ModifiedButton.ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ModifiedButton.ColorTypes colorType, Component title) {
+        ModifiedButton button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, colorType, title, (onPress) -> {
             if (pressCondition) {
                 categoryHelper.set(newCategory);
                 screen.scrollIndex = 0;
@@ -39,8 +39,8 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE IT FOR TELEPORT BUTTONS */
-    public static ModifiedButton addHandlerButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean pressCondition, boolean startVisibility, boolean holdKeyMessage, SimpleChannel simpleChannel, PlanetSelectionMenuNetworkHandlerHelper handler, ModifiedButton.Types type, List<String> list, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title) {
-        ModifiedButton button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, hoverButtonTexture, title, (onPress) -> {
+    public static ModifiedButton addHandlerButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean pressCondition, boolean startVisibility, boolean holdKeyMessage, SimpleChannel simpleChannel, PlanetSelectionMenuNetworkHandlerHelper handler, ModifiedButton.ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ModifiedButton.ColorTypes colorType, Component title) {
+        ModifiedButton button = screen.addButton(x, 0, row, width, height, pressCondition, type, list, buttonTexture, colorType, title, (onPress) -> {
             if (pressCondition) {
                 callPacketHandler(simpleChannel, handler);
 
@@ -58,8 +58,8 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE IT FOR BACK BUTTONS */
-    public static ModifiedButton addBackButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean startVisibility, ResourceLocation buttonTexture, ResourceLocation hoverButtonTexture, Component title, Button.OnPress onPress) {
-        ModifiedButton button = screen.addButton(x, 0, row, width, height, false,null, null, buttonTexture, hoverButtonTexture, title, onPress);
+    public static ModifiedButton addBackButton(PlanetSelectionScreen screen, int x, int row, int width, int height, boolean startVisibility, ResourceLocation buttonTexture, ModifiedButton.ColorTypes colorType, Component title, Button.OnPress onPress) {
+        ModifiedButton button = screen.addButton(x, 0, row, width, height, false,null, null, buttonTexture, colorType, title, onPress);
 
         screen.visibleButton(button, startVisibility);
         return button;

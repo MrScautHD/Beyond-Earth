@@ -24,12 +24,14 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContainer> {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rocket.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/gui/rocket.png");
+
+	public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/fluid_tank_overlay.png");
 
 	public RocketScreen(RocketMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.imageWidth = 176;
-		this.imageHeight = 167;
+		this.imageWidth = 177;
+		this.imageHeight = 174;
 		this.inventoryLabelY = this.imageHeight - 93;
 	}
 
@@ -39,7 +41,7 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.renderTooltip(ms, mouseX, mouseY);
 
-		if (ScreenHelper.isInArea(mouseX, mouseY, this.leftPos + 65, this.topPos + 20, 49,49)) {
+		if (ScreenHelper.isInArea(mouseX, mouseY, this.leftPos + 49, this.topPos + 22, 15,49)) {
 			List<Component> toolTip = new ArrayList<>();
 			toolTip.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + this.getFuel() / 30 + "%"));
 
@@ -59,14 +61,16 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 
 		/** FUEL RENDERER */
 		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
-		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 67, this.topPos + 22, 46, 46, 3000);
+		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 51, this.topPos + 24, 12, 46, 3000);
+
+		/** FUEL TANK OVERLAY */
+		ScreenHelper.drawTexture(ms, this.leftPos + 51, this.topPos + 24, 12, 46, FLUID_TANK_OVERLAY);
 	}
 
 	@Override
 	protected void renderLabels(PoseStack ms, int p_97809_, int p_97810_) {
-		this.font.draw(ms, this.title.getString(), (float) (this.imageWidth / 2) - 33, (float) this.titleLabelY, 4210752);
-
-		this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 4210752);
+		this.font.draw(ms, this.title.getString(), (float) (this.imageWidth / 2) - 33, (float) this.titleLabelY, 0xDBDBDB);
+		this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY, 0xDBDBDB);
 	}
 
 	public int getFuel() {

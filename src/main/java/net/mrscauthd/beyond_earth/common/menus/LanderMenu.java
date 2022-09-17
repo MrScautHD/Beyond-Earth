@@ -31,26 +31,49 @@ public class LanderMenu {
 
 			IItemHandlerModifiable itemHandler = lander.getItemHandler();
 
-			this.addSlot(new SlotItemHandler(itemHandler, 0, 31, 35) {
+			/** MAIN SLOT */
+			this.addSlot(new SlotItemHandler(itemHandler, 0, 34, 27) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					return false;
 				}
 			});
 
-			this.addSlot(new SlotItemHandler(itemHandler, 1, 80, 35) {
+			/** FUEL SLOT 1 */
+			this.addSlot(new SlotItemHandler(itemHandler, 1, 19, 58) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					return false;
 				}
 			});
 
-			MenuHelper.createInventorySlots(inv, this::addSlot, 8, 84);
+			/** FUEL SLOT 2 */
+			this.addSlot(new SlotItemHandler(itemHandler, 2, 48, 58) {
+				@Override
+				public boolean mayPlace(@NotNull ItemStack stack) {
+					return false;
+				}
+			});
+
+			/** TOP */
+			this.addSlot(new SlotItemHandler(itemHandler, 3, 85, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 4, 103, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 5, 121, 31));
+			this.addSlot(new SlotItemHandler(itemHandler, 6, 139, 31));
+
+			/** BOTTOM */
+			this.addSlot(new SlotItemHandler(itemHandler, 7, 85, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 8, 103, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 9, 121, 49));
+			this.addSlot(new SlotItemHandler(itemHandler, 10, 139, 49));
+
+			/** INV */
+			MenuHelper.createInventorySlots(inv, this::addSlot, 8, 92);
 		}
 
 		@Override
 		public boolean stillValid(Player p_38874_) {
-			return !lander.isRemoved();
+			return !this.lander.isRemoved();
 		}
 
 		@Override
@@ -61,8 +84,7 @@ public class LanderMenu {
 				ItemStack itemstack1 = slot.getItem();
 				itemstack = itemstack1.copy();
 
-				//TODO CHECK IF THAT WORK RIGHT ( rocket.getInventory().getSlots()) use as example HopperMenu or try just (to cast rocket)
-				int containerIndex = lander.getInventory().getSlots();
+				int containerIndex = this.lander.getInventory().getSlots();
 				if (index < containerIndex) {
 					if (!this.moveItemStackTo(itemstack1, containerIndex, this.slots.size(), true)) {
 						return ItemStack.EMPTY;

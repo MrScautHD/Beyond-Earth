@@ -42,12 +42,12 @@ public class ItemsRegistry {
     public static final RegistryObject<ForgeSpawnEggItem> MARTIAN_RAPTOR_SPAWN_EGG = ITEMS.register("martian_raptor_spawn_egg",() -> new ForgeSpawnEggItem(EntityRegistry.MARTIAN_RAPTOR::get, 5349438, -13312, new Item.Properties().tab(Tabs.tab_spawn_eggs)));
 
     /** GLOBE ITEMS */
-    public static final RegistryObject<BlockItem> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new GlobeItem(BlockRegistry.EARTH_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/earth_globe.png")));
-    public static final RegistryObject<BlockItem> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new GlobeItem(BlockRegistry.MOON_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/moon_globe.png")));
-    public static final RegistryObject<BlockItem> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new GlobeItem(BlockRegistry.MARS_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/mars_globe.png")));
-    public static final RegistryObject<BlockItem> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new GlobeItem(BlockRegistry.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/mercury_globe.png")));
-    public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlockRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/venus_globe.png")));
-    public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(BlockRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/blocks/globes/glacio_globe.png")));
+    public static final RegistryObject<BlockItem> EARTH_GLOBE_ITEM = ITEMS.register("earth_globe", () -> new GlobeItem(BlockRegistry.EARTH_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/earth_globe.png")));
+    public static final RegistryObject<BlockItem> MOON_GLOBE_ITEM = ITEMS.register("moon_globe", () -> new GlobeItem(BlockRegistry.MOON_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/moon_globe.png")));
+    public static final RegistryObject<BlockItem> MARS_GLOBE_ITEM = ITEMS.register("mars_globe", () -> new GlobeItem(BlockRegistry.MARS_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/mars_globe.png")));
+    public static final RegistryObject<BlockItem> MERCURY_GLOBE_ITEM = ITEMS.register("mercury_globe", () -> new GlobeItem(BlockRegistry.MERCURY_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/mercury_globe.png")));
+    public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlockRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/venus_globe.png")));
+    public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(BlockRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/glacio_globe.png")));
 
     /** FLAG ITEMS */
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
@@ -66,19 +66,19 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_YELLOW_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
 
     /** SPACE SUIT ITEMS */
-    public static final RegistryObject<Item> OXYGEN_MASK = ITEMS.register("oxygen_mask", () -> new SpaceSuit.OxygenMask(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal)));
+    public static final RegistryObject<Item> OXYGEN_MASK = ITEMS.register("oxygen_mask", () -> new SpaceSuit.Helmet(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal)));
     public static final RegistryObject<Item> SPACE_SUIT = ITEMS.register("space_suit", () -> new SpaceSuit.Suit(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(Tabs.tab_normal)));
     public static final RegistryObject<Item> SPACE_PANTS = ITEMS.register("space_pants", () -> new SpaceSuit.Pants(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().tab(Tabs.tab_normal)));
     public static final RegistryObject<Item> SPACE_BOOTS = ITEMS.register("space_boots", () -> new SpaceSuit.Boots(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().tab(Tabs.tab_normal)));
 
     /** NETHERITE SPACE SUIT ITEMS */
-    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> new NetheriteSpaceSuit.OxygenMask(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
+    public static final RegistryObject<Item> NETHERITE_OXYGEN_MASK = ITEMS.register("netherite_oxygen_mask", () -> new NetheriteSpaceSuit.Helmet(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> new NetheriteSpaceSuit.Suit(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> new NetheriteSpaceSuit.Pants(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> new NetheriteSpaceSuit.Boots(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
 
     /** JET SUIT ITEMS */
-    public static final RegistryObject<Item> JET_SUIT_OXYGEN_MASK = ITEMS.register("jet_suit_oxygen_mask", () -> new JetSuit.OxygenMask(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
+    public static final RegistryObject<Item> JET_SUIT_OXYGEN_MASK = ITEMS.register("jet_suit_oxygen_mask", () -> new JetSuit.Helmet(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> JET_SUIT = ITEMS.register("jet_suit", () -> new JetSuit.Suit(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> JET_SUIT_PANTS = ITEMS.register("jet_suit_pants", () -> new JetSuit.Pants(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> JET_SUIT_BOOTS = ITEMS.register("jet_suit_boots", () -> new JetSuit.Boots(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));

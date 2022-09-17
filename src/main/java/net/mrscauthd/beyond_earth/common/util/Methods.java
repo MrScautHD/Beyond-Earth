@@ -324,7 +324,7 @@ public class Methods {
             CompoundTag playerTag = serverPlayer.getPersistentData();
 
             /** SET ITEMS IN SLOT */
-            for (int i = 0; i <= 1; i++) {
+            for (int i = 0; i <= landerEntity.getInventory().getSlots() - 1; i++) {
                 CompoundTag compoundTag = playerTag.getList(BeyondEarth.MODID + ":rocket_item_list", Tag.TAG_COMPOUND).getCompound(i);
 
                 if (!compoundTag.isEmpty()) {

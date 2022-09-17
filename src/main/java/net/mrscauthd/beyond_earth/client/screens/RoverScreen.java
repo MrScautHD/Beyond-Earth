@@ -24,13 +24,13 @@ import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 @OnlyIn(Dist.CLIENT)
 public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer> {
 
-	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/screens/rover.png");
-	public static final ResourceLocation FLUID_TANK_TOP = new ResourceLocation(BeyondEarth.MODID, "textures/fluid_tank_top.png");
+	public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/gui/rover.png");
+	public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/fluid_tank_overlay.png");
 
 	public RoverScreen(RoverMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.imageWidth = 176;
-		this.imageHeight = 176;
+		this.imageWidth = 177;
+		this.imageHeight = 181;
 		this.inventoryLabelY = this.imageHeight - 93;
 	}
 
@@ -62,8 +62,8 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
 		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 10, this.topPos + 12, 12, 46, 3000);
 
-		/** FUEL TANK TOP */
-		ScreenHelper.drawTexture(ms, this.leftPos + 9, this.topPos + 11, 14, 48, FLUID_TANK_TOP);
+		/** FUEL TANK OVERLAY */
+		ScreenHelper.drawTexture(ms, this.leftPos + 9, this.topPos + 11, 14, 48, FLUID_TANK_OVERLAY);
 	}
 
 	@Override

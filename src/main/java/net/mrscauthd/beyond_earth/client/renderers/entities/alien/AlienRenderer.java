@@ -10,21 +10,21 @@ import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
 public class AlienRenderer extends MobRenderer<AlienEntity, AlienModel<AlienEntity>> {
 
     /** TEXTURES */
-    public static final ResourceLocation texDefault = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien.png");
+    public static final ResourceLocation ALIEN = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/alien.png");
 
-    public static final ResourceLocation tex1 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien1.png");
-    public static final ResourceLocation tex2 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien2.png");
-    public static final ResourceLocation tex3 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien3.png");
-    public static final ResourceLocation tex4 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien4.png");
-    public static final ResourceLocation tex5 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien5.png");
-    public static final ResourceLocation tex6 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien6.png");
-    public static final ResourceLocation tex7 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien7.png");
-    public static final ResourceLocation tex8 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien8.png");
-    public static final ResourceLocation tex9 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien9.png");
-    public static final ResourceLocation tex10 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien10.png");
-    public static final ResourceLocation tex11 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien11.png");
-    public static final ResourceLocation tex12 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien12.png");
-    public static final ResourceLocation tex13 = new ResourceLocation(BeyondEarth.MODID,"textures/entities/alien/entity_alien13.png");
+    public static final ResourceLocation FARMER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/farmer.png");
+    public static final ResourceLocation FISHERMAN = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/fisherman.png");
+    public static final ResourceLocation SHEPHERD = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/shepherd.png");
+    public static final ResourceLocation FLETCHER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/fletcher.png");
+    public static final ResourceLocation LIBRARIAN = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/librarian.png");
+    public static final ResourceLocation CARTOGRAPHER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/cartographer.png");
+    public static final ResourceLocation CLERIC = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/cleric.png");
+    public static final ResourceLocation ARMORER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/armorer.png");
+    public static final ResourceLocation WEAPON_SMITH = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/weapon_smith.png");
+    public static final ResourceLocation TOOL_SMITH = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/tool_smith.png");
+    public static final ResourceLocation BUTCHER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/butcher.png");
+    public static final ResourceLocation LEATHER_WORKER = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/leather_worker.png");
+    public static final ResourceLocation MASON = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/mason.png");
 
 
     public AlienRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -34,45 +34,45 @@ public class AlienRenderer extends MobRenderer<AlienEntity, AlienModel<AlienEnti
     @Override
     public ResourceLocation getTextureLocation(AlienEntity entity) {
         if (entity.getVillagerData().getProfession() == VillagerProfession.FARMER) {
-            return tex1;
+            return FARMER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.FISHERMAN) {
-            return tex2;
+            return FISHERMAN;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.SHEPHERD) {
-            return tex3;
+            return SHEPHERD;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.FLETCHER) {
-            return tex4;
+            return FLETCHER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.LIBRARIAN) {
-            return tex5;
+            return LIBRARIAN;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.CARTOGRAPHER) {
-            return tex6;
+            return CARTOGRAPHER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.CLERIC) {
-            return tex7;
+            return CLERIC;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.ARMORER) {
-            return tex8;
+            return ARMORER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.WEAPONSMITH) {
-            return tex9;
+            return WEAPON_SMITH;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.TOOLSMITH) {
-            return tex10;
+            return TOOL_SMITH;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.BUTCHER) {
-            return tex11;
+            return BUTCHER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.LEATHERWORKER) {
-            return tex12;
+            return LEATHER_WORKER;
         }
         else if (entity.getVillagerData().getProfession() == VillagerProfession.MASON) {
-            return tex13;
+            return MASON;
         }
 
-        return texDefault;
+        return ALIEN;
     }
 }

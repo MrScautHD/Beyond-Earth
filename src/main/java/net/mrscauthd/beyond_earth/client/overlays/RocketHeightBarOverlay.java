@@ -19,16 +19,16 @@ import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 public class RocketHeightBarOverlay implements IGuiOverlay {
 
     /** PLANET BAR TEXTURES */
-    public static final ResourceLocation MOON_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/moon_planet_bar.png");
-    public static final ResourceLocation MARS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mars_planet_bar.png");
-    public static final ResourceLocation MERCURY_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mercury_planet_bar.png");
-    public static final ResourceLocation VENUS_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/venus_planet_bar.png");
-    public static final ResourceLocation GLACIO_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/glacio_planet_bar.png");
-    public static final ResourceLocation EARTH_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/earth_planet_bar.png");
-    public static final ResourceLocation ORBIT_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/orbit_planet_bar.png");
+    public static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/moon_planet_bar.png");
+    public static final ResourceLocation MARS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mars_planet_bar.png");
+    public static final ResourceLocation MERCURY_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mercury_planet_bar.png");
+    public static final ResourceLocation VENUS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/venus_planet_bar.png");
+    public static final ResourceLocation GLACIO_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/glacio_planet_bar.png");
+    public static final ResourceLocation EARTH_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/earth_planet_bar.png");
+    public static final ResourceLocation ORBIT_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/orbit_planet_bar.png");
 
     /** ROCKET TEXTURE */
-    public static final ResourceLocation ROCKET_PLANET_BAR_TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/rocket.png");
+    public static final ResourceLocation ROCKET = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/rocket.png");
 
     @Override
     public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
@@ -48,19 +48,19 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
             ResourceLocation planet;
 
             if (Methods.isLevel(level, LevelRegistry.MOON)) {
-                planet = MOON_PLANET_BAR_TEXTURE;
+                planet = MOON_PLANET_BAR;
             } else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-                planet = MARS_PLANET_BAR_TEXTURE;
+                planet = MARS_PLANET_BAR;
             } else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-                planet = MERCURY_PLANET_BAR_TEXTURE;
+                planet = MERCURY_PLANET_BAR;
             } else if (Methods.isLevel(level, LevelRegistry.VENUS)) {
-                planet = VENUS_PLANET_BAR_TEXTURE;
+                planet = VENUS_PLANET_BAR;
             } else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-                planet = GLACIO_PLANET_BAR_TEXTURE;
+                planet = GLACIO_PLANET_BAR;
             } else if (Methods.isOrbitLevel(level)) {
-                planet = ORBIT_PLANET_BAR_TEXTURE;
+                planet = ORBIT_PLANET_BAR;
             } else {
-                planet = EARTH_PLANET_BAR_TEXTURE;
+                planet = EARTH_PLANET_BAR;
             }
 
             PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, poseStack, partialTick, width, height);
@@ -75,7 +75,7 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
             gui.blit(poseStack, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
             /** ROCKET_Y IMAGE */
-            RenderSystem.setShaderTexture(0, ROCKET_PLANET_BAR_TEXTURE);
+            RenderSystem.setShaderTexture(0, ROCKET);
             ScreenHelper.renderWithFloat.blit(poseStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
         }
     }

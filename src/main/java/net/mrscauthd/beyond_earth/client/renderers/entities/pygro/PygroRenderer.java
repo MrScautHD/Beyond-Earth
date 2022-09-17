@@ -16,7 +16,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 @OnlyIn(Dist.CLIENT)
 public class PygroRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>> {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entities/pygro.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entity/pygro.png");
 
     public PygroRenderer(EntityRendererProvider.Context p_174344_, ModelLayerLocation p_174345_, ModelLayerLocation p_174346_, ModelLayerLocation p_174347_) {
         super(p_174344_, createModel(p_174344_.getModelSet(), p_174345_), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
