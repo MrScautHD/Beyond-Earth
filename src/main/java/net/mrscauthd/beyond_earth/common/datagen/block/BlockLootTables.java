@@ -1,19 +1,22 @@
 package net.mrscauthd.beyond_earth.common.datagen.block;
 
 import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
+import java.util.stream.Collectors;
+
 public class BlockLootTables extends BlockLoot {
 
     @Override
     protected void addTables() {
+
         /** SELF DROP */
         this.dropSelf(BlockRegistry.ROCKET_LAUNCH_PAD.get());
         this.dropSelf(BlockRegistry.COAL_TORCH_BLOCK.get());
-        this.dropSelf(BlockRegistry.WALL_COAL_TORCH_BLOCK.get());
         this.dropSelf(BlockRegistry.COAL_LANTERN_BLOCK.get());
         this.dropSelf(BlockRegistry.EARTH_GLOBE_BLOCK.get());
         this.dropSelf(BlockRegistry.MOON_GLOBE_BLOCK.get());
@@ -35,24 +38,6 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.FLAG_PURPLE_BLOCK.get());
         this.dropSelf(BlockRegistry.FLAG_RED_BLOCK.get());
         this.dropSelf(BlockRegistry.FLAG_YELLOW_BLOCK.get());
-        this.dropSelf(BlockRegistry.MOON_CHEESE_ORE.get());
-        this.dropSelf(BlockRegistry.MOON_DESH_ORE.get());
-        this.dropSelf(BlockRegistry.MOON_IRON_ORE.get());
-        this.dropSelf(BlockRegistry.MOON_ICE_SHARD_ORE.get());
-        this.dropSelf(BlockRegistry.MARS_IRON_ORE.get());
-        this.dropSelf(BlockRegistry.MARS_DIAMOND_ORE.get());
-        this.dropSelf(BlockRegistry.MARS_OSTRUM_ORE.get());
-        this.dropSelf(BlockRegistry.MARS_ICE_SHARD_ORE.get());
-        this.dropSelf(BlockRegistry.MERCURY_IRON_ORE.get());
-        this.dropSelf(BlockRegistry.VENUS_COAL_ORE.get());
-        this.dropSelf(BlockRegistry.VENUS_GOLD_ORE.get());
-        this.dropSelf(BlockRegistry.VENUS_DIAMOND_ORE.get());
-        this.dropSelf(BlockRegistry.VENUS_CALORITE_ORE.get());
-        this.dropSelf(BlockRegistry.GLACIO_ICE_SHARD_ORE.get());
-        this.dropSelf(BlockRegistry.GLACIO_COAL_ORE.get());
-        this.dropSelf(BlockRegistry.GLACIO_COPPER_ORE.get());
-        this.dropSelf(BlockRegistry.GLACIO_IRON_ORE.get());
-        this.dropSelf(BlockRegistry.GLACIO_LAPIS_ORE.get());
         this.dropSelf(BlockRegistry.MOON_SAND.get());
         this.dropSelf(BlockRegistry.MARS_SAND.get());
         this.dropSelf(BlockRegistry.VENUS_SAND.get());
@@ -101,15 +86,30 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICKS.get());
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICK_SLAB.get());
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICK_STAIRS.get());
-        this.dropSelf(BlockRegistry.FUEL_BLOCK.get());
-        this.dropSelf(BlockRegistry.OIL_BLOCK.get());
 
-        /** ORES */
-        //this.add(BlockRegistry.MOON_ICE_SHARD_ORE.get(), (block) -> createOreDrop(BlockRegistry.MOON_ICE_SHARD_ORE.get(), ItemsRegistry.ICE_SHARD.get()));
+        /** ORE DROP */
+        this.add(BlockRegistry.MOON_CHEESE_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.CHEESE.get()));
+        this.add(BlockRegistry.MOON_DESH_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.RAW_DESH.get()));
+        this.add(BlockRegistry.MOON_IRON_ORE.get(), (block) -> createOreDrop(block, Items.RAW_IRON));
+        this.add(BlockRegistry.MOON_ICE_SHARD_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.ICE_SHARD.get()));
+        this.add(BlockRegistry.MARS_IRON_ORE.get(), (block) -> createOreDrop(block, Items.RAW_IRON));
+        this.add(BlockRegistry.MARS_DIAMOND_ORE.get(), (block) -> createOreDrop(block, Items.DIAMOND));
+        this.add(BlockRegistry.MARS_OSTRUM_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.RAW_OSTRUM.get()));
+        this.add(BlockRegistry.MARS_ICE_SHARD_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.ICE_SHARD.get()));
+        this.add(BlockRegistry.MERCURY_IRON_ORE.get(), (block) -> createOreDrop(block, Items.RAW_IRON));
+        this.add(BlockRegistry.VENUS_COAL_ORE.get(), (block) -> createOreDrop(block, Items.COAL));
+        this.add(BlockRegistry.VENUS_GOLD_ORE.get(), (block) -> createOreDrop(block, Items.RAW_GOLD));
+        this.add(BlockRegistry.VENUS_DIAMOND_ORE.get(), (block) -> createOreDrop(block, Items.DIAMOND));
+        this.add(BlockRegistry.VENUS_CALORITE_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.RAW_CALORITE.get()));
+        this.add(BlockRegistry.GLACIO_ICE_SHARD_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.ICE_SHARD.get()));
+        this.add(BlockRegistry.GLACIO_COAL_ORE.get(), (block) -> createOreDrop(block, Items.COAL));
+        this.add(BlockRegistry.GLACIO_COPPER_ORE.get(), (block) -> createOreDrop(block, Items.RAW_COPPER));
+        this.add(BlockRegistry.GLACIO_IRON_ORE.get(), (block) -> createOreDrop(block, Items.RAW_IRON));
+        this.add(BlockRegistry.GLACIO_LAPIS_ORE.get(), (block) -> createOreDrop(block, Items.LAPIS_LAZULI));
     }
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get)::iterator;
+        return BlockRegistry.BLOCKS.getEntries().stream().map(RegistryObject::get).collect(Collectors.toList());
     }
 }
