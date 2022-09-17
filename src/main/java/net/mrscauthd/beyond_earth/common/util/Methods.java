@@ -94,7 +94,7 @@ public class Methods {
     }
 
     public static boolean isLivingInSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACE_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACE_SUIT.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACE_PANTS.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACE_BOOTS.get())) return false;
@@ -103,7 +103,7 @@ public class Methods {
     }
 
     public static boolean isLivingInNetheriteSpaceSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.NETHERITE_OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.NETHERITE_SPACE_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.NETHERITE_SPACE_PANTS.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.NETHERITE_SPACE_BOOTS.get())) return false;
@@ -112,10 +112,10 @@ public class Methods {
     }
 
     public static boolean isLivingInJetSuit(LivingEntity entity) {
-        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JET_SUIT_OXYGEN_MASK.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JET_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JET_SUIT.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JET_SUIT_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JET_SUIT_BOOTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JET_PANTS.get())) return false;
+        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JET_BOOTS.get())) return false;
 
         return true;
     }

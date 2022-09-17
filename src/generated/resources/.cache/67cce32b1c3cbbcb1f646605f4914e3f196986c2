@@ -1,4 +1,4 @@
-// 1.19.2	2022-09-17T18:23:41.7253943	LootTables
+// 1.19.2	2022-09-17T20:55:57.8944164	LootTables
 b70aaa343610a618186b0b28c0f482261aeb79d5 data/beyond_earth/loot_tables/blocks/blue_iron_plating_block.json
 aac3945ce4a056f95a972cc839913bd42d5caef7 data/beyond_earth/loot_tables/blocks/calorite_block.json
 0577bb020f35515308414143b13e06bc4262e351 data/beyond_earth/loot_tables/blocks/coal_lantern.json
@@ -88,3 +88,11 @@ cc25e903aa436369d12ac6d80283f32cbc661bc2 data/beyond_earth/loot_tables/blocks/ve
 7c1ce500b150708e12a88dcca414b73d1ad61ea0 data/beyond_earth/loot_tables/blocks/venus_stone_bricks.json
 2a4903eb3d1b6e7e96336b2cd084718f5d00f5ea data/beyond_earth/loot_tables/blocks/venus_stone_brick_slab.json
 d8300ba250895663ddd17ab3d4dbd31cedbef337 data/beyond_earth/loot_tables/blocks/venus_stone_brick_stairs.json
+299b6c525494115c836dab9f66c67df7f262af8f data/beyond_earth/loot_tables/chests/meteor.json
+ef017fe8afbc1e704a7cfb4818ece7ba018f9c91 data/beyond_earth/loot_tables/entities/alien.json
+7eb5b15c4282bc3c9e430e124a055a4174de3a81 data/beyond_earth/loot_tables/entities/alien_zombie.json
+64041b49fb7287e412fb2e725ac4f054a911f341 data/beyond_earth/loot_tables/entities/martian_raptor.json
+fc0e35e2828f3df26f79cc63546fca9060024d84 data/beyond_earth/loot_tables/entities/mogler.json
+ef017fe8afbc1e704a7cfb4818ece7ba018f9c91 data/beyond_earth/loot_tables/entities/pygro.json
+ef017fe8afbc1e704a7cfb4818ece7ba018f9c91 data/beyond_earth/loot_tables/entities/pygro_brute.json
+ef017fe8afbc1e704a7cfb4818ece7ba018f9c91 data/beyond_earth/loot_tables/entities/star_crawler.json
