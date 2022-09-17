@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -200,48 +201,34 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 			return;
 		}
 
-		PlanetSelectionScreenHelper.enableRenderSystem();
-
 		/** BACKGROUND RENDERER */
-		ScreenHelper.drawTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE);
-
-		/** SUN SOLAR SYSTEM RENDERER */
-		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
-			PlanetSelectionScreenHelper.addCircle(this.width / 2, this.height / 2, 23.0, 180);
-			PlanetSelectionScreenHelper.addCircle(this.width / 2, this.height / 2, 46.0, 180);
-			PlanetSelectionScreenHelper.addCircle(this.width / 2, this.height / 2, 69.5, 180);
-			PlanetSelectionScreenHelper.addCircle(this.width / 2, this.height / 2, 92.0, 180);
-		}
-
-		/** PROXIMA CENTAURI SOLAR SYSTEM RENDERER */
-		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
-			PlanetSelectionScreenHelper.addCircle(this.width / 2, this.height / 2, 23.0, 180);
-		}
-
-		/** OBJECT ROTATIONS */
-		this.rotateObjects(partialTicks);
-
-		/** ROTATED OBJECTS RENDERER */
-		this.renderRotatedObjects(poseStack);
+		ScreenHelper.drawTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE, false);
 
 		/** SUN RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 7)) {
-			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, SUN_TEXTURE, false);
 		}
+
+		/** OBJECT ROTATIONS */
+		this.rotationCalculator(partialTicks);
+
+		/** RINGS */
+		this.drawRings();
+
+		/** ROTATED OBJECTS RENDERER */
+		this.drawPlanets(poseStack);
 
 		/** SMALL MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 0, 1) || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 6)) {
-			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST);
-			this.renderScroller(poseStack, 92);
+			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST, true);
+			this.drawScroller(poseStack, 92);
 		}
 
 		/** LARGE MENU RENDERER */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5) || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
-			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE);
-			this.renderScroller(poseStack, 210);
+			ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
+			this.drawScroller(poseStack, 210);
 		}
-
-		PlanetSelectionScreenHelper.disableRenderSystem();
 
 		/** RENDER BACKGROUND POST EVENT FOR ADDONS */
 		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenBackgroundRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
@@ -463,43 +450,59 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		MinecraftForge.EVENT_BUS.post(new PlanetSelectionScreenButtonVisibilityEvent.Post(this));
 	}
 
-	public void rotateObjects(float partialTicks) {
+	public void rotationCalculator(float partialTicks) {
 
 		/** SOLAR SYSTEM CATEGORY */
-		this.rotationMilkyWay = (this.rotationMilkyWay + partialTicks * 0.4f) % 360;
+		this.rotationMilkyWay = (this.rotationMilkyWay + partialTicks * 0.4f);
 
 		/** SUN CATEGORY */
-		this.rotationMars = (this.rotationMars + partialTicks * 0.4f) % 360;
-		this.rotationEarth = (this.rotationEarth + partialTicks * 0.8f) % 360;
-		this.rotationVenus = (this.rotationVenus + partialTicks * 0.7f) % 360;
-		this.rotationMercury = (this.rotationMercury + partialTicks * 0.7f) % 360;
+		this.rotationMars = (this.rotationMars + partialTicks * 0.01f);
+		this.rotationEarth = (this.rotationEarth + partialTicks * 0.02f);
+		this.rotationVenus = (this.rotationVenus + partialTicks * 0.02f);
+		this.rotationMercury = (this.rotationMercury + partialTicks * 0.02f);
 
 		/** PROXIMA CENTAURI CATEGORY */
-		this.rotationGlacio = (this.rotationGlacio + partialTicks * 0.7f) % 360;
+		this.rotationGlacio = (this.rotationGlacio + partialTicks * 0.02f);
 	}
 
-	public void renderRotatedObjects(PoseStack poseStack) {
-
-		/** SOLAR SYSTEM CATEGORY */
-		if (this.category.get() == 0) {
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, MILKY_WAY_TEXTURE, -125, -125, 250, 250, this.rotationMilkyWay);
-		}
+	public void drawRings() {
 
 		/** SUN CATEGORY */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, MARS_TEXTURE, -70, -70, 10, 10, this.rotationMars);
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, EARTH_TEXTURE, -54, -54, 10, 10, this.rotationEarth);
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, VENUS_TEXTURE, -37, -37, 10, 10, this.rotationVenus);
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, MERCURY_TEXTURE, -20.5F, -20.5F, 10, 10, this.rotationMercury);
+			PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2, 30, 180, new Vec3(179, 49, 44));
+			PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2, 50, 180, new Vec3(235, 136, 68));
+			PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2, 90, 180, new Vec3(53, 163, 79));
+			PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2, 130, 180, new Vec3(37, 49, 146));
 		}
 
 		/** PROXIMA CENTAURI CATEGORY */
 		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
-			PlanetSelectionScreenHelper.addRotatedObject(this, poseStack, GLACIO_TEXTURE, -20.5F, -20.5F, 10, 10, this.rotationGlacio);
+			PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2, 30, 180, new Vec3(37, 49, 146));
 		}
 	}
 
-	public void renderScroller(PoseStack poseStack, int x) {
+	public void drawPlanets(PoseStack poseStack) {
+
+		/** SOLAR SYSTEM CATEGORY */
+		if (this.category.get() == 0) {
+			PlanetSelectionScreenHelper.drawGalaxy(this, poseStack, MILKY_WAY_TEXTURE, -125, -125, 250, 250, this.rotationMilkyWay);
+		}
+
+		/** SUN CATEGORY */
+		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 5)) {
+			PlanetSelectionScreenHelper.drawPlanet(this, poseStack, MERCURY_TEXT, MERCURY_TEXTURE, 30, 10, 10, this.rotationMercury);
+			PlanetSelectionScreenHelper.drawPlanet(this, poseStack, VENUS_TEXT, VENUS_TEXTURE, 50, 10, 10, this.rotationVenus);
+			PlanetSelectionScreenHelper.drawPlanet(this, poseStack, EARTH_TEXT, EARTH_TEXTURE, 90, 10, 10, this.rotationEarth);
+			PlanetSelectionScreenHelper.drawPlanet(this, poseStack, MARS_TEXT, MARS_TEXTURE, 130, 10, 10, this.rotationMars);
+		}
+
+		/** PROXIMA CENTAURI CATEGORY */
+		if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 7)) {
+			PlanetSelectionScreenHelper.drawPlanet(this, poseStack, GLACIO_TEXT, GLACIO_TEXTURE, 30, 10, 10, this.rotationGlacio);
+		}
+	}
+
+	public void drawScroller(PoseStack poseStack, int x) {
 		if (this.getVisibleButtons(1).size() > this.rowEnd) {
 
 			int buttonStartY = (this.height / 2) - 67 / 2;
@@ -507,7 +510,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 			float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
 
-			ScreenHelper.drawTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE);
+			ScreenHelper.drawTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE, false);
 		}
 	}
 

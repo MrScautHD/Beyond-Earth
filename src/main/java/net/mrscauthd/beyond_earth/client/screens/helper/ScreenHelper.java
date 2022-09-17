@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.client.screens.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -119,6 +118,8 @@ public class ScreenHelper {
             IClientFluidTypeExtensions renderProperties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
 
             TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(renderProperties.getStillTexture());
+
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, sprite.atlas().location());
 
             /** SCISSOR */
@@ -144,28 +145,58 @@ public class ScreenHelper {
     }
 
     /** USE IT TO DRAW VERTICAL */
-    public static void drawVertical(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation) {
+    public static void drawVertical(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation, boolean blend) {
         double ratio = min / max;
         int ratioHeight = (int) Math.ceil(height * ratio);
         int remainHeight = height - ratioHeight;
 
+        if (blend) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resourceLocation);
         GuiComponent.blit(poseStack, leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+
+        if (blend) {
+            RenderSystem.disableBlend();
+        }
     }
 
     /** USE IT TO DRAW HORIZONTAL */
-    public static void drawHorizontal(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation) {
+    public static void drawHorizontal(PoseStack poseStack, int leftPos, int topPos, int width, int height, double min, double max, ResourceLocation resourceLocation, boolean blend) {
         double ratio = min / max;
         int ratioWidth = (int) Math.ceil(width * ratio);
 
+        if (blend) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resourceLocation);
         GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, ratioWidth, height, width, height);
+
+        if (blend) {
+            RenderSystem.disableBlend();
+        }
     }
 
     /** USE IT TO RENDER TEXTURES */
-    public static void drawTexture(PoseStack poseStack, int leftPos, int topPos, int width, int height, ResourceLocation texture) {
+    public static void drawTexture(PoseStack poseStack, int leftPos, int topPos, int width, int height, ResourceLocation texture, boolean blend) {
+        if (blend) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+        }
+
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, width, height, width, height);
+
+        if (blend) {
+            RenderSystem.disableBlend();
+        }
     }
 
     /** USE IT TO CHECK IF MOUSE IN A AREA */

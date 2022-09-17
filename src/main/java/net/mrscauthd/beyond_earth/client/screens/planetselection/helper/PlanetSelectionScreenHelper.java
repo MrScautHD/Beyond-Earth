@@ -4,10 +4,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -66,54 +69,57 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE IT TO RENDER A CIRCLE */
-    public static void addCircle(double x, double y, double radius, int sides) {
+    public static void drawCircle(double x, double y, double radius, int sides, Vec3 color) {
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
+        RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        RenderSystem.setShaderColor(36 / 255.0f, 50 / 255.0f, 123 / 255.0f, 1.0f);
-        RenderSystem.setShader(GameRenderer::getPositionShader);
+        int r = (int) color.x();
+        int g = (int) color.y();
+        int b = (int) color.z();
 
-        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION);
+        bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
 
         double width = radius - 0.5;
         for (double f1 = width; f1 < width + 1; f1 += 0.1) {
 
             for (int f2 = 0; f2 <= sides; f2++) {
                 double angle = (Math.PI * 2 * f2 / sides) + Math.toRadians(180);
-                bufferBuilder.vertex(x + Math.sin(angle) * f1, y + Math.cos(angle) * f1, 0).endVertex();
+                bufferBuilder.vertex(x + Math.sin(angle) * f1, y + Math.cos(angle) * f1, 0).color(r, g, b, 255).endVertex();
             }
         }
-
         BufferUploader.drawWithShader(bufferBuilder.end());
-
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    /** USE THIS TO ROTATE TEXTURES (LIKE PLANETS) */
-    public static void addRotatedObject(PlanetSelectionScreen screen, PoseStack ms, ResourceLocation texture, float x, float y, int width, int height, float rotation) {
+    /** USE THIS TO ROTATE PLANETS */
+    public static void drawPlanet(PlanetSelectionScreen screen, PoseStack ms, Component component, ResourceLocation texture, float distance, int width, int height, float rotation) {
+        float sinTick = (float) Math.sin(rotation);
+        float cosTick = (float) Math.cos(rotation);
+
+        float xPos = ((screen.width / 2) - width / 2) + sinTick * distance ;
+        float yPos = ((screen.height / 2) - height / 2 + cosTick * distance);
+
+        /** TEXTURE */
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, texture);
+        ScreenHelper.renderWithFloat.blit(ms, xPos, yPos, 0, 0, width, height, width, height);
+
+        /** TEXT */
+        Font font = Minecraft.getInstance().font;
+        font.draw(ms, component, xPos - font.width(component) / 3, yPos + 13, 0xFFFFFF);
+    }
+
+    /** USE THIS TO ROTATE GALAXIES */
+    public static void drawGalaxy(PlanetSelectionScreen screen, PoseStack ms, ResourceLocation texture, float x, float y, int width, int height, float rotation) {
         ms.pushPose();
 
         ms.translate(screen.width / 2, screen.height / 2, 0);
         ms.mulPose(new Quaternion(Vector3f.ZP, rotation, true));
 
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         ScreenHelper.renderWithFloat.blit(ms, x, y, 0, 0, width, height, width, height);
 
-        ms.translate(-screen.width / 2, -screen.height / 2, 0);
         ms.popPose();
-    }
-
-    /** USE THIS TO ENABLE THE BLEND SYSTEM */
-    public static void enableRenderSystem() {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-    }
-
-    /** USE THIS TO DISABLE THE BLEND SYSTEM */
-    public static void disableRenderSystem() {
-        RenderSystem.disableBlend();
     }
 
     /** USE THIS TO CHECK THE CATEGORY RANGE */

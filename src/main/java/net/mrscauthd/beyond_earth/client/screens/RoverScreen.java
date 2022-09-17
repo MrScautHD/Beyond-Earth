@@ -50,20 +50,15 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
-
-		/** DEFAULT RENDER SETTINGS */
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
 		/** BACKGROUND */
-		ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE);
+		ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE, false);
 
 		/** FUEL RENDERER */
 		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
 		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 10, this.topPos + 12, 12, 46, 3000);
 
 		/** FUEL TANK OVERLAY */
-		ScreenHelper.drawTexture(ms, this.leftPos + 9, this.topPos + 11, 14, 48, FLUID_TANK_OVERLAY);
+		ScreenHelper.drawTexture(ms, this.leftPos + 9, this.topPos + 11, 14, 48, FLUID_TANK_OVERLAY, false);
 	}
 
 	@Override

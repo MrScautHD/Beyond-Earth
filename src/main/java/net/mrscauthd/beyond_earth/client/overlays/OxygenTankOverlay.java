@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.overlays;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -41,8 +42,9 @@ public class OxygenTankOverlay implements IGuiOverlay {
                 int textureHeight = 52;
 
                 /** DRAW OXYGEN TANK */
-                ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK);
-                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK, false);
+                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL, false);
 
                 /** OXYGEN AMOUNT TEXT */
                 Font font = mc.font;

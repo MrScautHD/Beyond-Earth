@@ -51,20 +51,17 @@ public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContaine
 
 	@Override
 	protected void renderBg(PoseStack ms, float p_98414_, int p_98415_, int p_98416_) {
-
-		/** DEFAULT RENDER SETTINGS */
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-
 		/** BACKGROUND */
-		ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE, false);
 
 		/** FUEL RENDERER */
 		FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
 		ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + 51, this.topPos + 24, 12, 46, 3000);
 
 		/** FUEL TANK OVERLAY */
-		ScreenHelper.drawTexture(ms, this.leftPos + 51, this.topPos + 24, 12, 46, FLUID_TANK_OVERLAY);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		ScreenHelper.drawTexture(ms, this.leftPos + 51, this.topPos + 24, 12, 46, FLUID_TANK_OVERLAY, false);
 	}
 
 	@Override
