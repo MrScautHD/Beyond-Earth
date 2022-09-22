@@ -34,12 +34,6 @@ public class Tabs {
 			return new ItemStack(ItemsRegistry.IRON_PLATE.get(), 1);
 		}
 	};
-	public static CreativeModeTab tab_flags = new CreativeModeTab("tab_flags") {
-		@Override
-		public ItemStack makeIcon() {
-			return new ItemStack(BlockRegistry.FLAG_PURPLE_BLOCK.get(), 1);
-		}
-	};
 	public static CreativeModeTab tab_globes = new CreativeModeTab("tab_globes") {
 		@Override
 		public ItemStack makeIcon() {

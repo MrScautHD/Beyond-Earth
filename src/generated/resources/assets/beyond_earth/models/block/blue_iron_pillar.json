@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "beyond_earth:block/decoration/blue_iron_pillar_end",
+    "side": "beyond_earth:block/decoration/blue_iron_pillar_side"
+  }
+}

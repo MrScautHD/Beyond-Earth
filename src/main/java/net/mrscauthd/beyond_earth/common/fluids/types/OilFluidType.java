@@ -66,8 +66,8 @@ public class OilFluidType extends FluidType {
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
             private static final ResourceLocation UNDERWATER_LOCATION = new ResourceLocation(BeyondEarth.MODID, "textures/block/fluids/under_oil.png");
-            private static final ResourceLocation WATER_STILL = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fluid_oil_still");
-            private static final ResourceLocation WATER_FLOW = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fluid_oil_flow");
+            private static final ResourceLocation WATER_STILL = new ResourceLocation(BeyondEarth.MODID, "block/fluids/oil_still");
+            private static final ResourceLocation WATER_FLOW = new ResourceLocation(BeyondEarth.MODID, "block/fluids/oil_flow");
             private static final ResourceLocation WATER_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "block/fluids/oil_overlay");
 
             @Override

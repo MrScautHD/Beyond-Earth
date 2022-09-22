@@ -61,11 +61,11 @@ public class InfernalSpireColumn extends Feature<ColumnFeatureConfiguration> {
 
                 for(BlockPos.MutableBlockPos blockpos$mutableblockpos = blockpos1.mutable(); j >= 0; --j) {
                     if (isAirOrLavaOcean(p_65168_, p_65169_, blockpos$mutableblockpos)) {
-                        this.setBlock(p_65168_, blockpos$mutableblockpos, BlockRegistry.INFERNAL_SPIRE_BLOCK.get().defaultBlockState());
+                        this.setBlock(p_65168_, blockpos$mutableblockpos, BlockRegistry.INFERNAL_SPIRE.get().defaultBlockState());
                         blockpos$mutableblockpos.move(Direction.UP);
                         flag = true;
                     } else {
-                        if (!p_65168_.getBlockState(blockpos$mutableblockpos).is(BlockRegistry.INFERNAL_SPIRE_BLOCK.get())) {
+                        if (!p_65168_.getBlockState(blockpos$mutableblockpos).is(BlockRegistry.INFERNAL_SPIRE.get())) {
                             break;
                         }
 

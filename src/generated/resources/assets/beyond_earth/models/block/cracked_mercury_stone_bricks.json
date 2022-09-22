@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "beyond_earth:block/mercury/cracked_mercury_stone_bricks"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "beyond_earth:template/globe",
+  "textures": {
+    "particle": "beyond_earth:block/globes/earth_globe"
+  }
+}

@@ -49,22 +49,6 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> VENUS_GLOBE_ITEM = ITEMS.register("venus_globe", () -> new GlobeItem(BlockRegistry.VENUS_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/venus_globe.png")));
     public static final RegistryObject<BlockItem> GLACIO_GLOBE_ITEM = ITEMS.register("glacio_globe", () -> new GlobeItem(BlockRegistry.GLACIO_GLOBE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_globes).rarity(Rarity.EPIC).stacksTo(1), new ResourceLocation(BeyondEarth.MODID, "textures/block/globes/glacio_globe.png")));
 
-    /** FLAG ITEMS */
-    public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_BLUE_ITEM = ITEMS.register("flag_blue", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BLUE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_BROWN_ITEM = ITEMS.register("flag_brown", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BROWN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_CYAN_ITEM = ITEMS.register("flag_cyan", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_CYAN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_GRAY_ITEM = ITEMS.register("flag_gray", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_GRAY_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_GREEN_ITEM = ITEMS.register("flag_green", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_GREEN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_LIGHT_BLUE_ITEM = ITEMS.register("flag_light_blue", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_LIGHT_BLUE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_LIME_ITEM = ITEMS.register("flag_lime", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_LIME_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_MAGENTA_ITEM = ITEMS.register("flag_magenta", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_MAGENTA_BLOCk.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_ORANGE_ITEM = ITEMS.register("flag_orange", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_ORANGE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_PINK_ITEM = ITEMS.register("flag_pink", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_PINK_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_PURPLE_ITEM = ITEMS.register("flag_purple", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_PURPLE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_RED_ITEM = ITEMS.register("flag_red", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_RED_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-    public static final RegistryObject<Item> FLAG_YELLOW_ITEM = ITEMS.register("flag_yellow", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_YELLOW_BLOCK.get(), new Item.Properties().tab(Tabs.tab_flags)));
-
     /** SPACE SUIT ITEMS */
     public static final RegistryObject<Item> SPACE_HELMET = ITEMS.register("space_helmet", () -> new SpaceSuit.Helmet(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().tab(Tabs.tab_normal)));
     public static final RegistryObject<Item> SPACE_SUIT = ITEMS.register("space_suit", () -> new SpaceSuit.Suit(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(Tabs.tab_normal)));
@@ -82,6 +66,12 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> JET_SUIT = ITEMS.register("jet_suit", () -> new JetSuit.Suit(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> JET_PANTS = ITEMS.register("jet_pants", () -> new JetSuit.Pants(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
     public static final RegistryObject<Item> JET_BOOTS = ITEMS.register("jet_boots", () -> new JetSuit.Boots(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().tab(Tabs.tab_normal).fireResistant()));
+
+
+    public static final RegistryObject<BlockItem> ROCKET_LAUNCH_PAD_ITEM = ITEMS.register("rocket_launch_pad", () -> new BlockItem(BlockRegistry.ROCKET_LAUNCH_PAD.get(), new Item.Properties().tab(Tabs.tab_normal)));
+
+    public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BLOCK.get(), new Item.Properties().tab(Tabs.tab_normal)));
+
 
     /** NORMAL ITEMS */
     // SPECIAL ITEMS
@@ -138,7 +128,6 @@ public class ItemsRegistry {
     /** BLOCK ITEMS */
 
     // SPECIAL BLOCK ITEMS
-    public static final RegistryObject<BlockItem> ROCKET_LAUNCH_PAD_ITEM = ITEMS.register("rocket_launch_pad", () -> new BlockItem(BlockRegistry.ROCKET_LAUNCH_PAD.get(), new Item.Properties().tab(Tabs.tab_normal)));
     public static final RegistryObject<BlockItem> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlockRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_basics)));
 
     //MACHINE BLOCK ITEMS
@@ -164,12 +153,12 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> RAW_OSTRUM_BLOCK_ITEM = ITEMS.register("raw_ostrum_block", () -> new BlockItem(BlockRegistry.RAW_OSTRUM_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> RAW_CALORITE_BLOCK_ITEM = ITEMS.register("raw_calorite_block", () -> new BlockItem(BlockRegistry.RAW_CALORITE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> IRON_PLATING_BLOCK_ITEM = ITEMS.register("iron_plating_block", () -> new BlockItem(BlockRegistry.IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> RUSTED_IRON_PILLAR_BLOCK_ITEM = ITEMS.register("rusted_iron_pillar_block", () -> new BlockItem(BlockRegistry.RUSTED_IRON_PILLAR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> RUSTED_IRON_PLATING_BLOCK_ITEM = ITEMS.register("rusted_iron_plating_block", () -> new BlockItem(BlockRegistry.RUSTED_IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> BLUE_IRON_PLATING_BLOCK_ITEM = ITEMS.register("blue_iron_plating_block", () -> new BlockItem(BlockRegistry.BLUE_IRON_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> INFERNAL_SPIRE_BLOCK_ITEM = ITEMS.register("infernal_spire_block", () -> new BlockItem(BlockRegistry.INFERNAL_SPIRE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> IRON_MARK_BLOCK_ITEM = ITEMS.register("iron_mark_block", () -> new BlockItem(BlockRegistry.IRON_MARK_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
-    public static final RegistryObject<BlockItem> SKY_STONE_ITEM = ITEMS.register("sky_stone", () -> new BlockItem(BlockRegistry.SKY_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> DESH_PILLAR_BLOCK_ITEM = ITEMS.register("desh_pillar", () -> new BlockItem(BlockRegistry.DESH_PILLAR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> DESH_PLATING_BLOCK_ITEM = ITEMS.register("desh_plating_block", () -> new BlockItem(BlockRegistry.DESH_PLATING_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> BLUE_IRON_PILLAR_BLOCK_ITEM = ITEMS.register("blue_iron_pillar", () -> new BlockItem(BlockRegistry.BLUE_IRON_PILLAR.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> INFERNAL_SPIRE_ITEM = ITEMS.register("infernal_spire", () -> new BlockItem(BlockRegistry.INFERNAL_SPIRE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> BARRICADE_BLOCK_ITEM = ITEMS.register("barricade_block", () -> new BlockItem(BlockRegistry.BARRICADE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> METEORITE_ITEM = ITEMS.register("meteorite", () -> new BlockItem(BlockRegistry.METEORITE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
     // MOON BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_STONE_ITEM = ITEMS.register("moon_stone", () -> new BlockItem(BlockRegistry.MOON_STONE.get(), new Item.Properties().tab(Tabs.tab_blocks)));

@@ -37,8 +37,8 @@ public class FuelFluidType extends FluidType {
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
             private static final ResourceLocation UNDER_FLUID = new ResourceLocation(BeyondEarth.MODID, "textures/block/fluids/under_fuel.png");
-            private static final ResourceLocation FLUID_STILL = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fluid_fuel_still");
-            private static final ResourceLocation FLUID_FLOW = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fluid_fuel_flow");
+            private static final ResourceLocation FLUID_STILL = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fuel_still");
+            private static final ResourceLocation FLUID_FLOW = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fuel_flow");
             private static final ResourceLocation FLUID_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "block/fluids/fuel_overlay");
 
             @Override
