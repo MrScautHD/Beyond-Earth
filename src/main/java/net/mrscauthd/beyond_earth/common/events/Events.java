@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.common.events;
 
-import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,7 +20,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.*;
-import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 import net.mrscauthd.beyond_earth.common.util.*;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
@@ -164,23 +162,7 @@ public class Events {
     public static void livingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
         Level level = entity.level;
-
-        /** PLANET FALL DISTANCE */
-        if (Methods.isLevel(level, LevelRegistry.MOON)) {
-            event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-            event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-            event.setDistance(event.getDistance() - 5.0F);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-            event.setDistance(event.getDistance() - 5.5F);
-        }
-        else if (Methods.isOrbitLevel(level)) {
-            event.setDistance(event.getDistance() - 8.5F);
-        }
+        event.setDistance(event.getDistance() - Planets.getFallModifier(level));
     }
 
     @SubscribeEvent

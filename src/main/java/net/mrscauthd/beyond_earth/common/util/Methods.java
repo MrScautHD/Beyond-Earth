@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.common.util;
 
-import com.mojang.datafixers.util.Pair;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -42,6 +41,7 @@ import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
 import net.mrscauthd.beyond_earth.common.registries.*;
+import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 
@@ -142,7 +142,7 @@ public class Methods {
     }
 
     public static boolean isOrbitLevel(Level level) {
-        return LevelRegistry.ORBIT_LEVELS.contains(level.dimension());
+        return Planets.PLANETS_BY_ORBIT.containsKey(level.dimension());
     }
 
     public static boolean isLevel(Level level, ResourceKey<Level> loc) {
@@ -390,21 +390,18 @@ public class Methods {
     public static void entityFallWithLanderToPlanet(Entity entity, Level level) {
         if (entity.getVehicle().getY() < 1) {
 
-            for (Pair<ResourceKey<Level>, ResourceKey<Level>> levelPair : LevelRegistry.LEVELS_WITH_ORBIT) {
-                if (Methods.isLevel(level, levelPair.getSecond())) {
-                    teleportWithEntityTo(entity, entity.getVehicle(), levelPair.getFirst(), 700);
-                }
+            Planet planet = Planets.getLocationForOrbit(level);
+            if(planet!=null) {
+                teleportWithEntityTo(entity, entity.getVehicle(), planet.planet, 700);
             }
         }
     }
 
     public static void entityFallToPlanet(Entity entity, Level level) {
         if (entity.getY() < 1) {
-
-            for (Pair<ResourceKey<Level>, ResourceKey<Level>> levelPair : LevelRegistry.LEVELS_WITH_ORBIT) {
-                if (Methods.isLevel(level, levelPair.getSecond())) {
-                    Methods.teleportTo(entity, levelPair.getFirst(), 550);
-                }
+            Planet planet = Planets.getLocationForOrbit(level);
+            if(planet!=null) {
+                Methods.teleportTo(entity, planet.planet, 550);
             }
         }
     }
