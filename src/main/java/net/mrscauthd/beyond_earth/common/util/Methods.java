@@ -388,7 +388,7 @@ public class Methods {
     }
 
     public static void entityFallWithLanderToPlanet(Entity entity, Level level) {
-        if (entity.getVehicle().getY() < 1) {
+        if (entity.getVehicle().getY() < level.getMinBuildHeight() + 1) {
 
             Planet planet = Planets.getLocationForOrbit(level);
             if(planet!=null) {
@@ -398,7 +398,7 @@ public class Methods {
     }
 
     public static void entityFallToPlanet(Entity entity, Level level) {
-        if (entity.getY() < 1) {
+        if (entity.getY() < level.getMinBuildHeight() + 1) {
             Planet planet = Planets.getLocationForOrbit(level);
             if(planet!=null) {
                 Methods.teleportTo(entity, planet.planet, 550);
