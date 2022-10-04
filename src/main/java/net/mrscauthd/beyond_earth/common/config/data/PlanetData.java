@@ -64,7 +64,7 @@ public class PlanetData {
         // Rotation in the gui
         public float rotation = 0;
         // Orbit line colour
-        public int[] colour = { 255, 255, 255 };
+        public int[] orbit_colour = { 255, 255, 255 };
         // Planet button tier
         public int tier = 0;
 
@@ -92,6 +92,8 @@ public class PlanetData {
             this.space_level = planet.spaceLevel;
             this.has_rain = planet.hasRain;
             this.tier = planet.tier;
+
+            this.orbit_colour = planet.orbitColour;
 
             if (planet.planetBar != null)
                 this.planet_bar = planet.planetBar.toString();
@@ -133,7 +135,7 @@ public class PlanetData {
             planet.hasRain = this.has_rain;
             planet.spaceLevel = this.space_level;
             planet.tier = this.tier;
-            
+            planet.orbitColour = this.orbit_colour;
 
             if (parent != null)
                 parent.moons.add(planet);

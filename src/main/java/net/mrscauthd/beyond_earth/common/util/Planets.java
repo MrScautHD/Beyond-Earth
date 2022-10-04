@@ -127,7 +127,7 @@ public class Planets {
         mercury.tier = 3;
         mercury.g = 0.38f;
         mercury.temperature = 430;
-        mercury.colour = new int[] { 179, 49, 44 };
+        mercury.orbitColour = new int[] { 179, 49, 44 };
         Planet venus = BY_DIMENSION.get(LevelRegistry.VENUS);
         venus.orbitRadius = 0.72f;
         venus.mass = 0.81f;
@@ -136,7 +136,7 @@ public class Planets {
         venus.tier = 3;
         venus.g = 0.904f;
         venus.temperature = 482;
-        venus.colour = new int[] { 235, 136, 68 };
+        venus.orbitColour = new int[] { 235, 136, 68 };
         Planet earth = BY_DIMENSION.get(LevelRegistry.EARTH);
         earth.texture = EARTH_TEXTURE;
         earth.rotation = 90;
@@ -144,7 +144,7 @@ public class Planets {
         earth.hasOxygen = true;
         earth.spaceLevel = false;
         earth.hasRain = true;
-        earth.colour = new int[] { 53, 163, 79 };
+        earth.orbitColour = new int[] { 53, 163, 79 };
         Planet mars = BY_DIMENSION.get(LevelRegistry.MARS);
         mars.orbitRadius = 1.52f;
         mars.mass = 0.107f;
@@ -153,7 +153,7 @@ public class Planets {
         mars.g = 0.3794f;
         mars.temperature = -63;
         mars.hasRain = true;
-        mars.colour = new int[] { 37, 49, 146 };
+        mars.orbitColour = new int[] { 37, 49, 146 };
 
         Planet moon = BY_DIMENSION.get(LevelRegistry.MOON);
         moon.g = 0.1654f;
@@ -178,7 +178,7 @@ public class Planets {
         glacio.g = 0.3794f;
         glacio.temperature = -20;
         glacio.hasRain = true;
-        glacio.colour = new int[] { 37, 49, 146 };
+        glacio.orbitColour = new int[] { 37, 49, 146 };
         proxima_centauri.planets.add(glacio);
         proxima_centauri.register();
 
@@ -372,7 +372,7 @@ public class Planets {
         public ResourceLocation texture;
         public Component description;
         public float rotation = 0;
-        public int[] colour = { 255, 255, 255 };
+        public int[] orbitColour = { 255, 255, 255 };
         // Planet button tier
         public int tier = 0;
         public int button_category = -1;

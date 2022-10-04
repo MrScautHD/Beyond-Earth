@@ -393,7 +393,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
                             if (planet.description == null) {
                                 planet.description = PlanetSelectionScreenHelper.tl(planet.name);
                             }
-                            Vec3 colour = new Vec3(planet.colour[0], planet.colour[1], planet.colour[2]);
+                            Vec3 colour = new Vec3(planet.orbitColour[0], planet.orbitColour[1], planet.orbitColour[2]);
                             PlanetSelectionScreenHelper.drawCircle(this.width / 2, this.height / 2,
                                     90 * Mth.sqrt(planet.orbitRadius), 180, colour);
                         });
