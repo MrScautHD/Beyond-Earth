@@ -18,6 +18,9 @@ public class Config {
 	/** Entity Systems */
 	public static final ForgeConfigSpec.ConfigValue<Boolean> PLAYER_OXYGEN_SYSTEM;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> ENTITY_OXYGEN_SYSTEM;
+	
+        /** Steel Management */
+        public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
 
 	static {
 		BUILDER.push("Beyond Earth Config");
@@ -36,6 +39,12 @@ public class Config {
 		ENTITY_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Entity Oxygen System").define("Entity Oxygen System", true);
 
 		BUILDER.pop();
+		
+
+                /** Steel Management */
+                STEEL_MANAGEMENT = BUILDER.comment("Management Steel Items", "0: Default, Nothing special, Use steel items as-is", "1: Iron Ingot can't blasting into be steel ingot", "2: Additionally, Steel Block and Ingot and Nugget are can't conversion to each shape", "    And hide Steel Block, Ingot, Nugget in JEI").defineInRange("Steel Management", 0, 0, 2);
+
+                BUILDER.pop();
 		SPEC = BUILDER.build();
 	}
 }
