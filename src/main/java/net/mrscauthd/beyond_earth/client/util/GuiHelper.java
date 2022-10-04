@@ -27,27 +27,27 @@ import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
 public class GuiHelper {
 
-    public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/fire_on.png");
+    public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/fire_full.png");
     public static final int FIRE_WIDTH = 14;
     public static final int FIRE_HEIGHT = 14;
     public static final ResourceLocation ARROW_PATH = new ResourceLocation(BeyondEarth.MODID,
-            "textures/animated_arrow_full.png");
+            "textures/gui/util/arrow_full.png");
     public static final int ARROW_WIDTH = 24;
     public static final int ARROW_HEIGHT = 17;
     public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(BeyondEarth.MODID,
-            "textures/oxygen.png");
+            "textures/gui/util/oxygen.png");
     public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BeyondEarth.MODID,
-            "textures/fluid_tank_fore.png");
+            "textures/gui/util/fluid_tank_overlay.png");
     public static final int OXYGEN_TANK_WIDTH = 14;
     public static final int OXYGEN_TANK_HEIGHT = 48;
     public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BeyondEarth.MODID,
-            "textures/energy_full.png");
+            "textures/gui/util/energy_full.png");
     public static final int ENERGY_WIDTH = 24;
-    public static final int ENERGY_HEIGHT = 48;
+    public static final int ENERGY_HEIGHT = 46;
     public static final int FUEL_WIDTH = 48;
     public static final int FUEL_HEIGHT = 48;
     public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(BeyondEarth.MODID,
-            "textures/fluid_tank_fore.png");
+            "textures/gui/util/fluid_tank_overlay.png");
     public static final int FLUID_TANK_WIDTH = 14;
     public static final int FLUID_TANK_HEIGHT = 48;
 
@@ -104,7 +104,7 @@ public class GuiHelper {
     }
 
     public static void drawFuel(PoseStack matrixStack, int left, int top, double ratio) {
-        ResourceLocation full = new ResourceLocation(BeyondEarth.MODID, "textures/rocket_fuel_bar_full.png");
+        ResourceLocation full = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/rocket_fuel_bar_full.png");
         drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
     }
 

@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -18,6 +19,11 @@ public class Config {
 	/** Entity Systems */
 	public static final ForgeConfigSpec.ConfigValue<Boolean> PLAYER_OXYGEN_SYSTEM;
 	public static final ForgeConfigSpec.ConfigValue<Boolean> ENTITY_OXYGEN_SYSTEM;
+	
+        /** Machines */
+        public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_GENERATION;
+        public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_TRANSFER;
 	
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
@@ -38,9 +44,20 @@ public class Config {
 		PLAYER_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Player Oxygen System").define("Player Oxygen System", true);
 		ENTITY_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Entity Oxygen System").define("Entity Oxygen System", true);
 
-		BUILDER.pop();
+                BUILDER.pop();
+		
+	              /** Machines */
+                BUILDER.push("Machines");
+
+                BUILDER.push("Coal Generator");
+                COAL_GENERATOR_ENERGY_GENERATION = BUILDER.comment("Set energy generation per tick, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyGeneration", CoalGeneratorBlockEntity.DEFAULT_ENERGY_USAGE);
+                COAL_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                COAL_GENERATOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                BUILDER.pop();
+                BUILDER.pop();
 		
 
+                BUILDER.push("Steel");
                 /** Steel Management */
                 STEEL_MANAGEMENT = BUILDER.comment("Management Steel Items", "0: Default, Nothing special, Use steel items as-is", "1: Iron Ingot can't blasting into be steel ingot", "2: Additionally, Steel Block and Ingot and Nugget are can't conversion to each shape", "    And hide Steel Block, Ingot, Nugget in JEI").defineInRange("Steel Management", 0, 0, 2);
 
