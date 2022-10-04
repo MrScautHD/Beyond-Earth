@@ -1,122 +1,152 @@
 package net.mrscauthd.beyond_earth.common.menus.nasaworkbench;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ResultContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.IContainerFactory;
+import net.mrscauthd.beyond_earth.common.blocks.entities.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.common.crafting.WorkbenchingRecipe;
+import net.mrscauthd.beyond_earth.common.inventory.RocketPartsItemHandler;
+import net.mrscauthd.beyond_earth.common.menus.helper.GridPlacer;
+import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
+import net.mrscauthd.beyond_earth.common.registries.RocketPartsRegistry;
+
 //TODO NEED FULL REWORK (GENEREL ALL MACHINE BLOCKS GUIS)
 public class NasaWorkbenchMenu {
-/*
-	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
-		public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
-			BlockPos pos = extraData.readBlockPos();
-			NASAWorkbenchBlockEntity blockEntity = (NASAWorkbenchBlockEntity) inv.player.level.getBlockEntity(pos);
-			return new GuiContainer(id, inv, blockEntity);
-		}
-	}
 
-	public static class GuiContainer extends AbstractContainerMenu {
-		private NASAWorkbenchBlockEntity blockEntity;
-		private ResultContainer resultInventory;
-		private Slot resultSlot;
-		private int partSlotStart = 0;
-		private int partSlotEnd = 0;
+    public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
+        public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
+            BlockPos pos = extraData.readBlockPos();
+            NASAWorkbenchBlockEntity blockEntity = (NASAWorkbenchBlockEntity) inv.player.level.getBlockEntity(pos);
+            return new GuiContainer(id, inv, blockEntity);
+        }
+    }
 
-		public GuiContainer(int id, Inventory inv, NASAWorkbenchBlockEntity blockEntity) {
-			super(ScreensRegistry.NASA_WORKBENCH_GUI.get(), id);
-			this.blockEntity = blockEntity;
+    public static class GuiContainer extends AbstractContainerMenu {
+        private NASAWorkbenchBlockEntity blockEntity;
+        private ResultContainer resultInventory;
+        private Slot resultSlot;
+        private int partSlotStart = 0;
+        private int partSlotEnd = 0;
 
-			this.resultInventory = new ResultContainer() {
-				@Override
-				public ItemStack removeItem(int p_40149_, int p_40150_) {
-					ItemStack stack = super.removeItem(p_40149_, p_40150_);
-					GuiContainer.this.onExtractResult(stack);
-					return stack;
-				}
+        public GuiContainer(int id, Inventory inv, NASAWorkbenchBlockEntity blockEntity) {
+            super(ContainerRegistry.NASA_WORKBENCH_GUI.get(), id);
+            this.blockEntity = blockEntity;
 
-				@Override
-				public ItemStack removeItemNoUpdate(int p_40160_) {
-					ItemStack stack = super.removeItemNoUpdate(p_40160_);
-					GuiContainer.this.onExtractResult(stack);
-					return stack;
-				}
-			};
+            this.resultInventory = new ResultContainer() {
+                @Override
+                public ItemStack removeItem(int p_40149_, int p_40150_) {
+                    ItemStack stack = super.removeItem(p_40149_, p_40150_);
+                    GuiContainer.this.onExtractResult(stack);
+                    return stack;
+                }
 
-			this.resultSlot = this.addSlot(new NasaWorkbenchResultSlot(this.resultInventory, 0, 133, 74, blockEntity));
+                @Override
+                public ItemStack removeItemNoUpdate(int p_40160_) {
+                    ItemStack stack = super.removeItemNoUpdate(p_40160_);
+                    GuiContainer.this.onExtractResult(stack);
+                    return stack;
+                }
+            };
 
-			this.partSlotStart = this.slots.size();
+            this.resultSlot = this.addSlot(new NasaWorkbenchResultSlot(this.resultInventory, 0, 128, 56, blockEntity));
 
-			RocketPartsItemHandler partsItemHandler = blockEntity.getPartsItemHandler();
-			GridPlacer placer = new GridPlacer();
-			RocketPartGridPlacer.placeContainer(40, 18, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 36, 2, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_BODY.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(31, 90, 1, placer::placeRight, RocketPartsRegistry.ROCKET_PART_TANK.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(13, 90, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(67, 90, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
-			RocketPartGridPlacer.placeContainer(40, 108, 1, placer::placeBottom, RocketPartsRegistry.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
+            this.partSlotStart = this.slots.size();
 
-			this.partSlotEnd = this.slots.size();
+            RocketPartsItemHandler partsItemHandler = blockEntity.getPartsItemHandler();
+            GridPlacer placer = new GridPlacer();
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 142, this::addSlot);
-		}
+            int dx = 15;
+            int dy = 2;
 
-		private void onExtractResult(ItemStack stack) {
-			NASAWorkbenchBlockEntity blockEntity = this.getBlockEntity();
+            RocketPartGridPlacer.placeContainer(40 + dx, 18 + dy, 1, placer::placeBottom,
+                    RocketPartsRegistry.ROCKET_PART_NOSE.get(), partsItemHandler, this::addSlot);
+            RocketPartGridPlacer.placeContainer(31 + dx, 36 + dy, 2, placer::placeBottom,
+                    RocketPartsRegistry.ROCKET_PART_BODY.get(), partsItemHandler, this::addSlot);
+            RocketPartGridPlacer.placeContainer(31 + dx, 90 + dy, 1, placer::placeRight,
+                    RocketPartsRegistry.ROCKET_PART_TANK.get(), partsItemHandler, this::addSlot);
+            RocketPartGridPlacer.placeContainer(13 + dx, 90 + dy, 1, placer::placeBottom,
+                    RocketPartsRegistry.ROCKET_PART_FIN_LEFT.get(), partsItemHandler, this::addSlot);
+            RocketPartGridPlacer.placeContainer(67 + dx, 90 + dy, 1, placer::placeBottom,
+                    RocketPartsRegistry.ROCKET_PART_FIN_RIGHT.get(), partsItemHandler, this::addSlot);
+            RocketPartGridPlacer.placeContainer(40 + dx, 108 + dy, 1, placer::placeBottom,
+                    RocketPartsRegistry.ROCKET_PART_ENGINE.get(), partsItemHandler, this::addSlot);
 
-			if (!stack.isEmpty() && blockEntity.cacheRecipes() != null) {
-				blockEntity.consumeIngredient();
-			}
-		}
+            this.partSlotEnd = this.slots.size();
 
-		@Override
-		public void broadcastChanges() {
-			super.broadcastChanges();
+            MenuHelper.createInventorySlots(inv, this::addSlot, 8, 142);
+        }
 
-			WorkbenchingRecipe recipe = this.getBlockEntity().cacheRecipes();
+        private void onExtractResult(ItemStack stack) {
+            NASAWorkbenchBlockEntity blockEntity = this.getBlockEntity();
 
-			this.resultSlot.set(recipe != null ? recipe.getOutput() : ItemStack.EMPTY);
-		}
+            if (!stack.isEmpty() && blockEntity.cacheRecipes() != null) {
+                blockEntity.consumeIngredient();
+            }
+        }
 
-		@Override
-		public boolean stillValid(Player p_38874_) {
-			return !this.getBlockEntity().isRemoved();
-		}
+        @Override
+        public void broadcastChanges() {
+            super.broadcastChanges();
 
-		@Override
-		public ItemStack quickMoveStack(Player playerIn, int slotNumber) {
-			if (this.partSlotStart <= slotNumber && slotNumber < this.partSlotEnd) {
-				return ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, slotNumber - this.partSlotStart, this.getBlockEntity(), this::moveItemStackTo);
-			} else if (slotNumber == this.resultSlot.index) {
-				Slot slot = this.getSlot(slotNumber);
-				ItemStack prev = slot.getItem().copy();
-				ItemStack itemStack = ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, this.getBlockEntity(), this::moveItemStackTo);
+            WorkbenchingRecipe recipe = this.getBlockEntity().cacheRecipes();
 
-				if (slotNumber == this.resultSlot.index) {
-					ItemStack next = slot.getItem().copy();
+            this.resultSlot.set(recipe != null ? recipe.getOutput() : ItemStack.EMPTY);
+        }
 
-					if (!prev.isEmpty()) {
-						int nextSize = next.isEmpty() ? 0 : next.getCount();
+        @Override
+        public boolean stillValid(Player p_38874_) {
+            return !this.getBlockEntity().isRemoved();
+        }
 
-						if (nextSize > 0) {
-							playerIn.drop(next, false);
-							slot.set(ItemStack.EMPTY);
-						}
-					}
-					this.onExtractResult(prev);
-				}
+        @Override
+        public ItemStack quickMoveStack(Player playerIn, int slotNumber) {
+            if (this.partSlotStart <= slotNumber && slotNumber < this.partSlotEnd) {
+                return MenuHelper.transferStackInSlot(this, playerIn, slotNumber, slotNumber - this.partSlotStart,
+                        this.getBlockEntity(), this::moveItemStackTo);
+            } else if (slotNumber == this.resultSlot.index) {
+                Slot slot = this.getSlot(slotNumber);
+                ItemStack prev = slot.getItem().copy();
+                ItemStack itemStack = MenuHelper.transferStackInSlot(this, playerIn, slotNumber, this.getBlockEntity(),
+                        this::moveItemStackTo);
 
-				return itemStack;
-			} else {
-				return ContainerHelper.transferStackInSlot(this, playerIn, slotNumber, this.getBlockEntity(), this::moveItemStackTo);
-			}
-		}
+                if (slotNumber == this.resultSlot.index) {
+                    ItemStack next = slot.getItem().copy();
 
-		public NASAWorkbenchBlockEntity getBlockEntity() {
-			return this.blockEntity;
-		}
+                    if (!prev.isEmpty()) {
+                        int nextSize = next.isEmpty() ? 0 : next.getCount();
 
-		public ResultContainer getResultInventory() {
-			return this.resultInventory;
-		}
+                        if (nextSize > 0) {
+                            playerIn.drop(next, false);
+                            slot.set(ItemStack.EMPTY);
+                        }
+                    }
+                    this.onExtractResult(prev);
+                }
 
-		public Slot getResultSlot() {
-			return this.resultSlot;
-		}
-	}*/
+                return itemStack;
+            } else {
+                return MenuHelper.transferStackInSlot(this, playerIn, slotNumber, this.getBlockEntity(),
+                        this::moveItemStackTo);
+            }
+        }
+
+        public NASAWorkbenchBlockEntity getBlockEntity() {
+            return this.blockEntity;
+        }
+
+        public ResultContainer getResultInventory() {
+            return this.resultInventory;
+        }
+
+        public Slot getResultSlot() {
+            return this.resultSlot;
+        }
+    }
 }

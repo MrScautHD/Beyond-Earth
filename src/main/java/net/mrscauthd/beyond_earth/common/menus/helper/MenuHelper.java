@@ -1,13 +1,14 @@
 package net.mrscauthd.beyond_earth.common.menus.helper;
 
+import java.util.List;
 import java.util.function.Function;
 
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
 
 public class MenuHelper {
     public static void createInventorySlots(Inventory inventory, Function<Slot, Slot> slotCreator, int left, int top) {
@@ -23,28 +24,52 @@ public class MenuHelper {
     }
 
     public static interface MenuTransfer {
-        boolean moveItemStackTo(ItemStack stack, int number, int slots, boolean bool);
+        boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection);
     }
 
-    public static ItemStack transferStackInSlot(AbstractContainerMenu guiContainer, Player playerIn, int index,
-            AbstractMachineBlockEntity blockEntity, MenuTransfer transfer) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        final Slot slot = guiContainer.slots.get(index);
-        if (slot != null && slot.hasItem()) {
-            final ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
-            final int slotCount = 1;
-            if (index < slotCount) {
-                if (!transfer.moveItemStackTo(itemstack1, slotCount, guiContainer.slots.size(), false))
-                    return ItemStack.EMPTY;
-            } else if (!transfer.moveItemStackTo(itemstack1, 0, slotCount, false))
-                return ItemStack.EMPTY;
+    public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
+            int containerIndex, Container inventory, MenuTransfer mergeItemStack) {
+        int containerSize = inventory.getContainerSize();
+        return transferStackInSlot(container, player, slotNumber, containerIndex, containerSize, mergeItemStack);
+    }
 
-            if (itemstack1.isEmpty())
+    public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
+            int containerIndex, int containerSize, MenuTransfer mergeItemStack) {
+        ItemStack itemStack = ItemStack.EMPTY;
+        List<Slot> inventorySlots = container.slots;
+        Slot slot = inventorySlots.get(slotNumber);
+
+        if (slot != null && slot.hasItem()) {
+            ItemStack slotStack = slot.getItem();
+            itemStack = slotStack.copy();
+
+            int playerInventoryStartIndex = containerIndex + containerSize;
+
+            // Click Player Inventory
+            if (slotNumber < playerInventoryStartIndex) {
+                if (!mergeItemStack.moveItemStackTo(slotStack, playerInventoryStartIndex, inventorySlots.size(),
+                        true)) {
+                    return ItemStack.EMPTY;
+                }
+
+            }
+            // Click Container Inventory
+            else if (!mergeItemStack.moveItemStackTo(slotStack, containerIndex, playerInventoryStartIndex, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (slotStack.isEmpty()) {
                 slot.set(ItemStack.EMPTY);
-            else
+            } else {
                 slot.setChanged();
+            }
         }
-        return itemstack;
+
+        return itemStack;
+    }
+
+    public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
+            Container inventory, MenuTransfer mergeItemStack) {
+        return transferStackInSlot(container, player, slotNumber, 0, inventory, mergeItemStack);
     }
 }
