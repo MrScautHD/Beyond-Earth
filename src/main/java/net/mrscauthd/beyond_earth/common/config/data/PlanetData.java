@@ -94,6 +94,7 @@ public class PlanetData {
             this.space_level = planet.spaceLevel;
             this.has_rain = planet.hasRain;
             this.tier = planet.tier;
+            this.g = planet.g;
 
             this.orbit_colour = planet.orbitColour;
 
@@ -129,6 +130,7 @@ public class PlanetData {
 
             planet.mass = this.mass;
             planet.orbitRadius = this.orbit_radius;
+            planet.g = this.g;
             planet.register();
 
             planet.rotation = this.rotation;
