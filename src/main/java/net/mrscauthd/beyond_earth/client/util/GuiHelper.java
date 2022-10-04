@@ -34,6 +34,10 @@ public class GuiHelper {
             "textures/gui/util/arrow_full.png");
     public static final int ARROW_WIDTH = 24;
     public static final int ARROW_HEIGHT = 17;
+    public static final ResourceLocation HAMMER_PATH = new ResourceLocation(BeyondEarth.MODID,
+            "textures/gui/util/hammer_full.png");
+    public static final int HAMMER_WIDTH = 16;
+    public static final int HAMMER_HEIGHT = 16;
     public static final ResourceLocation OXYGEN_CONTENT_PATH = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/oxygen.png");
     public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BeyondEarth.MODID,
@@ -61,6 +65,10 @@ public class GuiHelper {
 
     public static void drawArrow(PoseStack matrixStack, int left, int top, double ratio) {
         GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
+    }
+
+    public static void drawHammer(PoseStack matrixStack, int left, int top, double ratio) {
+        GuiHelper.drawHorizontal(matrixStack, left, top, HAMMER_WIDTH, HAMMER_HEIGHT, HAMMER_PATH, ratio);
     }
 
     public static Rectangle2d getArrowBounds(int left, int top) {

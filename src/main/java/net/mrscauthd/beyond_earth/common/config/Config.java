@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -24,6 +25,10 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_GENERATION;
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_TRANSFER;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_USAGE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_TRANSFER;
 	
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
@@ -54,6 +59,12 @@ public class Config {
                 COAL_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
                 COAL_GENERATOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
                 BUILDER.pop();
+                BUILDER.push("Compressor");
+                COMPRESSOR_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + CompressorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", CompressorBlockEntity.DEFAULT_ENERGY_USAGE);
+                COMPRESSOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                COMPRESSOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                BUILDER.pop();
+                
                 BUILDER.pop();
 		
 

@@ -40,7 +40,6 @@ public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
         if (this.canGenerateEnergy() && this.hasSpaceInOutput() && this.consumePowerForOperation() != null) {
             this.generateEnergy();
         }
-
         this.ejectEnergy();
     }
 

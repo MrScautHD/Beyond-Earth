@@ -6,6 +6,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.menus.CoalGeneratorMenu;
+import net.mrscauthd.beyond_earth.common.menus.CompressorMenu;
 import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
@@ -20,7 +21,7 @@ public class ContainerRegistry {
 
     public static final RegistryObject<MenuType<RocketMenu.GuiContainer>> ROCKET_GUI = CONTAINERS.register("rocket_gui", () -> new MenuType(new RocketMenu.GuiContainerFactory()));
     
-//    public static final RegistryObject<MenuType<CompressorMenu.GuiContainer>> COMPRESSOR_GUI = SCREENS.register("compressor_gui", () -> new MenuType(new CompressorMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<CompressorMenu.GuiContainer>> COMPRESSOR_GUI = CONTAINERS.register("compressor_gui", () -> new MenuType(new CompressorMenu.GuiContainerFactory()));
 //    public static final RegistryObject<MenuType<FuelRefineryMenu.GuiContainer>> FUEL_REFINERY_GUI = SCREENS.register("fuel_refinery_gui", () -> new MenuType(new FuelRefineryMenu.GuiContainerFactory()));
     public static final RegistryObject<MenuType<CoalGeneratorMenu.GuiContainer>> COAL_GENERATOR_GUI = CONTAINERS.register("coal_generator_gui", () -> new MenuType(new CoalGeneratorMenu.GuiContainerFactory()));
 //    public static final RegistryObject<MenuType<NasaWorkbenchGui.GuiContainer>> NASA_WORKBENCH_GUI = SCREENS.register("nasa_workbench_gui", () -> new MenuType(new NasaWorkbenchGui.GuiContainerFactory()));
