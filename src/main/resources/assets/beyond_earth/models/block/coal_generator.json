@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:block/generator_top",
+    "up": "beyond_earth:block/generator_top",
+    "north": "beyond_earth:block/generator_front_inactive",
+    "east": "beyond_earth:block/machineside",
+    "south": "beyond_earth:block/machineside",
+    "west": "beyond_earth:block/machineside",
+    "particle": "beyond_earth:block/generator_top"
+  }
+}
