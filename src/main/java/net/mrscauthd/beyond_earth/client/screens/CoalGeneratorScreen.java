@@ -35,6 +35,8 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
         super(container, inventory, text);
         this.imageWidth = 176;
         this.imageHeight = 166;
+        this.titleLabelY -= 2;
+        this.titleLabelX -= 4;
         this.inventoryLabelY = this.imageHeight - 92;
     }
 
