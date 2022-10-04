@@ -11,18 +11,24 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.network.PacketDistributor;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.config.data.PlanetData;
+import net.mrscauthd.beyond_earth.common.config.data.PlanetData.PlanetDataHandler;
+import net.mrscauthd.beyond_earth.common.config.data.PlanetData.StarEntry;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.*;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 import net.mrscauthd.beyond_earth.common.util.*;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
+import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class Events {
@@ -217,5 +223,14 @@ public class Events {
         if (Methods.isLivingInJetSuit(entity) && event.getSprinting() && entity.isFallFlying()) {
             entity.level.playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
+    }
+
+    @SubscribeEvent
+    public static void onDataSync(OnDatapackSyncEvent event) {
+        PlanetData data = new PlanetData();
+        Planets.ORDERED_STARS.forEach(s -> data.stars.add(new StarEntry(s)));
+        PlanetDataHandler holder = new PlanetDataHandler();
+        holder.data = data;
+        NetworkRegistry.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> event.getPlayer()), holder);
     }
 }

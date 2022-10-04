@@ -3,14 +3,19 @@ package net.mrscauthd.beyond_earth.common.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Maps;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
 public class Planets {
@@ -38,14 +43,54 @@ public class Planets {
      */
     private static Object2FloatOpenHashMap<ResourceKey<Level>> FALL_MODIFIERS = new Object2FloatOpenHashMap<>();
 
+    public static Int2ObjectArrayMap<ResourceKey<Level>> PLANET_ID_MAPS = new Int2ObjectArrayMap<>();
+    public static Int2ObjectArrayMap<ResourceKey<Level>> ORBIT_ID_MAPS = new Int2ObjectArrayMap<>();
+    public static Int2ObjectArrayMap<ResourceKey<Level>> STATION_ID_MAPS = new Int2ObjectArrayMap<>();
+
+    public static Map<String, StarSystem> STARS = Maps.newHashMap();
+    public static List<StarSystem> ORDERED_STARS = new ArrayList<>();
+
+    /** PLANET BAR TEXTURES */
+    private static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+            "textures/planet_bar/moon_planet_bar.png");
+    private static final ResourceLocation MARS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+            "textures/planet_bar/mars_planet_bar.png");
+    private static final ResourceLocation MERCURY_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+            "textures/planet_bar/mercury_planet_bar.png");
+    private static final ResourceLocation VENUS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+            "textures/planet_bar/venus_planet_bar.png");
+    private static final ResourceLocation GLACIO_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+            "textures/planet_bar/glacio_planet_bar.png");
+
+    public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/sun.png");
+    public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/mars.png");
+    public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/earth.png");
+    public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/venus.png");
+    public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/mercury.png");
+    public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/glacio.png");
+
+    private static final AtomicInteger IDMAPPINGS = new AtomicInteger();
+
     public static void clear() {
         FALL_MODIFIERS.clear();
         BY_DIMENSION.clear();
         PLANETS_BY_PLANET.clear();
         PLANETS_BY_ORBIT.clear();
+        PLANET_ID_MAPS.clear();
+        ORBIT_ID_MAPS.clear();
+        STATION_ID_MAPS.clear();
+        STARS.clear();
+        ORDERED_STARS.clear();
     }
 
-    static {
+    public static void generateDefaults() {
+        clear();
         // Register our default planets
         registerPlanet(Level.OVERWORLD, LevelRegistry.EARTH_ORBIT);
         registerPlanet(LevelRegistry.MOON, LevelRegistry.MOON_ORBIT, 0.05f, 0.02f);
@@ -58,6 +103,87 @@ public class Planets {
         registerFallModifier(LevelRegistry.MARS, 5.0f);
         registerFallModifier(LevelRegistry.MERCURY, 5.5f);
         registerFallModifier(LevelRegistry.GLACIO, 5.0f);
+
+        registerPlanetBar(LevelRegistry.MOON, MOON_PLANET_BAR);
+        registerPlanetBar(LevelRegistry.MARS, MARS_PLANET_BAR);
+        registerPlanetBar(LevelRegistry.MERCURY, MERCURY_PLANET_BAR);
+        registerPlanetBar(LevelRegistry.VENUS, VENUS_PLANET_BAR);
+        registerPlanetBar(LevelRegistry.GLACIO, GLACIO_PLANET_BAR);
+
+        StarSystem sol = new StarSystem();
+        sol.name = "sun";
+        sol.texture = SUN_TEXTURE;
+        Planet mercury = BY_DIMENSION.get(LevelRegistry.MERCURY);
+        mercury.orbitRadius = 0.39f;
+        mercury.mass = 0.055f;
+        mercury.texture = MERCURY_TEXTURE;
+        mercury.rotation = 270;
+        mercury.tier = 3;
+        mercury.g = 0.38f;
+        mercury.temperature = 430;
+        mercury.colour = new int[] { 179, 49, 44 };
+        Planet venus = BY_DIMENSION.get(LevelRegistry.VENUS);
+        venus.orbitRadius = 0.72f;
+        venus.mass = 0.81f;
+        venus.texture = VENUS_TEXTURE;
+        venus.rotation = 180;
+        venus.tier = 3;
+        venus.g = 0.904f;
+        venus.temperature = 482;
+        venus.colour = new int[] { 235, 136, 68 };
+        Planet earth = BY_DIMENSION.get(LevelRegistry.EARTH);
+        earth.texture = EARTH_TEXTURE;
+        earth.rotation = 90;
+        earth.tier = 1;
+        earth.hasOxygen = true;
+        earth.colour = new int[] { 53, 163, 79 };
+        Planet mars = BY_DIMENSION.get(LevelRegistry.MARS);
+        mars.orbitRadius = 1.52f;
+        mars.mass = 0.107f;
+        mars.texture = MARS_TEXTURE;
+        mars.tier = 2;
+        mars.g = 0.3794f;
+        mars.temperature = -63;
+        mars.colour = new int[] { 37, 49, 146 };
+
+        Planet moon = BY_DIMENSION.get(LevelRegistry.MOON);
+        moon.g = 0.1654f;
+        moon.temperature = -160;
+        earth.moons.add(moon);
+        sol.planets.add(mercury);
+        sol.planets.add(venus);
+        sol.planets.add(earth);
+        sol.planets.add(mars);
+        sol.register();
+
+        StarSystem proxima_centauri = new StarSystem();
+        proxima_centauri.name = "proxima_centauri";
+        proxima_centauri.location[0] = 4.25f;
+        proxima_centauri.mass = 0.122f;
+        Planet glacio = BY_DIMENSION.get(LevelRegistry.GLACIO);
+        glacio.texture = GLACIO_TEXTURE;
+        glacio.mass = 0.08f;
+        glacio.orbitRadius = 0.39f;
+        glacio.rotation = 180;
+        glacio.tier = 4;
+        glacio.g = 0.3794f;
+        glacio.temperature = -20;
+        mars.colour = new int[] { 37, 49, 146 };
+        proxima_centauri.planets.add(glacio);
+        proxima_centauri.register();
+        
+        initIDs();
+    }
+
+    public static void initIDs() {
+        IDMAPPINGS.set(0);
+        ORDERED_STARS.forEach(star -> {
+            star.planets.forEach(p -> p.initIDs(IDMAPPINGS));
+        });
+    }
+
+    static {
+        generateDefaults();
     }
 
     /**
@@ -171,6 +297,19 @@ public class Planets {
         planet.register();
     }
 
+    public static void registerPlanetBar(ResourceKey<Level> planet, ResourceLocation planetBar) {
+        Planet p = BY_DIMENSION.get(planet);
+        if (p != null)
+            p.planetBar = planetBar;
+    }
+
+    public static ResourceLocation getPlanetBar(Level level) {
+        Planet p = BY_DIMENSION.get(level.dimension());
+        if (p == null)
+            return Planet.DEFAULT_PLANET_BAR;
+        return p.getPlanetBar(Methods.isOrbitLevel(level));
+    }
+
     /**
      * This stores the planet's location, as well as traits such as gravity amount
      * for orbit, planet gravity, etc.
@@ -179,15 +318,45 @@ public class Planets {
      *
      */
     public static class Planet {
+
+        private static final ResourceLocation ORBIT_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+                "textures/planet_bar/orbit_planet_bar.png");
+        private static final ResourceLocation DEFAULT_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+                "textures/planet_bar/earth_planet_bar.png");
+
+        public String name;
+
         public ResourceKey<Level> planet;
         public ResourceKey<Level> orbit;
+
         public float planetItemGravity;
         public float planetEntityGravity;
         public float orbitItemGravity;
         public float orbitEntityGravity;
         public float orbitRadius = 1;
+        public float mass = 1;
+        public float g = 1;
+        public float temperature = 14;
+
+        public int planetID;
+        public int orbitID;
+        public int stationID;
+
+        public boolean hasOxygen = false;
 
         public List<Planet> moons = new ArrayList<>();
+
+        // Gui related things
+        public ResourceLocation planetBar;
+        public ResourceLocation orbitBar;
+        public ResourceLocation texture;
+        public Component description;
+        public float rotation = 0;
+        public int[] colour = { 255, 255, 255 };
+        // Planet button tier
+        public int tier = 0;
+        public int button_category = -1;
+        public String[] extra_text;
 
         public Planet(ResourceKey<Level> planet, ResourceKey<Level> orbit, float planetItemGravity,
                 float planetEntityGravity, float orbitItemGravity, float orbitEntityGravity) {
@@ -197,13 +366,55 @@ public class Planets {
             this.planetEntityGravity = planetEntityGravity;
             this.orbitItemGravity = orbitItemGravity;
             this.orbitEntityGravity = orbitEntityGravity;
+            this.name = planet.location().getPath();
+            if (planet == Level.OVERWORLD)
+                this.name = "earth";
         }
 
-        private void register() {
+        private void initIDs(AtomicInteger global) {
+            this.planetID = global.getAndIncrement();
+            this.orbitID = global.getAndIncrement();
+            this.stationID = global.getAndIncrement();
+
+            PLANET_ID_MAPS.put(planetID, planet);
+            ORBIT_ID_MAPS.put(planetID, orbit);
+            STATION_ID_MAPS.put(planetID, orbit);
+
+            this.moons.forEach(p -> p.initIDs(global));
+        }
+
+        public ResourceLocation getPlanetBar(boolean orbit) {
+            if (orbit)
+                return orbitBar != null ? orbitBar : ORBIT_PLANET_BAR;
+            return planetBar != null ? planetBar : DEFAULT_PLANET_BAR;
+        }
+
+        public void register() {
             PLANETS_BY_ORBIT.put(orbit, this);
             PLANETS_BY_PLANET.put(planet, this);
             BY_DIMENSION.put(orbit, this);
             BY_DIMENSION.put(planet, this);
+
+            // This is done here for when registered via data. When manually registered, we
+            // don't have moons yet, so this is just empty.
+            moons.forEach(m -> m.register());
         }
     };
+
+    public static class StarSystem {
+        public List<Planet> planets = new ArrayList<>();
+        public String name;
+        public ResourceLocation texture;
+        public float mass = 1;
+        public float g = 1;
+        public float[] location = new float[3];
+        public int[] colour = { 255, 255, 255 };
+
+        public Component description;
+
+        public void register() {
+            STARS.put(name, this);
+            ORDERED_STARS.add(this);
+        }
+    }
 }

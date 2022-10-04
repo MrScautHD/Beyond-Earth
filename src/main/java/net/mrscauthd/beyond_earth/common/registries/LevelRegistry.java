@@ -31,6 +31,7 @@ public class LevelRegistry {
     public static final ResourceKey<Level> GLACIO_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio_orbit"));
 
     /** EARTH */
+    public static final ResourceKey<Level> EARTH = Level.OVERWORLD;
     public static final ResourceKey<Level> EARTH_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
 
     public static List<ResourceKey<Level>> LEVELS_WITHOUT_RAIN = Arrays.asList(

@@ -12,21 +12,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.util.Methods;
+import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.client.events.forge.PlanetOverlayEvent;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
 public class RocketHeightBarOverlay implements IGuiOverlay {
-
-    /** PLANET BAR TEXTURES */
-    public static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/moon_planet_bar.png");
-    public static final ResourceLocation MARS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mars_planet_bar.png");
-    public static final ResourceLocation MERCURY_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/mercury_planet_bar.png");
-    public static final ResourceLocation VENUS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/venus_planet_bar.png");
-    public static final ResourceLocation GLACIO_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/glacio_planet_bar.png");
-    public static final ResourceLocation EARTH_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/earth_planet_bar.png");
-    public static final ResourceLocation ORBIT_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/orbit_planet_bar.png");
-
     /** ROCKET TEXTURE */
     public static final ResourceLocation ROCKET = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/rocket.png");
 
@@ -45,23 +35,7 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
                 yHeight = 113;
             }
 
-            ResourceLocation planet;
-
-            if (Methods.isLevel(level, LevelRegistry.MOON)) {
-                planet = MOON_PLANET_BAR;
-            } else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-                planet = MARS_PLANET_BAR;
-            } else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-                planet = MERCURY_PLANET_BAR;
-            } else if (Methods.isLevel(level, LevelRegistry.VENUS)) {
-                planet = VENUS_PLANET_BAR;
-            } else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-                planet = GLACIO_PLANET_BAR;
-            } else if (Methods.isOrbitLevel(level)) {
-                planet = ORBIT_PLANET_BAR;
-            } else {
-                planet = EARTH_PLANET_BAR;
-            }
+            ResourceLocation planet = Planets.getPlanetBar(level);
 
             PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, poseStack, partialTick, width, height);
             MinecraftForge.EVENT_BUS.post(event);

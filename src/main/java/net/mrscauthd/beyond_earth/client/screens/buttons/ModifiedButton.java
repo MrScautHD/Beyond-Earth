@@ -18,6 +18,7 @@ import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelection
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
 public class ModifiedButton extends Button {
@@ -30,6 +31,9 @@ public class ModifiedButton extends Button {
 
     /** USE ROW 0 FOR (NO ROW SYSTEM), USE ROW 1 FOR (CATEGORIES, PLANETS), USE ROW 2 FOR (ORBITS), USE ROW 3 FOR (SPACE STATIONS) */
     public int row;
+
+    // Category for if we are visible
+    public Predicate<Integer> isVisible = i -> false;
 
     private final int xTexStart;
     private final int yTexStart;
