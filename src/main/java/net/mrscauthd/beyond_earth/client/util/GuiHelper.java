@@ -42,7 +42,7 @@ public class GuiHelper {
     public static final int OXYGEN_TANK_HEIGHT = 48;
     public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/energy_full.png");
-    public static final int ENERGY_WIDTH = 24;
+    public static final int ENERGY_WIDTH = 13;
     public static final int ENERGY_HEIGHT = 46;
     public static final int FUEL_WIDTH = 48;
     public static final int FUEL_HEIGHT = 48;

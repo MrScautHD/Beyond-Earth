@@ -29,7 +29,7 @@ public class CoalGeneratorScreen extends AbstractContainerScreen<CoalGeneratorMe
     public static final int FIRE_TOP = 47;
 
     public static final int ENERGY_LEFT = 146;
-    public static final int ENERGY_TOP = 15;
+    public static final int ENERGY_TOP = 17;
 
     public CoalGeneratorScreen(CoalGeneratorMenu.GuiContainer container, Inventory inventory, Component text) {
         super(container, inventory, text);
