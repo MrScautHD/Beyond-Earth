@@ -19,4 +19,8 @@ public class OxygenStorage {
     public void setMaxCapacity(int capacity) {
         this.capacity = capacity;
     }
+    
+    public double getOxygenStoredRatio() {
+        return (double) this.getOxygen() / (double) this.getMaxCapacity();
+    }
 }
