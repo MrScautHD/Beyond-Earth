@@ -283,7 +283,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
             // Teleport buttons
             List<String> buttonText = Lists.newArrayList();
             buttonText.add(p.description.getString());
-            buttonText.add(String.format("%.3f m/s", p.g));
+            buttonText.add(String.format("%.3f m/s²", p.g * 9.807));
             buttonText.add(p.hasOxygen ? "a" + OXYGEN_TRUE_TEXT.getString() : "c" + OXYGEN_FALSE_TEXT.getString());
 
             boolean niceT = p.temperature < 100 && p.temperature > -100;
