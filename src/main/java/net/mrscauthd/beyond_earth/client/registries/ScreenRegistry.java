@@ -11,6 +11,7 @@ import net.mrscauthd.beyond_earth.client.screens.CompressorScreen;
 import net.mrscauthd.beyond_earth.client.screens.FuelRefineryScreen;
 import net.mrscauthd.beyond_earth.client.screens.LanderScreen;
 import net.mrscauthd.beyond_earth.client.screens.NasaWorkbenchScreen;
+import net.mrscauthd.beyond_earth.client.screens.OxygenBubbleDistributorScreen;
 import net.mrscauthd.beyond_earth.client.screens.OxygenLoaderScreen;
 import net.mrscauthd.beyond_earth.client.screens.RocketScreen;
 import net.mrscauthd.beyond_earth.client.screens.RoverScreen;
@@ -32,7 +33,7 @@ public class ScreenRegistry {
         MenuScreens.register(ContainerRegistry.OXYGEN_LOADER_GUI.get(), OxygenLoaderScreen::new);
         MenuScreens.register(ContainerRegistry.SOLAR_PANEL_GUI.get(), SolarPanelScreen::new);
 //		MenuScreens.register(ContainerRegistry.WATER_PUMP_GUI.get(), WaterPumpScreen::new);
-//		MenuScreens.register(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);
+        MenuScreens.register(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), OxygenBubbleDistributorScreen::new);
 
         MenuScreens.register(ContainerRegistry.LANDER_GUI.get(), LanderScreen::new);
         MenuScreens.register(ContainerRegistry.ROVER_GUI.get(), RoverScreen::new);

@@ -1,41 +1,56 @@
 package net.mrscauthd.beyond_earth.common.menus;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.network.IContainerFactory;
+import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenMakingBlockEntity;
+import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
+import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
+
 public class OxygenBubbleDistributorMenu {
-/*
-	public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
-		public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
-			BlockPos pos = extraData.readBlockPos();
-			OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) inv.player.level.getBlockEntity(pos);
-			return new GuiContainer(id, inv, blockEntity);
-		}
-	}
 
-	public static class GuiContainer extends AbstractContainerMenu {
-		private OxygenBubbleDistributorBlockEntity blockEntity;
+    public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
+        public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
+            BlockPos pos = extraData.readBlockPos();
+            OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) inv.player.level
+                    .getBlockEntity(pos);
+            return new GuiContainer(id, inv, blockEntity);
+        }
+    }
 
-		public GuiContainer(int id, Inventory inv, OxygenBubbleDistributorBlockEntity blockEntity) {
-			super(ScreensRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
-			this.blockEntity = blockEntity;
+    public static class GuiContainer extends AbstractContainerMenu {
+        private OxygenBubbleDistributorBlockEntity blockEntity;
 
-			IItemHandlerModifiable internal = blockEntity.getItemHandler();
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 26, 22));
-			this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 26, 52));
+        public GuiContainer(int id, Inventory inv, OxygenBubbleDistributorBlockEntity blockEntity) {
+            super(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
+            this.blockEntity = blockEntity;
 
-			ContainerHelper.addInventorySlots(this, inv, 8, 90, this::addSlot);
-		}
+            IItemHandlerModifiable internal = blockEntity.getItemHandler();
+            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 26, 22));
+            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 26, 52));
 
-		public OxygenBubbleDistributorBlockEntity getBlockEntity() {
-			return this.blockEntity;
-		}
+            MenuHelper.createInventorySlots(inv, this::addSlot, 8, 90);
+        }
 
-		@Override
-		public boolean stillValid(Player p_38874_) {
-			return !this.getBlockEntity().isRemoved();
-		}
+        public OxygenBubbleDistributorBlockEntity getBlockEntity() {
+            return this.blockEntity;
+        }
 
-		@Override
-		public ItemStack quickMoveStack(Player playerIn, int index) {
-			return ContainerHelper.transferStackInSlot(this, playerIn, index, this.getBlockEntity(), this::moveItemStackTo);
-		}
-	}*/
+        @Override
+        public boolean stillValid(Player p_38874_) {
+            return !this.getBlockEntity().isRemoved();
+        }
+
+        @Override
+        public ItemStack quickMoveStack(Player playerIn, int index) {
+            return MenuHelper.transferStackInSlot(this, playerIn, index, this.getBlockEntity(), this::moveItemStackTo);
+        }
+    }
 }

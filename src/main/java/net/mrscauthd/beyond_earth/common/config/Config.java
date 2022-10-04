@@ -4,6 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.SolarPanelBlockEntity;
 
@@ -50,6 +51,16 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_FLUID_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_OXYGEN_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_TRANSFER;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX;
+        
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
 
@@ -108,6 +119,20 @@ public class Config {
                 OXYGEN_LOADER_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY);
                 OXYGEN_LOADER_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY);
                 OXYGEN_LOADER_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenLoaderBlockEntity.DEFAULT_TANK_TRANSFER);
+                BUILDER.pop();
+                
+                BUILDER.push("Oxygen Bubble Distributor");
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_USAGE);
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER);
+                BUILDER.comment("Range is mean distance of each side from center", "Working area will be (range * 2) + 1", "For example, when range is 2, then working area is 3x3x3 blocks", "range is 15, then working area is 31x31x31 blocks");
+                BUILDER.push("Range");
+                OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN + " blocks").defineInRange("RangeMin", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN, 1, 49);
+                OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX + " blocks").defineInRange("RangeMax", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX, 1, 49);
+                BUILDER.pop();
                 BUILDER.pop();
                 
                 BUILDER.pop();
