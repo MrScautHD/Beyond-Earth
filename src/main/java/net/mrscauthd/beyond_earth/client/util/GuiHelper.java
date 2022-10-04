@@ -27,7 +27,8 @@ import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
 public class GuiHelper {
 
-    public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/fire_full.png");
+    public static final ResourceLocation FIRE_PATH = new ResourceLocation(BeyondEarth.MODID,
+            "textures/gui/util/fire_full.png");
     public static final int FIRE_WIDTH = 14;
     public static final int FIRE_HEIGHT = 14;
     public static final ResourceLocation ARROW_PATH = new ResourceLocation(BeyondEarth.MODID,

@@ -31,8 +31,7 @@ import net.mrscauthd.beyond_earth.common.jei.Jei;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 public class Compressor implements IRecipeCategory<CompressingRecipe> {
-    public static final ResourceLocation GUI = new ResourceLocation(BeyondEarth.MODID,
-            "textures/jei/jei_gui_1.png");
+    public static final ResourceLocation GUI = new ResourceLocation(BeyondEarth.MODID, "textures/jei/jei_gui_1.png");
 
     public static final int width = 128;
     public static final int height = 64;
@@ -64,8 +63,8 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
         this.cachedArrow = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
             @Override
             public IDrawableAnimated load(Integer cookTime) {
-                return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17)
-                        .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
+                return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17).buildAnimated(cookTime,
+                        IDrawableAnimated.StartDirection.LEFT, false);
             }
         });
     }
@@ -91,18 +90,18 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView,
-            double mouseX, double mouseY) {
+    public List<Component> getTooltipStrings(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX,
+            double mouseY) {
         return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 
     @Override
-    public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack,
-            double mouseX, double mouseY) {
+    public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
+            double mouseY) {
         int energyTime = 1000 / Config.COMPRESSOR_ENERGY_USAGE.get();
         IDrawableAnimated energy = cachedEnergy.getUnchecked(energyTime);
         energy.draw(stack, 108, 9);
-        
+
         int compressTime = recipe.getCookTime();
         IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
         arrow.draw(stack, 38, 21);

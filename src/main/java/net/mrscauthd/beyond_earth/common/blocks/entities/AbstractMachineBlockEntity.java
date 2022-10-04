@@ -50,7 +50,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.common.blocks.AbstractMachineBlock;
+import net.mrscauthd.beyond_earth.common.blocks.machines.AbstractMachineBlock;
 import net.mrscauthd.beyond_earth.common.capabilities.energy.IEnergyStorageHolder;
 import net.mrscauthd.beyond_earth.common.crafting.FluidIngredient;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;

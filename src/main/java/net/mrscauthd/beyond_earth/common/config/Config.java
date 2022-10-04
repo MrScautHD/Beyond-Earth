@@ -7,6 +7,7 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity
 import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -60,6 +61,13 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX;
+        
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_ENERGY_USAGE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_ENERGY_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_WORK_INTERVAL;
         
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
@@ -133,6 +141,15 @@ public class Config {
                 OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN + " blocks").defineInRange("RangeMin", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN, 1, 49);
                 OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX + " blocks").defineInRange("RangeMax", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX, 1, 49);
                 BUILDER.pop();
+                BUILDER.pop();
+
+                BUILDER.push("Water Pump");
+                WATER_PUMP_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + WaterPumpBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", WaterPumpBlockEntity.DEFAULT_ENERGY_USAGE);
+                WATER_PUMP_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + WaterPumpBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", WaterPumpBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                WATER_PUMP_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + WaterPumpBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", WaterPumpBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                WATER_PUMP_TANK_CAPACITY = BUILDER.comment("Set water tank capacity, default: " + WaterPumpBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("TankCapacity", WaterPumpBlockEntity.DEFAULT_TANK_CAPACITY);
+                WATER_PUMP_TANK_TRANSFER = BUILDER.comment("Set water tank transfer, default: " + WaterPumpBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("TankTransfer", WaterPumpBlockEntity.DEFAULT_TANK_TRANSFER);
+                WATER_PUMP_WORK_INTERVAL = BUILDER.comment("Set pumping interval ticks, default: " + WaterPumpBlockEntity.DEFAULT_WORK_INTERVAL + " ticks").define("WorkInterval", WaterPumpBlockEntity.DEFAULT_WORK_INTERVAL);
                 BUILDER.pop();
                 
                 BUILDER.pop();

@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.blocks;
+package net.mrscauthd.beyond_earth.common.blocks.machines;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockBehaviour;

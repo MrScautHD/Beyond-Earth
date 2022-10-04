@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.blocks;
+package net.mrscauthd.beyond_earth.common.blocks.machines;
 
 import java.util.List;
 
