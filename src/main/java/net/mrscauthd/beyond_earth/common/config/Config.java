@@ -4,6 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -37,7 +38,13 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_INPUT_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_OUTPUT_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_TRANSFER;
-	
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_ENERGY_USAGE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_ENERGY_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_FLUID_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_OXYGEN_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_LOADER_TANK_TRANSFER;
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
 
@@ -81,6 +88,15 @@ public class Config {
                 FUEL_REFINERY_TANK_INPUT_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("TankInputCapacity", FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY);
                 FUEL_REFINERY_TANK_OUTPUT_CAPACITY = BUILDER.comment("Set fluid output tank capacity, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("TankOutputCapacity", FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY);
                 FUEL_REFINERY_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("TankTransfer", FuelRefineryBlockEntity.DEFAULT_TANK_TRANSFER);
+                BUILDER.pop();
+
+                BUILDER.push("Oxygen Loader");
+                OXYGEN_LOADER_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + OxygenLoaderBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", OxygenLoaderBlockEntity.DEFAULT_ENERGY_USAGE);
+                OXYGEN_LOADER_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + OxygenLoaderBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", OxygenLoaderBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                OXYGEN_LOADER_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + OxygenLoaderBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", OxygenLoaderBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                OXYGEN_LOADER_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_LOADER_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenLoaderBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_LOADER_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenLoaderBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenLoaderBlockEntity.DEFAULT_TANK_TRANSFER);
                 BUILDER.pop();
                 
                 BUILDER.pop();

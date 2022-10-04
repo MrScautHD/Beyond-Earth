@@ -1,72 +1,101 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
-//@OnlyIn(Dist.CLIENT)
-public class OxygenLoaderScreen /*extends AbstractContainerScreen<OxygenLoaderMenu.GuiContainer>*/ {
-/*
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/oxygen_loader.png");
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-	public static final int INPUT_TANK_LEFT = 9;
-	public static final int INPUT_TANK_TOP = 21;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.client.util.GuiHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.menus.OxygenLoaderMenu;
+import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
-	public static final int OUTPUT_TANK_LEFT = 75;
-	public static final int OUTPUT_TANK_TOP = 21;
+@OnlyIn(Dist.CLIENT)
+public class OxygenLoaderScreen extends AbstractContainerScreen<OxygenLoaderMenu.GuiContainer> {
 
-	public static final int ENERGY_LEFT = 144;
-	public static final int ENERGY_TOP = 21;
+    public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
+            "textures/gui/oxygen_loader.png");
 
-	public static final int ARROW_LEFT = 48;
-	public static final int ARROW_TOP = 36;
+    public static final int INPUT_TANK_LEFT = 42;
+    public static final int INPUT_TANK_TOP = 21;
 
-	public OxygenLoaderScreen(OxygenLoaderMenu.GuiContainer container, Inventory inventory, Component text) {
-		super(container, inventory, text);
-		this.imageWidth = 177;
-		this.imageHeight = 172;
-		this.inventoryLabelY = this.imageHeight - 92;
-	}
+    public static final int OUTPUT_TANK_LEFT = 99;
+    public static final int OUTPUT_TANK_TOP = 21;
 
-	@Override
-	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground(ms);
-		super.render(ms, mouseX, mouseY, partialTicks);
-		this.renderTooltip(ms, mouseX, mouseY);
+    public static final int ENERGY_LEFT = 150;
+    public static final int ENERGY_TOP = 22;
 
-		OxygenLoaderBlockEntity blockEntity = (OxygenLoaderBlockEntity) this.getMenu().getBlockEntity();
+    public static final int ARROW_LEFT = 48;
+    public static final int ARROW_TOP = 36;
 
-		if (ScreenHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
+    public OxygenLoaderScreen(OxygenLoaderMenu.GuiContainer container, Inventory inventory, Component text) {
+        super(container, inventory, text);
+        this.imageWidth = 177;
+        this.imageHeight = 184;
+        this.inventoryLabelY = this.imageHeight - 92;
+    }
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(), mouseX, mouseY);
-		} else if (ScreenHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
+    @Override
+    public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(ms);
+        super.render(ms, mouseX, mouseY, partialTicks);
+        this.renderTooltip(ms, mouseX, mouseY);
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(blockEntity.getOutputTank())).build(), mouseX, mouseY);
-		} else if (ScreenHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
+        OxygenLoaderBlockEntity blockEntity = (OxygenLoaderBlockEntity) this.getMenu().getBlockEntity();
 
-			this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(), mouseX, mouseY);
-		}
-	}
+        if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 
-	@Override
-	protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+            this.renderTooltip(ms,
+                    GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(),
+                    mouseX, mouseY);
+        } else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		RenderSystem.setShaderTexture(0, texture);
-		GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
+            this.renderTooltip(ms,
+                    GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(blockEntity.getOutputTank())).build(),
+                    mouseX, mouseY);
+        } else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
 
-		OxygenLoaderBlockEntity blockEntity = this.getMenu().getBlockEntity();
-		ScreenHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP, blockEntity.getPrimaryEnergyStorage());
-		ScreenHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP, blockEntity.getInputTank());
-		ScreenHelper.drawOxygenTank(ms, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP, blockEntity.getOutputTank());
-	}
+            this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(),
+                    mouseX, mouseY);
+        }
+    }
 
-	public Rectangle2d getInputTankBounds() {
-		return ScreenHelper.getFluidTankBounds(this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP);
-	}
+    @Override
+    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
 
-	public Rectangle2d getOutputTankBounds() {
-		return ScreenHelper.getFluidTankBounds(this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP);
-	}
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShaderTexture(0, texture);
+        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
+                this.imageHeight);
 
-	public Rectangle2d getEnergyBounds() {
-		return ScreenHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
-	}*/
+        OxygenLoaderBlockEntity blockEntity = this.getMenu().getBlockEntity();
+        GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
+                blockEntity.getPrimaryEnergyStorage());
+        GuiHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP,
+                blockEntity.getInputTank());
+        GuiHelper.drawOxygenTank(ms, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP,
+                blockEntity.getOutputTank());
+    }
+
+    public Rectangle2d getInputTankBounds() {
+        return GuiHelper.getFluidTankBounds(this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP);
+    }
+
+    public Rectangle2d getOutputTankBounds() {
+        return GuiHelper.getFluidTankBounds(this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP);
+    }
+
+    public Rectangle2d getEnergyBounds() {
+        return GuiHelper.getEnergyBounds(this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP);
+    }
 }

@@ -12,7 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OxygenProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>(){});
+    public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>() {
+    });
 
     private OxygenStorage oxygenStorage;
     private final int capacity;
@@ -43,13 +44,11 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public CompoundTag serializeNBT() {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putInt("oxygenStorage", this.getOxygenStorage().getOxygen());
-        return compoundTag;
+        return this.getOxygenStorage().serializeNBT();
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        this.getOxygenStorage().setOxygen(nbt.getInt("oxygenStorage"));
+        this.getOxygenStorage().deserializeNBT(nbt);
     }
 }
