@@ -21,7 +21,7 @@ public class MartianRaptor extends Monster {
 
     private float AttackAnim = 0;
 
-    public MartianRaptor(EntityType type, Level world) {
+    public MartianRaptor(EntityType<? extends Monster> type, Level world) {
         super(type, world);
         this.xpReward = 5;
     }
@@ -45,7 +45,7 @@ public class MartianRaptor extends Monster {
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, Player.class, false, false));
+        this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomStrollGoal(this, 1.0D));
     }
 

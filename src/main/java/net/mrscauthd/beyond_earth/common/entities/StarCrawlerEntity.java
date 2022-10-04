@@ -20,7 +20,7 @@ import net.mrscauthd.beyond_earth.common.config.Config;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class StarCrawlerEntity extends Monster {
-	public StarCrawlerEntity(EntityType type, Level world) {
+	public StarCrawlerEntity(EntityType<? extends Monster> type, Level world) {
 		super(type, world);
 		this.xpReward = 5;
 	}

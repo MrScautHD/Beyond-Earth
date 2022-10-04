@@ -79,7 +79,7 @@ public abstract class IRocketItem extends VehicleItem {
                     /** SET PRE POS */
                     rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1, pos.getZ() + 0.5D);
 
-                    double d0 = this.getYOffset(level, pos, true, rocket.getBoundingBox());
+                    double d0 = IRocketItem.getYOffset(level, pos, true, rocket.getBoundingBox());
                     float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
 
                     /** SET FINAL POS */
@@ -137,7 +137,7 @@ public abstract class IRocketItem extends VehicleItem {
     @OnlyIn(Dist.CLIENT)
     public abstract BlockEntityWithoutLevelRenderer getRenderer();
 
-    public abstract EntityType getEntityType();
+    public abstract EntityType<? extends IRocketEntity> getEntityType();
 
     public abstract IRocketEntity getRocket(Level level);
 

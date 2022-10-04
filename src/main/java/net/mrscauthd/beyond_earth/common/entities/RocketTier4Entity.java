@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.common.registries.ParticleRegistry;
 
 public class RocketTier4Entity extends IRocketEntity {
 
-	public RocketTier4Entity(EntityType type, Level level) {
+	public RocketTier4Entity(EntityType<?> type, Level level) {
 		super(type, level);
 	}
 

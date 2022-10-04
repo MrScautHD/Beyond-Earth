@@ -31,7 +31,7 @@ public class SpaceSuit {
 				@Override
 				public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
-					Map<String, ModelPart> map = Map.of("head", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).head,
+					Map<String, ModelPart> map = Map.of("head", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).head,
 
 							"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 							"right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -41,7 +41,7 @@ public class SpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
+					SpaceSuitModel.SpaceSuitP1<?> armorModel = new SpaceSuitModel.SpaceSuitP1<>(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -68,9 +68,9 @@ public class SpaceSuit {
 				public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
-							"body", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).body,
-							"right_arm", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).rightArm,
-							"left_arm", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).leftArm,
+							"body", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).body,
+							"right_arm", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).rightArm,
+							"left_arm", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).leftArm,
 
 							"head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 							"right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -78,7 +78,7 @@ public class SpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
+					SpaceSuitModel.SpaceSuitP1<?> armorModel = new SpaceSuitModel.SpaceSuitP1<>(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -109,8 +109,8 @@ public class SpaceSuit {
 				public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
-							"right_leg", new SpaceSuitModel.SpaceSuitP2(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP2.LAYER_LOCATION)).rightLeg,
-							"left_leg", new SpaceSuitModel.SpaceSuitP2(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP2.LAYER_LOCATION)).leftLeg,
+							"right_leg", new SpaceSuitModel.SpaceSuitP2<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP2.LAYER_LOCATION)).rightLeg,
+							"left_leg", new SpaceSuitModel.SpaceSuitP2<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP2.LAYER_LOCATION)).leftLeg,
 
 							"head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 							"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -120,7 +120,7 @@ public class SpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP2 armorModel = new SpaceSuitModel.SpaceSuitP2(modelPart, livingEntity, itemStack);
+					SpaceSuitModel.SpaceSuitP2<?> armorModel = new SpaceSuitModel.SpaceSuitP2<>(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}
@@ -146,8 +146,8 @@ public class SpaceSuit {
 				public @NotNull HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
 
 					Map<String, ModelPart> map = Map.of(
-							"right_leg", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).rightLeg,
-							"left_leg", new SpaceSuitModel.SpaceSuitP1(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).leftLeg,
+							"right_leg", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).rightLeg,
+							"left_leg", new SpaceSuitModel.SpaceSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(SpaceSuitModel.SpaceSuitP1.LAYER_LOCATION)).leftLeg,
 
 							"head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 							"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
@@ -157,7 +157,7 @@ public class SpaceSuit {
 					);
 
 					ModelPart modelPart = new ModelPart(Collections.emptyList(), map);
-					SpaceSuitModel.SpaceSuitP1 armorModel = new SpaceSuitModel.SpaceSuitP1(modelPart, livingEntity, itemStack);
+					SpaceSuitModel.SpaceSuitP1<?> armorModel = new SpaceSuitModel.SpaceSuitP1<>(modelPart, livingEntity, itemStack);
 
 					return armorModel;
 				}

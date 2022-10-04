@@ -44,7 +44,7 @@ import io.netty.buffer.Unpooled;
 
 public class LanderEntity extends IVehicleEntity {
 
-	public LanderEntity(EntityType type, Level level) {
+	public LanderEntity(EntityType<?> type, Level level) {
 		super(type, level);
 	}
 
