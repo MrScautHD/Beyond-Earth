@@ -1,8 +1,10 @@
 package net.mrscauthd.beyond_earth.common.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.Nullable;
@@ -46,6 +48,12 @@ public class Planets {
     public static Int2ObjectOpenHashMap<ResourceKey<Level>> PLANET_ID_MAPS = new Int2ObjectOpenHashMap<>();
     public static Int2ObjectOpenHashMap<ResourceKey<Level>> ORBIT_ID_MAPS = new Int2ObjectOpenHashMap<>();
     public static Int2ObjectOpenHashMap<ResourceKey<Level>> STATION_ID_MAPS = new Int2ObjectOpenHashMap<>();
+
+    public static Set<ResourceKey<Level>> LEVELS_WITHOUT_RAIN = new HashSet<>();
+
+    public static Set<ResourceKey<Level>> LEVELS_WITHOUT_OXYGEN = new HashSet<>();
+
+    public static Set<ResourceKey<Level>> SPACE_LEVELS = new HashSet<>();
 
     public static Map<String, StarSystem> STARS = Maps.newHashMap();
     public static List<StarSystem> ORDERED_STARS = new ArrayList<>();
@@ -134,6 +142,8 @@ public class Planets {
         earth.rotation = 90;
         earth.tier = 1;
         earth.hasOxygen = true;
+        earth.spaceLevel = false;
+        earth.hasRain = true;
         earth.colour = new int[] { 53, 163, 79 };
         Planet mars = BY_DIMENSION.get(LevelRegistry.MARS);
         mars.orbitRadius = 1.52f;
@@ -142,6 +152,7 @@ public class Planets {
         mars.tier = 2;
         mars.g = 0.3794f;
         mars.temperature = -63;
+        mars.hasRain = true;
         mars.colour = new int[] { 37, 49, 146 };
 
         Planet moon = BY_DIMENSION.get(LevelRegistry.MOON);
@@ -166,7 +177,8 @@ public class Planets {
         glacio.tier = 4;
         glacio.g = 0.3794f;
         glacio.temperature = -20;
-        mars.colour = new int[] { 37, 49, 146 };
+        glacio.hasRain = true;
+        glacio.colour = new int[] { 37, 49, 146 };
         proxima_centauri.planets.add(glacio);
         proxima_centauri.register();
 
@@ -178,6 +190,10 @@ public class Planets {
         PLANET_ID_MAPS.clear();
         ORBIT_ID_MAPS.clear();
         STATION_ID_MAPS.clear();
+
+        LEVELS_WITHOUT_RAIN.clear();
+        LEVELS_WITHOUT_OXYGEN.clear();
+        SPACE_LEVELS.clear();
 
         ORDERED_STARS.forEach(star -> {
             star.planets.forEach(p -> p.initIDs(IDMAPPINGS));
@@ -345,6 +361,8 @@ public class Planets {
         public int stationID;
 
         public boolean hasOxygen = false;
+        public boolean hasRain = true;
+        public boolean spaceLevel = true;
 
         public List<Planet> moons = new ArrayList<>();
 
@@ -381,6 +399,18 @@ public class Planets {
             PLANET_ID_MAPS.put(planetID, planet);
             ORBIT_ID_MAPS.put(orbitID, orbit);
             STATION_ID_MAPS.put(stationID, orbit);
+
+            if (!this.hasOxygen)
+                LEVELS_WITHOUT_OXYGEN.add(planet);
+            LEVELS_WITHOUT_OXYGEN.add(orbit);
+
+            if (!this.hasRain)
+                LEVELS_WITHOUT_RAIN.add(planet);
+            LEVELS_WITHOUT_RAIN.add(orbit);
+
+            if (this.spaceLevel)
+                SPACE_LEVELS.add(planet);
+            SPACE_LEVELS.add(orbit);
 
             this.moons.forEach(p -> p.initIDs(global));
         }

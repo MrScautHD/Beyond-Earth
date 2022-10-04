@@ -6,9 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class LevelRegistry {
     /** MOON */
     public static final ResourceKey<Level> MOON = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon"));
@@ -33,42 +30,4 @@ public class LevelRegistry {
     /** EARTH */
     public static final ResourceKey<Level> EARTH = Level.OVERWORLD;
     public static final ResourceKey<Level> EARTH_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID,"earth_orbit"));
-
-    public static List<ResourceKey<Level>> LEVELS_WITHOUT_RAIN = Arrays.asList(
-            MOON,
-            MOON_ORBIT,
-            MARS_ORBIT,
-            MERCURY,
-            MERCURY_ORBIT,
-            VENUS_ORBIT,
-            GLACIO_ORBIT,
-            EARTH_ORBIT
-    );
-
-    public static List<ResourceKey<Level>> LEVELS_WITHOUT_OXYGEN = Arrays.asList(
-            MOON,
-            MOON_ORBIT,
-            MARS,
-            MARS_ORBIT,
-            MERCURY,
-            MERCURY_ORBIT,
-            VENUS,
-            VENUS_ORBIT,
-            GLACIO_ORBIT,
-            EARTH_ORBIT
-    );
-
-    public static List<ResourceKey<Level>> SPACE_LEVELS = Arrays.asList(
-            MOON,
-            MOON_ORBIT,
-            MARS,
-            MARS_ORBIT,
-            MERCURY,
-            MERCURY_ORBIT,
-            VENUS,
-            VENUS_ORBIT,
-            GLACIO,
-            GLACIO_ORBIT,
-            EARTH_ORBIT
-    );
 }

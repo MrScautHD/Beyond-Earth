@@ -106,7 +106,7 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             Level level = event.level;
 
-            if (LevelRegistry.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
+            if (Planets.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
             }

@@ -134,11 +134,11 @@ public class Methods {
     }
 
     public static boolean isSpaceLevel(Level level) {
-        return LevelRegistry.SPACE_LEVELS.contains(level.dimension());
+        return Planets.SPACE_LEVELS.contains(level.dimension());
     }
 
     public static boolean isSpaceLevelWithoutOxygen(Level level) {
-        return LevelRegistry.LEVELS_WITHOUT_OXYGEN.contains(level.dimension());
+        return Planets.LEVELS_WITHOUT_OXYGEN.contains(level.dimension());
     }
 
     public static boolean isOrbitLevel(Level level) {

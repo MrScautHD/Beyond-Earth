@@ -58,6 +58,8 @@ public class PlanetData {
         float g = 1;
 
         boolean has_oxygen = false;
+        boolean has_rain = false;
+        boolean space_level = true;
 
         // Rotation in the gui
         public float rotation = 0;
@@ -87,6 +89,8 @@ public class PlanetData {
             this.planet = planet.planet.location().toString();
             this.orbit = planet.orbit.location().toString();
             this.has_oxygen = planet.hasOxygen;
+            this.space_level = planet.spaceLevel;
+            this.has_rain = planet.hasRain;
             this.tier = planet.tier;
 
             if (planet.planetBar != null)
@@ -126,7 +130,10 @@ public class PlanetData {
             planet.rotation = this.rotation;
             planet.extra_text = this.extra_text;
             planet.hasOxygen = this.has_oxygen;
+            planet.hasRain = this.has_rain;
+            planet.spaceLevel = this.space_level;
             planet.tier = this.tier;
+            
 
             if (parent != null)
                 parent.moons.add(planet);
