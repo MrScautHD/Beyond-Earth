@@ -255,7 +255,6 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
                     int starCategory = intholder.getAndIncrement();
                     system.planets.forEach(p -> {
                         int planetCategory = intholder.getAndIncrement();
-                        System.out.println(planetCategory + " " + starCategory + " " + p.name);
                         addPlanetButtons(null, p, planetCategory, starCategory);
                     });
                 }

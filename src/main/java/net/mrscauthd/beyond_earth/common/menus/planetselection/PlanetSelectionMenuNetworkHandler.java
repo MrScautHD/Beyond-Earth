@@ -36,8 +36,6 @@ public class PlanetSelectionMenuNetworkHandler extends PlanetSelectionMenuNetwor
 
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            
-            System.out.println(message.integer);
 
             boolean isPlanet = Planets.PLANET_ID_MAPS.containsKey(message.integer);
             if (isPlanet) {

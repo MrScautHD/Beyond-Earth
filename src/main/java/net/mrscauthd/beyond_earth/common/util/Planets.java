@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.Maps;
 
-import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
@@ -43,9 +43,9 @@ public class Planets {
      */
     private static Object2FloatOpenHashMap<ResourceKey<Level>> FALL_MODIFIERS = new Object2FloatOpenHashMap<>();
 
-    public static Int2ObjectArrayMap<ResourceKey<Level>> PLANET_ID_MAPS = new Int2ObjectArrayMap<>();
-    public static Int2ObjectArrayMap<ResourceKey<Level>> ORBIT_ID_MAPS = new Int2ObjectArrayMap<>();
-    public static Int2ObjectArrayMap<ResourceKey<Level>> STATION_ID_MAPS = new Int2ObjectArrayMap<>();
+    public static Int2ObjectOpenHashMap<ResourceKey<Level>> PLANET_ID_MAPS = new Int2ObjectOpenHashMap<>();
+    public static Int2ObjectOpenHashMap<ResourceKey<Level>> ORBIT_ID_MAPS = new Int2ObjectOpenHashMap<>();
+    public static Int2ObjectOpenHashMap<ResourceKey<Level>> STATION_ID_MAPS = new Int2ObjectOpenHashMap<>();
 
     public static Map<String, StarSystem> STARS = Maps.newHashMap();
     public static List<StarSystem> ORDERED_STARS = new ArrayList<>();
@@ -82,9 +82,7 @@ public class Planets {
         BY_DIMENSION.clear();
         PLANETS_BY_PLANET.clear();
         PLANETS_BY_ORBIT.clear();
-        PLANET_ID_MAPS.clear();
-        ORBIT_ID_MAPS.clear();
-        STATION_ID_MAPS.clear();
+
         STARS.clear();
         ORDERED_STARS.clear();
     }
@@ -171,12 +169,16 @@ public class Planets {
         mars.colour = new int[] { 37, 49, 146 };
         proxima_centauri.planets.add(glacio);
         proxima_centauri.register();
-        
+
         initIDs();
     }
 
     public static void initIDs() {
         IDMAPPINGS.set(0);
+        PLANET_ID_MAPS.clear();
+        ORBIT_ID_MAPS.clear();
+        STATION_ID_MAPS.clear();
+
         ORDERED_STARS.forEach(star -> {
             star.planets.forEach(p -> p.initIDs(IDMAPPINGS));
         });
@@ -377,8 +379,8 @@ public class Planets {
             this.stationID = global.getAndIncrement();
 
             PLANET_ID_MAPS.put(planetID, planet);
-            ORBIT_ID_MAPS.put(planetID, orbit);
-            STATION_ID_MAPS.put(planetID, orbit);
+            ORBIT_ID_MAPS.put(orbitID, orbit);
+            STATION_ID_MAPS.put(stationID, orbit);
 
             this.moons.forEach(p -> p.initIDs(global));
         }
