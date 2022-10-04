@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.crafting.conditions;
+package net.mrscauthd.beyond_earth.common.crafting.conditions;
 
 import com.google.gson.JsonObject;
 
