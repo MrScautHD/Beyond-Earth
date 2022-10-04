@@ -5,6 +5,7 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntit
 import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.SolarPanelBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -27,6 +28,10 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_GENERATION;
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_TRANSFER;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_PANEL_ENERGY_GENERATION;
+        public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_PANEL_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> SOLAR_PANEL_ENERGY_TRANSFER;
 
         public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_USAGE;
         public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_CAPACITY;
@@ -73,6 +78,12 @@ public class Config {
                 COAL_GENERATOR_ENERGY_GENERATION = BUILDER.comment("Set energy generation per tick, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyGeneration", CoalGeneratorBlockEntity.DEFAULT_ENERGY_USAGE);
                 COAL_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
                 COAL_GENERATOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                BUILDER.pop();
+
+                BUILDER.push("Solar Panel");
+                SOLAR_PANEL_ENERGY_GENERATION = BUILDER.comment("Set energy generation per tick, default: " + SolarPanelBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyGeneration", SolarPanelBlockEntity.DEFAULT_ENERGY_USAGE);
+                SOLAR_PANEL_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + SolarPanelBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", SolarPanelBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                SOLAR_PANEL_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + SolarPanelBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", SolarPanelBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
                 BUILDER.pop();
                 
                 BUILDER.push("Compressor");

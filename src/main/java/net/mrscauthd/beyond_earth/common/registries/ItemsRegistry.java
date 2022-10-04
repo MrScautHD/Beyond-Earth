@@ -146,7 +146,7 @@ public class ItemsRegistry {
 
     //TODO DON'T FORGOT IT TO REWORK IT
 //    public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlockRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-//    public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlockRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlockRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(BlockRegistry.COAL_GENERATOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> COMPRESSOR_ITEM = ITEMS.register("compressor", () -> new BlockItem(BlockRegistry.COMPRESSOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
     public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(BlockRegistry.FUEL_REFINERY_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));

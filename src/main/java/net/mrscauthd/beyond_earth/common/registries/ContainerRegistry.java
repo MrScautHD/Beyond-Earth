@@ -12,6 +12,7 @@ import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 import net.mrscauthd.beyond_earth.common.menus.OxygenLoaderMenu;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
+import net.mrscauthd.beyond_earth.common.menus.SolarPanelMenu;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 
 public class ContainerRegistry {
@@ -28,7 +29,7 @@ public class ContainerRegistry {
     public static final RegistryObject<MenuType<CoalGeneratorMenu.GuiContainer>> COAL_GENERATOR_GUI = CONTAINERS.register("coal_generator_gui", () -> new MenuType(new CoalGeneratorMenu.GuiContainerFactory()));
 //    public static final RegistryObject<MenuType<NasaWorkbenchGui.GuiContainer>> NASA_WORKBENCH_GUI = CONTAINERS.register("nasa_workbench_gui", () -> new MenuType(new NasaWorkbenchGui.GuiContainerFactory()));
     public static final RegistryObject<MenuType<OxygenLoaderMenu.GuiContainer>> OXYGEN_LOADER_GUI = CONTAINERS.register("oxygen_loader_gui", () -> new MenuType(new OxygenLoaderMenu.GuiContainerFactory()));
-//    public static final RegistryObject<MenuType<SolarPanelMenu.GuiContainer>> SOLAR_PANEL_GUI = CONTAINERS.register("solar_panel_gui", () -> new MenuType(new SolarPanelMenu.GuiContainerFactory()));
+    public static final RegistryObject<MenuType<SolarPanelMenu.GuiContainer>> SOLAR_PANEL_GUI = CONTAINERS.register("solar_panel_gui", () -> new MenuType(new SolarPanelMenu.GuiContainerFactory()));
 //    public static final RegistryObject<MenuType<WaterPumpMenu.GuiContainer>> WATER_PUMP_GUI = CONTAINERS.register("water_pump_gui", () -> new MenuType(new WaterPumpMenu.GuiContainerFactory()));
 //    public static final RegistryObject<MenuType<OxygenBubbleDistributorMenu.GuiContainer>> OXYGEN_BUBBLE_DISTRIBUTOR_GUI = CONTAINERS.register("oxygen_bubble_distributor_gui", () -> new MenuType(new OxygenBubbleDistributorMenu.GuiContainerFactory()));
     
