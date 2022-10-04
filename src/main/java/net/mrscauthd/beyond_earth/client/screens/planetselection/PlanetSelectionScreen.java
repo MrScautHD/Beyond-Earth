@@ -272,10 +272,11 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
             // Planet button
             if (parent == null) {
+                Component tierText = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + p.tier);
                 ModifiedButton planetCategoryButton = PlanetSelectionScreenHelper.addCategoryButton(this, this.category,
                         10, 1, 70, 20, planetCategory, this.checkTier(p.tier), false,
                         ModifiedButton.ButtonTypes.SOLAR_SYSTEM_CATEGORY,
-                        List.of(p.description.getString(), ROCKET_TIER_1_TEXT.getString()), BUTTON_TEXTURE,
+                        List.of(p.description.getString(), tierText.getString()), BUTTON_TEXTURE,
                         ModifiedButton.ColorTypes.GREEN, p.description);
                 planetCategoryButton.isVisible = i -> i == starCategory;
             }

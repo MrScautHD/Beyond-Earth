@@ -16,6 +16,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.*;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.PacketDistributor;
@@ -27,6 +28,8 @@ import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.*;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 import net.mrscauthd.beyond_earth.common.util.*;
+import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+import net.mrscauthd.beyond_earth.common.util.Planets.StarSystem;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 
@@ -49,7 +52,8 @@ public class Events {
             Methods.setJetSuitHoverPose(player);
 
             /** DISABLE KICK BY FLYING IF IN PLANET GUI */
-            Methods.disableFlyAntiCheat(player, player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open"));
+            Methods.disableFlyAntiCheat(player,
+                    player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open"));
         }
     }
 
@@ -148,7 +152,8 @@ public class Events {
         LivingEntity entity = event.getEntity();
 
         /** RESET PLANET GUI PARAMETERS */
-        if (entity instanceof Player && entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
+        if (entity instanceof Player
+                && entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
             Player player = (Player) entity;
 
             player.closeContainer();
@@ -157,9 +162,11 @@ public class Events {
         }
 
         /** JET SUIT EXPLODE */
-        if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying() && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
+        if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying()
+                && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
             if (!entity.level.isClientSide) {
-                entity.level.explode(null, entity.getX(), entity.getY(), entity.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
+                entity.level.explode(null, entity.getX(), entity.getY(), entity.getZ(), 10, true,
+                        Explosion.BlockInteraction.BREAK);
             }
         }
     }
@@ -190,7 +197,8 @@ public class Events {
 
         /** CANCEL BOOST BY FLYING JET SUIT */
         if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
-            event.getCallbackInfoReturnable().setReturnValue(InteractionResultHolder.pass(player.getItemInHand(event.getInteractionHand())));
+            event.getCallbackInfoReturnable()
+                    .setReturnValue(InteractionResultHolder.pass(player.getItemInHand(event.getInteractionHand())));
         }
     }
 
@@ -210,7 +218,8 @@ public class Events {
         /** JET SUIT SONIC BOOM SOUND */
         if (Methods.isLivingInJetSuit(player) && !player.isFallFlying()) {
             if (player.isSprinting()) {
-                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F,
+                        1.0F);
             }
         }
     }
@@ -232,5 +241,98 @@ public class Events {
         PlanetDataHandler holder = new PlanetDataHandler();
         holder.data = data;
         NetworkRegistry.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> event.getPlayer()), holder);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    /**
+     * Here we register default planets. We are set to HIGHEST so that we fire
+     * first, and then addons can adjust things.
+     * 
+     * @param event
+     */
+    public static void onPlanetsGenerate(PlanetRegisterEvent.Generate event) {
+        Planets.registerPlanet(Level.OVERWORLD, LevelRegistry.EARTH_ORBIT);
+        Planets.registerPlanet(LevelRegistry.MOON, LevelRegistry.MOON_ORBIT, 0.05f, 0.02f);
+        Planets.registerPlanet(LevelRegistry.MARS, LevelRegistry.MARS_ORBIT, 0.06f, 0.05f);
+        Planets.registerPlanet(LevelRegistry.MERCURY, LevelRegistry.MERCURY_ORBIT, 0.05f, 0.02f);
+        Planets.registerPlanet(LevelRegistry.VENUS, LevelRegistry.VENUS_ORBIT);
+        Planets.registerPlanet(LevelRegistry.GLACIO, LevelRegistry.GLACIO_ORBIT, 0.05f, 0.03f);
+
+        Planets.registerFallModifier(LevelRegistry.MOON, 5.5f);
+        Planets.registerFallModifier(LevelRegistry.MARS, 5.0f);
+        Planets.registerFallModifier(LevelRegistry.MERCURY, 5.5f);
+        Planets.registerFallModifier(LevelRegistry.GLACIO, 5.0f);
+
+        Planets.registerPlanetBar(LevelRegistry.MOON, Planets.MOON_PLANET_BAR);
+        Planets.registerPlanetBar(LevelRegistry.MARS, Planets.MARS_PLANET_BAR);
+        Planets.registerPlanetBar(LevelRegistry.MERCURY, Planets.MERCURY_PLANET_BAR);
+        Planets.registerPlanetBar(LevelRegistry.VENUS, Planets.VENUS_PLANET_BAR);
+        Planets.registerPlanetBar(LevelRegistry.GLACIO, Planets.GLACIO_PLANET_BAR);
+
+        StarSystem sol = new StarSystem();
+        sol.name = "sun";
+        sol.texture = Planets.SUN_TEXTURE;
+        Planet mercury = Planets.BY_DIMENSION.get(LevelRegistry.MERCURY);
+        mercury.orbitRadius = 0.39f;
+        mercury.mass = 0.055f;
+        mercury.texture = Planets.MERCURY_TEXTURE;
+        mercury.rotation = 270;
+        mercury.tier = 3;
+        mercury.g = 0.38f;
+        mercury.temperature = 430;
+        mercury.orbitColour = new int[] { 179, 49, 44 };
+        Planet venus = Planets.BY_DIMENSION.get(LevelRegistry.VENUS);
+        venus.orbitRadius = 0.72f;
+        venus.mass = 0.81f;
+        venus.texture = Planets.VENUS_TEXTURE;
+        venus.rotation = 180;
+        venus.tier = 3;
+        venus.g = 0.904f;
+        venus.temperature = 482;
+        venus.orbitColour = new int[] { 235, 136, 68 };
+        Planet earth = Planets.BY_DIMENSION.get(LevelRegistry.EARTH);
+        earth.texture = Planets.EARTH_TEXTURE;
+        earth.rotation = 90;
+        earth.tier = 1;
+        earth.hasOxygen = true;
+        earth.spaceLevel = false;
+        earth.hasRain = true;
+        earth.orbitColour = new int[] { 53, 163, 79 };
+        Planet mars = Planets.BY_DIMENSION.get(LevelRegistry.MARS);
+        mars.orbitRadius = 1.52f;
+        mars.mass = 0.107f;
+        mars.texture = Planets.MARS_TEXTURE;
+        mars.tier = 2;
+        mars.g = 0.3794f;
+        mars.temperature = -63;
+        mars.hasRain = true;
+        mars.orbitColour = new int[] { 37, 49, 146 };
+
+        Planet moon = Planets.BY_DIMENSION.get(LevelRegistry.MOON);
+        moon.g = 0.1654f;
+        moon.temperature = -160;
+        earth.moons.add(moon);
+        sol.planets.add(mercury);
+        sol.planets.add(venus);
+        sol.planets.add(earth);
+        sol.planets.add(mars);
+        sol.register();
+
+        StarSystem proxima_centauri = new StarSystem();
+        proxima_centauri.name = "proxima_centauri";
+        proxima_centauri.location[0] = 4.25f;
+        proxima_centauri.mass = 0.122f;
+        Planet glacio = Planets.BY_DIMENSION.get(LevelRegistry.GLACIO);
+        glacio.texture = Planets.GLACIO_TEXTURE;
+        glacio.mass = 0.08f;
+        glacio.orbitRadius = 0.39f;
+        glacio.rotation = 180;
+        glacio.tier = 4;
+        glacio.g = 0.3794f;
+        glacio.temperature = -20;
+        glacio.hasRain = true;
+        glacio.orbitColour = new int[] { 37, 49, 146 };
+        proxima_centauri.planets.add(glacio);
+        proxima_centauri.register();
     }
 }

@@ -18,10 +18,12 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.events.forge.PlanetRegisterEvent;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 import net.mrscauthd.beyond_earth.common.util.Planets.StarSystem;
@@ -191,12 +193,14 @@ public class PlanetData {
     // List of stars to include.
     public List<StarEntry> stars = new ArrayList<>();
 
-    public void initPlanets() {
+    public void initPlanets(boolean event) {
         // First clear all of the old planets.
         Planets.clear();
 
         // Now lets start generating stars systems.
         stars.forEach(StarEntry::toStarSystem);
+        if (event)
+            MinecraftForge.EVENT_BUS.post(new PlanetRegisterEvent.Load());
 
         Planets.initIDs();
     }
@@ -206,7 +210,8 @@ public class PlanetData {
         try {
             var reader = Files.newBufferedReader(path);
             PlanetData data = PlanetDataHandler.gson.fromJson(reader, PlanetData.class);
-            data.initPlanets();
+            // Event here as we are loading planets.
+            data.initPlanets(true);
         } catch (Exception e) {
 
             // This is expected first run, so don't throw then
@@ -250,7 +255,8 @@ public class PlanetData {
         public static void handle(PlanetDataHandler message, Supplier<NetworkEvent.Context> contextSupplier) {
             NetworkEvent.Context context = contextSupplier.get();
             context.enqueueWork(() -> {
-                message.data.initPlanets();
+                // No event on this side, as here we are syncing from server.
+                message.data.initPlanets(false);
             });
         }
     }
