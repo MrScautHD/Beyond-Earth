@@ -30,14 +30,14 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/oxygen_distributor.png");
 
-    public static final int INPUT_TANK_LEFT = 9;
-    public static final int INPUT_TANK_TOP = 21;
+    public static final int INPUT_TANK_LEFT = 50;
+    public static final int INPUT_TANK_TOP = 57;
 
-    public static final int OUTPUT_TANK_LEFT = 75;
-    public static final int OUTPUT_TANK_TOP = 21;
+    public static final int OUTPUT_TANK_LEFT = 114;
+    public static final int OUTPUT_TANK_TOP = 57;
 
-    public static final int ENERGY_LEFT = 144;
-    public static final int ENERGY_TOP = 21;
+    public static final int ENERGY_LEFT = 147;
+    public static final int ENERGY_TOP = 58;
 
     public static final int ARROW_LEFT = 48;
     public static final int ARROW_TOP = 36;
@@ -70,6 +70,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
         this.imageWidth = 177;
         this.imageHeight = 220;
         this.inventoryLabelY = this.imageHeight - 92;
+        this.titleLabelY += 34;
     }
 
     @Override

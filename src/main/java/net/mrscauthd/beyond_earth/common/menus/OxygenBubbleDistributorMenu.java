@@ -33,10 +33,10 @@ public class OxygenBubbleDistributorMenu {
             this.blockEntity = blockEntity;
 
             IItemHandlerModifiable internal = blockEntity.getItemHandler();
-            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 26, 22));
-            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 26, 52));
+            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 17, 58));
+            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 17, 88));
 
-            MenuHelper.createInventorySlots(inv, this::addSlot, 8, 90);
+            MenuHelper.createInventorySlots(inv, this::addSlot, 8, 138);
         }
 
         public OxygenBubbleDistributorBlockEntity getBlockEntity() {
