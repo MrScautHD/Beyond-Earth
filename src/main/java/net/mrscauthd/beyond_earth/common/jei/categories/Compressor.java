@@ -26,12 +26,13 @@ import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.crafting.GeneratingRecipe;
+import net.mrscauthd.beyond_earth.common.crafting.CompressingRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
-public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
-    public static final ResourceLocation GUI = new ResourceLocation(BeyondEarth.MODID, "textures/jei/jei_gui_1.png");
+public class Compressor implements IRecipeCategory<CompressingRecipe> {
+    public static final ResourceLocation GUI = new ResourceLocation(BeyondEarth.MODID,
+            "textures/jei/jei_gui_1.png");
 
     public static final int width = 128;
     public static final int height = 64;
@@ -41,37 +42,37 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
     private final String localizedName;
     final IGuiHelper guiHelper;
 
-    private final LoadingCache<Integer, IDrawableAnimated> cachedFlames;
+    private final LoadingCache<Integer, IDrawableAnimated> cachedArrow;
     private final LoadingCache<Integer, IDrawableAnimated> cachedEnergy;
 
-    public CoalGenerator(final IGuiHelper guiHelper) {
+    public Compressor(final IGuiHelper guiHelper) {
         this.guiHelper = guiHelper;
-        this.background = guiHelper.createDrawable(CoalGenerator.GUI, 0, 0, CoalGenerator.width, CoalGenerator.height);
+        this.background = guiHelper.createDrawable(Compressor.GUI, 0, 64, Compressor.width, Compressor.height);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK,
                 new ItemStack(ItemsRegistry.COAL_GENERATOR_ITEM.get()));
-        this.localizedName = I18n.get("container." + BeyondEarth.MODID + ".coal_generator");
-
-        this.cachedFlames = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
-            @Override
-            public IDrawableAnimated load(Integer burnTime) {
-                return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14).buildAnimated(burnTime,
-                        IDrawableAnimated.StartDirection.TOP, true);
-            }
-        });
+        this.localizedName = I18n.get("container." + BeyondEarth.MODID + ".compressor");
 
         this.cachedEnergy = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
             @Override
             public IDrawableAnimated load(Integer burnTime) {
                 return guiHelper
                         .drawableBuilder(GuiHelper.ENERGY_PATH, 0, 0, GuiHelper.ENERGY_WIDTH, GuiHelper.ENERGY_HEIGHT)
-                        .buildAnimated(burnTime, IDrawableAnimated.StartDirection.BOTTOM, false);
+                        .buildAnimated(burnTime, IDrawableAnimated.StartDirection.TOP, true);
+            }
+        });
+
+        this.cachedArrow = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
+            @Override
+            public IDrawableAnimated load(Integer cookTime) {
+                return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 128, 24, 17)
+                        .buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
             }
         });
     }
 
     @Override
-    public RecipeType<GeneratingRecipe> getRecipeType() {
-        return Jei.COAL_TYPE;
+    public RecipeType<CompressingRecipe> getRecipeType() {
+        return Jei.COMPRESS_TYPE;
     }
 
     @Override
@@ -90,28 +91,30 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(GeneratingRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX,
-            double mouseY) {
+    public List<Component> getTooltipStrings(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView,
+            double mouseX, double mouseY) {
         return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 
     @Override
-    public void draw(GeneratingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
-            double mouseY) {
-
-        int burnTime = recipe.getBurnTime();
-        IDrawableAnimated flame = cachedFlames.getUnchecked(burnTime);
-        flame.draw(stack, 31, 39);
-
-        int energyTime = 1000 / Config.COAL_GENERATOR_ENERGY_GENERATION.get();
+    public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack,
+            double mouseX, double mouseY) {
+        int energyTime = 1000 / Config.COMPRESSOR_ENERGY_USAGE.get();
         IDrawableAnimated energy = cachedEnergy.getUnchecked(energyTime);
-        energy.draw(stack, 91, 9);
+        energy.draw(stack, 108, 9);
+        
+        int compressTime = recipe.getCookTime();
+        IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
+        arrow.draw(stack, 38, 21);
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, GeneratingRecipe recipe, IFocusGroup focuses) {
-        IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 30, 19);
+    public void setRecipe(IRecipeLayoutBuilder builder, CompressingRecipe recipe, IFocusGroup focuses) {
+        IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 15, 23);
         inputStack.addIngredients(recipe.getInput());
+
+        IRecipeSlotBuilder outputStack = builder.addSlot(RecipeIngredientRole.OUTPUT, 70, 23);
+        outputStack.addItemStack(recipe.getOutput());
     }
 
 }
