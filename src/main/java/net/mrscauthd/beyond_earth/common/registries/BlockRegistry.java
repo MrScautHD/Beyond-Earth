@@ -22,6 +22,7 @@ import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
 import net.mrscauthd.beyond_earth.common.blocks.CoalTorchBlock;
 import net.mrscauthd.beyond_earth.common.blocks.CompressorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
+import net.mrscauthd.beyond_earth.common.blocks.FuelRefineryBlock;
 import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
@@ -38,7 +39,7 @@ public class BlockRegistry {
 
     /** MACHINES */
     //TODO FORGOT NOT TO REWORK IT
-//    public static final RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> FUEL_REFINERY_BLOCK = BLOCKS.register("fuel_refinery",() -> new FuelRefineryBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> COMPRESSOR_BLOCK = BLOCKS.register("compressor",() -> new CompressorBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> COAL_GENERATOR_BLOCK = BLOCKS.register("coal_generator",() -> new CoalGeneratorBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
 //    public static final RegistryObject<Block> OXYGEN_LOADER_BLOCK = BLOCKS.register("oxygen_loader",() -> new OxygenLoaderBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));

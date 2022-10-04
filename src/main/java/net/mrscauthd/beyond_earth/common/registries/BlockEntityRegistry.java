@@ -8,6 +8,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 
 public class BlockEntityRegistry {
@@ -18,7 +19,7 @@ public class BlockEntityRegistry {
 
     //TODO FORGOT TO REWORK IT NOT
 
-//    public static final RegistryObject<BlockEntityType<?>> FUEL_REFINERY_BLOCK_ENTITY = BLOCK_ENTITIES.register("fuel_refinery", () -> BlockEntityType.Builder.of(FuelRefineryBlockEntity::new, BlockRegistry.FUEL_REFINERY_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<?>> FUEL_REFINERY_BLOCK_ENTITY = BLOCK_ENTITIES.register("fuel_refinery", () -> BlockEntityType.Builder.of(FuelRefineryBlockEntity::new, BlockRegistry.FUEL_REFINERY_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> COMPRESSOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("compressor", () -> BlockEntityType.Builder.of(CompressorBlockEntity::new, BlockRegistry.COMPRESSOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> COAL_GENERATOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("coal_generator", () -> BlockEntityType.Builder.of(CoalGeneratorBlockEntity::new, BlockRegistry.COAL_GENERATOR_BLOCK.get()).build(null));
 //    public static final RegistryObject<BlockEntityType<?>> OXYGEN_LOADER_BLOCK_ENTITY = BLOCK_ENTITIES.register("oxygen_loader", () -> BlockEntityType.Builder.of(OxygenLoaderBlockEntity::new, BlockRegistry.OXYGEN_LOADER_BLOCK.get()).build(null));

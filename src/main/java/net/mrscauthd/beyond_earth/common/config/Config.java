@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.common.config;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -29,6 +30,13 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_USAGE;
         public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> COMPRESSOR_ENERGY_TRANSFER;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_ENERGY_USAGE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_ENERGY_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_ENERGY_TRANSFER;
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_INPUT_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_OUTPUT_CAPACITY;
+        public static final ForgeConfigSpec.ConfigValue<Integer> FUEL_REFINERY_TANK_TRANSFER;
 	
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
@@ -59,10 +67,20 @@ public class Config {
                 COAL_GENERATOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
                 COAL_GENERATOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CoalGeneratorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
                 BUILDER.pop();
+                
                 BUILDER.push("Compressor");
                 COMPRESSOR_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + CompressorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", CompressorBlockEntity.DEFAULT_ENERGY_USAGE);
                 COMPRESSOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
                 COMPRESSOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", CompressorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                BUILDER.pop();
+
+                BUILDER.push("Fuel Refinery");
+                FUEL_REFINERY_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + FuelRefineryBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", FuelRefineryBlockEntity.DEFAULT_ENERGY_USAGE);
+                FUEL_REFINERY_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + FuelRefineryBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", FuelRefineryBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                FUEL_REFINERY_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + FuelRefineryBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", FuelRefineryBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                FUEL_REFINERY_TANK_INPUT_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("TankInputCapacity", FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY);
+                FUEL_REFINERY_TANK_OUTPUT_CAPACITY = BUILDER.comment("Set fluid output tank capacity, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("TankOutputCapacity", FuelRefineryBlockEntity.DEFAULT_TANK_CAPACITY);
+                FUEL_REFINERY_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + FuelRefineryBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("TankTransfer", FuelRefineryBlockEntity.DEFAULT_TANK_TRANSFER);
                 BUILDER.pop();
                 
                 BUILDER.pop();

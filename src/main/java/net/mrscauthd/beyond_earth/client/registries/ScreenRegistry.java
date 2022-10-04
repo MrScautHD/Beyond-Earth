@@ -8,6 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.CoalGeneratorScreen;
 import net.mrscauthd.beyond_earth.client.screens.CompressorScreen;
+import net.mrscauthd.beyond_earth.client.screens.FuelRefineryScreen;
 import net.mrscauthd.beyond_earth.client.screens.LanderScreen;
 import net.mrscauthd.beyond_earth.client.screens.RocketScreen;
 import net.mrscauthd.beyond_earth.client.screens.RoverScreen;
@@ -22,7 +23,7 @@ public class ScreenRegistry {
         MenuScreens.register(ContainerRegistry.ROCKET_GUI.get(), RocketScreen::new);
         // TODO ADD BACK LAITER
         MenuScreens.register(ContainerRegistry.COMPRESSOR_GUI.get(), CompressorScreen::new);
-//		MenuScreens.register(ContainerRegistry.FUEL_REFINERY_GUI.get(), FuelRefineryScreen::new);
+        MenuScreens.register(ContainerRegistry.FUEL_REFINERY_GUI.get(), FuelRefineryScreen::new);
         MenuScreens.register(ContainerRegistry.COAL_GENERATOR_GUI.get(), CoalGeneratorScreen::new);
 //		MenuScreens.register(ContainerRegistry.NASA_WORKBENCH_GUI.get(), NasaWorkbenchGuiWindow::new);
 //		MenuScreens.register(ContainerRegistry.OXYGEN_LOADER_GUI.get(), OxygenLoaderScreen::new);
