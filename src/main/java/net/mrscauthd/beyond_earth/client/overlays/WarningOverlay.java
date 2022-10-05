@@ -35,7 +35,7 @@ public class WarningOverlay implements IGuiOverlay {
 
             /** WARNING IMAGE */
             RenderSystem.setShaderTexture(0, WARNING);
-            gui.blit(poseStack, width / 2 - 58, 50, 0, 0, 116, 21, 116, 21);
+            ForgeGui.blit(poseStack, width / 2 - 58, 50, 0, 0, 116, 21, 116, 21);
 
             /** SPEED TEXT */
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);

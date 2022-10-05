@@ -7,14 +7,14 @@ import net.minecraftforge.eventbus.api.Event;
 
 public class SetupLivingBipedAnimEvent extends Event {
     private LivingEntity livingEntity;
-    private HumanoidModel model;
+    private HumanoidModel<?> model;
     private float limbSwing;
     private float limbSwingAmount;
     private float ageInTicks;
     private float netHeadYaw;
     private float headPitch;
 
-    public SetupLivingBipedAnimEvent(LivingEntity livingEntity, HumanoidModel model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public SetupLivingBipedAnimEvent(LivingEntity livingEntity, HumanoidModel<?> model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.livingEntity = livingEntity;
         this.model = model;
         this.limbSwing = limbSwing;
@@ -28,7 +28,7 @@ public class SetupLivingBipedAnimEvent extends Event {
         return livingEntity;
     }
 
-    public HumanoidModel getModel() {
+    public HumanoidModel<?> getModel() {
         return model;
     }
 
@@ -54,13 +54,13 @@ public class SetupLivingBipedAnimEvent extends Event {
 
     @Cancelable
     public static class Pre extends SetupLivingBipedAnimEvent {
-        public Pre(LivingEntity livingEntity, HumanoidModel model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        public Pre(LivingEntity livingEntity, HumanoidModel<?> model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             super(livingEntity, model, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         }
     }
 
     public static class Post extends SetupLivingBipedAnimEvent {
-        public Post(LivingEntity livingEntity, HumanoidModel model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        public Post(LivingEntity livingEntity, HumanoidModel<?> model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             super(livingEntity, model, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
         }
     }

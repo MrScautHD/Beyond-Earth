@@ -46,7 +46,7 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
 
             /** ROCKET BAR IMAGE */
             RenderSystem.setShaderTexture(0, planet);
-            gui.blit(poseStack, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
+            ForgeGui.blit(poseStack, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
             /** ROCKET_Y IMAGE */
             RenderSystem.setShaderTexture(0, ROCKET);
