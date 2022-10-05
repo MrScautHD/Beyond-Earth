@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.screens.helper.ImageButtonPlacer;
+import net.mrscauthd.beyond_earth.client.screens.buttons.TexturedButton;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
@@ -45,9 +45,9 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     private boolean cachedWorkingAreaVisible = true;
 
     // Buttons
-    public ImageButtonPlacer workingAreaVisibleButton;
-    public ImageButtonPlacer button_plus;
-    public ImageButtonPlacer button_minus;
+    public TexturedButton workingAreaVisibleButton;
+    public TexturedButton button_plus;
+    public TexturedButton button_minus;
 
     private static final ResourceLocation TECHNIK_BUTTON = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/buttons/technik_button.png");
@@ -122,27 +122,27 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     protected void init() {
         super.init();
 
-        button_plus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 5, 0, 20, 20, 0,
-                0, 0, TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS, 20, 20, (p_2130901) -> {
+        button_plus = this
+                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos + 5, 20, 20, (p_2130901) -> {
                     BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
                     NetworkRegistry.PACKET_HANDLER
                             .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
-                }));
+                }).tex(TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS));
 
-        button_minus = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos + 25, 0, 20, 20, 0,
-                0, 0, TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS, 20, 20, (p_2130901) -> {
+        button_minus = this
+                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos + 25, 20, 20, (p_2130901) -> {
                     BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
                     NetworkRegistry.PACKET_HANDLER
                             .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
-                }));
+                }).tex(TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS));
 
-        workingAreaVisibleButton = this.addRenderableWidget(new ImageButtonPlacer(this.leftPos - 20, this.topPos - 22,
-                0, 34, 20, 0, 0, 0, TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON, 34, 20, e -> {
+        workingAreaVisibleButton = this
+                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos - 22, 34, 20, button -> {
                     BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
                     NetworkRegistry.PACKET_HANDLER
                             .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos,
                                     !this.cachedWorkingAreaVisible));
-                }));
+                }).tex(TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON));
     }
 
     @Override

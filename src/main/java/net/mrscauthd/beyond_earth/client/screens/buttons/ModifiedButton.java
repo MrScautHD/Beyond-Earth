@@ -1,28 +1,23 @@
 package net.mrscauthd.beyond_earth.client.screens.buttons;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraft.client.gui.components.Button;
-import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
+
 @OnlyIn(Dist.CLIENT)
-public class ModifiedButton extends Button {
-    private ResourceLocation buttonTexture;
+public class ModifiedButton extends TexturedButton {
     private ColorTypes colorType;
 
     private boolean rocketCondition;
@@ -35,39 +30,17 @@ public class ModifiedButton extends Button {
     // Category for if we are visible
     public Predicate<Integer> isVisible = i -> false;
 
-    private final int xTexStart;
-    private final int yTexStart;
-
-    private final int yDiffText;
-
-    private final int textureWidth;
-    private final int textureHeight;
-
-    public ModifiedButton(int xIn, int yIn, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation buttonTexture, ColorTypes colorType, int p_i51135_9_, int p_i51135_10_, Button.OnPress onPressIn) {
-        this(xIn, yIn, 0, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, false, null, null, buttonTexture, colorType, p_i51135_9_, p_i51135_10_, onPressIn);
-    }
-
-    public ModifiedButton(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, false, null, null, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, Button.NO_TOOLTIP, title);
-    }
-
-    public ModifiedButton(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress onPressIn) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, Component.empty());
-    }
-
     public ModifiedButton(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
         this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, Button.NO_TOOLTIP, title);
     }
 
-    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int p_i244513_5_, int p_i244513_6_, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
+    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int xTexStart, int yTexStart, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
         super(p_i244513_1_, p_i244513_2_, p_i244513_3_, p_i244513_4_, p_i244513_13_, p_i244513_11_, p_i244513_12_);
-        this.buttonTexture = buttonTexture;
+        this.tex(buttonTexture, buttonTexture);
+        this.size(textureWidth, textureHeight);
+        this.setUVs(xTexStart, yTexStart);
+        setYShift(p_i244513_7_);
         this.colorType = colorType;
-        this.textureWidth = textureWidth;
-        this.textureHeight = textureHeight;
-        this.xTexStart = p_i244513_5_;
-        this.yTexStart = p_i244513_6_;
-        this.yDiffText = p_i244513_7_;
         this.rocketCondition = rocketCondition;
         this.type = type;
         this.list = list;
@@ -95,57 +68,10 @@ public class ModifiedButton extends Button {
         PLANET_SPACE_STATION_CATEGORY
     }
 
-    public enum ColorTypes {
-        WHITE(new Vec3(240, 240, 240)),
-        ORANGE(new Vec3(235, 136, 68)),
-        MAGENTA(new Vec3(195, 84, 205)),
-        LIGHT_BLUE(new Vec3(102, 137, 211)),
-        YELLOW(new Vec3(222, 207, 42)),
-        LIME(new Vec3(65, 205, 52)),
-        PINK(new Vec3(216, 129, 152)),
-        GRAY(new Vec3(67, 67, 67)),
-        LIGHT_GRAY(new Vec3(171, 171, 171)),
-        CYAN(new Vec3(40, 118, 151)),
-        PURPLE(new Vec3(123, 47, 190)),
-        BLUE(new Vec3(37, 49, 146)),
-        BROWN(new Vec3(81, 48, 26)),
-        GREEN(new Vec3(53, 163, 79)),
-        RED(new Vec3(179, 49, 44)),
-        BLACK(new Vec3(30, 27, 27));
-
-        private Vec3 color;
-
-        ColorTypes(Vec3 color) {
-            this.color = color;
-        }
-
-        public Vec3 getColor() {
-            return this.color;
-        }
-    }
-
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
 
-        int i = this.yTexStart;
-        if (this.isHoveredOrFocused()) {
-            i += this.yDiffText;
-        }
-
-        /** TEXTURE RENDERER */
-        RenderSystem.enableBlend();
-        RenderSystem.enableDepthTest();
-        RenderSystem.setShaderTexture(0, this.buttonTexture);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        ScreenHelper.renderTextureWithColor.blit(poseStack, this.x, this.y, (float)this.xTexStart, (float)i, this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
-        RenderSystem.disableDepthTest();
-        RenderSystem.disableBlend();
-
-        /** FONT RENDERER */
-        Font fontRenderer = mc.font;
-        int j = getFGColor();
-        GuiComponent.drawCenteredString(poseStack, fontRenderer, this.getMessage(), this.x + this.width / 2, this.y + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
-
+        super.renderButton(poseStack, mouseX, mouseY, partialTicks);
         /** TYPE SYSTEM */
         if (mc.screen instanceof PlanetSelectionScreen) {
             this.milkyWayCategoryManager(mc, poseStack, mouseX, mouseY);
@@ -230,7 +156,8 @@ public class ModifiedButton extends Button {
     }
 
     /** TYPE TEXTURE MANAGER */
-    private Vec3 getTypeColor() {
+    @Override
+    protected Vec3 getTypeColor() {
         if (this.isHovered) {
             return ColorTypes.WHITE.getColor();
         }
