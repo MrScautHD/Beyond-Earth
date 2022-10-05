@@ -10,14 +10,20 @@ import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 
 public class DrawableFluidAnimated implements IDrawableAnimated {
 
-    private final FluidStack fluid;
+    private FluidStack fluid;
     private final ITickTimer tickTimer;
     boolean drain;
+    boolean O2;
 
     public DrawableFluidAnimated(int timer, boolean drain, FluidStack fluid) {
+        this(timer, drain, fluid, false);
+    }
+
+    public DrawableFluidAnimated(int timer, boolean drain, FluidStack fluid, boolean O2) {
         this.drain = drain;
         this.tickTimer = new TickTimer(timer, GuiHelper.FLUID_TANK_HEIGHT, drain);
         this.fluid = fluid;
+        this.O2 = O2;
     }
 
     @Override
@@ -30,6 +36,10 @@ public class DrawableFluidAnimated implements IDrawableAnimated {
         return GuiHelper.FLUID_TANK_HEIGHT;
     }
 
+    public void setFluid(FluidStack stack) {
+        this.fluid = stack;
+    }
+
     @Override
     public void draw(PoseStack poseStack, int xOffset, int yOffset) {
 
@@ -38,7 +48,12 @@ public class DrawableFluidAnimated implements IDrawableAnimated {
         int fluidY = this.drain ? yOffset - +animationValue + this.getHeight()
                 : this.getHeight() - animationValue + yOffset;
 
-        GuiHelper.drawFluid(poseStack, xOffset, fluidY, GuiHelper.FLUID_TANK_WIDTH, animationValue, fluid);
-        GuiHelper.drawFluidTankOverlay(poseStack, xOffset, yOffset);
+        if (this.O2) {
+            GuiHelper.drawOxygenTank(poseStack, xOffset, yOffset,
+                    animationValue / (double) GuiHelper.FLUID_TANK_HEIGHT);
+        } else {
+            GuiHelper.drawFluid(poseStack, xOffset, fluidY, GuiHelper.FLUID_TANK_WIDTH, animationValue, fluid);
+            GuiHelper.drawFluidTankOverlay(poseStack, xOffset, yOffset);
+        }
     }
 }

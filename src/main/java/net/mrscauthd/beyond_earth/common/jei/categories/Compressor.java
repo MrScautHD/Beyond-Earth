@@ -24,10 +24,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.crafting.CompressingRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
+import net.mrscauthd.beyond_earth.common.jei.helper.EnergyIngredient;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 public class Compressor implements IRecipeCategory<CompressingRecipe> {
@@ -42,7 +42,6 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
     final IGuiHelper guiHelper;
 
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrow;
-    private final LoadingCache<Integer, IDrawableAnimated> cachedEnergy;
 
     public Compressor(final IGuiHelper guiHelper) {
         this.guiHelper = guiHelper;
@@ -50,15 +49,6 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK,
                 new ItemStack(ItemsRegistry.COAL_GENERATOR_ITEM.get()));
         this.localizedName = I18n.get("container." + BeyondEarth.MODID + ".compressor");
-
-        this.cachedEnergy = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
-            @Override
-            public IDrawableAnimated load(Integer burnTime) {
-                return guiHelper
-                        .drawableBuilder(GuiHelper.ENERGY_PATH, 0, 0, GuiHelper.ENERGY_WIDTH, GuiHelper.ENERGY_HEIGHT)
-                        .buildAnimated(burnTime, IDrawableAnimated.StartDirection.TOP, true);
-            }
-        });
 
         this.cachedArrow = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
             @Override
@@ -98,19 +88,23 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
     @Override
     public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
             double mouseY) {
-        int energyTime = 1000 / Config.COMPRESSOR_ENERGY_USAGE.get();
-        IDrawableAnimated energy = cachedEnergy.getUnchecked(energyTime);
-        energy.draw(stack, 108, 9);
-
         int compressTime = recipe.getCookTime();
         IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
         arrow.draw(stack, 38, 21);
+
+        // Update the energy cost
+        recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)
+                .forEach(i -> i.setAmount(Config.FUEL_REFINERY_ENERGY_USAGE.get()));
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, CompressingRecipe recipe, IFocusGroup focuses) {
         IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 15, 23);
         inputStack.addIngredients(recipe.getInput());
+
+        inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 108, 9);
+        inputStack.addIngredient(Jei.FE_INGREDIENT_TYPE, EnergyIngredient.INTANK);
+        inputStack.setCustomRenderer(Jei.FE_INGREDIENT_TYPE, EnergyIngredient.INTANK);
 
         IRecipeSlotBuilder outputStack = builder.addSlot(RecipeIngredientRole.OUTPUT, 70, 23);
         outputStack.addItemStack(recipe.getOutput());

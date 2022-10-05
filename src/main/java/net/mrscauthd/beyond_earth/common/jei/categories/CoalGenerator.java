@@ -24,10 +24,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.crafting.GeneratingRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
+import net.mrscauthd.beyond_earth.common.jei.helper.EnergyIngredient;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
@@ -42,7 +42,6 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
     final IGuiHelper guiHelper;
 
     private final LoadingCache<Integer, IDrawableAnimated> cachedFlames;
-    private final LoadingCache<Integer, IDrawableAnimated> cachedEnergy;
 
     public CoalGenerator(final IGuiHelper guiHelper) {
         this.guiHelper = guiHelper;
@@ -56,15 +55,6 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
             public IDrawableAnimated load(Integer burnTime) {
                 return guiHelper.drawableBuilder(Constants.RECIPE_GUI_VANILLA, 82, 114, 14, 14).buildAnimated(burnTime,
                         IDrawableAnimated.StartDirection.TOP, true);
-            }
-        });
-
-        this.cachedEnergy = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
-            @Override
-            public IDrawableAnimated load(Integer burnTime) {
-                return guiHelper
-                        .drawableBuilder(GuiHelper.ENERGY_PATH, 0, 0, GuiHelper.ENERGY_WIDTH, GuiHelper.ENERGY_HEIGHT)
-                        .buildAnimated(burnTime, IDrawableAnimated.StartDirection.BOTTOM, false);
             }
         });
     }
@@ -98,20 +88,21 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
     @Override
     public void draw(GeneratingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
             double mouseY) {
-
         int burnTime = recipe.getBurnTime();
         IDrawableAnimated flame = cachedFlames.getUnchecked(burnTime);
         flame.draw(stack, 31, 39);
-
-        int energyTime = 1000 / Config.COAL_GENERATOR_ENERGY_GENERATION.get();
-        IDrawableAnimated energy = cachedEnergy.getUnchecked(energyTime);
-        energy.draw(stack, 91, 9);
+        recipeSlotsView.getSlotViews(RecipeIngredientRole.OUTPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)
+                .forEach(i -> i.setAmount(Config.COAL_GENERATOR_ENERGY_GENERATION.get()));
     }
 
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, GeneratingRecipe recipe, IFocusGroup focuses) {
         IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 30, 19);
         inputStack.addIngredients(recipe.getInput());
+
+        IRecipeSlotBuilder outputStack = builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 9);
+        outputStack.addIngredient(Jei.FE_INGREDIENT_TYPE, EnergyIngredient.OUTTANK);
+        outputStack.setCustomRenderer(Jei.FE_INGREDIENT_TYPE, EnergyIngredient.OUTTANK);
     }
 
 }

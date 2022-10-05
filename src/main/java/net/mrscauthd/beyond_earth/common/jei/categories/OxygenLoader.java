@@ -26,13 +26,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.crafting.FuelRefiningRecipe;
+import net.mrscauthd.beyond_earth.common.crafting.OxygenLoaderRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
 import net.mrscauthd.beyond_earth.common.jei.helper.CustomFluidRenderer;
 import net.mrscauthd.beyond_earth.common.jei.helper.EnergyIngredient;
+import net.mrscauthd.beyond_earth.common.jei.helper.O2Ingredient;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
-public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
+public class OxygenLoader implements IRecipeCategory<OxygenLoaderRecipe> {
     public static final ResourceLocation GUI = new ResourceLocation(BeyondEarth.MODID, "textures/jei/jei_gui_1.png");
 
     public static final int width = 128;
@@ -45,12 +46,12 @@ public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
 
     private final LoadingCache<Integer, IDrawableAnimated> cachedArrow;
 
-    public FuelRefining(final IGuiHelper guiHelper) {
+    public OxygenLoader(final IGuiHelper guiHelper) {
         this.guiHelper = guiHelper;
-        this.background = guiHelper.createDrawable(FuelRefining.GUI, 0, 128, FuelRefining.width, FuelRefining.height);
+        this.background = guiHelper.createDrawable(OxygenLoader.GUI, 0, 128, OxygenLoader.width, OxygenLoader.height);
         this.icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK,
                 new ItemStack(ItemsRegistry.COAL_GENERATOR_ITEM.get()));
-        this.localizedName = I18n.get("container." + BeyondEarth.MODID + ".fuel_refinery");
+        this.localizedName = I18n.get("container." + BeyondEarth.MODID + ".oxygen_loader");
 
         this.cachedArrow = CacheBuilder.newBuilder().maximumSize(25).build(new CacheLoader<>() {
             @Override
@@ -62,8 +63,8 @@ public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
     }
 
     @Override
-    public RecipeType<FuelRefiningRecipe> getRecipeType() {
-        return Jei.REFINE_TYPE;
+    public RecipeType<OxygenLoaderRecipe> getRecipeType() {
+        return Jei.OXYGEN_LOADER_TYPE;
     }
 
     @Override
@@ -82,15 +83,16 @@ public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
     }
 
     @Override
-    public List<Component> getTooltipStrings(FuelRefiningRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX,
+    public List<Component> getTooltipStrings(OxygenLoaderRecipe recipe, IRecipeSlotsView recipeSlotsView, double mouseX,
             double mouseY) {
         return IRecipeCategory.super.getTooltipStrings(recipe, recipeSlotsView, mouseX, mouseY);
     }
 
     @Override
-    public void draw(FuelRefiningRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
+    public void draw(OxygenLoaderRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
             double mouseY) {
         int energyTime = 100 / Config.FUEL_REFINERY_ENERGY_USAGE.get();
+
         int compressTime = energyTime;
         IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
         arrow.draw(stack, 40, 22);
@@ -98,10 +100,14 @@ public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
         // Update the energy cost
         recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)
                 .forEach(i -> i.setAmount(Config.FUEL_REFINERY_ENERGY_USAGE.get()));
+
+        // Update the o2 amount
+        recipeSlotsView.getSlotViews(RecipeIngredientRole.OUTPUT).get(0).getIngredients(Jei.O2_INGREDIENT_TYPE)
+                .forEach(i -> i.setAmount(recipe.getOxygen()));
     }
 
     @Override
-    public void setRecipe(IRecipeLayoutBuilder builder, FuelRefiningRecipe recipe, IFocusGroup focuses) {
+    public void setRecipe(IRecipeLayoutBuilder builder, OxygenLoaderRecipe recipe, IFocusGroup focuses) {
         IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 20, 8);
         inputStack.addIngredients(ForgeTypes.FLUID_STACK, recipe.getInput().toStacks());
         inputStack.setCustomRenderer(ForgeTypes.FLUID_STACK, new CustomFluidRenderer(true));
@@ -111,8 +117,8 @@ public class FuelRefining implements IRecipeCategory<FuelRefiningRecipe> {
         inputStack.setCustomRenderer(Jei.FE_INGREDIENT_TYPE, EnergyIngredient.INTANK);
 
         IRecipeSlotBuilder outputStack = builder.addSlot(RecipeIngredientRole.OUTPUT, 73, 8);
-        outputStack.addIngredients(ForgeTypes.FLUID_STACK, recipe.getOutput().toStacks());
-        outputStack.setCustomRenderer(ForgeTypes.FLUID_STACK, new CustomFluidRenderer(false));
+        outputStack.addIngredient(Jei.O2_INGREDIENT_TYPE, O2Ingredient.OUTTANK);
+        outputStack.setCustomRenderer(Jei.O2_INGREDIENT_TYPE, O2Ingredient.OUTTANK);
     }
 
 }
