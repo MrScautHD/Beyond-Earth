@@ -44,10 +44,6 @@ public class PlanetData {
         // Texture location for icon.
         String texture;
 
-        // This set of vaiues are for gravity, -1 means use default.
-        float orbit_item_gravity = 0.05f;
-        float orbit_enitity_gravity = 0.01f;
-
         // Orbit radius is in AU for planets, and lunar orbit radii for moons.
         float orbit_radius = 1;
 
@@ -55,6 +51,8 @@ public class PlanetData {
         float mass = 1;
         // Gravity in earth gs
         float g = 1;
+        // g while in orbit
+        float orbit_g = 0.05f;
 
         boolean has_oxygen = false;
         boolean has_rain = false;
@@ -75,10 +73,6 @@ public class PlanetData {
         }
 
         public PlanetEntry(Planet planet) {
-
-            this.orbit_enitity_gravity = planet.orbitEntityGravity;
-            this.orbit_item_gravity = planet.orbitItemGravity;
-
             this.mass = planet.mass;
             this.orbit_radius = planet.orbitRadius;
 
@@ -112,7 +106,7 @@ public class PlanetData {
                     new ResourceLocation(this.planet));
             ResourceKey<Level> orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY,
                     new ResourceLocation(this.orbit));
-            Planet planet = new Planet(location, orbit, orbit_item_gravity, orbit_enitity_gravity);
+            Planet planet = new Planet(location, orbit);
             if (this.name != null)
                 planet.name = this.name;
             if (this.planet_bar != null)
@@ -186,10 +180,21 @@ public class PlanetData {
         }
     }
 
+    // Set this to true if you want to change the config!
+    public boolean modified = false;
     // List of stars to include.
     public List<StarEntry> stars = new ArrayList<>();
 
     public void initPlanets(boolean event) {
+
+        // We only clear and update the planets if the file was modified!
+        if (!this.modified) {
+            // This will generate the default planet set if it is missing, as we can get to
+            // here without having generated them, if the file is already existing.
+            Planets.getStarsList();
+            return;
+        }
+
         // First clear all of the old planets.
         Planets.clear();
 

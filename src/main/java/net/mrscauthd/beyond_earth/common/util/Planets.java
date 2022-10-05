@@ -96,11 +96,11 @@ public class Planets {
      */
     private static void registerDefaultPlanets() {
         Planets.registerPlanet(Level.OVERWORLD, LevelRegistry.EARTH_ORBIT);
-        Planets.registerPlanet(LevelRegistry.MOON, LevelRegistry.MOON_ORBIT, 0.05f, 0.02f);
-        Planets.registerPlanet(LevelRegistry.MARS, LevelRegistry.MARS_ORBIT, 0.06f, 0.05f);
-        Planets.registerPlanet(LevelRegistry.MERCURY, LevelRegistry.MERCURY_ORBIT, 0.05f, 0.02f);
+        Planets.registerPlanet(LevelRegistry.MOON, LevelRegistry.MOON_ORBIT);
+        Planets.registerPlanet(LevelRegistry.MARS, LevelRegistry.MARS_ORBIT);
+        Planets.registerPlanet(LevelRegistry.MERCURY, LevelRegistry.MERCURY_ORBIT);
         Planets.registerPlanet(LevelRegistry.VENUS, LevelRegistry.VENUS_ORBIT);
-        Planets.registerPlanet(LevelRegistry.GLACIO, LevelRegistry.GLACIO_ORBIT, 0.05f, 0.03f);
+        Planets.registerPlanet(LevelRegistry.GLACIO, LevelRegistry.GLACIO_ORBIT);
 
         Planets.registerFallModifier(LevelRegistry.MOON, 5.5f);
         Planets.registerFallModifier(LevelRegistry.MARS, 5.0f);
@@ -263,9 +263,9 @@ public class Planets {
         Planet planet = BY_DIMENSION.get(key);
         if (planet == null)
             return -1;
-        float scale = planet.g;
+        float scale = key == planet.orbit ? planet.orbitG : planet.g;
         float base = (float) ItemGravity.DEFAULT_ITEM_GRAVITY;
-        return key == planet.orbit ? planet.orbitItemGravity : scale * base;
+        return scale * base;
     }
 
     /**
@@ -278,9 +278,9 @@ public class Planets {
         Planet planet = BY_DIMENSION.get(key);
         if (planet == null)
             return -1;
-        float scale = planet.g;
+        float scale = key == planet.orbit ? planet.orbitG : planet.g;
         float base = (float) ForgeMod.ENTITY_GRAVITY.get().getDefaultValue();
-        return key == planet.orbit ? planet.orbitEntityGravity : scale * base;
+        return scale * base;
     }
 
     /**
@@ -312,16 +312,7 @@ public class Planets {
     }
 
     public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit) {
-        registerPlanet(location, orbit, -1, -1);
-    }
-
-    public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit, float orbitItemGravity,
-            float orbitEntityGravity) {
-        if (orbitEntityGravity == -1)
-            orbitEntityGravity = 0.01f;
-        if (orbitItemGravity == -1)
-            orbitItemGravity = 0.05f;
-        Planet planet = new Planet(location, orbit, orbitItemGravity, orbitEntityGravity);
+        Planet planet = new Planet(location, orbit);
         planet.register();
     }
 
@@ -363,11 +354,10 @@ public class Planets {
         public ResourceKey<Level> planet;
         public ResourceKey<Level> orbit;
 
-        public float orbitItemGravity;
-        public float orbitEntityGravity;
         public float orbitRadius = 1;
         public float mass = 1;
         public float g = 1;
+        public float orbitG = 0.05f;
         public float temperature = 14;
 
         public int planetID;
@@ -392,12 +382,9 @@ public class Planets {
         public int button_category = -1;
         public String[] extra_text;
 
-        public Planet(ResourceKey<Level> planet, ResourceKey<Level> orbit, float orbitItemGravity,
-                float orbitEntityGravity) {
+        public Planet(ResourceKey<Level> planet, ResourceKey<Level> orbit) {
             this.planet = planet;
             this.orbit = orbit;
-            this.orbitItemGravity = orbitItemGravity;
-            this.orbitEntityGravity = orbitEntityGravity;
             this.name = planet.location().getPath();
             if (planet == Level.OVERWORLD)
                 this.name = "earth";
