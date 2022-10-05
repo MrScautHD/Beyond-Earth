@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.config.data.PlanetData.PlanetDataHandler;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyHandler;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenuNetworkHandler;

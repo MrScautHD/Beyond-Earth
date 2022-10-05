@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.blocks.entities;
+package net.mrscauthd.beyond_earth.common.blocks.entities.machines;
 
 import java.util.ArrayList;
 import java.util.HashSet;

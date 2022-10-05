@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.ResultContainer;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 import net.mrscauthd.beyond_earth.common.crafting.WorkbenchingRecipe;
 import net.mrscauthd.beyond_earth.common.inventory.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.common.menus.helper.GridPlacer;

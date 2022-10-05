@@ -1,13 +1,13 @@
 package net.mrscauthd.beyond_earth.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CoalGeneratorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();

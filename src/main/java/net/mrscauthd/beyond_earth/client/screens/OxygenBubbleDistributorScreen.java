@@ -17,7 +17,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.helper.ImageButtonPlacer;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.OxygenBubbleDistributorMenu;
@@ -30,11 +30,11 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/oxygen_distributor.png");
 
-    public static final int INPUT_TANK_LEFT = 50;
-    public static final int INPUT_TANK_TOP = 57;
+    public static final int INPUT_TANK_LEFT = 51;
+    public static final int INPUT_TANK_TOP = 58;
 
-    public static final int OUTPUT_TANK_LEFT = 114;
-    public static final int OUTPUT_TANK_TOP = 57;
+    public static final int OUTPUT_TANK_LEFT = 115;
+    public static final int OUTPUT_TANK_TOP = 58;
 
     public static final int ENERGY_LEFT = 147;
     public static final int ENERGY_TOP = 58;

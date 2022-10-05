@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.common.machines.power;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 
 public abstract class PowerSystemEnergy extends PowerSystem {
     private final IEnergyStorage energyStorage;

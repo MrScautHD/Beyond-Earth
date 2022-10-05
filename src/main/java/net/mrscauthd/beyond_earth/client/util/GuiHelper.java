@@ -42,8 +42,8 @@ public class GuiHelper {
             "textures/gui/util/oxygen.png");
     public static final ResourceLocation OXYGEN_TANK_PATH = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/fluid_tank_overlay.png");
-    public static final int OXYGEN_TANK_WIDTH = 14;
-    public static final int OXYGEN_TANK_HEIGHT = 48;
+    public static final int OXYGEN_TANK_WIDTH = 12;
+    public static final int OXYGEN_TANK_HEIGHT = 46;
     public static final ResourceLocation ENERGY_PATH = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/energy_full.png");
     public static final int ENERGY_WIDTH = 13;
@@ -52,8 +52,8 @@ public class GuiHelper {
     public static final int FUEL_HEIGHT = 48;
     public static final ResourceLocation FLUID_TANK_PATH = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/fluid_tank_overlay.png");
-    public static final int FLUID_TANK_WIDTH = 14;
-    public static final int FLUID_TANK_HEIGHT = 48;
+    public static final int FLUID_TANK_WIDTH = 12;
+    public static final int FLUID_TANK_HEIGHT = 46;
 
     public static boolean isHover(Rectangle2d bounds, double x, double y) {
         int left = bounds.getX();

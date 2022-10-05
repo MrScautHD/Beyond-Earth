@@ -7,7 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 

@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.OxygenLoaderMenu;
@@ -25,11 +25,11 @@ public class OxygenLoaderScreen extends AbstractContainerScreen<OxygenLoaderMenu
     public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/oxygen_loader.png");
 
-    public static final int INPUT_TANK_LEFT = 42;
-    public static final int INPUT_TANK_TOP = 21;
+    public static final int INPUT_TANK_LEFT = 43;
+    public static final int INPUT_TANK_TOP = 22;
 
-    public static final int OUTPUT_TANK_LEFT = 99;
-    public static final int OUTPUT_TANK_TOP = 21;
+    public static final int OUTPUT_TANK_LEFT = 100;
+    public static final int OUTPUT_TANK_TOP = 22;
 
     public static final int ENERGY_LEFT = 150;
     public static final int ENERGY_TOP = 22;

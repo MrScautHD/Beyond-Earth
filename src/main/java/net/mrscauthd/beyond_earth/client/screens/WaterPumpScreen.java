@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
-import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.WaterPumpMenu;
@@ -25,8 +25,8 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
     public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/water_pump.png");
 
-    public static final int WATER_TANK_LEFT = 80;
-    public static final int WATER_TANK_TOP = 22;
+    public static final int WATER_TANK_LEFT = 81;
+    public static final int WATER_TANK_TOP = 23;
 
     public static final int ENERGY_LEFT = 146;
     public static final int ENERGY_TOP = 22;

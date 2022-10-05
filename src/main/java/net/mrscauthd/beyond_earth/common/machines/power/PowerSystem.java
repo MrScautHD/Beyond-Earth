@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
 
 public abstract class PowerSystem implements INBTSerializable<CompoundTag> {

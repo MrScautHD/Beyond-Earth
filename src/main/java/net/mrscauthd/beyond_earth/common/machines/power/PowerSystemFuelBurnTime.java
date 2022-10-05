@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.common.machines.power;
 import java.util.List;
 
 import net.minecraft.resources.ResourceLocation;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
 

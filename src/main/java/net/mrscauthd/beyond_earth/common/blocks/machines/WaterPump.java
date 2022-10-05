@@ -15,7 +15,7 @@ import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;

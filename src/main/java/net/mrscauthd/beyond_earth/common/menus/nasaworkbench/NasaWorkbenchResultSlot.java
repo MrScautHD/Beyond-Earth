@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.common.menus.nasaworkbench;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.mrscauthd.beyond_earth.common.blocks.entities.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 
 public class NasaWorkbenchResultSlot extends Slot {
 

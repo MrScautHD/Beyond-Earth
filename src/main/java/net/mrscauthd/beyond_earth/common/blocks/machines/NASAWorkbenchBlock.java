@@ -18,7 +18,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.mrscauthd.beyond_earth.common.blocks.entities.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 
 public class NASAWorkbenchBlock extends AbstractMachineBlock<NASAWorkbenchBlockEntity>
         implements SimpleWaterloggedBlock {

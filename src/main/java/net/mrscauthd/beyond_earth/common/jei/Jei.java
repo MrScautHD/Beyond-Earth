@@ -10,9 +10,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.crafting.CompressingRecipe;
+import net.mrscauthd.beyond_earth.common.crafting.FuelRefiningRecipe;
 import net.mrscauthd.beyond_earth.common.crafting.GeneratingRecipe;
 import net.mrscauthd.beyond_earth.common.jei.categories.CoalGenerator;
 import net.mrscauthd.beyond_earth.common.jei.categories.Compressor;
+import net.mrscauthd.beyond_earth.common.jei.categories.FuelRefining;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 
 @JeiPlugin
@@ -22,10 +24,12 @@ public class Jei implements IModPlugin {
 
     public static final RecipeType<GeneratingRecipe> COAL_TYPE;
     public static final RecipeType<CompressingRecipe> COMPRESS_TYPE;
+    public static final RecipeType<FuelRefiningRecipe> REFINE_TYPE;
 
     static {
         COAL_TYPE = RecipeType.create(BeyondEarth.MODID, "coal_generator", GeneratingRecipe.class);
         COMPRESS_TYPE = RecipeType.create(BeyondEarth.MODID, "compressor", CompressingRecipe.class);
+        REFINE_TYPE = RecipeType.create(BeyondEarth.MODID, "fuel_refining", FuelRefiningRecipe.class);
     }
 
     @Override
@@ -38,6 +42,7 @@ public class Jei implements IModPlugin {
         final IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
         registration.addRecipeCategories(new CoalGenerator(helper));
         registration.addRecipeCategories(new Compressor(helper));
+        registration.addRecipeCategories(new FuelRefining(helper));
     }
 
     @Override
@@ -46,5 +51,7 @@ public class Jei implements IModPlugin {
                 RecipeTypeRegistry.COAL_GENERATING.get().getRecipes(Minecraft.getInstance().level));
         registration.addRecipes(COMPRESS_TYPE,
                 RecipeTypeRegistry.COMPRESSING.get().getRecipes(Minecraft.getInstance().level));
+        registration.addRecipes(REFINE_TYPE,
+                RecipeTypeRegistry.FUEL_REFINING.get().getRecipes(Minecraft.getInstance().level));
     }
 }

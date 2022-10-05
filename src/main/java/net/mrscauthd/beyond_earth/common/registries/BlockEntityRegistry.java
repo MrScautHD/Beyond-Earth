@@ -5,16 +5,16 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.entities.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.NASAWorkbenchBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenBubbleDistributorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CoalGeneratorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
 
 public class BlockEntityRegistry {
 

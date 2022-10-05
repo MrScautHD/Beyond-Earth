@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.common.inventory.StackCacher;
 
 public abstract class PowerSystemFuel extends PowerSystem {

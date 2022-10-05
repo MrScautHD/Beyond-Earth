@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.common.machines.power;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.mrscauthd.beyond_earth.common.blocks.entities.AbstractMachineBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.common.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.common.crafting.GeneratingRecipe;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;

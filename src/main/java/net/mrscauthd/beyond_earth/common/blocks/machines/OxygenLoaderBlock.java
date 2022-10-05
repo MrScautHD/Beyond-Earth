@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.common.blocks.machines;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mrscauthd.beyond_earth.common.blocks.entities.OxygenLoaderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
 
 public class OxygenLoaderBlock extends AbstractMachineBlock<OxygenLoaderBlockEntity> {
 

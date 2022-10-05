@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.FuelRefineryBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
