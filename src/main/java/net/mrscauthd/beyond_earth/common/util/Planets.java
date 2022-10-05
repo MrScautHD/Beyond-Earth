@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.events.forge.PlanetRegisterEvent;
@@ -262,7 +263,9 @@ public class Planets {
         Planet planet = BY_DIMENSION.get(key);
         if (planet == null)
             return -1;
-        return key == planet.orbit ? planet.orbitItemGravity : planet.planetItemGravity;
+        float scale = planet.g;
+        float base = (float) ItemGravity.DEFAULT_ITEM_GRAVITY;
+        return key == planet.orbit ? planet.orbitItemGravity : scale * base;
     }
 
     /**
@@ -275,7 +278,9 @@ public class Planets {
         Planet planet = BY_DIMENSION.get(key);
         if (planet == null)
             return -1;
-        return key == planet.orbit ? planet.orbitEntityGravity : planet.planetEntityGravity;
+        float scale = planet.g;
+        float base = (float) ForgeMod.ENTITY_GRAVITY.get().getDefaultValue();
+        return key == planet.orbit ? planet.orbitEntityGravity : scale * base;
     }
 
     /**
@@ -307,24 +312,16 @@ public class Planets {
     }
 
     public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit) {
-        registerPlanet(location, orbit, -1, -1, -1, -1);
+        registerPlanet(location, orbit, -1, -1);
     }
 
-    public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit, float planetItemGravity,
-            float planetEntityGravity) {
-        registerPlanet(location, orbit, planetItemGravity, planetEntityGravity, -1, -1);
-    }
-
-    public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit, float planetItemGravity,
-            float planetEntityGravity, float orbitItemGravity, float orbitEntityGravity) {
-
+    public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit, float orbitItemGravity,
+            float orbitEntityGravity) {
         if (orbitEntityGravity == -1)
             orbitEntityGravity = 0.01f;
         if (orbitItemGravity == -1)
             orbitItemGravity = 0.05f;
-
-        Planet planet = new Planet(location, orbit, planetItemGravity, planetEntityGravity, orbitItemGravity,
-                orbitEntityGravity);
+        Planet planet = new Planet(location, orbit, orbitItemGravity, orbitEntityGravity);
         planet.register();
     }
 
@@ -339,6 +336,12 @@ public class Planets {
         if (p == null)
             return Planet.DEFAULT_PLANET_BAR;
         return p.getPlanetBar(Methods.isOrbitLevel(level));
+    }
+
+    public static List<StarSystem> getStarsList() {
+        if (ORDERED_STARS.isEmpty())
+            generateDefaults();
+        return ORDERED_STARS;
     }
 
     /**
@@ -360,8 +363,6 @@ public class Planets {
         public ResourceKey<Level> planet;
         public ResourceKey<Level> orbit;
 
-        public float planetItemGravity;
-        public float planetEntityGravity;
         public float orbitItemGravity;
         public float orbitEntityGravity;
         public float orbitRadius = 1;
@@ -391,12 +392,10 @@ public class Planets {
         public int button_category = -1;
         public String[] extra_text;
 
-        public Planet(ResourceKey<Level> planet, ResourceKey<Level> orbit, float planetItemGravity,
-                float planetEntityGravity, float orbitItemGravity, float orbitEntityGravity) {
+        public Planet(ResourceKey<Level> planet, ResourceKey<Level> orbit, float orbitItemGravity,
+                float orbitEntityGravity) {
             this.planet = planet;
             this.orbit = orbit;
-            this.planetItemGravity = planetItemGravity;
-            this.planetEntityGravity = planetEntityGravity;
             this.orbitItemGravity = orbitItemGravity;
             this.orbitEntityGravity = orbitEntityGravity;
             this.name = planet.location().getPath();

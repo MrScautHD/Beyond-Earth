@@ -136,7 +136,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 	}
 	
 	public StarSystem getStar() {
-	   return Planets.ORDERED_STARS.get(starIndex.get());
+	   return Planets.getStarsList().get(starIndex.get());
 	}
 
 	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
@@ -239,7 +239,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		/** CATEGORY 1 */
                 AtomicInteger intholder = new AtomicInteger(1);
                 
-                for (StarSystem system : Planets.ORDERED_STARS) {
+                for (StarSystem system : Planets.getStarsList()) {
 
                     if (system.description == null) {
                         system.description = PlanetSelectionScreenHelper.tl("solar_system_" + system.name);
@@ -378,7 +378,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 		/** SOLAR SYSTEM CATEGORY */
 		this.rotationMilkyWay = (this.rotationMilkyWay + partialTicks * 0.4f);
 
-                for (StarSystem system : Planets.ORDERED_STARS) {
+                for (StarSystem system : Planets.getStarsList()) {
                     system.planets.forEach(planet -> {
                         planet.rotation += partialTicks * 0.02f / planet.orbitRadius;
                     });
@@ -387,7 +387,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
 	public void drawRings() {
                 int start = 1;
-                for (StarSystem system : Planets.ORDERED_STARS) {
+                for (StarSystem system : Planets.getStarsList()) {
                     int end = start + system.planets.size();
                     if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), start, end)) {
                         system.planets.forEach(planet -> {
@@ -411,7 +411,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
                         this.rotationMilkyWay);
             }
             int start = 1;
-            for (StarSystem system : Planets.ORDERED_STARS) {
+            for (StarSystem system : Planets.getStarsList()) {
                 int end = start + system.planets.size();
                 if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), start, end)) {
                     system.planets.forEach(planet -> {

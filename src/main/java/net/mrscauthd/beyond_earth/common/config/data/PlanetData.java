@@ -45,9 +45,6 @@ public class PlanetData {
         String texture;
 
         // This set of vaiues are for gravity, -1 means use default.
-
-        float planet_item_gravity = -1;
-        float planet_enitity_gravity = -1;
         float orbit_item_gravity = 0.05f;
         float orbit_enitity_gravity = 0.01f;
 
@@ -81,8 +78,6 @@ public class PlanetData {
 
             this.orbit_enitity_gravity = planet.orbitEntityGravity;
             this.orbit_item_gravity = planet.orbitItemGravity;
-            this.planet_enitity_gravity = planet.planetEntityGravity;
-            this.planet_item_gravity = planet.planetItemGravity;
 
             this.mass = planet.mass;
             this.orbit_radius = planet.orbitRadius;
@@ -117,8 +112,7 @@ public class PlanetData {
                     new ResourceLocation(this.planet));
             ResourceKey<Level> orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY,
                     new ResourceLocation(this.orbit));
-            Planet planet = new Planet(location, orbit, planet_item_gravity, planet_enitity_gravity, orbit_item_gravity,
-                    orbit_enitity_gravity);
+            Planet planet = new Planet(location, orbit, orbit_item_gravity, orbit_enitity_gravity);
             if (this.name != null)
                 planet.name = this.name;
             if (this.planet_bar != null)

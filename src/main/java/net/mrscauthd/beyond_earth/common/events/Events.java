@@ -245,7 +245,7 @@ public class Events {
     @SubscribeEvent
     public static void onDataSync(OnDatapackSyncEvent event) {
         PlanetData data = new PlanetData();
-        Planets.ORDERED_STARS.forEach(s -> data.stars.add(new StarEntry(s)));
+        Planets.getStarsList().forEach(s -> data.stars.add(new StarEntry(s)));
         PlanetDataHandler holder = new PlanetDataHandler();
         holder.data = data;
         NetworkRegistry.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> event.getPlayer()), holder);

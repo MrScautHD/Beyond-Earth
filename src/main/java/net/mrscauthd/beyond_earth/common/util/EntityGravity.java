@@ -13,13 +13,6 @@ public class EntityGravity {
 
     public static final String TAG = BeyondEarth.MODID + ":space_gravity";
 
-    /** GRAVITIES */
-    public static final float MOON_GRAVITY = 0.02F;
-    public static final float MARS_GRAVITY = 0.05F;
-    public static final float MERCURY_GRAVITY = 0.02F;
-    public static final float GLACIO_GRAVITY = 0.03F;
-    public static final float ORBIT_GRAVITY = 0.01F;
-
     public static void setGravities(LivingEntity entity, Level level) {
         Attribute attribute = ForgeMod.ENTITY_GRAVITY.get();
         AttributeInstance attributeInstance = entity.getAttribute(attribute);
@@ -32,7 +25,7 @@ public class EntityGravity {
         /** SET GRAVITIES */
         if (!entity.getPersistentData().getBoolean(TAG)) {
             float entityGravity = Planets.getEntityGravityForLocation(level);
-            if(entityGravity!=-1) {
+            if (entityGravity != -1) {
                 setGravity(entity, attributeInstance, entityGravity, true);
             } else {
                 MinecraftForge.EVENT_BUS.post(new LivingGravityEvent(entity, attribute, attributeInstance));
@@ -41,7 +34,8 @@ public class EntityGravity {
     }
 
     /** SET GRAVITY */
-    public static void setGravity(LivingEntity entity, AttributeInstance attributeInstance, double gravity, boolean condition) {
+    public static void setGravity(LivingEntity entity, AttributeInstance attributeInstance, double gravity,
+            boolean condition) {
         attributeInstance.setBaseValue(gravity);
         entity.getPersistentData().putBoolean(TAG, condition);
     }
