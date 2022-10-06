@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Maps;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-import it.unimi.dsi.fastutil.objects.Object2FloatOpenHashMap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -42,11 +41,6 @@ public class Planets {
      * orbit.
      */
     public static Map<ResourceKey<Level>, Planet> BY_DIMENSION = Maps.newHashMap();
-    /**
-     * This map is for modifying fall distance for planets. Register values in here
-     * with Planets.registerFallModifier
-     */
-    private static Object2FloatOpenHashMap<ResourceKey<Level>> FALL_MODIFIERS = new Object2FloatOpenHashMap<>();
 
     public static Int2ObjectOpenHashMap<ResourceKey<Level>> PLANET_ID_MAPS = new Int2ObjectOpenHashMap<>();
     public static Int2ObjectOpenHashMap<ResourceKey<Level>> ORBIT_ID_MAPS = new Int2ObjectOpenHashMap<>();
@@ -101,11 +95,6 @@ public class Planets {
         Planets.registerPlanet(LevelRegistry.MERCURY, LevelRegistry.MERCURY_ORBIT);
         Planets.registerPlanet(LevelRegistry.VENUS, LevelRegistry.VENUS_ORBIT);
         Planets.registerPlanet(LevelRegistry.GLACIO, LevelRegistry.GLACIO_ORBIT);
-
-        Planets.registerFallModifier(LevelRegistry.MOON, 5.5f);
-        Planets.registerFallModifier(LevelRegistry.MARS, 5.0f);
-        Planets.registerFallModifier(LevelRegistry.MERCURY, 5.5f);
-        Planets.registerFallModifier(LevelRegistry.GLACIO, 5.0f);
 
         Planets.registerPlanetBar(LevelRegistry.MOON, Planets.MOON_PLANET_BAR);
         Planets.registerPlanetBar(LevelRegistry.MARS, Planets.MARS_PLANET_BAR);
@@ -181,7 +170,6 @@ public class Planets {
     }
 
     public static void clear() {
-        FALL_MODIFIERS.clear();
         BY_DIMENSION.clear();
         PLANETS_BY_PLANET.clear();
         PLANETS_BY_ORBIT.clear();
@@ -245,17 +233,6 @@ public class Planets {
     /**
      * 
      * @param level
-     * @return amount to modify fall distance for this level
-     */
-    public static float getFallModifier(Level level) {
-        // Return the registered value first, if that is not present, return 8.5
-        // if orbit, otherwise 0
-        return FALL_MODIFIERS.getOrDefault(level.dimension(), Methods.isOrbitLevel(level) ? 8.5f : 0);
-    }
-
-    /**
-     * 
-     * @param level
      * @return modified item gravity, -1 if no modification!
      */
     public static float getItemGravityForLocation(Level level) {
@@ -299,16 +276,6 @@ public class Planets {
             return false;
         p.moons.add(m);
         return true;
-    }
-
-    /**
-     * Registers a fall modifier for this location, see Planet.getFallModifier
-     * 
-     * @param level
-     * @param value
-     */
-    public static void registerFallModifier(ResourceKey<Level> level, float value) {
-        FALL_MODIFIERS.put(level, value);
     }
 
     public static void registerPlanet(ResourceKey<Level> location, ResourceKey<Level> orbit) {

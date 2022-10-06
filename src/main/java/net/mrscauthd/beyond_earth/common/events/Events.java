@@ -218,8 +218,11 @@ public class Events {
     @SubscribeEvent
     public static void livingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
-        Level level = entity.level;
-        event.setDistance(event.getDistance() - Planets.getFallModifier(level));
+        Attribute attribute = ForgeMod.ENTITY_GRAVITY.get();
+        double gravity = entity.getAttributeValue(attribute) / attribute.getDefaultValue();
+        float scale = (float) (gravity - 1);
+        scale *= 10 * scale;
+        event.setDistance(event.getDistance() - scale);
     }
 
     @SubscribeEvent
@@ -227,9 +230,7 @@ public class Events {
         Entity entity = event.getEntity();
         Level level = event.getLevel();
 
-        if (entity instanceof LivingEntity) {
-            LivingEntity livingEntity = (LivingEntity) entity;
-
+        if (entity instanceof LivingEntity livingEntity) {
             /** ENTITY GRAVITY SYSTEM */
             EntityGravity.setGravities(livingEntity, level);
         }
