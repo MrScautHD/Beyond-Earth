@@ -24,6 +24,8 @@ public class ItemGravity {
         if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent(entity, gravity))) {
             return;
         }
+        float artificialGravity = EntityGravity.getArtificalGravityModifier(entity.level, entity.blockPosition());
+        gravity += artificialGravity * DEFAULT_ITEM_GRAVITY;
         // First removes the default gravity. Then we apply the -gravity to re-add ours.
         double dy = entity.getDeltaMovement().y / 0.98 + DEFAULT_ITEM_GRAVITY - gravity;
         entity.setDeltaMovement(entity.getDeltaMovement().x, dy, entity.getDeltaMovement().z);
