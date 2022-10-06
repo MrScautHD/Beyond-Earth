@@ -1,5 +1,7 @@
 package net.mrscauthd.beyond_earth.common.util;
 
+import java.util.function.Function;
+
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -12,14 +14,20 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
@@ -29,26 +37,29 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.armors.ISpaceArmor;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
-import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
+import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetFireInHotPlanetEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
-import net.mrscauthd.beyond_earth.common.registries.*;
-import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
-import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
-
-import java.util.function.Function;
+import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
+import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
+import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
+import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
+import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 
 public class Methods {
     public static final ResourceLocation SPACE_STATION = new ResourceLocation(BeyondEarth.MODID, "space_station");
+    public static final TagKey<Item> SPACE_SUIT_PART = TagKey.create(Keys.ITEMS, new ResourceLocation(BeyondEarth.MODID, "space_suit"));
 
     public static Entity teleportTo(Entity entity, ResourceKey<Level> levelKey, double yPos) {
         if (!isLevel(entity.level, levelKey)) {
@@ -121,11 +132,10 @@ public class Methods {
     }
 
     public static boolean isLivingInAnySpaceSuits(LivingEntity entity) {
-        if (!(entity.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof ISpaceArmor)) return false;
-        if (!(entity.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof ISpaceArmor)) return false;
-        if (!(entity.getItemBySlot(EquipmentSlot.LEGS).getItem() instanceof ISpaceArmor)) return false;
-        if (!(entity.getItemBySlot(EquipmentSlot.FEET).getItem() instanceof ISpaceArmor)) return false;
-
+        if (!(entity.getItemBySlot(EquipmentSlot.HEAD).is(SPACE_SUIT_PART))) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.CHEST).is(SPACE_SUIT_PART))) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.LEGS).is(SPACE_SUIT_PART))) return false;
+        if (!(entity.getItemBySlot(EquipmentSlot.FEET).is(SPACE_SUIT_PART))) return false;
         return true;
     }
 
