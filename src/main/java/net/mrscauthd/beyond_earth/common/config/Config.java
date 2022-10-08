@@ -24,7 +24,9 @@ public class Config {
 
 	/** Entity Systems */
 	public static final ForgeConfigSpec.ConfigValue<Boolean> PLAYER_OXYGEN_SYSTEM;
-	public static final ForgeConfigSpec.ConfigValue<Boolean> ENTITY_OXYGEN_SYSTEM;
+        public static final ForgeConfigSpec.ConfigValue<Boolean> ENTITY_OXYGEN_SYSTEM;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BREATHE_RATE;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BREATHE_AMOUNT;
 	
         /** Machines */
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_GENERATION;
@@ -59,8 +61,8 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER;
-        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN;
-        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RATE_OUTPUT;
+        public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BUBBLE_DISTRIBUTOR_RATE_INPUT;
         
         public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_ENERGY_USAGE;
         public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_ENERGY_CAPACITY;
@@ -86,7 +88,10 @@ public class Config {
 
 		/** Entity Systems */
 		PLAYER_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Player Oxygen System").define("Player Oxygen System", true);
-		ENTITY_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Entity Oxygen System").define("Entity Oxygen System", true);
+                ENTITY_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Entity Oxygen System").define("Entity Oxygen System", true);
+                
+                OXYGEN_BREATHE_RATE = BUILDER.comment("How often Oxygen is breathed (in ticks)").define("Oxygen Breathe Rate", 20);
+                OXYGEN_BREATHE_AMOUNT = BUILDER.comment("How much Oxygen is breathed at at time").define("Oxygen Breathe Amount", 1);
 
                 BUILDER.pop();
 		
@@ -136,11 +141,8 @@ public class Config {
                 OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
                 OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
                 OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER);
-                BUILDER.comment("Range is mean distance of each side from center", "Working area will be (range * 2) + 1", "For example, when range is 2, then working area is 3x3x3 blocks", "range is 15, then working area is 31x31x31 blocks");
-                BUILDER.push("Range");
-                OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MIN = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN + " blocks").defineInRange("RangeMin", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MIN, 1, 49);
-                OXYGEN_BUBBLE_DISTRIBUTOR_RANGE_MAX = BUILDER.comment("Default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX + " blocks").defineInRange("RangeMax", OxygenBubbleDistributorBlockEntity.DEFAULT_RANGE_MAX, 1, 49);
-                BUILDER.pop();
+                OXYGEN_BUBBLE_DISTRIBUTOR_RATE_OUTPUT = BUILDER.comment("Set O2 output rate, default: " + 50 + " mB").define("O2 Distribution Rate", 50);
+                OXYGEN_BUBBLE_DISTRIBUTOR_RATE_INPUT = BUILDER.comment("Set O2 input rate, default: " + 1 + " mB").define("O2 Collection Rate", 1);
                 BUILDER.pop();
 
                 BUILDER.push("Water Pump");

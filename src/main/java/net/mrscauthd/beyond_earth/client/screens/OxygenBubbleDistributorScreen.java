@@ -1,27 +1,23 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
-import java.text.NumberFormat;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.screens.buttons.TexturedButton;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.OxygenBubbleDistributorMenu;
-import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
 @OnlyIn(Dist.CLIENT)
@@ -42,27 +38,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     public static final int ARROW_LEFT = 48;
     public static final int ARROW_TOP = 36;
 
-    private boolean cachedWorkingAreaVisible = true;
-
     // Buttons
-    public TexturedButton workingAreaVisibleButton;
-    public TexturedButton button_plus;
-    public TexturedButton button_minus;
-
-    private static final ResourceLocation TECHNIK_BUTTON = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button.png");
-    private static final ResourceLocation LIGHT_TECHNIK_BUTTON = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button_2.png");
-
-    private static final ResourceLocation TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button_plus.png");
-    private static final ResourceLocation LIGHT_TECHNIK_BUTTON_PLUS = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button_plus_2.png");
-
-    private static final ResourceLocation TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button_minus.png");
-    private static final ResourceLocation LIGHT_TECHNIK_BUTTON_MINUS = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/buttons/technik_button_minus_2.png");
 
     public OxygenBubbleDistributorScreen(OxygenBubbleDistributorMenu.GuiContainer container, Inventory inventory,
             Component text) {
@@ -76,7 +52,6 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     @Override
     public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(ms);
-        this.updateWorkingAreaVisibleButton();
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
@@ -119,93 +94,19 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     }
 
     @Override
-    protected void init() {
-        super.init();
-
-        button_plus = this
-                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos + 5, 20, 20, (p_2130901) -> {
-                    BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-                    NetworkRegistry.PACKET_HANDLER
-                            .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, true));
-                }).tex(TECHNIK_BUTTON_PLUS, LIGHT_TECHNIK_BUTTON_PLUS));
-
-        button_minus = this
-                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos + 25, 20, 20, (p_2130901) -> {
-                    BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-                    NetworkRegistry.PACKET_HANDLER
-                            .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeRangeMessage(pos, false));
-                }).tex(TECHNIK_BUTTON_MINUS, LIGHT_TECHNIK_BUTTON_MINUS));
-
-        workingAreaVisibleButton = this
-                .addRenderableWidget(new TexturedButton(this.leftPos - 20, this.topPos - 22, 34, 20, button -> {
-                    BlockPos pos = this.getMenu().getBlockEntity().getBlockPos();
-                    NetworkRegistry.PACKET_HANDLER
-                            .sendToServer(new OxygenBubbleDistributorBlockEntity.ChangeWorkingAreaVisibleMessage(pos,
-                                    !this.cachedWorkingAreaVisible));
-                }).tex(TECHNIK_BUTTON, LIGHT_TECHNIK_BUTTON));
-    }
-
-    @Override
     protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
         super.renderLabels(ms, mouseX, mouseY);
-
         OxygenBubbleDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        double range = blockEntity.getRange();
-        NumberFormat numberInstance = NumberFormat.getNumberInstance();
-        numberInstance.setMaximumFractionDigits(2);
-        String rangeToString = numberInstance.format((range * 2.0D) + 1.0D);
-        Component workingAreaText = Component.translatable(
-                "gui." + BeyondEarth.MODID + ".oxygen_bubble_distributor.workingarea.text", rangeToString,
-                rangeToString, rangeToString);
-
-        int sideWidth = 2;
-        int sidePadding = 2;
-        int workingAreaHeight = 25;
-        int workingAreaLeft = this.workingAreaVisibleButton.x + this.workingAreaVisibleButton.getWidth() - this.leftPos;
-        int workingAreaTop = -workingAreaHeight;
-        int workingAreaOffsetX = workingAreaLeft;
-
-        int textwidth = 12;
-
-        if ((range * 2) + 1 > 9) {
-            RenderSystem.setShaderTexture(0,
-                    new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/buttons/oxygen_range_layer.png"));
-            GuiComponent.blit(ms, workingAreaOffsetX + 1, workingAreaTop, 0, 0, 150, 25, 150, 25);
-            textwidth = 13;
-        } else {
-            RenderSystem.setShaderTexture(0,
-                    new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/buttons/oxygen_range_small_layer.png"));
-            GuiComponent.blit(ms, workingAreaOffsetX + 1, workingAreaTop, 0, 0, 140, 25, 140, 25);
-            textwidth = 17;
-        }
-
-        this.font.draw(ms, workingAreaText, workingAreaLeft + sideWidth + sidePadding + textwidth, workingAreaTop + 9,
-                0x339900);
-
         ms.pushPose();
         float oyxgenScale = 0.8F;
         ms.scale(oyxgenScale, oyxgenScale, oyxgenScale);
         Component oxygenText = GaugeTextHelper
-                .getUsingText2(GaugeValueHelper.getOxygen(blockEntity.getOxygenUsing(range)), blockEntity.getMaxTimer())
+                .getUsingText2(GaugeValueHelper.getOxygen(Config.OXYGEN_BUBBLE_DISTRIBUTOR_RATE_OUTPUT.get()), blockEntity.getMaxTimer())
                 .build();
         int oxygenWidth = this.font.width(oxygenText);
         this.font.draw(ms, oxygenText, (int) ((this.imageWidth - 5) / oyxgenScale) - oxygenWidth,
                 (int) (this.inventoryLabelY / oyxgenScale), 0x333333);
         ms.popPose();
-
-        String prefix = "gui." + BeyondEarth.MODID + ".oxygen_bubble_distributor.workingarea.";
-        String method = this.cachedWorkingAreaVisible ? "hide" : "show";
-        this.font.draw(ms, Component.translatable(prefix + method),
-                workingAreaLeft + sideWidth + sidePadding + (this.cachedWorkingAreaVisible ? -30 : -32),
-                workingAreaTop + 9, 0x339900);
-    }
-
-    private void updateWorkingAreaVisibleButton() {
-        boolean next = this.getMenu().getBlockEntity().isWorkingAreaVisible();
-
-        if (this.cachedWorkingAreaVisible != next) {
-            this.cachedWorkingAreaVisible = next;
-        }
     }
 
     public Rectangle2d getInputTankBounds() {
