@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenMakingBlockEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
@@ -19,16 +19,16 @@ public class OxygenBubbleDistributorMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) inv.player.level
+            OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) inv.player.level
                     .getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private OxygenBubbleDistributorBlockEntity blockEntity;
+        private OxygenDistributorBlockEntity blockEntity;
 
-        public GuiContainer(int id, Inventory inv, OxygenBubbleDistributorBlockEntity blockEntity) {
+        public GuiContainer(int id, Inventory inv, OxygenDistributorBlockEntity blockEntity) {
             super(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
             this.blockEntity = blockEntity;
 
@@ -39,7 +39,7 @@ public class OxygenBubbleDistributorMenu {
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 138);
         }
 
-        public OxygenBubbleDistributorBlockEntity getBlockEntity() {
+        public OxygenDistributorBlockEntity getBlockEntity() {
             return this.blockEntity;
         }
 

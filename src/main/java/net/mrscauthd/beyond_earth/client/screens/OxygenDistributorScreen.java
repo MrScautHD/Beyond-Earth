@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
@@ -21,7 +21,7 @@ import net.mrscauthd.beyond_earth.common.menus.OxygenBubbleDistributorMenu;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
 @OnlyIn(Dist.CLIENT)
-public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<OxygenBubbleDistributorMenu.GuiContainer> {
+public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenBubbleDistributorMenu.GuiContainer> {
 
     public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/oxygen_distributor.png");
@@ -40,7 +40,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
 
     // Buttons
 
-    public OxygenBubbleDistributorScreen(OxygenBubbleDistributorMenu.GuiContainer container, Inventory inventory,
+    public OxygenDistributorScreen(OxygenBubbleDistributorMenu.GuiContainer container, Inventory inventory,
             Component text) {
         super(container, inventory, text);
         this.imageWidth = 177;
@@ -55,7 +55,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
-        OxygenBubbleDistributorBlockEntity blockEntity = (OxygenBubbleDistributorBlockEntity) this.getMenu()
+        OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) this.getMenu()
                 .getBlockEntity();
 
         if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
@@ -84,7 +84,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
         GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
                 this.imageHeight);
 
-        OxygenBubbleDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
+        OxygenDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
         GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
                 blockEntity.getPrimaryEnergyStorage());
         GuiHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP,
@@ -96,7 +96,7 @@ public class OxygenBubbleDistributorScreen extends AbstractContainerScreen<Oxyge
     @Override
     protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
         super.renderLabels(ms, mouseX, mouseY);
-        OxygenBubbleDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
+        OxygenDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
         ms.pushPose();
         float oyxgenScale = 0.8F;
         ms.scale(oyxgenScale, oyxgenScale, oyxgenScale);

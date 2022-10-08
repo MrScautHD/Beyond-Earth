@@ -25,7 +25,7 @@ import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 
-public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity {
+public class OxygenDistributorBlockEntity extends OxygenMakingBlockEntity {
 
     public static final int DEFAULT_ENERGY_USAGE = 1;
     public static final int DEFAULT_ENERGY_USAGE_PER_RANGE = 0;
@@ -40,7 +40,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
      */
     public static final int MAX_TIMER = 4;
 
-    public OxygenBubbleDistributorBlockEntity(BlockPos pos, BlockState state) {
+    public OxygenDistributorBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), pos, state);
     }
 
@@ -153,7 +153,7 @@ public class OxygenBubbleDistributorBlockEntity extends OxygenMakingBlockEntity 
         map.put(new PowerSystemEnergyCommon(this) {
             @Override
             public int getBasePowerForOperation() {
-                return OxygenBubbleDistributorBlockEntity.this.getBasePowerForOperation();
+                return OxygenDistributorBlockEntity.this.getBasePowerForOperation();
             }
         });
     }

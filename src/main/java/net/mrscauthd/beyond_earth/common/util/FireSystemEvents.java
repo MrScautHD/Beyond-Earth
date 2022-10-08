@@ -6,13 +6,16 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
 import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
 import net.mrscauthd.beyond_earth.common.events.forge.BlockSetEvent;
 import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
+import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class FireSystemEvents {
@@ -20,12 +23,20 @@ public class FireSystemEvents {
     @SubscribeEvent
     public static void onBlockPlace(BlockSetEvent event) {
         Level level = (Level) event.getLevel();
+        if(level.isClientSide()) return;
 
+        noO2Checks:
         if (Methods.isSpaceLevelWithoutOxygen(level)) {
 
             BlockPos pos = event.getPos();
             BlockState state = level.getBlockState(pos);
             Block block = state.getBlock();
+            
+            ChunkOxygen chunkO2 = ((LevelChunk) level.getChunk(pos))
+                    .getCapability(CapabilityRegistry.CHUNK_OXYGEN).orElse(null);
+            int O2 = chunkO2.getO2(pos);
+            boolean hasOxygen = O2 > 10;
+            if(hasOxygen) break noO2Checks;
 
             /** FIRE */
             if (block == Blocks.FIRE) {

@@ -9,11 +9,11 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 
-public class OxygenBubbleDistributorBlock extends AbstractMachineBlock<OxygenBubbleDistributorBlockEntity> {
+public class OxygenDistributorBlock extends AbstractMachineBlock<OxygenDistributorBlockEntity> {
 
-    public OxygenBubbleDistributorBlock(BlockBehaviour.Properties properties) {
+    public OxygenDistributorBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
@@ -33,8 +33,8 @@ public class OxygenBubbleDistributorBlock extends AbstractMachineBlock<OxygenBub
     }
 
     @Override
-    public OxygenBubbleDistributorBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new OxygenBubbleDistributorBlockEntity(pos, state);
+    public OxygenDistributorBlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new OxygenDistributorBlockEntity(pos, state);
     }
 
 }

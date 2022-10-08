@@ -377,16 +377,16 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
     protected void refreshBlockActivatedChanged() {
         BooleanProperty property = this.getBlockActivatedProperty();
 
-        if (property == null) {
+        BlockState state = this.getBlockState();
+        if (property == null || !state.hasProperty(property)) {
             return;
         }
 
         Level level = this.getLevel();
         BlockPos pos = this.getBlockPos();
-        BlockState state = this.getBlockState();
         boolean activated = this.isActivated();
 
-        if (state.hasProperty(property) && state.getValue(property).booleanValue() != activated) {
+        if (state.getValue(property).booleanValue() != activated) {
             level.setBlock(pos, state.setValue(property, activated), 3);
         }
     }

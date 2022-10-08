@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CoalGeneratorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenBubbleDistributorBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
@@ -135,12 +135,12 @@ public class Config {
                 BUILDER.pop();
                 
                 BUILDER.push("Oxygen Bubble Distributor");
-                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_USAGE);
-                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
-                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", OxygenBubbleDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
-                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
-                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
-                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenBubbleDistributorBlockEntity.DEFAULT_TANK_TRANSFER);
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_USAGE = BUILDER.comment("Set energy usage per tick, default: " + OxygenDistributorBlockEntity.DEFAULT_ENERGY_USAGE + " FE/t").define("EnergyUsage", OxygenDistributorBlockEntity.DEFAULT_ENERGY_USAGE);
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_CAPACITY = BUILDER.comment("Set energy capacity, default: " + OxygenDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY + " FE").define("EnergyCapacity", OxygenDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_ENERGY_TRANSFER = BUILDER.comment("Set energy transfer, default: " + OxygenDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER + " FE").define("EnergyTransfer", OxygenDistributorBlockEntity.DEFAULT_ENERGY_STORAGE_TRANSFER);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_FLUID_CAPACITY = BUILDER.comment("Set fluid input tank capacity, default: " + OxygenDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("FluidCapacity", OxygenDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_OXYGEN_CAPACITY = BUILDER.comment("Set oxygen output tank capacity, default: " + OxygenDistributorBlockEntity.DEFAULT_TANK_CAPACITY + " mB").define("OxygenCapacity", OxygenDistributorBlockEntity.DEFAULT_TANK_CAPACITY);
+                OXYGEN_BUBBLE_DISTRIBUTOR_TANK_TRANSFER = BUILDER.comment("Set tank transfer, default: " + OxygenDistributorBlockEntity.DEFAULT_TANK_TRANSFER + " mB").define("FluidTransfer", OxygenDistributorBlockEntity.DEFAULT_TANK_TRANSFER);
                 OXYGEN_BUBBLE_DISTRIBUTOR_RATE_OUTPUT = BUILDER.comment("Set O2 output rate, default: " + 50 + " mB").define("O2 Distribution Rate", 50);
                 OXYGEN_BUBBLE_DISTRIBUTOR_RATE_INPUT = BUILDER.comment("Set O2 input rate, default: " + 1 + " mB").define("O2 Collection Rate", 1);
                 BUILDER.pop();

@@ -27,7 +27,7 @@ import net.mrscauthd.beyond_earth.common.blocks.machines.CoalGeneratorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.CompressorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.FuelRefineryBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.NASAWorkbenchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenBubbleDistributorBlock;
+import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenDistributorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenLoaderBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.SolarPanelBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.WaterPump;
@@ -49,7 +49,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> OXYGEN_LOADER_BLOCK = BLOCKS.register("oxygen_loader",() -> new OxygenLoaderBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> SOLAR_PANEL_BLOCK = BLOCKS.register("solar_panel",() -> new SolarPanelBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> NASA_WORKBENCH_BLOCK = BLOCKS.register("nasa_workbench",() -> new NASAWorkbenchBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
-    public static final RegistryObject<Block> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK = BLOCKS.register("oxygen_bubble_distributor",() -> new OxygenBubbleDistributorBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK = BLOCKS.register("oxygen_bubble_distributor",() -> new OxygenDistributorBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> WATER_PUMP_BLOCK = BLOCKS.register("water_pump",() -> new WaterPump(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).noOcclusion().strength(5f, 1f).requiresCorrectToolForDrops()));
 
     /** GLOBE BLOCKS */

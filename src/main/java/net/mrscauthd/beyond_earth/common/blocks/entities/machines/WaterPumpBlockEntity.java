@@ -55,7 +55,7 @@ public class WaterPumpBlockEntity extends AbstractMachineBlockEntity {
     protected void tickProcessing() {
 
         BlockPos pos = this.getBlockPos();
-        BlockPos pickupPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
+        BlockPos pickupPos = pos.below();
 
         if (this.level.getFluidState(pickupPos) == Fluids.WATER.getSource(false)
                 && this.level.getBlockState(pickupPos).is(Blocks.WATER)) {
