@@ -25,8 +25,10 @@ public class Config {
 	/** Entity Systems */
 	public static final ForgeConfigSpec.ConfigValue<Boolean> PLAYER_OXYGEN_SYSTEM;
         public static final ForgeConfigSpec.ConfigValue<Boolean> ENTITY_OXYGEN_SYSTEM;
+        public static final ForgeConfigSpec.ConfigValue<Integer> SUIT_BREATHE_RATE;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BREATHE_RATE;
         public static final ForgeConfigSpec.ConfigValue<Integer> OXYGEN_BREATHE_AMOUNT;
+        public static final ForgeConfigSpec.ConfigValue<Integer> VACUUM_DAMAGE_RATE;
 	
         /** Machines */
         public static final ForgeConfigSpec.ConfigValue<Integer> COAL_GENERATOR_ENERGY_GENERATION;
@@ -89,9 +91,11 @@ public class Config {
 		/** Entity Systems */
 		PLAYER_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Player Oxygen System").define("Player Oxygen System", true);
                 ENTITY_OXYGEN_SYSTEM = BUILDER.comment("Enable or Disable Entity Oxygen System").define("Entity Oxygen System", true);
-                
+
+                SUIT_BREATHE_RATE = BUILDER.comment("How often Oxygen is breathed from suit (in ticks)").define("Suit Breathe Rate", 3);
                 OXYGEN_BREATHE_RATE = BUILDER.comment("How often Oxygen is breathed (in ticks)").define("Oxygen Breathe Rate", 20);
-                OXYGEN_BREATHE_AMOUNT = BUILDER.comment("How much Oxygen is breathed at at time").define("Oxygen Breathe Amount", 1);
+                OXYGEN_BREATHE_AMOUNT = BUILDER.comment("How much Oxygen is breathed at at time").define("Oxygen Breathe Amount", 5);
+                VACUUM_DAMAGE_RATE = BUILDER.comment("How often vacuum damage is applied (in ticks)").define("Vacuum Harm Rate", 15);
 
                 BUILDER.pop();
 		

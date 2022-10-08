@@ -29,7 +29,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
@@ -41,8 +40,6 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
-import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -52,9 +49,7 @@ import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNe
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
-import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
-import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
@@ -264,49 +259,6 @@ public class Methods {
             if (!entity.level.isClientSide) {
                 hurtLivingWithAcidRainSource(entity);
             }
-        }
-    }
-
-    /** IF A ENTITY SHOULD NOT GET DAMAGE BECAUSE NO OXYGEN IN SPACE ADD IT TO TAG "no_oxygen_needed" */
-    public static void entityOxygen(LivingEntity entity, Level level) {
-        if (entity instanceof Player || entity.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG)) {
-            return;
-        }
-        boolean hasO2Effect = entity.hasEffect(EffectRegistry.OXYGEN_EFFECT.get());
-        boolean isInSuit = Methods.isLivingInAnySpaceSuits(entity);
-        boolean checkNoO2 = Config.ENTITY_OXYGEN_SYSTEM.get();
-        if (checkNoO2 && !hasO2Effect && !isInSuit) {
-            ChunkOxygen chunkO2 = ((LevelChunk) level.getChunk(entity.blockPosition()))
-                    .getCapability(CapabilityRegistry.CHUNK_OXYGEN).orElse(null);
-            int O2 = chunkO2.getO2(entity.blockPosition());
-            if (O2 > 5) {
-                checkNoO2 = false;
-            }
-            if (entity.tickCount % Config.OXYGEN_BREATHE_RATE.get() == 0)
-                chunkO2.addO2(entity.blockPosition(), (byte) -Config.OXYGEN_BREATHE_AMOUNT.get(), true);
-        }
-
-        if (checkNoO2 && isSpaceLevelWithoutOxygen(level)) {
-
-            if (!hasO2Effect && !isInSuit) {
-
-                entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick",
-                        entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") + 1);
-
-                if (entity.getPersistentData().getDouble(BeyondEarth.MODID + ":oxygen_tick") > 15) {
-
-                    if (!level.isClientSide) {
-                        hurtLivingWithOxygenSource(entity);
-                    }
-
-                    entity.getPersistentData().putDouble(BeyondEarth.MODID + ":oxygen_tick", 0);
-                }
-            }
-        }
-
-        // Out of Space
-        if (Config.ENTITY_OXYGEN_SYSTEM.get() && hasO2Effect) {
-            entity.setAirSupply(300);
         }
     }
 

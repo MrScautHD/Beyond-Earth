@@ -59,8 +59,8 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
             this.O2 = nbt.getAsByteArray();
         }
 
-        public void propagate(Map<SectionPos, SectionOxygen> nearby, Function<BlockPos, Integer> shouldSpread,
-                BlockPos origin, Level level) {
+        private void propagate(Map<SectionPos, SectionOxygen> nearby, Function<BlockPos, Integer> shouldSpread,
+                BlockPos origin, Level level, int depth) {
             if (!(level instanceof ServerLevel serverlevel))
                 return;
             MutableBlockPos testPoint = new MutableBlockPos();
@@ -74,7 +74,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
             byte amt = O2[index];
 
             Direction minDown = null;
-            int dO2max = 0;
+            int dO2max = 1;
             int total = amt;
 
             directions: for (Direction d : Direction.values()) {
@@ -121,7 +121,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                 byte old = flowTo.getO2(index2);
                 if (old != newAmt) {
                     flowTo.setO2(index2, newAmt);
-                    dirty.put(testPoint, flowTo);
+                    dirty.put(testPoint.immutable(), flowTo);
                     if (Math.abs(amt - newAmt) > 5)
                         serverlevel.sendParticles(ParticleTypes.CLOUD, testPoint.getX(), testPoint.getY() + 0.5D,
                                 testPoint.getZ(), 1, 0.0D, 0.1D, 0.0D, 0.001D);
@@ -133,10 +133,17 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                                 origin.getZ(), 1, 0.1D, 0.1D, 0.1D, 0.001D);
                 }
             }
-
             dirty.forEach((pos, section) -> {
-                section.propagate(nearby, shouldSpread, pos, level);
+                section.propagate(nearby, shouldSpread, pos, level, depth + 1);
             });
+            if (!dirty.isEmpty() && depth < 10) {
+                propagate(nearby, shouldSpread, origin, serverlevel, depth + 1);
+            }
+        }
+
+        public void propagate(Map<SectionPos, SectionOxygen> nearby, Function<BlockPos, Integer> shouldSpread,
+                BlockPos origin, Level level) {
+            propagate(nearby, shouldSpread, origin, level, 0);
         }
 
         private void setO2(int index, byte amt) {
@@ -162,6 +169,25 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
     public static void onChunkCapababilityAttach(AttachCapabilitiesEvent<LevelChunk> event) {
         event.addCapability(new ResourceLocation(BeyondEarth.MODID, "chunk_oxygen"),
                 new ChunkOxygen(event.getObject().getLevel()));
+    }
+
+    /**
+     * 
+     * @param O2 - O2 amount to check
+     * @return Whether this can be breathed
+     */
+    public static boolean isBreatheable(int O2) {
+        return O2 > 30;
+    }
+
+    /**
+     * 
+     * @param O2 - O2 amount to check
+     * @return Whether this is considered vacuum, negative values represent under
+     *         fluids instead.
+     */
+    public static boolean isVacuum(int O2) {
+        return O2 <= 30 && O2 >= 0;
     }
 
     private Int2ObjectArrayMap<SectionOxygen> O2 = new Int2ObjectArrayMap<>();

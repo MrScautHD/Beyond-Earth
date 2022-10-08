@@ -53,13 +53,9 @@ public class Events {
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             Player player = event.player;
-            Level level = player.level;
 
             /** OPEN AUTOMATIC PLANET GUI */
             Methods.openPlanetGui(player);
-
-            /** PLAYER OXYGEN SYSTEM */
-            OxygenSystem.oxygenSystem(player, level);
 
             /** JET SUIT HOVER POSE */
             Methods.setJetSuitHoverPose(player);
@@ -79,7 +75,7 @@ public class Events {
         Methods.dropOffHandVehicle(livingEntity);
 
         /** ENTITY OXYGEN SYSTEM */
-        Methods.entityOxygen(livingEntity, level);
+        OxygenSystem.entityOxygen(livingEntity, level);
 
         /** VENUS RAIN SYSTEM */
         Methods.venusRain(livingEntity, LevelRegistry.VENUS);
