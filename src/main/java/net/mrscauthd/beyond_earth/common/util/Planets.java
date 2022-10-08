@@ -56,28 +56,34 @@ public class Planets {
     public static List<StarSystem> ORDERED_STARS = new ArrayList<>();
 
     /** PLANET BAR TEXTURES */
-    public static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
             "textures/planet_bar/moon_planet_bar.png");
-    public static final ResourceLocation MARS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MARS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
             "textures/planet_bar/mars_planet_bar.png");
-    public static final ResourceLocation MERCURY_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MERCURY_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
             "textures/planet_bar/mercury_planet_bar.png");
-    public static final ResourceLocation VENUS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation VENUS_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
             "textures/planet_bar/venus_planet_bar.png");
-    public static final ResourceLocation GLACIO_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation GLACIO_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,
             "textures/planet_bar/glacio_planet_bar.png");
 
-    public static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation SUN_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/sun.png");
-    public static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MARS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/mars.png");
-    public static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+//    private static final ResourceLocation PHOBOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+//            "textures/environment/planet/phobos.png");
+//    private static final ResourceLocation DEIMOS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+//            "textures/environment/planet/deimos.png");
+    private static final ResourceLocation EARTH_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/earth.png");
-    public static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MOON_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+            "textures/environment/planet/moon.png");
+    private static final ResourceLocation VENUS_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/venus.png");
-    public static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation MERCURY_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/mercury.png");
-    public static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
+    private static final ResourceLocation GLACIO_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
             "textures/environment/planet/glacio.png");
 
     private static final AtomicInteger IDMAPPINGS = new AtomicInteger();
@@ -92,11 +98,15 @@ public class Planets {
         Planets.registerPlanet(Level.OVERWORLD, LevelRegistry.EARTH_ORBIT);
         Planets.registerPlanet(LevelRegistry.MOON, LevelRegistry.MOON_ORBIT);
         Planets.registerPlanet(LevelRegistry.MARS, LevelRegistry.MARS_ORBIT);
+//        Planets.registerPlanet(LevelRegistry.PHOBOS, LevelRegistry.PHOBOS_ORBIT);
+//        Planets.registerPlanet(LevelRegistry.DEIMOS, LevelRegistry.DEIMOS_ORBIT);
         Planets.registerPlanet(LevelRegistry.MERCURY, LevelRegistry.MERCURY_ORBIT);
         Planets.registerPlanet(LevelRegistry.VENUS, LevelRegistry.VENUS_ORBIT);
         Planets.registerPlanet(LevelRegistry.GLACIO, LevelRegistry.GLACIO_ORBIT);
 
         Planets.registerPlanetBar(LevelRegistry.MOON, Planets.MOON_PLANET_BAR);
+//        Planets.registerPlanetBar(LevelRegistry.PHOBOS, Planets.MOON_PLANET_BAR);
+//        Planets.registerPlanetBar(LevelRegistry.DEIMOS, Planets.MOON_PLANET_BAR);
         Planets.registerPlanetBar(LevelRegistry.MARS, Planets.MARS_PLANET_BAR);
         Planets.registerPlanetBar(LevelRegistry.MERCURY, Planets.MERCURY_PLANET_BAR);
         Planets.registerPlanetBar(LevelRegistry.VENUS, Planets.VENUS_PLANET_BAR);
@@ -141,9 +151,27 @@ public class Planets {
         mars.hasRain = true;
         mars.orbitColour = new int[] { 37, 49, 146 };
 
+//        Planet phobos = Planets.BY_DIMENSION.get(LevelRegistry.PHOBOS);
+//        phobos.g = 0.04f;
+//        phobos.rotation = 180;
+//        phobos.temperature = -160;
+//        phobos.texture = Planets.PHOBOS_TEXTURE;
+//        phobos.orbitRadius = 0.5f;
+//        phobos.orbitColour = new int[] { 37, 49, 146 };
+//        mars.moons.add(phobos);
+//
+//        Planet deimos = Planets.BY_DIMENSION.get(LevelRegistry.DEIMOS);
+//        deimos.g = 0.04f;
+//        deimos.temperature = -160;
+//        deimos.texture = Planets.DEIMOS_TEXTURE;
+//        deimos.orbitRadius = 1.5f;
+//        deimos.orbitColour = new int[] { 37, 49, 146 };
+//        mars.moons.add(deimos);
+
         Planet moon = Planets.BY_DIMENSION.get(LevelRegistry.MOON);
         moon.g = 0.1654f;
         moon.temperature = -160;
+        moon.texture = Planets.MOON_TEXTURE;
         earth.moons.add(moon);
         sol.planets.add(mercury);
         sol.planets.add(venus);
@@ -241,6 +269,7 @@ public class Planets {
         if (planet == null)
             return -1;
         float scale = key == planet.orbit ? planet.orbitG : planet.g;
+        scale = Math.max(scale, 0.04f);
         float base = (float) ItemGravity.DEFAULT_ITEM_GRAVITY;
         return scale * base;
     }
@@ -256,6 +285,7 @@ public class Planets {
         if (planet == null)
             return -1;
         float scale = key == planet.orbit ? planet.orbitG : planet.g;
+        scale = Math.max(scale, 0.04f);
         float base = (float) ForgeMod.ENTITY_GRAVITY.get().getDefaultValue();
         return scale * base;
     }
@@ -344,6 +374,11 @@ public class Planets {
         public Component description;
         public float rotation = 0;
         public int[] orbitColour = { 255, 255, 255 };
+
+        public float _distance = 0;
+        public float _xPos = 0;
+        public float _yPos = 0;
+
         // Planet button tier
         public int tier = 0;
         public int button_category = -1;

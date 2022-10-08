@@ -15,6 +15,12 @@ public class LevelRegistry {
     public static final ResourceKey<Level> MARS = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars"));
     public static final ResourceKey<Level> MARS_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars_orbit"));
 
+//    public static final ResourceKey<Level> PHOBOS = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "phobos"));
+//    public static final ResourceKey<Level> PHOBOS_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "phobos_orbit"));
+//
+//    public static final ResourceKey<Level> DEIMOS = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "deimos"));
+//    public static final ResourceKey<Level> DEIMOS_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "deimos_orbit"));
+
     /** MERCURY */
     public static final ResourceKey<Level> MERCURY = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury"));
     public static final ResourceKey<Level> MERCURY_ORBIT = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury_orbit"));

@@ -1,9 +1,17 @@
 package net.mrscauthd.beyond_earth.client.screens.planetselection.helper;
 
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
@@ -17,12 +25,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.buttons.ModifiedButton;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenuNetworkHandler;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
 import net.mrscauthd.beyond_earth.client.util.ClientMethods;
+import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenuNetworkHandler;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.helper.PlanetSelectionMenuNetworkHandlerHelper;
-
-import java.util.List;
+import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionScreenHelper {
@@ -91,21 +98,20 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE THIS TO ROTATE PLANETS */
-    public static void drawPlanet(PlanetSelectionScreen screen, PoseStack ms, Component component, ResourceLocation texture, float distance, int width, int height, float rotation) {
-        float sinTick = (float) Math.sin(rotation);
-        float cosTick = (float) Math.cos(rotation);
-
-        float xPos = ((screen.width / 2) - width / 2) + sinTick * distance ;
-        float yPos = ((screen.height / 2) - height / 2 + cosTick * distance);
+    public static void drawPlanet(PoseStack ms, Planet planet, int width, int height, boolean showName) {
+        ResourceLocation texture = planet.texture;
 
         /** TEXTURE */
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        ScreenHelper.renderWithFloat.blit(ms, xPos, yPos, 0, 0, width, height, width, height);
+        ScreenHelper.renderWithFloat.blit(ms, planet._xPos, planet._yPos, 0, 0, width, height, width, height);
 
         /** TEXT */
-        Font font = Minecraft.getInstance().font;
-        font.draw(ms, component, xPos - font.width(component) / 3, yPos + 13, 0xFFFFFF);
+        if (showName) {
+            Font font = Minecraft.getInstance().font;
+            Component name = planet.description;
+            font.draw(ms, name, planet._xPos - font.width(name) / 3, planet._yPos + 13, 0xFFFFFF);
+        }
     }
 
     /** USE THIS TO ROTATE GALAXIES */
