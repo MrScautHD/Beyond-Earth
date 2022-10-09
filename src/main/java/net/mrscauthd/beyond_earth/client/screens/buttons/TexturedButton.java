@@ -88,9 +88,7 @@ public class TexturedButton extends Button {
         }
 
         /** TEXTURE MANAGER */
-        ResourceLocation texture;
-
-        texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
+        ResourceLocation texture = this.getTypeTexture(this.isHovered, this.buttonTexture, this.hoverButtonTexture);
 
         /** TEXTURE RENDERER */
         RenderSystem.setShaderTexture(0, texture);
