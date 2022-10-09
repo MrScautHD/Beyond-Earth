@@ -19,7 +19,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -43,29 +42,44 @@ public class PlanetData {
         String orbit_bar;
         // Texture location for icon.
         String texture;
+        // Phased texture for different planet/moon phases If not present, will just
+        // render from texture.
+        String phase_texture;
 
         // Orbit radius is in AU for planets, and lunar orbit radii for moons.
-        float orbit_radius = 1;
+        double orbit_radius = 1;
 
         // Planetary mass in earth masses, or lunar masses if this is a moon
-        float mass = 1;
+        double mass = 1;
         // Gravity in earth gs
         float g = 1;
         // g while in orbit
         float orbit_g = 0.05f;
+        // This sets if we render fog, it is based on an assumed surface atmospheric
+        // density scaled to that of earth.
+        float air_density = 0;
 
+        // Variety of environment related options
         boolean has_oxygen = false;
         boolean has_rain = false;
+        boolean has_clouds = false;
         boolean space_level = true;
+        boolean has_dust_storms = false;
 
-        // Rotation in the gui
-        public float rotation = 0;
+        // Options for Rotation in the gui
+        float rotation = 0;
         // Orbit line colour
-        public int[] orbit_colour = { 255, 255, 255 };
-        // Planet button tier
-        public int tier = 0;
+        int[] orbit_colour = { 255, 255, 255 };
+        // Adjustments for sunrise colours, Setting the first entry to -1 will prevent
+        // sunrise colour effects (good for no-air places)
+        public float[] sunriseColour = { 0.7f, 0.2f, 0.2f };
 
-        public String[] extra_text;
+        // if a planet is tidally locked, it always faces the parent body. This is used
+        // for moons to always render planet in the sky.
+        boolean tidal_lock = false;
+
+        // Planet button tier
+        int tier = 0;
 
         public List<PlanetEntry> moons = new ArrayList<>();
 
@@ -81,11 +95,16 @@ public class PlanetData {
             this.orbit = planet.orbit.location().toString();
             this.has_oxygen = planet.hasOxygen;
             this.space_level = planet.spaceLevel;
+            this.has_clouds = planet.hasClouds;
             this.has_rain = planet.hasRain;
+            this.has_dust_storms = planet.hasDustStorms;
             this.tier = planet.tier;
             this.g = planet.g;
+            this.tidal_lock = planet.tidalLock;
+            this.air_density = planet.airDensity;
 
             this.orbit_colour = planet.orbitColour;
+            this.sunriseColour = planet.sunriseColour;
 
             if (planet.planetBar != null)
                 this.planet_bar = planet.planetBar.toString();
@@ -93,10 +112,10 @@ public class PlanetData {
                 this.orbit_bar = planet.orbitBar.toString();
             if (planet.texture != null)
                 this.texture = planet.texture.toString();
+            if (planet.phaseTexture != null)
+                this.phase_texture = planet.phaseTexture.toString();
 
             this.rotation = planet.rotation;
-
-            this.extra_text = planet.extra_text;
 
             planet.moons.forEach(p -> moons.add(new PlanetEntry(p)));
         }
@@ -115,14 +134,21 @@ public class PlanetData {
                 planet.orbitBar = new ResourceLocation(this.orbit_bar);
             if (this.texture != null)
                 planet.texture = new ResourceLocation(this.texture);
+            if (this.phase_texture != null)
+                planet.phaseTexture = new ResourceLocation(this.phase_texture);
 
             planet.mass = this.mass;
             planet.orbitRadius = this.orbit_radius;
             planet.g = this.g;
-            planet.register();
+            planet.hasClouds = this.has_clouds;
+            planet.hasDustStorms = this.has_dust_storms;
+            planet.sunriseColour = this.sunriseColour;
+            planet.tidalLock = this.tidal_lock;
+            planet.airDensity = this.air_density;
 
             planet.rotation = this.rotation;
-            planet.extra_text = this.extra_text;
+            planet.orbitPhase = this.rotation;
+            planet._initPhase = this.rotation;
             planet.hasOxygen = this.has_oxygen;
             planet.hasRain = this.has_rain;
             planet.spaceLevel = this.space_level;
@@ -130,7 +156,7 @@ public class PlanetData {
             planet.orbitColour = this.orbit_colour;
 
             if (parent != null)
-                parent.moons.add(planet);
+                parent.addChild(planet);
             moons.forEach(p -> p.toPlanet(planet));
             return planet;
         }
@@ -151,7 +177,7 @@ public class PlanetData {
         public int[] colour = { 255, 255, 255 };
 
         // Mass in solar masses
-        float mass = 1;
+        double mass = 1;
 
         public StarEntry() {
         }
@@ -169,7 +195,7 @@ public class PlanetData {
         public StarSystem toStarSystem() {
             StarSystem star = new StarSystem();
             star.name = this.name;
-            this.planets.forEach(p -> star.planets.add(p.toPlanet(null)));
+            this.planets.forEach(p -> star.addChild(p.toPlanet(null)));
             star.mass = mass;
             star.location = this.location;
             star.colour = this.colour;
@@ -189,9 +215,22 @@ public class PlanetData {
 
         // We only clear and update the planets if the file was modified!
         if (!this.modified) {
+            // First clear whatever loaded in.
+            this.stars.clear();
+
             // This will generate the default planet set if it is missing, as we can get to
             // here without having generated them, if the file is already existing.
-            Planets.getStarsList();
+            Planets.getStarsList().forEach(s -> this.stars.add(new StarEntry(s)));
+
+            // First clear all of the old planets.
+            Planets.clear();
+
+            // Now lets start generating stars systems.
+            stars.forEach(StarEntry::toStarSystem);
+            if (event)
+                MinecraftForge.EVENT_BUS.post(new PlanetRegisterEvent.Load());
+
+            Planets.initIDs();
             return;
         }
 
@@ -206,7 +245,7 @@ public class PlanetData {
         Planets.initIDs();
     }
 
-    public static void loadOrGenerateDefaults(FMLLoadCompleteEvent event) {
+    public static void loadOrGenerateDefaults() {
         Path path = FMLPaths.CONFIGDIR.get().resolve(BeyondEarth.MODID).resolve("planets.json");
         try {
             var reader = Files.newBufferedReader(path);
@@ -234,6 +273,10 @@ public class PlanetData {
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
+
+            // Mark the default one as "modified" and then force an init
+            defaults.modified = true;
+            defaults.initPlanets(true);
         }
     }
 

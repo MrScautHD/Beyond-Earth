@@ -150,10 +150,14 @@ public class Events {
         if (event.phase == TickEvent.Phase.END) {
             Level level = event.level;
 
+            // Tick the rain for the level
             if (Planets.LEVELS_WITHOUT_RAIN.contains(level.dimension())) {
                 level.thunderLevel = 0;
                 level.rainLevel = 0;
             }
+
+            // Tick the planet locations
+            Planets.updatePlanetLocations(level);
         }
     }
 

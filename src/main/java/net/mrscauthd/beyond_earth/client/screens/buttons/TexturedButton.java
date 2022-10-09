@@ -78,6 +78,8 @@ public class TexturedButton extends Button {
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft minecraft = Minecraft.getInstance();
 
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.enableDepthTest();
@@ -102,6 +104,7 @@ public class TexturedButton extends Button {
                 this.y + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
 
         RenderSystem.disableDepthTest();
+        RenderSystem.disableBlend();
     }
 
     /** TYPE TEXTURE MANAGER */

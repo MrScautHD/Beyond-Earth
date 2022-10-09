@@ -91,6 +91,9 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     public static final Component ROCKET_TIER_4_TEXT = Component
             .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 4);
 
+    public static final float MOON_ORBIT_SPEED = 2.5f;
+    public static final float PLANET_ORBIT_SPEED = 2.5f;
+
     /** MENU */
     private PlanetSelectionMenu.GuiContainer menu;
 
@@ -105,6 +108,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
     /** ROTATIONS */
     public float rotationMilkyWay;
+    public float planetTimer;
 
     /** BACK BUTTONS */
     public ModifiedButton backButton;
@@ -217,15 +221,12 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
         /** SET PLANET ROTATIONS */
         this.rotationMilkyWay = 0;
+        this.planetTimer = 0;
 
         /** SET SCROLL */
         this.scrollIndex = 0;
 
         /** SPACE STATION RECIPE SYSTEM */
-        // this.recipe = (SpaceStationRecipe)
-        // this.minecraft.level.getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
-        // this.spaceStationItemList =
-        // this.recipe.getIngredientStacks().stream().allMatch(this::getSpaceStationItemCheck);
         this.spaceStationItemList = true;
 
         /** SET BUTTON LISTS */
@@ -350,6 +351,11 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     }
 
     @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
+
+    @Override
     public boolean mouseScrolled(double p_99314_, double p_99315_, double p_99316_) {
         if (this.getVisibleButtons(1).size() > this.rowEnd) {
             if (p_99316_ == 1) {
@@ -394,14 +400,28 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
     public void rotationCalculator(float partialTicks) {
 
-        /** SOLAR SYSTEM CATEGORY */
+        /** ROTATE THE GALAXY DISPLAY */
         this.rotationMilkyWay = (this.rotationMilkyWay + partialTicks * 0.4f);
 
+        /** ROTATE THE PLANETS/MOONS */
+        this.planetTimer += partialTicks;
         for (StarSystem system : Planets.getStarsList()) {
+
+            float minPeriod = Float.MAX_VALUE;
+            for (var planet : system.planets) {
+                minPeriod = (float) Math.min(minPeriod, planet.orbitT);
+            }
+            float planetRotationSpeedScale = PLANET_ORBIT_SPEED / minPeriod;
             system.planets.forEach(planet -> {
-                planet.rotation += partialTicks * 0.02f / planet.orbitRadius;
+                planet.rotation = Planets.getRotation(planet, planetTimer, planetRotationSpeedScale);
+
+                float minMoonPeriod = Float.MAX_VALUE;
                 for (Planet moon : planet.moons) {
-                    moon.rotation += partialTicks * 0.02f / planet.orbitRadius;
+                    minMoonPeriod = (float) Math.min(minMoonPeriod, moon.orbitT);
+                }
+                float moonRotationSpeedScale = MOON_ORBIT_SPEED / minMoonPeriod;
+                for (Planet moon : planet.moons) {
+                    moon.rotation = Planets.getRotation(moon, planetTimer, moonRotationSpeedScale);
                 }
             });
         }
@@ -418,11 +438,9 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
                 float maxR = 0;
                 for (Planet planet : system.planets) {
-                    maxR = Math.max(maxR, planet.orbitRadius);
+                    maxR = (float) Math.max(maxR, planet.orbitRadius);
                 }
-
                 float rScale = Math.min(1.15f / maxR, 1);
-
                 system.planets.forEach(planet -> {
                     drawPlanetRing(planet, rScale, x, y, 0, 0, 10, 10);
                 });
@@ -436,7 +454,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         if (planet.description == null) {
             planet.description = PlanetSelectionScreenHelper.tl(planet.name);
         }
-        float distance = 90 * planet.orbitRadius * ringScale;
+        float distance = (float) (90 * planet.orbitRadius * ringScale);
         float rotation = planet.rotation;
         float sinTick = (float) Math.sin(rotation);
         float cosTick = (float) Math.cos(rotation);
@@ -450,10 +468,21 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         float dxm = sinTick * distance;
         float dym = cosTick * distance;
 
+        boolean isMoon = planet._parent instanceof Planet;
+
         Vec3 colour = new Vec3(planet.orbitColour[0], planet.orbitColour[1], planet.orbitColour[2]);
-        PlanetSelectionScreenHelper.drawCircle(x, y, distance, 180, colour);
+        PlanetSelectionScreenHelper.drawCircle(x, y, distance, 180, isMoon ? 0.5f : 1, colour);
+
+        // Find a reasonable ring scale
+        float maxR = 0;
+        for (Planet moon : planet.moons) {
+            maxR = (float) Math.max(maxR, moon.orbitRadius);
+        }
+        maxR *= 5;
+        float newScale = Math.min(1.15f / maxR, 1);
+
         planet.moons.forEach(moon -> {
-            drawPlanetRing(moon, ringScale / 5, planet._xPos + width / 2, planet._yPos + width / 2, dxm, dym, width / 2,
+            drawPlanetRing(moon, newScale, planet._xPos + width / 2, planet._yPos + width / 2, dxm, dym, width / 2,
                     height / 2);
         });
     }

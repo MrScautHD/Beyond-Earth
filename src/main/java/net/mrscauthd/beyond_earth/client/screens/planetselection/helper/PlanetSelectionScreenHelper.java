@@ -76,7 +76,7 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE IT TO RENDER A CIRCLE */
-    public static void drawCircle(double x, double y, double radius, int sides, Vec3 color) {
+    public static void drawCircle(double x, double y, double radius, int sides, float lineWidth, Vec3 color) {
         BufferBuilder bufferBuilder = Tesselator.getInstance().getBuilder();
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
@@ -87,11 +87,12 @@ public class PlanetSelectionScreenHelper {
         bufferBuilder.begin(VertexFormat.Mode.DEBUG_LINE_STRIP, DefaultVertexFormat.POSITION_COLOR);
 
         double width = radius - 0.5;
-        for (double f1 = width; f1 < width + 1; f1 += 0.1) {
+        for (double f1 = width; f1 < width + lineWidth; f1 += 0.1 * lineWidth) {
 
             for (int f2 = 0; f2 <= sides; f2++) {
                 double angle = (Math.PI * 2 * f2 / sides) + Math.toRadians(180);
-                bufferBuilder.vertex(x + Math.sin(angle) * f1, y + Math.cos(angle) * f1, 0).color(r, g, b, 255).endVertex();
+                bufferBuilder.vertex(x + Math.sin(angle) * f1, y + Math.cos(angle) * f1, 0).color(r, g, b, 255)
+                        .endVertex();
             }
         }
         BufferUploader.drawWithShader(bufferBuilder.end());
