@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.beyond_earth.common.inventory.RocketPartsItemHandler;
+import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.RocketPartsItemHandler;
 import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RocketPartsRegistry;

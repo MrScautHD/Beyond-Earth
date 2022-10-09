@@ -3,12 +3,14 @@ package net.mrscauthd.beyond_earth.common.menus.helper;
 import java.util.List;
 import java.util.function.Function;
 
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 
 public class MenuHelper {
     public static void createInventorySlots(Inventory inventory, Function<Slot, Slot> slotCreator, int left, int top) {
@@ -23,14 +25,29 @@ public class MenuHelper {
         }
     }
 
-    public static interface MenuTransfer {
-        boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection);
+    public static boolean isEmpty(IItemHandler handler) {
+        for (int i = 0; i < handler.getSlots(); i++) {
+            if (!handler.getStackInSlot(i).isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
-            int containerIndex, Container inventory, MenuTransfer mergeItemStack) {
-        int containerSize = inventory.getContainerSize();
-        return transferStackInSlot(container, player, slotNumber, containerIndex, containerSize, mergeItemStack);
+    public static NonNullList<ItemStack> getStacks(IItemHandler handler) {
+        NonNullList<ItemStack> list = NonNullList.withSize(handler.getSlots(), ItemStack.EMPTY);
+
+        for (int i = 0; i < handler.getSlots(); i++) {
+            ItemStack stack = handler.getStackInSlot(i);
+            list.set(i, stack);
+        }
+
+        return list;
+    }
+
+    public static interface MenuTransfer {
+        boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection);
     }
 
     public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
@@ -66,6 +83,12 @@ public class MenuHelper {
         }
 
         return itemStack;
+    }
+
+    public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,
+            int containerIndex, Container inventory, MenuTransfer mergeItemStack) {
+        int containerSize = inventory.getContainerSize();
+        return transferStackInSlot(container, player, slotNumber, containerIndex, containerSize, mergeItemStack);
     }
 
     public static ItemStack transferStackInSlot(AbstractContainerMenu container, Player player, int slotNumber,

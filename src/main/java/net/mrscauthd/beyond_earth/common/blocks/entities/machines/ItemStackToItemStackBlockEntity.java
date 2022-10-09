@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.common.crafting.ItemStackToItemStackRecipe;
 import net.mrscauthd.beyond_earth.common.crafting.ItemStackToItemStackRecipeType;
 import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.common.inventory.StackCacher;
+import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
 
 public abstract class ItemStackToItemStackBlockEntity extends AbstractMachineBlockEntity {
 

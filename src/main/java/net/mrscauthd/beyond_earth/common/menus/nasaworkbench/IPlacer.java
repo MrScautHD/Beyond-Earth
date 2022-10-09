@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.menus.helper;
+package net.mrscauthd.beyond_earth.common.menus.nasaworkbench;
 
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 

@@ -29,10 +29,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.common.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.common.crafting.RocketPart;
 import net.mrscauthd.beyond_earth.common.crafting.WorkbenchingRecipe;
-import net.mrscauthd.beyond_earth.common.inventory.ItemHandlerHelper2;
-import net.mrscauthd.beyond_earth.common.inventory.RocketPartsItemHandler;
-import net.mrscauthd.beyond_earth.common.inventory.StackCacher;
+import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.NasaWorkbenchMenu;
+import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.RocketPartsItemHandler;
+import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RocketPartsRegistry;
@@ -184,7 +184,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
 
     public WorkbenchingRecipe cacheRecipes() {
         RocketPartsItemHandler partsItemHandler = this.getPartsItemHandler();
-        List<ItemStack> stacks = ItemHandlerHelper2.getStacks(partsItemHandler);
+        List<ItemStack> stacks = MenuHelper.getStacks(partsItemHandler);
 
         if (!this.itemStackCacher.test(stacks)) {
             this.itemStackCacher.set(stacks);
@@ -254,7 +254,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
     }
 
     protected void spawnParticles() {
-        if (this.possibleRecipes.size() > 0 && !ItemHandlerHelper2.isEmpty(this.getPartsItemHandler())) {
+        if (this.possibleRecipes.size() > 0 && !MenuHelper.isEmpty(this.getPartsItemHandler())) {
 
             Level level = this.getLevel();
 

@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.common.inventory;
+package net.mrscauthd.beyond_earth.common.menus.nasaworkbench;
 
 import java.util.ArrayList;
 import java.util.Collection;

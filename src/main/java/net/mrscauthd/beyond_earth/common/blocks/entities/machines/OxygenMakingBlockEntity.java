@@ -24,8 +24,8 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.crafting.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.common.crafting.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.common.inventory.StackCacher;
 import net.mrscauthd.beyond_earth.common.machines.NamedComponentRegistry;
+import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 
 public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity {
