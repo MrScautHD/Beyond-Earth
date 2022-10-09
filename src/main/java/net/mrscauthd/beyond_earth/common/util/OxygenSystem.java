@@ -13,7 +13,6 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
-import net.mrscauthd.beyond_earth.common.registries.EffectRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 
 public class OxygenSystem {
@@ -34,8 +33,6 @@ public class OxygenSystem {
     public static AirCheckResult canBreatheWithoutSuit(LivingEntity mob, boolean applyChunkO2) {
         // Check if we are in the tag of can breath without O2.
         if (mob.getType().is(TagRegistry.ENTITY_NO_OXYGEN_NEEDED_TAG))
-            return ALWAYS_YES;
-        if (mob.hasEffect(EffectRegistry.OXYGEN_EFFECT.get()))
             return ALWAYS_YES;
         boolean inWater = !mob.getEyeInFluidType().isAir();
         if (inWater)
