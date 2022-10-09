@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.common.util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -76,16 +77,21 @@ public class OxygenSystem {
         // This only runs server side anyway.
         if (level.isClientSide())
             return;
+        boolean creativePlayer = entity instanceof Player player
+                && (player.getAbilities().instabuild || player.isSpectator());
 
         AirCheckResult noSuitCheck = canBreatheWithoutSuit(entity,
-                entity.tickCount % Config.OXYGEN_BREATHE_RATE.get() == 0);
+                !creativePlayer && entity.tickCount % Config.OXYGEN_BREATHE_RATE.get() == 0);
+
+        if (entity instanceof Player && entity.tickCount % 20 == 0)
+            System.out.println(noSuitCheck.O2);
 
         // If this is set true, we will re-fill air to 300
         boolean shouldFillAirSupply = ChunkOxygen.isBreatheable(noSuitCheck.O2());
         // After checking breathable air, then or in the check for the suit. This will
         // only be done if we were not already in a breathable area.
-        shouldFillAirSupply = shouldFillAirSupply
-                || canBreatheFromSuit(entity, entity.tickCount % Config.SUIT_BREATHE_RATE.get() == 0);
+        shouldFillAirSupply = shouldFillAirSupply || canBreatheFromSuit(entity,
+                !creativePlayer && entity.tickCount % Config.SUIT_BREATHE_RATE.get() == 0);
 
         if (shouldFillAirSupply) {
             entity.setAirSupply(300);

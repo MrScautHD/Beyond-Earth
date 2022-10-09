@@ -12,7 +12,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -421,7 +420,8 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
                 for (Planet planet : system.planets) {
                     maxR = Math.max(maxR, planet.orbitRadius);
                 }
-                float rScale = 1.25f/maxR;
+
+                float rScale = Math.min(1.15f / maxR, 1);
 
                 system.planets.forEach(planet -> {
                     drawPlanetRing(planet, rScale, x, y, 0, 0, 10, 10);
@@ -436,8 +436,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         if (planet.description == null) {
             planet.description = PlanetSelectionScreenHelper.tl(planet.name);
         }
-
-        float distance = 90 * Mth.sqrt(planet.orbitRadius) * ringScale;
+        float distance = 90 * planet.orbitRadius * ringScale;
         float rotation = planet.rotation;
         float sinTick = (float) Math.sin(rotation);
         float cosTick = (float) Math.cos(rotation);
@@ -452,7 +451,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         float dym = cosTick * distance;
 
         Vec3 colour = new Vec3(planet.orbitColour[0], planet.orbitColour[1], planet.orbitColour[2]);
-        PlanetSelectionScreenHelper.drawCircle(x, y, 90 * Mth.sqrt(planet.orbitRadius) * ringScale, 180, colour);
+        PlanetSelectionScreenHelper.drawCircle(x, y, distance, 180, colour);
         planet.moons.forEach(moon -> {
             drawPlanetRing(moon, ringScale / 5, planet._xPos + width / 2, planet._yPos + width / 2, dxm, dym, width / 2,
                     height / 2);

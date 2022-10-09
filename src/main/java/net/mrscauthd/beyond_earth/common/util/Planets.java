@@ -172,6 +172,7 @@ public class Planets {
         moon.g = 0.1654f;
         moon.temperature = -160;
         moon.texture = Planets.MOON_TEXTURE;
+        moon.orbitColour = new int[] { 255, 49, 30 };
         earth.moons.add(moon);
         sol.planets.add(mercury);
         sol.planets.add(venus);

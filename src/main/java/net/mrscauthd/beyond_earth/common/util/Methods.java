@@ -40,6 +40,7 @@ import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -222,6 +223,12 @@ public class Methods {
         }
 
         if (entity.getType().is(TagRegistry.ENTITY_PLANET_FIRE_TAG)) {
+            return;
+        }
+        
+        // If we are inside an area with air provided by the oxygen distributor, assume
+        // it is cooled enough to not burn things.
+        if (ChunkOxygen.isBreatheable(OxygenSystem.canBreatheWithoutSuit(entity, false).O2())) {
             return;
         }
 

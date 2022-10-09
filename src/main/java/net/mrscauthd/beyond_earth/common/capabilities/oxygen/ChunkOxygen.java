@@ -1,12 +1,14 @@
 package net.mrscauthd.beyond_earth.common.capabilities.oxygen;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
@@ -21,6 +23,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
@@ -34,14 +37,49 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
 import net.mrscauthd.beyond_earth.common.util.Methods;
+import net.mrscauthd.beyond_earth.common.util.Planets;
+import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+
+    public static record AirCheckTest(BlockPos pos, Direction from, ServerLevel level) {
+    }
+
+    public static record AirCheckResult(boolean solid, boolean pass, int amount) {
+    };
+
+    public static class DefaultCheck implements Function<AirCheckTest, AirCheckResult> {
+
+        private static final AirCheckResult OPEN = new AirCheckResult(false, true, 0);
+        private static final AirCheckResult BLOCKED = new AirCheckResult(true, true, 0);
+        private static final AirCheckResult LEAVES = new AirCheckResult(false, false, 1);
+
+        public static final DefaultCheck DEFAULTS = new DefaultCheck();
+
+        public List<Function<AirCheckTest, AirCheckResult>> children = Lists.newArrayList();
+
+        @Override
+        public AirCheckResult apply(AirCheckTest t) {
+            for (var child : children) {
+                var result = child.apply(t);
+                if (!result.pass()) {
+                    return result;
+                }
+            }
+            BlockState state = t.level.getBlockState(t.pos());
+            if (state.is(BlockTags.LEAVES))
+                return LEAVES;
+            boolean airTight = state.isCollisionShapeFullBlock(t.level, t.pos());
+            return airTight ? BLOCKED : OPEN;
+        }
+    }
+
     public class SectionOxygen implements INBTSerializable<ByteArrayTag> {
         byte[] O2 = new byte[16 * 16 * 16];
 
         public SectionOxygen() {
-            Arrays.fill(O2, (byte) 0);
+            Arrays.fill(O2, Byte.MIN_VALUE);
         }
 
         public SectionOxygen(byte[] O2) {
@@ -59,8 +97,8 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
             this.O2 = nbt.getAsByteArray();
         }
 
-        private void propagate(Map<SectionPos, SectionOxygen> nearby, Function<BlockPos, Integer> shouldSpread,
-                BlockPos origin, Level level, int depth) {
+        private void propagate(Map<SectionPos, SectionOxygen> nearby,
+                Function<AirCheckTest, AirCheckResult> shouldSpread, BlockPos origin, Level level, int depth) {
             if (!(level instanceof ServerLevel serverlevel))
                 return;
             MutableBlockPos testPoint = new MutableBlockPos();
@@ -71,7 +109,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
             int y = origin.getY();
             int z = origin.getZ();
             int index = (x & 15) | (y & 15) << 4 | (z & 15) << 8;
-            byte amt = O2[index];
+            int amt = this.getO2(index);
 
             Direction minDown = null;
             int dO2max = 1;
@@ -82,8 +120,10 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                 int y2 = y + d.getStepY();
                 int z2 = z + d.getStepZ();
                 testPoint.setWithOffset(origin, d);
-                Integer default_ = shouldSpread.apply(testPoint);
-                if (default_ < 0)
+                var checkTest = new AirCheckTest(testPoint, minDown, serverlevel);
+                var checkResult = shouldSpread.apply(checkTest);
+                // Don't try checking inside blocks that report as solid.
+                if (checkResult.solid())
                     continue;
                 SectionPos pos = SectionPos.of(testPoint);
                 SectionOxygen flowTo = this;
@@ -97,8 +137,8 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                 if (flowTo == null) {
                     continue directions;
                 }
-                byte oldAmt = flowTo.getO2(index2);
-                oldAmt = (byte) Math.min(Byte.MAX_VALUE, default_ + oldAmt);
+                int oldAmt = flowTo.getO2(index2);
+                oldAmt = Math.min(255, checkResult.amount() + oldAmt);
                 int dO2 = Math.abs(amt - oldAmt);
                 if (dO2 > dO2max) {
                     minDown = d;
@@ -107,7 +147,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                 }
             }
             if (minDown != null) {
-                byte newAmt = (byte) (total / 2);
+                int newAmt = total / 2;
                 int x2 = x + minDown.getStepX();
                 int y2 = y + minDown.getStepY();
                 int z2 = z + minDown.getStepZ();
@@ -118,7 +158,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                 if (x2 > 15 || x2 < 0 || y2 > 15 || y2 < 0 || z2 > 15 || z2 < 0) {
                     flowTo = nearby.get(SectionPos.of(testPoint));
                 }
-                byte old = flowTo.getO2(index2);
+                int old = flowTo.getO2(index2);
                 if (old != newAmt) {
                     flowTo.setO2(index2, newAmt);
                     dirty.put(testPoint.immutable(), flowTo);
@@ -127,39 +167,40 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
                                 testPoint.getZ(), 1, 0.0D, 0.1D, 0.0D, 0.001D);
                 }
                 if (newAmt != amt) {
-                    this.setO2(index, (byte) (newAmt + total % 2));
+                    this.setO2(index, (newAmt + total % 2));
                     if (Math.abs(amt - newAmt) > 5)
                         serverlevel.sendParticles(ParticleTypes.CLOUD, origin.getX(), origin.getY() + 0.5D,
                                 origin.getZ(), 1, 0.1D, 0.1D, 0.1D, 0.001D);
                 }
             }
-            dirty.forEach((pos, section) -> {
-                section.propagate(nearby, shouldSpread, pos, level, depth + 1);
-            });
-            if (!dirty.isEmpty() && depth < 10) {
+            if (depth < 10 && !dirty.isEmpty()) {
+                dirty.forEach((pos, section) -> {
+                    section.propagate(nearby, shouldSpread, pos, level, depth + 1);
+                });
                 propagate(nearby, shouldSpread, origin, serverlevel, depth + 1);
             }
         }
 
-        public void propagate(Map<SectionPos, SectionOxygen> nearby, Function<BlockPos, Integer> shouldSpread,
-                BlockPos origin, Level level) {
+        public void propagate(Map<SectionPos, SectionOxygen> nearby,
+                Function<AirCheckTest, AirCheckResult> shouldSpread, BlockPos origin, Level level) {
             propagate(nearby, shouldSpread, origin, level, 0);
         }
 
-        private void setO2(int index, byte amt) {
-            O2[index] = amt;
+        private void setO2(int index, int amt) {
+            byte set = (byte) Mth.clamp(amt + Byte.MIN_VALUE, Byte.MIN_VALUE, Byte.MAX_VALUE);
+            O2[index] = set;
         }
 
-        private byte getO2(int index) {
-            return O2[index];
+        private int getO2(int index) {
+            return ((int) O2[index] - Byte.MIN_VALUE);
         }
 
-        public byte getO2(int x, int y, int z) {
+        private int getO2(int x, int y, int z) {
             int index = (x & 15) | (y & 15) << 4 | (z & 15) << 8;
             return getO2(index);
         }
 
-        public void setO2(int x, int y, int z, byte amt) {
+        public void setO2(int x, int y, int z, int amt) {
             int index = (x & 15) | (y & 15) << 4 | (z & 15) << 8;
             setO2(index, amt);
         }
@@ -193,15 +234,28 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
     private Int2ObjectArrayMap<SectionOxygen> O2 = new Int2ObjectArrayMap<>();
     private final Level level;
     private final boolean infiniteO2;
+    private final Planet planet;
 
     public ChunkOxygen(Level level) {
         this.level = level;
         infiniteO2 = !Methods.isSpaceLevelWithoutOxygen(level);
+        this.planet = Planets.getLocationForPlanet(level);
     }
 
-    public byte getO2(BlockPos pos) {
-        if (infiniteO2)
-            return 100;
+    public int getO2(BlockPos pos) {
+        if (infiniteO2) {
+            if (this.planet == null)
+                return 100;
+
+            int y = pos.getY();
+            int base = 100;
+            int dy = level.getSeaLevel();
+            float g = planet.g;
+            float T = planet.temperature + 273.15f;
+            int h = y - dy;
+
+            return (int) (base * Math.exp(-g * 1.5 * h / T));
+        }
         int y = SectionPos.blockToSectionCoord(pos.getY());
         SectionOxygen oxygen = O2.computeIfAbsent(y, newY -> new SectionOxygen());
         return oxygen.getO2(pos.getX(), pos.getY(), pos.getZ());
@@ -218,30 +272,23 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
      * @param spread - whether to try to spread
      * @return the amount not added from toAdd
      */
-    public byte addO2(BlockPos pos, byte toAdd, boolean spread) {
+    public int addO2(BlockPos pos, int toAdd, boolean spread) {
         if (infiniteO2)
             return toAdd > 0 ? toAdd : 0;
-        byte ret = 0;
-        byte O2 = this.getO2(pos);
-        byte newO2 = 0;
+        int ret = 0;
+        int O2 = this.getO2(pos);
+        int newO2 = 0;
         int tmpO2 = O2 + toAdd;
-        if (tmpO2 > Byte.MAX_VALUE) {
-            ret = (byte) (tmpO2 - Byte.MAX_VALUE);
-            newO2 = Byte.MAX_VALUE;
+        if (tmpO2 > 255) {
+            ret = tmpO2 - 255;
+            newO2 = 255;
         } else if (tmpO2 > 0) {
-            newO2 = (byte) tmpO2;
+            newO2 = tmpO2;
         }
         int y = SectionPos.blockToSectionCoord(pos.getY());
         SectionOxygen oxygen = this.O2.computeIfAbsent(y, newY -> new SectionOxygen());
         oxygen.setO2(pos.getX(), pos.getY(), pos.getZ(), newO2);
         SectionPos section = SectionPos.of(pos);
-        Function<BlockPos, Integer> validSpot = p -> {
-            BlockState state = level.getBlockState(p);
-            if (state.is(BlockTags.LEAVES))
-                return 1;
-            boolean airTight = state.isCollisionShapeFullBlock(level, p);
-            return airTight ? -1 : 0;
-        };
         Map<SectionPos, SectionOxygen> nearby = new Object2ObjectOpenHashMap<>();
         nearby.put(section, oxygen);
         for (Direction d : Direction.values()) {
@@ -253,7 +300,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
             }
         }
         if (spread)
-            oxygen.propagate(nearby, validSpot, pos, level);
+            oxygen.propagate(nearby, DefaultCheck.DEFAULTS, pos, level);
         return ret;
     }
 
