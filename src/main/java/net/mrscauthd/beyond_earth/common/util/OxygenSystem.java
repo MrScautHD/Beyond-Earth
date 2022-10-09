@@ -83,9 +83,6 @@ public class OxygenSystem {
         AirCheckResult noSuitCheck = canBreatheWithoutSuit(entity,
                 !creativePlayer && entity.tickCount % Config.OXYGEN_BREATHE_RATE.get() == 0);
 
-        if (entity instanceof Player && entity.tickCount % 20 == 0)
-            System.out.println(noSuitCheck.O2);
-
         // If this is set true, we will re-fill air to 300
         boolean shouldFillAirSupply = ChunkOxygen.isBreatheable(noSuitCheck.O2());
         // After checking breathable air, then or in the check for the suit. This will
