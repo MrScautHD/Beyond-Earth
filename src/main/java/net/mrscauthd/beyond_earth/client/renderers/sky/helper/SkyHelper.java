@@ -57,6 +57,8 @@ public class SkyHelper {
             "textures/environment/mars_dust.png");
     public static final ResourceLocation SNOW = new ResourceLocation("textures/environment/snow.png");
 
+    private static int alpha = 255;
+
     public static void drawStars(VertexBuffer vertexBuffer, Matrix4f matrix4f, Matrix4f projectionMatrix,
             ShaderInstance shaderInstance, Runnable setupFog, boolean blend) {
         if (blend) {
@@ -146,19 +148,19 @@ public class SkyHelper {
             RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE,
                     GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         }
-
         int r = (int) color.x();
         int g = (int) color.y();
         int b = (int) color.z();
+        int a = alpha;
 
         RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-        bufferBuilder.vertex(matrix4f, -size, y, -size).color(r, g, b, 255).uv(1.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, size, y, -size).color(r, g, b, 255).uv(0.0F, 0.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, size, y, size).color(r, g, b, 255).uv(0.0F, 1.0F).endVertex();
-        bufferBuilder.vertex(matrix4f, -size, y, size).color(r, g, b, 255).uv(1.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, y, -size).color(r, g, b, a).uv(1.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, size, y, -size).color(r, g, b, a).uv(0.0F, 0.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, size, y, size).color(r, g, b, a).uv(0.0F, 1.0F).endVertex();
+        bufferBuilder.vertex(matrix4f, -size, y, size).color(r, g, b, a).uv(1.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
         RenderSystem.disableTexture();
 
@@ -192,9 +194,11 @@ public class SkyHelper {
                 float inclination = (float) (10 * Math.sin(Math.toRadians(phase)));
                 Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
                         Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
-                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0f);
+                alpha = (int) (255 * skyLight);
                 SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, lighting,
-                        100 * distance, false);
+                        100 * distance, true);
+                alpha = 255;
             } else {
                 renderLater.put(p, new float[] { distance, angle, dAngle });
             }
@@ -246,11 +250,13 @@ public class SkyHelper {
 
             Vec3 colour = new Vec3(parent.colour[0], parent.colour[1], parent.colour[2]);
             if (!(parent instanceof Planet)) {
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 SkyHelper.drawSunWithLight(texture, colour, colour, bufferBuilder, matrix4f, scale, 5 * 4, 100, true);
                 SkyHelper.drawParentsPlanetsAfterParent(poseStack, bufferBuilder, dayAngle, skyLight, planet._parent,
                         planet, renderAfterSun);
             } else {
                 float lighting = 3 * skyLight / 90;
+                RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 SkyHelper.drawParentsPlanetsAfterParent(poseStack, bufferBuilder, dayAngle, skyLight, planet._parent,
                         planet, renderAfterSun);
                 SkyHelper.drawPlanetWithLight(texture, colour, bufferBuilder, matrix4f, scale, lighting, 100, false);
@@ -275,8 +281,10 @@ public class SkyHelper {
             Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
                     Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            alpha = (int) (255 * skyLight);
             SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, 3 * 4,
-                    100 * distance, false);
+                    100 * distance, true);
+            alpha = 255;
         }
     }
 
@@ -293,6 +301,7 @@ public class SkyHelper {
 
             // This is how far away in angle the moon is from the sun
             float phase = dayAngle + p.orbitPhase;
+            alpha = (int) (255 * skyLight);
 
             float inclination = (float) (10 * Math.sin(Math.toRadians(phase)));
             Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
@@ -312,6 +321,7 @@ public class SkyHelper {
                 SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, moonSize,
                         3 * 4, 100, false);
             }
+            alpha = 255;
         }
     }
 
