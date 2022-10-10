@@ -17,6 +17,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -212,6 +213,7 @@ public class Planets {
         proxima_centauri.name = "proxima_centauri";
         proxima_centauri.location[0] = 4.25f;
         proxima_centauri.mass = 0.122f * STAR_MASS_SCALE;
+        proxima_centauri.colour = new int[] { 255, 127, 63 };
         Planet glacio = Planets.BY_DIMENSION.get(LevelRegistry.GLACIO);
         glacio.texture = Planets.GLACIO_TEXTURE;
         glacio.mass = 0.08f * PLANET_MASS_SCALE;
@@ -504,7 +506,7 @@ public class Planets {
         public String name;
         public ResourceLocation texture;
         public float[] location = new float[3];
-        public int[] colour = { 255, 255, 255 };
+        public int[] colour = { 232, 219, 176 };
         public Component description;
 
         public double mass = PLANET_MASS_SCALE;
@@ -524,6 +526,15 @@ public class Planets {
 
         public List<Planet> children = new ArrayList<>();
         public Set<String> childNames = Sets.newHashSet();
+
+        protected Vec3 colourCache = null;
+
+        public Vec3 getLightColour() {
+            if (colourCache == null) {
+                colourCache = new Vec3(colour[0], colour[1], colour[2]);
+            }
+            return colourCache;
+        }
 
         protected void init() {
             double parentMass = this._parent == null ? PLANET_MASS_SCALE : _parent.mass;
@@ -548,6 +559,8 @@ public class Planets {
 
             this.children.add(planet);
             planet._parent = this;
+            planet.colour = this.colour;
+            planet.colourCache = this.getLightColour();
 
             // Sort planets by distance.
             children.sort(null);
