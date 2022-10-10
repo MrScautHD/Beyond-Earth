@@ -196,7 +196,7 @@ public class SkyHelper {
                         Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0f);
                 alpha = (int) (255 * skyLight);
-                SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, lighting,
+                SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, 3, lighting,
                         100 * distance, true);
                 alpha = 255;
             } else {
@@ -248,7 +248,7 @@ public class SkyHelper {
             Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack,
                     Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(angle), null));
 
-            Vec3 colour = new Vec3(parent.colour[0], parent.colour[1], parent.colour[2]);
+            Vec3 colour = parent.getLightColour();
             if (!(parent instanceof Planet)) {
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 SkyHelper.drawSunWithLight(texture, colour, colour, bufferBuilder, matrix4f, scale, 5 * 4, 100, true);
@@ -282,7 +282,7 @@ public class SkyHelper {
                     Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             alpha = (int) (255 * skyLight);
-            SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3, 3 * 4,
+            SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, 3, 3 * 4,
                     100 * distance, true);
             alpha = 255;
         }
@@ -315,11 +315,11 @@ public class SkyHelper {
                 // only has the icon taking up the middle.
                 moonSize *= 2;
                 Minecraft mc = Minecraft.getInstance();
-                SkyHelper.drawPlanetWithMoonPhaseAndWithLight(p.phaseTexture, new Vec3(232, 219, 176), bufferBuilder,
+                SkyHelper.drawPlanetWithMoonPhaseAndWithLight(p.phaseTexture, p.getLightColour(), bufferBuilder,
                         matrix4f, moonSize, 3 * 4, 100, mc, false, moonPhase);
             } else {
-                SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, moonSize,
-                        3 * 4, 100, false);
+                SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, moonSize, 3 * 4,
+                        100, false);
             }
             alpha = 255;
         }
