@@ -11,8 +11,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.NamedComponentRegistry;
 import net.mrscauthd.beyond_earth.common.capabilities.energy.EnergyStorageExtractaOnly;
-import net.mrscauthd.beyond_earth.common.machines.NamedComponentRegistry;
 
 public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
 

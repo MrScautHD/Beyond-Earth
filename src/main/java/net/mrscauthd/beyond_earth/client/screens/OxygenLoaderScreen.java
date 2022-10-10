@@ -14,8 +14,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.OxygenLoaderMenu;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 

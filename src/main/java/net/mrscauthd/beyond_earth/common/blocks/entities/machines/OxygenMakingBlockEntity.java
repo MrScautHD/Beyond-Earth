@@ -18,13 +18,13 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.NamedComponentRegistry;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorageHolder;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
-import net.mrscauthd.beyond_earth.common.crafting.BeyondEarthRecipeType;
-import net.mrscauthd.beyond_earth.common.crafting.OxygenMakingRecipeAbstract;
-import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.common.machines.NamedComponentRegistry;
+import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
+import net.mrscauthd.beyond_earth.common.data.recipes.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 

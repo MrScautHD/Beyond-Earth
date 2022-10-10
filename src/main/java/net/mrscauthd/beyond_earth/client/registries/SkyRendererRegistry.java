@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.sky.OrbitSky;
 import net.mrscauthd.beyond_earth.client.renderers.sky.PlanetSky;
-import net.mrscauthd.beyond_earth.common.config.data.PlanetData;
+import net.mrscauthd.beyond_earth.common.data.PlanetData;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

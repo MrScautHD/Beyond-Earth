@@ -8,7 +8,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.crafting.RocketPart;
+import net.mrscauthd.beyond_earth.common.data.recipes.RocketPart;
 
 public class RocketPartsRegistry {
 

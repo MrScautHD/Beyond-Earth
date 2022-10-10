@@ -25,7 +25,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.crafting.CompressingRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.CompressingRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
 import net.mrscauthd.beyond_earth.common.jei.helper.EnergyIngredient;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;

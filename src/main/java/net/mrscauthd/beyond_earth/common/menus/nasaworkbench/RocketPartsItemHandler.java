@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.RangedWrapper;
-import net.mrscauthd.beyond_earth.common.crafting.RocketPart;
+import net.mrscauthd.beyond_earth.common.data.recipes.RocketPart;
 
 public class RocketPartsItemHandler implements IItemHandlerModifiable {
 

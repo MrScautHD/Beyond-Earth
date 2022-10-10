@@ -10,10 +10,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.mrscauthd.beyond_earth.common.crafting.ItemStackToItemStackRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.data.recipes.ItemStackToItemStackRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.ItemStackToItemStackRecipeType;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
 
 public abstract class ItemStackToItemStackBlockEntity extends AbstractMachineBlockEntity {

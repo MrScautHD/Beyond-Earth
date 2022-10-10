@@ -10,9 +10,9 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
 
 public class SolarPanelBlock extends AbstractMachineBlock<SolarPanelBlockEntity> {
 

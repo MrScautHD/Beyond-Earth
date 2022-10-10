@@ -5,22 +5,22 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeDyedItem;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeEnchantedBook;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeEnchantedItem;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeItemStack;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeMap;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipePotionedItem;
-import net.mrscauthd.beyond_earth.common.crafting.AlienTradingRecipeType;
-import net.mrscauthd.beyond_earth.common.crafting.BeyondEarthRecipeType;
-import net.mrscauthd.beyond_earth.common.crafting.CompressingRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.FuelRefiningRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.GeneratingRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.ItemStackToItemStackRecipeType;
-import net.mrscauthd.beyond_earth.common.crafting.OxygenBubbleDistributorRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.OxygenLoaderRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.SpaceStationRecipe;
-import net.mrscauthd.beyond_earth.common.crafting.WorkbenchingRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeDyedItem;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeEnchantedBook;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeEnchantedItem;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeItemStack;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeMap;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipePotionedItem;
+import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeType;
+import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
+import net.mrscauthd.beyond_earth.common.data.recipes.CompressingRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.FuelRefiningRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.GeneratingRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.ItemStackToItemStackRecipeType;
+import net.mrscauthd.beyond_earth.common.data.recipes.OxygenBubbleDistributorRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.OxygenLoaderRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.SpaceStationRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.WorkbenchingRecipe;
 
 public class RecipeTypeRegistry {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Keys.RECIPE_TYPES,

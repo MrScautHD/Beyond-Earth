@@ -50,16 +50,16 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValuesProvider;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.NamedComponentRegistry;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystem;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemFuel;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemRegistry;
 import net.mrscauthd.beyond_earth.common.blocks.machines.AbstractMachineBlock;
 import net.mrscauthd.beyond_earth.common.capabilities.energy.IEnergyStorageHolder;
-import net.mrscauthd.beyond_earth.common.crafting.FluidIngredient;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
-import net.mrscauthd.beyond_earth.common.gauge.IGaugeValue;
-import net.mrscauthd.beyond_earth.common.gauge.IGaugeValuesProvider;
-import net.mrscauthd.beyond_earth.common.machines.NamedComponentRegistry;
-import net.mrscauthd.beyond_earth.common.machines.power.PowerSystem;
-import net.mrscauthd.beyond_earth.common.machines.power.PowerSystemFuel;
-import net.mrscauthd.beyond_earth.common.machines.power.PowerSystemRegistry;
+import net.mrscauthd.beyond_earth.common.data.recipes.FluidIngredient;
 
 public abstract class AbstractMachineBlockEntity extends RandomizableContainerBlockEntity
         implements WorldlyContainer, IEnergyStorageHolder, IGaugeValuesProvider {

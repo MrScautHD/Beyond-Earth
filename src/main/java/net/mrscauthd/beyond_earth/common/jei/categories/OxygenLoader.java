@@ -26,7 +26,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.crafting.OxygenLoaderRecipe;
+import net.mrscauthd.beyond_earth.common.data.recipes.OxygenLoaderRecipe;
 import net.mrscauthd.beyond_earth.common.jei.Jei;
 import net.mrscauthd.beyond_earth.common.jei.helper.CustomFluidRenderer;
 import net.mrscauthd.beyond_earth.common.jei.helper.EnergyIngredient;

@@ -8,11 +8,11 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemFuelGeneratingRecipe;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemRegistry;
 import net.mrscauthd.beyond_earth.common.blocks.machines.CoalGeneratorBlock;
 import net.mrscauthd.beyond_earth.common.capabilities.energy.EnergyStorageBasic;
 import net.mrscauthd.beyond_earth.common.config.Config;
-import net.mrscauthd.beyond_earth.common.machines.power.PowerSystemFuelGeneratingRecipe;
-import net.mrscauthd.beyond_earth.common.machines.power.PowerSystemRegistry;
 import net.mrscauthd.beyond_earth.common.menus.CoalGeneratorMenu;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 

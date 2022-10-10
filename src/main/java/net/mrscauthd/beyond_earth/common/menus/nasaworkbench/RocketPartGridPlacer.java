@@ -9,7 +9,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
-import net.mrscauthd.beyond_earth.common.crafting.RocketPart;
+import net.mrscauthd.beyond_earth.common.data.recipes.RocketPart;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
 
 public class RocketPartGridPlacer {

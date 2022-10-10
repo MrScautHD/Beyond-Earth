@@ -14,8 +14,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.common.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.SolarPanelMenu;
 
 @OnlyIn(Dist.CLIENT)
