@@ -55,6 +55,9 @@ public class PlanetData {
         float g = 1;
         // g while in orbit
         float orbit_g = 0.05f;
+        // Radius of the object in km
+        double radius = 6e3;
+
         // This sets if we render fog, it is based on an assumed surface atmospheric
         // density scaled to that of earth.
         float air_density = 0;
@@ -102,6 +105,7 @@ public class PlanetData {
             this.g = planet.g;
             this.tidal_lock = planet.tidalLock;
             this.air_density = planet.airDensity;
+            this.radius = planet.radius;
 
             this.orbit_colour = planet.orbitColour;
             this.sunriseColour = planet.sunriseColour;
@@ -145,6 +149,7 @@ public class PlanetData {
             planet.sunriseColour = this.sunriseColour;
             planet.tidalLock = this.tidal_lock;
             planet.airDensity = this.air_density;
+            planet.radius = this.radius;
 
             planet.rotation = this.rotation;
             planet.orbitPhase = this.rotation;
