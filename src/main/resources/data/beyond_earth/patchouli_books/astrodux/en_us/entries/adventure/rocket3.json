@@ -1,0 +1,20 @@
+{
+    "name": "All over the star system",
+    "icon": "beyond_earth:rocket_t3",
+    "category": "beyond_earth:rocket_travel",
+    "sortnum": 3,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "MARS was beautiful, right?$(br2)Not enough?, you want to strive for more? ok, here is a challenge!$(br2) Presuming you have enough Ostrum head to the SUN, or close it it atleast, Venus is very hot,have good gear in hand,that place is a 'hot' tourist spot for many organisms"
+        },
+        {
+            "type": "patchouli:entity",
+            "entity":"beyond_earth:rocket_t3",
+            "title":"Tier 3 rocket",
+            "offset": "0.5",
+            "scale":"0.9"
+        }
+        
+    ]
+}

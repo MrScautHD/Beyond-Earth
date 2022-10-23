@@ -1,0 +1,13 @@
+{
+    "name": "Mercury",
+    "icon": "beyond_earth:textures/sky/mercury.png",
+    "category": "beyond_earth:space",
+    "sortnum": 4,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Mercury is for certain an inhabited wasteland.You yourself cannot stand there without protecting yourself with metals that withstand such heat."
+        }
+        
+    ]
+}

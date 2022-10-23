@@ -54,6 +54,8 @@
   "item.beyond_earth.raw_ostrum_block": "Roher Ostrum Block",
   "item.beyond_earth.rocket_t4": "Stufe 4 Rakete",
   "item.beyond_earth.ice_shard": "Eisscholle",
+  "item.beyond_earth.astrodux": "Astrodux",
+
 
   "item.beyond_earth.calorite_ingot": "Calorite Barren",
   "item.beyond_earth.compressed_calorite": "Komprimiertes Calorite",
@@ -331,5 +333,8 @@
   "general.beyond_earth.oxygen": "Sauerstoff",
   "general.beyond_earth.burntime": "Brenndauer",
   "general.beyond_earth.cooktime": "Kochdauer",
-  "general.beyond_earth.oxygenloading": "Lade"
+  "general.beyond_earth.oxygenloading": "Lade",
+
+  "message.beyond_earth.error.patchouli": "Ich glaube, &4Patchouli&r ist nicht installiert. Sie benötigen diesen Mod, um diesen Artikel zu verwenden"
+
 }

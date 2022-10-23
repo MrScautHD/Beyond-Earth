@@ -1,0 +1,35 @@
+{
+    "name": "Oxygen",
+    "icon": "beyond_earth:oxygen_loader",
+    "category": "beyond_earth:process",
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "All living entities,mainly players, require oxygen in order to survive in the far reaches of outer space. whether in the burning environments of Venus, or the barren freezing plains of Glacio.$(br2)Oxygen can me managed in 2 ways, though a loader and a Distributer"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "item":"beyond_earth:oxygen_loader",
+            "text": "The oxygen loader is a machine that is responsible for filling your space suit with oxygen,so you can survive in harsh environments.$(br2)As long as the loader has a water and energy, it will be able to satisfy all your oxygen needs",
+            "title":"Oxygen Loader"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "item":"beyond_earth:oxygen_bubble_distributor",
+            "recipe":"beyond_earth:oxygen_bubble_distributor",
+            "text": "$(br2)A players best friend and fail-safe in outer space.$(br)This machince can create a hospitable 'oxygen bubble' for the player to live in without the Space-suit requirement.As long as There is a stable source of water and energy, thsis bubble will not pop.",
+            "title":"Oxygen Distributor"
+        },
+        {
+            "type":"patchouli:text",
+            "text":"$(br2) The oxygen Distributor has a toggle to show the volume of space that it can provide oxygen.The larger the volume, the more energy per tick used and more Oxygen per tick used to provide sustainance. $(br2)The machine does have a helpful toggle 'show/hide' button to indicate the space it supplies oxygen"
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe":"beyond_earth:oxygen_bubble_distributor",
+            "recipe2":"beyond_earth:oxygen_loader",
+            "title":"Recipes"
+        }
+
+    ]
+}

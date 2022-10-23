@@ -1,0 +1,59 @@
+{
+    "name": "Tips",
+    "icon": "beyond_earth:flag_purple",
+    "category": "beyond_earth:getting_started",
+    "sortnum": 1,
+    "pages": [
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:1",
+            "item":"beyond_earth:flag",
+            "text": "I recommend you take a flag with you!$(br)It marks your achievement of getting to that planet, as well as a way to personalise your bases on different planets"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:2",
+            "item":"beyond_earth:cheese",
+            "text": "The moon has cheese! Get some, its good!$(br)Though there is something a bit off about the flavour,it seems a bit too stale....?"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:3",
+            "item":"beyond_earth:rover",
+            "text": "You know what would be awesome? Drifting on another planet.$(br)And hey! if you leave tracks, you now have a easy way going back?Its also good for travel you know?The moon is quite barren."
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:4",
+            "item":"beyond_earth:rocket_t4",
+            "text": "Interact [crouch+right click] with the lander when you reach your destination,It would be nice to get your rcckrt back,ESPECIALLY when you worked hard getting all the stuff"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:5",
+            "item":"beyond_earth:rocket_launch_pad",
+            "text": "Remember to alyays carry more rocket launch pads and fuel, so you can fuel your rovers as well as the ride back home.You dont want to be stranded there right?$(br2)Them natives may not be too happy"
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:6",
+            "item":"minecraft:soul_torch",
+            "text": "As air/Oxygen does not exist in adequate amounts outside Earth,normal torches are literally useless.$(br)HOWEVER,soul fueled burning is totally possible.As using souls as a substitute is very reliable.There is should be problem burning soul torches and campfires in outerspace."
+        },
+        {
+            "type": "patchouli:spotlight",
+            "title":"Tip:7",
+            "item":"minecraft:writable_book",
+            "text": "Please use JEI in order to find out recipes for this mod.It is a $(o)Wonderful$() tool that is usually integrated with numourous mods."
+        },
+        {
+            "type": "patchouli:text",
+            "title":"Tip:External Mod",
+            "text": "$(br)There are many mods that add materials that are very similar with the ones in Beyond Earth.Feel free to discover all the compatibilites to make the integrated exprience satisfying.$(br)From $(o)Tinkkers Construct$() being able to melt metals and $(o)Pipez$() being a really efficient pipes/cables mod"
+        }
+        
+        
+        
+        
+    ]
+}

@@ -228,6 +228,11 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> GLACIO_IRON_ORE_ITEM = ITEMS.register("glacio_iron_ore", () -> new BlockItem(BlockRegistry.GLACIO_IRON_ORE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> GLACIO_LAPIS_ORE_ITEM = ITEMS.register("glacio_lapis_ore", () -> new BlockItem(BlockRegistry.GLACIO_LAPIS_ORE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
+    //Astrodux
+    public static final RegistryObject<Item> ASTRODUX = ITEMS.register("astrodux", () -> new AstroduxItem(new Item.Properties().tab(Tabs.tab_normal)));
+
+
+
     /** BUCKET ITEMS */
     public static final RegistryObject<BucketItem> FUEL_BUCKET = ITEMS.register("fuel_bucket", () -> new ModifiedBucketItem(FluidRegistry.FUEL_STILL.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal), true));
     public static final RegistryObject<BucketItem> OIL_BUCKET = ITEMS.register("oil_bucket", () -> new ModifiedBucketItem(FluidRegistry.OIL_STILL.get(), new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1).tab(Tabs.tab_normal), false));

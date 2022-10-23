@@ -1,0 +1,15 @@
+{
+    "name": "Mars",
+    "icon": "beyond_earth:textures/sky/mars.png",
+    "category": "beyond_earth:space",
+    "sortnum": 2,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Mars does have some interesting terrain, although still empty,one can still see the frozen spikes of the water that used to remain on this dead planet.$(br)Although it does not seem to he inhabited by any creatures, a peculiar reptile species can be spotted once in a while.Contact will result in immediate attack"
+        }
+        
+        
+        
+    ]
+}

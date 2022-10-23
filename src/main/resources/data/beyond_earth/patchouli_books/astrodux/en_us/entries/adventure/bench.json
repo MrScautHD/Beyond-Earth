@@ -1,0 +1,19 @@
+{
+    "name": "The correct Bench",
+    "icon": "beyond_earth:nasa_workbench",
+    "category": "beyond_earth:rocket_travel",
+    "priority": true,
+    "pages": [
+        {
+            "type": "patchouli:text",
+            "text": "Wecome to basic Rocket creation.$(br2)A simple crafting table is too unsophisticated to be restricted to merely 9 material slots.....$(br)There is no way a rocket can me made in the same place one makes a mere hoe!$(br2)Its time to make a table worthy of Rocket Creation"
+        },
+        {
+            "type": "patchouli:crafting",
+            "recipe":"beyond_earth:nasa_workbench",
+            "title":"Rocket builder",
+            "text":"$(br)A workbench that can handle the extreme and alien materials to produce one of the greatest methods of travel ever."
+        }
+        
+    ]
+}
