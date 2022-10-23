@@ -297,7 +297,7 @@ public class SkyHelper {
             p.orbitPhase = Planets.getRotation(p, worldTime, 1);
 
             // Now we scale size of the moon based on distance.
-            float moonSize = (float) (1e3 * p.radius / p.orbitRadius);
+            float moonSize = (float) (3.5e3 * p.radius / p.orbitRadius);
 
             // This is how far away in angle the moon is from the sun
             float phase = dayAngle + p.orbitPhase;
@@ -316,9 +316,9 @@ public class SkyHelper {
                 moonSize *= 2;
                 Minecraft mc = Minecraft.getInstance();
                 SkyHelper.drawPlanetWithMoonPhaseAndWithLight(p.phaseTexture, p.getLightColour(), bufferBuilder,
-                        matrix4f, moonSize, 3 * 4, 100, mc, false, moonPhase);
+                        matrix4f, moonSize, moonSize, 100, mc, false, moonPhase);
             } else {
-                SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, moonSize, 3 * 4,
+                SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, moonSize, moonSize,
                         100, false);
             }
             alpha = 255;
