@@ -4,7 +4,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.mrscauthd.beyond_earth.common.config.Config;
-
 import net.mrscauthd.beyond_earth.common.registries.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,8 +37,10 @@ public class BeyondEarth {
 		BlockEntityRegistry.BLOCK_ENTITIES.register(bus);
 		PaintingRegistry.PAINTINGS.register(bus);
 		SensorRegistry.SENSOR.register(bus);
+                RecipeSerializersRegistry.RECIPE_SERIALIZERS.register(bus);
+                RecipeTypeRegistry.RECIPE_TYPES.register(bus);
+                RocketPartsRegistry.ROCKET_PARTS.register(bus);
 		SoundRegistry.SOUNDS.register(bus);
-		EffectRegistry.EFFECTS.register(bus);
 		ParticleRegistry.PARTICLES.register(bus);
 		ContainerRegistry.CONTAINERS.register(bus);
 		StructureRegistry.STRUCTURES.register(bus);

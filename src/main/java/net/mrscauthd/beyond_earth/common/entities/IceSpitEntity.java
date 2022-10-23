@@ -20,11 +20,11 @@ import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import java.util.Random;
 
 public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
-    public IceSpitEntity(EntityType type, Level world) {
+    public IceSpitEntity(EntityType<? extends AbstractArrow> type, Level world) {
         super(type, world);
     }
 
-    public IceSpitEntity(EntityType type, LivingEntity entity, Level world) {
+    public IceSpitEntity(EntityType<? extends AbstractArrow> type, LivingEntity entity, Level world) {
         super(type, entity, world);
     }
 

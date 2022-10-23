@@ -160,7 +160,7 @@ public class ClientEvents {
         }
 
         Player player = (Player) event.getLivingEntity();
-        HumanoidModel model = event.getModel();
+        HumanoidModel<?> model = event.getModel();
 
         /** PLAYER STAY IN ROCKET ANIMATION */
         if (Methods.isRocket(player.getVehicle())) {

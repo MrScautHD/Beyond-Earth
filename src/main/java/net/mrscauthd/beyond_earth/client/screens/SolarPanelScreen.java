@@ -1,15 +1,33 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
-//@OnlyIn(Dist.CLIENT)
-public class SolarPanelScreen /*extends AbstractContainerScreen<SolarPanelMenu.GuiContainer> */{
-/*
-	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/screens/solar_panel.png");
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.energy.IEnergyStorage;
+import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.menus.SolarPanelMenu;
+
+@OnlyIn(Dist.CLIENT)
+public class SolarPanelScreen extends AbstractContainerScreen<SolarPanelMenu.GuiContainer> {
+	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/gui/solar_panel.png");
 
 	public SolarPanelScreen(SolarPanelMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.imageWidth = 176;
-		this.imageHeight = 166;
+		this.imageWidth = 177;
+		this.imageHeight = 228;
 		this.inventoryLabelY = this.imageHeight - 92;
+		this.titleLabelY += 40;
 	}
 
 	@Override
@@ -37,5 +55,5 @@ public class SolarPanelScreen /*extends AbstractContainerScreen<SolarPanelMenu.G
 		this.font.draw(ms, GaugeTextHelper.getStoredText(GaugeValueHelper.getEnergy(energyStorage.getEnergyStored())).build(), this.titleLabelY, 28, 0x3C3C3C);
 		this.font.draw(ms, GaugeTextHelper.getCapacityText(GaugeValueHelper.getEnergy(energyStorage.getMaxEnergyStored())).build(), this.titleLabelY, 40, 0x3C3C3C);
 		this.font.draw(ms, GaugeTextHelper.getMaxGenerationPerTickText(GaugeValueHelper.getEnergy(blockEntity.getMaxGeneration())).build(), this.titleLabelY, 52, 0x3C3C3C);
-	}*/
+	}
 }

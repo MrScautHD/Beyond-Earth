@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "beyond_earth:space_helmet",
+    "beyond_earth:space_suit",
+    "beyond_earth:space_pants",
+    "beyond_earth:space_boots",
+    "beyond_earth:netherite_space_helmet",
+    "beyond_earth:netherite_space_suit",
+    "beyond_earth:netherite_space_pants",
+    "beyond_earth:netherite_space_boots",
+    "beyond_earth:jet_helmet",
+    "beyond_earth:jet_suit",
+    "beyond_earth:jet_pants",
+    "beyond_earth:jet_boots"
+  ]
+}

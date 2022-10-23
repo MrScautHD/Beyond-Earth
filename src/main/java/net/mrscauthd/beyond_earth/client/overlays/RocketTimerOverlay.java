@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.client.overlays;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -45,43 +46,43 @@ public class RocketTimerOverlay implements IGuiOverlay {
             /** TIMER */
             if (timer > -1 && timer < 20) {
                 RenderSystem.setShaderTexture(0, TIMER_10);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 20 && timer < 40) {
                 RenderSystem.setShaderTexture(0, TIMER_9);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 40 && timer < 60) {
                 RenderSystem.setShaderTexture(0, TIMER_8);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 60 && timer < 80) {
                 RenderSystem.setShaderTexture(0, TIMER_7);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 80 && timer < 100) {
                 RenderSystem.setShaderTexture(0, TIMER_6);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 100 && timer < 120) {
                 RenderSystem.setShaderTexture(0, TIMER_5);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 120 && timer < 140) {
                 RenderSystem.setShaderTexture(0, TIMER_4);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 140 && timer < 160) {
                 RenderSystem.setShaderTexture(0, TIMER_3);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 160 && timer < 180) {
                 RenderSystem.setShaderTexture(0, TIMER_2);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 180 && timer < 200) {
                 RenderSystem.setShaderTexture(0, TIMER_1);
-                gui.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
         }
     }

@@ -4,7 +4,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -20,13 +24,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
-import net.mrscauthd.beyond_earth.common.config.Config;
-
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.beyond_earth.common.config.Config;
+import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
 
 public class AlienZombieEntity extends Monster implements RangedAttackMob {
-	public AlienZombieEntity(EntityType type, Level world) {
+	public AlienZombieEntity(EntityType<? extends Monster> type, Level world) {
 		super(type, world);
 		this.xpReward = 5;
 	}
@@ -45,8 +48,8 @@ public class AlienZombieEntity extends Monster implements RangedAttackMob {
 		this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
 		this.goalSelector.addGoal(3, new RandomStrollGoal(this, 0.8));
 		this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal(this, Player.class, false, false));
-		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal(this, AlienEntity.class, false, false));
+		this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, Player.class, false, false));
+		this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, AlienEntity.class, false, false));
 		this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.25, 20, 15));
 	}
 

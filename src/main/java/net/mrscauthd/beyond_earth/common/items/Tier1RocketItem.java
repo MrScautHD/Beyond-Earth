@@ -25,7 +25,7 @@ public class Tier1RocketItem extends IRocketItem {
     }
 
     @Override
-    public EntityType getEntityType() {
+    public EntityType<? extends IRocketEntity> getEntityType() {
         return EntityRegistry.TIER_1_ROCKET.get();
     }
 

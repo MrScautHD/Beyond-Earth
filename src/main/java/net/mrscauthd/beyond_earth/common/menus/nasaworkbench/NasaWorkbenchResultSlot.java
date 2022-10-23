@@ -1,20 +1,26 @@
 package net.mrscauthd.beyond_earth.common.menus.nasaworkbench;
 
-public class NasaWorkbenchResultSlot/* extends Slot*/ {
-/*
-	private final NASAWorkbenchBlockEntity blockEntity;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 
-	public NasaWorkbenchResultSlot(Container inventory, int slotIndex, int xPos, int yPos, NASAWorkbenchBlockEntity blockEntity) {
-		super(inventory, slotIndex, xPos, yPos);
-		this.blockEntity = blockEntity;
-	}
+public class NasaWorkbenchResultSlot extends Slot {
 
-	@Override
-	public boolean mayPlace(ItemStack p_40231_) {
-		return false;
-	}
+    private final NASAWorkbenchBlockEntity blockEntity;
 
-	public NASAWorkbenchBlockEntity getBlockEntity() {
-		return this.blockEntity;
-	}*/
+    public NasaWorkbenchResultSlot(Container inventory, int slotIndex, int xPos, int yPos,
+            NASAWorkbenchBlockEntity blockEntity) {
+        super(inventory, slotIndex, xPos, yPos);
+        this.blockEntity = blockEntity;
+    }
+
+    @Override
+    public boolean mayPlace(ItemStack p_40231_) {
+        return false;
+    }
+
+    public NASAWorkbenchBlockEntity getBlockEntity() {
+        return this.blockEntity;
+    }
 }

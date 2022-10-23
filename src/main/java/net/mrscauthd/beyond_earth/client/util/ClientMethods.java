@@ -40,12 +40,12 @@ public class ClientMethods {
         if (item instanceof ISpaceArmor spaceArmorItem) {
             Model model = ForgeHooksClient.getArmorModel(player, itemStack, itemStack.getEquipmentSlot(), playerModel);
 
-            if (model instanceof SpaceSuitModel.SpaceSuitP1 spaceSuitModel) {
+            if (model instanceof SpaceSuitModel.SpaceSuitP1<?> spaceSuitModel) {
                 ClientMethods.renderArmWithProperties(poseStack, bufferSource, light, spaceArmorItem.getTexture(itemStack, player), player, playerModel, renderer, arm == HumanoidArm.RIGHT ? spaceSuitModel.rightArm : spaceSuitModel.leftArm);
                 return true;
             }
 
-            if (model instanceof JetSuitModel.JetSuitP1 jetSuitModel) {
+            if (model instanceof JetSuitModel.JetSuitP1<?> jetSuitModel) {
                 ClientMethods.renderArmWithProperties(poseStack, bufferSource, light, spaceArmorItem.getTexture(itemStack, player), player, playerModel, renderer, arm == HumanoidArm.RIGHT ? jetSuitModel.rightArm : jetSuitModel.leftArm);
                 return true;
             }
