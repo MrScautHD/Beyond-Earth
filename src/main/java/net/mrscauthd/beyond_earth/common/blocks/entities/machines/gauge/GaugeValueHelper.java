@@ -30,7 +30,7 @@ public class GaugeValueHelper {
 	public static final String FLUID_UNIT = "mB";
 
 	public static String makeTranslationKey(ResourceLocation name) {
-		return "gauge." + name.getNamespace() + "." + name.getPath();
+		return "general." + name.getNamespace() + "." + name.getPath();
 	}
 
 	public static IGaugeValue getFluid(int amount) {

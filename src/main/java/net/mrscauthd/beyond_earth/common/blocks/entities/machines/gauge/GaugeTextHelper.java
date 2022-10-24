@@ -16,7 +16,7 @@ import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 
 public class GaugeTextHelper {
 
@@ -140,7 +140,7 @@ public class GaugeTextHelper {
 		return builder.build();
 	}
 
-	public static MutableComponent buildSpacesuitOxygenTooltip(OxygenStorage oxygenStorage) {
+	public static MutableComponent buildSpacesuitOxygenTooltip(IOxygenStorage oxygenStorage) {
 		IGaugeValue oxygen;
 
 		if (oxygenStorage != null) {

@@ -81,6 +81,7 @@ repositories {
     /** JEI */
     maven { name = "Progwml6 maven"; url = "https://dvs1.progwml6.com/files/maven/" }
     maven { name = "ModMaven"; url = "https://modmaven.dev" }
+    maven { name = "CurseForge"; url = "https://www.cursemaven.com" }
 }
 
 mixin {
@@ -99,6 +100,12 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge-api:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${jei_mc_version}-forge:${jei_version}")
+    
+    /** The One Probe */
+    implementation fg.deobf("curse.maven:the-one-probe-245211:${top_file}")
+
+    /** Jade */
+    implementation fg.deobf("curse.maven:jade-324717:${jade_file}")
 }
 
 jar {
