@@ -80,6 +80,12 @@ public class MenuHelper {
             } else {
                 slot.setChanged();
             }
+
+            if (slotStack.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, slotStack);
         }
 
         return itemStack;
