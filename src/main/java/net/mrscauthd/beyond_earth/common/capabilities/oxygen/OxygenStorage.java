@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.common.capabilities.oxygen;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 
 public class OxygenStorage implements IOxygenStorage {
     private int oxygen;
@@ -27,10 +28,11 @@ public class OxygenStorage implements IOxygenStorage {
 
     @Override
     public void setOxygen(int oxygen) {
+        oxygen = Mth.clamp(oxygen, 0, this.getMaxCapacity());
         int dO2 = oxygen - this.oxygen;
+        this.oxygen = oxygen;
         if (listener != null)
             listener.onOxygenChanged(this, dO2);
-        this.oxygen = oxygen;
     }
 
     @Override
@@ -45,8 +47,7 @@ public class OxygenStorage implements IOxygenStorage {
 
     @Override
     public int receiveOxygen(int maxReceive, boolean simulate) {
-        int oxygen = this.oxygen;
-        oxygen = Math.min(maxReceive + oxygen, getMaxCapacity());
+        int oxygen = (int) Mth.clamp((long) this.oxygen + maxReceive, 0L, this.getMaxCapacity());
         int dO2 = oxygen - this.oxygen;
         if (!simulate) {
             this.setOxygen(oxygen);
@@ -56,8 +57,7 @@ public class OxygenStorage implements IOxygenStorage {
 
     @Override
     public int extractOxygen(int maxExtract, boolean simulate) {
-        int oxygen = this.oxygen;
-        oxygen = Math.max(oxygen - maxExtract, 0);
+        int oxygen = (int) Mth.clamp((long) this.oxygen - maxExtract, 0L, this.getMaxCapacity());
         int dO2 = this.oxygen - oxygen;
         if (!simulate) {
             this.setOxygen(oxygen);
