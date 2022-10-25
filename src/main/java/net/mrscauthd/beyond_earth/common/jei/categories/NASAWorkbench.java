@@ -3,8 +3,6 @@ package net.mrscauthd.beyond_earth.common.jei.categories;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.compress.utils.Lists;
-
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -92,70 +90,39 @@ public class NASAWorkbench implements IRecipeCategory<WorkbenchingRecipe> {
         int dx = -7;
         int dy = -9;
 
-        List<ItemStack> stacks = Lists.newArrayList();
-
-        IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 40 + dx, 18 + dy);
         var list = recipe.getParts().getOrDefault(nose, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
-        inputStack.addItemStacks(stacks);
+        IRecipeSlotBuilder inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 40 + dx, 18 + dy);
+        inputStack.addIngredients(list.get(0));
 
         list = recipe.getParts().getOrDefault(body, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
-        for (int x = 0; x < 2; x++)
-            for (int y = 0; y < 3; y++) {
+        for (int y = 0; y < 3; y++)
+            for (int x = 0; x < 2; x++) {
+                int i = y * 2 + x;
                 inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 31 + dx + x * 18, 36 + dy + y * 18);
-                inputStack.addItemStacks(stacks);
+                inputStack.addIngredients(list.get(i));
             }
 
         list = recipe.getParts().getOrDefault(tank, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
         for (int x = 0; x < 2; x++) {
             inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 31 + dx + x * 18, 90 + dy);
-            inputStack.addItemStacks(stacks);
+            inputStack.addIngredients(list.get(x));
         }
 
         list = recipe.getParts().getOrDefault(left, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
         for (int y = 0; y < 2; y++) {
             inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 13 + dx, 90 + dy + y * 18);
-            inputStack.addItemStacks(stacks);
+            inputStack.addIngredients(list.get(y));
         }
 
         list = recipe.getParts().getOrDefault(right, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
         for (int y = 0; y < 2; y++) {
             inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 67 + dx, 90 + dy + y * 18);
-            inputStack.addItemStacks(stacks);
+            inputStack.addIngredients(list.get(y));
         }
 
         inputStack = builder.addSlot(RecipeIngredientRole.INPUT, 40 + dx, 108 + dy);
         list = recipe.getParts().getOrDefault(engine, Collections.emptyList());
-        stacks.clear();
-        list.forEach(e -> {
-            for (var i : e.getItems())
-                stacks.add(i);
-        });
-        inputStack.addItemStacks(stacks);
+        inputStack.addIngredients(list.get(0));
 
         IRecipeSlotBuilder outputStack = builder.addSlot(RecipeIngredientRole.OUTPUT, 86, 28);
         outputStack.addItemStack(recipe.getOutput());
