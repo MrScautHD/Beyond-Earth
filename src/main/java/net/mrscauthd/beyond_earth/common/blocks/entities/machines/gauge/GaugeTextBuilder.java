@@ -19,6 +19,7 @@ public class GaugeTextBuilder {
 	private final Map<Integer, Style> extraStyles;
 
 	private Style textStyle;
+	private Style nameStyle;
 	private Style amountStyle;
 	private Style capacityStyle;
 	private Style unitStyle;
@@ -32,6 +33,7 @@ public class GaugeTextBuilder {
 		this.extraStyles = new HashMap<>();
 
 		this.setTextStyle(Style.EMPTY);
+		this.setNameStyle(Style.EMPTY);
 		this.setAmountStyle(Style.EMPTY);
 		this.setCapacityStyle(Style.EMPTY);
 		this.setUnitStyle(Style.EMPTY);
@@ -47,7 +49,7 @@ public class GaugeTextBuilder {
 		String unit = value.getUnit();
 
 		List<Object> list = new ArrayList<>();
-		list.add(this.format(displayName, this.getTextStyle()));
+		list.add(this.format(displayName, this.getNameStyle()));
 		list.add(this.format(String.valueOf(amount), this.getAmountStyle(), unit, this.getUnitStyle()));
 		list.add(this.format(String.valueOf(capacity), this.getCapacityStyle(), unit, this.getUnitStyle()));
 		
@@ -98,6 +100,15 @@ public class GaugeTextBuilder {
 
 	public GaugeTextBuilder setTextStyle(Style textStyle) {
 		this.textStyle = textStyle;
+		return this;
+	}
+
+	public Style getNameStyle() {
+		return nameStyle;
+	}
+
+	public GaugeTextBuilder setNameStyle(Style nameStyle) {
+		this.nameStyle = nameStyle;
 		return this;
 	}
 

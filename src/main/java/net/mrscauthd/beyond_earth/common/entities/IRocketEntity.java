@@ -46,19 +46,26 @@ import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValuesProvider;
+import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
+import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen {
+public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, IGaugeValuesProvider {
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
@@ -74,6 +81,23 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     public abstract double getRocketSpeed();
 
     public abstract int getTier();
+
+    public abstract int getBucketsOfFull();
+
+    public int getFuelCapacity() {
+        return this.getBucketsOfFull() * FluidUtil2.BUCKET_SIZE;
+	}
+
+	public IGaugeValue getFuelGauge() {
+		int fuel = this.getEntityData().get(FUEL);
+		int capacity = this.getFuelCapacity();
+		return GaugeValueHelper.getFuel(fuel, capacity);
+	}
+
+	@Override
+	public List<IGaugeValue> getDisplayGaugeValues() {
+		return Collections.singletonList(this.getFuelGauge());
+	}
 
     @Override
     public boolean isPushable() {
@@ -291,12 +315,12 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         ItemStack slotItem1 = this.getInventory().getStackInSlot(1);
 
         if (slotItem0.getItem() instanceof BucketItem) {
-            if (((BucketItem) slotItem0.getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(FUEL) < 3000) {
+            if (((BucketItem) slotItem0.getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG) && this.entityData.get(FUEL) + FluidUtil2.BUCKET_SIZE <= this.getFuelCapacity()) {
                 if (slotItem1.getCount() != slotItem1.getMaxStackSize()) {
                     this.getInventory().extractItem(0, 1, false);
                     this.getInventory().insertItem(1, new ItemStack(Items.BUCKET), false);
 
-                    this.getEntityData().set(FUEL, this.entityData.get(FUEL) + 1000);
+                    this.getEntityData().set(FUEL, this.entityData.get(FUEL) + FluidUtil2.BUCKET_SIZE);
                 }
             }
         }
@@ -336,7 +360,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         if (player != null) {
             SynchedEntityData data = this.getEntityData();
 
-            if (data.get(IRocketEntity.FUEL) == 3000) {
+            if (data.get(IRocketEntity.FUEL) == this.getFuelCapacity()) {
                 if (!data.get(IRocketEntity.ROCKET_START)) {
                     data.set(IRocketEntity.ROCKET_START, true);
                     this.level.playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);

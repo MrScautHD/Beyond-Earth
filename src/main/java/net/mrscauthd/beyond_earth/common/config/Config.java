@@ -8,6 +8,11 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistribu
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketTier2Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketTier3Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
+import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -72,6 +77,16 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_CAPACITY;
         public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_TANK_TRANSFER;
         public static final ForgeConfigSpec.ConfigValue<Integer> WATER_PUMP_WORK_INTERVAL;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_BUCKETS;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_1_FUEL_BUCKETS;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_2_FUEL_BUCKETS;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_3_FUEL_BUCKETS;
+
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FUEL_BUCKETS;
         
         /** Steel Management */
         public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
@@ -160,6 +175,31 @@ public class Config {
                 
                 BUILDER.pop();
 		
+            /** Vehicles */
+            BUILDER.push("Vehicles");
+
+            BUILDER.push("Rover");
+            ROVER_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RoverEntity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RoverEntity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.pop();
+
+            BUILDER.push("Rocket Tier 1");
+            ROCKET_TIER_1_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier1Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier1Entity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.pop();
+
+            BUILDER.push("Rocket Tier 2");
+            ROCKET_TIER_2_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier2Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier2Entity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.pop();
+
+            BUILDER.push("Rocket Tier 3");
+            ROCKET_TIER_3_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier3Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier3Entity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.pop();
+
+            BUILDER.push("Rocket Tier 4");
+            ROCKET_TIER_4_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier4Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier4Entity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.pop();
+
+            BUILDER.pop();
+            /** End of Vehicles */
 
                 BUILDER.push("Steel");
                 /** Steel Management */

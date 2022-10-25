@@ -43,17 +43,25 @@ import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValuesProvider;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
+import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
-public class RoverEntity extends IVehicleEntity {
+public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider {
     private double speed = 0;
 
     public float flyingSpeed = 0.02F;
@@ -68,10 +76,27 @@ public class RoverEntity extends IVehicleEntity {
 
     public static final EntityDataAccessor<Boolean> FORWARD = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.BOOLEAN);
 
+    public static final int DEFAULT_FUEL_BUCKETS = 3;
+
     public RoverEntity(EntityType<?> type, Level worldIn) {
         super(type, worldIn);
         this.entityData.define(FUEL, 0);
         this.entityData.define(FORWARD, false);
+    }
+
+    public int getFuelCapacity() {
+        return Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE;
+    }
+    
+    public IGaugeValue getFuelGauge() {
+    	int fuel = this.getEntityData().get(FUEL);
+    	int capacity = this.getFuelCapacity();
+    	return GaugeValueHelper.getFuel(fuel, capacity);
+    }
+
+    @Override
+    public List<IGaugeValue> getDisplayGaugeValues() {
+        return Collections.singletonList(this.getFuelGauge());
     }
 
     @Override
@@ -349,8 +374,8 @@ public class RoverEntity extends IVehicleEntity {
         //Fuel Load up
         if (this.inventory.getStackInSlot(0).getItem() instanceof BucketItem) {
             if (((BucketItem) this.getInventory().getStackInSlot(0).getItem()).getFluid().is(TagRegistry.FLUID_VEHICLE_FUEL_TAG)) {
-                if (this.entityData.get(FUEL) <= 2000) {
-                    this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + 1000));
+                if (this.entityData.get(FUEL) + FluidUtil2.BUCKET_SIZE <= Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE) {
+                    this.getEntityData().set(FUEL, (this.getEntityData().get(FUEL) + FluidUtil2.BUCKET_SIZE));
                     this.inventory.setStackInSlot(0, new ItemStack(Items.BUCKET));
                 }
             }
