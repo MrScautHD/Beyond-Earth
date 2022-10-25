@@ -14,8 +14,8 @@ import net.minecraftforge.client.gui.overlay.ForgeGui;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.common.util.Methods;
 
 public class OxygenTankOverlay implements IGuiOverlay {
@@ -32,7 +32,7 @@ public class OxygenTankOverlay implements IGuiOverlay {
             Minecraft mc = Minecraft.getInstance();
 
             /** OXYGEN TANK IMAGE */
-            OxygenStorage oxygenStorage = chest.getCapability(OxygenProvider.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(chest);
             if (oxygenStorage != null) {
 
                 int x = 5;

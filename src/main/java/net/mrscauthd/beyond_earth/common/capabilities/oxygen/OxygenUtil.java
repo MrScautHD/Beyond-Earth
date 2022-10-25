@@ -1,9 +1,28 @@
 package net.mrscauthd.beyond_earth.common.capabilities.oxygen;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismCompat;
+import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismHelper;
 
 public class OxygenUtil {
+
+    public static <T> LazyOptional<T> getOxygenCapability(Capability<T> capability, @Nullable NonNullSupplier<IOxygenStorage> oxygenStorage) {
+        if (capability == null) {
+            return LazyOptional.empty();
+        } else if (capability == OxygenProvider.OXYGEN) {
+            return LazyOptional.of(oxygenStorage).cast();
+        } else if (MekanismCompat.LOADED && capability == MekanismHelper.getGasHandlerCapability()) {
+            return LazyOptional.of(oxygenStorage).lazyMap(MekanismHelper::getOxygenGasAdapter).cast();
+        }
+
+        return LazyOptional.empty();
+    }
 
     public static IOxygenStorage getItemStackOxygenStorage(ItemStack itemStack) {
         IOxygenStorage oxygenStorage = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
@@ -12,14 +31,13 @@ public class OxygenUtil {
             return oxygenStorage;
         }
 
-        // TODO MEKANISM support?
-//                if (CompatibleManager.MEKANISM.isLoaded()) {
-//                        IOxygenStorage adapter = MekanismHelper.getItemStackOxygenAdapter(itemStack);
-//
-//                        if (adapter != null) {
-//                                return adapter;
-//                        }
-//                }
+        if (MekanismCompat.LOADED) {
+            IOxygenStorage adapter = MekanismHelper.getItemStackOxygenAdapter(itemStack);
+
+            if (adapter != null) {
+                return adapter;
+            }
+        }
 
         return null;
     }

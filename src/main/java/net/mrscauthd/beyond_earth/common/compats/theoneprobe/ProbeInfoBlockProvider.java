@@ -1,7 +1,9 @@
 package net.mrscauthd.beyond_earth.common.compats.theoneprobe;
 
 import java.util.Collection;
+import java.util.List;
 
+import mcjty.theoneprobe.api.IElement;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
@@ -14,6 +16,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValuesProvider;
+import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismCompat;
+import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismHelper;
 
 public class ProbeInfoBlockProvider implements IProbeInfoProvider {
 
@@ -30,12 +34,11 @@ public class ProbeInfoBlockProvider implements IProbeInfoProvider {
 		if (blockEntity instanceof AbstractMachineBlockEntity machineBlockEntity) {
 			if (probeMode != ProbeMode.EXTENDED) {
 				machineBlockEntity.getFluidHandlers().values().stream().map(machineBlockEntity::getFluidHandlerGaugeValues).flatMap(Collection::stream).forEach(g -> probeInfo.element(new GaugeValueElement(g)));
+			}
 
-		        // TODO MEKANISM support?
-//				if (CompatibleManager.MEKANISM.isLoaded()) {
-//					List<? extends IElement> elements = MekanismHelper.createGasGaugeDataElement(machineBlockEntity.getCapability(MekanismHelper.getGasHandlerCapability()).orElse(null));
-//					elements.forEach(element -> probeInfo.element(element));
-//				}
+			if (MekanismCompat.LOADED) {
+				List<? extends IElement> elements = MekanismHelper.createGasGaugeDataElement(machineBlockEntity.getCapability(MekanismHelper.getGasHandlerCapability()).orElse(null));
+				elements.forEach(element -> probeInfo.element(element));
 			}
 		}
 

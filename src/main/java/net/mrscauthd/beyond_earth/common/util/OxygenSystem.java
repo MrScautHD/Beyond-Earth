@@ -9,8 +9,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.CapabilityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
@@ -58,7 +58,7 @@ public class OxygenSystem {
         if (!isInSuit)
             return false;
         ItemStack itemstack = mob.getItemBySlot(EquipmentSlot.byTypeAndIndex(EquipmentSlot.Type.ARMOR, 2));
-        OxygenStorage oxygenStorage = itemstack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+        IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemstack);
         boolean hasO2 = oxygenStorage.getOxygen() > 0;
         if (consumeO2 && hasO2) {
             oxygenStorage.setOxygen(oxygenStorage.getOxygen() - 1);
