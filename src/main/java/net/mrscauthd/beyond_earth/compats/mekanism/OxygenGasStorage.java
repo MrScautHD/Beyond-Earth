@@ -9,17 +9,17 @@ import mekanism.common.registries.MekanismGases;
 import net.minecraft.nbt.CompoundTag;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 
-public class GasHandlerOxygenAdapter implements IOxygenStorage {
+public class OxygenGasStorage implements IOxygenStorage {
 
 	private IGasHandler gasHandler;
 	private boolean canExtract;
 	private boolean canReceive;
 
-	public GasHandlerOxygenAdapter(IGasHandler gasHandler) {
+	public OxygenGasStorage(IGasHandler gasHandler) {
 		this(gasHandler, true, true);
 	}
 
-	public GasHandlerOxygenAdapter(IGasHandler gasHandler, boolean canExtract, boolean canReceive) {
+	public OxygenGasStorage(IGasHandler gasHandler, boolean canExtract, boolean canReceive) {
 		this.gasHandler = gasHandler;
 		this.canExtract = canExtract;
 		this.canReceive = canReceive;

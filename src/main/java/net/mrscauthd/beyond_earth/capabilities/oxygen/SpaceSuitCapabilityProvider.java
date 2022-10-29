@@ -6,9 +6,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.mrscauthd.beyond_earth.compats.CompatibleManager;
-import net.mrscauthd.beyond_earth.compats.mekanism.MekanismHelper;
-import net.mrscauthd.beyond_earth.compats.mekanism.OxygenStorageGasAdapter;
 
 public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygenStorageHolder {
 
@@ -36,15 +33,10 @@ public class SpaceSuitCapabilityProvider implements ICapabilityProvider, IOxygen
 
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction direction) {
-		if (capability == CapabilityOxygen.OXYGEN) {
-			this.readOxygen();
-			return LazyOptional.of(this::getOxygenStorage).cast();
-		}
+		LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(capability, this::getOxygenStorage);
 
-		if (CompatibleManager.MEKANISM.isLoaded()) {
-			if (capability == MekanismHelper.getGasHandlerCapability()) {
-				return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getCapability(CapabilityOxygen.OXYGEN, direction).orElse(null), true, true)).cast();
-			}
+		if (oxygenCapability.isPresent()) {
+			return oxygenCapability;
 		}
 
 		return LazyOptional.empty();
