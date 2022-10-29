@@ -1,11 +1,28 @@
 package net.mrscauthd.beyond_earth.capabilities.oxygen;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.compats.CompatibleManager;
 import net.mrscauthd.beyond_earth.compats.mekanism.MekanismHelper;
 
 public class OxygenUtil {
+
+	public static <T> LazyOptional<T> getOxygenCapability(Capability<T> capability, @Nullable NonNullSupplier<IOxygenStorage> oxygenStorage) {
+		if (capability == null) {
+			return LazyOptional.empty();
+		} else if (capability == CapabilityOxygen.OXYGEN) {
+			return LazyOptional.of(oxygenStorage).cast();
+		} else if (CompatibleManager.MEKANISM.isLoaded() && capability == MekanismHelper.getGasHandlerCapability()) {
+			return LazyOptional.of(oxygenStorage).lazyMap(MekanismHelper::getOxygenGasAdapter).cast();
+		}
+
+		return LazyOptional.empty();
+	}
 
 	public static IOxygenStorage getItemStackOxygenStorage(ItemStack itemStack) {
 		IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
@@ -14,7 +31,6 @@ public class OxygenUtil {
 			return oxygenStorage;
 		}
 
-		
 		if (CompatibleManager.MEKANISM.isLoaded()) {
 			IOxygenStorage adapter = MekanismHelper.getItemStackOxygenAdapter(itemStack);
 

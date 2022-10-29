@@ -106,7 +106,7 @@ public class NetheriteSpaceSuit {
 			super.fillItemCategory(p_41391_, p_41392_);
 			if (this.allowdedIn(p_41391_)) {
 				ItemStack itemStack = new ItemStack(this);
-				IOxygenStorage oxygenStorage = itemStack.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+				IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(itemStack);
 
 				oxygenStorage.setOxygenStored(oxygenStorage.getMaxOxygenStored());
 				p_41392_.add(itemStack);

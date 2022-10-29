@@ -16,6 +16,10 @@ public class MekanismHelper {
 		return Capabilities.GAS_HANDLER_CAPABILITY;
 	}
 
+	public static OxygenGasHandler getOxygenGasAdapter(IOxygenStorage oxygenStorage) {
+		return new OxygenGasHandler(oxygenStorage, true, true);
+	}
+
 	public static IGasHandler getItemStackGasHandler(ItemStack itemStack) {
 		if (itemStack.isEmpty()) {
 			return null;
@@ -28,7 +32,7 @@ public class MekanismHelper {
 		IGasHandler gasHandler = getItemStackGasHandler(itemStack);
 
 		if (gasHandler != null) {
-			return new GasHandlerOxygenAdapter(gasHandler, true, true);
+			return new OxygenGasStorage(gasHandler, true, true);
 		} else {
 			return null;
 		}

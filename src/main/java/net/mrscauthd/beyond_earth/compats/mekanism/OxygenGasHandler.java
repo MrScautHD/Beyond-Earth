@@ -7,17 +7,17 @@ import mekanism.api.chemical.gas.IGasHandler;
 import mekanism.common.registries.MekanismGases;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
 
-public class OxygenStorageGasAdapter implements IGasHandler {
+public class OxygenGasHandler implements IGasHandler {
 
 	private IOxygenStorage oxygenStorage;
 	private boolean canExtract;
 	private boolean canInsert;
 
-	public OxygenStorageGasAdapter(IOxygenStorage oxygenStorage) {
+	public OxygenGasHandler(IOxygenStorage oxygenStorage) {
 		this(oxygenStorage, true, true);
 	}
 
-	public OxygenStorageGasAdapter(IOxygenStorage oxygenStorage, boolean canExtract, boolean canInsert) {
+	public OxygenGasHandler(IOxygenStorage oxygenStorage, boolean canExtract, boolean canInsert) {
 		this.oxygenStorage = oxygenStorage;
 		this.canExtract = canExtract;
 		this.canInsert = canInsert;

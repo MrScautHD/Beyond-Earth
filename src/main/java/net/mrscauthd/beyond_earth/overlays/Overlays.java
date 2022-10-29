@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarthMod;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.CapabilityOxygen;
 import net.mrscauthd.beyond_earth.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.entities.*;
 import net.mrscauthd.beyond_earth.events.Methods;
 import net.mrscauthd.beyond_earth.events.forge.LivingSetVenusRainEvent;
@@ -217,7 +218,7 @@ public class Overlays {
             ItemStack chest = player.getItemBySlot(EquipmentSlot.CHEST);
 
             /** OXYGEN TANK IMAGE */
-            IOxygenStorage oxygenStorage = chest.getCapability(CapabilityOxygen.OXYGEN).orElse(null);
+            IOxygenStorage oxygenStorage = OxygenUtil.getItemStackOxygenStorage(chest);
             double oxygenStoredRatio = oxygenStorage != null ? oxygenStorage.getOxygenStoredRatio() : 0.0D;
 
             int x = 5;
