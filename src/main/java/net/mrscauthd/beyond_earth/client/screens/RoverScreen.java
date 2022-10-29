@@ -15,7 +15,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
-import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
@@ -44,8 +45,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
 
         if (ScreenHelper.isInArea(mouseX, mouseY, this.leftPos + fx, this.topPos + fy, 15, 49)) {
             List<Component> toolTip = new ArrayList<>();
-            toolTip.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ")
-                    .withStyle(ChatFormatting.BLUE).append("\u00A77" + this.getFuel() / 30 + "%"));
+            toolTip.add(GaugeTextHelper.buildFuelStorageTooltip(this.getFuel(), ChatFormatting.WHITE));
 
             this.renderComponentTooltip(ms, toolTip, mouseX, mouseY);
         }
@@ -60,9 +60,10 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
         int fy = 25;
 
         /** FUEL RENDERER */
-        FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), this.getFuel());
-        ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + fx + 1, this.topPos + fy + 1, 12, 46,
-                3000);
+        IGaugeValue fuel = this.getFuel();
+        FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), fuel.getAmount());
+        ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + fx + 1, this.topPos + fy + 1, 12, 46, 
+                fuel.getCapacity());
 
         /** FUEL TANK OVERLAY */
         ScreenHelper.drawTexture(ms, this.leftPos + fx, this.topPos + fy, 14, 48, FLUID_TANK_OVERLAY, false);
@@ -75,7 +76,7 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
                 4210752);
     }
 
-    public int getFuel() {
-        return menu.rover.getEntityData().get(RoverEntity.FUEL);
+    public IGaugeValue getFuel() {
+        return menu.rover.getFuelGauge();
     }
 }

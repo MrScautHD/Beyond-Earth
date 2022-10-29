@@ -163,4 +163,8 @@ public class GaugeTextHelper {
 	public static MutableComponent buildBlockTooltip(GaugeTextBuilder builder) {
 		return buildBlockTooltip(builder, ChatFormatting.GRAY);
 	}
+	
+	public static MutableComponent buildFuelStorageTooltip(IGaugeValue gauge, ChatFormatting color) {
+		return buildBlockTooltip(getStorageText(gauge), color);
+	}
 }
