@@ -106,6 +106,9 @@ dependencies {
 
     /** Jade */
     implementation fg.deobf("curse.maven:jade-324717:${jade_file}")
+    
+    /** Mekanism */
+    implementation fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
 }
 
 jar {

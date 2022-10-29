@@ -23,8 +23,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
 
 public abstract class ISpaceArmor extends ArmorItem {
     private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
@@ -51,7 +52,7 @@ public abstract class ISpaceArmor extends ArmorItem {
             super.fillItemCategory(tab, list);
             if (this.allowedIn(tab)) {
                 ItemStack itemStack = new ItemStack(this);
-                OxygenStorage oxygen = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+                IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
 
                 if (oxygen != null) {
                     oxygen.setOxygen(oxygen.getMaxCapacity());
@@ -64,7 +65,7 @@ public abstract class ISpaceArmor extends ArmorItem {
         @Override
         public void appendHoverText(ItemStack itemStack, Level level, List<Component> list, TooltipFlag tooltipFlag) {
             super.appendHoverText(itemStack, level, list, tooltipFlag);
-            OxygenStorage oxygen = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
+            IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
 
             if (oxygen != null) {
                 list.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));

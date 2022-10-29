@@ -17,11 +17,9 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
 
     private OxygenStorage oxygenStorage;
     private final int capacity;
-    private final LazyOptional<OxygenStorage> cap;
 
     public OxygenProvider(int capacity) {
         this.capacity = capacity;
-        this.cap = LazyOptional.of(this::getOxygenStorage);
     }
 
     private OxygenStorage getOxygenStorage() {
@@ -35,8 +33,10 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == OXYGEN) {
-            return this.cap.cast();
+        LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(cap, this::getOxygenStorage);
+
+        if (oxygenCapability.isPresent()) {
+            return oxygenCapability;
         }
 
         return LazyOptional.empty();

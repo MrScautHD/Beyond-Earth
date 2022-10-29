@@ -18,11 +18,14 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.NamedComponentRegistry;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorageHolder;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
+import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismCompat;
 import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.common.data.recipes.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
@@ -65,10 +68,9 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
     public List<IGaugeValue> getDisplayGaugeValues() {
         List<IGaugeValue> list = super.getDisplayGaugeValues();
 
-        // TODO MEKANISM support?
-//                if (!CompatibleManager.MEKANISM.isLoaded()) {
-//                        list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));
-//                }
+        if (!MekanismCompat.LOADED) {
+            list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));
+        }
 
         return list;
     }
@@ -148,12 +150,11 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
 
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction facing) {
-        // TODO MEKANISM support?
-//                if (CompatibleManager.MEKANISM.isLoaded()) {
-//                        if (capability == MekanismHelper.getGasHandlerCapability()) {
-//                                return LazyOptional.of(() -> new OxygenStorageGasAdapter(this.getOutputTank(), true, true)).cast();
-//                        }
-//                }
+        LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(capability, this::getOutputTank);
+
+        if (oxygenCapability.isPresent()) {
+            return oxygenCapability;
+        }
 
         return super.getCapability(capability, facing);
     }
