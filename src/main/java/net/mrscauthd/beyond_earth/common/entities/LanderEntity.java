@@ -215,11 +215,13 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	public void beepWarningSound() {
-		playBeep.accept(this);
+		if (level.isClientSide())
+			playBeep.accept(this);
 	}
 
 	public void boostSound() {
-		playBoost.accept(this);
+		if (level.isClientSide())
+			playBoost.accept(this);
 	}
 
 	public Player getFirstPlayerPassenger() {
