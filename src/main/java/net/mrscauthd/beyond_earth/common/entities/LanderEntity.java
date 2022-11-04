@@ -1,6 +1,11 @@
 package net.mrscauthd.beyond_earth.common.entities;
 
-import net.minecraft.client.Minecraft;
+import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -14,7 +19,8 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -23,26 +29,24 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
-import net.mrscauthd.beyond_earth.client.sounds.TickableLandingSound;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.LanderMenu;
 
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.common.capabilities.Capability;
-
-import javax.annotation.Nullable;
-import javax.annotation.Nonnull;
-
-import io.netty.buffer.Unpooled;
-
 public class LanderEntity extends IVehicleEntity {
+
+	public static Consumer<LanderEntity> playBoost = e -> {
+	};
+
+	public static Consumer<LanderEntity> playBeep = e -> {
+	};
 
 	public LanderEntity(EntityType<?> type, Level level) {
 		super(type, level);
@@ -88,7 +92,8 @@ public class LanderEntity extends IVehicleEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+		if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching()
+				&& !this.isVehicle()) {
 			this.dropEquipment();
 
 			if (!this.level.isClientSide) {
@@ -106,7 +111,8 @@ public class LanderEntity extends IVehicleEntity {
 		if (p_150347_ >= 3.0F) {
 
 			if (!this.level.isClientSide) {
-				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
+				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
+						Explosion.BlockInteraction.BREAK);
 
 				this.remove(RemovalReason.DISCARDED);
 			}
@@ -209,17 +215,13 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	public void beepWarningSound() {
-		if (this.level.isClientSide) {
-			Minecraft mc = Minecraft.getInstance();
-			mc.getSoundManager().play(new TickableBeepSound(this));
-		}
+		if (level.isClientSide())
+			playBeep.accept(this);
 	}
 
 	public void boostSound() {
-		if (this.level.isClientSide) {
-			Minecraft mc = Minecraft.getInstance();
-			mc.getSoundManager().play(new TickableLandingSound(this));
-		}
+		if (level.isClientSide())
+			playBoost.accept(this);
 	}
 
 	public Player getFirstPlayerPassenger() {
@@ -249,7 +251,8 @@ public class LanderEntity extends IVehicleEntity {
 
 					if (this.level instanceof ServerLevel) {
 						for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
-							((ServerLevel) this.level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(), this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
+							((ServerLevel) this.level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
+									this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
 						}
 					}
 				}

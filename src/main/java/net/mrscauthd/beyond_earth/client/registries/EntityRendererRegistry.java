@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.registries;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,6 +24,9 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTi
 import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Renderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerRenderer;
+import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
+import net.mrscauthd.beyond_earth.client.sounds.TickableLandingSound;
+import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 
@@ -31,6 +35,18 @@ public class EntityRendererRegistry {
 
     @SubscribeEvent
     public static void register(EntityRenderersEvent.RegisterRenderers event) {
+    	
+    	/** REGISTER SOUND PROVIDER FOR LANDERS */
+    	LanderEntity.playBeep = e->{
+			Minecraft mc = Minecraft.getInstance();
+			mc.getSoundManager().play(new TickableBeepSound(e));
+		};
+    	LanderEntity.playBoost = e->{
+			Minecraft mc = Minecraft.getInstance();
+			mc.getSoundManager().play(new TickableLandingSound(e));
+		};
+    	
+    	
         /** MOBS */
         event.registerEntityRenderer(EntityRegistry.ALIEN.get(), AlienRenderer::new);
         event.registerEntityRenderer(EntityRegistry.ALIEN_ZOMBIE.get(), AlienZombieRenderer::new);
