@@ -284,7 +284,9 @@ public class Events {
         PlanetData data = new PlanetData();
         Planets.getStarsList().forEach(s -> data.stars.add(new StarEntry(s)));
         PlanetDataHandler holder = new PlanetDataHandler();
-        holder.data = data;
-        NetworkRegistry.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> event.getPlayer()), holder);
+		holder.data = data;
+		// This can be null during the /reload command
+		if (event.getPlayer() != null)
+			NetworkRegistry.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> event.getPlayer()), holder);
     }
 }
