@@ -1,7 +1,0 @@
-{
-  "parent": "beyond_earth:template/rocket_launch_pad",
-  "textures": {
-    "layer0": "beyond_earth:block/rocket_launch_pad",
-    "particle": "beyond_earth:block/rocket_launch_pad"
-  }
-}
