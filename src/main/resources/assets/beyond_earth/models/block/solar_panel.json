@@ -1,0 +1,7 @@
+{
+  "parent": "beyond_earth:custom/solar_panel",
+  "textures": {
+    "0": "beyond_earth:block/machines/solar_panel",
+    "particle": "beyond_earth:block/machines/solar_panel"
+  }
+}

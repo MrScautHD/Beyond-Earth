@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "beyond_earth:block/machines/oxygen_loader_bottom",
+    "up": "beyond_earth:block/machines/oxygen_loader_top",
+    "north": "beyond_earth:block/machines/oxygen_loader_front",
+    "east": "beyond_earth:block/machines/oxygen_loader_side",
+    "south": "beyond_earth:block/machines/oxygen_loader_side",
+    "west": "beyond_earth:block/machines/oxygen_loader_side",
+    "particle": "beyond_earth:block/machines/oxygen_loader_side"
+  }
+}
