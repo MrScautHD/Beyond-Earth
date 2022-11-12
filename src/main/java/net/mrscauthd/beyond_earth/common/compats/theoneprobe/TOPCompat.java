@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.common.compats.theoneprobe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -18,6 +19,7 @@ public class TOPCompat {
 
 	@SubscribeEvent
 	public static void imcQueue(InterModEnqueueEvent event) {
-		InterModComms.sendTo(MODID, "getTheOneProbe", TOPPlugin::new);
+	        if (ModList.get().isLoaded(MODID))
+	            InterModComms.sendTo(MODID, "getTheOneProbe", TOPPlugin::new);
 	}
 }
