@@ -160,7 +160,6 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItemModel(ItemsRegistry.GLACIO_IRON_ORE_ITEM);
         blockItemModel(ItemsRegistry.GLACIO_LAPIS_ORE_ITEM);
         blockItemModel(ItemsRegistry.ROCKET_LAUNCH_PAD_ITEM);
-        blockItemModel(ItemsRegistry.FLAG_ITEM);
     }
 
     private ItemModelBuilder handheldModel(RegistryObject<?> item) {

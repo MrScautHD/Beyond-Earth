@@ -29,7 +29,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(BlockRegistry.RAW_OSTRUM_BLOCK.get());
         simpleBlock(BlockRegistry.RAW_CALORITE_BLOCK.get());
         simpleBlock(BlockRegistry.METEORITE.get());
-        templateState(BlockRegistry.ROCKET_LAUNCH_PAD.get(), templateModel(BlockRegistry.ROCKET_LAUNCH_PAD.get(), "rocket_launch_pad").texture("layer0", blockTexture(BlockRegistry.ROCKET_LAUNCH_PAD.get())));
 
         this.setPath("decoration/", "");
         simpleBlock(BlockRegistry.IRON_PLATING_BLOCK.get());

@@ -1,0 +1,8 @@
+{
+  "parent": "beyond_earth:template/flag_lower",
+  "textures": {
+    "layer1": "beyond_earth:block/flag/flag",
+	"layer2": "beyond_earth:block/flag/flag_overlay",
+    "particle": "beyond_earth:block/flag/flag",
+  }
+}
