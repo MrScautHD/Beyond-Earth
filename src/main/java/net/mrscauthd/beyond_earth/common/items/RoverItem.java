@@ -22,8 +22,12 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.mrscauthd.beyond_earth.BeyondEarth;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
+import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 import net.mrscauthd.beyond_earth.client.registries.ItemRendererRegistry;
 
 import java.util.List;
@@ -41,7 +45,8 @@ public class RoverItem extends VehicleItem {
         super.appendHoverText(itemStack, level, list, tooltipFlag);
 
         int fuel = itemStack.getOrCreateTag().getInt(FUEL_TAG);
-        list.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + fuel + " mb" + "\u00A78" + " | " + "\u00A77" + "3000 mb"));
+        int capacity = Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE;
+        list.add(GaugeTextHelper.buildFuelStorageTooltip(GaugeValueHelper.getFuel(fuel, capacity), ChatFormatting.GRAY));
     }
 
     @Override
@@ -118,7 +123,7 @@ public class RoverItem extends VehicleItem {
         super.fillItemCategory(p_41391_, p_41392_);
         if (this.allowedIn(p_41391_)) {
             ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(FUEL_TAG, 3000);
+            itemStack.getOrCreateTag().putInt(FUEL_TAG, Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE);
             p_41392_.add(itemStack);
         }
     }

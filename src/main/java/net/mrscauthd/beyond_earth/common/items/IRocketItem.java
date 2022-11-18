@@ -3,7 +3,9 @@ package net.mrscauthd.beyond_earth.common.items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -12,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -26,9 +29,12 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
 import net.mrscauthd.beyond_earth.common.events.forge.PlaceRocketEvent;
+import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -79,7 +85,7 @@ public abstract class IRocketItem extends VehicleItem {
                     /** SET PRE POS */
                     rocket.setPos(pos.getX() + 0.5D,  pos.getY() + 1, pos.getZ() + 0.5D);
 
-                    double d0 = this.getYOffset(level, pos, true, rocket.getBoundingBox());
+                    double d0 = IRocketItem.getYOffset(level, pos, true, rocket.getBoundingBox());
                     float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 45.0F) / 90.0F) * 90.0F;
 
                     /** SET FINAL POS */
@@ -115,8 +121,9 @@ public abstract class IRocketItem extends VehicleItem {
     public void appendHoverText(ItemStack itemstack, Level level, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, level, list, flag);
 
-        int fuel = itemstack.getOrCreateTag().getInt(FUEL_TAG) / 30;
-        list.add(Component.translatable("general." + BeyondEarth.MODID + ".fuel").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + fuel + "%"));
+        int fuel = itemstack.getOrCreateTag().getInt(FUEL_TAG);
+        int capacity = this.getFuelBuckets() * FluidUtil2.BUCKET_SIZE;
+        list.add(GaugeTextHelper.buildFuelStorageTooltip(GaugeValueHelper.getFuel(fuel, capacity), ChatFormatting.GRAY));
     }
 
     @Override
@@ -130,6 +137,17 @@ public abstract class IRocketItem extends VehicleItem {
         });
     }
 
+
+	@Override
+	public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
+		super.fillItemCategory(p_41391_, p_41392_);
+		if (this.allowedIn(p_41391_)) {
+			ItemStack itemStack = new ItemStack(this);
+			itemStack.getOrCreateTag().putInt(FUEL_TAG, this.getFuelBuckets() * FluidUtil2.BUCKET_SIZE);
+			p_41392_.add(itemStack);
+		}
+	}
+	
     public float getRocketPlaceHigh() {
         return -0.6F;
     }
@@ -137,9 +155,11 @@ public abstract class IRocketItem extends VehicleItem {
     @OnlyIn(Dist.CLIENT)
     public abstract BlockEntityWithoutLevelRenderer getRenderer();
 
-    public abstract EntityType getEntityType();
+    public abstract EntityType<? extends IRocketEntity> getEntityType();
 
     public abstract IRocketEntity getRocket(Level level);
+    
+    public abstract int getFuelBuckets();
 
     public void rocketPlaceSound(BlockPos pos, Level world) {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);

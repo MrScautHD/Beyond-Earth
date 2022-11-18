@@ -12,15 +12,14 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class OxygenProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-    public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>(){});
+    public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>() {
+    });
 
     private OxygenStorage oxygenStorage;
     private final int capacity;
-    private final LazyOptional<OxygenStorage> cap;
 
     public OxygenProvider(int capacity) {
         this.capacity = capacity;
-        this.cap = LazyOptional.of(this::getOxygenStorage);
     }
 
     private OxygenStorage getOxygenStorage() {
@@ -34,8 +33,10 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if (cap == OXYGEN) {
-            return this.cap.cast();
+        LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(cap, this::getOxygenStorage);
+
+        if (oxygenCapability.isPresent()) {
+            return oxygenCapability;
         }
 
         return LazyOptional.empty();
@@ -43,13 +44,11 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public CompoundTag serializeNBT() {
-        CompoundTag compoundTag = new CompoundTag();
-        compoundTag.putInt("oxygenStorage", this.getOxygenStorage().getOxygen());
-        return compoundTag;
+        return this.getOxygenStorage().serializeNBT();
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        this.getOxygenStorage().setOxygen(nbt.getInt("oxygenStorage"));
+        this.getOxygenStorage().deserializeNBT(nbt);
     }
 }

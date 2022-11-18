@@ -1,0 +1,7 @@
+{
+	"type": "beyond_earth:coal_generator",
+	"input": {
+		"tag": "minecraft:coals"
+	},
+	"burnTime": 400
+}

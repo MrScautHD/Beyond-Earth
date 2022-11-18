@@ -1,13 +1,11 @@
 package net.mrscauthd.beyond_earth.common.items;
 
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
@@ -25,7 +23,7 @@ public class Tier4RocketItem extends IRocketItem {
     }
 
     @Override
-    public EntityType getEntityType() {
+    public EntityType<? extends IRocketEntity> getEntityType() {
         return EntityRegistry.TIER_4_ROCKET.get();
     }
 
@@ -35,12 +33,7 @@ public class Tier4RocketItem extends IRocketItem {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-        super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowedIn(p_41391_)) {
-            ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(FUEL_TAG, 3000);
-            p_41392_.add(itemStack);
-        }
+    public int getFuelBuckets() {
+        return Config.ROCKET_TIER_4_FUEL_BUCKETS.get();
     }
 }

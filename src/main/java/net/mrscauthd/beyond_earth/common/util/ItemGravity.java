@@ -4,32 +4,15 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.common.events.forge.ItemGravityEvent;
-import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
 public class ItemGravity {
 
-    /** GRAVITIES */
-    public static final float MOON_GRAVITY = 0.05F;
-    public static final float MARS_GRAVITY = 0.06F;
-    public static final float MERCURY_GRAVITY = 0.05F;
-    public static final float GLACIO_GRAVITY = 0.06F;
-    public static final float ORBIT_GRAVITY = 0.05F;
+    public static final double DEFAULT_ITEM_GRAVITY = 0.04;
 
     public static void setGravities(ItemEntity itemEntity, Level level) {
-        if (Methods.isLevel(level, LevelRegistry.MOON)) {
-            setGravity(itemEntity, MOON_GRAVITY);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.MARS)) {
-            setGravity(itemEntity, MARS_GRAVITY);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.MERCURY)) {
-            setGravity(itemEntity, MERCURY_GRAVITY);
-        }
-        else if (Methods.isLevel(level, LevelRegistry.GLACIO)) {
-            setGravity(itemEntity, GLACIO_GRAVITY);
-        }
-        else if (Methods.isOrbitLevel(level)) {
-            setGravity(itemEntity, ORBIT_GRAVITY);
+        float itemGravity = Planets.getItemGravityForLocation(level);
+        if (itemGravity != -1) {
+            setGravity(itemEntity, itemGravity);
         }
     }
 
@@ -41,8 +24,11 @@ public class ItemGravity {
         if (MinecraftForge.EVENT_BUS.post(new ItemGravityEvent(entity, gravity))) {
             return;
         }
-
-        entity.setDeltaMovement(entity.getDeltaMovement().x, entity.getDeltaMovement().y / 0.98 + 0.08 - gravity, entity.getDeltaMovement().z);
+        float artificialGravity = EntityGravity.getArtificalGravityModifier(entity.level, entity.blockPosition());
+        gravity += artificialGravity * DEFAULT_ITEM_GRAVITY;
+        // First removes the default gravity. Then we apply the -gravity to re-add ours.
+        double dy = entity.getDeltaMovement().y / 0.98 + DEFAULT_ITEM_GRAVITY - gravity;
+        entity.setDeltaMovement(entity.getDeltaMovement().x, dy, entity.getDeltaMovement().z);
     }
 
     /** GRAVITY CHECK */

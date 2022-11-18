@@ -3,20 +3,32 @@ package net.mrscauthd.beyond_earth.common.registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.DoubleHighBlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.armors.materials.JetSuitMaterial;
-import net.mrscauthd.beyond_earth.common.armors.materials.NetheriteSpaceSuitMaterial;
-import net.mrscauthd.beyond_earth.common.armors.materials.SpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.armors.NetheriteSpaceSuit;
 import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
-import net.mrscauthd.beyond_earth.common.items.*;
+import net.mrscauthd.beyond_earth.common.armors.materials.JetSuitMaterial;
+import net.mrscauthd.beyond_earth.common.armors.materials.NetheriteSpaceSuitMaterial;
+import net.mrscauthd.beyond_earth.common.armors.materials.SpaceSuitMaterial;
+import net.mrscauthd.beyond_earth.common.items.CoalTorchItem;
 import net.mrscauthd.beyond_earth.common.items.GlobeItem;
+import net.mrscauthd.beyond_earth.common.items.HammerItem;
+import net.mrscauthd.beyond_earth.common.items.ModifiedBucketItem;
+import net.mrscauthd.beyond_earth.common.items.RoverItem;
+import net.mrscauthd.beyond_earth.common.items.Tier1RocketItem;
+import net.mrscauthd.beyond_earth.common.items.Tier2RocketItem;
+import net.mrscauthd.beyond_earth.common.items.Tier3RocketItem;
+import net.mrscauthd.beyond_earth.common.items.Tier4RocketItem;
 import net.mrscauthd.beyond_earth.common.tabs.Tabs;
 
 public class ItemsRegistry {
@@ -131,19 +143,15 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> COAL_LANTERN_ITEM = ITEMS.register("coal_lantern", () -> new BlockItem(BlockRegistry.COAL_LANTERN_BLOCK.get(), new Item.Properties().tab(Tabs.tab_basics)));
 
     //MACHINE BLOCK ITEMS
+    public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlockRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlockRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(BlockRegistry.COAL_GENERATOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> COMPRESSOR_ITEM = ITEMS.register("compressor", () -> new BlockItem(BlockRegistry.COMPRESSOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(BlockRegistry.FUEL_REFINERY_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> OXYGEN_LOADER_ITEM = ITEMS.register("oxygen_loader", () -> new BlockItem(BlockRegistry.OXYGEN_LOADER_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
+    public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(BlockRegistry.WATER_PUMP_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
 
-    //TODO DON'T FORGOT IT TO REWORK IT
-    /*
-    public static final RegistryObject<BlockItem> NASA_WORKBENCH_ITEM = ITEMS.register("nasa_workbench", () -> new BlockItem(BlocksRegistry.NASA_WORKBENCH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> SOLAR_PANEL_ITEM = ITEMS.register("solar_panel", () -> new BlockItem(BlocksRegistry.SOLAR_PANEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> COAL_GENERATOR_ITEM = ITEMS.register("coal_generator", () -> new BlockItem(BlocksRegistry.COAL_GENERATOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> COMPRESSOR_ITEM = ITEMS.register("compressor", () -> new BlockItem(BlocksRegistry.COMPRESSOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> FUEL_REFINERY_ITEM = ITEMS.register("fuel_refinery", () -> new BlockItem(BlocksRegistry.FUEL_REFINERY_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> OXYGEN_LOADER_ITEM = ITEMS.register("oxygen_loader", () -> new BlockItem(BlocksRegistry.OXYGEN_LOADER_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(BlocksRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-    public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(BlocksRegistry.WATER_PUMP_BLOCK.get(), new Item.Properties().tab(Tabs.tab_machines)));
-
-    */
     // NORMAL BLOCK ITEMS
     public static final RegistryObject<BlockItem> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlockRegistry.STEEL_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> DESH_BLOCK_ITEM = ITEMS.register("desh_block", () -> new BlockItem(BlockRegistry.DESH_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));

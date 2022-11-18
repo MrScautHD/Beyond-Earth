@@ -1,0 +1,11 @@
+{
+	"type": "beyond_earth:compressor",
+	"input": {
+		"tag": "forge:ingots/calorite"
+	},
+	"output": {
+		"item": "beyond_earth:compressed_calorite",
+		"count": 1
+	},
+	"cookTime": 200
+}

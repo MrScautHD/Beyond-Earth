@@ -10,14 +10,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.events.forge.SetRocketItemStackEvent;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ParticleRegistry;
 
 public class RocketTier2Entity extends IRocketEntity {
 
-	public RocketTier2Entity(EntityType type, Level level) {
+	public static final int DEFAULT_FUEL_BUCKETS = 3;
+
+	public RocketTier2Entity(EntityType<?> type, Level level) {
 		super(type, level);
 	}
 
@@ -29,6 +31,11 @@ public class RocketTier2Entity extends IRocketEntity {
 	@Override
 	public int getTier() {
 		return 2;
+	}
+
+	@Override
+	public int getBucketsOfFull() {
+		return Config.ROCKET_TIER_2_FUEL_BUCKETS.get();
 	}
 
 	@Override
