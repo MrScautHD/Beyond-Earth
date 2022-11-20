@@ -1,11 +1,10 @@
 package net.mrscauthd.beyond_earth.common.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
-
-import org.apache.commons.compress.utils.Lists;
 
 import com.google.common.collect.Maps;
 
@@ -40,21 +39,21 @@ public class EntityGravity {
     public static final String TAG = BeyondEarth.MODID + ":space_gravity";
 
     public static void addGravitySource(Level level, GravitySource g) {
-        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> Lists.newArrayList());
+        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> new ArrayList<>());
         synchronized (sources) {
             sources.add(g);
         }
     }
 
     public static void removeGravitySource(Level level, GravitySource g) {
-        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> Lists.newArrayList());
+        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> new ArrayList<>());
         synchronized (sources) {
             sources.removeIf(g2 -> g2.centre().equals(g.centre()));
         }
     }
 
     public static float getArtificalGravityModifier(Level level, BlockPos pos) {
-        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> Lists.newArrayList());
+        List<GravitySource> sources = GRAVMAP.computeIfAbsent(level.dimension(), key -> new ArrayList<>());
         float g = 0;
         for (var s : sources) {
             if (s.centre().distSqr(pos) < s.range * s.range)
