@@ -1,5 +1,9 @@
 package net.mrscauthd.beyond_earth.common.items;
 
+import java.util.function.Supplier;
+
+import javax.annotation.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
@@ -16,32 +20,30 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
-import javax.annotation.Nullable;
-
 public class ModifiedBucketItem extends BucketItem {
 
     private final boolean explodeNether;
 
-    public ModifiedBucketItem(Fluid p_40689_, Properties p_40690_, boolean explodeNether) {
+    public ModifiedBucketItem(Supplier<? extends Fluid> p_40689_, Properties p_40690_, boolean explodeNether) {
         super(p_40689_, p_40690_);
         this.explodeNether = explodeNether;
     }
 
     @Override
     public boolean emptyContents(@Nullable Player player, Level level, BlockPos blockPos, @Nullable BlockHitResult hitResult) {
-        if (!(this.content instanceof FlowingFluid)) {
+        if (!(this.getFluid() instanceof FlowingFluid)) {
             return false;
         } else {
             BlockState blockstate = level.getBlockState(blockPos);
             Block block = blockstate.getBlock();
             Material material = blockstate.getMaterial();
 
-            boolean flag = blockstate.canBeReplaced(this.content);
-            boolean flag1 = blockstate.isAir() || flag || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, blockPos, blockstate, this.content);
+            boolean flag = blockstate.canBeReplaced(this.getFluid());
+            boolean flag1 = blockstate.isAir() || flag || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, blockPos, blockstate, this.getFluid());
 
             if (!flag1) {
                 return hitResult != null && this.emptyContents(player, level, hitResult.getBlockPos().relative(hitResult.getDirection()), null);
-            } else if (level.dimensionType().ultraWarm() && this.content.getFluidType().getBlockForFluidState(level, blockPos, this.content.defaultFluidState()).getMaterial() == Material.WATER) {
+            } else if (level.dimensionType().ultraWarm() && this.getFluid().getFluidType().getBlockForFluidState(level, blockPos, this.getFluid().defaultFluidState()).getMaterial() == Material.WATER) {
                 if (this.explodeNether) {
                     if (!level.isClientSide) {
                         level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
@@ -57,8 +59,8 @@ public class ModifiedBucketItem extends BucketItem {
                     }
                 }
                 return true;
-            } else if (block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, blockPos, blockstate, content)) {
-                ((LiquidBlockContainer) block).placeLiquid(level, blockPos, blockstate, ((FlowingFluid) this.content).getSource(false));
+            } else if (block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, blockPos, blockstate, getFluid())) {
+                ((LiquidBlockContainer) block).placeLiquid(level, blockPos, blockstate, ((FlowingFluid) this.getFluid()).getSource(false));
                 this.playEmptySound(player, level, blockPos);
                 return true;
             } else {
@@ -66,7 +68,7 @@ public class ModifiedBucketItem extends BucketItem {
                     level.destroyBlock(blockPos, true);
                 }
 
-                if (!level.setBlock(blockPos, this.content.defaultFluidState().createLegacyBlock(), 11) && !blockstate.getFluidState().isSource()) {
+                if (!level.setBlock(blockPos, this.getFluid().defaultFluidState().createLegacyBlock(), 11) && !blockstate.getFluidState().isSource()) {
                     return false;
                 } else {
                     this.playEmptySound(player, level, blockPos);
