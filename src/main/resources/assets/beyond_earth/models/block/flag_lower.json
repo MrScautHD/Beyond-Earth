@@ -3,6 +3,6 @@
   "textures": {
     "layer1": "beyond_earth:block/flag/flag",
 	"layer2": "beyond_earth:block/flag/flag_overlay",
-    "particle": "beyond_earth:block/flag/flag",
+    "particle": "beyond_earth:block/flag/flag"
   }
 }
