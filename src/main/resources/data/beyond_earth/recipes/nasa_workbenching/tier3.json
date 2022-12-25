@@ -9,35 +9,35 @@
          ],
          "beyond_earth:body":[
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             },
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             },
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             },
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             },
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             },
             {
-               "tag":"beyond_earth:compresseds/ostrum"
+               "item":"beyond_earth:compressed_ostrum"
             }
          ],
          "beyond_earth:tank":[
             {
-               "tag":"beyond_earth:tanks/ostrum"
+               "item":"beyond_earth:ostrum_tank"
             },
             {
-               "tag":"beyond_earth:tanks/ostrum"
+               "item":"beyond_earth:ostrum_tank"
             }
          ],
          "beyond_earth:fin_left":[
             {
-               "item":"minecraft:bucket"
+               "item":"beyond_earth:rocket_fin"
             },
             {
                "item":"beyond_earth:rocket_fin"
@@ -45,7 +45,7 @@
          ],
          "beyond_earth:fin_right":[
             {
-               "item":"minecraft:bucket"
+               "item":"beyond_earth:rocket_fin"
             },
             {
                "item":"beyond_earth:rocket_fin"
@@ -53,7 +53,7 @@
          ],
          "beyond_earth:engine":[
             {
-               "tag":"beyond_earth:engines/ostrum"
+               "item":"beyond_earth:ostrum_engine"
             }
          ]
       }
