@@ -1,4 +1,5 @@
 {
+  "parent": "beyond_earth:template/flag",
   "elements": [
     {
       "from": [
