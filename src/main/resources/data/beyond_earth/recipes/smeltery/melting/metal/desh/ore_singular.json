@@ -1,0 +1,45 @@
+{
+  "type": "tconstruct:ore_melting",
+  "conditions": [
+    {
+      "registry": "minecraft:item",
+      "base": "forge:ores/desh",
+      "subtracted": [
+        "forge:ore_rates/sparse",
+        "forge:ore_rates/dense"
+      ],
+      "type": "tconstruct:tag_difference_present"
+    },
+    {
+      "modid": "tconstruct",
+      "type": "forge:mod_loaded"
+    }
+  ],
+  "rate": "metal",
+  "ingredient": {
+    "type": "forge:difference",
+    "base": {
+      "tag": "forge:ores/desh"
+    },
+    "subtracted": [
+      {
+        "tag": "forge:ore_rates/sparse"
+      },
+      {
+        "tag": "forge:ore_rates/dense"
+      }
+    ]
+  },
+  "result": {
+    "fluid": "beyond_earth:molten_desh",
+    "amount": 180
+  },
+  "temperature": 500,
+  "time": 125,
+  "byproducts": [
+    {
+      "fluid": "tconstruct:molten_copper",
+      "amount": 180
+    }
+  ]
+}
