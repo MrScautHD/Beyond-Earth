@@ -53,11 +53,13 @@
   "item.beyond_earth.space_suit": "Space Suit",
   "item.beyond_earth.space_pants": "Space Pants",
   "item.beyond_earth.space_boots": "Space Boots",
+  "item.beyond_earth.space_helmet": "Space Helmet",
 
   "item.beyond_earth.netherite_oxygen_mask": "Netherite Oxygen Mask",
   "item.beyond_earth.netherite_space_suit": "Netherite Space Suit",
   "item.beyond_earth.netherite_space_pants": "Netherite Space Pants",
   "item.beyond_earth.netherite_space_boots": "Netherite Space Boots",
+  "item.beyond_earth.netherite_space_helmet": "Netherite Space Helmet",
 
   "item.beyond_earth.jet_suit_oxygen_mask": "Jet Suit Oxygen Mask",
   "item.beyond_earth.jet_suit": "Jet Suit",
@@ -142,6 +144,12 @@
   "block.beyond_earth.moon_ice_shard_ore": "Moon Ice Shard Ore",
   "block.beyond_earth.mars_ice_shard_ore": "Mars Ice Shard Ore",
   "block.beyond_earth.glacio_ice_shard_ore": "Glacio Ice Shard Ore",
+  "block.beyond_earth.desh_pillar": "Desh Pillar",
+  "block.beyond_earth.desh_plating_block": "Desh Plating Block",
+  "block.beyond_earth.blue_iron_pillar": "Blue Iron Pillar",
+  "block.beyond_earth.infernal_spire": "Infernal Spire",
+  "block.beyond_earth.barricade_block": "Barricade Block",
+  "block.beyond_earth.meteorite": "Meteorite",
 
   "block.beyond_earth.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.beyond_earth.moon_stone_bricks": "Moon Stone Bricks",
