@@ -1,5 +1,5 @@
 {
-  "parent": "beyond_earth:custom/launch_pad_base",
+  "parent": "beyond_earth:custom/rocket_launch_pad_base",
   "textures": {
     "all": "beyond_earth:block/rocket_launch_pad",
     "particle": "beyond_earth:block/rocket_launch_pad",

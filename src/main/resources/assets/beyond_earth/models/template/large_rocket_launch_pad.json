@@ -1,20 +1,21 @@
 {
+	"parent": "large_rocket_launch_pad",
 	"texture_size": [32, 32],
 	"textures": {
-		"layer0": "launch_pad",
-		"particle": "particle"
+		"0": "beyond_earth:block/rocket_launch_pad",
+		"particle": "beyond_earth:block/rocket_launch_pad"
 	},
 	"elements": [
 		{
 			"from": [0, 0, 0],
 			"to": [16, 4, 16],
 			"faces": {
-				"north": {"uv": [0, 8, 8, 9], "texture": "#launch_pad"},
-				"east": {"uv": [0, 8, 8, 9], "texture": "#launch_pad"},
-				"south": {"uv": [0, 8, 8, 9], "texture": "#launch_pad"},
-				"west": {"uv": [0, 8, 8, 9], "texture": "#launch_pad"},
-				"up": {"uv": [0, 0, 8, 8], "texture": "#launch_pad"},
-				"down": {"uv": [0, 0, 8, 8], "texture": "#launch_pad"}
+				"north": {"uv": [0, 8, 8, 9], "texture": "#0"},
+				"east": {"uv": [0, 8, 8, 9], "texture": "#0"},
+				"south": {"uv": [0, 8, 8, 9], "texture": "#0"},
+				"west": {"uv": [0, 8, 8, 9], "texture": "#0"},
+				"up": {"uv": [0, 0, 8, 8], "texture": "#0"},
+				"down": {"uv": [0, 0, 8, 8], "texture": "#0"}
 			}
 		}
 	],
