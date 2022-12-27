@@ -1,4 +1,5 @@
 {
+	"parent": "beyond_earth:template/rocket_launch_pad",
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "beyond_earth:block/rocket_launch_pad",
