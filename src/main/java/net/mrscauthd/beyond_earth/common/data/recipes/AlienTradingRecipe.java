@@ -16,11 +16,11 @@ import net.mrscauthd.beyond_earth.common.entities.alien.AlienTrade;
 
 public abstract class AlienTradingRecipe extends BeyondEarthRecipe {
 
-	private VillagerProfession job;
-	private int level;
-	private int xp;
-	private int maxUses;
-	private float priceMultiplier;
+	private final VillagerProfession job;
+	private final int level;
+	private final int xp;
+	private final int maxUses;
+	private final float priceMultiplier;
 
 	public AlienTradingRecipe(ResourceLocation id, JsonObject json) {
 		super(id, json);

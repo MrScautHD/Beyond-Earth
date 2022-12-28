@@ -20,7 +20,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
         private int fuel;
         private int maxFuel;
 
-        private StackCacher itemStackCacher;
+        private final StackCacher itemStackCacher;
         private int cachedFuel;
 
         public PowerSystemFuel(AbstractMachineBlockEntity blockEntity, int slot) {
@@ -111,7 +111,7 @@ public abstract class PowerSystemFuel extends PowerSystem {
 
         @Override
         public boolean feed(boolean spareForNextTick) {
-                if (spareForNextTick == false) {
+                if (!spareForNextTick) {
                         return false;
                 }
 

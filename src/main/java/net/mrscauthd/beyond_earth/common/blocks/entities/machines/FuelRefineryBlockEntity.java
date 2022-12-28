@@ -50,7 +50,7 @@ public class FuelRefineryBlockEntity extends AbstractMachineBlockEntity {
     private FluidTank outputTank;
     private FluidMultiTank tanks;
 
-    private StackCacher recipeCacher;
+    private final StackCacher recipeCacher;
     private FuelRefiningRecipe cachedRecipe;
 
     public FuelRefineryBlockEntity(BlockPos pos, BlockState state) {

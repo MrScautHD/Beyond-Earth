@@ -41,7 +41,7 @@ public class StackCacher {
             Object left = list.get(i);
             Object right = tests.get(i);
 
-            if (this.test(left, right) == false) {
+            if (!this.test(left, right)) {
                 return false;
             }
         }
@@ -65,21 +65,13 @@ public class StackCacher {
     public boolean test(ItemStack left, ItemStack right) {
         if (left.isEmpty() && right.isEmpty()) {
             return true;
-        } else if (!ItemHandlerHelper.canItemStacksStack(left, right)) {
-            return false;
-        }
-
-        return true;
+        } else return ItemHandlerHelper.canItemStacksStack(left, right);
     }
 
     public boolean test(FluidStack left, FluidStack right) {
         if (left.isEmpty() && right.isEmpty()) {
             return true;
-        } else if (!left.getFluid().isSame(right.getFluid()) || !FluidStack.areFluidStackTagsEqual(left, right)) {
-            return false;
-        }
-
-        return true;
+        } else return left.getFluid().isSame(right.getFluid()) && FluidStack.areFluidStackTagsEqual(left, right);
     }
 
     public void set(ItemStack stack) {

@@ -6,7 +6,7 @@ import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 
 public class SetPlanetSelectionMenuNeededNbtEvent extends PlayerEvent {
 
-    private IRocketEntity rocket;
+    private final IRocketEntity rocket;
 
     public SetPlanetSelectionMenuNeededNbtEvent(Player player, IRocketEntity rocket) {
         super(player);

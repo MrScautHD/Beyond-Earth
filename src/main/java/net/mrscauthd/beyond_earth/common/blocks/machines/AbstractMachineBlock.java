@@ -106,7 +106,7 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
         }
 
         protected int getLightLevel(BlockState state) {
-                if (this.useLit() == true) {
+                if (this.useLit()) {
                         return state.getValue(LIT) ? 12 : 0;
                 } else {
                         return 0;

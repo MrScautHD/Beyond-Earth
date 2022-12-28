@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class TryStartFallFlyingEvent extends PlayerEvent {
 
-    private CallbackInfoReturnable<Boolean> callbackInfoReturnable;
+    private final CallbackInfoReturnable<Boolean> callbackInfoReturnable;
 
     public TryStartFallFlyingEvent(Player entity, CallbackInfoReturnable<Boolean> callbackInfoReturnable) {
         super(entity);

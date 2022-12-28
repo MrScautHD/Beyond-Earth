@@ -24,7 +24,7 @@ public abstract class ItemStackToItemStackBlockEntity extends AbstractMachineBlo
     public static final String KEY_TIMER = "timer";
     public static final String KEY_MAXTIMER = "maxTimer";
 
-    private StackCacher itemStackCacher;
+    private final StackCacher itemStackCacher;
     private ItemStackToItemStackRecipe cachedRecipe = null;
 
     public ItemStackToItemStackBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

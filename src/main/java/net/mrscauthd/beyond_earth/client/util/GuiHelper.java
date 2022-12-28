@@ -316,10 +316,10 @@ public class GuiHelper {
             float maxU, float minV, float maxV) {
         BufferBuilder bufferbuilder = Tesselator.getInstance().getBuilder();
         bufferbuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bufferbuilder.vertex(matrix, (float) x1, (float) y2, (float) blitOffset).uv(minU, maxV).endVertex();
-        bufferbuilder.vertex(matrix, (float) x2, (float) y2, (float) blitOffset).uv(maxU, maxV).endVertex();
-        bufferbuilder.vertex(matrix, (float) x2, (float) y1, (float) blitOffset).uv(maxU, minV).endVertex();
-        bufferbuilder.vertex(matrix, (float) x1, (float) y1, (float) blitOffset).uv(minU, minV).endVertex();
+        bufferbuilder.vertex(matrix, x1, y2, (float) blitOffset).uv(minU, maxV).endVertex();
+        bufferbuilder.vertex(matrix, x2, y2, (float) blitOffset).uv(maxU, maxV).endVertex();
+        bufferbuilder.vertex(matrix, x2, y1, (float) blitOffset).uv(maxU, minV).endVertex();
+        bufferbuilder.vertex(matrix, x1, y1, (float) blitOffset).uv(minU, minV).endVertex();
         bufferbuilder.end();
     }
 
@@ -332,8 +332,8 @@ public class GuiHelper {
     private static void innerBlit(PoseStack matrixStack, float x1, float x2, float y1, float y2, int blitOffset,
             float uWidth, float vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight) {
         innerBlit(matrixStack.last().pose(), x1, x2, y1, y2, blitOffset, (uOffset + 0.0F) / (float) textureWidth,
-                (uOffset + (float) uWidth) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight,
-                (vOffset + (float) vHeight) / (float) textureHeight);
+                (uOffset + uWidth) / (float) textureWidth, (vOffset + 0.0F) / (float) textureHeight,
+                (vOffset + vHeight) / (float) textureHeight);
     }
 
     public static void blit(PoseStack matrixStack, float x, float y, float uOffset, float vOffset, float width,

@@ -55,7 +55,7 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenBubbl
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
-        OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) this.getMenu()
+        OxygenDistributorBlockEntity blockEntity = this.getMenu()
                 .getBlockEntity();
 
         if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {

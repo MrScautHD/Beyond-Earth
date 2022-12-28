@@ -19,8 +19,7 @@ public final class IngredientStack {
 	private int count = 1;
 
 	public IngredientStack(JsonElement json) {
-		if (json instanceof JsonObject) {
-			JsonObject jsonObject = (JsonObject) json;
+		if (json instanceof JsonObject jsonObject) {
 			this.ingredient = Ingredient.fromJson(GsonHelper.getAsJsonObject(jsonObject, "ingredient"));
 			this.count = GsonHelper.getAsInt(jsonObject, "count", this.count);
 		} else if (json instanceof JsonArray) {

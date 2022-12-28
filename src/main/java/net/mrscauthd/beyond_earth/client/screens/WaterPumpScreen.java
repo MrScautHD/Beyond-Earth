@@ -53,7 +53,7 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
-        WaterPumpBlockEntity blockEntity = (WaterPumpBlockEntity) this.getMenu().getBlockEntity();
+        WaterPumpBlockEntity blockEntity = this.getMenu().getBlockEntity();
 
         if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
 

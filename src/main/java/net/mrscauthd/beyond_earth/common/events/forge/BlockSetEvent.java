@@ -9,8 +9,8 @@ import net.minecraftforge.eventbus.api.Cancelable;
 @Cancelable
 public class BlockSetEvent extends BlockEvent {
 
-    private int p_46607_;
-    private int p_46608_;
+    private final int p_46607_;
+    private final int p_46608_;
 
     public BlockSetEvent(Level level, BlockPos blockPos, BlockState blockState, int p_46607_, int p_46608_) {
         super(level, blockPos, blockState);

@@ -60,10 +60,10 @@ public class StarHelper {
         }
 
         for(int i = 0; i < stars; ++i) {
-            double d0 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d1 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d2 = (double)(random.nextFloat() * 2.0F - 1.0F);
-            double d3 = (double)(scale + random.nextFloat() * 0.1F);
+            double d0 = random.nextFloat() * 2.0F - 1.0F;
+            double d1 = random.nextFloat() * 2.0F - 1.0F;
+            double d2 = random.nextFloat() * 2.0F - 1.0F;
+            double d3 = scale + random.nextFloat() * 0.1F;
             double d4 = d0 * d0 + d1 * d1 + d2 * d2;
             if (d4 < 1.0D && d4 > 0.01D) {
                 d4 = 1.0D / Math.sqrt(d4);

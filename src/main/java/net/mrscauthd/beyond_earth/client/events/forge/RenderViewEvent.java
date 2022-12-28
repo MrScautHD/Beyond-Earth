@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.Event;
 public class RenderViewEvent extends Event {
 
     private final PoseStack poseStack;
-    private float tick;
+    private final float tick;
 
     public RenderViewEvent(PoseStack poseStack, float tick) {
         this.poseStack = poseStack;

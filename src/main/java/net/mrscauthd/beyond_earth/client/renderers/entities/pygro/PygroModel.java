@@ -72,8 +72,7 @@ public class PygroModel<T extends Mob> extends PlayerModel<T> {
         float f2 = 0.08F + p_103368_ * 0.4F;
         this.leftEar.zRot = (-(float)Math.PI / 6F) - Mth.cos(f1 * 1.2F) * f2;
         this.rightEar.zRot = ((float)Math.PI / 6F) + Mth.cos(f1) * f2;
-        if (p_103366_ instanceof AbstractPiglin) {
-            AbstractPiglin abstractpiglin = (AbstractPiglin)p_103366_;
+        if (p_103366_ instanceof AbstractPiglin abstractpiglin) {
             PiglinArmPose piglinarmpose = abstractpiglin.getArmPose();
             if (piglinarmpose == PiglinArmPose.DANCING) {
                 float f3 = p_103369_ / 60.0F;

@@ -33,8 +33,8 @@ import net.mrscauthd.beyond_earth.common.util.EnumUtils;
 
 public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
-	private ResourceLocation structureName;
-	private MapDecoration.Type mapDecorationType;
+	private final ResourceLocation structureName;
+	private final MapDecoration.Type mapDecorationType;
 
 	public AlienTradingRecipeMap(ResourceLocation id, JsonObject json) {
 		super(id, json);
@@ -67,8 +67,7 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
                 TagKey<Structure> key = TagKey.create(Registry.STRUCTURE_REGISTRY, this.getStructureName());
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP);
 
-		if (level instanceof ServerLevel) {
-			ServerLevel serverWorld = (ServerLevel) level;
+		if (level instanceof ServerLevel serverWorld) {
 			BlockPos blockpos = serverWorld.findNearestMapStructure(key, trader.blockPosition(), 100, true);
 
 			if (blockpos != null) {

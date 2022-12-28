@@ -4,10 +4,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class Rectangle2d {
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+	private final int x;
+	private final int y;
+	private final int width;
+	private final int height;
 
 	public Rectangle2d(int p_i47637_1_, int p_i47637_2_, int p_i47637_3_, int p_i47637_4_) {
 		this.x = p_i47637_1_;

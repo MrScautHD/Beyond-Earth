@@ -95,8 +95,7 @@ public class GlobeBlock extends BaseEntityBlock implements SimpleWaterloggedBloc
     @Override
     public InteractionResult use(BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
         if (!p_60504_.isClientSide) {
-            if (p_60504_.getBlockEntity(p_60505_) instanceof GlobeTileEntity) {
-                GlobeTileEntity blockEntity = (GlobeTileEntity) p_60504_.getBlockEntity(p_60505_);
+            if (p_60504_.getBlockEntity(p_60505_) instanceof GlobeTileEntity blockEntity) {
                 float value = (float) (Math.PI / (Math.pow(0.00003, blockEntity.getRotationalInertia()) + 1) / 4);
                 blockEntity.setRotationalInertia(value);
                 blockEntity.setChanged();

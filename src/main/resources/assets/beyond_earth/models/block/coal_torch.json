@@ -1,0 +1,9 @@
+{
+  "parent": "beyond_earth:template/torch",
+  "textures": {
+    "all": "beyond_earth:block/coal_torch",
+    "particle": "beyond_earth:block/coal_torch",
+    "2": "beyond_earth:block/coal_torch",
+    "missing": "beyond_earth:block/coal_torch"
+  }
+}

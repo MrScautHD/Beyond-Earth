@@ -124,8 +124,8 @@ public class AlienZombieModel<T extends AlienZombieEntity> extends EntityModel<T
 
         this.head.yRot = f3 / (180F / (float) Math.PI);
         this.head.xRot = f4 / (180F / (float) Math.PI);
-        this.leg0.xRot = Mth.cos(f * 1.0F) * -1.0F * f1;
-        this.leg1.xRot = Mth.cos(f * 1.0F) * 1.0F * f1;
+        this.leg0.xRot = Mth.cos(f) * -1.0F * f1;
+        this.leg1.xRot = Mth.cos(f) * 1.0F * f1;
         this.monsterarm1.yRot = Mth.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
         this.monsterarm4.yRot = Mth.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;
         this.monsterarm3.yRot = Mth.cos(f * 0.3662F + (float) Math.PI) * f1 / 2;

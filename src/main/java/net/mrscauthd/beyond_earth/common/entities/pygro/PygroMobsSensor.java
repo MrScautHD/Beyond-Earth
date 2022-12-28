@@ -50,8 +50,7 @@ public class PygroMobsSensor extends Sensor<LivingEntity> {
         for(LivingEntity livingentity : nearestvisiblelivingentities.findAll((p_186157_) -> {
             return true;
         })) {
-            if (livingentity instanceof Hoglin) {
-                Hoglin hoglinentity = (Hoglin)livingentity;
+            if (livingentity instanceof Hoglin hoglinentity) {
                 if (hoglinentity.isBaby() && !optional2.isPresent()) {
                     optional2 = Optional.of(hoglinentity);
                 } else if (hoglinentity.isAdult()) {
@@ -62,17 +61,15 @@ public class PygroMobsSensor extends Sensor<LivingEntity> {
                 }
             } else if (livingentity instanceof PiglinBrute) {
                 list.add((PiglinBrute)livingentity);
-            } else if (livingentity instanceof Piglin) {
-                Piglin piglinentity = (Piglin)livingentity;
+            } else if (livingentity instanceof Piglin piglinentity) {
                 if (piglinentity.isBaby() && !optional3.isPresent()) {
                     optional3 = Optional.of(piglinentity);
                 } else if (piglinentity.isAdult()) {
                     list.add(piglinentity);
                 }
-            } else if (livingentity instanceof Player) {
-                Player playerentity = (Player)livingentity;
+            } else if (livingentity instanceof Player playerentity) {
 
-                if (!optional5.isPresent() && false && !PiglinAi.isWearingGold(playerentity)) {
+                if (false) {
                     optional5 = Optional.of(playerentity);
                 }
 

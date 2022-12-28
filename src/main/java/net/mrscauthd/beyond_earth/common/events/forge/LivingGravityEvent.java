@@ -7,8 +7,8 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 
 public class LivingGravityEvent extends LivingEvent {
 
-    private Attribute attribute;
-    private AttributeInstance attributeInstance;
+    private final Attribute attribute;
+    private final AttributeInstance attributeInstance;
 
     public LivingGravityEvent(LivingEntity entity, Attribute attribute, AttributeInstance attributeInstance) {
         super(entity);

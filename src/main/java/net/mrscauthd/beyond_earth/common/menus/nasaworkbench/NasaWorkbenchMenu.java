@@ -27,9 +27,9 @@ public class NasaWorkbenchMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private NASAWorkbenchBlockEntity blockEntity;
-        private ResultContainer resultInventory;
-        private Slot resultSlot;
+        private final NASAWorkbenchBlockEntity blockEntity;
+        private final ResultContainer resultInventory;
+        private final Slot resultSlot;
         private int partSlotStart = 0;
         private int partSlotEnd = 0;
 

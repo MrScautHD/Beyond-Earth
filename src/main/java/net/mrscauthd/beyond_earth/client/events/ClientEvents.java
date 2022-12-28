@@ -155,11 +155,10 @@ public class ClientEvents {
 
     @SubscribeEvent
     public static void setupPlayerAngles(SetupLivingBipedAnimEvent.Post event) {
-        if (!(event.getLivingEntity() instanceof Player)) {
+        if (!(event.getLivingEntity() instanceof Player player)) {
             return;
         }
 
-        Player player = (Player) event.getLivingEntity();
         HumanoidModel<?> model = event.getModel();
 
         /** PLAYER STAY IN ROCKET ANIMATION */

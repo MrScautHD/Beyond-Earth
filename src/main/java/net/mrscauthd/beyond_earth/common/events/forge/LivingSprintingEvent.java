@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
 @Cancelable
 public class LivingSprintingEvent extends LivingEvent {
 
-    private boolean sprinting;
+    private final boolean sprinting;
 
     public LivingSprintingEvent(LivingEntity entity, boolean sprinting) {
         super(entity);

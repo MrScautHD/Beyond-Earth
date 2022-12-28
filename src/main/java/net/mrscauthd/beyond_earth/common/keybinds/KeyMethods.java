@@ -10,8 +10,7 @@ import net.mrscauthd.beyond_earth.common.util.Methods;
 public class KeyMethods {
 
     public static void startRocket(Player player) {
-        if (player.isPassenger() && player.getVehicle() instanceof IRocketEntity) {
-            IRocketEntity rocket = (IRocketEntity) player.getVehicle();
+        if (player.isPassenger() && player.getVehicle() instanceof IRocketEntity rocket) {
 
             rocket.startRocket();
         }

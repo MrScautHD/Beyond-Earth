@@ -6,13 +6,13 @@ import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
 public class SetupLivingBipedAnimEvent extends Event {
-    private LivingEntity livingEntity;
-    private HumanoidModel<?> model;
-    private float limbSwing;
-    private float limbSwingAmount;
-    private float ageInTicks;
-    private float netHeadYaw;
-    private float headPitch;
+    private final LivingEntity livingEntity;
+    private final HumanoidModel<?> model;
+    private final float limbSwing;
+    private final float limbSwingAmount;
+    private final float ageInTicks;
+    private final float netHeadYaw;
+    private final float headPitch;
 
     public SetupLivingBipedAnimEvent(LivingEntity livingEntity, HumanoidModel<?> model, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.livingEntity = livingEntity;

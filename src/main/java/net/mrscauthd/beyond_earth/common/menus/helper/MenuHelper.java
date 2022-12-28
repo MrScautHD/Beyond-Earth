@@ -46,7 +46,7 @@ public class MenuHelper {
         return list;
     }
 
-    public static interface MenuTransfer {
+    public interface MenuTransfer {
         boolean moveItemStackTo(ItemStack stack, int startIndex, int endIndex, boolean reverseDirection);
     }
 

@@ -7,7 +7,7 @@ public class OxygenStorage implements IOxygenStorage {
     private int oxygen;
     private int capacity;
 
-    private IOxygenStorageHolder listener;
+    private final IOxygenStorageHolder listener;
 
     public OxygenStorage() {
         this.listener = null;

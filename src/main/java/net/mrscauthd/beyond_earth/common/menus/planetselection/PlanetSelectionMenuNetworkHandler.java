@@ -59,7 +59,6 @@ public class PlanetSelectionMenuNetworkHandler extends PlanetSelectionMenuNetwor
                 message.defaultOptions(player);
                 message.deleteItems(player);
                 Methods.createLanderAndTeleportTo(player, dest, 700, true);
-                return;
             }
         });
 

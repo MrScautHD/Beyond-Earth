@@ -76,7 +76,7 @@ public abstract class IRocketItem extends VehicleItem {
             if (level.noCollision(aabb)) {
 
                 /** CHECK IF NO ENTITY ON THE LAUNCH PAD */
-                AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
+                AABB scanAbove = new AABB(x, y, z, x + 1, y + 1, z + 1);
                 List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
                 if (entities.isEmpty()) {

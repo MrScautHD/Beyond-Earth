@@ -74,14 +74,14 @@ public class RoverItem extends VehicleItem {
 
         if (level.noCollision(aabb)) {
 
-            AABB scanAbove = new AABB(x - 0, y - 0, z - 0, x + 1, y + 1, z + 1);
+            AABB scanAbove = new AABB(x, y, z, x + 1, y + 1, z + 1);
             List<Entity> entities = player.getCommandSenderWorld().getEntitiesOfClass(Entity.class, scanAbove);
 
             if (entities.isEmpty()) {
                 RoverEntity rover = new RoverEntity(EntityRegistry.ROVER.get(), world);
 
                 rover.setPos((double) pos.getX() + 0.5D,  pos.getY() + 1, (double) pos.getZ() + 0.5D);
-                double d0 = this.getYOffset(world, pos, true, rover.getBoundingBox());
+                double d0 = getYOffset(world, pos, true, rover.getBoundingBox());
 
                 /** ROTATION */
                 float f = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180.0F) + 5.626F) / 11.25F) * 11.25F;

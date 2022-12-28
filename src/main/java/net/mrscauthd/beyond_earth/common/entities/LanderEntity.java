@@ -225,8 +225,7 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	public Player getFirstPlayerPassenger() {
-		if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
-			Player player = (Player) this.getPassengers().get(0);
+		if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
 
 			return player;
 		}

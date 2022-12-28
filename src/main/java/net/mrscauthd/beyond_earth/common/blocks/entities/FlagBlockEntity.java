@@ -46,7 +46,7 @@ public class FlagBlockEntity extends BlockEntity {
         } else if (p_155745_.contains("ExtraType", 8)) {
             String s = p_155745_.getString("ExtraType");
             if (!StringUtil.isNullOrEmpty(s)) {
-                this.setOwner(new GameProfile((UUID)null, s));
+                this.setOwner(new GameProfile(null, s));
             }
         }
     }

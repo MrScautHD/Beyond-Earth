@@ -23,7 +23,7 @@ public class EntityGravity {
 
     public static final UUID ARTIFICIAL_GRAVITY_ID = UUID.fromString("242A6B8D-DA4E-4C3C-1234-96EA6096568D");
 
-    public static record GravitySource(BlockPos centre, float gravity, int range) {
+    public record GravitySource(BlockPos centre, float gravity, int range) {
     }
 
     public static class GravityModifier extends AttributeInstance {

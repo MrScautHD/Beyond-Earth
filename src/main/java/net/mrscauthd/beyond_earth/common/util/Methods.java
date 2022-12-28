@@ -107,35 +107,28 @@ public class Methods {
         if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.SPACE_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.SPACE_SUIT.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.SPACE_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACE_BOOTS.get())) return false;
-
-        return true;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.SPACE_BOOTS.get());
     }
 
     public static boolean isLivingInNetheriteSpaceSuit(LivingEntity entity) {
         if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.NETHERITE_SPACE_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.NETHERITE_SPACE_SUIT.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.NETHERITE_SPACE_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.NETHERITE_SPACE_BOOTS.get())) return false;
-
-        return true;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.NETHERITE_SPACE_BOOTS.get());
     }
 
     public static boolean isLivingInJetSuit(LivingEntity entity) {
         if (!isLivingInArmor(entity, EquipmentSlot.HEAD, ItemsRegistry.JET_HELMET.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.CHEST, ItemsRegistry.JET_SUIT.get())) return false;
         if (!isLivingInArmor(entity, EquipmentSlot.LEGS, ItemsRegistry.JET_PANTS.get())) return false;
-        if (!isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JET_BOOTS.get())) return false;
-
-        return true;
+        return isLivingInArmor(entity, EquipmentSlot.FEET, ItemsRegistry.JET_BOOTS.get());
     }
 
     public static boolean isLivingInAnySpaceSuits(LivingEntity entity) {
         if (!(entity.getItemBySlot(EquipmentSlot.HEAD).is(SPACE_SUIT_PART))) return false;
         if (!(entity.getItemBySlot(EquipmentSlot.CHEST).is(SPACE_SUIT_PART))) return false;
         if (!(entity.getItemBySlot(EquipmentSlot.LEGS).is(SPACE_SUIT_PART))) return false;
-        if (!(entity.getItemBySlot(EquipmentSlot.FEET).is(SPACE_SUIT_PART))) return false;
-        return true;
+        return entity.getItemBySlot(EquipmentSlot.FEET).is(SPACE_SUIT_PART);
     }
 
     public static boolean isLivingInArmor(LivingEntity entity, EquipmentSlot slot, Item item) {
@@ -210,8 +203,7 @@ public class Methods {
             return;
         }
 
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
+        if (entity instanceof Player player) {
 
             if (player.isSpectator() || player.getAbilities().instabuild) {
                 return;
@@ -246,8 +238,7 @@ public class Methods {
             return;
         }
 
-        if (entity instanceof Player) {
-            Player player = (Player) entity;
+        if (entity instanceof Player player) {
 
             if (player.isSpectator() || player.getAbilities().instabuild) {
                 return;
@@ -349,8 +340,7 @@ public class Methods {
 
     public static void openPlanetGui(Player player) {
         if (!(player.containerMenu instanceof PlanetSelectionMenu.GuiContainer) && player.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
-            if (player instanceof ServerPlayer) {
-                ServerPlayer serverPlayer = (ServerPlayer) player;
+            if (player instanceof ServerPlayer serverPlayer) {
 
                 /** OPEN MENU */
                 NetworkHooks.openScreen(serverPlayer, new MenuProvider() {

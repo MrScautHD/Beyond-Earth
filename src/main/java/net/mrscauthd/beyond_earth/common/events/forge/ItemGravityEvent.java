@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
 @Cancelable
 public class ItemGravityEvent extends ItemEvent {
 
-    private double gravity;
+    private final double gravity;
 
     public ItemGravityEvent(ItemEntity itemEntity, double gravity) {
         super(itemEntity);

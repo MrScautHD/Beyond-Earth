@@ -26,7 +26,7 @@ public class CompressorMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private CompressorBlockEntity blockEntity;
+        private final CompressorBlockEntity blockEntity;
 
         public GuiContainer(int id, Inventory inv, CompressorBlockEntity blockEntity) {
             super(ContainerRegistry.COMPRESSOR_GUI.get(), id);

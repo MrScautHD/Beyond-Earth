@@ -14,14 +14,14 @@ public interface IGaugeValue extends INBTSerializable<CompoundTag> {
 
 	int getCapacity();
 	
-	public default int getColor()
+	default int getColor()
 	{
 		return 0x00000000;
 	}
 
 	boolean isReverse();
 
-	public default double getDisplayRatio() {
+	default double getDisplayRatio() {
 		int capacity = this.getCapacity();
 
 		if (capacity == 0) {
