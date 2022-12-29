@@ -1,11 +1,5 @@
 {
     "type": "minecraft:blasting",
-	"conditions": [
-        {
-            "type": "beyond_earth:steel_management",
-            "level": 1
-        }
-    ],
     "ingredient": {
         "item": "minecraft:iron_ingot"
     },

@@ -34,6 +34,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(BlockRegistry.IRON_PLATING_BLOCK.get());
         axisBlock(BlockRegistry.BLUE_IRON_PILLAR.get());
         axisBlock(BlockRegistry.BARRICADE_BLOCK.get());
+        axisBlock(BlockRegistry.IRON_MARK_BLOCK.get());
         axisBlock(BlockRegistry.DESH_PILLAR_BLOCK.get());
         simpleBlock(BlockRegistry.DESH_PLATING_BLOCK.get());
 

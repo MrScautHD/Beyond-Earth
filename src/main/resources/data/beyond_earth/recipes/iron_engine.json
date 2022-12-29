@@ -2,9 +2,9 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
+    "010",
     "345",
-    "678"
+    "013"
   ],
   "key": {
     "0": {
@@ -12,9 +12,6 @@
     },
     "1": {
       "item": "minecraft:redstone"
-    },
-    "2": {
-      "tag": "forge:ingots/steel"
     },
     "3": {
       "tag": "forge:plates/iron"
@@ -24,15 +21,6 @@
     },
     "5": {
       "item": "beyond_earth:engine_frame"
-    },
-    "6": {
-      "tag": "forge:ingots/steel"
-    },
-    "7": {
-      "item": "minecraft:redstone"
-    },
-    "8": {
-      "tag": "forge:plates/iron"
     }
   },
   "result": {

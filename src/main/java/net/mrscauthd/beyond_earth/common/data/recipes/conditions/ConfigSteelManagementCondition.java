@@ -1,5 +1,5 @@
 package net.mrscauthd.beyond_earth.common.data.recipes.conditions;
-
+/**
 import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
@@ -53,3 +53,4 @@ public class ConfigSteelManagementCondition implements ICondition {
         }
     }
 }
+*/

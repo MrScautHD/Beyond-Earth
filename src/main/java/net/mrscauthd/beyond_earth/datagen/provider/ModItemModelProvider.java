@@ -106,6 +106,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         blockItemModel(ItemsRegistry.BLUE_IRON_PILLAR_BLOCK_ITEM);
         blockItemModel(ItemsRegistry.INFERNAL_SPIRE_ITEM);
         blockItemModel(ItemsRegistry.BARRICADE_BLOCK_ITEM);
+        blockItemModel(ItemsRegistry.IRON_MARK_BLOCK_ITEM);
         blockItemModel(ItemsRegistry.METEORITE_ITEM);
         blockItemModel(ItemsRegistry.MOON_STONE_ITEM);
         blockItemModel(ItemsRegistry.MOON_STONE_BRICKS_ITEM);

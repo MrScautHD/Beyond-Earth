@@ -3,19 +3,21 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "010",
-    "1 1",
-    "010"
+    "040"
   ],
   "key": {
     "0": {
-      "tag": "forge:ingots/steel"
+      "tag": "forge:plates/iron"
     },
     "1": {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:iron_helmet"
+    },
+    "4": {
+      "item": "minecraft:glass"
     }
   },
   "result": {
-    "item": "beyond_earth:engine_frame",
+    "item": "beyond_earth:space_helmet",
     "count": 1
   }
 }

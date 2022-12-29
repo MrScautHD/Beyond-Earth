@@ -2,8 +2,8 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
-    "345"
+    "010",
+    "040"
   ],
   "key": {
     "0": {
@@ -12,17 +12,8 @@
     "1": {
       "item": "minecraft:iron_helmet"
     },
-    "2": {
-      "tag": "forge:plates/iron"
-    },
-    "3": {
-      "tag": "forge:plates/iron"
-    },
     "4": {
       "item": "minecraft:glass"
-    },
-    "5": {
-      "tag": "forge:plates/iron"
     }
   },
   "result": {

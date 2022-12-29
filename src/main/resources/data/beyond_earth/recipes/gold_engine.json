@@ -4,7 +4,7 @@
   "pattern": [
     "012",
     "345",
-    "678"
+    "018"
   ],
   "key": {
     "0": {
@@ -24,12 +24,6 @@
     },
     "5": {
       "item": "beyond_earth:engine_frame"
-    },
-    "6": {
-      "tag": "forge:ingots/desh"
-    },
-    "7": {
-      "item": "minecraft:redstone"
     },
     "8": {
       "tag": "forge:plates/desh"

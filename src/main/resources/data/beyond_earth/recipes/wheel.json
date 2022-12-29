@@ -2,9 +2,9 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
-    "345",
-    "678"
+    "010",
+    "141",
+    "010"
   ],
   "key": {
     "0": {
@@ -13,26 +13,8 @@
     "1": {
       "tag": "forge:slimeballs"
     },
-    "2": {
-      "item": "minecraft:black_dye"
-    },
-    "3": {
-      "tag": "forge:slimeballs"
-    },
     "4": {
       "tag": "forge:ingots/steel"
-    },
-    "5": {
-      "tag": "forge:slimeballs"
-    },
-    "6": {
-      "item": "minecraft:black_dye"
-    },
-    "7": {
-      "tag": "forge:slimeballs"
-    },
-    "8": {
-      "item": "minecraft:black_dye"
     }
   },
   "result": {

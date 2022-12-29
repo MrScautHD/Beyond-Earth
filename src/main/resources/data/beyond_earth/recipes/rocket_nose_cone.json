@@ -17,7 +17,7 @@
       "tag": "forge:ingots/steel"
     },
     "7": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item": "beyond_earth:compressed_steel"
     },
     "8": {
       "tag": "forge:ingots/steel"

@@ -2,27 +2,15 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
-    "3 5",
-    "678"
+    "000",
+    "3 3",
+    "373"
   ],
   "key": {
     "0": {
       "item": "minecraft:red_wool"
     },
-    "1": {
-      "item": "minecraft:red_wool"
-    },
-    "2": {
-      "item": "minecraft:red_wool"
-    },
     "3": {
-      "tag": "forge:plates/iron"
-    },
-    "5": {
-      "tag": "forge:plates/iron"
-    },
-    "6": {
       "tag": "forge:plates/iron"
     },
     "7": {

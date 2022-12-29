@@ -3,26 +3,11 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "0  ",
-    "34 ",
-    "678"
+    "00 ",
+    "000"
   ],
   "key": {
     "0": {
-      "item": "beyond_earth:venus_stone_bricks"
-    },
-    "3": {
-      "item": "beyond_earth:venus_stone_bricks"
-    },
-    "4": {
-      "item": "beyond_earth:venus_stone_bricks"
-    },
-    "6": {
-      "item": "beyond_earth:venus_stone_bricks"
-    },
-    "7": {
-      "item": "beyond_earth:venus_stone_bricks"
-    },
-    "8": {
       "item": "beyond_earth:venus_stone_bricks"
     }
   },

@@ -4,7 +4,7 @@
   "pattern": [
     "012",
     "345",
-    "678"
+    "078"
   ],
   "key": {
     "0": {
@@ -24,9 +24,6 @@
     },
     "5": {
       "item": "beyond_earth:engine_frame"
-    },
-    "6": {
-      "tag": "forge:ingots/calorite"
     },
     "7": {
       "item": "minecraft:redstone"

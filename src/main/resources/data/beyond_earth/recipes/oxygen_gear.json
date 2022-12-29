@@ -3,8 +3,8 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     " 1 ",
-    "345",
-    "6 8"
+    "343",
+    "6 6"
   ],
   "key": {
     "1": {
@@ -16,13 +16,7 @@
     "4": {
       "tag": "forge:rods/iron"
     },
-    "5": {
-      "item": "minecraft:iron_nugget"
-    },
     "6": {
-      "tag": "forge:plates/iron"
-    },
-    "8": {
       "tag": "forge:plates/iron"
     }
   },

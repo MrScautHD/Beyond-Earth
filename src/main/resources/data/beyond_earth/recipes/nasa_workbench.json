@@ -2,19 +2,16 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
-    "345",
-    "678"
+    "010",
+    "343",
+    "070"
   ],
   "key": {
     "0": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item": "beyond_earth:compressed_steel"
     },
     "1": {
       "item": "minecraft:crafting_table"
-    },
-    "2": {
-      "tag": "beyond_earth:compresseds/steel"
     },
     "3": {
       "item": "minecraft:lever"
@@ -22,17 +19,8 @@
     "4": {
       "tag": "forge:ingots/steel"
     },
-    "5": {
-      "item": "minecraft:lever"
-    },
-    "6": {
-      "tag": "beyond_earth:compresseds/steel"
-    },
     "7": {
       "item": "minecraft:redstone_torch"
-    },
-    "8": {
-      "tag": "beyond_earth:compresseds/steel"
     }
   },
   "result": {

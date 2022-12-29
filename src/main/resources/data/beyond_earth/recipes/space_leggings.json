@@ -2,9 +2,9 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
-    "3 5",
-    "6 8"
+    "010",
+    "1 1",
+    "0 0"
   ],
   "key": {
     "0": {
@@ -12,21 +12,6 @@
     },
     "1": {
       "item": "minecraft:white_wool"
-    },
-    "2": {
-      "tag": "forge:plates/iron"
-    },
-    "3": {
-      "item": "minecraft:white_wool"
-    },
-    "5": {
-      "item": "minecraft:white_wool"
-    },
-    "6": {
-      "tag": "forge:plates/iron"
-    },
-    "8": {
-      "tag": "forge:plates/iron"
     }
   },
   "result": {

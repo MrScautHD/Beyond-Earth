@@ -2,16 +2,10 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012"
+    "000"
   ],
   "key": {
     "0": {
-      "item": "beyond_earth:mercury_stone_bricks"
-    },
-    "1": {
-      "item": "beyond_earth:mercury_stone_bricks"
-    },
-    "2": {
       "item": "beyond_earth:mercury_stone_bricks"
     }
   },

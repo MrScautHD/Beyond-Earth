@@ -2,9 +2,9 @@
   "group": "beyond_earth",
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "012",
+    "010",
     " 4 ",
-    " 7 "
+    " 4 "
   ],
   "key": {
     "0": {
@@ -13,13 +13,7 @@
     "1": {
       "item": "minecraft:iron_ingot"
     },
-    "2": {
-      "item": "minecraft:iron_nugget"
-    },
     "4": {
-      "item": "minecraft:stick"
-    },
-    "7": {
       "item": "minecraft:stick"
     }
   },
