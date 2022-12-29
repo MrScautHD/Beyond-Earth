@@ -48,7 +48,7 @@ public class FlagHeadRenderer implements BlockEntityRenderer<FlagBlockEntity> {
 
 	@Override
 	public boolean shouldRender(FlagBlockEntity p_173568_, Vec3 p_173569_) {
-		return Vec3.atCenterOf(p_173568_.getBlockPos()).multiply(1.0D, 0.0D, 1.0D).closerThan(p_173569_.multiply(1.0D, 0.0D, 1.0D), (double)this.getViewDistance());
+		return Vec3.atCenterOf(p_173568_.getBlockPos()).multiply(1.0D, 0.0D, 1.0D).closerThan(p_173569_.multiply(1.0D, 0.0D, 1.0D), this.getViewDistance());
 	}
 
 	private static final Map<FlagBlock.ISkullType, FlagHeadModel> MODELS = Util.make(Maps.newHashMap(), (p_209262_0_) -> {
@@ -80,13 +80,10 @@ public class FlagHeadRenderer implements BlockEntityRenderer<FlagBlockEntity> {
 	public static void render(@Nullable Direction directionIn, float p_228879_1_, FlagBlock.ISkullType skullType, @Nullable GameProfile gameProfileIn, float animationProgress, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight) {
 		FlagHeadModel genericheadmodel = MODELS.get(skullType);
 		matrixStackIn.pushPose();
-		if (directionIn == null) {
-			matrixStackIn.translate(0.5D, 0.0D, 0.5D);
-		} else {
-			matrixStackIn.translate((double) (0.5F - (float) directionIn.getStepX() * 0.25F), 0.25D, (double) (0.5F - (float) directionIn.getStepZ() * 0.25F));
-		}
 
+		matrixStackIn.translate(0D, 0.031D, 0.75D);
 		matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
+
 		VertexConsumer ivertexbuilder = buffer.getBuffer(getRenderType(skullType, gameProfileIn));
 		genericheadmodel.setupAnim(animationProgress, p_228879_1_, 0.0F);
 		genericheadmodel.renderToBuffer(matrixStackIn, ivertexbuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

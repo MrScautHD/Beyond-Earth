@@ -50,7 +50,7 @@ public class OxygenLoaderScreen extends AbstractContainerScreen<OxygenLoaderMenu
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
-        OxygenLoaderBlockEntity blockEntity = (OxygenLoaderBlockEntity) this.getMenu().getBlockEntity();
+        OxygenLoaderBlockEntity blockEntity = this.getMenu().getBlockEntity();
 
         if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 

@@ -50,7 +50,7 @@ public class FuelRefineryScreen extends AbstractContainerScreen<FuelRefineryMenu
         super.render(ms, mouseX, mouseY, partialTicks);
         this.renderTooltip(ms, mouseX, mouseY);
 
-        FuelRefineryBlockEntity blockEntity = (FuelRefineryBlockEntity) this.getMenu().getBlockEntity();
+        FuelRefineryBlockEntity blockEntity = this.getMenu().getBlockEntity();
 
         if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
 

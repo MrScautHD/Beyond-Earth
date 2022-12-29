@@ -11,8 +11,8 @@ import net.minecraftforge.api.distmarker.Dist;
 @OnlyIn(Dist.CLIENT)
 public class VenusRainParticle extends TextureSheetParticle {
     private final SpriteSet spriteSet;
-    private float angularVelocity;
-    private float angularAcceleration;
+    private final float angularVelocity;
+    private final float angularAcceleration;
     public VenusRainParticle(ClientLevel world, double x, double y, double z, double vx, double vy, double vz, SpriteSet spriteSet) {
         super(world, x, y, z);
         this.spriteSet = spriteSet;
@@ -43,7 +43,7 @@ public class VenusRainParticle extends TextureSheetParticle {
         if (this.age-- <= 0) {
             this.remove();
         } else {
-            this.yd -= (double)this.gravity;
+            this.yd -= this.gravity;
             this.move(this.xd, this.yd, this.zd);
             this.xd *= 0.98D;
             this.yd *= 0.98D;
@@ -58,7 +58,7 @@ public class VenusRainParticle extends TextureSheetParticle {
             }
 
             BlockPos blockpos = new BlockPos(this.x, this.y, this.z);
-            double d0 = Math.max(this.level.getBlockState(blockpos).getCollisionShape(this.level, blockpos).max(Direction.Axis.Y, this.x - (double)blockpos.getX(), this.z - (double)blockpos.getZ()), (double)this.level.getFluidState(blockpos).getHeight(this.level, blockpos));
+            double d0 = Math.max(this.level.getBlockState(blockpos).getCollisionShape(this.level, blockpos).max(Direction.Axis.Y, this.x - (double)blockpos.getX(), this.z - (double)blockpos.getZ()), this.level.getFluidState(blockpos).getHeight(this.level, blockpos));
             if (d0 > 0.0D && this.y < (double)blockpos.getY() + d0) {
                 this.remove();
             }

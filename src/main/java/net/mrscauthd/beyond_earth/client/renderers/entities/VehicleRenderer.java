@@ -52,8 +52,7 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         float f = Mth.rotLerp(p_115310_, p_115308_.yRotO, p_115308_.getYRot());
         float f1 = Mth.rotLerp(p_115310_, p_115308_.yRotO, p_115308_.getYRot());
         float f2 = f1 - f;
-        if (shouldSit && p_115308_.getVehicle() instanceof LivingEntity) {
-            LivingEntity livingentity = (LivingEntity)p_115308_.getVehicle();
+        if (shouldSit && p_115308_.getVehicle() instanceof LivingEntity livingentity) {
             f = Mth.rotLerp(p_115310_, livingentity.yBodyRotO, livingentity.yBodyRot);
             f2 = f1 - f;
             float f3 = Mth.wrapDegrees(f2);
@@ -79,7 +78,7 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
         this.setupRotations(p_115308_, p_115311_, f7, f, p_115310_);
         p_115311_.scale(-1.0F, -1.0F, 1.0F);
         this.scale(p_115308_, p_115311_, p_115310_);
-        p_115311_.translate(0.0D, (double)-1.501F, 0.0D);
+        p_115311_.translate(0.0D, -1.501F, 0.0D);
         float f8 = 0.0F;
         float f5 = 0.0F;
         if (p_115308_ instanceof RoverEntity) {

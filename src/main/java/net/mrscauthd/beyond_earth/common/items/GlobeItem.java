@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 public class GlobeItem extends BlockItem {
 
-    private ResourceLocation texture;
+    private final ResourceLocation texture;
 
     public GlobeItem(Block p_40565_, Properties p_40566_, ResourceLocation texture) {
         super(p_40565_, p_40566_);

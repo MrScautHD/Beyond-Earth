@@ -176,15 +176,13 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 		BlockEntity tileentity = worldIn.getBlockEntity(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ()));
 
-		if (tileentity instanceof FlagBlockEntity) {
-			FlagBlockEntity flagtileentity = (FlagBlockEntity) tileentity;
+		if (tileentity instanceof FlagBlockEntity flagtileentity) {
 
 			CompoundTag compoundnbt = new CompoundTag();
 			NbtUtils.writeGameProfile(compoundnbt, new GameProfile(placer.getUUID(), placer.getName().getString()));
 			flagtileentity.getPersistentData().put("FlagOwner", compoundnbt);
 
-			if (placer instanceof Player) {
-				Player player = (Player) placer;
+			if (placer instanceof Player player) {
 
 				flagtileentity.setOwner(player.getGameProfile());
 			}
@@ -209,7 +207,7 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	public interface ISkullType {
 	}
 
-	public static enum Types implements FlagBlock.ISkullType {
+	public enum Types implements FlagBlock.ISkullType {
 		PLAYER
 	}
 

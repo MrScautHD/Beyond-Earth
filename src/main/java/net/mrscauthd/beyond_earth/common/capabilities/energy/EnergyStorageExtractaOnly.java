@@ -4,8 +4,8 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class EnergyStorageExtractaOnly implements IEnergyStorage {
 
-    private IEnergyStorage parent;
-    private int maxExtract;
+    private final IEnergyStorage parent;
+    private final int maxExtract;
 
     public EnergyStorageExtractaOnly(IEnergyStorage parent, int maxExtract) {
         this.parent = parent;

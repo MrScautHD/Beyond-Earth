@@ -9,9 +9,9 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 
 public class OxygenGasHandler implements IGasHandler {
 
-    private IOxygenStorage oxygenStorage;
-    private boolean canExtract;
-    private boolean canInsert;
+    private final IOxygenStorage oxygenStorage;
+    private final boolean canExtract;
+    private final boolean canInsert;
 
     public OxygenGasHandler(IOxygenStorage oxygenStorage) {
         this(oxygenStorage, true, true);

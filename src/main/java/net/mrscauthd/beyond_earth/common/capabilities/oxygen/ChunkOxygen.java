@@ -43,11 +43,11 @@ import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<CompoundTag> {
 
-    public static record AirCheckTest(BlockPos pos, Direction from, ServerLevel level) {
+    public record AirCheckTest(BlockPos pos, Direction from, ServerLevel level) {
     }
 
-    public static record AirCheckResult(boolean solid, boolean pass, int amount) {
-    };
+    public record AirCheckResult(boolean solid, boolean pass, int amount) {
+    }
 
     public static class DefaultCheck implements Function<AirCheckTest, AirCheckResult> {
 
@@ -231,7 +231,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
         return O2 <= 30 && O2 >= 0;
     }
 
-    private Int2ObjectArrayMap<SectionOxygen> O2 = new Int2ObjectArrayMap<>();
+    private final Int2ObjectArrayMap<SectionOxygen> O2 = new Int2ObjectArrayMap<>();
     private final Level level;
     private final boolean infiniteO2;
     private final Planet planet;

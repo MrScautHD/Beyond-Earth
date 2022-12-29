@@ -20,7 +20,7 @@ public class VehicleItem extends Item {
             aabb = aabb.expandTowards(0.0D, -1.0D, 0.0D);
         }
 
-        Iterable<VoxelShape> iterable = p_20626_.getCollisions((Entity)null, aabb);
+        Iterable<VoxelShape> iterable = p_20626_.getCollisions(null, aabb);
         return 1.0D + Shapes.collide(Direction.Axis.Y, p_20629_, iterable, p_20628_ ? -2.0D : -1.0D);
     }
 }

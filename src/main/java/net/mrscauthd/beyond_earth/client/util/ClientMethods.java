@@ -76,13 +76,12 @@ public class ClientMethods {
     public static void setBobView(PoseStack poseStack, float tick) {
         Minecraft mc = Minecraft.getInstance();
 
-        if (mc.getCameraEntity() instanceof Player) {
-            Player player = (Player) mc.getCameraEntity();
+        if (mc.getCameraEntity() instanceof Player player) {
 
             float f = player.walkDist - player.walkDistO;
             float f1 = -(player.walkDist + f * tick);
             float f2 = Mth.lerp(tick, 0.075F, -0.075F);
-            poseStack.translate((double) (Mth.sin(f1 * (float) Math.PI) * f2 * 0.5F), (double) (-Math.abs(Mth.cos(f1 * (float) Math.PI) * f2)), 0.0D);
+            poseStack.translate(Mth.sin(f1 * (float) Math.PI) * f2 * 0.5F, -Math.abs(Mth.cos(f1 * (float) Math.PI) * f2), 0.0D);
             poseStack.mulPose(Vector3f.ZP.rotationDegrees(Mth.sin(f1 * (float) Math.PI) * f2 * 3.0F));
             poseStack.mulPose(Vector3f.XP.rotationDegrees(Math.abs(Mth.cos(f1 * (float) Math.PI - 0.2F) * f2) * 5.0F));
         }

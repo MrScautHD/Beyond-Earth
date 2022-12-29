@@ -18,11 +18,11 @@ import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelection
 
 @OnlyIn(Dist.CLIENT)
 public class ModifiedButton extends TexturedButton {
-    private ColorTypes colorType;
+    private final ColorTypes colorType;
 
-    private boolean rocketCondition;
-    private ButtonTypes type;
-    private List<String> list;
+    private final boolean rocketCondition;
+    private final ButtonTypes type;
+    private final List<String> list;
 
     /** USE ROW 0 FOR (NO ROW SYSTEM), USE ROW 1 FOR (CATEGORIES, PLANETS), USE ROW 2 FOR (ORBITS), USE ROW 3 FOR (SPACE STATIONS) */
     public int row;

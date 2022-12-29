@@ -235,8 +235,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
     @Override
     public void openCustomInventoryScreen(Player player) {
-        if (player instanceof ServerPlayer) {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
+        if (player instanceof ServerPlayer serverPlayer) {
             NetworkHooks.openScreen(serverPlayer, new MenuProvider() {
                 @Override
                 public Component getDisplayName() {
@@ -257,7 +256,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
     @Override
     public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
-        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
+        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
         Set<BlockPos> set = Sets.newLinkedHashSet();
         double d0 = this.getBoundingBox().maxY;
         double d1 = this.getBoundingBox().minY - 0.5D;
@@ -327,8 +326,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     }
 
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
-            Player player = (Player) this.getPassengers().get(0);
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
 
             return player;
         }

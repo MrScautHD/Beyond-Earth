@@ -56,10 +56,10 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
         return getBasicPartOrders().stream().collect(Collectors.summingInt(p -> p.getSlots()));
     }
 
-    private StackCacher itemStackCacher;
+    private final StackCacher itemStackCacher;
     private WorkbenchingRecipe cachedRecipe;
-    private List<WorkbenchingRecipe> possibleRecipes;
-    private Set<ItemStack> invalidCache;
+    private final List<WorkbenchingRecipe> possibleRecipes;
+    private final Set<ItemStack> invalidCache;
 
     private int prevRedstone;
     private int currRedstone;
@@ -128,7 +128,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
     @Override
     protected boolean onCanPlaceItemThroughFace(int index, ItemStack stack, Direction direction) {
 
-        if (super.onCanPlaceItemThroughFace(index, stack, direction) == true) {
+        if (super.onCanPlaceItemThroughFace(index, stack, direction)) {
             return true;
         }
 
@@ -258,8 +258,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
 
             Level level = this.getLevel();
 
-            if (level instanceof ServerLevel) {
-                ServerLevel serverLevel = (ServerLevel) level;
+            if (level instanceof ServerLevel serverLevel) {
                 BlockPos pos = this.getBlockPos();
                 serverLevel.sendParticles(ParticleTypes.CRIT, pos.getX() + 0.5D, pos.getY() + 1.5D, pos.getZ() + 0.5D,
                         10, 0.1D, 0.1D, 0.1D, 0.1D);
@@ -288,8 +287,7 @@ public class NASAWorkbenchBlockEntity extends AbstractMachineBlockEntity {
 
         Level level = this.getLevel();
 
-        if (level instanceof ServerLevel) {
-            ServerLevel serverLevel = (ServerLevel) level;
+        if (level instanceof ServerLevel serverLevel) {
             BlockPos pos = this.getBlockPos();
 
             serverLevel.playSound(null, pos,

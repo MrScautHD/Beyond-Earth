@@ -69,7 +69,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
     public float animationSpeed;
     public float animationPosition;
 
-    private float FUEL_USE_TICK = 8;
+    private final float FUEL_USE_TICK = 8;
     private float FUEL_TIMER = 0;
 
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(RoverEntity.class, EntityDataSerializers.INT);
@@ -136,7 +136,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
 
     @Override
     public Vec3 getDismountLocationForPassenger(LivingEntity livingEntity) {
-        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector((double)this.getBbWidth(), (double)livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
+        Vec3[] avector3d = new Vec3[]{getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot()), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 22.5F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() - 45.0F), getCollisionHorizontalEscapeVector(this.getBbWidth(), livingEntity.getBbWidth(), livingEntity.getYRot() + 45.0F)};
         Set<BlockPos> set = Sets.newLinkedHashSet();
         double d0 = this.getBoundingBox().maxY;
         double d1 = this.getBoundingBox().minY - 0.5D;
@@ -286,8 +286,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
     }
 
     public Player getFirstPlayerPassenger() {
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
-            Player player = (Player) this.getPassengers().get(0);
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player player) {
 
             return player;
         }
@@ -385,7 +384,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
             return;
         }
 
-        if (!(this.getPassengers().get(0) instanceof Player)) {
+        if (!(this.getPassengers().get(0) instanceof Player passanger)) {
             return;
         }
 
@@ -394,8 +393,6 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         }
 
         FUEL_TIMER++;
-
-        Player passanger = (Player) this.getPassengers().get(0);
 
         passanger.resetFallDistance();
 
@@ -425,9 +422,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
     public void travel(Vec3 p_21280_) {
         this.calculateEntityAnimation(this, this instanceof FlyingAnimal);
 
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player) {
-
-            Player passanger = (Player) this.getPassengers().get(0);
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player passanger) {
 
             this.flyingSpeed = this.getSpeed() * 0.15F;
             this.maxUpStep = 1.0F;

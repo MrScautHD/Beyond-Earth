@@ -7,12 +7,12 @@ import net.minecraftforge.eventbus.api.Event;
 
 public class PlanetOverlayEvent extends Event {
 
-    private ForgeGui gui;
+    private final ForgeGui gui;
     private ResourceLocation resourceLocation;
-    private PoseStack poseStack;
-    private float partialTicks;
-    private int width;
-    private int height;
+    private final PoseStack poseStack;
+    private final float partialTicks;
+    private final int width;
+    private final int height;
 
     public PlanetOverlayEvent(ForgeGui gui, ResourceLocation resourceLocation, PoseStack poseStack, float partialTicks, int width, int height) {
         this.gui = gui;

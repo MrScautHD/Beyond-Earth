@@ -95,7 +95,7 @@ public abstract class IVehicleEntity extends Entity {
 
         this.xxa *= 0.98F;
         this.zza *= 0.98F;
-        this.travel(new Vec3((double)this.xxa, (double)this.yya, (double)this.zza));
+        this.travel(new Vec3(this.xxa, this.yya, this.zza));
     }
 
     public void rotAnim() {
@@ -113,8 +113,8 @@ public abstract class IVehicleEntity extends Entity {
         this.lerpX = p_20977_;
         this.lerpY = p_20978_;
         this.lerpZ = p_20979_;
-        this.lerpYRot = (double)p_20980_;
-        this.lerpXRot = (double)p_20981_;
+        this.lerpYRot = p_20980_;
+        this.lerpXRot = p_20981_;
         this.lerpSteps = p_20982_;
     }
 
@@ -156,18 +156,18 @@ public abstract class IVehicleEntity extends Entity {
                     vec36 = new Vec3(vec36.x, 0.2D, vec36.z);
                 }
 
-                this.setDeltaMovement(vec36.multiply((double)f5, (double)0.8F, (double)f5));
+                this.setDeltaMovement(vec36.multiply(f5, 0.8F, f5));
                 Vec3 vec32 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                 this.setDeltaMovement(vec32);
                 if (this.horizontalCollision && this.isFree(vec32.x, vec32.y + (double)0.6F - this.getY() + d8, vec32.z)) {
-                    this.setDeltaMovement(vec32.x, (double)0.3F, vec32.z);
+                    this.setDeltaMovement(vec32.x, 0.3F, vec32.z);
                 }
             } else if (this.isInLava()) {
                 double d7 = this.getY();
                 this.moveRelative(0.02F, p_21280_);
                 this.move(MoverType.SELF, this.getDeltaMovement());
                 if (this.getFluidHeight(FluidTags.LAVA) <= this.getFluidJumpThreshold()) {
-                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, (double)0.8F, 0.5D));
+                    this.setDeltaMovement(this.getDeltaMovement().multiply(0.5D, 0.8F, 0.5D));
                     Vec3 vec33 = this.getFluidFallingAdjustedMovement(d0, flag, this.getDeltaMovement());
                     this.setDeltaMovement(vec33);
                 } else {
@@ -180,7 +180,7 @@ public abstract class IVehicleEntity extends Entity {
 
                 Vec3 vec34 = this.getDeltaMovement();
                 if (this.horizontalCollision && this.isFree(vec34.x, vec34.y + (double)0.6F - this.getY() + d7, vec34.z)) {
-                    this.setDeltaMovement(vec34.x, (double)0.3F, vec34.z);
+                    this.setDeltaMovement(vec34.x, 0.3F, vec34.z);
                 }
             } else {
                 BlockPos blockpos = this.getBlockPosBelowThatAffectsMyMovement();

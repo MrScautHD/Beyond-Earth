@@ -40,7 +40,7 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
     private FluidTank inputTank;
     private OxygenStorage outputTank;
 
-    private StackCacher recipeCacher;
+    private final StackCacher recipeCacher;
     private OxygenMakingRecipeAbstract cachedRecipe;
 
     public OxygenMakingBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {

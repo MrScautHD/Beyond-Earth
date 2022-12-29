@@ -129,7 +129,7 @@ public class TexturedButton extends Button {
         BLUE(new Vec3(37, 49, 146)), BROWN(new Vec3(81, 48, 26)), GREEN(new Vec3(53, 163, 79)),
         RED(new Vec3(179, 49, 44)), BLACK(new Vec3(30, 27, 27));
 
-        private Vec3 color;
+        private final Vec3 color;
 
         ColorTypes(Vec3 color) {
             this.color = color;

@@ -73,7 +73,7 @@ public class AlienTradingRecipeEnchantedBook extends AlienTradingRecipeItemStack
 			cost += rand.nextInt(bound);
 		}
 
-		if (enchantment.isTreasureOnly() == true) {
+		if (enchantment.isTreasureOnly()) {
 			cost *= this.getCostTreasureOnlyMultiplier();
 		}
 

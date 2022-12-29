@@ -30,7 +30,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
     public static final String KEY_NAMES = "names";
 
     private List<Fluid> cachedFluids;
-    private int amount;
+    private final int amount;
 
     private FluidIngredient(int amount) {
         this.amount = amount;
@@ -101,7 +101,7 @@ public abstract class FluidIngredient implements Predicate<FluidStack> {
         List<Fluid> fluids = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            fluids.add(buffer.<Fluid>readRegistryId());
+            fluids.add(buffer.readRegistryId());
         }
 
         int amount = buffer.readInt();

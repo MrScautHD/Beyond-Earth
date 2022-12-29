@@ -24,7 +24,7 @@ public class CoalGeneratorMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private CoalGeneratorBlockEntity blockEntity;
+        private final CoalGeneratorBlockEntity blockEntity;
 
         public GuiContainer(int id, Inventory inv, CoalGeneratorBlockEntity blockEntity) {
             super(ContainerRegistry.COAL_GENERATOR_GUI.get(), id);

@@ -224,7 +224,7 @@ public class PlanetSky extends DimensionSpecialEffects {
                         int l1 = (j1 - k + 16) * 32 + k1 - i + 16;
                         double d0 = (double) this.rainSizeX[l1] * 0.5D;
                         double d1 = (double) this.rainSizeZ[l1] * 0.5D;
-                        blockpos$mutableblockpos.set((double) k1, camY, (double) j1);
+                        blockpos$mutableblockpos.set(k1, camY, j1);
                         Biome biome = level.getBiome(blockpos$mutableblockpos).value();
                         if (biome.getPrecipitation() != Biome.Precipitation.NONE) {
                             int i2 = level.getHeight(Heightmap.Types.MOTION_BLOCKING, k1, j1);
@@ -245,7 +245,7 @@ public class PlanetSky extends DimensionSpecialEffects {
 
                             if (j2 != k2) {
                                 RandomSource randomsource = RandomSource.create(
-                                        (long) (k1 * k1 * 3121 + k1 * 45238971 ^ j1 * j1 * 418711 + j1 * 13761));
+                                        (long) k1 * k1 * 3121 + k1 * 45238971L ^ (long) j1 * j1 * 418711 + j1 * 13761L);
                                 blockpos$mutableblockpos.set(k1, j2, j1);
 
                                 if (biome.warmEnoughToRain(blockpos$mutableblockpos)) {

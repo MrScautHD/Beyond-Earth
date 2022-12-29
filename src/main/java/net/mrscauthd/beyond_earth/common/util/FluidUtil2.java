@@ -80,11 +80,7 @@ public class FluidUtil2 {
 
                 IFluidHandlerItem handlerInItemStack = getItemStackFluidHandler(itemStack);
 
-                if (handlerInItemStack != null && handlerInItemStack.fill(new FluidStack(fluid, 1), FluidAction.SIMULATE) > 0) {
-                        return true;
-                }
-
-                return false;
+                return handlerInItemStack != null && handlerInItemStack.fill(new FluidStack(fluid, 1), FluidAction.SIMULATE) > 0;
         }
 
         /**
@@ -105,11 +101,7 @@ public class FluidUtil2 {
 
                 IFluidHandlerItem handlerInItemStack = getItemStackFluidHandler(itemStack);
 
-                if (handlerInItemStack != null && !handlerInItemStack.drain(1, FluidAction.SIMULATE).isEmpty()) {
-                        return true;
-                }
-
-                return false;
+                return handlerInItemStack != null && !handlerInItemStack.drain(1, FluidAction.SIMULATE).isEmpty();
         }
 
         /**
@@ -130,11 +122,7 @@ public class FluidUtil2 {
 
                 IFluidHandlerItem handlerInItemStack = getItemStackFluidHandler(itemStack);
 
-                if (handlerInItemStack != null && !handlerInItemStack.drain(new FluidStack(fluid, 1), FluidAction.SIMULATE).isEmpty()) {
-                        return true;
-                }
-
-                return false;
+                return handlerInItemStack != null && !handlerInItemStack.drain(new FluidStack(fluid, 1), FluidAction.SIMULATE).isEmpty();
         }
 
         public static int getMaxCapacity(ItemStack itemStack) {
@@ -237,11 +225,7 @@ public class FluidUtil2 {
 
                 if (fillSinkBucket(itemHandler, sinkItemSlot, source, sinkItemStack)) {
                         return true;
-                } else if (!fillSinkCapability(source, sinkItemStack, transfer).isEmpty()) {
-                        return true;
-                }
-
-                return false;
+                } else return !fillSinkCapability(source, sinkItemStack, transfer).isEmpty();
         }
 
         public static FluidStack fillSinkCapability(IFluidHandler source, ItemStack sinkItemStack, int transfer) {
@@ -269,11 +253,7 @@ public class FluidUtil2 {
 
                 if (drainSourceBucket(itemHandler, sourceItemSlot, sink, sourceItemStack)) {
                         return true;
-                } else if (!drainSourceCapability(sink, sourceItemStack, transfer).isEmpty()) {
-                        return true;
-                } else {
-                        return false;
-                }
+                } else return !drainSourceCapability(sink, sourceItemStack, transfer).isEmpty();
         }
 
         public static boolean drainSourceBucket(IItemHandlerModifiable itemHandler, int itemSlot, IFluidHandler sink, ItemStack sourceItemStack) {

@@ -73,7 +73,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 	public Villager getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
 		AlienEntity alienentity = new AlienEntity(EntityRegistry.ALIEN.get(), this.level);
 
-		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos(p_241840_2_.getX(), p_241840_2_.getY(), p_241840_2_.getZ())), MobSpawnType.BREEDING, (SpawnGroupData)null, (CompoundTag)null);
+		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos(p_241840_2_.getX(), p_241840_2_.getY(), p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
 		return alienentity;
 	}
 
@@ -239,7 +239,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 			ItemListing[] avillagertrades$itrade = int2objectmap.get(villagerdata.getLevel());
 			if (avillagertrades$itrade != null) {
 				MerchantOffers merchantoffers = this.getOffers();
-				this.addOffersFromItemListings(merchantoffers, (ItemListing[]) avillagertrades$itrade, 6);
+				this.addOffersFromItemListings(merchantoffers, avillagertrades$itrade, 6);
 			}
 		}
 	}

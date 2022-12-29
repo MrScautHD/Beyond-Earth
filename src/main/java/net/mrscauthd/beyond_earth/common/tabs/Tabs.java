@@ -16,10 +16,7 @@ public class Tabs {
 	public static CreativeModeTab tab_machines = new CreativeModeTab("tab_machines") {
 		@Override
 		public ItemStack makeIcon() {
-
-			//TODO DON'T FORGOT TO REWORK IT
-			//return new ItemStack(ItemsRegistry.NASA_WORKBENCH_ITEM.get(), 1);
-			return new ItemStack(ItemsRegistry.JET_SUIT.get(), 1);
+			return new ItemStack(ItemsRegistry.NASA_WORKBENCH_ITEM.get(), 1);
 		}
 	};
 	public static CreativeModeTab tab_basics = new CreativeModeTab("tab_basics") {

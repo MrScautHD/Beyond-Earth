@@ -10,8 +10,8 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 
 public abstract class AlienTradingRecipeItemStackBase extends AlienTradingRecipe {
 
-	private ItemStack costA;
-	private ItemStack costB;
+	private final ItemStack costA;
+	private final ItemStack costB;
 
 	public AlienTradingRecipeItemStackBase(ResourceLocation id, JsonObject json) {
 		super(id, json);

@@ -15,7 +15,7 @@ public interface IOxygenStorage extends INBTSerializable<CompoundTag> {
 
     int getMaxCapacity();
 
-    public default double getOxygenStoredRatio() {
+    default double getOxygenStoredRatio() {
         return (double) this.getOxygen() / (double) this.getMaxCapacity();
     }
 }

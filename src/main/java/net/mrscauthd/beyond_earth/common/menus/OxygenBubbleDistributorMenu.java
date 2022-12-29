@@ -26,7 +26,7 @@ public class OxygenBubbleDistributorMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private OxygenDistributorBlockEntity blockEntity;
+        private final OxygenDistributorBlockEntity blockEntity;
 
         public GuiContainer(int id, Inventory inv, OxygenDistributorBlockEntity blockEntity) {
             super(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);

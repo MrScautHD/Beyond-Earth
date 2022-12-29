@@ -71,8 +71,8 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
     public static final int DEFAULT_TANK_CAPACITY = 3000;
     public static final int DEFAULT_TANK_TRANSFER = 256;
 
-    private Map<Object, Object> selectedPrimaries;
-    private Map<ResourceLocation, IEnergyStorage> energyStorages;
+    private final Map<Object, Object> selectedPrimaries;
+    private final Map<ResourceLocation, IEnergyStorage> energyStorages;
     private final Map<ResourceLocation, IFluidHandler> fluidHandlers;
     private final Map<ResourceLocation, PowerSystem> powerSystems;
     private NonNullList<ItemStack> stacks = null;
@@ -98,7 +98,7 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
         this.powerSystems = Collections.unmodifiableMap(powerSystemMap);
         this.itemHandlers = SidedInvWrapper.create(this, Direction.values());
         this.createItemHandlers();
-        this.stacks = NonNullList.<ItemStack>withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
+        this.stacks = NonNullList.withSize(this.getInitialInventorySize(), ItemStack.EMPTY);
     }
 
     @Override
@@ -167,7 +167,6 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
     @SuppressWarnings("unchecked")
     public <T> void deserializeComponent(ResourceLocation name, @Nonnull T component, @Nonnull Tag tag) {
         if (component == null || tag == null) {
-            return;
         } else if (component instanceof INBTSerializable<?>) {
             ((INBTSerializable<Tag>) component).deserializeNBT(tag);
         } else if (component instanceof EnergyStorage) {
@@ -495,8 +494,7 @@ public abstract class AbstractMachineBlockEntity extends RandomizableContainerBl
 
         Level level = this.getLevel();
 
-        if (level instanceof ServerLevel) {
-            ServerLevel serverLevel = (ServerLevel) level;
+        if (level instanceof ServerLevel serverLevel) {
             serverLevel.getChunkSource().blockChanged(this.getBlockPos());
         }
     }

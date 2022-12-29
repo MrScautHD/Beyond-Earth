@@ -11,10 +11,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class FireworkRocketUseEvent extends PlayerEvent {
 
-    private FireworkRocketItem fireworkRocketItem;
-    private Level level;
-    private InteractionHand interactionHand;
-    private CallbackInfoReturnable<InteractionResultHolder<ItemStack>> callbackInfoReturnable;
+    private final FireworkRocketItem fireworkRocketItem;
+    private final Level level;
+    private final InteractionHand interactionHand;
+    private final CallbackInfoReturnable<InteractionResultHolder<ItemStack>> callbackInfoReturnable;
 
     public FireworkRocketUseEvent(Player player, FireworkRocketItem fireworkRocketItem, Level level, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> callbackInfoReturnable) {
         super(player);

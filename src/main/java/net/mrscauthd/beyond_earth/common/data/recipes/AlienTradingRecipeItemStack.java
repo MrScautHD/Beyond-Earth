@@ -18,7 +18,7 @@ import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 
 public class AlienTradingRecipeItemStack extends AlienTradingRecipeItemStackBase {
 
-	private ItemStack result;
+	private final ItemStack result;
 
 	public AlienTradingRecipeItemStack(ResourceLocation id, JsonObject json) {
 		super(id, json);

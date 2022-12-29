@@ -1,11 +1,10 @@
 {
 	"credit": "Made with Blockbench",
-	"parent": "flag_upper",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "flag",
-		"1": "flag_overlay",
-		"particle": "flag"
+		"0": "beyond_earth:block/flag/flag",
+		"1": "beyond_earth:block/flag/flag_overlay",
+		"particle": "beyond_earth:block/flag/flag"
 	},
 	"elements": [
 		{

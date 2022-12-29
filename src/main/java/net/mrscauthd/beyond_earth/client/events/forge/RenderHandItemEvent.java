@@ -10,10 +10,10 @@ import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
 
 public class RenderHandItemEvent extends Event {
-    private LivingEntity livingEntity;
-    private ItemStack itemStack;
+    private final LivingEntity livingEntity;
+    private final ItemStack itemStack;
     private final ItemTransforms.TransformType transformType;
-    private HumanoidArm handSide;
+    private final HumanoidArm handSide;
     private final PoseStack poseStack;
     private final MultiBufferSource renderTypeBuffer;
     private final int light;

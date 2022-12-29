@@ -37,7 +37,7 @@ public class OilFluidType extends FluidType {
         entity.move(MoverType.SELF, entity.getDeltaMovement());
 
         if (entity.getFluidTypeHeight(this) <= entity.getFluidJumpThreshold()) {
-            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.5D, (double)0.8F, 0.5D));
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.5D, 0.8F, 0.5D));
             Vec3 vec33 = entity.getFluidFallingAdjustedMovement(gravity, flag, entity.getDeltaMovement());
             entity.setDeltaMovement(vec33);
         } else {
@@ -50,7 +50,7 @@ public class OilFluidType extends FluidType {
 
         Vec3 vec34 = entity.getDeltaMovement();
         if (entity.horizontalCollision && entity.isFree(vec34.x, vec34.y + (double)0.6F - entity.getY() + d8, vec34.z)) {
-            entity.setDeltaMovement(vec34.x, (double)0.3F, vec34.z);
+            entity.setDeltaMovement(vec34.x, 0.3F, vec34.z);
         }
 
         return true;

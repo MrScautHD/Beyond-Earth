@@ -17,8 +17,8 @@ public class PlanetSelectionMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private int tier;
-        private Player player;
+        private final int tier;
+        private final Player player;
 
         public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
             super(ContainerRegistry.PLANET_SELECTION_GUI.get(), id);

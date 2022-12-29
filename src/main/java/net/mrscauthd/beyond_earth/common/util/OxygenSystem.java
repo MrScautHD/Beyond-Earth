@@ -17,7 +17,7 @@ import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 
 public class OxygenSystem {
 
-    public static record AirCheckResult(int O2) {
+    public record AirCheckResult(int O2) {
     }
 
     private static final AirCheckResult ALWAYS_YES = new AirCheckResult(100);
@@ -89,7 +89,6 @@ public class OxygenSystem {
 
         if (shouldFillAirSupply) {
             entity.setAirSupply(300);
-            return;
         } else if (ChunkOxygen.isVacuum(noSuitCheck.O2())) {
             entity.setAirSupply(-4);
 

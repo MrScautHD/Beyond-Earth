@@ -111,8 +111,8 @@ public class SkyHelper {
         RenderSystem.setShaderTexture(0, texture);
         int l = phase % 4;
         int i1 = phase / 4 % 2;
-        float f13 = (float) (l + 0) / 4.0F;
-        float f14 = (float) (i1 + 0) / 2.0F;
+        float f13 = (float) (l) / 4.0F;
+        float f14 = (float) (i1) / 2.0F;
         float f15 = (float) (l + 1) / 4.0F;
         float f16 = (float) (i1 + 1) / 2.0F;
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);

@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.Cancelable;
 public class LivingSetFireInHotPlanetEvent extends LivingEvent {
 
     /** KEY OF THE PLANET(WORLD) */
-    private ResourceKey<Level> planet;
+    private final ResourceKey<Level> planet;
 
     public LivingSetFireInHotPlanetEvent(LivingEntity entity, ResourceKey<Level> planet) {
         super(entity);

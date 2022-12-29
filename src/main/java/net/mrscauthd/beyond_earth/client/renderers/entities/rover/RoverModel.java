@@ -156,16 +156,16 @@ public class RoverModel<T extends RoverEntity> extends EntityModel<T> {
         this.rover.getChild("wheels").getChild("wheel4").xRot = f2 / (180F / (float) Math.PI);
 
         if (entity.getforward()) {
-            this.rover.getChild("wheels").getChild("wheel1").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel2").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel3").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel4").xRot = (float) (f / 4);
+            this.rover.getChild("wheels").getChild("wheel1").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel2").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel3").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel4").xRot = f / 4;
         }
         if (!entity.getforward()) {
-            this.rover.getChild("wheels").getChild("wheel1").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel2").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel3").xRot = (float) (f / 4);
-            this.rover.getChild("wheels").getChild("wheel4").xRot = (float) (f / 4);
+            this.rover.getChild("wheels").getChild("wheel1").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel2").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel3").xRot = f / 4;
+            this.rover.getChild("wheels").getChild("wheel4").xRot = f / 4;
         }
 
         this.rover.getChild("antenna").yRot = f2 / 20f;

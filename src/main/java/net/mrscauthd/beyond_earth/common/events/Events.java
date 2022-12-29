@@ -196,9 +196,8 @@ public class Events {
         LivingEntity entity = event.getEntity();
 
         /** RESET PLANET GUI PARAMETERS */
-        if (entity instanceof Player
+        if (entity instanceof Player player
                 && entity.getPersistentData().getBoolean(BeyondEarth.MODID + ":planet_selection_menu_open")) {
-            Player player = (Player) entity;
 
             player.closeContainer();
             Methods.resetPlanetSelectionMenuNeededNbt(player);

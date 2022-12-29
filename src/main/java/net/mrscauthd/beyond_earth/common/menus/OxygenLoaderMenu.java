@@ -25,7 +25,7 @@ public class OxygenLoaderMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private OxygenLoaderBlockEntity blockEntity;
+        private final OxygenLoaderBlockEntity blockEntity;
 
         public GuiContainer(int id, Inventory inv, OxygenLoaderBlockEntity blockEntity) {
             super(ContainerRegistry.OXYGEN_LOADER_GUI.get(), id);

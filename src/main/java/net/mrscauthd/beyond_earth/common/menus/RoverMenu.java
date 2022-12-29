@@ -34,7 +34,7 @@ public class RoverMenu {
 
 			IItemHandlerModifiable itemHandler = rover.getItemHandler();
 
-			this.addSlot(new SlotItemHandler(itemHandler, 0, 8, 63) {
+			this.addSlot(new SlotItemHandler(itemHandler, 0, 20, 26) {
 				@Override
 				public boolean mayPlace(@NotNull ItemStack stack) {
 					if (stack.getItem() instanceof BucketItem) {
@@ -44,8 +44,15 @@ public class RoverMenu {
 				}
 			});
 
+			this.addSlot(new SlotItemHandler(itemHandler, 1, 20, 56) {
+				@Override
+				public boolean mayPlace(@NotNull ItemStack stack) {
+					return false;
+				}
+			});
+
 			/** CREATE INVENTORY SLOTS */
-			MenuHelper.createInventorySlots(inv, this::addSlot, 36, 140);
+			MenuHelper.createInventorySlots(inv, this::addSlot, 8, 99);
 		}
 
 		@Override

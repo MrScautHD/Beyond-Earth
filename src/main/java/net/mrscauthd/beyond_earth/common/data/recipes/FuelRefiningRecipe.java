@@ -14,8 +14,8 @@ import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 
 public class FuelRefiningRecipe extends BeyondEarthRecipe implements Predicate<FluidStack>{
-	private FluidIngredient input;
-	private FluidIngredient output;
+	private final FluidIngredient input;
+	private final FluidIngredient output;
 
 	public FuelRefiningRecipe(ResourceLocation id, JsonObject json) {
 		super(id, json);

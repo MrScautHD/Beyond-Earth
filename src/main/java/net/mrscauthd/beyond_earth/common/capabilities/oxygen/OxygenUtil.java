@@ -34,9 +34,7 @@ public class OxygenUtil {
         if (MekanismCompat.LOADED) {
             IOxygenStorage adapter = MekanismHelper.getItemStackOxygenAdapter(itemStack);
 
-            if (adapter != null) {
-                return adapter;
-            }
+            return adapter;
         }
 
         return null;

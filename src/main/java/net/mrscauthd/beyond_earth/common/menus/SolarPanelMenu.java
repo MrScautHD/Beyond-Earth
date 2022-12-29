@@ -22,7 +22,7 @@ public class SolarPanelMenu {
     }
 
     public static class GuiContainer extends AbstractContainerMenu {
-        private SolarPanelBlockEntity blockEntity;
+        private final SolarPanelBlockEntity blockEntity;
 
         public GuiContainer(int id, Inventory inv, SolarPanelBlockEntity blockEntity) {
             super(ContainerRegistry.SOLAR_PANEL_GUI.get(), id);

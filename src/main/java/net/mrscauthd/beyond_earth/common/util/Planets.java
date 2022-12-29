@@ -480,7 +480,7 @@ public class Planets {
             super.init();
             moons.forEach(moon -> moon.init());
         }
-    };
+    }
 
     public static class StarSystem extends CelestialBody {
         public List<Planet> planets;

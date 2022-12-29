@@ -113,9 +113,9 @@ public class JetSuit {
             HOVER(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_hover_mode"), ChatFormatting.GREEN, 2),
             ELYTRA(Component.translatable("general." + BeyondEarth.MODID + ".jet_suit_elytra_mode"), ChatFormatting.GREEN, 3);
 
-            private int mode;
-            private ChatFormatting chatFormatting;
-            private Component component;
+            private final int mode;
+            private final ChatFormatting chatFormatting;
+            private final Component component;
 
             ModeType(Component component, ChatFormatting chatFormatting, int mode) {
                 this.mode = mode;
@@ -219,8 +219,7 @@ public class JetSuit {
                     if (!player.isOnGround() && player.isCrouching()) {
                         player.moveRelative(2.0F, new Vec3(0, -0.008, 0));
 
-                        if (player instanceof LocalPlayer) {
-                            LocalPlayer localPlayer = (LocalPlayer) player;
+                        if (player instanceof LocalPlayer localPlayer) {
                             localPlayer.crouching = false;
                         }
                     }
