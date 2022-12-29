@@ -40,6 +40,7 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.DESH_PLATING_BLOCK.get());
         this.dropSelf(BlockRegistry.BLUE_IRON_PILLAR.get());
         this.dropSelf(BlockRegistry.BARRICADE_BLOCK.get());
+        this.dropSelf(BlockRegistry.IRON_MARK_BLOCK.get());
         this.dropSelf(BlockRegistry.METEORITE.get());
         this.dropSelf(BlockRegistry.INFERNAL_SPIRE.get());
         this.dropSelf(BlockRegistry.MOON_STONE.get());
