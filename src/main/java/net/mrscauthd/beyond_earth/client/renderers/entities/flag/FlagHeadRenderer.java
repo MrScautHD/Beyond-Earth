@@ -80,8 +80,7 @@ public class FlagHeadRenderer implements BlockEntityRenderer<FlagBlockEntity> {
 	public static void render(@Nullable Direction directionIn, float p_228879_1_, FlagBlock.ISkullType skullType, @Nullable GameProfile gameProfileIn, float animationProgress, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight) {
 		FlagHeadModel genericheadmodel = MODELS.get(skullType);
 		matrixStackIn.pushPose();
-
-		matrixStackIn.translate(0D, 0.031D, 0.75D);
+		matrixStackIn.translate(0D, 0.031D, 0.75D /** -directionIn.getAxisDirection().getStep()*/ );
 		matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
 
 		VertexConsumer ivertexbuilder = buffer.getBuffer(getRenderType(skullType, gameProfileIn));

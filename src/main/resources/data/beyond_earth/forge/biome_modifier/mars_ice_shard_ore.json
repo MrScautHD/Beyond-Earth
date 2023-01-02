@@ -1,0 +1,5 @@
+{
+  "type": "beyond_earth:ores",
+  "biomes": "#beyond_earth:mars",
+  "feature": "beyond_earth:mars_ice_shard_ore"
+}
