@@ -55,7 +55,6 @@ public class NetheriteSpaceSuit {
 	}
 
 	public static class Suit extends ISpaceArmor.Chestplate {
-
 		public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}

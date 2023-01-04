@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "beyond_earth:block/wall_coal_torch",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "beyond_earth:block/wall_coal_torch"
+
+    },
+    "facing=south": {
+      "model": "beyond_earth:block/wall_coal_torch",
+      "y": 90
+    },
+    "facing=west": {
+      "model": "beyond_earth:block/wall_coal_torch",
+      "y": 180
+    }
+  }
+}
