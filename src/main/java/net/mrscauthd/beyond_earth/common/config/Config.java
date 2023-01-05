@@ -87,9 +87,7 @@ public class Config {
         public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_3_FUEL_BUCKETS;
 
         public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FUEL_BUCKETS;
-        
-        /** Steel Management */
-        public static final ForgeConfigSpec.ConfigValue<Integer> STEEL_MANAGEMENT;
+
 
 	static {
 		BUILDER.push("Beyond Earth Config");
@@ -201,11 +199,13 @@ public class Config {
             BUILDER.pop();
             /** End of Vehicles */
 
-                BUILDER.push("Steel");
-                /** Steel Management */
+            /** Steel Management */
+            //TODO : REWORK STEEL_MANAGEMENT
+               /** BUILDER.push("Steel");
+
                 STEEL_MANAGEMENT = BUILDER.comment("Management Steel Items", "0: Default, Nothing special, Use steel items as-is", "1: Iron Ingot can't blasting into be steel ingot", "2: Additionally, Steel Block and Ingot and Nugget are can't conversion to each shape", "    And hide Steel Block, Ingot, Nugget in JEI").defineInRange("Steel Management", 0, 0, 2);
 
-                BUILDER.pop();
+                BUILDER.pop();*/
 		SPEC = BUILDER.build();
 	}
 }

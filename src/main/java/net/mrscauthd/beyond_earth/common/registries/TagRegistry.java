@@ -4,6 +4,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.material.Fluid;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
@@ -17,4 +18,11 @@ public class TagRegistry {
     /** FLUIDS */
     public static final TagKey<Fluid> FLUID_VEHICLE_FUEL_TAG = TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "vehicle_fuel"));
     public static final TagKey<Fluid> FLUID_OIL_FLUID_TAG = TagKey.create(Registry.FLUID_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "oil"));
+
+    /** BIOMES */
+    public static final TagKey<Biome> GLACIO_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "glacio"));
+    public static final TagKey<Biome> MARS_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mars"));
+    public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury"));
+    public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon"));
+    public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus"));
 }

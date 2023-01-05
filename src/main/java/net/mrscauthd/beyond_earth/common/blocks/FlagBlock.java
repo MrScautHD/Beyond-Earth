@@ -45,15 +45,7 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-	public static VoxelShape SOUTH_SHAPE = Shapes.empty();
-	public static VoxelShape NORTH_SHAPE = Shapes.empty();
-	public static VoxelShape EAST_SHAPE = Shapes.empty();
-	public static VoxelShape WEST_SHAPE = Shapes.empty();
-
-	public static VoxelShape LOWER_SOUTH_SHAPE = Shapes.empty();
-	public static VoxelShape LOWER_NORTH_SHAPE = Shapes.empty();
-	public static VoxelShape LOWER_EAST_SHAPE = Shapes.empty();
-	public static VoxelShape LOWER_WEST_SHAPE = Shapes.empty();
+	public static final VoxelShape SHAPE = Shapes.box((double)7/16, 0, (double)7/16, (double)9/16, 1, (double)9/16);
 
 	public FlagBlock(BlockBehaviour.Properties builder) {
 		super(builder);
@@ -61,63 +53,13 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (state.getValue(HALF) == DoubleBlockHalf.LOWER) {
-			switch (state.getValue(FACING)) {
-				case NORTH:
-				default:
-					return LOWER_NORTH_SHAPE;
-				case SOUTH:
-					return LOWER_SOUTH_SHAPE;
-				case EAST:
-					return LOWER_EAST_SHAPE;
-				case WEST:
-					return LOWER_WEST_SHAPE;
-			}
-		} else {
-			switch (state.getValue(FACING)) {
-				case NORTH:
-				default:
-					return NORTH_SHAPE;
-				case SOUTH:
-					return SOUTH_SHAPE;
-				case EAST:
-					return EAST_SHAPE;
-				case WEST:
-					return WEST_SHAPE;
-			}
-		}
-	}
-
-	static {
-		NORTH_SHAPE = Shapes.join(NORTH_SHAPE, Shapes.box(0.125, 0, 0.46875, 0.1875, 1, 0.53125), BooleanOp.OR);
-		NORTH_SHAPE = Shapes.join(NORTH_SHAPE, Shapes.box(0.1875, 0.4375, 0.4996875, 0.9375, 0.9375, 0.5), BooleanOp.OR);
-
-		SOUTH_SHAPE = Shapes.join(SOUTH_SHAPE, Shapes.box(0.8125, 0, 0.46875, 0.875, 1, 0.53125), BooleanOp.OR);
-		SOUTH_SHAPE = Shapes.join(SOUTH_SHAPE, Shapes.box(0.0625, 0.4375, 0.4996875, 0.8125, 0.9375, 0.5), BooleanOp.OR);
-
-		EAST_SHAPE = Shapes.join(EAST_SHAPE, Shapes.box(0.46875, 0, 0.125, 0.53125, 1, 0.1875), BooleanOp.OR);
-		EAST_SHAPE = Shapes.join(EAST_SHAPE, Shapes.box(0.49975, 0.4375, 0.1875, 0.5000625, 0.9375, 0.9375), BooleanOp.OR);
-
-		WEST_SHAPE = Shapes.join(WEST_SHAPE, Shapes.box(0.46875, 0, 0.8125, 0.53125, 1, 0.875), BooleanOp.OR);
-		WEST_SHAPE = Shapes.join(WEST_SHAPE, Shapes.box(0.49975, 0.4375, 0.0625, 0.5000625, 0.9375, 0.8125), BooleanOp.OR);
-
-		LOWER_NORTH_SHAPE = Shapes.join(LOWER_NORTH_SHAPE, Shapes.box(0.125, 0.0625, 0.46875, 0.1875, 1, 0.53125), BooleanOp.OR);
-		LOWER_NORTH_SHAPE = Shapes.join(LOWER_NORTH_SHAPE, Shapes.box(0.09375, 0, 0.4375, 0.21875, 0.0625, 0.5625), BooleanOp.OR);
-
-		LOWER_SOUTH_SHAPE = Shapes.join(LOWER_SOUTH_SHAPE, Shapes.box(0.8125, 0.0625, 0.46875, 0.875, 1, 0.53125), BooleanOp.OR);
-		LOWER_SOUTH_SHAPE = Shapes.join(LOWER_SOUTH_SHAPE, Shapes.box(0.78125, 0, 0.4375, 0.90625, 0.0625, 0.5625), BooleanOp.OR);
-
-		LOWER_EAST_SHAPE = Shapes.join(LOWER_EAST_SHAPE, Shapes.box(0.46875, 0.0625, 0.125, 0.53125, 1, 0.1875), BooleanOp.OR);
-		LOWER_EAST_SHAPE = Shapes.join(LOWER_EAST_SHAPE, Shapes.box(0.4375, 0, 0.09375, 0.5625, 0.0625, 0.21875), BooleanOp.OR);
-
-		LOWER_WEST_SHAPE = Shapes.join(LOWER_WEST_SHAPE, Shapes.box(0.46875, 0.0625, 0.8125, 0.53125, 1, 0.875), BooleanOp.OR);
-		LOWER_WEST_SHAPE = Shapes.join(LOWER_WEST_SHAPE, Shapes.box(0.4375, 0, 0.78125, 0.5625, 0.0625, 0.90625), BooleanOp.OR);
+	public RenderShape getRenderShape(BlockState p_49232_) {
+		return RenderShape.MODEL;
 	}
 
 	@Override
-	public RenderShape getRenderShape(BlockState p_49232_) {
-		return RenderShape.MODEL;
+	public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+		return SHAPE;
 	}
 
 	@SuppressWarnings("deprecation")

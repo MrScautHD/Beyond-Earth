@@ -166,6 +166,7 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> BLUE_IRON_PILLAR_BLOCK_ITEM = ITEMS.register("blue_iron_pillar", () -> new BlockItem(BlockRegistry.BLUE_IRON_PILLAR.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> INFERNAL_SPIRE_ITEM = ITEMS.register("infernal_spire", () -> new BlockItem(BlockRegistry.INFERNAL_SPIRE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> BARRICADE_BLOCK_ITEM = ITEMS.register("barricade_block", () -> new BlockItem(BlockRegistry.BARRICADE_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
+    public static final RegistryObject<BlockItem> IRON_MARK_BLOCK_ITEM = ITEMS.register("iron_mark_block", () -> new BlockItem(BlockRegistry.IRON_MARK_BLOCK.get(), new Item.Properties().tab(Tabs.tab_blocks)));
     public static final RegistryObject<BlockItem> METEORITE_ITEM = ITEMS.register("meteorite", () -> new BlockItem(BlockRegistry.METEORITE.get(), new Item.Properties().tab(Tabs.tab_blocks)));
 
     // MOON BLOCK ITEMS

@@ -8,13 +8,13 @@
   ],
   "key": {
     "0": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item":"beyond_earth:compressed_steel"
     },
     "1": {
       "item": "minecraft:crafting_table"
     },
     "2": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item":"beyond_earth:compressed_steel"
     },
     "3": {
       "item": "minecraft:lever"
@@ -26,13 +26,13 @@
       "item": "minecraft:lever"
     },
     "6": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item":"beyond_earth:compressed_steel"
     },
     "7": {
       "item": "minecraft:redstone_torch"
     },
     "8": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item":"beyond_earth:compressed_steel"
     }
   },
   "result": {

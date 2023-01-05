@@ -20,13 +20,13 @@
       "tag": "forge:plates/iron"
     },
     "6": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item": "beyond_earth:compressed_steel"
     },
     "7": {
       "tag": "forge:ingots/steel"
     },
     "8": {
-      "tag": "beyond_earth:compresseds/steel"
+      "item": "beyond_earth:compressed_steel"
     }
   },
   "result": {

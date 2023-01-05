@@ -40,6 +40,7 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.DESH_PLATING_BLOCK.get());
         this.dropSelf(BlockRegistry.BLUE_IRON_PILLAR.get());
         this.dropSelf(BlockRegistry.BARRICADE_BLOCK.get());
+        this.dropSelf(BlockRegistry.IRON_MARK_BLOCK.get());
         this.dropSelf(BlockRegistry.METEORITE.get());
         this.dropSelf(BlockRegistry.INFERNAL_SPIRE.get());
         this.dropSelf(BlockRegistry.MOON_STONE.get());
@@ -73,6 +74,14 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICKS.get());
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICK_SLAB.get());
         this.dropSelf(BlockRegistry.GLACIO_STONE_BRICK_STAIRS.get());
+        this.dropSelf(BlockRegistry.FUEL_REFINERY_BLOCK.get());
+        this.dropSelf(BlockRegistry.COMPRESSOR_BLOCK.get());
+        this.dropSelf(BlockRegistry.COAL_GENERATOR_BLOCK.get());
+        this.dropSelf(BlockRegistry.OXYGEN_LOADER_BLOCK.get());
+        this.dropSelf(BlockRegistry.SOLAR_PANEL_BLOCK.get());
+        this.dropSelf(BlockRegistry.NASA_WORKBENCH_BLOCK.get());
+        this.dropSelf(BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get());
+        this.dropSelf(BlockRegistry.WATER_PUMP_BLOCK.get());
 
         /** ORE DROP */
         this.add(BlockRegistry.MOON_CHEESE_ORE.get(), (block) -> createOreDrop(block, ItemsRegistry.CHEESE.get()));

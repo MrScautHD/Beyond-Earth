@@ -50,7 +50,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
             "textures/gui/util/buttons/large_button.png");
 
     public static final ResourceLocation MILKY_WAY_TEXTURE = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/util/the_milky_way.png");
+            "textures/gui/util/milky_way.png");
 
     public static final ResourceLocation SMALL_MENU_LIST = new ResourceLocation(BeyondEarth.MODID,
             "textures/gui/util/planet_menu.png");

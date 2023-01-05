@@ -101,6 +101,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> DESH_PLATING_BLOCK = BLOCKS.register("desh_plating_block", () -> new Block(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<RotatedPillarBlock> BLUE_IRON_PILLAR = BLOCKS.register("blue_iron_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).lightLevel(state -> 15).requiresCorrectToolForDrops()));
     public static final RegistryObject<RotatedPillarBlock> BARRICADE_BLOCK = BLOCKS.register("barricade_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
+    public static final RegistryObject<RotatedPillarBlock> IRON_MARK_BLOCK = BLOCKS.register("iron_mark_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     // NATURAL BLOCKS (without category)
     public static final RegistryObject<Block> METEORITE = BLOCKS.register("meteorite", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));

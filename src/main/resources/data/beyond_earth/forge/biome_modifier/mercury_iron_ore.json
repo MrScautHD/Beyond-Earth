@@ -1,0 +1,5 @@
+{
+  "type": "beyond_earth:ores",
+  "biomes": "#beyond_earth:mercury",
+  "feature": "beyond_earth:mercury_iron_ore"
+}

@@ -4,6 +4,7 @@
 	"textures": {
 		"0": "beyond_earth:block/flag/flag",
 		"1": "beyond_earth:block/flag/flag_overlay",
+		"missing": "beyond_earth:block/flag/flag",
 		"particle": "beyond_earth:block/flag/flag"
 	},
 	"elements": [

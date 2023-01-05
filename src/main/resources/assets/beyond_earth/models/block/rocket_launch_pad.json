@@ -1,10 +1,8 @@
 {
-  "variants": {
-    "lit=false": {
-      "model": "beyond_earth:custom/rocket_launch_pad"
-    },
-    "lit=true": {
-      "model": "beyond_earth:custom/large_rocket_launch_pad"
-    }
+  "parent": "beyond_earth:custom/rocket_launch_pad",
+  "textures": {
+    "all": "beyond_earth:block/rocket_launch_pad",
+    "particle": "beyond_earth:block/rocket_launch_pad",
+    "1": "beyond_earth:block/rocket_launch_pad"
   }
 }
