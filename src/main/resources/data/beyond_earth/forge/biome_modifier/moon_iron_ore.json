@@ -1,5 +1,6 @@
 {
-  "type": "beyond_earth:ores",
+  "type": "forge:add_features",
   "biomes": "#beyond_earth:moon",
-  "feature": "beyond_earth:moon_iron_ore"
+  "features": "beyond_earth:moon_iron_ore",
+  "step": "underground_ores"
 }

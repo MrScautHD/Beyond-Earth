@@ -1,5 +1,6 @@
 {
-  "type": "beyond_earth:ores",
+  "type": "forge:add_features",
   "biomes": "#beyond_earth:glacio",
-  "feature": "beyond_earth:glacio_ice_shard_ore"
+  "features": "beyond_earth:glacio_ice_shard_ore",
+  "step": "underground_ores"
 }

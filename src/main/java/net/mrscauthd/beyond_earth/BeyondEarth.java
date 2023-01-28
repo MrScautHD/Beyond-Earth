@@ -6,8 +6,8 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.*;
+import net.mrscauthd.beyond_earth.common.world.ModConfiguredFeature;
 import net.mrscauthd.beyond_earth.common.world.ModPlacedFeature;
-import net.mrscauthd.beyond_earth.common.world.modifiers.ModBiomeModifiers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -47,7 +47,8 @@ public class BeyondEarth {
 		StructureRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
 		ModPlacedFeature.PLACED_FEATURE.register(bus);
-		ModBiomeModifiers.BIOME_MODIFIERS.register(bus);
+		ModConfiguredFeature.CONFIGURED_FEATURES.register(bus);
+		//ModBiomeModifiers.BIOME_MODIFIERS.register(bus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}

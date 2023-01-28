@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.common.registries;
 
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -25,4 +26,5 @@ public class TagRegistry {
     public static final TagKey<Biome> MERCURY_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "mercury"));
     public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "moon"));
     public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registry.BIOME_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "venus"));
+
 }
