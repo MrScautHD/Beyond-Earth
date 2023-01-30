@@ -37,11 +37,7 @@
       "minecraft:ore_magma",
       "minecraft:spring_closed_double",
 	  "beyond_earth:small_infernal_spire_column",
-	  "beyond_earth:large_infernal_spire_column",
-	  "beyond_earth:venus_coal_ore",
-	  "beyond_earth:venus_gold_ore",
-	  "beyond_earth:venus_diamond_ore",
-	  "beyond_earth:venus_calorite_ore"
+	  "beyond_earth:large_infernal_spire_column"
     ]
   ]
 }
