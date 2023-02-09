@@ -1,0 +1,12 @@
+{
+	"type": "beyond_earth:alien_trading_itemstack",
+	"job": "minecraft:butcher",
+	"level": 4,
+	"xp": 30,
+	"costA": {
+		"item": "minecraft:emerald"
+	},
+	"result": {
+		"item": "beyond_earth:cheese"
+	}
+}

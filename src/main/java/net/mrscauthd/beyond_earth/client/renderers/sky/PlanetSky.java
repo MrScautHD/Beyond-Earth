@@ -54,16 +54,20 @@ public class PlanetSky extends DimensionSpecialEffects {
 
     @Override
     public Vec3 getBrightnessDependentFogColor(Vec3 colour, float brightness) {
-        // If we have no iar density, return nothing
-        if (planet.airDensity <= 0)
-            return colour;
-        // This is the default used by overworld
+        if (planet != null) {
+            // If we have no iar density, return nothing
+            if (planet.airDensity <= 0)
+                return colour;
+            // This is the default used by overworld
+        }
         return colour.multiply(brightness * 0.94F + 0.06F, brightness * 0.94F + 0.06F, brightness * 0.91F + 0.09F);
     }
 
     @Nullable
     @Override
     public float[] getSunriseColor(float time, float partialTick) {
+        if (planet == null)
+            return null;
         // No colour if planet has it disabled.
         if (planet.airDensity <= 0 || planet.sunriseColour[0] < 0) {
             sunriseCol[0] = 0;
@@ -101,20 +105,28 @@ public class PlanetSky extends DimensionSpecialEffects {
 
     @Override
     public boolean renderClouds(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, double camX,
-            double camY, double camZ, Matrix4f projectionMatrix) {
+                                double camY, double camZ, Matrix4f projectionMatrix) {
+        if (planet == null)
+            return false;
         // If we return true, but do nothing, it disables cloud rendering!
         return !planet.hasClouds;
     }
 
     @Override
     public boolean tickRain(ClientLevel level, int ticks, Camera camera) {
+        if (planet == null)
+            return false;
         // If we return true, but do nothing, it disables rain rendering!
         return !planet.hasRain;
     }
 
     @Override
     public boolean renderSky(ClientLevel level, int ticks, float partialTick, PoseStack poseStack, Camera camera,
-            Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
+                             Matrix4f projectionMatrix, boolean isFoggy, Runnable setupFog) {
+
+        if (planet == null)
+            return false;
+
         Minecraft mc = Minecraft.getInstance();
 
         setupFog.run();
@@ -190,7 +202,9 @@ public class PlanetSky extends DimensionSpecialEffects {
 
     @Override
     public boolean renderSnowAndRain(ClientLevel level, int ticks, float partialTick, LightTexture lightTexture,
-            double camX, double camY, double camZ) {
+                                     double camX, double camY, double camZ) {
+        if (planet == null)
+            return false;
 
         if (planet.hasDustStorms) {
             Minecraft mc = Minecraft.getInstance();

@@ -80,7 +80,6 @@ public class JetSuit {
         //TODO FINISH ANIMATIONS
         //TODO ADD ENERGY CAP
         //TODO REWORK OVERLAY
-        //TODO ADD RECIPE
 
         @Override
         public void initializeClient(Consumer<IClientItemExtensions> consumer) {
@@ -93,7 +92,6 @@ public class JetSuit {
                             "body", new JetSuitModel.JetSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).body,
                             "right_arm", new JetSuitModel.JetSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).rightArm,
                             "left_arm", new JetSuitModel.JetSuitP1<>(Minecraft.getInstance().getEntityModels().bakeLayer(JetSuitModel.JetSuitP1.LAYER_LOCATION)).leftArm,
-
                             "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
                             "left_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap())
