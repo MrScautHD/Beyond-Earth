@@ -25,12 +25,5 @@
       "minecraft:canyon"
     ]
   },
-  "features": [
-    [
-      "beyond_earth:venus_coal_ore",
-      "beyond_earth:venus_gold_ore",
-      "beyond_earth:venus_diamond_ore",
-      "beyond_earth:venus_calorite_ore"
-    ]
-  ]
+  "features": []
 }

@@ -14,7 +14,7 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.NamedCom
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemEnergyCommon;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.power.PowerSystemRegistry;
 import net.mrscauthd.beyond_earth.common.capabilities.energy.EnergyStorageBasic;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
@@ -139,7 +139,7 @@ public class OxygenLoaderBlockEntity extends OxygenMakingBlockEntity {
         return slot == this.getOutputSinkSlot() || super.isSinkSlot(slot);
     }
 
-    public OxygenStorage slotToOxygenTank(int slot) {
+    public IOxygenStorage slotToOxygenTank(int slot) {
         if (slot == this.getOutputSourceSlot() || slot == this.getOutputSinkSlot()) {
             return this.getOutputTank();
         } else {

@@ -199,7 +199,7 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
         return hasSpaceInOutput(oxygen, this.getOutputTank());
     }
 
-    public boolean hasSpaceInOutput(int oxygen, OxygenStorage storage) {
+    public boolean hasSpaceInOutput(int oxygen, IOxygenStorage storage) {
         return (oxygen + storage.getOxygen()) <= storage.getMaxCapacity();
     }
 
@@ -253,7 +253,7 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
         }
     }
 
-    public OxygenStorage slotToOxygenTank(int slot) {
+    public IOxygenStorage slotToOxygenTank(int slot) {
         return null;
     }
 

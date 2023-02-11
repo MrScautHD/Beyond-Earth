@@ -1,5 +1,6 @@
 {
-  "type": "beyond_earth:ores",
+  "type": "forge:add_features",
   "biomes": "#beyond_earth:mars",
-  "feature": "beyond_earth:mars_iron_ore"
+  "features": "beyond_earth:mars_iron_ore",
+  "step": "underground_ores"
 }

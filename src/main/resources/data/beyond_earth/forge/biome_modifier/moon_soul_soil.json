@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
   "biomes": "#beyond_earth:moon",
-  "features": "beyond_earth:moon_ice_shard_ore",
+  "features": "beyond_earth:moon_soul_soil",
   "step": "underground_ores"
 }

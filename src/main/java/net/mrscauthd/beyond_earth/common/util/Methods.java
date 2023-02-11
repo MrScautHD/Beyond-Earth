@@ -41,6 +41,9 @@ import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
+import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
+import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -399,4 +402,5 @@ public class Methods {
             player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".no_fuel"), false);
         }
     }
+
 }

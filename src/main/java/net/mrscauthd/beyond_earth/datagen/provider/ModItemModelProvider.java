@@ -71,6 +71,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         spawnEggModel(ItemsRegistry.MARTIAN_RAPTOR_SPAWN_EGG);
 
         /** ARMOR ITEM MODELS */
+        //armorItemModel(ItemsRegistry.OXYGEN_MASK);
         armorItemModel(ItemsRegistry.SPACE_HELMET);
         armorItemModel(ItemsRegistry.SPACE_SUIT);
         armorItemModel(ItemsRegistry.SPACE_PANTS);

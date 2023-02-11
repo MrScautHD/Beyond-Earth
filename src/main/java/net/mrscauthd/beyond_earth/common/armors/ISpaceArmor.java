@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.common.armors;
 import java.util.HashMap;
 import java.util.List;
 
+import net.mrscauthd.beyond_earth.common.util.Methods;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.collect.Maps;
@@ -54,9 +55,7 @@ public abstract class ISpaceArmor extends ArmorItem {
                 ItemStack itemStack = new ItemStack(this);
                 IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
 
-                if (oxygen != null) {
-                    oxygen.setOxygen(oxygen.getMaxCapacity());
-                }
+                oxygen.setOxygen(oxygen.getMaxCapacity());
 
                 list.add(itemStack);
             }
@@ -66,10 +65,7 @@ public abstract class ISpaceArmor extends ArmorItem {
         public void appendHoverText(ItemStack itemStack, Level level, List<Component> list, TooltipFlag tooltipFlag) {
             super.appendHoverText(itemStack, level, list, tooltipFlag);
             IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
-
-            if (oxygen != null) {
-                list.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));
-            }
+            list.add(Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A76" + oxygen.getOxygen() + " mb" +  "\u00A78" + " | " + "\u00A7c" + oxygen.getMaxCapacity() + " mb"));
         }
 
         @Override
@@ -80,6 +76,7 @@ public abstract class ISpaceArmor extends ArmorItem {
         @Override
         public void onArmorTick(ItemStack stack, Level level, Player player) {
             super.onArmorTick(stack, level, player);
+
         }
 
         public abstract int getOxygenCapacity();
