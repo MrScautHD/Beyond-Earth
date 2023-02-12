@@ -82,6 +82,8 @@ repositories {
     maven { name = "Progwml6 maven"; url = "https://dvs1.progwml6.com/files/maven/" }
     maven { name = "ModMaven"; url = "https://modmaven.dev" }
     maven { name = "CurseForge"; url = "https://www.cursemaven.com" }
+    /** Craft Tweaker */
+    //maven { name = "BlameJared maven"; url = "https://maven.blamejared.com" }
 }
 
 mixin {
@@ -107,6 +109,9 @@ dependencies {
     
     /** Mekanism */
     implementation fg.deobf("mekanism:Mekanism:${mc_version}-${mekanism_version}")
+
+    /** Craft Tweaker */
+    //implementation fg.deobf("com.blamejared.crafttweaker:CraftTweaker-forge-${mc_version}:${crafttweaker_version}")
 }
 
 jar {

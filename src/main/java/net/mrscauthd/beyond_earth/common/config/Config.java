@@ -88,6 +88,9 @@ public class Config {
 
         public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FUEL_BUCKETS;
 
+        public static final ForgeConfigSpec.ConfigValue<Boolean> WATER_TO_ICE_MOON;
+        public static final ForgeConfigSpec.ConfigValue<Boolean> WATER_TO_ICE_GLACIO;
+
 
 	static {
 		BUILDER.push("Beyond Earth Config");
@@ -206,6 +209,13 @@ public class Config {
                 STEEL_MANAGEMENT = BUILDER.comment("Management Steel Items", "0: Default, Nothing special, Use steel items as-is", "1: Iron Ingot can't blasting into be steel ingot", "2: Additionally, Steel Block and Ingot and Nugget are can't conversion to each shape", "    And hide Steel Block, Ingot, Nugget in JEI").defineInRange("Steel Management", 0, 0, 2);
 
                 BUILDER.pop();*/
-		SPEC = BUILDER.build();
+
+            /** Water to ice */
+            BUILDER.push("Water to Ice");
+            WATER_TO_ICE_MOON = BUILDER.comment("Enable or Disable Water the transformation of water into ice on the moon").define("Water to ice moon", false);
+            WATER_TO_ICE_GLACIO = BUILDER.comment("Enable or Disable Water the transformation of water into ice on glacio").define("Water to ice glacio", false);
+            BUILDER.pop();
+
+            SPEC = BUILDER.build();
 	}
 }
