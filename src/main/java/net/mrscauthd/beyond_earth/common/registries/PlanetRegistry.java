@@ -2,14 +2,12 @@ package net.mrscauthd.beyond_earth.common.registries;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 
 import static net.mrscauthd.beyond_earth.common.util.Planets.BY_DIMENSION;
 
-public class PlanetsRegistry {
+public class PlanetRegistry {
 
     /** PLANET BAR TEXTURES */
     private static final ResourceLocation MOON_PLANET_BAR = new ResourceLocation(BeyondEarth.MODID,

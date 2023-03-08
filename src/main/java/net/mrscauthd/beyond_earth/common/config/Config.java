@@ -212,8 +212,8 @@ public class Config {
 
             /** Water to ice */
             BUILDER.push("Water to Ice");
-            WATER_TO_ICE_MOON = BUILDER.comment("Enable or Disable Water the transformation of water into ice on the moon").define("Water to ice moon", false);
-            WATER_TO_ICE_GLACIO = BUILDER.comment("Enable or Disable Water the transformation of water into ice on glacio").define("Water to ice glacio", false);
+            WATER_TO_ICE_MOON = BUILDER.comment("Enable or Disable the transformation of water into ice on the moon").define("Water to ice moon", false);
+            WATER_TO_ICE_GLACIO = BUILDER.comment("Enable or Disable the transformation of water into ice on glacio").define("Water to ice glacio", false);
             BUILDER.pop();
 
             SPEC = BUILDER.build();

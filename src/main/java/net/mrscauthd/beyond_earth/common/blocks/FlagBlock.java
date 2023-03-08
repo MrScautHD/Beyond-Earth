@@ -1,9 +1,6 @@
 package net.mrscauthd.beyond_earth.common.blocks;
 
-import javax.annotation.Nullable;
-
 import com.mojang.authlib.GameProfile;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -22,25 +19,25 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.*;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
+import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
+
+import javax.annotation.Nullable;
+
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.DOUBLE_BLOCK_HALF;
 
 public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
-	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
+	public static final EnumProperty<DoubleBlockHalf> HALF = DOUBLE_BLOCK_HALF;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
 	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
@@ -82,6 +79,7 @@ public class FlagBlock extends BaseEntityBlock implements SimpleWaterloggedBlock
 			removeBottomHalf(worldIn, pos, state, player);
 		}
 		super.playerWillDestroy(worldIn, pos, state, player);
+		player.addItem(ItemsRegistry.FLAG_ITEM.get().getDefaultInstance());
 	}
 
 	protected static void removeBottomHalf(Level world, BlockPos pos, BlockState state, Player player) {

@@ -24,7 +24,6 @@ public class BlockLootTables extends BlockLoot {
         this.dropSelf(BlockRegistry.MERCURY_GLOBE_BLOCK.get());
         this.dropSelf(BlockRegistry.VENUS_GLOBE_BLOCK.get());
         this.dropSelf(BlockRegistry.GLACIO_GLOBE_BLOCK.get());
-        this.dropSelf(BlockRegistry.FLAG_BLOCK.get());
         this.dropSelf(BlockRegistry.MOON_SAND.get());
         this.dropSelf(BlockRegistry.MARS_SAND.get());
         this.dropSelf(BlockRegistry.VENUS_SAND.get());

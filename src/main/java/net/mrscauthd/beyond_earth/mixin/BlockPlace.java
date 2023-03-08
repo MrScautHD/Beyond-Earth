@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.mixin;
 
-import mekanism.common.lib.math.Plane;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -9,8 +8,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.events.forge.BlockSetEvent;
 import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
-import net.mrscauthd.beyond_earth.common.registries.PlanetsRegistry;
-import net.mrscauthd.beyond_earth.common.util.Planets;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

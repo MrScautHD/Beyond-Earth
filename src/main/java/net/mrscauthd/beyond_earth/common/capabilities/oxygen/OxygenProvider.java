@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.capabilities.oxygen;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
@@ -11,29 +12,34 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class OxygenProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
+public class OxygenProvider implements ICapabilityProvider, IOxygenStorageHolder {
     public static Capability<OxygenStorage> OXYGEN = CapabilityManager.get(new CapabilityToken<>() {
     });
+    public static final String KEY_OXYGEN = "Energy"; // for compatible other code
 
-    private OxygenStorage oxygenStorage;
-    private final int capacity;
+    private ItemStack itemStack;
+    private IOxygenStorage oxygenStorage;
 
-    public OxygenProvider(int capacity) {
-        this.capacity = capacity;
+    public OxygenProvider(ItemStack itemStack, int capacity) {
+        this.itemStack = itemStack;
+        this.oxygenStorage = new OxygenStorage(this, capacity);
+
+        this.readOxygen();
     }
 
-    private OxygenStorage getOxygenStorage() {
-        if (this.oxygenStorage == null) {
-            this.oxygenStorage = new OxygenStorage();
-            this.oxygenStorage.setMaxCapacity(this.capacity);
-        }
+    private void readOxygen() {
+        CompoundTag compound = this.getItemStack().getOrCreateTag();
+        this.getOxygenStorage().setOxygen(compound.getInt(KEY_OXYGEN));
+    }
 
-        return this.oxygenStorage;
+    public void writeOxygen() {
+        CompoundTag compound = this.getItemStack().getOrCreateTag();
+        compound.putInt(KEY_OXYGEN, this.getOxygenStorage().getOxygen());
     }
 
     @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(cap, this::getOxygenStorage);
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction direction) {
+        LazyOptional<T> oxygenCapability = OxygenUtil.getOxygenCapability(capability, this::getOxygenStorage);
 
         if (oxygenCapability.isPresent()) {
             return oxygenCapability;
@@ -43,12 +49,15 @@ public class OxygenProvider implements ICapabilityProvider, INBTSerializable<Com
     }
 
     @Override
-    public CompoundTag serializeNBT() {
-        return this.getOxygenStorage().serializeNBT();
+    public void onOxygenChanged(IOxygenStorage oxygenStorage, int oxygenDelta) {
+        this.writeOxygen();
     }
 
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        this.getOxygenStorage().deserializeNBT(nbt);
+    public ItemStack getItemStack() {
+        return this.itemStack;
+    }
+
+    public IOxygenStorage getOxygenStorage() {
+        return this.oxygenStorage;
     }
 }

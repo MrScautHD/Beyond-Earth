@@ -7,8 +7,9 @@ modId="beyond_earth"
 version="${mod_version}"
 displayName="Beyond Earth"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/beyond-earth"
+issueTrackerURL = "https://github.com/MrScautHD/Beyond-Earth/issues"
 logoFile="logo.png"
-authors="MrScautHD"
+authors="MrScautHD, St0x0ef and other contributor"
 description='''Fly to Other Planets and Beyond!'''
 
 [[dependencies.beyond_earth]]

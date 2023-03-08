@@ -70,7 +70,7 @@ public abstract class ISpaceArmor extends ArmorItem {
 
         @Override
         public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-            return new OxygenProvider(this.getOxygenCapacity());
+            return new OxygenProvider(stack, this.getOxygenCapacity());
         }
 
         @Override

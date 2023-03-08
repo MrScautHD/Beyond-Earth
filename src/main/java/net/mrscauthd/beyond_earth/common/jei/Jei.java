@@ -58,37 +58,37 @@ public class Jei implements IModPlugin {
     }
 
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registration) {
-        final IGuiHelper helper = registration.getJeiHelpers().getGuiHelper();
-        registration.addRecipeCategories(new CoalGenerator(helper));
-        registration.addRecipeCategories(new Compressor(helper));
-        registration.addRecipeCategories(new FuelRefining(helper));
-        registration.addRecipeCategories(new OxygenLoader(helper));
-        registration.addRecipeCategories(new OxygenBubbleLoader(helper));
-        registration.addRecipeCategories(new NASAWorkbench(helper));
+    public void registerCategories(IRecipeCategoryRegistration register) {
+        final IGuiHelper helper = register.getJeiHelpers().getGuiHelper();
+        register.addRecipeCategories(new CoalGenerator(helper));
+        register.addRecipeCategories(new Compressor(helper));
+        register.addRecipeCategories(new FuelRefining(helper));
+        register.addRecipeCategories(new OxygenLoader(helper));
+        register.addRecipeCategories(new OxygenBubbleLoader(helper));
+        register.addRecipeCategories(new NASAWorkbench(helper));
     }
 
     @Override
-    public void registerIngredients(IModIngredientRegistration registration) {
-        registration.register(O2_INGREDIENT_TYPE, O2Ingredient.getIngredients(), O2Ingredient.INSTANCE,
+    public void registerIngredients(IModIngredientRegistration register) {
+        register.register(O2_INGREDIENT_TYPE, O2Ingredient.getIngredients(), O2Ingredient.INSTANCE,
                 new O2Ingredient.DummyRenderer());
-        registration.register(FE_INGREDIENT_TYPE, EnergyIngredient.getIngredients(), EnergyIngredient.INSTANCE,
+        register.register(FE_INGREDIENT_TYPE, EnergyIngredient.getIngredients(), EnergyIngredient.INSTANCE,
                 new EnergyIngredient.DummyRenderer());
     }
 
     @Override
-    public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(COAL_TYPE,
+    public void registerRecipes(IRecipeRegistration register) {
+        register.addRecipes(COAL_TYPE,
                 RecipeTypeRegistry.COAL_GENERATING.get().getRecipes(Minecraft.getInstance().level));
-        registration.addRecipes(COMPRESS_TYPE,
+        register.addRecipes(COMPRESS_TYPE,
                 RecipeTypeRegistry.COMPRESSING.get().getRecipes(Minecraft.getInstance().level));
-        registration.addRecipes(REFINE_TYPE,
+        register.addRecipes(REFINE_TYPE,
                 RecipeTypeRegistry.FUEL_REFINING.get().getRecipes(Minecraft.getInstance().level));
-        registration.addRecipes(OXYGEN_LOADER_TYPE,
+        register.addRecipes(OXYGEN_LOADER_TYPE,
                 RecipeTypeRegistry.OXYGEN_LOADING.get().getRecipes(Minecraft.getInstance().level));
-        registration.addRecipes(OXYGEN_BUBBLE_TYPE,
+        register.addRecipes(OXYGEN_BUBBLE_TYPE,
                 RecipeTypeRegistry.OXYGEN_BUBBLE_DISTRIBUTING.get().getRecipes(Minecraft.getInstance().level));
-        registration.addRecipes(WORKBENCH_TYPE,
+        register.addRecipes(WORKBENCH_TYPE,
                 RecipeTypeRegistry.NASA_WORKBENCHING.get().getRecipes(Minecraft.getInstance().level));
     }
 }

@@ -9,8 +9,14 @@ public class OxygenStorage implements IOxygenStorage {
 
     private final IOxygenStorageHolder listener;
 
-    public OxygenStorage() {
-        this.listener = null;
+    public OxygenStorage(IOxygenStorageHolder holder, int capacity) {
+        this(holder, capacity, 0);
+    }
+
+    public OxygenStorage(IOxygenStorageHolder holder, int capacity, int oxygen) {
+        this.listener = holder;
+        this.capacity = capacity;
+        this.oxygen = Math.max(0, Math.min(capacity, oxygen));
     }
 
     public OxygenStorage(IOxygenStorageHolder listener) {
