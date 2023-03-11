@@ -43,21 +43,20 @@ public class ClientEvents {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         SoundInstance instance = event.getSound();
-        SoundSource source = instance.getSource();
 
-        if (event.getSound() == null || player == null) {
+        if (instance == null || player == null) {
             return;
         }
 
-        /** JET SUIT FLY SOUND */
-        if (instance instanceof ElytraOnPlayerSoundInstance) {
+        SoundSource source = instance.getSource();
 
+        /** JET SUIT FLY SOUND */
+        if (Methods.isLivingInJetSuit(player) && instance instanceof ElytraOnPlayerSoundInstance) {
             mc.getSoundManager().play(new TickableJetSuitFlySound((LocalPlayer) player));
         }
 
         /** SPACE SOUND SYSTEM */
         if (ClientMethods.isNotGuiSoundSource(source) && Methods.isSpaceLevelWithoutOxygen(player.level)) {
-
             if (instance instanceof TickableSoundInstance) {
                 event.setSound(new TickableSpaceSoundSystem((TickableSoundInstance) instance));
             } else {

@@ -22,9 +22,8 @@ import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.MinecraftForge;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.events.forge.PlanetRegisterEvent;
-import net.mrscauthd.beyond_earth.common.registries.LevelRegistry;
 
-import static net.mrscauthd.beyond_earth.common.registries.PlanetsRegistry.registerDefaultPlanets;
+import static net.mrscauthd.beyond_earth.common.registries.PlanetRegistry.registerDefaultPlanets;
 
 public class Planets {
     /**

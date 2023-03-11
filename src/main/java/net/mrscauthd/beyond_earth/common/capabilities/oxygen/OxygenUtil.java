@@ -44,7 +44,6 @@ public class OxygenUtil {
      * test receive oxygen to itemstack
      * 
      * @param itemStack
-     * @param fluid
      * @return
      */
     public static boolean canReceive(ItemStack itemStack) {
@@ -60,7 +59,6 @@ public class OxygenUtil {
      * test extract oxygen from itemstack
      * 
      * @param itemStack
-     * @param fluid
      * @return
      */
     public static boolean canExtract(ItemStack itemStack) {

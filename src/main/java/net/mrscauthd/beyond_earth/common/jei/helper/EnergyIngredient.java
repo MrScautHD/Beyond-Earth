@@ -29,7 +29,7 @@ public class EnergyIngredient implements IIngredientHelper<EnergyIngredient>, II
     public static final class DummyRenderer implements IIngredientRenderer<EnergyIngredient> {
         @Override
         public void render(PoseStack stack, EnergyIngredient ingredient) {
-            System.err.println("DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16");
+            // DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16
         }
 
         @Override

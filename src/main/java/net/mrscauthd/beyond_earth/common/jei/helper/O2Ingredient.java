@@ -34,7 +34,7 @@ public class O2Ingredient implements IIngredientHelper<O2Ingredient>, IIngredien
     public static final class DummyRenderer implements IIngredientRenderer<O2Ingredient> {
         @Override
         public void render(PoseStack stack, O2Ingredient ingredient) {
-            System.err.println("DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16");
+            // DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16
         }
 
         @Override

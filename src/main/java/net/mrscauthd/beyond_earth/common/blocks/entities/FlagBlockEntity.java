@@ -28,23 +28,23 @@ public class FlagBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag p_187518_) {
-        super.saveAdditional(p_187518_);
+    protected void saveAdditional(CompoundTag tag) {
+        super.saveAdditional(tag);
         if (this.owner != null) {
             CompoundTag compoundtag = new CompoundTag();
             NbtUtils.writeGameProfile(compoundtag, this.owner);
-            p_187518_.put("FlagOwner", compoundtag);
+            tag.put("FlagOwner", compoundtag);
         }
 
     }
 
     @Override
-    public void load(CompoundTag p_155745_) {
-        super.load(p_155745_);
-        if (p_155745_.contains("FlagOwner", 10)) {
-            this.setOwner(NbtUtils.readGameProfile(p_155745_.getCompound("FlagOwner")));
-        } else if (p_155745_.contains("ExtraType", 8)) {
-            String s = p_155745_.getString("ExtraType");
+    public void load(CompoundTag tag) {
+        super.load(tag);
+        if (tag.contains("FlagOwner", 10)) {
+            this.setOwner(NbtUtils.readGameProfile(tag.getCompound("FlagOwner")));
+        } else if (tag.contains("ExtraType", 8)) {
+            String s = tag.getString("ExtraType");
             if (!StringUtil.isNullOrEmpty(s)) {
                 this.setOwner(new GameProfile(null, s));
             }

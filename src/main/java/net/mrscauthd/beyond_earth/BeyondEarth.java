@@ -48,7 +48,6 @@ public class BeyondEarth {
 		FeatureRegistry.FEATURES.register(bus);
 		ModPlacedFeature.PLACED_FEATURE.register(bus);
 		ModConfiguredFeature.CONFIGURED_FEATURES.register(bus);
-		//ModBiomeModifiers.BIOME_MODIFIERS.register(bus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}
