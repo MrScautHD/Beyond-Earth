@@ -17,8 +17,8 @@ public class OxygenProvider implements ICapabilityProvider, IOxygenStorageHolder
     });
     public static final String KEY_OXYGEN = "Energy"; // for compatible other code
 
-    private ItemStack itemStack;
-    private IOxygenStorage oxygenStorage;
+    private final ItemStack itemStack;
+    private final IOxygenStorage oxygenStorage;
 
     public OxygenProvider(ItemStack itemStack, int capacity) {
         this.itemStack = itemStack;

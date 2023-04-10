@@ -1,4 +1,4 @@
-// 1.19.2	2022-12-30T10:54:48.559511888	LootTables
+// 1.19.2	2023-04-10T16:27:32.810899669	LootTables
 bf8f9aa7c6f0f0c74eb8abe2f9dc778f810f8681 data/beyond_earth/loot_tables/blocks/barricade_block.json
 3ebc169f99340cf917b32b6a4ab7d13319441cf8 data/beyond_earth/loot_tables/blocks/blue_iron_pillar.json
 aac3945ce4a056f95a972cc839913bd42d5caef7 data/beyond_earth/loot_tables/blocks/calorite_block.json
@@ -16,7 +16,6 @@ b16328a10381cc3eff1333bb37574b19688ebf7f data/beyond_earth/loot_tables/blocks/co
 4a9ce508c405377c075617476b7467dbb6cd4eaa data/beyond_earth/loot_tables/blocks/desh_pillar.json
 467f16222a09a3caf491c07729fb65417b5df22d data/beyond_earth/loot_tables/blocks/desh_plating_block.json
 a4c9b87eadc9f9826182079a2529d19350276ba5 data/beyond_earth/loot_tables/blocks/earth_globe.json
-0abfa8fd127dcd6d3095bf6a90547672cbbf0a45 data/beyond_earth/loot_tables/blocks/flag.json
 f226f08947d0680251af0fa5b4a180418aec5f26 data/beyond_earth/loot_tables/blocks/fuel_refinery.json
 33c56e61a42711e760cd882091fe26e184b84dca data/beyond_earth/loot_tables/blocks/glacio_coal_ore.json
 580b14a47425be6194d6686fa095be45a9ec9bd0 data/beyond_earth/loot_tables/blocks/glacio_copper_ore.json
@@ -84,6 +83,7 @@ cc25e903aa436369d12ac6d80283f32cbc661bc2 data/beyond_earth/loot_tables/blocks/ve
 d8300ba250895663ddd17ab3d4dbd31cedbef337 data/beyond_earth/loot_tables/blocks/venus_stone_brick_stairs.json
 7c1ce500b150708e12a88dcca414b73d1ad61ea0 data/beyond_earth/loot_tables/blocks/venus_stone_bricks.json
 2ec7bd8122f69425f3c82216db369b0912f09799 data/beyond_earth/loot_tables/blocks/water_pump.json
+6bfecc7c6a4d1cd8c1998787935d81feafdf7f58 data/beyond_earth/loot_tables/chests/alien_village.json
 299b6c525494115c836dab9f66c67df7f262af8f data/beyond_earth/loot_tables/chests/meteor.json
 ef017fe8afbc1e704a7cfb4818ece7ba018f9c91 data/beyond_earth/loot_tables/entities/alien.json
 7eb5b15c4282bc3c9e430e124a055a4174de3a81 data/beyond_earth/loot_tables/entities/alien_zombie.json
