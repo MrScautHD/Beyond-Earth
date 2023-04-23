@@ -6,6 +6,10 @@ pluginManagement {
 
         /** MIXIN */
         maven { url = "https://repo.spongepowered.org/repository/maven-public/" }
+
+        /** PARCHMENT */
+        maven { url = 'https://maven.parchmentmc.org' }
+
     }
     resolutionStrategy {
         eachPlugin {

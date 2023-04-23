@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.common.util;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 import io.netty.buffer.Unpooled;
@@ -51,6 +52,7 @@ import net.mrscauthd.beyond_earth.common.events.forge.LivingSetFireInHotPlanetEv
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
+import net.mrscauthd.beyond_earth.common.items.SpaceBalise;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
@@ -296,6 +298,10 @@ public class Methods {
 
         Level newLevel = serverPlayer.level;
 
+        int baliseX;
+        int baliseZ;
+        String baliseLevel;
+
         if (!newLevel.isClientSide) {
             LanderEntity landerEntity = new LanderEntity(EntityRegistry.LANDER.get(), newLevel);
             landerEntity.moveTo(serverPlayer.position());
@@ -308,8 +314,36 @@ public class Methods {
 
                 if (!compoundTag.isEmpty()) {
                     landerEntity.getInventory().setStackInSlot(i, ItemStack.of(compoundTag));
+
+                    if (ItemStack.of(compoundTag).getItem() instanceof SpaceBalise balise) {
+                        CompoundTag coords = ItemStack.of(compoundTag).getItem().getDefaultInstance().getTagElement("coords");
+                        BeyondEarth.LOGGER.debug("BALISE FOUND");
+                        BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.toString());
+
+                        if (coords != null) {
+                            baliseX = coords.getInt("x");
+                            baliseZ = coords.getInt("z");
+                            baliseLevel = coords.getString("level");
+                            BeyondEarth.LOGGER.info("COORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
+
+                            if (baliseLevel.equals(newLevel.dimension().location().toString())) {
+                                serverPlayer.teleportTo(303, yPos, -105);
+
+                                landerEntity.moveTo(serverPlayer.position());
+
+                            }
+                        } else {
+                            BeyondEarth.LOGGER.error("NO COORDS FOUND");
+                            serverPlayer.teleportTo(303, yPos, -105);
+                            landerEntity.moveTo(serverPlayer.position());
+
+
+                        }
+                    }
                 }
+
             }
+
 
             newLevel.addFreshEntity(landerEntity);
 
