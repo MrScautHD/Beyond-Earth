@@ -1,6 +1,5 @@
 package net.mrscauthd.beyond_earth.common.util;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 import io.netty.buffer.Unpooled;
@@ -42,9 +41,6 @@ import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
-import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -52,7 +48,7 @@ import net.mrscauthd.beyond_earth.common.events.forge.LivingSetFireInHotPlanetEv
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
-import net.mrscauthd.beyond_earth.common.items.SpaceBalise;
+import net.mrscauthd.beyond_earth.common.items.SpaceBaliseItem;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
@@ -315,7 +311,7 @@ public class Methods {
                 if (!compoundTag.isEmpty()) {
                     landerEntity.getInventory().setStackInSlot(i, ItemStack.of(compoundTag));
 
-                    if (ItemStack.of(compoundTag).getItem() instanceof SpaceBalise balise) {
+                    if (ItemStack.of(compoundTag).getItem() instanceof SpaceBaliseItem balise) {
                         CompoundTag coords = ItemStack.of(compoundTag).getTagElement("coords");
                         BeyondEarth.LOGGER.debug("BALISE FOUND");
                         BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.dimension().location().toString());
