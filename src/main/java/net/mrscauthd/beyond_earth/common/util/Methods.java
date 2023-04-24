@@ -298,9 +298,9 @@ public class Methods {
 
         Level newLevel = serverPlayer.level;
 
-        int baliseX;
-        int baliseZ;
-        String baliseLevel;
+        int baliseX = 0;
+        int baliseZ = 0;
+        String baliseLevel = "minecraft:debug";
 
         if (!newLevel.isClientSide) {
             LanderEntity landerEntity = new LanderEntity(EntityRegistry.LANDER.get(), newLevel);
@@ -316,7 +316,7 @@ public class Methods {
                     landerEntity.getInventory().setStackInSlot(i, ItemStack.of(compoundTag));
 
                     if (ItemStack.of(compoundTag).getItem() instanceof SpaceBalise balise) {
-                        CompoundTag coords = ItemStack.of(compoundTag).getItem().getDefaultInstance().getTagElement("coords");
+                        CompoundTag coords = ItemStack.of(compoundTag).getTagElement("coords");
                         BeyondEarth.LOGGER.debug("BALISE FOUND");
                         BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.dimension().location().toString());
 
@@ -327,16 +327,13 @@ public class Methods {
                             BeyondEarth.LOGGER.info("COORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
 
                             if (baliseLevel.equals(newLevel.dimension().location().toString())) {
-                                serverPlayer.teleportTo(303, yPos, -105);
+                                serverPlayer.teleportTo(baliseX, yPos, baliseZ);
 
                                 landerEntity.moveTo(serverPlayer.position());
 
                             }
                         } else {
                             BeyondEarth.LOGGER.error("NO COORDS FOUND");
-                            serverPlayer.teleportTo(303, yPos, -105);
-                            landerEntity.moveTo(serverPlayer.position());
-
 
                         }
                     }
@@ -357,6 +354,7 @@ public class Methods {
             resetPlanetSelectionMenuNeededNbt(serverPlayer);
 
             serverPlayer.startRiding(landerEntity);
+            BeyondEarth.LOGGER.debug("CORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
         }
     }
 
