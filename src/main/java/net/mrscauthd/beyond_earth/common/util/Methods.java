@@ -318,7 +318,7 @@ public class Methods {
                     if (ItemStack.of(compoundTag).getItem() instanceof SpaceBalise balise) {
                         CompoundTag coords = ItemStack.of(compoundTag).getItem().getDefaultInstance().getTagElement("coords");
                         BeyondEarth.LOGGER.debug("BALISE FOUND");
-                        BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.toString());
+                        BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.dimension().location().toString());
 
                         if (coords != null) {
                             baliseX = coords.getInt("x");
