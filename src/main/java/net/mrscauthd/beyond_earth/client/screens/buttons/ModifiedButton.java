@@ -1,11 +1,6 @@
 package net.mrscauthd.beyond_earth.client.screens.buttons;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -15,6 +10,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
 public class ModifiedButton extends TexturedButton {
@@ -31,10 +30,10 @@ public class ModifiedButton extends TexturedButton {
     public Predicate<Integer> isVisible = i -> false;
 
     public ModifiedButton(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, Button.NO_TOOLTIP, title);
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, DEFAULT_NARRATION, title);
     }
 
-    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int xTexStart, int yTexStart, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
+    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int xTexStart, int yTexStart, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, CreateNarration p_i244513_12_, Component p_i244513_13_) {
         super(p_i244513_1_, p_i244513_2_, p_i244513_3_, p_i244513_4_, p_i244513_13_, p_i244513_11_, p_i244513_12_);
         this.tex(buttonTexture, buttonTexture);
         this.size(textureWidth, textureHeight);
@@ -48,8 +47,8 @@ public class ModifiedButton extends TexturedButton {
     }
 
     public void setPosition(int xIn, int yIn) {
-        this.x = xIn;
-        this.y = yIn;
+        this.setX(xIn);
+        this.setY(yIn);
     }
 
     /** IF YOU WANT NO ONE RETURN (NULL) */

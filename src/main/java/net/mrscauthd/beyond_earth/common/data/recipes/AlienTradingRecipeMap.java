@@ -1,13 +1,8 @@
 package net.mrscauthd.beyond_earth.common.data.recipes;
 
-import java.util.Locale;
-
-import org.apache.commons.lang3.tuple.Triple;
-
 import com.google.gson.JsonObject;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +25,9 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.util.EnumUtils;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.Locale;
 
 public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
@@ -59,12 +57,12 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 		buffer.writeEnum(this.mapDecorationType);
 	}
 
-	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));
+	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));
 	
 	@Override
 	public Triple<ItemStack, ItemStack, ItemStack> getTrade(Entity trader, RandomSource rand) {
 		Level level = trader.level;
-                TagKey<Structure> key = TagKey.create(Registry.STRUCTURE_REGISTRY, this.getStructureName());
+                TagKey<Structure> key = TagKey.create(Registries.STRUCTURE, this.getStructureName());
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP);
 
 		if (level instanceof ServerLevel serverWorld) {

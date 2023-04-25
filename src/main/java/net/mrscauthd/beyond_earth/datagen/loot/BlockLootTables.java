@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.datagen.loot;
 
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
@@ -9,10 +10,13 @@ import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 import java.util.stream.Collectors;
 
-public class BlockLootTables extends BlockLoot {
+public class BlockLootTables extends BlockLootSubProvider {
+    public BlockLootTables() {
+        super(null, FeatureFlags.REGISTRY.allFlags());
+    }
 
     @Override
-    protected void addTables() {
+    protected void generate() {
 
         /** SELF DROP */
         this.dropSelf(BlockRegistry.ROCKET_LAUNCH_PAD.get());

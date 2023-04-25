@@ -118,16 +118,6 @@ public class RoverItem extends VehicleItem {
         });
     }
 
-    @Override
-    public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-        super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowedIn(p_41391_)) {
-            ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(FUEL_TAG, Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE);
-            p_41392_.add(itemStack);
-        }
-    }
-
     public static void roverPlaceSound(BlockPos pos, Level world) {
         world.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1,1);
     }

@@ -1,27 +1,12 @@
 package net.mrscauthd.beyond_earth.client.renderers.sky;
 
-import org.apache.commons.lang3.tuple.Triple;
-import org.jetbrains.annotations.Nullable;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LevelRenderer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -35,6 +20,9 @@ import net.mrscauthd.beyond_earth.client.renderers.sky.helper.SkyHelper;
 import net.mrscauthd.beyond_earth.client.renderers.sky.helper.StarHelper;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+import org.apache.commons.lang3.tuple.Triple;
+import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSky extends DimensionSpecialEffects {
@@ -174,7 +162,7 @@ public class PlanetSky extends DimensionSpecialEffects {
 
                 if (starLight > 0.0F) {
                     matrix4f = SkyHelper.setMatrixRot(poseStack,
-                            Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(dayAngle), null));
+                            Triple.of(Axis.YP.rotationDegrees(-90), Axis.XP.rotationDegrees(dayAngle), null));
                     RenderSystem.setShaderColor(starLight, starLight, starLight, starLight);
                     SkyHelper.drawStars(starBuffer, matrix4f, projectionMatrix, GameRenderer.getPositionColorShader(),
                             setupFog, true);

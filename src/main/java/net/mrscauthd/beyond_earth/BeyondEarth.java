@@ -6,6 +6,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.*;
+import net.mrscauthd.beyond_earth.common.tabs.ModTabs;
 import net.mrscauthd.beyond_earth.common.world.ModConfiguredFeature;
 import net.mrscauthd.beyond_earth.common.world.ModPlacedFeature;
 import org.apache.logging.log4j.LogManager;
@@ -46,8 +47,8 @@ public class BeyondEarth {
 		ContainerRegistry.CONTAINERS.register(bus);
 		StructureRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
-		ModPlacedFeature.PLACED_FEATURE.register(bus);
-		ModConfiguredFeature.CONFIGURED_FEATURES.register(bus);
+
+		bus.addListener(ModTabs::addCreativeTab);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}

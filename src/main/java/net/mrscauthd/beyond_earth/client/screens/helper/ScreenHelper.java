@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.client.screens.helper;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Matrix4f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
@@ -12,6 +11,7 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
+import org.joml.Matrix4f;
 
 public class ScreenHelper {
 
@@ -120,7 +120,7 @@ public class ScreenHelper {
             TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(renderProperties.getStillTexture());
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, sprite.atlas().location());
+            RenderSystem.setShaderTexture(0, sprite.atlasLocation());
 
             /** SCISSOR */
             GuiComponent.enableScissor(leftPos - xOffset + 1, topPos - yOffset + 1, leftPos + width - 1, topPos + height - 1);

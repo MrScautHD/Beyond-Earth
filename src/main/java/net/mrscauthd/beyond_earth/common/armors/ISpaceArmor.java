@@ -49,19 +49,6 @@ public abstract class ISpaceArmor extends ArmorItem {
         }
 
         @Override
-        public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            super.fillItemCategory(tab, list);
-            if (this.allowedIn(tab)) {
-                ItemStack itemStack = new ItemStack(this);
-                IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
-
-                oxygen.setOxygen(oxygen.getMaxCapacity());
-
-                list.add(itemStack);
-            }
-        }
-
-        @Override
         public void appendHoverText(ItemStack itemStack, Level level, List<Component> list, TooltipFlag tooltipFlag) {
             super.appendHoverText(itemStack, level, list, tooltipFlag);
             IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);

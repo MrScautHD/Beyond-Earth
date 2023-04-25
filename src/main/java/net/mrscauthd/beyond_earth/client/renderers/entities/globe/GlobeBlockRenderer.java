@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.client.renderers.entities.globe;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -41,7 +41,7 @@ public class GlobeBlockRenderer<T extends GlobeTileEntity> implements BlockEntit
 
         matrixStackIn.translate(0.5D, 1.5D, 0.5D);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
-        matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(direction.toYRot()));
+        matrixStackIn.mulPose(Axis.YP.rotationDegrees(direction.toYRot()));
 
         if (this.model == null) {
             this.model = new GlobeModel(mc.getEntityModels().bakeLayer(GlobeModel.LAYER_LOCATION));

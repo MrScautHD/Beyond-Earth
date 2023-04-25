@@ -46,7 +46,7 @@ public class ModifiedBucketItem extends BucketItem {
             } else if (level.dimensionType().ultraWarm() && this.getFluid().getFluidType().getBlockForFluidState(level, blockPos, this.getFluid().defaultFluidState()).getMaterial() == Material.WATER) {
                 if (this.explodeNether) {
                     if (!level.isClientSide) {
-                        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
+                        level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 10, true, Level.ExplosionInteraction.BLOCK);
                     }
                 } else {
                     int i = blockPos.getX();

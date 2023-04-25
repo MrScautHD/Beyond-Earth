@@ -35,11 +35,6 @@ public abstract class IVehicleEntity extends Entity {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
     protected void defineSynchedData() {
 
     }

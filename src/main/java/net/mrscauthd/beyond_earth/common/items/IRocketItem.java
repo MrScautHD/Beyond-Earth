@@ -136,17 +136,6 @@ public abstract class IRocketItem extends VehicleItem {
             }
         });
     }
-
-
-	@Override
-	public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-		super.fillItemCategory(p_41391_, p_41392_);
-		if (this.allowedIn(p_41391_)) {
-			ItemStack itemStack = new ItemStack(this);
-			itemStack.getOrCreateTag().putInt(FUEL_TAG, this.getFuelBuckets() * FluidUtil2.BUCKET_SIZE);
-			p_41392_.add(itemStack);
-		}
-	}
 	
     public float getRocketPlaceHigh() {
         return -0.6F;

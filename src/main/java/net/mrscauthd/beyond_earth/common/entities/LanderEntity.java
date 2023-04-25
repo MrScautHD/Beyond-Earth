@@ -112,7 +112,7 @@ public class LanderEntity extends IVehicleEntity {
 
 			if (!this.level.isClientSide) {
 				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
-						Explosion.BlockInteraction.BREAK);
+						Level.ExplosionInteraction.TNT);
 
 				this.remove(RemovalReason.DISCARDED);
 			}

@@ -462,7 +462,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
                 }
             } else {
                 if (!this.level.isClientSide) {
-                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, false, Explosion.BlockInteraction.BREAK);
+                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, false, Level.ExplosionInteraction.TNT);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
@@ -473,7 +473,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         if (this.entityData.get(START_TIMER) == 200) {
             if (this.getDeltaMovement().y < -0.07) {
                 if (!this.level.isClientSide) {
-                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
+                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Level.ExplosionInteraction.TNT);
 
                     this.remove(RemovalReason.DISCARDED);
                 }

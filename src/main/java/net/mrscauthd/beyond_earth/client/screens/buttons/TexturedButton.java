@@ -30,15 +30,15 @@ public class TexturedButton extends Button {
     private int textureHeight;
 
     public TexturedButton(int xIn, int yIn, int widthIn, int heightIn, Button.OnPress onPressIn) {
-        this(xIn, yIn, widthIn, heightIn, Component.empty(), onPressIn, NO_TOOLTIP);
+        this(xIn, yIn, widthIn, heightIn, Component.empty(), onPressIn, DEFAULT_NARRATION);
     }
 
     public TexturedButton(int xIn, int yIn, int widthIn, int heightIn, Component title, Button.OnPress onPressIn) {
-        this(xIn, yIn, widthIn, heightIn, title, onPressIn, NO_TOOLTIP);
+        this(xIn, yIn, widthIn, heightIn, title, onPressIn, DEFAULT_NARRATION);
     }
 
     public TexturedButton(int xIn, int yIn, int widthIn, int heightIn, Component title, Button.OnPress onPressIn,
-            Button.OnTooltip onTooltipIn) {
+            CreateNarration onTooltipIn) {
         super(xIn, yIn, widthIn, heightIn, title, onPressIn, onTooltipIn);
         this.textureWidth = widthIn;
         this.textureHeight = heightIn;
@@ -94,14 +94,14 @@ public class TexturedButton extends Button {
 
         /** TEXTURE RENDERER */
         RenderSystem.setShaderTexture(0, texture);
-        ScreenHelper.renderTextureWithColor.blit(poseStack, this.x, this.y, (float) this.xTexStart, (float) i,
+        ScreenHelper.renderTextureWithColor.blit(poseStack, this.getX(), this.getY(), (float) this.xTexStart, (float) i,
                 this.width, this.height, this.textureWidth, this.textureHeight, this.getTypeColor());
 
         /** FONT RENDERER */
         Font fontRenderer = minecraft.font;
         int j = getFGColor();
-        GuiComponent.drawCenteredString(poseStack, fontRenderer, this.getMessage(), this.x + this.width / 2,
-                this.y + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
+        GuiComponent.drawCenteredString(poseStack, fontRenderer, this.getMessage(), this.getX() + this.width / 2,
+                this.getY() + (this.height - 8) / 2, j | Mth.ceil(this.alpha * 255.0F) << 24);
 
         RenderSystem.disableDepthTest();
         RenderSystem.disableBlend();

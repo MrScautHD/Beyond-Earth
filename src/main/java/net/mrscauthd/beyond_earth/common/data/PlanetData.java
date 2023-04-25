@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -125,9 +126,9 @@ public class PlanetData {
         }
 
         public Planet toPlanet(@Nullable Planet parent) {
-            ResourceKey<Level> location = ResourceKey.create(Registry.DIMENSION_REGISTRY,
+            ResourceKey<Level> location = ResourceKey.create(Registries.DIMENSION,
                     new ResourceLocation(this.planet));
-            ResourceKey<Level> orbit = ResourceKey.create(Registry.DIMENSION_REGISTRY,
+            ResourceKey<Level> orbit = ResourceKey.create(Registries.DIMENSION,
                     new ResourceLocation(this.orbit));
             Planet planet = new Planet(location, orbit);
             if (this.name != null)

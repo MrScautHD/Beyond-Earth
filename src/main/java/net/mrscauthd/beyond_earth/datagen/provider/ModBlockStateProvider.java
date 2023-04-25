@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.datagen.provider;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.*;
@@ -13,8 +14,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
     public String path;
     public String pathAfter;
 
-    public ModBlockStateProvider(DataGenerator gen, String modid, ExistingFileHelper exFileHelper) {
-        super(gen, modid, exFileHelper);
+    public ModBlockStateProvider(PackOutput output, String modid, ExistingFileHelper exFileHelper) {
+        super(output, modid, exFileHelper);
     }
 
     @Override

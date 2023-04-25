@@ -546,8 +546,8 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
                 int y = buttonStartY + (22 * (f2 + extraPos + this.scrollIndex));
 
-                if (button.y != y) {
-                    button.setPosition(button.x, y);
+                if (button.getX() != y) {
+                    button.setPosition(button.getX(), y);
                 }
             }
         }
@@ -558,12 +558,12 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         int buttonEndY = buttonStartY + 22 * this.rowEnd;
 
         /** IF BUTTON ABOVE THE MENU */
-        if (button.y < buttonStartY && button.row != 0) {
+        if (button.getY() < buttonStartY && button.row != 0) {
             return false;
         }
 
         /** IF BUTTON UNDER THE MENU */
-        return button.y < buttonEndY || button.row == 0;
+        return button.getY() < buttonEndY || button.row == 0;
     }
 
     public List<ModifiedButton> getVisibleButtons(int row) {

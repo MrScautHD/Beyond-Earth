@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.datagen.provider;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -10,8 +11,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
 public class ModItemModelProvider extends ItemModelProvider {
-    public ModItemModelProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-        super(generator, modid, existingFileHelper);
+    public ModItemModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
+        super(output, modid, existingFileHelper);
     }
 
     @Override

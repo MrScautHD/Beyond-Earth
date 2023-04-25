@@ -209,7 +209,7 @@ public class Events {
                 && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
             if (!entity.level.isClientSide) {
                 entity.level.explode(null, entity.getX(), entity.getY(), entity.getZ(), 10, true,
-                        Explosion.BlockInteraction.BREAK);
+                        Level.ExplosionInteraction.TNT);
             }
         }
     }

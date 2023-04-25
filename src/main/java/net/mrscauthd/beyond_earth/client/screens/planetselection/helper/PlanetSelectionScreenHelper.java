@@ -9,8 +9,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -30,6 +29,7 @@ import net.mrscauthd.beyond_earth.client.util.ClientMethods;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenuNetworkHandler;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.helper.PlanetSelectionMenuNetworkHandlerHelper;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+import org.joml.Quaternionf;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionScreenHelper {
@@ -120,7 +120,7 @@ public class PlanetSelectionScreenHelper {
         ms.pushPose();
 
         ms.translate(screen.width / 2, screen.height / 2, 0);
-        ms.mulPose(new Quaternion(Vector3f.ZP, rotation, true));
+        ms.mulPose(Axis.ZP.rotationDegrees(rotation));
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);

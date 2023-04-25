@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.client.renderers.entities.rover;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -35,7 +35,7 @@ public class RoverItemRenderer<T extends RoverEntity> extends BlockEntityWithout
     public void renderByItem(ItemStack p_108830_, ItemTransforms.TransformType p_108831_, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_108835_) {
         matrixStackIn.pushPose();
 
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180));
+        matrixStackIn.mulPose(Axis.ZP.rotationDegrees(180));
         matrixStackIn.translate(0.0, -1.5, 0.0);
 
         Minecraft mc = Minecraft.getInstance();
