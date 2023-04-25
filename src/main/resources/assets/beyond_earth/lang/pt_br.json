@@ -68,6 +68,8 @@
   "item.beyond_earth.raw_calorite": "Calorita Bruta",
   "item.beyond_earth.calorite_engine": "Motor de Calorita",
   "item.beyond_earth.calorite_tank": "Tanque de Calorita",
+  "item.beyond_earth.space_balise": "Space Balise",
+
   "itemGroup.tab_normal": "Além da Terra",
   "itemGroup.tab_flags": "Além da Terra: Bandeiras",
   "itemGroup.tab_globes": "Além da Terra: Globos",
@@ -271,6 +273,9 @@
   "message.beyond_earth.no_fuel": "§cSEM COMBUSTÍVEL! §7Encha o foguete com §cFuel§7. (§6Agache-se e clique direito§7)",
   "message.beyond_earth.hold_key": "§7Chave de Segurar",
   "message.beyond_earth.speed": "%s Velocidade",
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Área de trabalho: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Mostrar",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.hide": "Ocultar",

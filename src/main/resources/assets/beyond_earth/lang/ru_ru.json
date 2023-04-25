@@ -63,6 +63,7 @@
   "item.beyond_earth.calorite_engine": "Калоритовый двигатель",
   "item.beyond_earth.calorite_tank": "Калоритовый бак",
 
+  "item.beyond_earth.space_balise": "Space Balise",
 
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: Флаги",
@@ -281,7 +282,11 @@
   "message.beyond_earth.no_fuel": "§cНЕТ ТОПЛИВА! §7Заправьте ракету §cтопливом§7. (§6Красться и ПКМ§7)",
   "message.beyond_earth.hold_space": "§7Жми §cпробел!",
   "message.beyond_earth.speed": "%s скорость",
-  
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
+
+
 
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Область действия: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Показать",
@@ -333,5 +338,5 @@
   "general.beyond_earth.oxygen": "Кислород",
   "general.beyond_earth.burntime": "Время горения",
   "general.beyond_earth.cooktime": "Время приготовления",
-  "general.beyond_earth.oxygenloading": "Загрузка",
+  "general.beyond_earth.oxygenloading": "Загрузка"
 }

@@ -68,6 +68,8 @@
   "item.beyond_earth.raw_calorite": "칼로라이트 원석",
   "item.beyond_earth.calorite_engine": "칼로라이트 엔진",
   "item.beyond_earth.calorite_tank": "칼로라이트 탱크",
+  "item.beyond_earth.space_balise": "Space Balise",
+
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: 깃발",
   "itemGroup.tab_globes": "Beyond Earth: 모형",
@@ -271,6 +273,10 @@
   "message.beyond_earth.no_fuel": "§c연료 부족! §7로켓에 §c연료§7를 채우세요. (§6웅크리기 + 로켓에 오른쪽 버튼§7)",
   "message.beyond_earth.hold_key": "§7키를 누르고 계세요",
   "message.beyond_earth.speed": "속도 : %s",
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
+
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "작업 영역: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "표시",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.hide": "숨김",
