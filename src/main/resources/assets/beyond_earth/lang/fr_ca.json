@@ -68,6 +68,8 @@
   "item.beyond_earth.raw_calorite": "Calorite Brut",
   "item.beyond_earth.calorite_engine": "Moteur En Calorite",
   "item.beyond_earth.calorite_tank": "Réservoir En Calorite",
+  "item.beyond_earth.space_balise": "Balise de l'Espace",
+
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: Drapeaux",
   "itemGroup.tab_globes": "Beyond Earth: Globes",
@@ -271,6 +273,12 @@
   "message.beyond_earth.no_fuel": "§cPas de carburant ! §7Remplis la fusée avec du §cCarburant§7. (§6Sneak et clic droit§7)",
   "message.beyond_earth.hold_key": "§7Maintenez la touche",
   "message.beyond_earth.speed": "%s Vitesse",
+
+  "message.beyond_earth.space_balise.no_beacon": "Aucune balise trouvée à ces coordonées : x: %d, y: %d, z: %d dans %s",
+  "message.beyond_earth.space_balise.right_click": "Clique Droit sur une balise pour stocké les coordonées",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, dimension: %s",
+
+
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Zone De Fonctionnement: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Montrer",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.hide": "Cacher",
