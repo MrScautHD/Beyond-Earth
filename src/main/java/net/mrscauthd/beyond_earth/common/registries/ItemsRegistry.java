@@ -20,15 +20,7 @@ import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.armors.materials.JetSuitMaterial;
 import net.mrscauthd.beyond_earth.common.armors.materials.NetheriteSpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.common.armors.materials.SpaceSuitMaterial;
-import net.mrscauthd.beyond_earth.common.items.CoalTorchItem;
-import net.mrscauthd.beyond_earth.common.items.GlobeItem;
-import net.mrscauthd.beyond_earth.common.items.HammerItem;
-import net.mrscauthd.beyond_earth.common.items.ModifiedBucketItem;
-import net.mrscauthd.beyond_earth.common.items.RoverItem;
-import net.mrscauthd.beyond_earth.common.items.Tier1RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier2RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier3RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier4RocketItem;
+import net.mrscauthd.beyond_earth.common.items.*;
 import net.mrscauthd.beyond_earth.common.tabs.Tabs;
 
 public class ItemsRegistry {
@@ -108,6 +100,9 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> OSTRUM_TANK = ITEMS.register("ostrum_tank", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> CALORITE_TANK = ITEMS.register("calorite_tank", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
     public static final RegistryObject<Item> ROCKET_FIN = ITEMS.register("rocket_fin", () -> new Item(new Item.Properties().tab(Tabs.tab_basics)));
+    public static final RegistryObject<Item> SPACE_BALISE = ITEMS.register("space_balise", () -> new SpaceBaliseItem(new Item.Properties().tab(Tabs.tab_basics)));
+
+
 
     // INGOTS
     public static final RegistryObject<Item> STEEL_INGOT = ITEMS.register("steel_ingot", () -> new Item(new Item.Properties().tab(Tabs.tab_materials)));

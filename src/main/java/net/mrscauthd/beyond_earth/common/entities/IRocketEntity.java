@@ -26,7 +26,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -55,7 +54,6 @@ import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 import net.mrscauthd.beyond_earth.common.util.Methods;
-import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 
 import javax.annotation.Nonnull;
@@ -435,6 +433,11 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
                     player.closeContainer();
                 }
 
+                int baliseX = 0;
+                int baliseZ = 0;
+                String baliseLevel = "minecraft:debug";
+
+
                 player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
                 player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
 
@@ -445,6 +448,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
                 for (int i = 0; i <= this.getInventory().getSlots() - 1; i++) {
                     tag.add(this.getInventory().getStackInSlot(i).save(new CompoundTag()));
+
                 }
 
                 player.getPersistentData().put(BeyondEarth.MODID + ":rocket_item_list", tag);

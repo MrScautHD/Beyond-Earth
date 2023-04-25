@@ -62,6 +62,8 @@
   "item.beyond_earth.calorite_engine": "Calorite Antrieb",
   "item.beyond_earth.calorite_tank": "Calorite Tank",
 
+  "item.beyond_earth.space_balise": "Space Balise",
+
 
   "itemGroup.tab_normal": "Beyond Earth",
   "itemGroup.tab_flags": "Beyond Earth: Flaggen",
@@ -229,6 +231,11 @@
 
   "death.attack.oxygen": "%1$s hat\u0027t keine Luft mehr bekommen",
   "death.attack.venus.acid": "%1$s war eine Opfergabe für die Säure",
+
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
+
 
   "entity.beyond_earth.alien.farmer": "Farmer",
   "entity.beyond_earth.alien.fisherman": "Fischer",

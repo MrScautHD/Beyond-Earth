@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -93,4 +94,5 @@ public class ClientMethods {
 
         player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".hold_key").append(" ").append(mc.options.keyJump.getKey().getDisplayName()), false);
     }
+
 }

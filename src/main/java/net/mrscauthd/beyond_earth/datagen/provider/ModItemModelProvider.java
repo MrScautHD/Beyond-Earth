@@ -56,6 +56,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem(ItemsRegistry.RAW_CALORITE.get());
         basicItem(ItemsRegistry.FUEL_BUCKET.get());
         basicItem(ItemsRegistry.OIL_BUCKET.get());
+        basicItem(ItemsRegistry.SPACE_BALISE.get());
 
         /** HANDHELD MODELS */
         handheldModel(ItemsRegistry.IRON_ROD);

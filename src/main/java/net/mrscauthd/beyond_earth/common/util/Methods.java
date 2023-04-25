@@ -41,9 +41,6 @@ import net.minecraftforge.registries.ForgeRegistries.Keys;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.armors.JetSuit;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.ChunkOxygen;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
-import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
 import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
@@ -51,6 +48,7 @@ import net.mrscauthd.beyond_earth.common.events.forge.LivingSetFireInHotPlanetEv
 import net.mrscauthd.beyond_earth.common.events.forge.LivingSetVenusRainEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.ResetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.events.forge.TeleportAndCreateLanderEvent;
+import net.mrscauthd.beyond_earth.common.items.SpaceBaliseItem;
 import net.mrscauthd.beyond_earth.common.items.VehicleItem;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
@@ -296,6 +294,10 @@ public class Methods {
 
         Level newLevel = serverPlayer.level;
 
+        int baliseX = 0;
+        int baliseZ = 0;
+        String baliseLevel = "minecraft:debug";
+
         if (!newLevel.isClientSide) {
             LanderEntity landerEntity = new LanderEntity(EntityRegistry.LANDER.get(), newLevel);
             landerEntity.moveTo(serverPlayer.position());
@@ -308,8 +310,33 @@ public class Methods {
 
                 if (!compoundTag.isEmpty()) {
                     landerEntity.getInventory().setStackInSlot(i, ItemStack.of(compoundTag));
+
+                    if (ItemStack.of(compoundTag).getItem() instanceof SpaceBaliseItem balise) {
+                        CompoundTag coords = ItemStack.of(compoundTag).getTagElement("coords");
+                        BeyondEarth.LOGGER.debug("BALISE FOUND");
+                        BeyondEarth.LOGGER.debug("NEW LEVEL : " + newLevel.dimension().location().toString());
+
+                        if (coords != null) {
+                            baliseX = coords.getInt("x");
+                            baliseZ = coords.getInt("z");
+                            baliseLevel = coords.getString("level");
+                            BeyondEarth.LOGGER.info("COORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
+
+                            if (baliseLevel.equals(newLevel.dimension().location().toString())) {
+                                serverPlayer.teleportTo(baliseX, yPos, baliseZ);
+
+                                landerEntity.moveTo(serverPlayer.position());
+
+                            }
+                        } else {
+                            BeyondEarth.LOGGER.error("NO COORDS FOUND");
+
+                        }
+                    }
                 }
+
             }
+
 
             newLevel.addFreshEntity(landerEntity);
 
@@ -323,6 +350,7 @@ public class Methods {
             resetPlanetSelectionMenuNeededNbt(serverPlayer);
 
             serverPlayer.startRiding(landerEntity);
+            BeyondEarth.LOGGER.debug("CORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
         }
     }
 
