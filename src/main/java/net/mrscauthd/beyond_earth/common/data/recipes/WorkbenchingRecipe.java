@@ -30,7 +30,6 @@ import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RocketPartsRegistry;
 
 public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate<RocketPartsItemHandler, Boolean> {
-
     private final Map<RocketPart, List<Ingredient>> parts;
     private final ItemStack output;
 
