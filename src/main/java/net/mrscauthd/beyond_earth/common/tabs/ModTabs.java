@@ -83,6 +83,9 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.RAW_DESH);
 			builder.accept(ItemsRegistry.RAW_OSTRUM);
 			builder.accept(ItemsRegistry.RAW_CALORITE);
+			builder.accept(ItemsRegistry.GLACIO_TREE_SAPLING_ITEM);
+
+
 		}
 
 		if (builder.getTab() == TabsRegistry.GLOBES) {
@@ -162,6 +165,10 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.GLACIO_COPPER_ORE_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_IRON_ORE_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_LAPIS_ORE_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_LOG_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_LEAVES_ITEM);
+
 		}
 
 		if (builder.getTab() == TabsRegistry.SPAWN_EGG) {

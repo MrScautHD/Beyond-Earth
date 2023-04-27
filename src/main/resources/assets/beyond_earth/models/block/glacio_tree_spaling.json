@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "beyond_earth:block/glacio/glacio_tree_sapling"
+  },
+  "render_type": "cutout"
+}
