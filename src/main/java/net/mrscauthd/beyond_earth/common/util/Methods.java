@@ -296,6 +296,10 @@ public class Methods {
 
         Level newLevel = serverPlayer.level;
 
+        int baliseX = 0;
+        int baliseZ = 0;
+        String baliseLevel = "minecraft:debug";
+
         if (!newLevel.isClientSide) {
             LanderEntity landerEntity = new LanderEntity(EntityRegistry.LANDER.get(), newLevel);
             landerEntity.moveTo(serverPlayer.position());
@@ -308,7 +312,24 @@ public class Methods {
 
                 if (!compoundTag.isEmpty()) {
                     landerEntity.getInventory().setStackInSlot(i, ItemStack.of(compoundTag));
+
+                    if (ItemStack.of(compoundTag).getItem() instanceof SpaceBaliseItem balise) {
+                        CompoundTag coords = ItemStack.of(compoundTag).getTagElement("coords");
+
+                        if (coords != null) {
+                            baliseX = coords.getInt("x");
+                            baliseZ = coords.getInt("z");
+                            baliseLevel = coords.getString("level");
+                            BeyondEarth.LOGGER.info("COORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
+
+                            if (baliseLevel.equals(newLevel.dimension().location().toString())) {
+                                serverPlayer.teleportTo(baliseX, yPos, baliseZ);
+                                landerEntity.moveTo(serverPlayer.position());
+                            }
+                        }
+                    }
                 }
+
             }
 
             newLevel.addFreshEntity(landerEntity);
@@ -323,8 +344,10 @@ public class Methods {
             resetPlanetSelectionMenuNeededNbt(serverPlayer);
 
             serverPlayer.startRiding(landerEntity);
+            BeyondEarth.LOGGER.debug("CORDS FIND : " + baliseX + " " + baliseZ + " in " + baliseLevel);
         }
     }
+
 
     public static void placeSpaceStation(Player player, ServerLevel serverLevel) {
         StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(SPACE_STATION);

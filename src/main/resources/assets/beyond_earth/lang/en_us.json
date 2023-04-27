@@ -43,6 +43,7 @@
   "item.beyond_earth.raw_desh_block": "Raw Desh Block",
   "item.beyond_earth.raw_ostrum_block": "Raw Ostrum Block",
   "item.beyond_earth.ice_shard": "Ice Shard",
+  "item.beyond_earth.space_balise": "Space Balise",
 
   "item.beyond_earth.rocket_t1": "Tier 1 Rocket",
   "item.beyond_earth.rocket_t2": "Tier 2 Rocket",
@@ -301,7 +302,10 @@
   "message.beyond_earth.no_fuel": "§cNO FUEL! §7Fill the Rocket with §cFuel§7. (§6Sneak and Right Click§7)",
   "message.beyond_earth.hold_key": "§7Hold Key",
   "message.beyond_earth.speed": "%s Speed",
-  
+
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
 
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Working Area: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Show",
