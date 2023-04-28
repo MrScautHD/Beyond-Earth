@@ -4,7 +4,7 @@
     "default": "beyond_earth:glacio_tree_checked",
     "features": [
       {
-        "chance": 0.5,
+        "chance": 1,
         "feature": "beyond_earth:glacio_tree_checked"
       }
     ]

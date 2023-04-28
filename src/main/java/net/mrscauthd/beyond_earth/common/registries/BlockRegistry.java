@@ -1,6 +1,7 @@
 package net.mrscauthd.beyond_earth.common.registries;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -149,7 +150,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_WOOD = BLOCKS.register("glacio_wood", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BIRCH_WOOD).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLACIO_WOOD_LEAVES = BLOCKS.register("glacio_tree_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLACIO_WOOD_PLANKS = BLOCKS.register("glacio_wood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_TREE_SAPLING = BLOCKS.register("glacio_tree_spaling", () -> new SaplingBlock(new GlacioTreeGrower(), BlockBehaviour.Properties.copy(Blocks.BIRCH_SAPLING).requiresCorrectToolForDrops().noCollission()));
+    public static final RegistryObject<Block> GLACIO_TREE_SAPLING = BLOCKS.register("glacio_tree_sapling", () -> new SaplingBlock(new GlacioTreeGrower(), BlockBehaviour.Properties.copy(Blocks.BIRCH_SAPLING).requiresCorrectToolForDrops().noCollission()));
+    public static final RegistryObject<Block> GLACIO_WOOD_DOOR = BLOCKS.register("glacio_wood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
+    public static final RegistryObject<Block> GLACIO_WOOD_TRAPDOOR = BLOCKS.register("glacio_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
 
     /** FLUID BLOCKS */
     //FUEL

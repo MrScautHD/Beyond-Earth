@@ -168,6 +168,10 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.GLACIO_WOOD_LOG_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_WOOD_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_WOOD_LEAVES_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_TRAPDOOR_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_DOOR_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_PLANKS_ITEM);
+
 
 		}
 

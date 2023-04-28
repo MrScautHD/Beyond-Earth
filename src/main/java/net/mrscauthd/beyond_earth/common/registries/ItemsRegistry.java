@@ -217,6 +217,9 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> GLACIO_WOOD_PLANKS_ITEM = ITEMS.register("glacio_wood_planks", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_PLANKS.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> GLACIO_TREE_SAPLING_ITEM = ITEMS.register("glacio_tree_sapling", () -> new BlockItem(BlockRegistry.GLACIO_TREE_SAPLING.get(), new Item.Properties()));
 
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_DOOR_ITEM = ITEMS.register("glacio_wood_door", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_TRAPDOOR_ITEM = ITEMS.register("glacio_wood_trapdoor", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_TRAPDOOR.get(), new Item.Properties()));
+
     // SAND BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_SAND_ITEM = ITEMS.register("moon_sand", () -> new BlockItem(BlockRegistry.MOON_SAND.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> MARS_SAND_ITEM = ITEMS.register("mars_sand", () -> new BlockItem(BlockRegistry.MARS_SAND.get(), new Item.Properties()));
