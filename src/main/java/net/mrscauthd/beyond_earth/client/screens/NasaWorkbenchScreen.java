@@ -17,8 +17,7 @@ import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.NasaWorkbenchMenu;
 @OnlyIn(Dist.CLIENT)
 public class NasaWorkbenchScreen extends AbstractContainerScreen<NasaWorkbenchMenu.GuiContainer> {
 
-    public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID,
-            "textures/gui/nasa_workbench.png");
+    public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/gui/nasa_workbench.png");
 
     public NasaWorkbenchScreen(NasaWorkbenchMenu.GuiContainer container, Inventory inventory, Component text) {
         super(container, inventory, text);
@@ -39,7 +38,6 @@ public class NasaWorkbenchScreen extends AbstractContainerScreen<NasaWorkbenchMe
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
-                this.imageHeight);
+        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth, this.imageHeight);
     }
 }

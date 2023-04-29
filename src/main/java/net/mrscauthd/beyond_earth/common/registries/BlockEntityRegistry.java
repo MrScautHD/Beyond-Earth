@@ -7,14 +7,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.*;
+import net.mrscauthd.beyond_earth.common.blocks.machines.RocketUpgraderBlock;
 
 public class BlockEntityRegistry {
 
@@ -29,7 +23,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<?>> NASA_WORKBENCH_BLOCK_ENTITY = BLOCK_ENTITIES.register("nasa_workbench", () -> BlockEntityType.Builder.of(NASAWorkbenchBlockEntity::new, BlockRegistry.NASA_WORKBENCH_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<OxygenDistributorBlockEntity>> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("oxygen_bubble_distributor", () -> BlockEntityType.Builder.of(OxygenDistributorBlockEntity::new, BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<?>> WATER_PUMP_BLOCK_ENTITY = BLOCK_ENTITIES.register("water_pump", () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, BlockRegistry.WATER_PUMP_BLOCK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<?>> ROCKET_UPGRADER_BLOCK_ENTITY = BLOCK_ENTITIES.register("rocket_upgrader", () -> BlockEntityType.Builder.of(NASAWorkbenchBlockEntity::new, BlockRegistry.ROCKET_UPGRADER_BLOCK.get()).build(null));
+    public static final RegistryObject<BlockEntityType<?>> ROCKET_UPGRADER_BLOCK_ENTITY = BLOCK_ENTITIES.register("rocket_upgrader", () -> BlockEntityType.Builder.of(RocketUpgraderBlockEntity::new, BlockRegistry.ROCKET_UPGRADER_BLOCK.get()).build(null));
 
 
     /** BLOCK ENTITIES (Globes) */
