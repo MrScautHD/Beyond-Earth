@@ -191,7 +191,16 @@
   "block.beyond_earth.glacio_coal_ore": "Glacio Coal Ore",
   "block.beyond_earth.glacio_copper_ore": "Glacio Copper Ore",
   "block.beyond_earth.glacio_iron_ore": "Glacio Iron Ore",
-  "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Ore",
+
+  "block.beyond_earth.glacio_wood": "Glacio Wood",
+  "block.beyond_earth.glacio_wood_log": "Glacio Wood Log",
+  "block.beyond_earth.glacio_tree_leaves": "Glacio Tree Leaves",
+  "block.beyond_earth.glacio_wood_trapdoor": "Glacio Wood Trapdoor",
+  "block.beyond_earth.glacio_wood_door": "Glacio Wood Door",
+  "block.beyond_earth.glacio_wood_planks": "Glacio Wood Planks",
+  "block.beyond_earth.glacio_tree_sapling": "Glacio Tree Sapling",
+  "block.beyond_earth.glacio_wood_stairs": "Glacio Wood Stairs",
+  "block.beyond_earth.glacio_wood_slab": "Glacio Wood Slab",
 
   "block.beyond_earth.earth_globe": "Earth Globe",
   "block.beyond_earth.moon_globe": "Moon Globe",

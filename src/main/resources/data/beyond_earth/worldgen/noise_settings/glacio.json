@@ -359,7 +359,8 @@
           "type": "minecraft:biome",
           "biome_is": [
             "beyond_earth:glacio",
-            "beyond_earth:glacio_ice_spikes"
+            "beyond_earth:glacio_ice_spikes",
+            "beyond_earth:glacio_forest"
           ]
         },
         "then_run": {

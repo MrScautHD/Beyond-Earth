@@ -4,16 +4,17 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.HeightRangePlacement;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.placement.PlacementModifier;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 
 import java.util.List;
@@ -30,6 +31,9 @@ public class ModPlacedFeature {
     public static final ResourceKey<PlacedFeature> GLACIO_IRON_PLACED_KEY = createKey("glacio_iron_ore");
 
     public static final ResourceKey<PlacedFeature> GLACIO_LAPIS_PLACED_KEY = createKey("glacio_lapis_ore");
+    public static final ResourceKey<PlacedFeature> GLACIO_TREE_CHECKED_KEY = createKey("glacio_tree_checked");
+    public static final ResourceKey<PlacedFeature> GLACIO_TREE_PLACED_KEY = createKey("glacio_tree_placed");
+
 
     // MARS
     public static final ResourceKey<PlacedFeature> MARS_DIAMOND_PLACED_KEY = createKey("mars_diamond_ore");
@@ -79,6 +83,11 @@ public class ModPlacedFeature {
         register(context, GLACIO_LAPIS_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_LAPIS_ORE_KEY),
                 OrePlacement.commonOrePlacement(2,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
+        register(context, GLACIO_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_TREE_KEY),
+                VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2)));
+        register(context, GLACIO_TREE_CHECKED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_TREE_KEY),
+                List.of(PlacementUtils.filteredByBlockSurvival(GLACIO_TREE_SAPLING.get())));
+
 
         // MARS
         register(context, MARS_DIAMOND_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.MARS_DIAMOND_ORE_KEY),

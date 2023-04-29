@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/door_bottom_right_open",
+  "textures": {
+    "bottom": "beyond_earth:block/glacio/glacio_wood_door_bottom",
+    "top": "beyond_earth:block/glacio/glacio_wood_door_top"
+  },
+  "render_type": "cutout"
+
+}

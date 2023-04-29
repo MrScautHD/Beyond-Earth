@@ -206,6 +206,15 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> CRACKED_GLACIO_STONE_BRICKS_ITEM = ITEMS.register("cracked_glacio_stone_bricks", () -> new BlockItem(BlockRegistry.CRACKED_GLACIO_STONE_BRICKS.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> GLACIO_STONE_BRICK_SLAB_ITEM = ITEMS.register("glacio_stone_brick_slab", () -> new BlockItem(BlockRegistry.GLACIO_STONE_BRICK_SLAB.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> GLACIO_STONE_BRICK_STAIRS_ITEM = ITEMS.register("glacio_stone_brick_stairs", () -> new BlockItem(BlockRegistry.GLACIO_STONE_BRICK_STAIRS.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_LOG_ITEM = ITEMS.register("glacio_wood_log", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_LOG.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_ITEM = ITEMS.register("glacio_wood", () -> new BlockItem(BlockRegistry.GLACIO_WOOD.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_LEAVES_ITEM = ITEMS.register("glacio_tree_leaves", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_LEAVES.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_PLANKS_ITEM = ITEMS.register("glacio_wood_planks", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_PLANKS.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_TREE_SAPLING_ITEM = ITEMS.register("glacio_tree_sapling", () -> new BlockItem(BlockRegistry.GLACIO_TREE_SAPLING.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_DOOR_ITEM = ITEMS.register("glacio_wood_door", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_DOOR.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_TRAPDOOR_ITEM = ITEMS.register("glacio_wood_trapdoor", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_TRAPDOOR.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_STAIRS_ITEM = ITEMS.register("glacio_wood_stairs", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_STAIRS.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> GLACIO_WOOD_SLAB_ITEM = ITEMS.register("glacio_wood_slab", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_SLAB.get(), new Item.Properties()));
 
     // SAND BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_SAND_ITEM = ITEMS.register("moon_sand", () -> new BlockItem(BlockRegistry.MOON_SAND.get(), new Item.Properties()));

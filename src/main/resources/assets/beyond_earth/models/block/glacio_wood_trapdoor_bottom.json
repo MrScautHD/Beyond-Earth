@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_orientable_trapdoor_bottom",
+  "textures": {
+    "texture": "beyond_earth:block/glacio/glacio_wood_trapdoor"
+  },
+  "render_type": "cutout"
+
+}

@@ -7,11 +7,21 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.valueproviders.ConstantInt;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.WeightedPlacedFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomFeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
+import net.minecraft.world.level.levelgen.feature.featuresize.TwoLayersFeatureSize;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.PineFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.SpruceFoliagePlacer;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.levelgen.structure.templatesystem.BlockMatchTest;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -30,6 +40,11 @@ public class ModConfiguredFeature {
     public static final ResourceKey<ConfiguredFeature<?, ?>> GLACIO_IRON_ORE_KEY = registerKey("glacio_iron_ore_key");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> GLACIO_LAPIS_ORE_KEY = registerKey("glacio_lapis_ore_key");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GLACIO_TREE_KEY = registerKey("glacio_tree_key");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GLACIO_TREE_SPAWN_KEY = registerKey("glacio_tree_spawn_key");
+
+
 
     // MARS
     public static final ResourceKey<ConfiguredFeature<?, ?>> MARS_DIAMOND_ORE_KEY = registerKey("mars_diamond_ore_key");
@@ -136,6 +151,19 @@ public class ModConfiguredFeature {
         register(context, GLACIO_ICE_SHRAD_ORE_KEY, Feature.ORE, new OreConfiguration(GLACIO_ICE_SHRAD_ORE_REPLACEABLES.get(), 10));
         register(context, GLACIO_IRON_ORE_KEY, Feature.ORE, new OreConfiguration(GLACIO_IRON_ORE_REPLACEABLES.get(), 11));
         register(context, GLACIO_LAPIS_ORE_KEY, Feature.ORE, new OreConfiguration(GLACIO_LAPIS_ORE_REPLACEABLES.get(), 9));
+
+        register(context, GLACIO_TREE_KEY, Feature.TREE, (
+                new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(BlockRegistry.GLACIO_WOOD_LOG.get()),
+                        new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(BlockRegistry.GLACIO_WOOD_LEAVES.get()),
+                        new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(1, 2)),
+                        new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build());
+
+
+
+        register(context, GLACIO_TREE_SPAWN_KEY, Feature.RANDOM_SELECTOR,
+                new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(
+                        placedFeatures.getOrThrow(ModPlacedFeature.GLACIO_TREE_CHECKED_KEY),
+                        0.5F)), placedFeatures.getOrThrow(ModPlacedFeature.GLACIO_TREE_CHECKED_KEY)));
 
         // MARS
         register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));

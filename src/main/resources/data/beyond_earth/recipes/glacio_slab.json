@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_slab",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "beyond_earth:glacio_wood_planks"
+    }
+  },
+  "result": {
+    "item": "beyond_earth:glacio_wood_slab",
+    "count": 6
+  }
+}
