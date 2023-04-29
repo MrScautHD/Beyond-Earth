@@ -12,15 +12,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.*;
-import net.mrscauthd.beyond_earth.common.blocks.machines.CoalGeneratorBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.CompressorBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.FuelRefineryBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.NASAWorkbenchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenDistributorBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenLoaderBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.SolarPanelBlock;
-import net.mrscauthd.beyond_earth.common.blocks.machines.WaterPump;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
+import net.mrscauthd.beyond_earth.common.blocks.machines.*;
 import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
+
 
 import static net.minecraft.world.level.block.Blocks.OAK_PLANKS;
 import static net.minecraft.world.level.block.Blocks.OAK_SLAB;
