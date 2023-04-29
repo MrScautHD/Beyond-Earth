@@ -17,10 +17,10 @@ import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
 import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
 import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.GlacioTreeSapling;
-import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.machines.*;
+import net.mrscauthd.beyond_earth.common.blocks.GlacioTreeSapling;
+import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
 
 public class BlockRegistry {
 
