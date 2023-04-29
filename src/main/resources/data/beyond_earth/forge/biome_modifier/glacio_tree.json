@@ -1,6 +1,6 @@
 {
   "type": "forge:add_features",
-  "biomes": "beyond_earth:glacio_forest",
+  "biomes": "#beyond_earth:glacio",
   "features": "beyond_earth:glacio_tree_placed",
   "step": "vegetal_decoration"
 }

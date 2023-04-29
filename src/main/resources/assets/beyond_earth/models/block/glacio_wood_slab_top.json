@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "beyond_earth:block/glacio/glacio_wood_planks",
+    "side": "beyond_earth:block/glacio/glacio_wood_planks",
+    "top": "beyond_earth:block/glacio/glacio_wood_planks"
+  }
+}

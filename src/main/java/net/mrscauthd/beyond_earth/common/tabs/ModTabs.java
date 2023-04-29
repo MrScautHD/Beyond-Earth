@@ -171,6 +171,8 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.GLACIO_WOOD_TRAPDOOR_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_WOOD_DOOR_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_WOOD_PLANKS_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_STAIRS_ITEM);
+			builder.accept(ItemsRegistry.GLACIO_WOOD_SLAB_ITEM);
 
 
 		}

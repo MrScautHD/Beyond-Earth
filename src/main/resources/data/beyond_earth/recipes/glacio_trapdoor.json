@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_trapdoor",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "beyond_earth:glacio_wood_planks"
+    }
+  },
+  "result": {
+    "item": "beyond_earth:glacio_wood_trapdoor",
+    "count": 2
+  }
+}

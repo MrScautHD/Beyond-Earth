@@ -11,12 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
-import net.mrscauthd.beyond_earth.common.blocks.CoalTorchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
-import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
-import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
-import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
+import net.mrscauthd.beyond_earth.common.blocks.*;
 import net.mrscauthd.beyond_earth.common.blocks.machines.CoalGeneratorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.CompressorBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.FuelRefineryBlock;
@@ -26,6 +21,9 @@ import net.mrscauthd.beyond_earth.common.blocks.machines.OxygenLoaderBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.SolarPanelBlock;
 import net.mrscauthd.beyond_earth.common.blocks.machines.WaterPump;
 import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
+
+import static net.minecraft.world.level.block.Blocks.OAK_PLANKS;
+import static net.minecraft.world.level.block.Blocks.OAK_SLAB;
 
 public class BlockRegistry {
 
@@ -149,10 +147,12 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_WOOD_LOG = BLOCKS.register("glacio_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.BIRCH_LOG).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLACIO_WOOD = BLOCKS.register("glacio_wood", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BIRCH_WOOD).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> GLACIO_WOOD_LEAVES = BLOCKS.register("glacio_tree_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_WOOD_PLANKS = BLOCKS.register("glacio_wood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_TREE_SAPLING = BLOCKS.register("glacio_tree_sapling", () -> new SaplingBlock(new GlacioTreeGrower(), BlockBehaviour.Properties.copy(Blocks.BIRCH_SAPLING).requiresCorrectToolForDrops().noCollission()));
+    public static final RegistryObject<Block> GLACIO_WOOD_PLANKS = BLOCKS.register("glacio_wood_planks", () -> new Block(BlockBehaviour.Properties.copy(OAK_PLANKS).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> GLACIO_TREE_SAPLING = BLOCKS.register("glacio_tree_sapling", () -> new GlacioTreeSapling(new GlacioTreeGrower(), BlockBehaviour.Properties.copy(Blocks.SPRUCE_SAPLING).requiresCorrectToolForDrops().noCollission()));
     public static final RegistryObject<Block> GLACIO_WOOD_DOOR = BLOCKS.register("glacio_wood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
     public static final RegistryObject<Block> GLACIO_WOOD_TRAPDOOR = BLOCKS.register("glacio_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
+    public static final RegistryObject<Block> GLACIO_WOOD_STAIRS = BLOCKS.register("glacio_wood_stairs", () -> new StairBlock(GLACIO_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GLACIO_WOOD_PLANKS.get())));
+    public static final RegistryObject<Block> GLACIO_WOOD_SLAB = BLOCKS.register("glacio_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(OAK_SLAB)));
 
     /** FLUID BLOCKS */
     //FUEL
