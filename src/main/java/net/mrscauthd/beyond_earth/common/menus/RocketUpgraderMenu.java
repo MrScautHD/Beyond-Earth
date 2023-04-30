@@ -2,15 +2,15 @@ package net.mrscauthd.beyond_earth.common.menus;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.ItemStackToItemStackBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
@@ -32,15 +32,15 @@ public class RocketUpgraderMenu {
             super(ContainerRegistry.ROCKET_UPGRADER_GUI.get(), id);
             this.blockEntity = blockEntity;
 
-            IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();
-            this.addSlot(new SlotItemHandler(itemHandler, 0, 40, 57));
-            this.addSlot(new SlotItemHandler(itemHandler, 1, 67, 57));
+            this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent(handler -> {
+                this.addSlot(new SlotItemHandler(handler, 0, 40, 57));
+                this.addSlot(new SlotItemHandler(handler, 1, 67, 57));
 
-            this.addSlot(new SlotItemHandler(itemHandler, 2, 135, 57) {
-                @Override
+                this.addSlot(new SlotItemHandler(handler, 2, 135, 57)
+                {@Override
                 public boolean mayPlace(@NotNull ItemStack stack) {
                     return false;
-                }
+                }});
             });
 
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 142);
@@ -57,7 +57,7 @@ public class RocketUpgraderMenu {
 
         @Override
         public ItemStack quickMoveStack(Player playerIn, int index) {
-            return MenuHelper.transferStackInSlot(this, playerIn, index, this.getBlockEntity(),
+            return MenuHelper.transferStackInSlot(this, playerIn, index, (Container) this.getBlockEntity(),
                     this::moveItemStackTo);
         }
     }

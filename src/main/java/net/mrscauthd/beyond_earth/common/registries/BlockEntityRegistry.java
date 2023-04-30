@@ -26,9 +26,7 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<?>> ROCKET_UPGRADER_BLOCK_ENTITY = BLOCK_ENTITIES.register("rocket_upgrader", () -> BlockEntityType.Builder.of(RocketUpgraderBlockEntity::new, BlockRegistry.ROCKET_UPGRADER_BLOCK.get()).build(null));
 
 
-    /** BLOCK ENTITIES (Globes) */
+    /** BLOCK ENTITIES (Other) */
     public static final RegistryObject<BlockEntityType<GlobeTileEntity>> GLOBE_BLOCK_ENTITY = BLOCK_ENTITIES.register("globe", () -> BlockEntityType.Builder.of(GlobeTileEntity::new, BlockRegistry.EARTH_GLOBE_BLOCK.get(), BlockRegistry.MOON_GLOBE_BLOCK.get(), BlockRegistry.MARS_GLOBE_BLOCK.get(), BlockRegistry.MERCURY_GLOBE_BLOCK.get(), BlockRegistry.VENUS_GLOBE_BLOCK.get(), BlockRegistry.GLACIO_GLOBE_BLOCK.get()).build(null));
-
-    /** BLOCK ENTITIES (Flags) */
     public static final RegistryObject<BlockEntityType<FlagBlockEntity>> FLAG_BLOCK_ENTITY = BLOCK_ENTITIES.register("flag", () -> BlockEntityType.Builder.of(FlagBlockEntity::new, BlockRegistry.FLAG_BLOCK.get()).build(null));
 }

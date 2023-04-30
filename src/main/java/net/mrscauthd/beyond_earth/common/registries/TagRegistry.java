@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.material.Fluid;
 import net.mrscauthd.beyond_earth.BeyondEarth;
@@ -28,4 +29,6 @@ public class TagRegistry {
     public static final TagKey<Biome> MOON_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(BeyondEarth.MODID, "moon"));
     public static final TagKey<Biome> VENUS_BIOMES_TAG = TagKey.create(Registries.BIOME, new ResourceLocation(BeyondEarth.MODID, "venus"));
 
+    /** OTHER */
+    public static final TagKey<Item> ROCKET_UPGRADE = TagKey.create(Registries.ITEM, new ResourceLocation(BeyondEarth.MODID, "rocket_upgrade"));
 }
