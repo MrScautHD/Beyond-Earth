@@ -10,6 +10,7 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.TIER_2_ROCKET_ITEM);
 			builder.accept(ItemsRegistry.TIER_3_ROCKET_ITEM);
 			builder.accept(ItemsRegistry.TIER_4_ROCKET_ITEM);
+			builder.accept(ItemsRegistry.FUEL_UPGRADER_ITEM);
 			builder.accept(ItemsRegistry.ROVER_ITEM);
 			builder.accept(ItemsRegistry.SPACE_HELMET);
 			builder.accept(ItemsRegistry.SPACE_SUIT);
@@ -41,6 +42,7 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.OXYGEN_LOADER_ITEM);
 			builder.accept(ItemsRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_ITEM);
 			builder.accept(ItemsRegistry.WATER_PUMP_ITEM);
+			builder.accept(ItemsRegistry.ROCKET_UPGRADER_ITEM);
 		}
 
 		if (builder.getTab() == TabsRegistry.BASICS) {

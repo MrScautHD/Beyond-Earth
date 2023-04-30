@@ -20,15 +20,7 @@ import net.mrscauthd.beyond_earth.common.armors.SpaceSuit;
 import net.mrscauthd.beyond_earth.common.armors.materials.JetSuitMaterial;
 import net.mrscauthd.beyond_earth.common.armors.materials.NetheriteSpaceSuitMaterial;
 import net.mrscauthd.beyond_earth.common.armors.materials.SpaceSuitMaterial;
-import net.mrscauthd.beyond_earth.common.items.CoalTorchItem;
-import net.mrscauthd.beyond_earth.common.items.GlobeItem;
-import net.mrscauthd.beyond_earth.common.items.HammerItem;
-import net.mrscauthd.beyond_earth.common.items.ModifiedBucketItem;
-import net.mrscauthd.beyond_earth.common.items.RoverItem;
-import net.mrscauthd.beyond_earth.common.items.Tier1RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier2RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier3RocketItem;
-import net.mrscauthd.beyond_earth.common.items.Tier4RocketItem;
+import net.mrscauthd.beyond_earth.common.items.*;
 
 public class ItemsRegistry {
 
@@ -39,6 +31,8 @@ public class ItemsRegistry {
     public static final RegistryObject<Tier2RocketItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
     public static final RegistryObject<Tier3RocketItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
     public static final RegistryObject<Tier4RocketItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
+    public static final RegistryObject<RocketUpgraderItem> FUEL_UPGRADER_ITEM = ITEMS.register("fuel_upgrader", () -> new RocketUpgraderItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 5));
+
 
     /** ROVER ITEMS */
     public static final RegistryObject<RoverItem> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
@@ -151,6 +145,7 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> OXYGEN_LOADER_ITEM = ITEMS.register("oxygen_loader", () -> new BlockItem(BlockRegistry.OXYGEN_LOADER_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(BlockRegistry.WATER_PUMP_BLOCK.get(), new Item.Properties()));
+    public static final RegistryObject<BlockItem> ROCKET_UPGRADER_ITEM = ITEMS.register("rocket_upgrader", () -> new BlockItem(BlockRegistry.ROCKET_UPGRADER_BLOCK.get(), new Item.Properties()));
 
     // NORMAL BLOCK ITEMS
     public static final RegistryObject<BlockItem> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlockRegistry.STEEL_BLOCK.get(), new Item.Properties()));
