@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/grass_block",
+  "textures": {
+    "particle": "beyond_earth:block/glacio/permafrost_dirt",
+    "bottom": "beyond_earth:block/glacio/permafrost_dirt",
+    "top": "minecraft:block/snow",
+    "side": "beyond_earth:block/glacio/permafrost_snow",
+    "overlay": "beyond_earth:block/glacio/permafrost_snow"
+  }
+}

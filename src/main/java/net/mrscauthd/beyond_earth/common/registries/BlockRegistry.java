@@ -151,6 +151,8 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_WOOD_TRAPDOOR = BLOCKS.register("glacio_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
     public static final RegistryObject<Block> GLACIO_WOOD_STAIRS = BLOCKS.register("glacio_wood_stairs", () -> new StairBlock(GLACIO_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GLACIO_WOOD_PLANKS.get())));
     public static final RegistryObject<Block> GLACIO_WOOD_SLAB = BLOCKS.register("glacio_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
+    public static final RegistryObject<Block> PERMAFROST_GRASS = BLOCKS.register("permafrost_grass", () -> new SnowyDirtBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
+
 
     /** FLUID BLOCKS */
     //FUEL

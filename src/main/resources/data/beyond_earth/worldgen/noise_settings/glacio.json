@@ -359,8 +359,7 @@
           "type": "minecraft:biome",
           "biome_is": [
             "beyond_earth:glacio",
-            "beyond_earth:glacio_ice_spikes",
-            "beyond_earth:glacio_forest"
+            "beyond_earth:glacio_ice_spikes"
           ]
         },
         "then_run": {
@@ -412,6 +411,81 @@
                     "type": "minecraft:block",
                     "result_state": {
                       "Name": "minecraft:snow_block"
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:block",
+                  "result_state": {
+                    "Name": "beyond_earth:permafrost"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+
+      {
+        "type": "minecraft:condition",
+        "if_true": {
+          "type": "minecraft:biome",
+          "biome_is": [
+            "beyond_earth:glacio_forest"
+          ]
+        },
+        "then_run": {
+          "type": "minecraft:condition",
+          "if_true": {
+            "type": "minecraft:y_above",
+            "anchor": {
+              "absolute": 20
+            },
+            "surface_depth_multiplier": 2,
+            "add_stone_depth": false
+          },
+          "then_run": {
+            "type": "minecraft:condition",
+            "if_true": {
+              "type": "minecraft:water",
+              "offset": -2,
+              "surface_depth_multiplier": 0,
+              "add_stone_depth": false
+            },
+            "then_run": {
+              "type": "minecraft:sequence",
+              "sequence": [
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:noise_threshold",
+                    "noise": "minecraft:powder_snow",
+                    "min_threshold": 0.35,
+                    "max_threshold": 0.6
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "minecraft:powder_snow"
+                    }
+                  }
+                },
+                {
+                  "type": "minecraft:condition",
+                  "if_true": {
+                    "type": "minecraft:stone_depth",
+                    "offset": 1,
+                    "surface_type": "floor",
+                    "add_surface_depth": false,
+                    "secondary_depth_range": 0
+                  },
+                  "then_run": {
+                    "type": "minecraft:block",
+                    "result_state": {
+                      "Name": "beyond_earth:permafrost_grass"
+                    },
+                    "Properties": {
+                      "snowy": "true"
                     }
                   }
                 },
