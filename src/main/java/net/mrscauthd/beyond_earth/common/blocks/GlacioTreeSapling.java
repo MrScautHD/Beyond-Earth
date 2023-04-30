@@ -7,15 +7,17 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.grower.AbstractTreeGrower;
 import net.minecraft.world.level.block.state.BlockState;
+import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
+import org.jetbrains.annotations.NotNull;
 
 public class GlacioTreeSapling extends SaplingBlock {
-    public GlacioTreeSapling(AbstractTreeGrower p_55978_, Properties p_55979_) {
-        super(p_55978_, p_55979_);
+    public GlacioTreeSapling(AbstractTreeGrower abstractTreeGrower, Properties properties) {
+        super(abstractTreeGrower, properties);
 
     }
 
     @Override
-    protected boolean mayPlaceOn(BlockState p_51042_, BlockGetter p_51043_, BlockPos p_51044_) {
-        return p_51042_.is(BlockTags.DIRT) || p_51042_.is(Blocks.FARMLAND) || p_51042_.is(Blocks.SNOW) || p_51042_.is(Blocks.SNOW_BLOCK);
+    protected boolean mayPlaceOn(BlockState pState, @NotNull BlockGetter pGetter, BlockPos pPos) {
+        return pState.is(BlockTags.DIRT) || pState.is(Blocks.FARMLAND) || pState.is(Blocks.SNOW) || pState.is(Blocks.SNOW_BLOCK) || pState.is(BlockRegistry.PERMAFROST_GRASS.get());
     }
 }

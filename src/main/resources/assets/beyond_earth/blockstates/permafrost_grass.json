@@ -1,0 +1,25 @@
+
+{
+  "variants": {
+    "snowy=false": [
+      {
+        "model": "beyond_earth:block/permafrost_grass"
+      },
+      {
+        "model": "beyond_earth:block/permafrost_grass",
+        "y": 90
+      },
+      {
+        "model": "beyond_earth:block/permafrost_grass",
+        "y": 180
+      },
+      {
+        "model": "beyond_earth:block/permafrost_grass",
+        "y": 270
+      }
+    ],
+    "snowy=true": {
+      "model": "beyond_earth:block/permafrost_grass_snow"
+    }
+  }
+}
