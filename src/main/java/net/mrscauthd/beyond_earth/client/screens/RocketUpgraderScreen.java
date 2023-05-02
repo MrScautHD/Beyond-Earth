@@ -10,14 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.energy.IEnergyStorage;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.RocketUpgraderMenu;
-import net.mrscauthd.beyond_earth.common.menus.SolarPanelMenu;
 
 @OnlyIn(Dist.CLIENT)
 public class RocketUpgraderScreen extends AbstractContainerScreen<RocketUpgraderMenu.GuiContainer> {

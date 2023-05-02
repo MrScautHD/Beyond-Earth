@@ -20,6 +20,10 @@ public class MenuHelper {
             }
         }
 
+        createActionBarSlot(inventory, slotCreator, left, top);
+    }
+
+    public static void createActionBarSlot(Inventory inventory, Function<Slot, Slot> slotCreator, int left, int top) {
         for (int i1 = 0; i1 < 9; ++i1) {
             slotCreator.apply(new Slot(inventory, i1, left + i1 * 18, top + 58));
         }

@@ -99,7 +99,7 @@ public class NasaWorkbenchMenu {
         }
 
         @Override
-        public boolean stillValid(Player p_38874_) {
+        public boolean stillValid(Player player) {
             return !this.getBlockEntity().isRemoved();
         }
 

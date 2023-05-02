@@ -74,7 +74,5 @@ public class EntityRendererRegistry {
         /** BLOCK ENTITIES */
         event.registerBlockEntityRenderer(BlockEntityRegistry.FLAG_BLOCK_ENTITY.get(), FlagHeadRenderer::new);
         event.registerBlockEntityRenderer(BlockEntityRegistry.GLOBE_BLOCK_ENTITY.get(), GlobeBlockRenderer::new);
-        //TODO ADD IT BACK
-        //event.registerBlockEntityRenderer(BlockEntitiesRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY.get(), TileEntityBoxRenderer::new);
     }
 }
