@@ -3,9 +3,7 @@ package net.mrscauthd.beyond_earth.common.items;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -14,7 +12,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -32,7 +29,7 @@ import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 
@@ -96,7 +93,7 @@ public abstract class IRocketItem extends VehicleItem {
                     level.addFreshEntity(rocket);
 
                     /** SET TAGS */
-                    rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
+                    rocket.getEntityData().set(RocketEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
 
                     /** CALL PLACE ROCKET EVENT */
                     MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));

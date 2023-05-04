@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -66,6 +67,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, IGaugeValuesProvider {
+
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
@@ -436,7 +438,6 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
                 }
 
                 player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
-                player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
 
                 /** SAVE ITEMS IN THE PLAYER */
                 ListTag tag = new ListTag();
@@ -474,7 +475,6 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
             if (this.getDeltaMovement().y < -0.07) {
                 if (!this.level.isClientSide) {
                     this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Level.ExplosionInteraction.TNT);
-
                     this.remove(RemovalReason.DISCARDED);
                 }
             }

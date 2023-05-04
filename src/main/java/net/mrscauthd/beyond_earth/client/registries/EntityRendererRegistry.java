@@ -18,10 +18,7 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.mogler.MoglerRendere
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygrobrute.PygroBruteRenderer;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier1.RocketTier1Renderer;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier2.RocketTier2Renderer;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTier3Renderer;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Renderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rocket.RocketRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
@@ -64,10 +61,7 @@ public class EntityRendererRegistry {
         event.registerEntityRenderer(EntityRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
         /** VEHICLES */
-        event.registerEntityRenderer(EntityRegistry.TIER_1_ROCKET.get(), RocketTier1Renderer::new);
-        event.registerEntityRenderer(EntityRegistry.TIER_2_ROCKET.get(), RocketTier2Renderer::new);
-        event.registerEntityRenderer(EntityRegistry.TIER_3_ROCKET.get(), RocketTier3Renderer::new);
-        event.registerEntityRenderer(EntityRegistry.TIER_4_ROCKET.get(), RocketTier4Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.ROCKET.get(), RocketRenderer::new);
         event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
         event.registerEntityRenderer(EntityRegistry.ROVER.get(), RoverRenderer::new);
 
