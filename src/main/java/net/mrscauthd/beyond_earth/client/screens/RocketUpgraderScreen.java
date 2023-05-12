@@ -26,6 +26,11 @@ public class RocketUpgraderScreen extends AbstractContainerScreen<RocketUpgrader
 	}
 
 	@Override
+	protected void init() {
+		super.init();
+	}
+
+	@Override
 	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);

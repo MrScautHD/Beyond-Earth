@@ -11,11 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.network.IContainerFactory;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.machines.RocketUpgraderBlock;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
-import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.NasaWorkbenchMenu;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
 public class RocketUpgraderMenu {
@@ -50,6 +47,7 @@ public class RocketUpgraderMenu {
                 }
             };
 
+
             IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();
             this.addSlot(new SlotItemHandler(itemHandler, 0, 40, 57));
             this.addSlot(new SlotItemHandler(itemHandler, 1, 67, 57));
@@ -57,6 +55,8 @@ public class RocketUpgraderMenu {
             this.resultSlot = this.addSlot(new RocketUpgraderResultSlot(this.resultInventory, 2, 135, 57, blockEntity));
 
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 142);
+
+            System.out.println(this.slots.size());
         }
 
         public RocketUpgraderBlockEntity getBlockEntity() {
