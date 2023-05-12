@@ -15,10 +15,7 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.lander.LanderModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.martianraptor.MartianRaptorModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.mogler.MoglerModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroModel;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier1.RocketTier1Model;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier2.RocketTier2Model;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTier3Model;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Model;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rocket.RocketModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerModel;
 
@@ -36,10 +33,7 @@ public class EntityLayerRegistry {
         event.registerLayerDefinition(MartianRaptorModel.LAYER_LOCATION, MartianRaptorModel::createBodyLayer);
 
         /** VEHICLES */
-        event.registerLayerDefinition(RocketTier1Model.LAYER_LOCATION, RocketTier1Model::createBodyLayer);
-        event.registerLayerDefinition(RocketTier2Model.LAYER_LOCATION, RocketTier2Model::createBodyLayer);
-        event.registerLayerDefinition(RocketTier3Model.LAYER_LOCATION, RocketTier3Model::createBodyLayer);
-        event.registerLayerDefinition(RocketTier4Model.LAYER_LOCATION, RocketTier4Model::createBodyLayer);
+        event.registerLayerDefinition(RocketModel.LAYER_LOCATION, RocketModel::createBodyLayer);
         event.registerLayerDefinition(LanderModel.LAYER_LOCATION, LanderModel::createBodyLayer);
         event.registerLayerDefinition(RoverModel.LAYER_LOCATION, RoverModel::createBodyLayer);
 

@@ -6,10 +6,7 @@ import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 public class ModTabs {
 	public static void addCreativeTab(CreativeModeTabEvent.BuildContents builder) {
 		if (builder.getTab() == TabsRegistry.DEFAULT) {
-			builder.accept(ItemsRegistry.TIER_1_ROCKET_ITEM);
-			builder.accept(ItemsRegistry.TIER_2_ROCKET_ITEM);
-			builder.accept(ItemsRegistry.TIER_3_ROCKET_ITEM);
-			builder.accept(ItemsRegistry.TIER_4_ROCKET_ITEM);
+			builder.accept(ItemsRegistry.ROCKET_ITEM);
 			builder.accept(ItemsRegistry.FUEL_UPGRADER_ITEM);
 			builder.accept(ItemsRegistry.ROVER_ITEM);
 			builder.accept(ItemsRegistry.SPACE_HELMET);

@@ -13,6 +13,8 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,6 +28,7 @@ import net.mrscauthd.beyond_earth.client.screens.buttons.ModifiedButton;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.helper.CategoryHelper;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.helper.PlanetSelectionScreenHelper;
+import net.mrscauthd.beyond_earth.common.data.recipes.IngredientStack;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 import net.mrscauthd.beyond_earth.common.util.Planets;
@@ -84,12 +87,6 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
     public static final Component ROCKET_TIER_1_TEXT = Component
             .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 1);
-    public static final Component ROCKET_TIER_2_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 2);
-    public static final Component ROCKET_TIER_3_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 3);
-    public static final Component ROCKET_TIER_4_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 4);
 
     public static final float MOON_ORBIT_SPEED = 2.5f;
     public static final float PLANET_ORBIT_SPEED = 2.5f;
@@ -98,7 +95,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     private final PlanetSelectionMenu.GuiContainer menu;
 
     /** CATEGORY */
-    public CategoryHelper category; // IF YOU DO A ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH
+    public CategoryHelper category; // IF YOU DO AN ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH
                                     // "AbstractCategoryHelper"
     // Index of current star
     public CategoryHelper starIndex = new CategoryHelper();
@@ -294,7 +291,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         if (parent == null) {
             Component tierText = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + p.tier);
             ModifiedButton planetCategoryButton = PlanetSelectionScreenHelper.addCategoryButton(this, this.category, 10,
-                    1, 70, 20, planetCategory, this.checkTier(p.tier), false,
+                    1, 70, 20, planetCategory, this.checkDistance(0), false,
                     ModifiedButton.ButtonTypes.SOLAR_SYSTEM_CATEGORY,
                     List.of(p.description.getString(), tierText.getString()), BUTTON_TEXTURE,
                     ModifiedButton.ColorTypes.GREEN, p.description);
@@ -594,27 +591,27 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         button.visible = condition && this.buttonScrollVisibility(button);
     }
 
-    public boolean getSpaceStationItemCheck(/* IngredientStack ingredientStack */) {
-        /*
-         * Player player = this.menu.player;
-         * 
-         * if (player.getAbilities().instabuild || player.isSpectator()) { return true;
-         * }
-         * 
-         * Inventory inv = player.getInventory(); int itemStackCount = 0;
-         * 
-         * for (int i = 0; i < inv.getContainerSize(); ++i) { ItemStack itemStack =
-         * inv.getItem(i);
-         * 
-         * if (ingredientStack.testWithoutCount(itemStack)) { itemStackCount +=
-         * itemStack.getCount(); } }
-         */
+    public boolean getSpaceStationItemCheck(IngredientStack ingredientStack) {
 
-        return true; // itemStackCount >= ingredientStack.getCount();
+          Player player = this.menu.getPlayer();
+
+          if (player.getAbilities().instabuild || player.isSpectator()) { return true;
+          }
+
+          Inventory inv = player.getInventory(); int itemStackCount = 0;
+
+          for (int i = 0; i < inv.getContainerSize(); ++i) { ItemStack itemStack =
+          inv.getItem(i);
+
+          if (ingredientStack.testWithoutCount(itemStack)) { itemStackCount +=
+          itemStack.getCount(); } }
+
+
+        return itemStackCount >= ingredientStack.getCount();
     }
-
-    public boolean checkTier(int tier) {
-        return this.menu.getTier() >= tier;
+    // TODO : check distance between each planet
+    public boolean checkDistance(int distance) {
+        return true;
     }
 
     /**

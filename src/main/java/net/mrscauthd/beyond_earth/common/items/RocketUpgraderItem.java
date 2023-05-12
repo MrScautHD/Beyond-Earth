@@ -34,7 +34,7 @@ public class RocketUpgraderItem extends Item {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int p_41407_, boolean p_41408_) {
         super.inventoryTick(stack, level, entity, p_41407_, p_41408_);
 
-        CompoundTag modifier = stack.getOrCreateTagElement("rocket_upgrader");
+        CompoundTag modifier = stack.getOrCreateTagElement("rocket_upgrade");
         modifier.putInt("fuelCapacity", fuelCapacityModifier);
     }
 

@@ -27,11 +27,8 @@ public class ItemsRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BeyondEarth.MODID);
 
     /** ROCKET ITEMS */
-    public static final RegistryObject<Tier1RocketItem> TIER_1_ROCKET_ITEM = ITEMS.register("rocket_t1", () -> new Tier1RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<Tier2RocketItem> TIER_2_ROCKET_ITEM = ITEMS.register("rocket_t2", () -> new Tier2RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<Tier3RocketItem> TIER_3_ROCKET_ITEM = ITEMS.register("rocket_t3", () -> new Tier3RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<Tier4RocketItem> TIER_4_ROCKET_ITEM = ITEMS.register("rocket_t4", () -> new Tier4RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<RocketUpgraderItem> FUEL_UPGRADER_ITEM = ITEMS.register("fuel_upgrader", () -> new RocketUpgraderItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 5));
+    public static final RegistryObject<RocketItem> ROCKET_ITEM = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
+    public static final RegistryObject<RocketUpgraderItem> FUEL_UPGRADER_ITEM = ITEMS.register("fuel_upgrade", () -> new RocketUpgraderItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 5));
 
 
     /** ROVER ITEMS */
@@ -75,7 +72,6 @@ public class ItemsRegistry {
 
 
     public static final RegistryObject<BlockItem> ROCKET_LAUNCH_PAD_ITEM = ITEMS.register("rocket_launch_pad", () -> new BlockItem(BlockRegistry.ROCKET_LAUNCH_PAD.get(), new Item.Properties()));
-
     public static final RegistryObject<Item> FLAG_ITEM = ITEMS.register("flag", () -> new DoubleHighBlockItem(BlockRegistry.FLAG_BLOCK.get(), new Item.Properties()));
 
 
@@ -107,7 +103,6 @@ public class ItemsRegistry {
     public static final RegistryObject<Item> DESH_INGOT = ITEMS.register("desh_ingot", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> OSTRUM_INGOT = ITEMS.register("ostrum_ingot", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CALORITE_INGOT = ITEMS.register("calorite_ingot", () -> new Item(new Item.Properties()));
-
     public static final RegistryObject<Item> ICE_SHARD = ITEMS.register("ice_shard", () -> new Item(new Item.Properties()));
 
     // PLATES

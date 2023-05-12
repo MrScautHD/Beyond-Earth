@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "beyond_earth:block/rocket_upgrader"
+    },
+    "facing=east": {
+      "model": "beyond_earth:block/rocket_upgrader",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "beyond_earth:block/rocket_upgrader",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "beyond_earth:block/rocket_upgrader",
+      "y": 270
+    }
+  }
+}

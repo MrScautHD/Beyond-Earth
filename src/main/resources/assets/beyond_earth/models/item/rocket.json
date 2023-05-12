@@ -125,6 +125,6 @@
     }
   },
   "textures": {
-    "particle": "beyond_earth:vehicle/rocket_t3"
+    "particle": "beyond_earth:vehicle/rocket"
   }
 }

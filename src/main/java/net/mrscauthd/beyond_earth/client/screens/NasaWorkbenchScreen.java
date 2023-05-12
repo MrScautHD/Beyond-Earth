@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -21,7 +20,7 @@ public class NasaWorkbenchScreen extends AbstractContainerScreen<NasaWorkbenchMe
 
     public NasaWorkbenchScreen(NasaWorkbenchMenu.GuiContainer container, Inventory inventory, Component text) {
         super(container, inventory, text);
-        this.imageWidth = 176;
+        this.imageWidth = 177;
         this.imageHeight = 224;
         this.inventoryLabelY = this.imageHeight - 92;
     }

@@ -94,7 +94,6 @@ public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
         }
 
         ejectingEnergy = this.calculateBalance(ejectingEnergy, tuples);
-        ejectingEnergy = this.calculateRemained(ejectingEnergy, tuples);
 
         for (EjectingTuple tuple : tuples) {
             int extracted = source.extractEnergy(tuple.receiving, false);
