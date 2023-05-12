@@ -15,11 +15,12 @@ import net.mrscauthd.beyond_earth.common.menus.RocketUpgraderMenu;
 
 @OnlyIn(Dist.CLIENT)
 public class RocketUpgraderScreen extends AbstractContainerScreen<RocketUpgraderMenu.GuiContainer> {
+
 	public static final ResourceLocation texture = new ResourceLocation(BeyondEarth.MODID, "textures/gui/rocket_upgrader.png");
 
 	public RocketUpgraderScreen(RocketUpgraderMenu.GuiContainer container, Inventory inventory, Component text) {
 		super(container, inventory, text);
-		this.imageWidth = 176;
+		this.imageWidth = 177;
 		this.imageHeight = 224;
 		this.inventoryLabelY = this.imageHeight - 92;
 	}
