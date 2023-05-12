@@ -32,9 +32,7 @@
   "item.beyond_earth.iron_rod": "Железная палка",
   "item.beyond_earth.oxygen_gear": "Кислородная маска",
   "item.beyond_earth.oxygen_mask": "Скафандровый шлем",
-  "item.beyond_earth.rocket_t2": "Ракета 2 уровня",
   "item.beyond_earth.engine_fan": "Пропеллер двигателя",
-  "item.beyond_earth.rocket_t3": "Ракета 3 уровня",
   "item.beyond_earth.netherite_oxygen_mask": "Незеритовый скафандровый шлем",
   "item.beyond_earth.space_boots": "Скафандровые ботинки",
   "item.beyond_earth.rocket_fin": "Крыло ракеты",
@@ -53,7 +51,6 @@
   "item.beyond_earth.raw_ostrum": "Рудный острий",
   "item.beyond_earth.raw_desh_block": "Блок рудного деша",
   "item.beyond_earth.raw_ostrum_block": "Блок рудного острия",
-  "item.beyond_earth.rocket_t4": "Ракета 4 уровня",
   "item.beyond_earth.ice_shard": "Осколок льда",
 
   "item.beyond_earth.calorite_ingot": "Слиток калорита",

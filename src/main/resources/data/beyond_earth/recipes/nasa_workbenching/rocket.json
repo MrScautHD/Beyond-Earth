@@ -9,30 +9,30 @@
          ],
          "beyond_earth:body":[
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             },
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             },
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             },
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             },
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             },
             {
-               "item":"beyond_earth:compressed_calorite"
+               "item":"beyond_earth:compressed_steel"
             }
          ],
          "beyond_earth:tank":[
             {
-               "item":"beyond_earth:calorite_tank"
+               "item":"beyond_earth:steel_tank"
             },
             {
-               "item":"beyond_earth:calorite_tank"
+               "item":"beyond_earth:steel_tank"
             }
          ],
          "beyond_earth:fin_left":[
@@ -53,13 +53,13 @@
          ],
          "beyond_earth:engine":[
             {
-               "item":"beyond_earth:calorite_engine"
+               "item":"beyond_earth:steel_engine"
             }
          ]
       }
    },
    "output":{
-      "item":"beyond_earth:rocket_t4",
+      "item":"beyond_earth:rocket",
       "count":1
    }
 }
