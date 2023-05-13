@@ -55,14 +55,6 @@ public class RocketUpgraderBlockEntity extends AbstractMachineBlockEntity {
         return super.canTakeItemThroughFace(index, stack, direction);
     }
 
-    @Override
-    protected void getSlotsForFace(Direction direction, List<Integer> slots) {
-        super.getSlotsForFace(direction, slots);
-        slots.add(ROCKET_INPUT_SLOT);
-        slots.add(ROCKET_UPGRADE_SLOT);
-        slots.add(ROCKET_OUTPUT_SLOT);
-    }
-
     private static boolean isRocketUpgrade(ItemStack stack) {
         return stack.is(TagRegistry.ROCKET_UPGRADE);
     }

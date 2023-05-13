@@ -117,8 +117,11 @@ public class ScreenHelper {
 
             Minecraft mc = Minecraft.getInstance();
             IClientFluidTypeExtensions renderProperties = IClientFluidTypeExtensions.of(fluidStack.getFluid());
+            if (renderProperties.getStillTexture() == null) {
+                return;
+            }
 
-            TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(new ResourceLocation(BeyondEarth.MODID, "block/fluids/fuel_flow"));
+            TextureAtlasSprite sprite = mc.getTextureAtlas(InventoryMenu.BLOCK_ATLAS).apply(renderProperties.getStillTexture());
 
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, sprite.atlasLocation());

@@ -13,7 +13,6 @@ import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ScreenRegistry {
-
     @SubscribeEvent
     public static void register(FMLClientSetupEvent event) {
         MenuScreens.register(ContainerRegistry.ROCKET_GUI.get(), RocketScreen::new);
