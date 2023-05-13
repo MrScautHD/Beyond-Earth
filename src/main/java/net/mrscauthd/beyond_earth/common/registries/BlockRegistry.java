@@ -11,16 +11,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.blocks.CoalLanternBlock;
-import net.mrscauthd.beyond_earth.common.blocks.CoalTorchBlock;
-import net.mrscauthd.beyond_earth.common.blocks.FlagBlock;
-import net.mrscauthd.beyond_earth.common.blocks.GlobeBlock;
-import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
-import net.mrscauthd.beyond_earth.common.blocks.WallCoalTorchBlock;
+import net.mrscauthd.beyond_earth.common.blocks.*;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.machines.*;
 
-import net.mrscauthd.beyond_earth.common.blocks.GlacioTreeSapling;
 import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
 
 public class BlockRegistry {
@@ -151,8 +145,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_WOOD_TRAPDOOR = BLOCKS.register("glacio_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
     public static final RegistryObject<Block> GLACIO_WOOD_STAIRS = BLOCKS.register("glacio_wood_stairs", () -> new StairBlock(GLACIO_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GLACIO_WOOD_PLANKS.get())));
     public static final RegistryObject<Block> GLACIO_WOOD_SLAB = BLOCKS.register("glacio_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
-    public static final RegistryObject<Block> PERMAFROST_GRASS = BLOCKS.register("permafrost_grass", () -> new SnowyDirtBlock(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
+    public static final RegistryObject<Block> PERMAFROST_GRASS = BLOCKS.register("permafrost_grass", () -> new PermafrostGrass(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
 
+    public static final RegistryObject<Block> PERMAFROST_DIRT = BLOCKS.register("permafrost_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 
     /** FLUID BLOCKS */
     //FUEL
