@@ -334,5 +334,11 @@
   "general.beyond_earth.jet_suit_hover_mode": "Flutuação",
   "general.beyond_earth.jet_suit_elytra_mode": "Elytra",
   "config.jade.plugin_beyond_earth.entity": "Entidade",
-  "config.jade.plugin_beyond_earth.block": "Bloco"
+  "config.jade.plugin_beyond_earth.block": "Bloco",
+  "item.beyond_earth.iron_rod": "Iron Rod",
+  "item.beyond_earth.space_balise": "Space Balise",
+  "block.beyond_earth.rocket_upgrader": "§6Rocket Upgrader",
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s"
 }

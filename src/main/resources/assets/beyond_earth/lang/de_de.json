@@ -8,18 +8,12 @@
   "item.beyond_earth.desh_plate": "Desh Platte",
   "item.beyond_earth.space_station": "Raumstation",
   "item.beyond_earth.compressed_ostrum": "Komprimiertes Ostrum",
-  "item.beyond_earth.netherite_space_pants": "Netherite Raumanzug Hose",
   "item.beyond_earth.engine_frame": "Antriebs Rahmen",
   "item.beyond_earth.ostrum_tank": "Ostrum Tank",
   "item.beyond_earth.desh_engine": "Desh Antrieb",
   "item.beyond_earth.hammer": "Hammer",
-  "item.beyond_earth.netherite_space_boots": "Netherite Raumanzug Schuhe",
-  "item.beyond_earth.space_pants": "Raumanzug Hose",
-  "item.beyond_earth.rocket_t1": "Rakete",
   "item.beyond_earth.ostrum_engine": "Ostrum Antrieb",
-  "item.beyond_earth.space_suit": "Raumanzug",
   "item.beyond_earth.alien_zombie_spawn_egg": "Alien Zombie Spawn Ei",
-  "item.beyond_earth.netherite_space_suit": "Netherite Raumanzug",
   "item.beyond_earth.ostrum_ingot": "Ostrum Barren",
   "item.beyond_earth.desh_tank": "Desh Tank",
   "item.beyond_earth.rocket_nose_cone": "Raketen Spitze",
@@ -28,12 +22,10 @@
   "item.beyond_earth.wheel": "Rad",
   "item.beyond_earth.steel_tank": "Stahl Tank",
   "item.beyond_earth.pygro_spawn_egg": "Pygro Spawn Ei",
+  "item.beyond_earth.pygro_brute_spawn_egg": "Pygro Brute Spawn Egg",
   "item.beyond_earth.iron_rod": "Eisen Stange",
   "item.beyond_earth.oxygen_gear": "Sauerstoff Ausrüstung",
-  "item.beyond_earth.oxygen_mask": "Sauerstoff Maske",
   "item.beyond_earth.engine_fan": "Antriebs Lüfter",
-  "item.beyond_earth.netherite_oxygen_mask": "Netherite Sauerstoff Maske",
-  "item.beyond_earth.space_boots": "Raumanzug Schuhe",
   "item.beyond_earth.rocket_fin": "Raketen Flosse",
   "item.beyond_earth.rover": "Rover",
   "item.beyond_earth.alien_spawn_egg": "Alien Spawn Ei",
@@ -51,6 +43,27 @@
   "item.beyond_earth.raw_desh_block": "Roher Desh Block",
   "item.beyond_earth.raw_ostrum_block": "Roher Ostrum Block",
   "item.beyond_earth.ice_shard": "Eisscholle",
+  "item.beyond_earth.space_balise": "Space Balise",
+
+  "item.beyond_earth.rocket_t1": "Rakete",
+
+  "item.beyond_earth.oxygen_mask": "Sauerstoff Maske",
+  "item.beyond_earth.space_suit": "Raumanzug",
+  "item.beyond_earth.space_pants": "Raumanzug Hose",
+  "item.beyond_earth.space_boots": "Raumanzug Schuhe",
+  "item.beyond_earth.space_helmet": "Space Helmet",
+
+  "item.beyond_earth.netherite_oxygen_mask": "Netherite Sauerstoff Maske",
+  "item.beyond_earth.netherite_space_suit": "Netherite Raumanzug",
+  "item.beyond_earth.netherite_space_pants": "Netherite Raumanzug Hose",
+  "item.beyond_earth.netherite_space_boots": "Netherite Raumanzug Schuhe",
+  "item.beyond_earth.netherite_space_helmet": "Netherite Space Helmet",
+
+  "item.beyond_earth.jet_suit_oxygen_mask": "Jet Suit Oxygen Mask",
+  "item.beyond_earth.jet_helmet": "Jet Suit Helmet",
+  "item.beyond_earth.jet_suit": "Jet Suit",
+  "item.beyond_earth.jet_pants": "Jet Suit Pants",
+  "item.beyond_earth.jet_boots": "Jet Suit Boots",
 
   "item.beyond_earth.calorite_ingot": "Calorite Barren",
   "item.beyond_earth.compressed_calorite": "Komprimiertes Calorite",
@@ -130,6 +143,13 @@
   "block.beyond_earth.moon_ice_shard_ore": "Mond Eis Shard Erz",
   "block.beyond_earth.mars_ice_shard_ore": "Mars Eis Shard Erz",
   "block.beyond_earth.glacio_ice_shard_ore": "Glacio Eis Shard Erz",
+  "block.beyond_earth.desh_pillar": "Desh Pillar",
+  "block.beyond_earth.desh_plating_block": "Desh Plating Block",
+  "block.beyond_earth.blue_iron_pillar": "Blue Iron Pillar",
+  "block.beyond_earth.infernal_spire": "Infernal Spire",
+  "block.beyond_earth.barricade_block": "Barricade Block",
+  "block.beyond_earth.meteorite": "Meteorite",
+  "block.beyond_earth.rocket_upgrader": "§6Rocket Upgrader",
 
   "block.beyond_earth.moon_stone_brick_slab": "Mond Steinziegel Stufe",
   "block.beyond_earth.moon_stone_bricks": "Mond Steinziegel",
@@ -159,7 +179,7 @@
   "block.beyond_earth.venus_calorite_ore": "Venus Calorite Erz",
   "block.beyond_earth.calorite_block": "Caloriteblock",
   "block.beyond_earth.raw_calorite_block": "Roherer Calorite Block",
-  
+
   "block.beyond_earth.permafrost": "Permafrost",
   "block.beyond_earth.glacio_stone": "Glacio Stein",
   "block.beyond_earth.glacio_stone_bricks": "Glacio Steinziegel",
@@ -169,7 +189,7 @@
   "block.beyond_earth.glacio_coal_ore": "Glacio Kohle Erz",
   "block.beyond_earth.glacio_copper_ore": "Glacio Kupfer Erz",
   "block.beyond_earth.glacio_iron_ore": "Glacio Eisen Erz",
-  "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Erz",
+
   "block.beyond_earth.glacio_wood": "Glacio Wood",
   "block.beyond_earth.glacio_wood_log": "Glacio Wood Log",
   "block.beyond_earth.glacio_tree_leaves": "Glacio Tree Leaves",
@@ -182,14 +202,13 @@
   "block.beyond_earth.permafrost_grass": "Permafrost Grass",
   "block.beyond_earth.permafrost_dirt": "Permafrost Dirt",
 
-
   "block.beyond_earth.earth_globe": "Earth Globus",
   "block.beyond_earth.moon_globe": "Moon Globus",
   "block.beyond_earth.mars_globe": "Mars Globus",
   "block.beyond_earth.mercury_globe": "Mercury Globus",
   "block.beyond_earth.venus_globe": "Venus Globus",
   "block.beyond_earth.glacio_globe": "Glacio Globus",
-  
+
   "fluid.beyond_earth.fuel": "Treibstoff",
   "fluid.fuel": "Treibstoff",
   "fluid.beyond_earth.oil": "Öl",
@@ -197,6 +216,7 @@
 
   "entity.beyond_earth.mogler": "Mogler",
   "entity.beyond_earth.pygro": "Pygro",
+  "entity.beyond_earth.pygro_brute": "Pygro Brute",
   "entity.beyond_earth.alien": "Alien",
   "entity.beyond_earth.alien_zombie": "Alien Zombie",
   "entity.beyond_earth.star_crawler": "Sternkriecher",
@@ -213,6 +233,8 @@
   "biome.beyond_earth.venus": "Venus",
   "biome.beyond_earth.mercury": "Merkur",
   "biome.beyond_earth.mars": "Mars",
+  "biome.beyond_earth.phobos": "Phobos",
+  "biome.beyond_earth.deimos": "Deimos",
   "biome.beyond_earth.moon": "Mond",
   "biome.beyond_earth.mars_ice_spikes": "Mars Eis Stacheln",
   "biome.beyond_earth.glacio": "Glacio",
@@ -235,8 +257,9 @@
 
   "key.categories.beyond_earth": "Beyond Earth",
   "key.beyond_earth.rocket_start": "Rakete Starten",
+  "key.beyond_earth.switch_jet_suit_mode": "Switch Jet Suit Mode",
 
-  "death.attack.oxygen": "%1$s hat\u0027t keine Luft mehr bekommen",
+  "death.attack.oxygen": "%1$s hat't keine Luft mehr bekommen",
   "death.attack.venus.acid": "%1$s war eine Opfergabe für die Säure",
 
   "entity.beyond_earth.alien.farmer": "Farmer",
@@ -255,15 +278,15 @@
 
   "block.beyond_earth.molten_desh_fluid": "Geschmolzenes Desh",
   "fluid.beyond_earth.molten_desh": "Geschmolzenes Desh",
-  "fluid.beyond_earth.flowing_moltendesh": "Fließendes Geschmolzenes Desh",
+  "fluid.beyond_earth.flowing_molten_desh": "Flowing Molten Desh",
   "item.beyond_earth.molten_desh_bucket": "Geschmolzenes Desh Eimer",
   "block.beyond_earth.molten_ostrum_fluid": "Geschmolzenes Ostrum",
   "fluid.beyond_earth.molten_ostrum": "Geschmolzenes Ostrum",
-  "fluid.beyond_earth.flowing_moltenostrum": "Fließendes geschmolzenes Ostrum",
+  "fluid.beyond_earth.flowing_molten_ostrum": "Flowing Molten Ostrum",
   "item.beyond_earth.molten_ostrum_bucket": "Geschmolzenes Ostrum Eimer",
   "block.beyond_earth.molten_calorite_fluid": "Geschmolzenes Calorite",
   "fluid.beyond_earth.molten_calorite": "Geschmolzenes Calorite",
-  "fluid.beyond_earth.flowing_moltencalorite": "Fließendes geschmolzenes Calorite",
+  "fluid.beyond_earth.flowing_molten_calorite": "Flowing Molten Calorite",
   "item.beyond_earth.molten_calorite_bucket": "Geschmolzenes Calorite Eimer",
 
   "container.beyond_earth.coal_generator": "Kohle Generator",
@@ -286,9 +309,12 @@
 
 
   "message.beyond_earth.no_fuel": "§cKEIN TREIBSTOFF! §7Befülle die Rakete mit §cTreibstoff§7. (§6Shift und Rechtsclick§7)",
-  "message.beyond_earth.hold_space": "§7Halte §cLeertaste!",
+  "message.beyond_earth.hold_key": "§7Hold Key",
   "message.beyond_earth.speed": "%s Geschwindigkeit",
-  
+
+  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
+  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
+  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
 
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Umkreis: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Anzeigen",
@@ -313,6 +339,8 @@
   "gui.beyond_earth.planet_selection.earth": "Erde",
   "gui.beyond_earth.planet_selection.moon": "Mond",
   "gui.beyond_earth.planet_selection.mars": "Mars",
+  "gui.beyond_earth.planet_selection.phobos": "Phobos",
+  "gui.beyond_earth.planet_selection.deimos": "Deimos",
   "gui.beyond_earth.planet_selection.mercury": "Merkur",
   "gui.beyond_earth.planet_selection.venus": "Venus",
   "gui.beyond_earth.planet_selection.solar_system_sun": "Sonne",
@@ -340,5 +368,18 @@
   "general.beyond_earth.oxygen": "Sauerstoff",
   "general.beyond_earth.burntime": "Brenndauer",
   "general.beyond_earth.cooktime": "Kochdauer",
-  "general.beyond_earth.oxygenloading": "Lade"
+  "general.beyond_earth.oxygenloading": "Lade",
+  "general.beyond_earth.jet_suit_mode": "Mode",
+  "general.beyond_earth.jet_suit_disabled_mode": "Disabled",
+  "general.beyond_earth.jet_suit_normal_mode": "Normal",
+  "general.beyond_earth.jet_suit_hover_mode": "Hover",
+  "general.beyond_earth.jet_suit_elytra_mode": "Elytra",
+
+  "config.jade.plugin_beyond_earth.entity": "Entity",
+  "config.jade.plugin_beyond_earth.block": "Block",
+  "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Erz",
+  "fluid.beyond_earth.flowing_moltencalorite": "Fließendes geschmolzenes Calorite",
+  "fluid.beyond_earth.flowing_moltendesh": "Fließendes Geschmolzenes Desh",
+  "fluid.beyond_earth.flowing_moltenostrum": "Fließendes geschmolzenes Ostrum",
+  "message.beyond_earth.hold_space": "§7Halte §cLeertaste!"
 }

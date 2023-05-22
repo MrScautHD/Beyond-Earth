@@ -23,11 +23,7 @@ public class OxygenUtil {
     public static IOxygenStorage getItemStackOxygenStorage(ItemStack itemStack) {
         IOxygenStorage oxygenStorage = itemStack.getCapability(OxygenProvider.OXYGEN).orElse(null);
 
-        if (oxygenStorage != null) {
-            return oxygenStorage;
-        }
-
-        return null;
+        return oxygenStorage;
     }
 
     /**

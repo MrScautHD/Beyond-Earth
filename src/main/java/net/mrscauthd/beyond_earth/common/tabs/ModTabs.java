@@ -111,6 +111,7 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.BLUE_IRON_PILLAR_BLOCK_ITEM);
 			builder.accept(ItemsRegistry.INFERNAL_SPIRE_ITEM);
 			builder.accept(ItemsRegistry.BARRICADE_BLOCK_ITEM);
+			builder.accept(ItemsRegistry.RED_BARRICADE_BLOCK_ITEM);
 			builder.accept(ItemsRegistry.METEORITE_ITEM);
 			builder.accept(ItemsRegistry.MOON_STONE_ITEM);
 			builder.accept(ItemsRegistry.MOON_STONE_BRICKS_ITEM);

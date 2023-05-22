@@ -308,7 +308,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
         O2.forEach((i, o2) -> {
-            tag.put("" + i, o2.serializeNBT());
+            tag.put(String.valueOf(i), o2.serializeNBT());
         });
         return tag;
     }
