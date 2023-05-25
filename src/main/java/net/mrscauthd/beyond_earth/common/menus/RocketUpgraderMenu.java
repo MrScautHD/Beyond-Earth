@@ -52,7 +52,7 @@ public class RocketUpgraderMenu {
             this.addSlot(new SlotItemHandler(itemHandler, 0, 40, 57));
             this.addSlot(new SlotItemHandler(itemHandler, 1, 67, 57));
 
-            this.resultSlot = this.addSlot(new RocketUpgraderResultSlot(this.resultInventory, 2, 135, 57, blockEntity));
+            this.resultSlot = this.addSlot(new RocketUpgraderResultSlot(this.getResultInventory(), 2, 135, 57, blockEntity));
 
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 142);
 

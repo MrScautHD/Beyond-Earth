@@ -8,7 +8,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.screens.*;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
-import net.mrscauthd.beyond_earth.common.menus.RocketUpgraderMenu;
 import net.mrscauthd.beyond_earth.common.registries.ContainerRegistry;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
