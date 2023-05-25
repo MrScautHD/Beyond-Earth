@@ -17,8 +17,8 @@ public class RocketUpgraderResultSlot extends Slot {
     }
 
     @Override
-    public boolean mayPlace(ItemStack p_40231_) {
-        return false;
+    public boolean mayPlace(ItemStack stack) {
+        return RocketUpgraderBlockEntity.isRocketUpgrade(stack);
     }
 
     public RocketUpgraderBlockEntity getBlockEntity() {

@@ -7,6 +7,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -18,10 +19,9 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 
-public class RocketUpgraderBlock extends AbstractMachineBlock<RocketUpgraderBlockEntity>
-        implements SimpleWaterloggedBlock {
+public class RocketUpgraderBlock extends AbstractMachineBlock<RocketUpgraderBlockEntity> implements SimpleWaterloggedBlock {
 
-    public RocketUpgraderBlock(Properties properties) {
+    public RocketUpgraderBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
@@ -68,7 +68,7 @@ public class RocketUpgraderBlock extends AbstractMachineBlock<RocketUpgraderBloc
     @SuppressWarnings("deprecation")
     @Override
     public BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level,
-            BlockPos currentPos, BlockPos facingPos) {
+                                  BlockPos currentPos, BlockPos facingPos) {
         if (state.getValue(BlockStateProperties.WATERLOGGED)) {
             level.scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(level));
         }

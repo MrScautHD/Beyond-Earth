@@ -6,20 +6,17 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
-import net.mrscauthd.beyond_earth.common.data.recipes.*;
+import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
+import net.mrscauthd.beyond_earth.common.data.recipes.RocketUpgraderRecipe;
 import net.mrscauthd.beyond_earth.common.menus.RocketUpgraderMenu;
 import net.mrscauthd.beyond_earth.common.menus.helper.MenuHelper;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +34,7 @@ public class RocketUpgraderBlockEntity extends AbstractMachineBlockEntity {
         this.possibleRecipes = new ArrayList<>();
     }
 
+    @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory) {
         return new RocketUpgraderMenu.GuiContainer(id, inventory, this);
     }
@@ -64,6 +62,11 @@ public class RocketUpgraderBlockEntity extends AbstractMachineBlockEntity {
     }
 
     @Override
+    public void setItem(int p_59616_, ItemStack p_59617_) {
+        super.setItem(p_59616_, p_59617_);
+    }
+
+    @Override
     protected boolean onCanPlaceItemThroughFace(int index, ItemStack stack, Direction direction) {
         if (index == ROCKET_UPGRADE_SLOT) {
             return isRocketUpgrade(stack);
@@ -85,7 +88,7 @@ public class RocketUpgraderBlockEntity extends AbstractMachineBlockEntity {
         return RecipeTypeRegistry.ROCKET_UPGRADER.get();
     }
 
-    private static boolean isRocketUpgrade(ItemStack stack) {
+    public static boolean isRocketUpgrade(ItemStack stack) {
         return stack.is(TagRegistry.ROCKET_UPGRADE);
     }
 

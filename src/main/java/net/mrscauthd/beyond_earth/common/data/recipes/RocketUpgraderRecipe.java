@@ -18,10 +18,6 @@ public class RocketUpgraderRecipe extends OxygenMakingRecipeAbstract {
 		super(id, buffer);
 	}
 
-	public RocketUpgraderRecipe(ResourceLocation id, FluidIngredient ingredient, int oxygen) {
-		super(id, ingredient, oxygen);
-	}
-
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return RecipeSerializersRegistry.RECIPE_SERIALIZER_ROCKET_UPGRADER.get();

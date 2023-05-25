@@ -8,7 +8,6 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.entities.FlagBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.GlobeTileEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.*;
-import net.mrscauthd.beyond_earth.common.blocks.machines.RocketUpgraderBlock;
 
 public class BlockEntityRegistry {
 

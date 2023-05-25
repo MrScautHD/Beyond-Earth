@@ -20,8 +20,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 
-public class NASAWorkbenchBlock extends AbstractMachineBlock<NASAWorkbenchBlockEntity>
-        implements SimpleWaterloggedBlock {
+public class NASAWorkbenchBlock extends AbstractMachineBlock<NASAWorkbenchBlockEntity> implements SimpleWaterloggedBlock {
 
     public NASAWorkbenchBlock(BlockBehaviour.Properties properties) {
         super(properties);
