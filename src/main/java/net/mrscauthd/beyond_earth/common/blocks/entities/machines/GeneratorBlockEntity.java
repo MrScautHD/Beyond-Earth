@@ -64,7 +64,7 @@ public abstract class GeneratorBlockEntity extends AbstractMachineBlockEntity {
 
     protected abstract IEnergyStorage createGeneratingEnergyStorage();
 
-    public class EjectingTuple {
+    public static class EjectingTuple {
         public final IEnergyStorage energyStorage;
         public int receivable;
         public int receiving;

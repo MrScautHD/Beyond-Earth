@@ -32,9 +32,9 @@ public class RocketUpgraderBlockEntity extends AbstractMachineBlockEntity {
 
     @Override
     protected void tickProcessing() {
-        //if (getItemHandler().getStackInSlot(ROCKET_UPGRADE_SLOT).is(TagRegistry.ROCKET_UPGRADE)) {
-        //    getItemHandler().setStackInSlot(ROCKET_OUTPUT_SLOT, ItemsRegistry.TIER_4_ROCKET_ITEM.get().getDefaultInstance());
-        //}
+        /**if (getItemHandler().getStackInSlot(ROCKET_UPGRADE_SLOT).is(TagRegistry.ROCKET_UPGRADE)) {
+            getItemHandler().setStackInSlot(ROCKET_OUTPUT_SLOT, ItemsRegistry.TIER_4_ROCKET_ITEM.get().getDefaultInstance());
+        }*/
     }
 
     @Override

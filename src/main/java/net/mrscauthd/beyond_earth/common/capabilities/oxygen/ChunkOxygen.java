@@ -75,7 +75,7 @@ public class ChunkOxygen implements ICapabilityProvider, INBTSerializable<Compou
         }
     }
 
-    public class SectionOxygen implements INBTSerializable<ByteArrayTag> {
+    public static class SectionOxygen implements INBTSerializable<ByteArrayTag> {
         byte[] O2 = new byte[16 * 16 * 16];
 
         public SectionOxygen() {
