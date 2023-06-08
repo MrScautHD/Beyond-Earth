@@ -49,19 +49,18 @@ public class RocketUpgraderMenu {
 
 
             IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();
-            this.addSlot(new SlotItemHandler(itemHandler, 0, 40, 57));
-            this.addSlot(new SlotItemHandler(itemHandler, 1, 67, 57));
+            this.addSlot(new SlotItemHandler(itemHandler, RocketUpgraderBlockEntity.ROCKET_INPUT_SLOT, 40, 57));
+            this.addSlot(new SlotItemHandler(itemHandler, RocketUpgraderBlockEntity.ROCKET_UPGRADE_SLOT, 67, 57));
 
-            this.resultSlot = this.addSlot(new RocketUpgraderResultSlot(this.getResultInventory(), 2, 135, 57, blockEntity));
+            this.resultSlot = this.addSlot(new RocketUpgraderResultSlot(this.resultInventory, RocketUpgraderBlockEntity.ROCKET_OUTPUT_SLOT, 135, 57, blockEntity));
 
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 142);
-
-            System.out.println(this.slots.size());
         }
 
         public RocketUpgraderBlockEntity getBlockEntity() {
             return this.blockEntity;
         }
+
 
         @Override
         public boolean stillValid(Player player) {
@@ -72,15 +71,6 @@ public class RocketUpgraderMenu {
         public ItemStack quickMoveStack(Player playerIn, int index) {
             return MenuHelper.transferStackInSlot(this, playerIn, index, this.getBlockEntity(),
                     this::moveItemStackTo);
-        }
-
-
-        public ResultContainer getResultInventory() {
-            return this.resultInventory;
-        }
-
-        public Slot getResultSlot() {
-            return this.resultSlot;
         }
     }
 }

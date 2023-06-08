@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.common.menus;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.NASAWorkbenchBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 
 public class RocketUpgraderResultSlot extends Slot {

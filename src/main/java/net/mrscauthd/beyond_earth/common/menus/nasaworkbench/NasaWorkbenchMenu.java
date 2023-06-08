@@ -138,13 +138,5 @@ public class NasaWorkbenchMenu {
         public NASAWorkbenchBlockEntity getBlockEntity() {
             return this.blockEntity;
         }
-
-        public ResultContainer getResultInventory() {
-            return this.resultInventory;
-        }
-
-        public Slot getResultSlot() {
-            return this.resultSlot;
-        }
     }
 }
