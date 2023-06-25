@@ -7,7 +7,6 @@ public class ModTabs {
 	public static void addCreativeTab(CreativeModeTabEvent.BuildContents builder) {
 		if (builder.getTab() == TabsRegistry.DEFAULT) {
 			builder.accept(ItemsRegistry.ROCKET_ITEM);
-			builder.accept(ItemsRegistry.FUEL_UPGRADER_ITEM);
 			builder.accept(ItemsRegistry.ROVER_ITEM);
 			builder.accept(ItemsRegistry.SPACE_HELMET);
 			builder.accept(ItemsRegistry.SPACE_SUIT);
@@ -39,7 +38,6 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.OXYGEN_LOADER_ITEM);
 			builder.accept(ItemsRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_ITEM);
 			builder.accept(ItemsRegistry.WATER_PUMP_ITEM);
-			builder.accept(ItemsRegistry.ROCKET_UPGRADER_ITEM);
 		}
 
 		if (builder.getTab() == TabsRegistry.BASICS) {
@@ -82,7 +80,6 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.RAW_DESH);
 			builder.accept(ItemsRegistry.RAW_OSTRUM);
 			builder.accept(ItemsRegistry.RAW_CALORITE);
-			builder.accept(ItemsRegistry.GLACIO_TREE_SAPLING_ITEM);
 
 
 		}
@@ -111,7 +108,6 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.BLUE_IRON_PILLAR_BLOCK_ITEM);
 			builder.accept(ItemsRegistry.INFERNAL_SPIRE_ITEM);
 			builder.accept(ItemsRegistry.BARRICADE_BLOCK_ITEM);
-			builder.accept(ItemsRegistry.RED_BARRICADE_BLOCK_ITEM);
 			builder.accept(ItemsRegistry.METEORITE_ITEM);
 			builder.accept(ItemsRegistry.MOON_STONE_ITEM);
 			builder.accept(ItemsRegistry.MOON_STONE_BRICKS_ITEM);
@@ -165,16 +161,6 @@ public class ModTabs {
 			builder.accept(ItemsRegistry.GLACIO_COPPER_ORE_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_IRON_ORE_ITEM);
 			builder.accept(ItemsRegistry.GLACIO_LAPIS_ORE_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_LOG_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_LEAVES_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_TRAPDOOR_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_DOOR_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_PLANKS_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_STAIRS_ITEM);
-			builder.accept(ItemsRegistry.GLACIO_WOOD_SLAB_ITEM);
-			builder.accept(ItemsRegistry.PERMAFROST_GRASS_ITEM);
-			builder.accept(ItemsRegistry.PERMAFROST_DIRT_ITEM);
 
 
 		}

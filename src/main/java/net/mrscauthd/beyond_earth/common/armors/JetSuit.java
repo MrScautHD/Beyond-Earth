@@ -15,7 +15,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +35,7 @@ import java.util.function.Consumer;
 public class JetSuit {
 
     public static class Helmet extends ISpaceArmor.Helmet {
-        public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Helmet(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -72,7 +73,7 @@ public class JetSuit {
         public static final String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
         public float spacePressTime;
 
-        public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Suit(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -369,7 +370,7 @@ public class JetSuit {
     }
 
     public static class Pants extends ISpaceArmor.Leggings {
-        public Pants(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Pants(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -406,7 +407,7 @@ public class JetSuit {
     }
 
     public static class Boots extends ISpaceArmor.Boots {
-        public Boots(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Boots(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 

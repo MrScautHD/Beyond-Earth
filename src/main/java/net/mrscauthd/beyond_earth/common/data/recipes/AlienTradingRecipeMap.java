@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.data.recipes;
 
 import com.google.gson.JsonObject;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -10,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -86,6 +88,21 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
 	public MapDecoration.Type getMapDecorationType() {
 		return this.mapDecorationType;
+	}
+
+	@Override
+	public boolean matches(Container p_44002_, Level p_44003_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
+		return null;
 	}
 
 	@Override

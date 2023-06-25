@@ -228,7 +228,7 @@ public class PlanetSky extends DimensionSpecialEffects {
                         double d1 = (double) this.rainSizeZ[l1] * 0.5D;
                         blockpos$mutableblockpos.set(k1, camY, j1);
                         Biome biome = level.getBiome(blockpos$mutableblockpos).value();
-                        if (biome.getPrecipitation() != Biome.Precipitation.NONE) {
+                        if (biome.getPrecipitationAt(blockpos$mutableblockpos) != Biome.Precipitation.NONE) {
                             int i2 = level.getHeight(Heightmap.Types.MOTION_BLOCKING, k1, j1);
                             int j2 = j - l;
                             int k2 = j + l;

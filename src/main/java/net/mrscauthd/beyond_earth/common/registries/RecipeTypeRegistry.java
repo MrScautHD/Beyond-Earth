@@ -17,7 +17,6 @@ public class RecipeTypeRegistry {
     public static final RegistryObject<BeyondEarthRecipeType<OxygenBubbleDistributorRecipe>> OXYGEN_BUBBLE_DISTRIBUTING;
     public static final RegistryObject<BeyondEarthRecipeType<WorkbenchingRecipe>> NASA_WORKBENCHING;
     public static final RegistryObject<BeyondEarthRecipeType<FuelRefiningRecipe>> FUEL_REFINING;
-    public static final RegistryObject<BeyondEarthRecipeType<RocketUpgraderRecipe>> ROCKET_UPGRADER;
     public static final RegistryObject<AlienTradingRecipeType<AlienTradingRecipeItemStack>> ALIEN_TRADING_ITEMSTACK;
     public static final RegistryObject<AlienTradingRecipeType<AlienTradingRecipeEnchantedBook>> ALIEN_TRADING_ENCHANTED_BOOK;
     public static final RegistryObject<AlienTradingRecipeType<AlienTradingRecipeEnchantedItem>> ALIEN_TRADING_ENCHANTED_ITEM;
@@ -39,8 +38,6 @@ public class RecipeTypeRegistry {
                 () -> new BeyondEarthRecipeType<>("nasa_workbenching"));
         FUEL_REFINING = RECIPE_TYPES.register("fuel_refining",
                 () -> new BeyondEarthRecipeType<>("fuel_refining"));
-        ROCKET_UPGRADER = RECIPE_TYPES.register("rocket_upgrader",
-                () -> new BeyondEarthRecipeType<>("rocket_upgrader"));
         ALIEN_TRADING_ITEMSTACK = RECIPE_TYPES.register("alien_trading_itemstack",
                 () -> new AlienTradingRecipeType<>("alien_trading_itemstack"));
         ALIEN_TRADING_ENCHANTED_BOOK = RECIPE_TYPES.register("alien_trading_enchanted_book",

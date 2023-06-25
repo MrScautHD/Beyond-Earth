@@ -99,7 +99,6 @@ public class SkyHelper {
         int g = (int) color.y();
         int b = (int) color.z();
 
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         int l = phase % 4;
@@ -114,7 +113,6 @@ public class SkyHelper {
         bufferBuilder.vertex(matrix4f, size, -y, -size).color(r, g, b, 255).uv(f13, f14).endVertex();
         bufferBuilder.vertex(matrix4f, -size, -y, -size).color(r, g, b, 255).uv(f15, f14).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.disableTexture();
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -146,7 +144,6 @@ public class SkyHelper {
         int b = (int) color.z();
         int a = alpha;
 
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
@@ -155,7 +152,6 @@ public class SkyHelper {
         bufferBuilder.vertex(matrix4f, size, y, size).color(r, g, b, a).uv(0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(matrix4f, -size, y, size).color(r, g, b, a).uv(1.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.disableTexture();
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -409,7 +405,6 @@ public class SkyHelper {
         float[] afloat = mc.level.effects().getSunriseColor(mc.level.getTimeOfDay(partialTick), partialTick);
         if (afloat != null) {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            RenderSystem.disableTexture();
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             poseStack.pushPose();
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));

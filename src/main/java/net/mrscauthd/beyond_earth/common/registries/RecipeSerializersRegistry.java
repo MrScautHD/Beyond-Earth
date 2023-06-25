@@ -24,7 +24,6 @@ public class RecipeSerializersRegistry {
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_POTIONED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_potioned_item", () -> new AlienTradingRecipePotionedItem.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_DYED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_dyed_item", () -> new AlienTradingRecipeDyedItem.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_SPACE_STATION = RECIPE_SERIALIZERS.register("space_station", () -> new SpaceStationRecipeSerializer());
-    public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ROCKET_UPGRADER = RECIPE_SERIALIZERS.register("rocket_upgrader", () -> new RocketUpgraderRecipeSerializer());
 
 
 }

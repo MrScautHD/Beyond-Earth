@@ -1,7 +1,6 @@
 package net.mrscauthd.beyond_earth.common.registries;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -12,10 +11,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.blocks.*;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.RocketUpgraderBlockEntity;
 import net.mrscauthd.beyond_earth.common.blocks.machines.*;
-
-import net.mrscauthd.beyond_earth.common.world.trees.GlacioTreeGrower;
 
 public class BlockRegistry {
 
@@ -36,7 +32,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> NASA_WORKBENCH_BLOCK = BLOCKS.register("nasa_workbench", () -> new NASAWorkbenchBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
     public static final RegistryObject<Block> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK = BLOCKS.register("oxygen_bubble_distributor", () -> new OxygenDistributorBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> WATER_PUMP_BLOCK = BLOCKS.register("water_pump", () -> new WaterPump(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).noOcclusion().strength(5f, 1f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> ROCKET_UPGRADER_BLOCK = BLOCKS.register("rocket_upgrader", () -> new RocketUpgraderBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 1f).requiresCorrectToolForDrops().noOcclusion().isRedstoneConductor((bs, br, bp) -> false)));
 
 
     /** GLOBE BLOCKS */
@@ -89,7 +84,6 @@ public class BlockRegistry {
     public static final RegistryObject<RotatedPillarBlock> BLUE_IRON_PILLAR = BLOCKS.register("blue_iron_pillar", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).lightLevel(state -> 15).requiresCorrectToolForDrops()));
     public static final RegistryObject<RotatedPillarBlock> BARRICADE_BLOCK = BLOCKS.register("barricade_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
     public static final RegistryObject<RotatedPillarBlock> IRON_MARK_BLOCK = BLOCKS.register("iron_mark_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
-    public static final RegistryObject<RotatedPillarBlock> RED_BARRICADE_BLOCK = BLOCKS.register("red_barricade_block", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.METAL).sound(SoundType.METAL).strength(5f, 2.5f).requiresCorrectToolForDrops()));
 
     // NATURAL BLOCKS (without category)
     public static final RegistryObject<Block> METEORITE = BLOCKS.register("meteorite", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
@@ -137,16 +131,6 @@ public class BlockRegistry {
     public static final RegistryObject<Block> GLACIO_STONE_BRICKS = BLOCKS.register("glacio_stone_bricks", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<SlabBlock> GLACIO_STONE_BRICK_SLAB = BLOCKS.register("glacio_stone_brick_slab", () -> new SlabBlock(BlockBehaviour.Properties.of(Material.STONE).sound(SoundType.STONE).strength(1.5f, 1f).requiresCorrectToolForDrops()));
     public static final RegistryObject<StairBlock> GLACIO_STONE_BRICK_STAIRS = BLOCKS.register("glacio_stone_brick_stairs", () -> new StairBlock(() -> VENUS_STONE_BRICKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(VENUS_STONE_BRICKS.get()).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_WOOD_LOG = BLOCKS.register("glacio_wood_log", () -> new RotatedPillarBlock(BlockBehaviour.Properties.copy(Blocks.BIRCH_LOG).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_WOOD = BLOCKS.register("glacio_wood", () -> new Block(BlockBehaviour.Properties.copy(Blocks.BIRCH_WOOD).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_WOOD_LEAVES = BLOCKS.register("glacio_tree_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.copy(Blocks.OAK_LEAVES).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_WOOD_PLANKS = BLOCKS.register("glacio_wood_planks", () -> new Block(BlockBehaviour.Properties.copy(Blocks.OAK_PLANKS).requiresCorrectToolForDrops()));
-    public static final RegistryObject<Block> GLACIO_TREE_SAPLING = BLOCKS.register("glacio_tree_sapling", () -> new GlacioTreeSapling(new GlacioTreeGrower(), BlockBehaviour.Properties.copy(Blocks.SPRUCE_SAPLING).requiresCorrectToolForDrops().noCollission()));
-    public static final RegistryObject<Block> GLACIO_WOOD_DOOR = BLOCKS.register("glacio_wood_door", () -> new DoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
-    public static final RegistryObject<Block> GLACIO_WOOD_TRAPDOOR = BLOCKS.register("glacio_wood_trapdoor", () -> new TrapDoorBlock(BlockBehaviour.Properties.of(Material.WOOD, GLACIO_WOOD_PLANKS.get().defaultMaterialColor()).strength(3.0F).sound(SoundType.WOOD).noOcclusion(), SoundEvents.WOODEN_DOOR_CLOSE, SoundEvents.WOODEN_DOOR_OPEN));
-    public static final RegistryObject<Block> GLACIO_WOOD_STAIRS = BLOCKS.register("glacio_wood_stairs", () -> new StairBlock(GLACIO_WOOD_PLANKS.get().defaultBlockState(), BlockBehaviour.Properties.copy(GLACIO_WOOD_PLANKS.get())));
-    public static final RegistryObject<Block> GLACIO_WOOD_SLAB = BLOCKS.register("glacio_wood_slab", () -> new SlabBlock(BlockBehaviour.Properties.copy(Blocks.OAK_SLAB)));
-    public static final RegistryObject<Block> PERMAFROST_GRASS = BLOCKS.register("permafrost_grass", () -> new PermafrostGrass(BlockBehaviour.Properties.copy(Blocks.GRASS_BLOCK)));
 
     public static final RegistryObject<Block> PERMAFROST_DIRT = BLOCKS.register("permafrost_dirt", () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIRT)));
 

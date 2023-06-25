@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 public class NetheriteSpaceSuit {
 
 	public static class Helmet extends ISpaceArmor.Helmet {
-		public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+		public Helmet(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}
 
@@ -55,7 +55,7 @@ public class NetheriteSpaceSuit {
 	}
 
 	public static class Suit extends ISpaceArmor.Chestplate {
-		public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+		public Suit(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}
 
@@ -96,7 +96,7 @@ public class NetheriteSpaceSuit {
 	}
 
 	public static class Pants extends ISpaceArmor.Leggings {
-		public Pants(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+		public Pants(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}
 
@@ -133,7 +133,7 @@ public class NetheriteSpaceSuit {
 	}
 
 	public static class Boots extends ISpaceArmor.Boots {
-		public Boots(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+		public Boots(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
 			super(armorMaterial, equipmentSlot, properties);
 		}
 

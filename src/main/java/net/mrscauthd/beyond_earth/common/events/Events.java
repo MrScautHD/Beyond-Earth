@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
@@ -163,10 +164,6 @@ public class Events {
 
     @SubscribeEvent
     public static void livingEntityAttack(LivingAttackEvent event) {
-        if (!event.getSource().isFire()) {
-            return;
-        }
-
         LivingEntity entity = event.getEntity();
 
         if (!Methods.isLivingInNetheriteSpaceSuit(entity) && !Methods.isLivingInJetSuit(entity)) {
@@ -203,15 +200,15 @@ public class Events {
             Methods.resetPlanetSelectionMenuNeededNbt(player);
             player.setNoGravity(false);
         }
-
+        // TODO : READD THIS
         /** JET SUIT EXPLODE */
-        if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying()
+        /**if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying()
                 && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
             if (!entity.level.isClientSide) {
                 entity.level.explode(null, entity.getX(), entity.getY(), entity.getZ(), 10, true,
                         Level.ExplosionInteraction.TNT);
             }
-        }
+        }*/
     }
 
     @SubscribeEvent

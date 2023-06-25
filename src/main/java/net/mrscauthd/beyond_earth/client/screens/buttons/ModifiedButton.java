@@ -70,7 +70,7 @@ public class ModifiedButton extends TexturedButton {
     public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
 
-        super.renderButton(poseStack, mouseX, mouseY, partialTicks);
+        super.renderWidget(poseStack, mouseX, mouseY, partialTicks);
         /** TYPE SYSTEM */
         if (mc.screen instanceof PlanetSelectionScreen) {
             this.milkyWayCategoryManager(mc, poseStack, mouseX, mouseY);

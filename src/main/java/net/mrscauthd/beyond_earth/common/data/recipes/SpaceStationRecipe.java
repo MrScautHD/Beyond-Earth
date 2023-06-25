@@ -4,12 +4,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 
@@ -58,8 +62,23 @@ public class SpaceStationRecipe extends BeyondEarthRecipe {
 	}
 
 	@Override
+	public boolean matches(Container p_44002_, Level p_44003_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+		return null;
+	}
+
+	@Override
 	public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
 		return true;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
+		return null;
 	}
 
 	@Override

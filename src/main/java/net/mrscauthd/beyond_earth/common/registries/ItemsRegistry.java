@@ -3,12 +3,7 @@ package net.mrscauthd.beyond_earth.common.registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.DoubleHighBlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -28,8 +23,6 @@ public class ItemsRegistry {
 
     /** ROCKET ITEMS */
     public static final RegistryObject<RocketItem> ROCKET_ITEM = ITEMS.register("rocket", () -> new RocketItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1)));
-    public static final RegistryObject<RocketUpgraderItem> FUEL_UPGRADER_ITEM = ITEMS.register("fuel_upgrade", () -> new RocketUpgraderItem(new Item.Properties().rarity(Rarity.RARE).stacksTo(1), 5));
-
 
     /** ROVER ITEMS */
     public static final RegistryObject<RoverItem> ROVER_ITEM = ITEMS.register("rover", () -> new RoverItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
@@ -53,22 +46,22 @@ public class ItemsRegistry {
 
     /** SPACE SUIT ITEMS */
     //public static final RegistryObject<Item> OXYGEN_MASK = ITEMS.register("oxygen_mask", () -> new SpaceSuit.Helmet(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties()));
-    public static final RegistryObject<Item> SPACE_HELMET = ITEMS.register("space_helmet", () -> new SpaceSuit.Helmet(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties()));
-    public static final RegistryObject<Item> SPACE_SUIT = ITEMS.register("space_suit", () -> new SpaceSuit.Suit(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties()));
-    public static final RegistryObject<Item> SPACE_PANTS = ITEMS.register("space_pants", () -> new SpaceSuit.Pants(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties()));
-    public static final RegistryObject<Item> SPACE_BOOTS = ITEMS.register("space_boots", () -> new SpaceSuit.Boots(SpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties()));
+    public static final RegistryObject<Item> SPACE_HELMET = ITEMS.register("space_helmet", () -> new SpaceSuit.Helmet(SpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<Item> SPACE_SUIT = ITEMS.register("space_suit", () -> new SpaceSuit.Suit(SpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+    public static final RegistryObject<Item> SPACE_PANTS = ITEMS.register("space_pants", () -> new SpaceSuit.Pants(SpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+    public static final RegistryObject<Item> SPACE_BOOTS = ITEMS.register("space_boots", () -> new SpaceSuit.Boots(SpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Properties()));
 
     /** NETHERITE SPACE SUIT ITEMS */
-    public static final RegistryObject<Item> NETHERITE_SPACE_HELMET = ITEMS.register("netherite_space_helmet", () -> new NetheriteSpaceSuit.Helmet(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> new NetheriteSpaceSuit.Suit(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> new NetheriteSpaceSuit.Pants(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> new NetheriteSpaceSuit.Boots(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> NETHERITE_SPACE_HELMET = ITEMS.register("netherite_space_helmet", () -> new NetheriteSpaceSuit.Helmet(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> NETHERITE_SPACE_SUIT = ITEMS.register("netherite_space_suit", () -> new NetheriteSpaceSuit.Suit(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> NETHERITE_SPACE_PANTS = ITEMS.register("netherite_space_pants", () -> new NetheriteSpaceSuit.Pants(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> NETHERITE_SPACE_BOOTS = ITEMS.register("netherite_space_boots", () -> new NetheriteSpaceSuit.Boots(NetheriteSpaceSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 
     /** JET SUIT ITEMS */
-    public static final RegistryObject<Item> JET_HELMET = ITEMS.register("jet_helmet", () -> new JetSuit.Helmet(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.HEAD, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> JET_SUIT = ITEMS.register("jet_suit", () -> new JetSuit.Suit(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.CHEST, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> JET_PANTS = ITEMS.register("jet_pants", () -> new JetSuit.Pants(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.LEGS, new Item.Properties().fireResistant()));
-    public static final RegistryObject<Item> JET_BOOTS = ITEMS.register("jet_boots", () -> new JetSuit.Boots(JetSuitMaterial.ARMOR_MATERIAL, EquipmentSlot.FEET, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> JET_HELMET = ITEMS.register("jet_helmet", () -> new JetSuit.Helmet(JetSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.HELMET, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> JET_SUIT = ITEMS.register("jet_suit", () -> new JetSuit.Suit(JetSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> JET_PANTS = ITEMS.register("jet_pants", () -> new JetSuit.Pants(JetSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new Item.Properties().fireResistant()));
+    public static final RegistryObject<Item> JET_BOOTS = ITEMS.register("jet_boots", () -> new JetSuit.Boots(JetSuitMaterial.ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Properties().fireResistant()));
 
 
     public static final RegistryObject<BlockItem> ROCKET_LAUNCH_PAD_ITEM = ITEMS.register("rocket_launch_pad", () -> new BlockItem(BlockRegistry.ROCKET_LAUNCH_PAD.get(), new Item.Properties()));
@@ -140,7 +133,6 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> OXYGEN_LOADER_ITEM = ITEMS.register("oxygen_loader", () -> new BlockItem(BlockRegistry.OXYGEN_LOADER_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> OXYGEN_BUBBLE_DISTRIBUTOR_ITEM = ITEMS.register("oxygen_bubble_distributor", () -> new BlockItem(BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> WATER_PUMP_ITEM = ITEMS.register("water_pump", () -> new BlockItem(BlockRegistry.WATER_PUMP_BLOCK.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> ROCKET_UPGRADER_ITEM = ITEMS.register("rocket_upgrader", () -> new BlockItem(BlockRegistry.ROCKET_UPGRADER_BLOCK.get(), new Item.Properties()));
 
     // NORMAL BLOCK ITEMS
     public static final RegistryObject<BlockItem> STEEL_BLOCK_ITEM = ITEMS.register("steel_block", () -> new BlockItem(BlockRegistry.STEEL_BLOCK.get(), new Item.Properties()));
@@ -158,7 +150,6 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> BARRICADE_BLOCK_ITEM = ITEMS.register("barricade_block", () -> new BlockItem(BlockRegistry.BARRICADE_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> IRON_MARK_BLOCK_ITEM = ITEMS.register("iron_mark_block", () -> new BlockItem(BlockRegistry.IRON_MARK_BLOCK.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> METEORITE_ITEM = ITEMS.register("meteorite", () -> new BlockItem(BlockRegistry.METEORITE.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> RED_BARRICADE_BLOCK_ITEM = ITEMS.register("red_barricade_block", () -> new BlockItem(BlockRegistry.RED_BARRICADE_BLOCK.get(), new Item.Properties()));
 
     // MOON BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_STONE_ITEM = ITEMS.register("moon_stone", () -> new BlockItem(BlockRegistry.MOON_STONE.get(), new Item.Properties()));
@@ -202,17 +193,7 @@ public class ItemsRegistry {
     public static final RegistryObject<BlockItem> CRACKED_GLACIO_STONE_BRICKS_ITEM = ITEMS.register("cracked_glacio_stone_bricks", () -> new BlockItem(BlockRegistry.CRACKED_GLACIO_STONE_BRICKS.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> GLACIO_STONE_BRICK_SLAB_ITEM = ITEMS.register("glacio_stone_brick_slab", () -> new BlockItem(BlockRegistry.GLACIO_STONE_BRICK_SLAB.get(), new Item.Properties()));
     public static final RegistryObject<BlockItem> GLACIO_STONE_BRICK_STAIRS_ITEM = ITEMS.register("glacio_stone_brick_stairs", () -> new BlockItem(BlockRegistry.GLACIO_STONE_BRICK_STAIRS.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_LOG_ITEM = ITEMS.register("glacio_wood_log", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_LOG.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_ITEM = ITEMS.register("glacio_wood", () -> new BlockItem(BlockRegistry.GLACIO_WOOD.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_LEAVES_ITEM = ITEMS.register("glacio_tree_leaves", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_LEAVES.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_PLANKS_ITEM = ITEMS.register("glacio_wood_planks", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_PLANKS.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_TREE_SAPLING_ITEM = ITEMS.register("glacio_tree_sapling", () -> new BlockItem(BlockRegistry.GLACIO_TREE_SAPLING.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_DOOR_ITEM = ITEMS.register("glacio_wood_door", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_DOOR.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_TRAPDOOR_ITEM = ITEMS.register("glacio_wood_trapdoor", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_TRAPDOOR.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_STAIRS_ITEM = ITEMS.register("glacio_wood_stairs", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_STAIRS.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> GLACIO_WOOD_SLAB_ITEM = ITEMS.register("glacio_wood_slab", () -> new BlockItem(BlockRegistry.GLACIO_WOOD_SLAB.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> PERMAFROST_GRASS_ITEM = ITEMS.register("permafrost_grass", () -> new BlockItem(BlockRegistry.PERMAFROST_GRASS.get(), new Item.Properties()));
-    public static final RegistryObject<BlockItem> PERMAFROST_DIRT_ITEM = ITEMS.register("permafrost_dirt", () -> new BlockItem(BlockRegistry.PERMAFROST_DIRT.get(), new Item.Properties()));
+
 
     // SAND BLOCK ITEMS
     public static final RegistryObject<BlockItem> MOON_SAND_ITEM = ITEMS.register("moon_sand", () -> new BlockItem(BlockRegistry.MOON_SAND.get(), new Item.Properties()));

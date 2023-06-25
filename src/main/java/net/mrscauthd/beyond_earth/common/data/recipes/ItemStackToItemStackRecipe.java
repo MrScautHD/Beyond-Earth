@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -57,9 +58,9 @@ public abstract class ItemStackToItemStackRecipe extends BeyondEarthRecipe imple
 	public boolean canCraftInDimensions(int var1, int var2) {
 		return true;
 	}
-	
+
 	@Override
-	public ItemStack getResultItem() {
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
 		return this.output.copy();
 	}
 	

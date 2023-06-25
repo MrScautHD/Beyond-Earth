@@ -156,11 +156,11 @@ public class Methods {
     }
 
     public static void hurtLivingWithOxygenSource(LivingEntity entity) {
-        entity.hurt(DamageSourceRegistry.DAMAGE_SOURCE_OXYGEN, 1.0F);
+        entity.hurt(DamageSourceRegistry.of(entity.level, DamageSourceRegistry.DAMAGE_SOURCE_OXYGEN), 1.0F);
     }
 
     public static void hurtLivingWithAcidRainSource(LivingEntity entity) {
-        entity.hurt(DamageSourceRegistry.DAMAGE_SOURCE_ACID_RAIN, 1.0F);
+        entity.hurt(DamageSourceRegistry.of(entity.level, DamageSourceRegistry.DAMAGE_SOURCE_ACID_RAIN), 1.0F);
     }
 
     public static boolean isRocket(Entity entity) {
@@ -352,7 +352,7 @@ public class Methods {
 
     public static void placeSpaceStation(Player player, ServerLevel serverLevel) {
         StructureTemplate structureTemplate = serverLevel.getStructureManager().getOrCreate(SPACE_STATION);
-        BlockPos pos = new BlockPos(player.getX() - (structureTemplate.getSize().getX() / 2), 100, player.getZ() - (structureTemplate.getSize().getZ() / 2));
+        BlockPos pos = new BlockPos((int)player.getX() - (structureTemplate.getSize().getX() / 2), 100, (int)player.getZ() - (structureTemplate.getSize().getZ() / 2));
 
         structureTemplate.placeInWorld(serverLevel, pos, pos, new StructurePlaceSettings(), serverLevel.random, 2);
     }

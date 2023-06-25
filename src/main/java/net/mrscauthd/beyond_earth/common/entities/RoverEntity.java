@@ -118,10 +118,6 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         return true;
     }
 
-    @Override
-    public boolean rideableUnderWater() {
-        return true;
-    }
 
     @Override
     public double getPassengersRidingOffset() {
@@ -210,7 +206,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
 
     @Override
     public boolean hurt(DamageSource source, float p_21017_) {
-        if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+        if (source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
             this.spawnRoverItem();
             this.dropEquipment();
 

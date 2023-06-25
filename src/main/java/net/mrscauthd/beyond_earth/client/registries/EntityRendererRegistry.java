@@ -3,11 +3,8 @@ package net.mrscauthd.beyond_earth.client.registries;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.entities.alien.AlienRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.alienzombie.AlienZombieRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.flag.FlagHeadRenderer;
@@ -27,9 +24,7 @@ import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 
-@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class EntityRendererRegistry {
-
     @SubscribeEvent
     public static void register(EntityRenderersEvent.RegisterRenderers event) {
     	
@@ -48,12 +43,8 @@ public class EntityRendererRegistry {
         event.registerEntityRenderer(EntityRegistry.ALIEN.get(), AlienRenderer::new);
         event.registerEntityRenderer(EntityRegistry.ALIEN_ZOMBIE.get(), AlienZombieRenderer::new);
         event.registerEntityRenderer(EntityRegistry.STAR_CRAWLER.get(), StarCrawlerRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.PYGRO.get(), (p_174068_) -> {
-            return new PygroRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_INNER_ARMOR, ModelLayers.PIGLIN_OUTER_ARMOR);
-        });
-        event.registerEntityRenderer(EntityRegistry.PYGRO_BRUTE.get(), (p_174068_) -> {
-            return new PygroBruteRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_BRUTE_INNER_ARMOR, ModelLayers.PIGLIN_BRUTE_OUTER_ARMOR);
-        });
+        event.registerEntityRenderer(EntityRegistry.PYGRO.get(), (p_174068_) -> new PygroRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_INNER_ARMOR, ModelLayers.PIGLIN_OUTER_ARMOR));
+        event.registerEntityRenderer(EntityRegistry.PYGRO_BRUTE.get(), (p_174068_) -> new PygroBruteRenderer(p_174068_, PygroModel.LAYER_LOCATION, ModelLayers.PIGLIN_BRUTE_INNER_ARMOR, ModelLayers.PIGLIN_BRUTE_OUTER_ARMOR));
         event.registerEntityRenderer(EntityRegistry.MOGLER.get(), MoglerRenderer::new);
         event.registerEntityRenderer(EntityRegistry.MARTIAN_RAPTOR.get(), MartianRaptorRenderer::new);
 

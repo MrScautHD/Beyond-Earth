@@ -104,7 +104,7 @@ public class PygroMobsSensor extends Sensor<LivingEntity> {
     }
 
     private static Optional<BlockPos> findNearestRepellent(ServerLevel world, LivingEntity livingEntity) {
-        return BlockPos.findClosestMatch(new BlockPos(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ()), 8, 4, (pos) -> {
+        return BlockPos.findClosestMatch(new BlockPos((int)livingEntity.getX(), (int)livingEntity.getY(), (int)livingEntity.getZ()), 8, 4, (pos) -> {
             return isRepellent(world, pos);
         });
     }

@@ -29,6 +29,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
@@ -72,11 +73,6 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	@Override
-	public boolean rideableUnderWater() {
-		return true;
-	}
-
-	@Override
 	public double getPassengersRidingOffset() {
 		return super.getPassengersRidingOffset() - 0.25;
 	}
@@ -92,7 +88,7 @@ public class LanderEntity extends IVehicleEntity {
 
 	@Override
 	public boolean hurt(DamageSource source, float amount) {
-		if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching()
+		if (source.getEntity() != null && source.getEntity().isCrouching()
 				&& !this.isVehicle()) {
 			this.dropEquipment();
 

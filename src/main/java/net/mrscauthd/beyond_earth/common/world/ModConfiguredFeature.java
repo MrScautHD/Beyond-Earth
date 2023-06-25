@@ -152,18 +152,6 @@ public class ModConfiguredFeature {
         register(context, GLACIO_IRON_ORE_KEY, Feature.ORE, new OreConfiguration(GLACIO_IRON_ORE_REPLACEABLES.get(), 11));
         register(context, GLACIO_LAPIS_ORE_KEY, Feature.ORE, new OreConfiguration(GLACIO_LAPIS_ORE_REPLACEABLES.get(), 9));
 
-        register(context, GLACIO_TREE_KEY, Feature.TREE, (
-                new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(BlockRegistry.GLACIO_WOOD_LOG.get()),
-                        new StraightTrunkPlacer(5, 2, 1), BlockStateProvider.simple(BlockRegistry.GLACIO_WOOD_LEAVES.get()),
-                        new SpruceFoliagePlacer(UniformInt.of(2, 3), UniformInt.of(0, 2), UniformInt.of(1, 2)),
-                        new TwoLayersFeatureSize(2, 0, 2))).ignoreVines().build());
-
-
-
-        register(context, GLACIO_TREE_SPAWN_KEY, Feature.RANDOM_SELECTOR,
-                new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(
-                        placedFeatures.getOrThrow(ModPlacedFeature.GLACIO_TREE_CHECKED_KEY),
-                        0.5F)), placedFeatures.getOrThrow(ModPlacedFeature.GLACIO_TREE_CHECKED_KEY)));
 
         // MARS
         register(context, MARS_DIAMOND_ORE_KEY, Feature.ORE, new OreConfiguration(MARS_DIAMOND_ORE_REPLACEABLES.get(), 7));

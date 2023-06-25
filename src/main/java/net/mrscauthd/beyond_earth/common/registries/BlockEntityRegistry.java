@@ -22,7 +22,6 @@ public class BlockEntityRegistry {
     public static final RegistryObject<BlockEntityType<NASAWorkbenchBlockEntity>> NASA_WORKBENCH_BLOCK_ENTITY = BLOCK_ENTITIES.register("nasa_workbench", () -> BlockEntityType.Builder.of(NASAWorkbenchBlockEntity::new, BlockRegistry.NASA_WORKBENCH_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<OxygenDistributorBlockEntity>> OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK_ENTITY = BLOCK_ENTITIES.register("oxygen_bubble_distributor", () -> BlockEntityType.Builder.of(OxygenDistributorBlockEntity::new, BlockRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_BLOCK.get()).build(null));
     public static final RegistryObject<BlockEntityType<WaterPumpBlockEntity>> WATER_PUMP_BLOCK_ENTITY = BLOCK_ENTITIES.register("water_pump", () -> BlockEntityType.Builder.of(WaterPumpBlockEntity::new, BlockRegistry.WATER_PUMP_BLOCK.get()).build(null));
-    public static final RegistryObject<BlockEntityType<RocketUpgraderBlockEntity>> ROCKET_UPGRADER_BLOCK_ENTITY = BLOCK_ENTITIES.register("rocket_upgrader", () -> BlockEntityType.Builder.of(RocketUpgraderBlockEntity::new, BlockRegistry.ROCKET_UPGRADER_BLOCK.get()).build(null));
 
 
     /** BLOCK ENTITIES (Other) */

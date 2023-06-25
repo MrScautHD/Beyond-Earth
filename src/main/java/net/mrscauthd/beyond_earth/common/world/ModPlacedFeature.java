@@ -83,10 +83,6 @@ public class ModPlacedFeature {
         register(context, GLACIO_LAPIS_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_LAPIS_ORE_KEY),
                 OrePlacement.commonOrePlacement(2,
                         HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32))));
-        register(context, GLACIO_TREE_PLACED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_TREE_KEY),
-                VegetationPlacements.treePlacement(PlacementUtils.countExtra(3, 0.1f, 2)));
-        register(context, GLACIO_TREE_CHECKED_KEY, configuredFeatures.getOrThrow(ModConfiguredFeature.GLACIO_TREE_KEY),
-                List.of(PlacementUtils.filteredByBlockSurvival(GLACIO_TREE_SAPLING.get())));
 
 
         // MARS
