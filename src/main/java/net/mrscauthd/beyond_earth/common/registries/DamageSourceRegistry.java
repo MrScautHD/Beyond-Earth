@@ -10,7 +10,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 
 public class DamageSourceRegistry {
     public static final ResourceKey<DamageType> DAMAGE_SOURCE_OXYGEN = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BeyondEarth.MODID, "oxygen"));
-    public static final ResourceKey<DamageType> DAMAGE_SOURCE_ACID_RAIN = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BeyondEarth.MODID, "venus.acid"));
+    public static final ResourceKey<DamageType> DAMAGE_SOURCE_ACID_RAIN = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(BeyondEarth.MODID, "venus_acid"));
 
     public static DamageSource of(Level level, ResourceKey<DamageType> key) {
         return new DamageSource(level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(key));
