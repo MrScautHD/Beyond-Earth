@@ -21,7 +21,7 @@ public class PygroBruteRenderer extends HumanoidMobRenderer<Mob, PygroModel<Mob>
 
     public PygroBruteRenderer(EntityRendererProvider.Context context, ModelLayerLocation p_174345_, ModelLayerLocation p_174346_, ModelLayerLocation p_174347_) {
         super(context, createModel(context.getModelSet(), p_174345_), 0.5F, 1.0019531F, 1.0F, 1.0019531F);
-        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel(context.bakeLayer(p_174346_)), new HumanoidModel(context.bakeLayer(p_174347_)), context.getModelManager()));
+        this.addLayer(new HumanoidArmorLayer<>(this, new HumanoidModel<>(context.bakeLayer(p_174346_)), new HumanoidModel<>(context.bakeLayer(p_174347_)), context.getModelManager()));
     }
 
     private static PygroModel<Mob> createModel(EntityModelSet p_174350_, ModelLayerLocation p_174351_) {

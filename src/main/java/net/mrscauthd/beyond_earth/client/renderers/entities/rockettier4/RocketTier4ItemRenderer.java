@@ -1,4 +1,4 @@
-package net.mrscauthd.beyond_earth.client.renderers.entities.rocket;
+package net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -8,7 +8,6 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -17,18 +16,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
+import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketItemRenderer<T extends RocketEntity> extends BlockEntityWithoutLevelRenderer {
+public class RocketTier4ItemRenderer<T extends RocketTier4Entity> extends BlockEntityWithoutLevelRenderer {
 
     /** TEXTURE */
-    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t4.png");
 
     /** MODEL */
-    private RocketModel model;
+    private RocketTier4Model model;
 
-    public RocketItemRenderer(BlockEntityRenderDispatcher p_172550_, EntityModelSet p_172551_) {
+    public RocketTier4ItemRenderer(BlockEntityRenderDispatcher p_172550_, EntityModelSet p_172551_) {
         super(p_172550_, p_172551_);
     }
 
@@ -47,7 +46,7 @@ public class RocketItemRenderer<T extends RocketEntity> extends BlockEntityWitho
         vertexBuilder = buffer.getBuffer(RenderType.entityCutoutNoCullZOffset(TEXTURE));
 
         if (this.model == null) {
-            this.model = new RocketModel(mc.getEntityModels().bakeLayer(RocketModel.LAYER_LOCATION));
+            this.model = new RocketTier4Model(mc.getEntityModels().bakeLayer(RocketTier4Model.LAYER_LOCATION));
         }
 
         this.model.renderToBuffer(matrixStackIn, vertexBuilder, combinedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);

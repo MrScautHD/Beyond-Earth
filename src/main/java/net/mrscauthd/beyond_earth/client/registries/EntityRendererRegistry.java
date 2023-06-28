@@ -5,6 +5,8 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.entities.alien.AlienRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.alienzombie.AlienZombieRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.flag.FlagHeadRenderer;
@@ -15,7 +17,10 @@ import net.mrscauthd.beyond_earth.client.renderers.entities.mogler.MoglerRendere
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroModel;
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygro.PygroRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.pygrobrute.PygroBruteRenderer;
-import net.mrscauthd.beyond_earth.client.renderers.entities.rocket.RocketRenderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier1.RocketTier1Renderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier2.RocketTier2Renderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3.RocketTier3Renderer;
+import net.mrscauthd.beyond_earth.client.renderers.entities.rockettier4.RocketTier4Renderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.rover.RoverRenderer;
 import net.mrscauthd.beyond_earth.client.renderers.entities.starcrawler.StarCrawlerRenderer;
 import net.mrscauthd.beyond_earth.client.sounds.TickableBeepSound;
@@ -24,6 +29,7 @@ import net.mrscauthd.beyond_earth.common.entities.LanderEntity;
 import net.mrscauthd.beyond_earth.common.registries.BlockEntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 
+@Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EntityRendererRegistry {
     @SubscribeEvent
     public static void register(EntityRenderersEvent.RegisterRenderers event) {
@@ -52,7 +58,10 @@ public class EntityRendererRegistry {
         event.registerEntityRenderer(EntityRegistry.ICE_SPIT_ENTITY.get(), renderManager -> new ThrownItemRenderer(renderManager, 1, true));
 
         /** VEHICLES */
-        event.registerEntityRenderer(EntityRegistry.ROCKET.get(), RocketRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_1_ROCKET.get(), RocketTier1Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_2_ROCKET.get(), RocketTier2Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_3_ROCKET.get(), RocketTier3Renderer::new);
+        event.registerEntityRenderer(EntityRegistry.TIER_4_ROCKET.get(), RocketTier4Renderer::new);
         event.registerEntityRenderer(EntityRegistry.LANDER.get(), LanderRenderer::new);
         event.registerEntityRenderer(EntityRegistry.ROVER.get(), RoverRenderer::new);
 

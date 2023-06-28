@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.renderers.entities.martianraptor;
 
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -9,7 +10,7 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.MartianRaptor;
 
 @OnlyIn(Dist.CLIENT)
-public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, MartianRaptorModel<MartianRaptor>> {
+public class MartianRaptorRenderer extends MobRenderer<MartianRaptor, EntityModel<MartianRaptor>> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/entity/martian_raptor.png");
 

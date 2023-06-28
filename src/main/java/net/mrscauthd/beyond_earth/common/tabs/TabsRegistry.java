@@ -24,7 +24,7 @@ public class TabsRegistry {
     @SubscribeEvent
     public static void registerCreativeModTabs(CreativeModeTabEvent.Register event) {
         DEFAULT = event.registerCreativeModeTab(new ResourceLocation(BeyondEarth.MODID, "tab_normal"),
-                builder -> builder.icon(() -> new ItemStack(ItemsRegistry.ROCKET_ITEM.get())).title(Component.translatable("itemGroup.tab_normal")));
+                builder -> builder.icon(() -> new ItemStack(ItemsRegistry.TIER_1_ROCKET_ITEM.get())).title(Component.translatable("itemGroup.tab_normal")));
         MACHINES = event.registerCreativeModeTab(new ResourceLocation(BeyondEarth.MODID, "tab_machines"),
                 builder -> builder.icon(() -> new ItemStack(ItemsRegistry.NASA_WORKBENCH_ITEM.get())).title(Component.translatable("itemGroup.tab_machines")));
         BASICS = event.registerCreativeModeTab(new ResourceLocation(BeyondEarth.MODID, "tab_basics"),

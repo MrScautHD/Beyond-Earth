@@ -24,7 +24,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class RocketScreen extends AbstractContainerScreen<RocketMenu.GuiContainer> {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/gui/rocket.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/gui/rocket_t1.png");
 
 	public static final ResourceLocation FLUID_TANK_OVERLAY = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/fluid_tank_overlay.png");
 

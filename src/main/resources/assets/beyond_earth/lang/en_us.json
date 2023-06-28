@@ -43,9 +43,11 @@
   "item.beyond_earth.raw_desh_block": "Raw Desh Block",
   "item.beyond_earth.raw_ostrum_block": "Raw Ostrum Block",
   "item.beyond_earth.ice_shard": "Ice Shard",
-  "item.beyond_earth.space_balise": "Space Balise",
 
-  "item.beyond_earth.rocket_t1": "Rocket",
+  "item.beyond_earth.rocket_t1": "Tier 1 Rocket",
+  "item.beyond_earth.rocket_t2": "Tier 2 Rocket",
+  "item.beyond_earth.rocket_t3": "Tier 3 Rocket",
+  "item.beyond_earth.rocket_t4": "Tier 4 Rocket",
 
   "item.beyond_earth.oxygen_mask": "Oxygen Mask",
   "item.beyond_earth.space_suit": "Space Suit",
@@ -149,7 +151,6 @@
   "block.beyond_earth.infernal_spire": "Infernal Spire",
   "block.beyond_earth.barricade_block": "Barricade Block",
   "block.beyond_earth.meteorite": "Meteorite",
-  "block.beyond_earth.rocket_upgrader": "§6Rocket Upgrader",
 
   "block.beyond_earth.moon_stone_brick_slab": "Moon Stone Brick Slab",
   "block.beyond_earth.moon_stone_bricks": "Moon Stone Bricks",
@@ -189,18 +190,7 @@
   "block.beyond_earth.glacio_coal_ore": "Glacio Coal Ore",
   "block.beyond_earth.glacio_copper_ore": "Glacio Copper Ore",
   "block.beyond_earth.glacio_iron_ore": "Glacio Iron Ore",
-
-  "block.beyond_earth.glacio_wood": "Glacio Wood",
-  "block.beyond_earth.glacio_wood_log": "Glacio Wood Log",
-  "block.beyond_earth.glacio_tree_leaves": "Glacio Tree Leaves",
-  "block.beyond_earth.glacio_wood_trapdoor": "Glacio Wood Trapdoor",
-  "block.beyond_earth.glacio_wood_door": "Glacio Wood Door",
-  "block.beyond_earth.glacio_wood_planks": "Glacio Wood Planks",
-  "block.beyond_earth.glacio_tree_sapling": "Glacio Tree Sapling",
-  "block.beyond_earth.glacio_wood_stairs": "Glacio Wood Stairs",
-  "block.beyond_earth.glacio_wood_slab": "Glacio Wood Slab",
-  "block.beyond_earth.permafrost_grass": "Permafrost Grass",
-  "block.beyond_earth.permafrost_dirt": "Permafrost Dirt",
+  "block.beyond_earth.glacio_lapis_ore": "Glacio Lapis Lazuli Ore",
 
   "block.beyond_earth.earth_globe": "Earth Globe",
   "block.beyond_earth.moon_globe": "Moon Globe",
@@ -311,10 +301,7 @@
   "message.beyond_earth.no_fuel": "§cNO FUEL! §7Fill the Rocket with §cFuel§7. (§6Sneak and Right Click§7)",
   "message.beyond_earth.hold_key": "§7Hold Key",
   "message.beyond_earth.speed": "%s Speed",
-
-  "message.beyond_earth.space_balise.no_beacon": "No beacon find at theses coordinates : x: %d, y: %d, z: %d in world %s",
-  "message.beyond_earth.space_balise.right_click": "Right Click on a beacon to set coordinates",
-  "message.beyond_earth.space_balise.beacon_coordinates": "Balise: x: %d, y: %d, z: %d, world: %s",
+  
 
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.text": "Working Area: %1$sx%2$sx%3$s",
   "gui.beyond_earth.oxygen_bubble_distributor.workingarea.show": "Show",

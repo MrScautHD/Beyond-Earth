@@ -1,5 +1,6 @@
 package net.mrscauthd.beyond_earth.client.renderers.entities.alien;
 
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -7,7 +8,7 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.entities.alien.AlienEntity;
 
-public class AlienRenderer extends MobRenderer<AlienEntity, AlienModel<AlienEntity>> {
+public class AlienRenderer extends MobRenderer<AlienEntity, EntityModel<AlienEntity>> {
 
     /** TEXTURES */
     public static final ResourceLocation ALIEN = new ResourceLocation(BeyondEarth.MODID,"textures/entity/alien/alien.png");
