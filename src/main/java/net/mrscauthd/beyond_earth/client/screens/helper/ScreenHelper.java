@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.client.screens.helper;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
@@ -11,7 +11,6 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.minecraftforge.fluids.FluidStack;
-import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.joml.Matrix4f;
 
 public class ScreenHelper {
@@ -127,7 +126,7 @@ public class ScreenHelper {
             RenderSystem.setShaderTexture(0, sprite.atlasLocation());
 
             /** SCISSOR */
-            GuiComponent.enableScissor(leftPos - xOffset + 1, topPos - yOffset + 1, leftPos + width - 1, topPos + height - 1);
+            RenderSystem.enableScissor(leftPos - xOffset + 1, topPos - yOffset + 1, leftPos + width - 1, topPos + height - 1);
 
             /** SET COLOR */
             int color = renderProperties.getTintColor();
@@ -138,7 +137,7 @@ public class ScreenHelper {
                 for (int f2 = topPos; f2 < topPos + height; f2 += 16) {
 
                     /** RENDERER */
-                    GuiComponent.blit(poseStack, f1, f2, 0, 16, 16, sprite);
+                    renderWithFloat.blit(poseStack, f1, f2, 0, 16, 16, sprite);
                 }
             }
 
@@ -161,7 +160,7 @@ public class ScreenHelper {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resourceLocation);
-        GuiComponent.blit(poseStack, leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+        renderWithFloat.blit(poseStack, leftPos, topPos + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -180,7 +179,7 @@ public class ScreenHelper {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, resourceLocation);
-        GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, ratioWidth, height, width, height);
+        renderWithFloat.blit(poseStack, leftPos, topPos, 0, 0, ratioWidth, height, width, height);
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -188,7 +187,7 @@ public class ScreenHelper {
     }
 
     /** USE IT TO RENDER TEXTURES */
-    public static void drawTexture(PoseStack poseStack, int leftPos, int topPos, int width, int height, ResourceLocation texture, boolean blend) {
+    public static void drawTexture(int leftPos, int topPos, int width, int height, ResourceLocation texture, boolean blend) {
         if (blend) {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
@@ -196,7 +195,7 @@ public class ScreenHelper {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(poseStack, leftPos, topPos, 0, 0, width, height, width, height);
+        new GuiGraphics(Minecraft.getInstance(), Minecraft.getInstance().renderBuffers().bufferSource()).blit(texture, leftPos, topPos, 0, 0, width, height, width, height);
 
         if (blend) {
             RenderSystem.disableBlend();

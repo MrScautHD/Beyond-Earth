@@ -16,10 +16,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier3Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier3ItemRenderer<T extends RocketTier3Entity> extends BlockEntityWithoutLevelRenderer {
+public class RocketTier3ItemRenderer<T extends RocketEntity> extends BlockEntityWithoutLevelRenderer {
 
     /** TEXTURE */
     public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t3.png");

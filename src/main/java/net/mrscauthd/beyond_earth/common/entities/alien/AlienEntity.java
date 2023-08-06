@@ -69,7 +69,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 
 	@Override
 	public Villager getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
-		AlienEntity alienentity = new AlienEntity(EntityRegistry.ALIEN.get(), this.level);
+		AlienEntity alienentity = new AlienEntity(EntityRegistry.ALIEN.get(), this.level());
 
 		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
 		return alienentity;
@@ -90,11 +90,11 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 		if (itemstack.getItem() != ItemsRegistry.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.isTrading() && !this.isSleeping() && !p_230254_1_.isSecondaryUseActive()) {
 			if (this.isBaby()) {
 				this.shakeHead();
-				return InteractionResult.sidedSuccess(this.level.isClientSide);
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else {
 				boolean flag = this.getOffers().isEmpty();
 				if (p_230254_2_ == InteractionHand.MAIN_HAND) {
-					if (flag && !this.level.isClientSide) {
+					if (flag && !this.level().isClientSide) {
 						this.shakeHead();
 					}
 
@@ -102,13 +102,13 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 				}
 
 				if (flag) {
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				} else {
-					if (!this.level.isClientSide && !this.offers.isEmpty()) {
+					if (!this.level().isClientSide && !this.offers.isEmpty()) {
 						this.displayMerchantGui(p_230254_1_);
 					}
 
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
 			}
 		} else {
@@ -145,7 +145,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 
 	private void shakeHead() {
 		this.setUnhappyCounter(40);
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
 		}
 	}
@@ -192,7 +192,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 		p_35425_.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		p_35425_.setDefaultActivity(Activity.IDLE);
 		p_35425_.setActiveActivityIfPossible(Activity.IDLE);
-		p_35425_.updateActivityFromSchedule(this.level.getDayTime(), this.level.getGameTime());
+		p_35425_.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
 	}
 
 	@Nullable

@@ -1,13 +1,10 @@
 package net.mrscauthd.beyond_earth.client.screens.helper.gauge;
 
-import javax.annotation.Nullable;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -18,6 +15,8 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTex
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueSerializer;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
+
+import javax.annotation.Nullable;
 
 public abstract class AbstractGaugeDataRenderer {
 
@@ -31,22 +30,22 @@ public abstract class AbstractGaugeDataRenderer {
         GaugeValueSerializer.Serializer.write(this.getValue(), buffer);
     }
 
-    public void render(PoseStack matrixStack, int left, int top, int width, int height) {
-        this.drawBorder(matrixStack, left, top, width, height);
+    public void render(GuiGraphics graphics, int left, int top, int width, int height) {
+        this.drawBorder(graphics, left, top, width, height);
 
         int padding = this.getBorderWidth();
         Rectangle2d innerBounds = new Rectangle2d(left + padding, top + padding, width - padding * 2,
                 height - padding * 2);
-        this.drawBackground(matrixStack, innerBounds);
-        this.drawContents(matrixStack, innerBounds);
-        this.drawGaugeText(matrixStack, innerBounds);
+        this.drawBackground(graphics, innerBounds);
+        this.drawContents(graphics, innerBounds);
+        this.drawGaugeText(graphics, innerBounds);
     }
 
-    public void render(PoseStack matrixStack, int left, int top) {
-        this.render(matrixStack, left, top, this.getWidth(), this.getHeight());
+    public void render(GuiGraphics graphics, int left, int top) {
+        this.render(graphics, left, top, this.getWidth(), this.getHeight());
     }
 
-    protected void drawContents(PoseStack matrixStack, Rectangle2d innerBounds) {
+    protected void drawContents(GuiGraphics graphics, Rectangle2d innerBounds) {
 
     }
 
@@ -55,7 +54,7 @@ public abstract class AbstractGaugeDataRenderer {
         return GaugeTextHelper.getValueText(this.getValue()).build();
     }
 
-    protected void drawGaugeText(PoseStack matrixStack, Rectangle2d innerBounds) {
+    protected void drawGaugeText(GuiGraphics graphics, Rectangle2d innerBounds) {
         Component text = this.getGaugeText();
 
         if (text != null) {
@@ -64,15 +63,15 @@ public abstract class AbstractGaugeDataRenderer {
             Rectangle2d textBounds = new Rectangle2d(innerBounds.getX() + textPadding, innerBounds.getY(),
                     innerBounds.getWidth() - textPadding, innerBounds.getHeight());
 
-            this.drawText(matrixStack, textBounds, text, color);
+            this.drawText(graphics, textBounds, text, color);
         }
     }
 
-    protected void drawText(PoseStack matrixStack, Rectangle2d bounds, Component text, int color) {
-        this.drawText(Minecraft.getInstance(), matrixStack, bounds, text, color);
+    protected void drawText(GuiGraphics graphics, Rectangle2d bounds, Component text, int color) {
+        this.drawText(Minecraft.getInstance(), graphics, bounds, text, color);
     }
 
-    protected void drawText(Minecraft minecraft, PoseStack matrixStack, Rectangle2d bounds, Component text, int color) {
+    protected void drawText(Minecraft minecraft, GuiGraphics graphics, Rectangle2d bounds, Component text, int color) {
         Font fontRenderer = minecraft.font;
         int textWidth = fontRenderer.width(text);
 
@@ -82,13 +81,13 @@ public abstract class AbstractGaugeDataRenderer {
         float scaledX = (bounds.getX() + offsetX) / scale;
         float scaledY = (bounds.getY() + offsetY) / scale;
 
-        matrixStack.pushPose();
-        matrixStack.scale(scale, scale, scale);
-        fontRenderer.draw(matrixStack, text, scaledX, scaledY, color);
-        matrixStack.popPose();
+        graphics.pose().pushPose();
+        graphics.pose().scale(scale, scale, scale);
+        new GuiGraphics(minecraft, minecraft.renderBuffers().bufferSource()).drawCenteredString(fontRenderer, text, (int) scaledX, (int) scaledY, color);
+        graphics.pose().popPose();
     }
 
-    protected void drawBackground(PoseStack matrixStack, Rectangle2d innerBounds) {
+    protected void drawBackground(GuiGraphics graphics, Rectangle2d innerBounds) {
         IGaugeValue value = this.getValue();
         int tileColor = value.getColor();
         double displayRatio = value.getDisplayRatio();
@@ -104,14 +103,14 @@ public abstract class AbstractGaugeDataRenderer {
                 int tileWidth = this.getBackgroundTileWidth();
                 int tileHeight = this.getBackgroundTileHeight();
                 int ratioWidth = (int) Math.ceil(innerBounds.getWidth() * displayRatio);
-                GuiHelper.drawTiledSprite(matrixStack, innerBounds.getX(), innerBounds.getY(), ratioWidth,
+                GuiHelper.drawTiledSprite(graphics, innerBounds.getX(), innerBounds.getY(), ratioWidth,
                         innerBounds.getHeight(), tileTexture, tileWidth, tileHeight);
             }
 
             ResourceLocation texture = this.getBackgroundTexture();
 
             if (texture != null) {
-                GuiHelper.drawHorizontal(matrixStack, innerBounds.getX(), innerBounds.getY(), innerBounds.getWidth(),
+                GuiHelper.drawHorizontal(graphics, innerBounds.getX(), innerBounds.getY(), innerBounds.getWidth(),
                         innerBounds.getHeight(), texture, displayRatio);
             }
 
@@ -122,14 +121,14 @@ public abstract class AbstractGaugeDataRenderer {
 
     }
 
-    protected void drawBorder(PoseStack matrixStack, int left, int top, int width, int height) {
+    protected void drawBorder(GuiGraphics graphics, int left, int top, int width, int height) {
         int borderColor = this.getBorderColor();
         int padding = this.getBorderWidth();
 
-        GuiComponent.fill(matrixStack, left, top, left + width - padding, top + padding, borderColor);
-        GuiComponent.fill(matrixStack, left, top, left + padding, top + height - padding, borderColor);
-        GuiComponent.fill(matrixStack, left + width - padding, top, left + width, top + height - padding, borderColor);
-        GuiComponent.fill(matrixStack, left, top + height - padding, left + width, top + height, borderColor);
+        graphics.fill(left, top, left + width - padding, top + padding, borderColor);
+        graphics.fill(left, top, left + padding, top + height - padding, borderColor);
+        graphics.fill(left + width - padding, top, left + width, top + height - padding, borderColor);
+        graphics.fill(left, top + height - padding, left + width, top + height, borderColor);
     }
 
     public int getTextColor() {

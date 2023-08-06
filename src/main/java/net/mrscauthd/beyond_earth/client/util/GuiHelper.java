@@ -3,7 +3,7 @@ package net.mrscauthd.beyond_earth.client.util;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
@@ -58,55 +58,54 @@ public class GuiHelper {
         return left <= x && x < right && top <= y && y < bottom;
     }
 
-    public static void drawArrow(PoseStack matrixStack, int left, int top, double ratio) {
-        GuiHelper.drawHorizontal(matrixStack, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
+    public static void drawArrow(GuiGraphics graphics, int left, int top, double ratio) {
+        GuiHelper.drawHorizontal(graphics, left, top, ARROW_WIDTH, ARROW_HEIGHT, ARROW_PATH, ratio);
     }
 
-    public static void drawHammer(PoseStack matrixStack, int left, int top, double ratio) {
-        GuiHelper.drawHorizontal(matrixStack, left, top, HAMMER_WIDTH, HAMMER_HEIGHT, HAMMER_PATH, ratio);
+    public static void drawHammer(GuiGraphics graphics, int left, int top, double ratio) {
+        GuiHelper.drawHorizontal(graphics, left, top, HAMMER_WIDTH, HAMMER_HEIGHT, HAMMER_PATH, ratio);
     }
 
     public static Rectangle2d getArrowBounds(int left, int top) {
         return new Rectangle2d(left, top, ARROW_WIDTH, ARROW_HEIGHT);
     }
 
-    public static void drawFire(PoseStack matrixStack, int left, int top, double ratio) {
-        drawVertical(matrixStack, left, top, FIRE_WIDTH, FIRE_HEIGHT, FIRE_PATH, ratio);
+    public static void drawFire(GuiGraphics graphics, int left, int top, double ratio) {
+        drawVertical(graphics, left, top, FIRE_WIDTH, FIRE_HEIGHT, FIRE_PATH, ratio);
     }
 
     public static Rectangle2d getFireBounds(int left, int top) {
         return new Rectangle2d(left, top, FIRE_WIDTH, FIRE_HEIGHT);
     }
 
-    public static void drawOxygenTank(PoseStack matrixStack, int left, int top, OxygenStorage oxygenStorage) {
-        drawOxygenTank(matrixStack, left, top, oxygenStorage.getOxygenStoredRatio());
+    public static void drawOxygenTank(GuiGraphics graphics, int left, int top, OxygenStorage oxygenStorage) {
+        drawOxygenTank(graphics, left, top, oxygenStorage.getOxygenStoredRatio());
     }
 
-    public static void drawOxygenTank(PoseStack matrixStack, int left, int top, double ratio) {
+    public static void drawOxygenTank(GuiGraphics graphics, int left, int top, double ratio) {
         int maxHeight = FLUID_TANK_HEIGHT;
         int scaledHeight = (int) Math.ceil(maxHeight * ratio);
         int offset = maxHeight - scaledHeight;
 
         RenderSystem.setShaderTexture(0, OXYGEN_CONTENT_PATH);
-        drawTiledSprite(matrixStack, left, top + offset, OXYGEN_TANK_WIDTH, scaledHeight, 16, 16, 0.0F, 1.0F, 0.0F,
+        drawTiledSprite(graphics, left, top + offset, OXYGEN_TANK_WIDTH, scaledHeight, 16, 16, 0.0F, 1.0F, 0.0F,
                 1.0F);
-        drawFluidTankOverlay(matrixStack, left, top);
+        drawFluidTankOverlay(graphics, left, top);
     }
 
     public static Rectangle2d getOxygenTankBounds(int left, int top) {
         return new Rectangle2d(left, top, OXYGEN_TANK_WIDTH, OXYGEN_TANK_HEIGHT);
     }
 
-    public static void drawEnergy(PoseStack matrixStack, int left, int top, IEnergyStorage energyStorage) {
-        drawEnergy(matrixStack, left, top,
-                (double) energyStorage.getEnergyStored() / (double) energyStorage.getMaxEnergyStored());
+    public static void drawEnergy(GuiGraphics graphics, int left, int top, IEnergyStorage energyStorage) {
+        drawEnergy(graphics, left, top,(double) energyStorage.getEnergyStored() / (double) energyStorage.getMaxEnergyStored());
     }
 
-    public static void drawEnergy(PoseStack matrixStack, int left, int top, double ratio) {
-        drawVertical(matrixStack, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, ENERGY_PATH, ratio);
+    public static void drawEnergy(GuiGraphics graphics, int left, int top, double ratio) {
+        drawVertical(graphics, left, top, ENERGY_WIDTH, ENERGY_HEIGHT, ENERGY_PATH, ratio);
     }
 
-    public static void drawFuel(PoseStack matrixStack, int left, int top, double ratio) {
+    public static void drawFuel(GuiGraphics matrixStack, int left, int top, double ratio) {
         ResourceLocation full = new ResourceLocation(BeyondEarth.MODID, "textures/gui/util/rocket_fuel_bar_full.png");
         drawVertical(matrixStack, left, top, FUEL_WIDTH, FUEL_HEIGHT, full, ratio);
     }
@@ -119,26 +118,26 @@ public class GuiHelper {
         return new Rectangle2d(left, top, width, height);
     }
 
-    public static void drawFluidTank(PoseStack matrixStack, int left, int top, IFluidTank tank) {
-        drawFluidTank(matrixStack, left, top, tank.getFluid(), tank.getCapacity());
+    public static void drawFluidTank(GuiGraphics graphics, int left, int top, IFluidTank tank) {
+        drawFluidTank(graphics, left, top, tank.getFluid(), tank.getCapacity());
     }
 
-    public static void drawFluidTank(PoseStack matrixStack, int left, int top, FluidStack stack, int capacity) {
+    public static void drawFluidTank(GuiGraphics graphics, int left, int top, FluidStack stack, int capacity) {
         if (stack != null && !stack.isEmpty() && capacity > 0) {
             int maxHeight = FLUID_TANK_HEIGHT;
             int scaledHeight = (int) Math.ceil(maxHeight * ((double) stack.getAmount() / (double) capacity));
             int offset = maxHeight - scaledHeight;
-            drawFluid(matrixStack, left, top + offset, FLUID_TANK_WIDTH, scaledHeight, stack);
+            drawFluid(graphics, left, top + offset, FLUID_TANK_WIDTH, scaledHeight, stack);
         }
 
-        drawFluidTankOverlay(matrixStack, left, top);
+        drawFluidTankOverlay(graphics, left, top);
     }
 
-    public static void drawFluidTankOverlay(PoseStack matrixStack, int left, int top) {
-        drawVertical(matrixStack, left, top, FLUID_TANK_WIDTH, FLUID_TANK_HEIGHT, FLUID_TANK_PATH, 1.0D);
+    public static void drawFluidTankOverlay(GuiGraphics graphics, int left, int top) {
+        drawVertical(graphics, left, top, FLUID_TANK_WIDTH, FLUID_TANK_HEIGHT, FLUID_TANK_PATH, 1.0D);
     }
 
-    public static void drawFluid(PoseStack matrixStack, int left, int top, int width, int height, FluidStack stack) {
+    public static void drawFluid(GuiGraphics graphics, int left, int top, int width, int height, FluidStack stack) {
         Fluid fluid = FluidUtil2.getFluid(stack);
 
         if (fluid == Fluids.EMPTY
@@ -150,22 +149,22 @@ public class GuiHelper {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         setGLColorFromInt(props.getTintColor(stack));
-        drawTiledSprite(matrixStack, left, top, width, height, fluidStillSprite, 16, 16);
+        drawTiledSprite(graphics, left, top, width, height, fluidStillSprite, 16, 16);
         RenderSystem.disableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public static void drawRocketFluidTank(PoseStack matrixStack, int left, int top, FluidStack stack, int capacity) {
+    public static void drawRocketFluidTank(GuiGraphics graphics, int left, int top, FluidStack stack, int capacity) {
         if (stack != null && !stack.isEmpty() && capacity > 0) {
             int maxHeight = 46;
             int scaledHeight = (int) Math.ceil(maxHeight * ((double) stack.getAmount() / (double) capacity));
             int offset = maxHeight - scaledHeight;
-            GuiHelper.drawFluid(matrixStack, left, top + offset, 46, scaledHeight, stack);
+            GuiHelper.drawFluid(graphics, left, top + offset, 46, scaledHeight, stack);
         }
 
     }
 
-    public static void drawFluidHorizontal(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawFluidHorizontal(GuiGraphics graphics, int left, int top, int width, int height,
             FluidStack stack, int capacity) {
         Fluid fluid = FluidUtil2.getFluid(stack);
 
@@ -174,10 +173,10 @@ public class GuiHelper {
         }
 
         double ratio = (double) stack.getAmount() / (double) capacity;
-        drawFluid(matrixStack, left, top, (int) Math.ceil(width * ratio), height, stack);
+        drawFluid(graphics, left, top, (int) Math.ceil(width * ratio), height, stack);
     }
 
-    public static void drawFluidVertical(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawFluidVertical(GuiGraphics graphics, int left, int top, int width, int height,
             FluidStack stack, int capacity) {
         Fluid fluid = FluidUtil2.getFluid(stack);
 
@@ -188,10 +187,10 @@ public class GuiHelper {
         double ratio = (double) stack.getAmount() / (double) capacity;
         int scaledHeight = (int) Math.ceil(height * ratio);
         int offset = height - scaledHeight;
-        drawFluid(matrixStack, left, top + offset, scaledHeight, height, stack);
+        drawFluid(graphics, left, top + offset, scaledHeight, height, stack);
     }
 
-    public static void drawTiledSprite(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawTiledSprite(GuiGraphics graphics, int left, int top, int width, int height,
             TextureAtlasSprite sprite, int tileWidth, int tileHeight) {
         float uMin = sprite.getU0();
         float uMax = sprite.getU1();
@@ -199,12 +198,12 @@ public class GuiHelper {
         float vMax = sprite.getV1();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, InventoryMenu.BLOCK_ATLAS);
-        drawTiledSprite(matrixStack, left, top, width, height, tileWidth, tileHeight, uMin, uMax, vMin, vMax);
+        drawTiledSprite(graphics, left, top, width, height, tileWidth, tileHeight, uMin, uMax, vMin, vMax);
     }
 
-    public static void drawTiledSprite(PoseStack matrixStack, int left, int top, int width, int height, int tileWidth,
+    public static void drawTiledSprite(GuiGraphics graphics, int left, int top, int width, int height, int tileWidth,
             int tileHeight, float uMin, float uMax, float vMin, float vMax) {
-        Matrix4f matrix = matrixStack.last().pose();
+        Matrix4f matrix = graphics.pose().last().pose();
 
         int xTileCount = width / tileWidth;
         int xRemainder = width - (xTileCount * tileWidth);
@@ -275,36 +274,36 @@ public class GuiHelper {
         return new Rectangle2d(left, top, 48, 48);
     }
 
-    public static void drawVertical(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawVertical(GuiGraphics graphics, int left, int top, int width, int height,
+                                    ResourceLocation resource, double ratio) {
+        int ratioHeight = (int) Math.ceil(height * ratio);
+        int remainHeight = height - ratioHeight;
+        RenderSystem.setShaderTexture(0, resource);
+        graphics.blit(resource, left, top + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+    }
+
+    public static void drawVerticalReverse(GuiGraphics graphics, int left, int top, int width, int height,
             ResourceLocation resource, double ratio) {
         int ratioHeight = (int) Math.ceil(height * ratio);
         int remainHeight = height - ratioHeight;
         RenderSystem.setShaderTexture(0, resource);
-        GuiComponent.blit(matrixStack, left, top + remainHeight, 0, remainHeight, width, ratioHeight, width, height);
+        graphics.blit(resource, left, top, 0, 0, width, remainHeight, width, height);
     }
 
-    public static void drawVerticalReverse(PoseStack matrixStack, int left, int top, int width, int height,
-            ResourceLocation resource, double ratio) {
-        int ratioHeight = (int) Math.ceil(height * ratio);
-        int remainHeight = height - ratioHeight;
-        RenderSystem.setShaderTexture(0, resource);
-        GuiComponent.blit(matrixStack, left, top, 0, 0, width, remainHeight, width, height);
-    }
-
-    public static void drawHorizontal(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawHorizontal(GuiGraphics graphics, int left, int top, int width, int height,
             ResourceLocation resource, double ratio) {
         int ratioWidth = (int) Math.ceil(width * ratio);
 
         RenderSystem.setShaderTexture(0, resource);
-        GuiComponent.blit(matrixStack, left, top, 0, 0, ratioWidth, height, width, height);
+        graphics.blit(resource, left, top, 0, 0, ratioWidth, height, width, height);
     }
 
-    public static void drawHorizontalReverse(PoseStack matrixStack, int left, int top, int width, int height,
+    public static void drawHorizontalReverse(GuiGraphics graphics, int left, int top, int width, int height,
             ResourceLocation resource, double ratio) {
         int ratioWidth = (int) Math.ceil(width * ratio);
         int remainWidth = width - ratioWidth;
         RenderSystem.setShaderTexture(0, resource);
-        GuiComponent.blit(matrixStack, left + ratioWidth, top, ratioWidth, 0, remainWidth, height, width, height);
+        graphics.blit(resource, left + ratioWidth, top, ratioWidth, 0, remainWidth, height, width, height);
     }
 
     public static void innerBlit(Matrix4f matrix, float x1, float x2, float y1, float y2, int blitOffset, float minU,

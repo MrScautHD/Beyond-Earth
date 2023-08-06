@@ -63,7 +63,7 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 	
 	@Override
 	public Triple<ItemStack, ItemStack, ItemStack> getTrade(Entity trader, RandomSource rand) {
-		Level level = trader.level;
+		Level level = trader.level();
                 TagKey<Structure> key = TagKey.create(Registries.STRUCTURE, this.getStructureName());
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP);
 

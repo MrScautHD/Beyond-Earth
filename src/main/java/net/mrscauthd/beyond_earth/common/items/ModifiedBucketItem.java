@@ -1,24 +1,22 @@
 package net.mrscauthd.beyond_earth.common.items;
 
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
+
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class ModifiedBucketItem extends BucketItem {
 
@@ -36,14 +34,13 @@ public class ModifiedBucketItem extends BucketItem {
         } else {
             BlockState blockstate = level.getBlockState(blockPos);
             Block block = blockstate.getBlock();
-            Material material = blockstate.getMaterial();
 
             boolean flag = blockstate.canBeReplaced(this.getFluid());
             boolean flag1 = blockstate.isAir() || flag || block instanceof LiquidBlockContainer && ((LiquidBlockContainer) block).canPlaceLiquid(level, blockPos, blockstate, this.getFluid());
 
             if (!flag1) {
                 return hitResult != null && this.emptyContents(player, level, hitResult.getBlockPos().relative(hitResult.getDirection()), null);
-            } else if (level.dimensionType().ultraWarm() && this.getFluid().getFluidType().getBlockForFluidState(level, blockPos, this.getFluid().defaultFluidState()).getMaterial() == Material.WATER) {
+            } else if (level.dimensionType().ultraWarm() && this.getFluid().getFluidType().getBlockForFluidState(level, blockPos, this.getFluid().defaultFluidState()).getMapColor(level, blockPos) == MapColor.WATER) {
                 if (this.explodeNether) {
                     if (!level.isClientSide) {
                         level.explode(null, blockPos.getX(), blockPos.getY(), blockPos.getZ(), 10, true, Level.ExplosionInteraction.BLOCK);
@@ -64,7 +61,7 @@ public class ModifiedBucketItem extends BucketItem {
                 this.playEmptySound(player, level, blockPos);
                 return true;
             } else {
-                if (!level.isClientSide && flag && !material.isLiquid()) {
+                if (!level.isClientSide && flag && !blockstate.liquid()) {
                     level.destroyBlock(blockPos, true);
                 }
 

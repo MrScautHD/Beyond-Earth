@@ -3,17 +3,13 @@ package net.mrscauthd.beyond_earth;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.registries.*;
-import net.mrscauthd.beyond_earth.common.tabs.ModTabs;
-import net.mrscauthd.beyond_earth.common.world.ModConfiguredFeature;
-import net.mrscauthd.beyond_earth.common.world.ModPlacedFeature;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
 
 @Mod(BeyondEarth.MODID)
 public class BeyondEarth {
@@ -47,8 +43,7 @@ public class BeyondEarth {
 		ContainerRegistry.CONTAINERS.register(bus);
 		StructureRegistry.STRUCTURES.register(bus);
 		FeatureRegistry.FEATURES.register(bus);
-
-		bus.addListener(ModTabs::addCreativeTab);
+		TabsRegistry.CREATIVE_MOD_TAB.register(bus);
 
 		MinecraftForge.EVENT_BUS.register(this);
 	}

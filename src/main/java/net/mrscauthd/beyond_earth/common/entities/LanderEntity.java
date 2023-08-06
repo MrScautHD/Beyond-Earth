@@ -81,7 +81,7 @@ public class LanderEntity extends IVehicleEntity {
 	public void kill() {
 		this.dropEquipment();
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.remove(RemovalReason.DISCARDED);
 		}
 	}
@@ -92,7 +92,7 @@ public class LanderEntity extends IVehicleEntity {
 				&& !this.isVehicle()) {
 			this.dropEquipment();
 
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				this.remove(RemovalReason.DISCARDED);
 			}
 
@@ -106,8 +106,8 @@ public class LanderEntity extends IVehicleEntity {
 	public boolean causeFallDamage(float p_150347_, float p_150348_, DamageSource p_150349_) {
 		if (p_150347_ >= 3.0F) {
 
-			if (!this.level.isClientSide) {
-				this.level.explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
+			if (!this.level().isClientSide) {
+				this.level().explode(null, this.getX(), this.getY(), this.getZ(), 10, true,
 						Level.ExplosionInteraction.TNT);
 
 				this.remove(RemovalReason.DISCARDED);
@@ -163,9 +163,9 @@ public class LanderEntity extends IVehicleEntity {
 	@Override
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		super.interact(player, hand);
-		InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
+		InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
 
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (player.isCrouching()) {
 				NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
 					@Override
@@ -211,12 +211,12 @@ public class LanderEntity extends IVehicleEntity {
 	}
 
 	public void beepWarningSound() {
-		if (level.isClientSide())
+		if (level().isClientSide())
 			playBeep.accept(this);
 	}
 
 	public void boostSound() {
-		if (level.isClientSide())
+		if (level().isClientSide())
 			playBoost.accept(this);
 	}
 
@@ -237,16 +237,16 @@ public class LanderEntity extends IVehicleEntity {
 
 				Vec3 vec = this.getDeltaMovement();
 
-				if (!this.isOnGround() && !this.isEyeInFluid(FluidTags.WATER)) {
+				if (!this.onGround() && !this.isEyeInFluid(FluidTags.WATER)) {
 					if (vec.y() < -0.05) {
 						this.setDeltaMovement(vec.x(), vec.y() * 0.85, vec.z());
 					}
 
 					this.fallDistance = (float) (vec.y() * (-1) * 4.5);
 
-					if (this.level instanceof ServerLevel) {
-						for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
-							((ServerLevel) this.level).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
+					if (this.level() instanceof ServerLevel) {
+						for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
+							((ServerLevel) this.level()).sendParticles(p, ParticleTypes.SPIT, true, this.getX(),
 									this.getY() - 0.3, this.getZ(), 3, 0.1, 0.1, 0.1, 0.001);
 						}
 					}

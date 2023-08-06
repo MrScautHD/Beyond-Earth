@@ -1,12 +1,7 @@
 package net.mrscauthd.beyond_earth.client.screens.planetselection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
-
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
@@ -34,6 +29,10 @@ import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 import net.mrscauthd.beyond_earth.common.util.Planets.StarSystem;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSelectionMenu.GuiContainer> {
@@ -132,44 +131,44 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBg(poseStack, partialTicks, mouseX, mouseY);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBg(graphics, partialTicks, mouseX, mouseY);
+        super.render(graphics, mouseX, mouseY, partialTicks);
 
         /** RENDER PRE EVENT FOR ADDONS */
         if (MinecraftForge.EVENT_BUS
-                .post(new PlanetSelectionScreenRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+                .post(new PlanetSelectionScreenRenderEvent.Pre(this, graphics.pose(), partialTicks, mouseX, mouseY))) {
             return;
         }
 
         /** CATALOG TEXT RENDERER */
-        this.font.draw(poseStack, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
+        graphics.drawString(font, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
 
         /** RENDER POST EVENT FOR ADDONS */
         MinecraftForge.EVENT_BUS
-                .post(new PlanetSelectionScreenRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+                .post(new PlanetSelectionScreenRenderEvent.Post(this, graphics.pose(), partialTicks, mouseX, mouseY));
     }
 
     public StarSystem getStar() {
         return Planets.getStarsList().get(starIndex.get());
     }
 
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
 
         /** RENDER BACKGROUND PRE EVENT FOR ADDONS */
         if (MinecraftForge.EVENT_BUS.post(
-                new PlanetSelectionScreenBackgroundRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+                new PlanetSelectionScreenBackgroundRenderEvent.Pre(this, graphics.pose(), partialTicks, mouseX, mouseY))) {
             return;
         }
 
         /** BACKGROUND RENDERER */
-        ScreenHelper.drawTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE, false);
+        ScreenHelper.drawTexture(0, 0, this.width, this.height, BACKGROUND_TEXTURE, false);
 
         ResourceLocation starTexture = getStar().texture;
 
         /** SUN RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 7)) {
-            ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, starTexture,
+            ScreenHelper.drawTexture((this.width - 15) / 2, (this.height - 15) / 2, 15, 15, starTexture,
                     false);
         }
 
@@ -180,25 +179,25 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         this.drawRings();
 
         /** ROTATED OBJECTS RENDERER */
-        this.drawPlanets(poseStack);
+        this.drawPlanets(graphics);
 
         /** SMALL MENU RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 0, 1)
                 || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 6)) {
-            ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST, true);
-            this.drawScroller(poseStack, 92);
+            ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST, true);
+            this.drawScroller(92);
         }
 
         /** LARGE MENU RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5)
                 || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
-            ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
-            this.drawScroller(poseStack, 210);
+            ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
+            this.drawScroller(210);
         }
 
         /** RENDER BACKGROUND POST EVENT FOR ADDONS */
         MinecraftForge.EVENT_BUS.post(
-                new PlanetSelectionScreenBackgroundRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+                new PlanetSelectionScreenBackgroundRenderEvent.Post(this, graphics.pose(), partialTicks, mouseX, mouseY));
     }
 
     @Override
@@ -484,11 +483,11 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         });
     }
 
-    public void drawPlanets(PoseStack poseStack) {
+    public void drawPlanets(GuiGraphics graphics) {
 
         /** SOLAR SYSTEM CATEGORY */
         if (this.category.get() == 0) {
-            PlanetSelectionScreenHelper.drawGalaxy(this, poseStack, MILKY_WAY_TEXTURE, -125, -125, 250, 250,
+            PlanetSelectionScreenHelper.drawGalaxy(this, graphics.pose(), MILKY_WAY_TEXTURE, -125, -125, 250, 250,
                     this.rotationMilkyWay);
         }
         int start = 1;
@@ -496,26 +495,26 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
             int end = start + system.planets.size();
             if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), start, end)) {
                 system.planets.forEach(planet -> {
-                    drawPlanet(poseStack, planet, 10, 10, true);
+                    drawPlanet(graphics, planet, 10, 10, true);
                 });
             }
             start += end;
         }
     }
 
-    private void drawPlanet(PoseStack poseStack, Planet planet, int height, int width, boolean showName) {
+    private void drawPlanet(GuiGraphics graphics, Planet planet, int height, int width, boolean showName) {
         if (height / 2 > 0)
-            planet.moons.forEach(moon -> drawPlanet(poseStack, moon, height / 2, width / 2, false));
+            planet.moons.forEach(moon -> drawPlanet(graphics, moon, height / 2, width / 2, false));
         if (planet.description == null) {
             planet.description = PlanetSelectionScreenHelper.tl(planet.name);
         }
         if (planet.texture == null) {
             planet.texture = new ResourceLocation("missing_planet_texture_" + planet.name);
         }
-        PlanetSelectionScreenHelper.drawPlanet(poseStack, planet, height, width, showName);
+        PlanetSelectionScreenHelper.drawPlanet(graphics, planet, height, width, showName);
     }
 
-    public void drawScroller(PoseStack poseStack, int x) {
+    public void drawScroller(int x) {
         if (this.getVisibleButtons(1).size() > this.rowEnd) {
 
             int buttonStartY = (this.height / 2) - 67 / 2;
@@ -523,7 +522,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
             float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
 
-            ScreenHelper.drawTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE, false);
+            ScreenHelper.drawTexture(x, (int) y, 4, 8, SCROLLER_TEXTURE, false);
         }
     }
 

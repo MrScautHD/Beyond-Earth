@@ -65,7 +65,7 @@ public class Methods {
     public static final TagKey<Item> SPACE_SUIT_PART = TagKey.create(Keys.ITEMS, new ResourceLocation(BeyondEarth.MODID, "space_suit"));
 
     public static Entity teleportTo(Entity entity, ResourceKey<Level> levelKey, double yPos) {
-        if (!isLevel(entity.level, levelKey)) {
+        if (!isLevel(entity.level(), levelKey)) {
             if (entity.canChangeDimensions()) {
 
                 if (entity.getServer() == null) {
@@ -156,11 +156,11 @@ public class Methods {
     }
 
     public static void hurtLivingWithOxygenSource(LivingEntity entity) {
-        entity.hurt(DamageSourceRegistry.of(entity.level, DamageSourceRegistry.DAMAGE_SOURCE_OXYGEN), 1.0F);
+        entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.DAMAGE_SOURCE_OXYGEN), 1.0F);
     }
 
     public static void hurtLivingWithAcidRainSource(LivingEntity entity) {
-        entity.hurt(DamageSourceRegistry.of(entity.level, DamageSourceRegistry.DAMAGE_SOURCE_ACID_RAIN), 1.0F);
+        entity.hurt(DamageSourceRegistry.of(entity.level(), DamageSourceRegistry.DAMAGE_SOURCE_ACID_RAIN), 1.0F);
     }
 
     public static boolean isRocket(Entity entity) {
@@ -182,11 +182,11 @@ public class Methods {
         if (isVehicleItem(itemStack1) && isVehicleItem(itemStack2)) {
 
             /** DROP ITEM */
-            if (!livingEntity.level.isClientSide) {
+            if (!livingEntity.level().isClientSide) {
                 double d0 = livingEntity.getEyeY() - 0.3;
-                ItemEntity itementity = new ItemEntity(livingEntity.level, livingEntity.getX(), d0, livingEntity.getZ(), itemStack2.copy());
+                ItemEntity itementity = new ItemEntity(livingEntity.level(), livingEntity.getX(), d0, livingEntity.getZ(), itemStack2.copy());
                 itementity.setPickUpDelay(0);
-                livingEntity.level.addFreshEntity(itementity);
+                livingEntity.level().addFreshEntity(itementity);
             }
 
             /** DELETE ITEM */
@@ -197,7 +197,7 @@ public class Methods {
     //TODO REWORK
     /** IF A ENTITY SHOULD NOT GET ON FIRE ADD IT TO TAG "venus_fire" */
     public static void planetFire(LivingEntity entity, ResourceKey<Level> planet) {
-        Level level = entity.level;
+        Level level = entity.level();
 
         if (!isLevel(level, planet)) {
             return;
@@ -234,7 +234,7 @@ public class Methods {
     //TODO REWORK
     /** IF A ENTITY SHOULD NOT GET DAMAGE FROM ACID RAIN ADD IT TO TAG "venus_rain" */
     public static void venusRain(LivingEntity entity, ResourceKey<Level> planet) {
-        if (!isLevel(entity.level, planet)) {
+        if (!isLevel(entity.level(), planet)) {
             return;
         }
 
@@ -257,8 +257,8 @@ public class Methods {
             return;
         }
 
-        if (entity.level.getLevelData().isRaining() && entity.level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getX()), (int) Math.floor(entity.getZ())) <= Math.floor(entity.getY()) + 1) {
-            if (!entity.level.isClientSide) {
+        if (entity.level().getLevelData().isRaining() && entity.level().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (int) Math.floor(entity.getX()), (int) Math.floor(entity.getZ())) <= Math.floor(entity.getY()) + 1) {
+            if (!entity.level().isClientSide) {
                 hurtLivingWithAcidRainSource(entity);
             }
         }
@@ -269,7 +269,7 @@ public class Methods {
             ItemStack itemStack = player.getItemBySlot(EquipmentSlot.CHEST);
 
             if (itemStack.getOrCreateTag().getInt(JetSuit.Suit.TAG_MODE) == JetSuit.Suit.ModeType.HOVER.getMode()) {
-                if (player.isShiftKeyDown() && !player.isOnGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
+                if (player.isShiftKeyDown() && !player.onGround() && !player.hasEffect(MobEffects.SLOW_FALLING) && !player.getAbilities().flying && !player.isSleeping() && !player.isSwimming() && !player.isAutoSpinAttack() && !player.isSpectator() && !player.isPassenger()) {
                     player.setPose(Pose.STANDING);
                 }
             }
@@ -295,7 +295,7 @@ public class Methods {
     public static void createLanderAndTeleportTo(ServerPlayer serverPlayer, ResourceKey<Level> levelKey, int yPos, boolean placeSpaceStation) {
         Methods.teleportTo(serverPlayer, levelKey, yPos);
 
-        Level newLevel = serverPlayer.level;
+        Level newLevel = serverPlayer.level();
 
         int baliseX = 0;
         int baliseZ = 0;
@@ -422,7 +422,7 @@ public class Methods {
     }
 
     public static void sendVehicleHasNoFuelMessage(Player player) {
-        if (!player.level.isClientSide) {
+        if (!player.level().isClientSide) {
             player.displayClientMessage(Component.translatable("message." + BeyondEarth.MODID + ".no_fuel"), false);
         }
     }

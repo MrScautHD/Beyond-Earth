@@ -56,7 +56,7 @@ public class ClientEvents {
         }
 
         /** SPACE SOUND SYSTEM */
-        if (ClientMethods.isNotGuiSoundSource(source) && Methods.isSpaceLevelWithoutOxygen(player.level)) {
+        if (ClientMethods.isNotGuiSoundSource(source) && Methods.isSpaceLevelWithoutOxygen(player.level())) {
             if (instance instanceof TickableSoundInstance) {
                 event.setSound(new TickableSpaceSoundSystem((TickableSoundInstance) instance));
             } else {

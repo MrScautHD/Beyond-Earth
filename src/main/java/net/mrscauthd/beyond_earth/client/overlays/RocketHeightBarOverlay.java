@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.client.overlays;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -21,7 +22,7 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
     public static final ResourceLocation ROCKET = new ResourceLocation(BeyondEarth.MODID, "textures/planet_bar/rocket_t1.png");
 
     @Override
-    public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
+    public void render(ForgeGui gui, GuiGraphics graphics, float partialTick, int width, int height) {
         Player player = Minecraft.getInstance().player;
 
         if (Methods.isRocket(player.getVehicle()) || player.getVehicle() instanceof LanderEntity) {
@@ -37,7 +38,7 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
 
             ResourceLocation planet = Planets.getPlanetBar(level);
 
-            PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, poseStack, partialTick, width, height);
+            PlanetOverlayEvent event = new PlanetOverlayEvent(gui, planet, graphics.pose(), partialTick, width, height);
             MinecraftForge.EVENT_BUS.post(event);
 
             if (planet != event.getResourceLocation()) {
@@ -46,11 +47,11 @@ public class RocketHeightBarOverlay implements IGuiOverlay {
 
             /** ROCKET BAR IMAGE */
             RenderSystem.setShaderTexture(0, planet);
-            ForgeGui.blit(poseStack, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
+            graphics.blit(planet, 0, (height / 2) - 128 / 2, 0, 0, 16, 128, 16, 128);
 
             /** ROCKET_Y IMAGE */
             RenderSystem.setShaderTexture(0, ROCKET);
-            ScreenHelper.renderWithFloat.blit(poseStack, 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
+            ScreenHelper.renderWithFloat.blit(graphics.pose(), 4, (height / 2) + (103 / 2) - yHeight, 0, 0, 8, 11, 8, 11);
         }
     }
 }

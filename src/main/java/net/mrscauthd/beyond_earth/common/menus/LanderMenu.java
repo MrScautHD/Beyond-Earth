@@ -27,7 +27,7 @@ public class LanderMenu {
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
 			super(ContainerRegistry.LANDER_GUI.get(), id);
 
-			this.lander = (LanderEntity) inv.player.level.getEntity(extraData.readVarInt());
+			this.lander = (LanderEntity) inv.player.level().getEntity(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = lander.getItemHandler();
 

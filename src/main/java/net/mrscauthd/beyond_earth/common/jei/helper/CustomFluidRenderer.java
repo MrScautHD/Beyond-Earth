@@ -11,6 +11,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.TooltipFlag;
@@ -40,10 +41,10 @@ public class CustomFluidRenderer implements IIngredientRenderer<FluidStack> {
     }
 
     @Override
-    public void render(PoseStack stack, FluidStack ingredient) {
+    public void render(GuiGraphics graphics, FluidStack ingredient) {
         DrawableFluidAnimated fluid = cachedTank.getUnchecked(ingredient.getAmount());
         fluid.setFluid(ingredient);
-        fluid.draw(stack);
+        fluid.draw(graphics);
     }
 
     @Override

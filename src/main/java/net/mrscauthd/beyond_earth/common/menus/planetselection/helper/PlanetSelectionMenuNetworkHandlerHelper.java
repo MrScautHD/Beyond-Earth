@@ -8,7 +8,7 @@ import net.mrscauthd.beyond_earth.common.data.recipes.SpaceStationRecipe;
 public abstract class PlanetSelectionMenuNetworkHandlerHelper {
     /** SET EVERYTHING BACK AS BEFORE THE SCREEN OPEN */
     public void defaultOptions(Player player) {
-        if (!player.level.isClientSide) {
+        if (!player.level().isClientSide) {
             player.setNoGravity(false);
         }
 
@@ -22,7 +22,7 @@ public abstract class PlanetSelectionMenuNetworkHandlerHelper {
         }
 
         Inventory inv = player.getInventory();
-        SpaceStationRecipe recipe = (SpaceStationRecipe) player.level.getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
+        SpaceStationRecipe recipe = (SpaceStationRecipe) player.level().getRecipeManager().byKey(SpaceStationRecipe.KEY).orElse(null);
 
         for (IngredientStack ingredientStack : recipe.getIngredientStacks()) {
             inv.clearOrCountMatchingItems(ingredientStack::testWithoutCount, ingredientStack.getCount(), inv);

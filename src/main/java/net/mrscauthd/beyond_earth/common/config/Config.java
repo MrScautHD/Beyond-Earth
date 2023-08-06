@@ -1,14 +1,9 @@
 package net.mrscauthd.beyond_earth.common.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CoalGeneratorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.CompressorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.FuelRefineryBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenDistributorBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.OxygenLoaderBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.SolarPanelBlockEntity;
-import net.mrscauthd.beyond_earth.common.blocks.entities.machines.WaterPumpBlockEntity;
-import net.mrscauthd.beyond_earth.common.entities.*;
+import net.mrscauthd.beyond_earth.common.blocks.entities.machines.*;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
+import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 
 public class Config {
 	public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -76,13 +71,7 @@ public class Config {
 
         public static final ForgeConfigSpec.ConfigValue<Integer> ROVER_FUEL_BUCKETS;
 
-        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_1_FUEL_BUCKETS;
-
-        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_2_FUEL_BUCKETS;
-
-        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_3_FUEL_BUCKETS;
-
-        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_TIER_4_FUEL_BUCKETS;
+        public static final ForgeConfigSpec.ConfigValue<Integer> ROCKET_FUEL_BUCKETS;
 
         public static final ForgeConfigSpec.ConfigValue<Boolean> WATER_TO_ICE_MOON;
         public static final ForgeConfigSpec.ConfigValue<Boolean> WATER_TO_ICE_GLACIO;
@@ -179,20 +168,8 @@ public class Config {
             ROVER_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RoverEntity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RoverEntity.DEFAULT_FUEL_BUCKETS);
             BUILDER.pop();
 
-            BUILDER.push("Rocket Tier 1");
-            ROCKET_TIER_1_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier1Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier1Entity.DEFAULT_FUEL_BUCKETS);
-            BUILDER.pop();
-
-            BUILDER.push("Rocket Tier 2");
-            ROCKET_TIER_2_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier2Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier2Entity.DEFAULT_FUEL_BUCKETS);
-            BUILDER.pop();
-
-            BUILDER.push("Rocket Tier 3");
-            ROCKET_TIER_3_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier3Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier3Entity.DEFAULT_FUEL_BUCKETS);
-            BUILDER.pop();
-
-            BUILDER.push("Rocket Tier 4");
-            ROCKET_TIER_4_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketTier4Entity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketTier4Entity.DEFAULT_FUEL_BUCKETS);
+            BUILDER.push("Rocket");
+            ROCKET_FUEL_BUCKETS = BUILDER.comment("Set required buckets for fuel full, default: " + RocketEntity.DEFAULT_FUEL_BUCKETS + " buckets").define("FuelBuckets", RocketEntity.DEFAULT_FUEL_BUCKETS);
             BUILDER.pop();
 
             BUILDER.pop();

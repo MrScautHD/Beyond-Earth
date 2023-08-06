@@ -50,7 +50,7 @@ public class TickableLandingSound extends AbstractTickableSoundInstance {
             Minecraft mc = Minecraft.getInstance();
             LocalPlayer player = mc.player;
 
-            if (!this.landerEntity.isOnGround() && !this.landerEntity.isEyeInFluid(FluidTags.WATER) && this.landerEntity.hasPassenger(player) && KeyVariables.isHoldingJump(player)) {
+            if (!this.landerEntity.onGround() && !this.landerEntity.isEyeInFluid(FluidTags.WATER) && this.landerEntity.hasPassenger(player) && KeyVariables.isHoldingJump(player)) {
                 this.volume = Math.min(0.5F, this.volume + 0.05F);
             } else {
                 this.volume = Math.max(0, this.volume - 0.05F);

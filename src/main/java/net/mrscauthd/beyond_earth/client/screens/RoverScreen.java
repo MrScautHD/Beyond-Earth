@@ -1,14 +1,11 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,6 +16,9 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTex
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeValue;
 import net.mrscauthd.beyond_earth.common.menus.RoverMenu;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer> {
@@ -35,26 +35,26 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
     }
 
     @Override
-    public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderTooltip(ms, mouseX, mouseY);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(graphics, mouseX, mouseY);
 
         int fx = 50;
         int fy = 25;
 
         if (ScreenHelper.isInArea(mouseX, mouseY, this.leftPos + fx, this.topPos + fy, 15, 49)) {
-            List<Component> toolTip = new ArrayList<>();
-            toolTip.add(GaugeTextHelper.buildFuelStorageTooltip(this.getFuel(), ChatFormatting.WHITE));
-
-            this.renderComponentTooltip(ms, toolTip, mouseX, mouseY);
+            List<FormattedCharSequence> toolTip = new ArrayList<>();
+            toolTip.add(GaugeTextHelper.buildFuelStorageTooltip(this.getFuel(), ChatFormatting.WHITE).getVisualOrderText());
+            this.setTooltipForNextRenderPass(toolTip);
+            this.renderTooltip(graphics, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(GuiGraphics graphics, float p_97788_, int p_97789_, int p_97790_) {
         /** BACKGROUND */
-        ScreenHelper.drawTexture(ms, this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE, false);
+        ScreenHelper.drawTexture(this.leftPos, this.topPos, this.imageWidth, this.imageHeight, TEXTURE, false);
 
         int fx = 50;
         int fy = 25;
@@ -62,18 +62,17 @@ public class RoverScreen extends AbstractContainerScreen<RoverMenu.GuiContainer>
         /** FUEL RENDERER */
         IGaugeValue fuel = this.getFuel();
         FluidStack fluidStack = new FluidStack(ItemsRegistry.FUEL_BUCKET.get().getFluid(), fuel.getAmount());
-        ScreenHelper.renderFluid.drawFluidVertical(ms, fluidStack, this.leftPos + fx + 1, this.topPos + fy + 1, 12, 46, 
+        ScreenHelper.renderFluid.drawFluidVertical(graphics.pose(), fluidStack, this.leftPos + fx + 1, this.topPos + fy + 1, 12, 46,
                 fuel.getCapacity());
 
         /** FUEL TANK OVERLAY */
-        ScreenHelper.drawTexture(ms, this.leftPos + fx, this.topPos + fy, 14, 48, FLUID_TANK_OVERLAY, false);
+        ScreenHelper.drawTexture(this.leftPos + fx, this.topPos + fy, 14, 48, FLUID_TANK_OVERLAY, false);
     }
 
     @Override
-    protected void renderLabels(PoseStack ms, int p_97809_, int p_97810_) {
-        this.font.draw(ms, title.getString(), (float) (this.imageWidth / 2) - 14, (float) this.titleLabelY, 4210752);
-        this.font.draw(ms, this.playerInventoryTitle, (float) this.inventoryLabelX, (float) this.inventoryLabelY,
-                4210752);
+    protected void renderLabels(GuiGraphics graphics, int p_97809_, int p_97810_) {
+        graphics.drawString(this.font, title.getString(), (this.imageWidth / 2) - 14, this.titleLabelY, 4210752);
+        graphics.drawString(this.font, this.playerInventoryTitle, this.inventoryLabelX, this.inventoryLabelY, 4210752);
     }
 
     public IGaugeValue getFuel() {

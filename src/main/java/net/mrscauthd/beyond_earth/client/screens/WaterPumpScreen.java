@@ -1,9 +1,7 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -18,6 +16,8 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTex
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.WaterPumpMenu;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
+
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiContainer> {
@@ -48,38 +48,35 @@ public class WaterPumpScreen extends AbstractContainerScreen<WaterPumpMenu.GuiCo
     }
 
     @Override
-    public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderTooltip(ms, mouseX, mouseY);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(graphics, mouseX, mouseY);
 
         WaterPumpBlockEntity blockEntity = this.getMenu().getBlockEntity();
 
         if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
-
-            this.renderTooltip(ms,
-                    GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getWaterTank())).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass(GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getWaterTank())).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         } else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-
-            this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass( GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(GuiGraphics graphics, float p_97788_, int p_97789_, int p_97790_) {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
+        graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
                 this.imageHeight);
 
         WaterPumpBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
-                blockEntity.getPrimaryEnergyStorage());
-        GuiHelper.drawFluidTank(ms, this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP,
+        GuiHelper.drawEnergy(graphics, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
+                Objects.requireNonNull(blockEntity.getPrimaryEnergyStorage()));
+        GuiHelper.drawFluidTank(graphics, this.leftPos + WATER_TANK_LEFT, this.topPos + WATER_TANK_TOP,
                 blockEntity.getWaterTank());
     }
 }

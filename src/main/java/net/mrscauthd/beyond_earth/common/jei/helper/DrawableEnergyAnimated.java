@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.common.util.TickTimer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 
 public class DrawableEnergyAnimated implements IDrawableAnimated {
@@ -28,9 +29,9 @@ public class DrawableEnergyAnimated implements IDrawableAnimated {
     }
 
     @Override
-    public void draw(PoseStack poseStack, int xOffset, int yOffset) {
+    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
         int animationValue = tickTimer.getValue();
         double ratio = (animationValue / (double) GuiHelper.ENERGY_HEIGHT);
-        GuiHelper.drawEnergy(poseStack, xOffset, yOffset, ratio);
+        GuiHelper.drawEnergy(graphics, xOffset, yOffset, ratio);
     }
 }

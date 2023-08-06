@@ -30,7 +30,7 @@ public class RoverMenu {
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
 			super(ContainerRegistry.ROVER_GUI.get(), id);
 
-			this.rover = (RoverEntity) inv.player.level.getEntity(extraData.readVarInt());
+			this.rover = (RoverEntity) inv.player.level().getEntity(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = rover.getItemHandler();
 

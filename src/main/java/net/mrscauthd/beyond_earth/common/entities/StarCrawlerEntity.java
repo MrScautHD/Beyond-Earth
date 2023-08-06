@@ -3,7 +3,6 @@ package net.mrscauthd.beyond_earth.common.entities;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -16,11 +15,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
-import net.mrscauthd.beyond_earth.common.config.Config;
-
 import net.minecraftforge.registries.ForgeRegistries;
-import net.mrscauthd.beyond_earth.common.registries.DamageSourceRegistry;
+import net.mrscauthd.beyond_earth.common.config.Config;
 
 public class StarCrawlerEntity extends Monster {
 	public StarCrawlerEntity(EntityType<? extends Monster> type, Level world) {
@@ -72,7 +68,7 @@ public class StarCrawlerEntity extends Monster {
 	public void baseTick() {
 		super.baseTick();
 		if (!Config.STAR_CRAWLER_SPAWN.get()) {
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}

@@ -144,9 +144,9 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     protected void setupRotations(T p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_) {
         if (this.isShaking(p_115317_)) {
             if (!Minecraft.getInstance().isPaused()) {
-                double shakeDirection1 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection2 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection3 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection1 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection2 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection3 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
                 p_115318_.translate(shakeDirection1, shakeDirection2, shakeDirection3);
             }
         }

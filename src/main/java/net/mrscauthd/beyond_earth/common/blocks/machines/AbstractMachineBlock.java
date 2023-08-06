@@ -153,20 +153,6 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
                 return null;
         }
 
-        @SuppressWarnings("deprecation")
-        @Override
-        public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-
-                if (blockEntity instanceof AbstractMachineBlockEntity) {
-                        ItemStack itemStack = new ItemStack(this);
-                        blockEntity.saveToItem(itemStack);
-                        return Collections.singletonList(itemStack);
-                } else {
-                        return super.getDrops(state, builder);
-                }
-        }
-
         @Override
         public PushReaction getPistonPushReaction(BlockState state) {
                 return PushReaction.BLOCK;

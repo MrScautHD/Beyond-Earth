@@ -19,6 +19,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.common.Constants;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -86,11 +87,11 @@ public class CoalGenerator implements IRecipeCategory<GeneratingRecipe> {
     }
 
     @Override
-    public void draw(GeneratingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
-            double mouseY) {
+    public void draw(GeneratingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX,
+                     double mouseY) {
         int burnTime = recipe.getBurnTime();
         IDrawableAnimated flame = cachedFlames.getUnchecked(burnTime);
-        flame.draw(stack, 31, 39);
+        flame.draw(graphics, 31, 39);
         recipeSlotsView.getSlotViews(RecipeIngredientRole.OUTPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)
                 .forEach(i -> i.setAmount(Config.COAL_GENERATOR_ENERGY_GENERATION.get()));
     }

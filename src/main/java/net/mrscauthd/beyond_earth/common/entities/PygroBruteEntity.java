@@ -24,7 +24,7 @@ public class PygroBruteEntity extends PiglinBrute {
     public void tick() {
         super.tick();
         if (!Config.PYGRO_BRUTE_SPAWN.get()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }

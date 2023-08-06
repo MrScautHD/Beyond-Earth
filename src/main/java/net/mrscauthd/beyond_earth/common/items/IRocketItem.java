@@ -29,7 +29,7 @@ import net.mrscauthd.beyond_earth.common.blocks.RocketLaunchPad;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTextHelper;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 import net.mrscauthd.beyond_earth.common.events.forge.PlaceRocketEvent;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 
@@ -93,7 +93,7 @@ public abstract class IRocketItem extends VehicleItem {
                     level.addFreshEntity(rocket);
 
                     /** SET TAGS */
-                    rocket.getEntityData().set(RocketTier1Entity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
+                    rocket.getEntityData().set(RocketEntity.FUEL, itemStack.getOrCreateTag().getInt(FUEL_TAG));
 
                     /** CALL PLACE ROCKET EVENT */
                     MinecraftForge.EVENT_BUS.post(new PlaceRocketEvent(rocket, context));

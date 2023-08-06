@@ -70,7 +70,7 @@ public class Events {
     @SubscribeEvent
     public static void livingEntityTick(LivingEvent.LivingTickEvent event) {
         LivingEntity livingEntity = event.getEntity();
-        Level level = livingEntity.level;
+        Level level = livingEntity.level();
 
         /** DROP OFF HAND VEHICLE ITEM */
         Methods.dropOffHandVehicle(livingEntity);
@@ -89,7 +89,7 @@ public class Events {
     @SubscribeEvent
     public static void itemEntityEndTick(ItemEntityTickAtEndEvent event) {
         ItemEntity itemEntity = event.getEntity();
-        Level level = itemEntity.level;
+        Level level = itemEntity.level();
 
         /** ITEM ENTITY GRAVITY SYSTEM */
         ItemGravity.setGravities(itemEntity, level);
@@ -98,7 +98,7 @@ public class Events {
     @SubscribeEvent
     public static void entityTick(EntityTickEvent event) {
         Entity entity = event.getEntity();
-        Level level = entity.level;
+        Level level = entity.level();
 
         /** ARTIFICIAL GRAVITY FOR LIVING ENTITIES */
         if (entity instanceof LivingEntity living) {
@@ -200,7 +200,7 @@ public class Events {
             Methods.resetPlanetSelectionMenuNeededNbt(player);
             player.setNoGravity(false);
         }
-        // TODO : READD THIS
+        // TODO : READ THIS
         /** JET SUIT EXPLODE */
         /**if (Methods.isLivingInJetSuit(entity) && entity.isFallFlying()
                 && (event.getSource() == DamageSource.FLY_INTO_WALL)) {
@@ -249,7 +249,7 @@ public class Events {
 
         /** CANCEL FALL FLYING IF PRESS AGAIN SPACE BY JET SUIT */
         if (Methods.isLivingInJetSuit(player) && player.isFallFlying()) {
-            if (!player.level.isClientSide) {
+            if (!player.level().isClientSide) {
                 event.getCallbackInfoReturnable().setReturnValue(false);
             } else {
                 event.getCallbackInfoReturnable().setReturnValue(true);
@@ -259,7 +259,7 @@ public class Events {
         /** JET SUIT SONIC BOOM SOUND */
         if (Methods.isLivingInJetSuit(player) && !player.isFallFlying()) {
             if (player.isSprinting()) {
-                player.level.playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F,
+                player.level().playSound(null, player, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F,
                         1.0F);
             }
         }
@@ -271,7 +271,7 @@ public class Events {
 
         /** JET SUIT SONIC BOOM SOUND */
         if (Methods.isLivingInJetSuit(entity) && event.getSprinting() && entity.isFallFlying()) {
-            entity.level.playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
+            entity.level().playSound(null, entity, SoundRegistry.SONIC_BOOM_SOUND.get(), SoundSource.NEUTRAL, 1.0F, 1.0F);
         }
     }
 

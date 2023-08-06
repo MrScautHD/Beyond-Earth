@@ -9,13 +9,13 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier1Model<T extends RocketTier1Entity> extends EntityModel<T> {
+public class RocketTier1Model<T extends RocketEntity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "rocket_t1"), "main");
     private final ModelPart rocket;
 

@@ -11,10 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier4Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier4Model<T extends RocketTier4Entity> extends EntityModel<T> {
+public class RocketTier4Model<T extends RocketEntity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(BeyondEarth.MODID, "rocket_t4"), "main");
     private final ModelPart rocket;
 

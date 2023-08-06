@@ -18,7 +18,7 @@ public class CoalGeneratorMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            CoalGeneratorBlockEntity blockEntity = (CoalGeneratorBlockEntity) inv.player.level.getBlockEntity(pos);
+            CoalGeneratorBlockEntity blockEntity = (CoalGeneratorBlockEntity) inv.player.level().getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }
     }

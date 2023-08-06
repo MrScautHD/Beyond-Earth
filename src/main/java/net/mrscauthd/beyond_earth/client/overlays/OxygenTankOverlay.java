@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -24,7 +25,7 @@ public class OxygenTankOverlay implements IGuiOverlay {
     public static final ResourceLocation OXYGEN_TANK_FULL = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/oxygen_tank_full.png");
 
     @Override
-    public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
+    public void render(ForgeGui gui, GuiGraphics graphics, float partialTick, int width, int height) {
         Player player = Minecraft.getInstance().player;
 
         if (Methods.isLivingInAnySpaceSuits(player)) {
@@ -43,13 +44,13 @@ public class OxygenTankOverlay implements IGuiOverlay {
 
                 /** DRAW OXYGEN TANK */
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-                ScreenHelper.drawTexture(poseStack, x, y, textureWidth, textureHeight, OXYGEN_TANK, false);
-                ScreenHelper.drawVertical(poseStack, x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL, false);
+                ScreenHelper.drawTexture(x, y, textureWidth, textureHeight, OXYGEN_TANK, false);
+                ScreenHelper.drawVertical(graphics.pose(), x, y, textureWidth, textureHeight, oxygenStorage.getOxygen(), oxygenStorage.getMaxCapacity(), OXYGEN_TANK_FULL, false);
 
                 /** OXYGEN AMOUNT TEXT */
                 Font font = mc.font;
                 Component text = Component.translatable("general." + BeyondEarth.MODID + ".oxygen").append(": ").withStyle(ChatFormatting.BLUE).append("\u00A77" + oxygenStorage.getOxygen() / (oxygenStorage.getMaxCapacity() / 100) + "%");
-                font.drawShadow(poseStack, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
+                graphics.drawString(font, text, (x + (textureWidth - font.width(text)) / 2), y + textureHeight + 3, 0xFFFFFF);
             }
         }
     }

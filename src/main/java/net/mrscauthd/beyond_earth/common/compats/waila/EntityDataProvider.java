@@ -17,22 +17,10 @@ import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
-public class EntityDataProvider implements IServerDataProvider<Entity>, IEntityComponentProvider {
+public class EntityDataProvider implements IServerDataProvider<EntityAccessor>, IEntityComponentProvider {
 
 	public static final ResourceLocation Uid = new ResourceLocation(BeyondEarth.MODID, "entity");
 	public static final EntityDataProvider INSTANCE = new EntityDataProvider();
-
-	@Override
-	public void appendServerData(CompoundTag data, ServerPlayer player, Level level, Entity entity, boolean b) {
-
-		List<IGaugeValue> list = new ArrayList<>();
-
-		if (entity instanceof IGaugeValuesProvider) {
-			((IGaugeValuesProvider) entity).getDisplayGaugeValues().forEach(list::add);
-		}
-
-		WailaPlugin.put(data, WailaPlugin.write(list));
-	}
 
 	@Override
 	public void appendTooltip(ITooltip tooltip, EntityAccessor accessor, IPluginConfig config) {
@@ -44,4 +32,14 @@ public class EntityDataProvider implements IServerDataProvider<Entity>, IEntityC
 		return Uid;
 	}
 
+	@Override
+	public void appendServerData(CompoundTag data, EntityAccessor entity) {
+		List<IGaugeValue> list = new ArrayList<>();
+
+		if (entity instanceof IGaugeValuesProvider) {
+			((IGaugeValuesProvider) entity).getDisplayGaugeValues().forEach(list::add);
+		}
+
+		WailaPlugin.put(data, WailaPlugin.write(list));
+	}
 }

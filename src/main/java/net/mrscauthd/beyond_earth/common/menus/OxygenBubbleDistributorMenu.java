@@ -19,7 +19,7 @@ public class OxygenBubbleDistributorMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) inv.player.level
+            OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) inv.player.level()
                     .getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }

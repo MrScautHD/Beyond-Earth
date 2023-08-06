@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.compats.waila;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.phys.Vec2;
 import net.mrscauthd.beyond_earth.client.screens.helper.gauge.GaugeValueRenderer;
 import snownee.jade.api.ui.Element;
@@ -25,8 +26,8 @@ public class GaugeValueElement extends Element {
 	}
 
 	@Override
-	public void render(PoseStack matrixStack, float x, float y, float maxX, float maxY) {
-		this.getRenderer().render(matrixStack, (int) x, (int) y, (int) (maxX - x - RIGHT_PADDING), (int) (maxY - y - TOP_OFFSET - BOTTOM_PADDING));
+	public void render(GuiGraphics graphics, float x, float y, float maxX, float maxY) {
+		this.getRenderer().render(graphics, (int) x, (int) y, (int) (maxX - x - RIGHT_PADDING), (int) (maxY - y - TOP_OFFSET - BOTTOM_PADDING));
 	}
 
 	public GaugeValueRenderer getRenderer() {
