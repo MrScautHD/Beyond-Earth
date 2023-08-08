@@ -13,7 +13,7 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenProvider;
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CapabilityRegistry {
 
-    public static Capability<ChunkOxygen> CHUNK_OXYGEN = CapabilityManager.get(new CapabilityToken<>() {
+    public static  Capability<ChunkOxygen> CHUNK_OXYGEN = CapabilityManager.get(new CapabilityToken<>() {
     });
     
     @SubscribeEvent

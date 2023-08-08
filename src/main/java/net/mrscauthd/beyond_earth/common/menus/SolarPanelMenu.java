@@ -16,7 +16,7 @@ public class SolarPanelMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            SolarPanelBlockEntity blockEntity = (SolarPanelBlockEntity) inv.player.level.getBlockEntity(pos);
+            SolarPanelBlockEntity blockEntity = (SolarPanelBlockEntity) inv.player.level().getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }
     }
@@ -36,7 +36,7 @@ public class SolarPanelMenu {
         }
 
         @Override
-        public boolean stillValid(Player p_38874_) {
+        public boolean stillValid(Player player) {
             return !this.getBlockEntity().isRemoved();
         }
 

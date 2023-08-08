@@ -39,35 +39,4 @@ public abstract class BeyondEarthRecipe implements Recipe<Container> {
 	public String getGroup() {
 		return ForgeRegistries.RECIPE_SERIALIZERS.getKey(this.getSerializer()).toString();
 	}
-
-	/**
-	 * Don't use this
-	 */
-	@Override
-	@Deprecated
-	public ItemStack assemble(Container var1) {
-		// Don't use this
-		return ItemStack.EMPTY;
-	}
-
-	/**
-	 * Don't use this
-	 */
-	@Override
-	@Deprecated
-	public ItemStack getResultItem() {
-		// Don't use this
-		return ItemStack.EMPTY;
-	}
-	
-	/**
-	 * Don't use this
-	 */
-	@Override
-	@Deprecated
-	public boolean matches(Container p_44002_, Level p_44003_) {
-		// Don't use this
-		return true;
-	}
-
 }

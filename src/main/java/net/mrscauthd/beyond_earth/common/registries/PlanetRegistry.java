@@ -47,8 +47,6 @@ public class PlanetRegistry {
     /**
      * Here we register default planets. We are set to HIGHEST so that we fire
      * first, and then addons can adjust things.
-     *
-     * @param event
      */
     public static void registerDefaultPlanets() {
         Planets.registerPlanet(Level.OVERWORLD, LevelRegistry.EARTH_ORBIT);

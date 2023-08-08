@@ -20,7 +20,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 
 @Mod.EventBusSubscriber(modid = BeyondEarth.MODID)
 public class AlienTrade implements ItemListing {
-	public static int MAX_USES = 9999;
+	public static final int MAX_USES = 9999;
 	public static final Map<VillagerProfession, Int2ObjectMap<ItemListing[]>> TRADES = new HashMap<>();
 
 	public static void onAddReloadListener(AddReloadListenerEvent event) {

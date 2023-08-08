@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "planks",
+  "ingredients": [
+    {
+      "item": "beyond_earth:glacio_wood_logs"
+    }
+  ],
+  "result": {
+    "item": "beyond_earth:glacio_wood_planks",
+    "count": 4
+  }
+}

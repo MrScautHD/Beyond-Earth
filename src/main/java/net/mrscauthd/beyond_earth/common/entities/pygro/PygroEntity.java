@@ -38,11 +38,6 @@ public class PygroEntity extends Piglin {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
-    }
-
-    @Override
     public MobType getMobType() {
         return MobType.UNDEAD;
     }
@@ -56,7 +51,7 @@ public class PygroEntity extends Piglin {
     public void tick() {
         super.tick();
         if (!Config.PYGRO_SPAWN.get()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }

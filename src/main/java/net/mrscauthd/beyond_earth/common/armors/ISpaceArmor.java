@@ -31,12 +31,12 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
 public abstract class ISpaceArmor extends ArmorItem {
     private static final HashMap<String, ResourceLocation> TEXTURES = Maps.newHashMap();
 
-    public ISpaceArmor(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+    public ISpaceArmor(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
         super(armorMaterial, equipmentSlot, properties);
     }
 
     public static abstract class Helmet extends ISpaceArmor {
-        public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Helmet(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
     }
@@ -44,21 +44,8 @@ public abstract class ISpaceArmor extends ArmorItem {
     public static abstract class Chestplate extends ISpaceArmor {
         public float oxygenTime;
 
-        public Chestplate(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Chestplate(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
-        }
-
-        @Override
-        public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
-            super.fillItemCategory(tab, list);
-            if (this.allowedIn(tab)) {
-                ItemStack itemStack = new ItemStack(this);
-                IOxygenStorage oxygen = OxygenUtil.getItemStackOxygenStorage(itemStack);
-
-                oxygen.setOxygen(oxygen.getMaxCapacity());
-
-                list.add(itemStack);
-            }
         }
 
         @Override
@@ -83,13 +70,13 @@ public abstract class ISpaceArmor extends ArmorItem {
     }
 
     public static abstract class Leggings extends ISpaceArmor {
-        public Leggings(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Leggings(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
     }
 
     public static abstract class Boots extends ISpaceArmor {
-        public Boots(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Boots(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
     }

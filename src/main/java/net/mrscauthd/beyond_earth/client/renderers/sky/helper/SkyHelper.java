@@ -1,19 +1,9 @@
 package net.mrscauthd.beyond_earth.client.renderers.sky.helper;
 
-import org.apache.commons.lang3.tuple.Triple;
-
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
-
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
@@ -27,6 +17,9 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.CelestialBody;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+import org.apache.commons.lang3.tuple.Triple;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
 
 public class SkyHelper {
 
@@ -106,7 +99,6 @@ public class SkyHelper {
         int g = (int) color.y();
         int b = (int) color.z();
 
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         int l = phase % 4;
@@ -121,7 +113,6 @@ public class SkyHelper {
         bufferBuilder.vertex(matrix4f, size, -y, -size).color(r, g, b, 255).uv(f13, f14).endVertex();
         bufferBuilder.vertex(matrix4f, -size, -y, -size).color(r, g, b, 255).uv(f15, f14).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.disableTexture();
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -153,7 +144,6 @@ public class SkyHelper {
         int b = (int) color.z();
         int a = alpha;
 
-        RenderSystem.enableTexture();
         RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
         RenderSystem.setShaderTexture(0, texture);
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
@@ -162,7 +152,6 @@ public class SkyHelper {
         bufferBuilder.vertex(matrix4f, size, y, size).color(r, g, b, a).uv(0.0F, 1.0F).endVertex();
         bufferBuilder.vertex(matrix4f, -size, y, size).color(r, g, b, a).uv(1.0F, 1.0F).endVertex();
         BufferUploader.drawWithShader(bufferBuilder.end());
-        RenderSystem.disableTexture();
 
         if (blend) {
             RenderSystem.disableBlend();
@@ -192,8 +181,8 @@ public class SkyHelper {
 
             if (render) {
                 float inclination = (float) (10 * Math.sin(Math.toRadians(phase)));
-                Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
-                        Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
+                Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(-90),
+                        Axis.XP.rotationDegrees(angle), Axis.ZP.rotationDegrees(inclination)));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0f);
                 alpha = (int) (255 * skyLight);
                 SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, 3, lighting,
@@ -246,7 +235,7 @@ public class SkyHelper {
             // Then draw ours.
             ResourceLocation texture = planet._parent.texture != null ? planet._parent.texture : SkyHelper.WHITE_SUN;
             Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack,
-                    Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(angle), null));
+                    Triple.of(Axis.YP.rotationDegrees(-90), Axis.XP.rotationDegrees(angle), null));
 
             Vec3 colour = parent.getLightColour();
             if (!(parent instanceof Planet)) {
@@ -278,8 +267,8 @@ public class SkyHelper {
             float distance = params[0];
             float angle = params[1];
             float inclination = (float) (10 * Math.sin(p.orbitPhase));
-            Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
-                    Vector3f.XP.rotationDegrees(angle), Vector3f.ZP.rotationDegrees(inclination)));
+            Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(-90),
+                    Axis.XP.rotationDegrees(angle), Axis.ZP.rotationDegrees(inclination)));
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             alpha = (int) (255 * skyLight);
             SkyHelper.drawPlanetWithLight(p.texture, p.getLightColour(), bufferBuilder, matrix4f, 3, 3 * 4,
@@ -304,8 +293,8 @@ public class SkyHelper {
             alpha = (int) (255 * skyLight);
 
             float inclination = (float) (10 * Math.sin(Math.toRadians(phase)));
-            Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
-                    Vector3f.XP.rotationDegrees(phase), Vector3f.ZP.rotationDegrees(inclination)));
+            Matrix4f matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(-90),
+                    Axis.XP.rotationDegrees(phase), Axis.ZP.rotationDegrees(inclination)));
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
             if (p.phaseTexture != null) {
@@ -416,13 +405,12 @@ public class SkyHelper {
         float[] afloat = mc.level.effects().getSunriseColor(mc.level.getTimeOfDay(partialTick), partialTick);
         if (afloat != null) {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            RenderSystem.disableTexture();
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             poseStack.pushPose();
-            poseStack.mulPose(Vector3f.XP.rotationDegrees(90.0F));
+            poseStack.mulPose(Axis.XP.rotationDegrees(90.0F));
             float f3 = Mth.sin(mc.level.getSunAngle(partialTick)) < 0.0F ? 180.0F : 0.0F;
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(f3));
-            poseStack.mulPose(Vector3f.ZP.rotationDegrees(90.0F));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(f3));
+            poseStack.mulPose(Axis.ZP.rotationDegrees(90.0F));
             float f4 = afloat[0];
             float f5 = afloat[1];
             float f6 = afloat[2];
@@ -457,7 +445,7 @@ public class SkyHelper {
     }
 
     public static void drawSky(Minecraft mc, Matrix4f matrix4f, Matrix4f projectionMatrix,
-            ShaderInstance shaderInstance) {
+                               ShaderInstance shaderInstance) {
         mc.levelRenderer.skyBuffer.bind();
         mc.levelRenderer.skyBuffer.drawWithShader(matrix4f, projectionMatrix, shaderInstance);
         VertexBuffer.unbind();
@@ -490,12 +478,12 @@ public class SkyHelper {
     }
 
     public static Matrix4f setMatrixRot(PoseStack poseStack,
-            Triple<Quaternion, Quaternion, Quaternion> quaternionTriple) {
+            Triple<Quaternionf, Quaternionf, Quaternionf> quaternionTriple) {
         poseStack.pushPose();
 
-        Quaternion left = quaternionTriple.getLeft();
-        Quaternion middle = quaternionTriple.getMiddle();
-        Quaternion right = quaternionTriple.getRight();
+        Quaternionf left = quaternionTriple.getLeft();
+        Quaternionf middle = quaternionTriple.getMiddle();
+        Quaternionf right = quaternionTriple.getRight();
 
         if (left != null) {
             poseStack.mulPose(quaternionTriple.getLeft());

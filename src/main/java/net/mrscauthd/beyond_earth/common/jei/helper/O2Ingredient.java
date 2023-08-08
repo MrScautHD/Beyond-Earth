@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.cache.CacheBuilder;
@@ -33,7 +34,7 @@ public class O2Ingredient implements IIngredientHelper<O2Ingredient>, IIngredien
 
     public static final class DummyRenderer implements IIngredientRenderer<O2Ingredient> {
         @Override
-        public void render(PoseStack stack, O2Ingredient ingredient) {
+        public void render(GuiGraphics graphics, O2Ingredient ingredient) {
             // DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16
         }
 
@@ -71,10 +72,10 @@ public class O2Ingredient implements IIngredientHelper<O2Ingredient>, IIngredien
     }
 
     @Override
-    public void render(PoseStack stack, O2Ingredient ingredient) {
+    public void render(GuiGraphics graphics, O2Ingredient ingredient) {
         int amount = Math.max(ingredient.amount, 1);
         DrawableFluidAnimated fluid = cachedTank.getUnchecked(amount);
-        fluid.draw(stack);
+        fluid.draw(graphics);
     }
 
     @Override

@@ -26,11 +26,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -52,20 +50,19 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.IGaugeVa
 import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
 import net.mrscauthd.beyond_earth.common.keybinds.KeyVariables;
 import net.mrscauthd.beyond_earth.common.menus.RocketMenu;
+import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 import net.mrscauthd.beyond_earth.common.registries.TagRegistry;
 import net.mrscauthd.beyond_earth.common.util.FluidUtil2;
 import net.mrscauthd.beyond_earth.common.util.Methods;
-import net.mrscauthd.beyond_earth.common.events.forge.SetPlanetSelectionMenuNeededNbtEvent;
-import net.mrscauthd.beyond_earth.common.registries.SoundRegistry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 public abstract class IRocketEntity extends IVehicleEntity implements HasCustomInventoryScreen, IGaugeValuesProvider {
+
 
     public static final EntityDataAccessor<Boolean> ROCKET_START = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.BOOLEAN);
     public static final EntityDataAccessor<Integer> FUEL = SynchedEntityData.defineId(IRocketEntity.class, EntityDataSerializers.INT);
@@ -110,7 +107,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     }
 
     @Override
-    public void push(Entity p_21294_) {
+    public void push(Entity entity) {
 
     }
 
@@ -119,7 +116,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         this.dropEquipment();
         this.spawnRocketItem();
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
     }
@@ -128,12 +125,12 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     public boolean hurt(DamageSource source, float p_21017_) {
         Entity sourceEntity = source.getEntity();
 
-        if (!source.isProjectile() && sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
+        if (sourceEntity != null && sourceEntity.isCrouching() && !this.isVehicle()) {
 
             this.spawnRocketItem();
             this.dropEquipment();
 
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
 
@@ -151,10 +148,10 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     }
 
     protected void spawnRocketItem() {
-        ItemEntity entityToSpawn = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), this.getRocketItem());
+        ItemEntity entityToSpawn = new ItemEntity(this.level(), this.getX(), this.getY(), this.getZ(), this.getRocketItem());
         entityToSpawn.setPickUpDelay(10);
 
-        this.level.addFreshEntity(entityToSpawn);
+        this.level().addFreshEntity(entityToSpawn);
     }
 
     protected void dropEquipment() {
@@ -218,9 +215,9 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
+        InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (player.isCrouching()) {
                 this.openCustomInventoryScreen(player);
                 return InteractionResult.CONSUME;
@@ -272,13 +269,13 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
         }
 
         for(BlockPos blockpos : set) {
-            if (!this.level.getFluidState(blockpos).is(FluidTags.LAVA)) {
-                double d3 = this.level.getBlockFloorHeight(blockpos);
+            if (!this.level().getFluidState(blockpos).is(FluidTags.LAVA)) {
+                double d3 = this.level().getBlockFloorHeight(blockpos);
                 if (DismountHelper.isBlockFloorValid(d3)) {
                     Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
 
                     for(Pose pose : livingEntity.getDismountPoses()) {
-                        if (DismountHelper.isBlockFloorValid(this.level.getBlockFloorHeight(blockpos))) {
+                        if (DismountHelper.isBlockFloorValid(this.level().getBlockFloorHeight(blockpos))) {
                             livingEntity.setPose(pose);
                             return vector3d1;
                         }
@@ -361,7 +358,7 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
             if (data.get(IRocketEntity.FUEL) == this.getFuelCapacity()) {
                 if (!data.get(IRocketEntity.ROCKET_START)) {
                     data.set(IRocketEntity.ROCKET_START, true);
-                    this.level.playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
+                    this.level().playSound(null, this, SoundRegistry.ROCKET_SOUND.get(), SoundSource.NEUTRAL, 1, 1);
                 }
             } else {
                 Methods.sendVehicleHasNoFuelMessage(player);
@@ -370,16 +367,16 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     }
 
     public boolean doesDrop(BlockState state, BlockPos pos) {
-        if (this.isOnGround() || this.isInFluidType()) {
+        if (this.onGround() || this.isInFluidType()) {
 
-            BlockState state2 = this.level.getBlockState(new BlockPos(Math.floor(this.getX()), this.getY() - 0.2, Math.floor(this.getZ())));
+            BlockState state2 = this.level().getBlockState(new BlockPos((int)Math.floor(this.getX()), (int)(this.getY() - 0.2), (int)Math.floor(this.getZ())));
 
-            if (!this.level.isEmptyBlock(pos) && ((state2.getBlock() instanceof RocketLaunchPad && !state2.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
+            if (!this.level().isEmptyBlock(pos) && ((state2.getBlock() instanceof RocketLaunchPad && !state2.getValue(RocketLaunchPad.STAGE)) || !(state.getBlock() instanceof RocketLaunchPad))) {
 
                 this.dropEquipment();
                 this.spawnRocketItem();
 
-                if (!this.level.isClientSide) {
+                if (!this.level().isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
                 }
 
@@ -392,15 +389,15 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
     protected void checkOnBlocks() {
         AABB aabb = this.getBoundingBox();
-        BlockPos blockPos1 = new BlockPos(aabb.minX + 0.001D, (aabb.minY - 0.2) + 0.001D, aabb.minZ + 0.001D);
-        BlockPos blockPos2 = new BlockPos(aabb.maxX - 0.001D, aabb.minY - 0.001D, aabb.maxZ - 0.001D);
+        BlockPos blockPos1 = new BlockPos((int)aabb.minX, (int)(aabb.minY - 0.2), (int)aabb.minZ);
+        BlockPos blockPos2 = new BlockPos((int)aabb.maxX, (int)aabb.minY, (int)aabb.maxZ);
 
-        if (this.level.hasChunksAt(blockPos1, blockPos2)) {
+        if (this.level().hasChunksAt(blockPos1, blockPos2)) {
             for (int i = blockPos1.getX(); i <= blockPos2.getX(); ++i) {
                 for (int j = blockPos1.getY(); j <= blockPos2.getY(); ++j) {
                     for (int k = blockPos1.getZ(); k <= blockPos2.getZ(); ++k) {
                         BlockPos pos = new BlockPos(i, j, k);
-                        BlockState state = this.level.getBlockState(pos);
+                        BlockState state = this.level().getBlockState(pos);
 
                         if (this.doesDrop(state, pos)) {
                             return;
@@ -436,7 +433,6 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
                 }
 
                 player.getPersistentData().putBoolean(BeyondEarth.MODID + ":planet_selection_menu_open", true);
-                player.getPersistentData().putInt(BeyondEarth.MODID + ":rocket_tier", this.getTier());
 
                 /** SAVE ITEMS IN THE PLAYER */
                 ListTag tag = new ListTag();
@@ -457,12 +453,12 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
 
                 MinecraftForge.EVENT_BUS.post(new SetPlanetSelectionMenuNeededNbtEvent(player, this));
 
-                if (!this.level.isClientSide) {
+                if (!this.level().isClientSide) {
                     this.remove(RemovalReason.DISCARDED);
                 }
             } else {
-                if (!this.level.isClientSide) {
-                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, false, Explosion.BlockInteraction.BREAK);
+                if (!this.level().isClientSide) {
+                    this.level().explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, false, Level.ExplosionInteraction.TNT);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }
@@ -472,9 +468,8 @@ public abstract class IRocketEntity extends IVehicleEntity implements HasCustomI
     public void rocketExplosion() {
         if (this.entityData.get(START_TIMER) == 200) {
             if (this.getDeltaMovement().y < -0.07) {
-                if (!this.level.isClientSide) {
-                    this.level.explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Explosion.BlockInteraction.BREAK);
-
+                if (!this.level().isClientSide) {
+                    this.level().explode(this, this.getX(), this.getBoundingBox().maxY, this.getZ(), 10, true, Level.ExplosionInteraction.TNT);
                     this.remove(RemovalReason.DISCARDED);
                 }
             }

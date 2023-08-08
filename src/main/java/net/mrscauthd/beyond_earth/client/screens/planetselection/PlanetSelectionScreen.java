@@ -1,18 +1,15 @@
 package net.mrscauthd.beyond_earth.client.screens.planetselection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.vertex.PoseStack;
-
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -26,11 +23,16 @@ import net.mrscauthd.beyond_earth.client.screens.buttons.ModifiedButton;
 import net.mrscauthd.beyond_earth.client.screens.helper.ScreenHelper;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.helper.CategoryHelper;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.helper.PlanetSelectionScreenHelper;
+import net.mrscauthd.beyond_earth.common.data.recipes.IngredientStack;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenu;
 import net.mrscauthd.beyond_earth.common.registries.NetworkRegistry;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
 import net.mrscauthd.beyond_earth.common.util.Planets.StarSystem;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSelectionMenu.GuiContainer> {
@@ -84,12 +86,6 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
     public static final Component ROCKET_TIER_1_TEXT = Component
             .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 1);
-    public static final Component ROCKET_TIER_2_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 2);
-    public static final Component ROCKET_TIER_3_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 3);
-    public static final Component ROCKET_TIER_4_TEXT = Component
-            .translatable("entity." + BeyondEarth.MODID + ".rocket_t" + 4);
 
     public static final float MOON_ORBIT_SPEED = 2.5f;
     public static final float PLANET_ORBIT_SPEED = 2.5f;
@@ -98,7 +94,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     private final PlanetSelectionMenu.GuiContainer menu;
 
     /** CATEGORY */
-    public CategoryHelper category; // IF YOU DO A ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH
+    public CategoryHelper category; // IF YOU DO AN ADDON MOD SET THIS CATEGORY TO -1 AND CREATE A OWN WITH
                                     // "AbstractCategoryHelper"
     // Index of current star
     public CategoryHelper starIndex = new CategoryHelper();
@@ -135,44 +131,44 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
     }
 
     @Override
-    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBg(poseStack, partialTicks, mouseX, mouseY);
-        super.render(poseStack, mouseX, mouseY, partialTicks);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBg(graphics, partialTicks, mouseX, mouseY);
+        super.render(graphics, mouseX, mouseY, partialTicks);
 
         /** RENDER PRE EVENT FOR ADDONS */
         if (MinecraftForge.EVENT_BUS
-                .post(new PlanetSelectionScreenRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+                .post(new PlanetSelectionScreenRenderEvent.Pre(this, graphics.pose(), partialTicks, mouseX, mouseY))) {
             return;
         }
 
         /** CATALOG TEXT RENDERER */
-        this.font.draw(poseStack, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
+        graphics.drawString(font, CATALOG_TEXT, 24, (this.height / 2) - 143 / 2, -1);
 
         /** RENDER POST EVENT FOR ADDONS */
         MinecraftForge.EVENT_BUS
-                .post(new PlanetSelectionScreenRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+                .post(new PlanetSelectionScreenRenderEvent.Post(this, graphics.pose(), partialTicks, mouseX, mouseY));
     }
 
     public StarSystem getStar() {
         return Planets.getStarsList().get(starIndex.get());
     }
 
-    protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+    protected void renderBg(GuiGraphics graphics, float partialTicks, int mouseX, int mouseY) {
 
         /** RENDER BACKGROUND PRE EVENT FOR ADDONS */
         if (MinecraftForge.EVENT_BUS.post(
-                new PlanetSelectionScreenBackgroundRenderEvent.Pre(this, poseStack, partialTicks, mouseX, mouseY))) {
+                new PlanetSelectionScreenBackgroundRenderEvent.Pre(this, graphics.pose(), partialTicks, mouseX, mouseY))) {
             return;
         }
 
         /** BACKGROUND RENDERER */
-        ScreenHelper.drawTexture(poseStack, 0, 0, this.width, this.height, BACKGROUND_TEXTURE, false);
+        ScreenHelper.drawTexture(0, 0, this.width, this.height, BACKGROUND_TEXTURE, false);
 
         ResourceLocation starTexture = getStar().texture;
 
         /** SUN RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 1, 7)) {
-            ScreenHelper.drawTexture(poseStack, (this.width - 15) / 2, (this.height - 15) / 2, 15, 15, starTexture,
+            ScreenHelper.drawTexture((this.width - 15) / 2, (this.height - 15) / 2, 15, 15, starTexture,
                     false);
         }
 
@@ -183,25 +179,25 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         this.drawRings();
 
         /** ROTATED OBJECTS RENDERER */
-        this.drawPlanets(poseStack);
+        this.drawPlanets(graphics);
 
         /** SMALL MENU RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 0, 1)
                 || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 6, 6)) {
-            ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST, true);
-            this.drawScroller(poseStack, 92);
+            ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 105, 177, SMALL_MENU_LIST, true);
+            this.drawScroller(92);
         }
 
         /** LARGE MENU RENDERER */
         if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), 2, 5)
                 || PlanetSelectionScreenHelper.categoryRange(this.category.get(), 7, 7)) {
-            ScreenHelper.drawTexture(poseStack, 0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
-            this.drawScroller(poseStack, 210);
+            ScreenHelper.drawTexture(0, (this.height / 2) - 177 / 2, 215, 177, LARGE_MENU_TEXTURE, true);
+            this.drawScroller(210);
         }
 
         /** RENDER BACKGROUND POST EVENT FOR ADDONS */
         MinecraftForge.EVENT_BUS.post(
-                new PlanetSelectionScreenBackgroundRenderEvent.Post(this, poseStack, partialTicks, mouseX, mouseY));
+                new PlanetSelectionScreenBackgroundRenderEvent.Post(this, graphics.pose(), partialTicks, mouseX, mouseY));
     }
 
     @Override
@@ -294,7 +290,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         if (parent == null) {
             Component tierText = Component.translatable("entity." + BeyondEarth.MODID + ".rocket_t" + p.tier);
             ModifiedButton planetCategoryButton = PlanetSelectionScreenHelper.addCategoryButton(this, this.category, 10,
-                    1, 70, 20, planetCategory, this.checkTier(p.tier), false,
+                    1, 70, 20, planetCategory, this.checkDistance(0), false,
                     ModifiedButton.ButtonTypes.SOLAR_SYSTEM_CATEGORY,
                     List.of(p.description.getString(), tierText.getString()), BUTTON_TEXTURE,
                     ModifiedButton.ColorTypes.GREEN, p.description);
@@ -487,11 +483,11 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         });
     }
 
-    public void drawPlanets(PoseStack poseStack) {
+    public void drawPlanets(GuiGraphics graphics) {
 
         /** SOLAR SYSTEM CATEGORY */
         if (this.category.get() == 0) {
-            PlanetSelectionScreenHelper.drawGalaxy(this, poseStack, MILKY_WAY_TEXTURE, -125, -125, 250, 250,
+            PlanetSelectionScreenHelper.drawGalaxy(this, graphics.pose(), MILKY_WAY_TEXTURE, -125, -125, 250, 250,
                     this.rotationMilkyWay);
         }
         int start = 1;
@@ -499,26 +495,26 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
             int end = start + system.planets.size();
             if (PlanetSelectionScreenHelper.categoryRange(this.category.get(), start, end)) {
                 system.planets.forEach(planet -> {
-                    drawPlanet(poseStack, planet, 10, 10, true);
+                    drawPlanet(graphics, planet, 10, 10, true);
                 });
             }
             start += end;
         }
     }
 
-    private void drawPlanet(PoseStack poseStack, Planet planet, int height, int width, boolean showName) {
+    private void drawPlanet(GuiGraphics graphics, Planet planet, int height, int width, boolean showName) {
         if (height / 2 > 0)
-            planet.moons.forEach(moon -> drawPlanet(poseStack, moon, height / 2, width / 2, false));
+            planet.moons.forEach(moon -> drawPlanet(graphics, moon, height / 2, width / 2, false));
         if (planet.description == null) {
             planet.description = PlanetSelectionScreenHelper.tl(planet.name);
         }
         if (planet.texture == null) {
             planet.texture = new ResourceLocation("missing_planet_texture_" + planet.name);
         }
-        PlanetSelectionScreenHelper.drawPlanet(poseStack, planet, height, width, showName);
+        PlanetSelectionScreenHelper.drawPlanet(graphics, planet, height, width, showName);
     }
 
-    public void drawScroller(PoseStack poseStack, int x) {
+    public void drawScroller(int x) {
         if (this.getVisibleButtons(1).size() > this.rowEnd) {
 
             int buttonStartY = (this.height / 2) - 67 / 2;
@@ -526,7 +522,7 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
             float y = buttonStartY + ((97.0F / scrollSize) * -this.scrollIndex);
 
-            ScreenHelper.drawTexture(poseStack, x, (int) y, 4, 8, SCROLLER_TEXTURE, false);
+            ScreenHelper.drawTexture(x, (int) y, 4, 8, SCROLLER_TEXTURE, false);
         }
     }
 
@@ -546,8 +542,8 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
 
                 int y = buttonStartY + (22 * (f2 + extraPos + this.scrollIndex));
 
-                if (button.y != y) {
-                    button.setPosition(button.x, y);
+                if (button.getX() != y) {
+                    button.setPosition(button.getX(), y);
                 }
             }
         }
@@ -558,12 +554,12 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         int buttonEndY = buttonStartY + 22 * this.rowEnd;
 
         /** IF BUTTON ABOVE THE MENU */
-        if (button.y < buttonStartY && button.row != 0) {
+        if (button.getY() < buttonStartY && button.row != 0) {
             return false;
         }
 
         /** IF BUTTON UNDER THE MENU */
-        return button.y < buttonEndY || button.row == 0;
+        return button.getY() < buttonEndY || button.row == 0;
     }
 
     public List<ModifiedButton> getVisibleButtons(int row) {
@@ -594,27 +590,27 @@ public class PlanetSelectionScreen extends Screen implements MenuAccess<PlanetSe
         button.visible = condition && this.buttonScrollVisibility(button);
     }
 
-    public boolean getSpaceStationItemCheck(/* IngredientStack ingredientStack */) {
-        /*
-         * Player player = this.menu.player;
-         * 
-         * if (player.getAbilities().instabuild || player.isSpectator()) { return true;
-         * }
-         * 
-         * Inventory inv = player.getInventory(); int itemStackCount = 0;
-         * 
-         * for (int i = 0; i < inv.getContainerSize(); ++i) { ItemStack itemStack =
-         * inv.getItem(i);
-         * 
-         * if (ingredientStack.testWithoutCount(itemStack)) { itemStackCount +=
-         * itemStack.getCount(); } }
-         */
+    public boolean getSpaceStationItemCheck(IngredientStack ingredientStack) {
 
-        return true; // itemStackCount >= ingredientStack.getCount();
+          Player player = this.menu.getPlayer();
+
+          if (player.getAbilities().instabuild || player.isSpectator()) { return true;
+          }
+
+          Inventory inv = player.getInventory(); int itemStackCount = 0;
+
+          for (int i = 0; i < inv.getContainerSize(); ++i) { ItemStack itemStack =
+          inv.getItem(i);
+
+          if (ingredientStack.testWithoutCount(itemStack)) { itemStackCount +=
+          itemStack.getCount(); } }
+
+
+        return itemStackCount >= ingredientStack.getCount();
     }
-
-    public boolean checkTier(int tier) {
-        return this.menu.getTier() >= tier;
+    // TODO : check distance between each planet
+    public boolean checkDistance(int distance) {
+        return true;
     }
 
     /**

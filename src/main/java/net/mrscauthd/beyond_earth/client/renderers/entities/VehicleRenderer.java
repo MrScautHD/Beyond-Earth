@@ -3,10 +3,7 @@ package net.mrscauthd.beyond_earth.client.renderers.entities;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import java.util.List;
-import javax.annotation.Nullable;
-
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -22,8 +19,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
 import net.mrscauthd.beyond_earth.common.entities.IVehicleEntity;
+import net.mrscauthd.beyond_earth.common.entities.RoverEntity;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class VehicleRenderer<T extends IVehicleEntity, M extends EntityModel<T>> extends EntityRenderer<T> implements RenderLayerParent<T, M> {
@@ -144,13 +144,13 @@ public abstract class VehicleRenderer<T extends IVehicleEntity, M extends Entity
     protected void setupRotations(T p_115317_, PoseStack p_115318_, float p_115319_, float p_115320_, float p_115321_) {
         if (this.isShaking(p_115317_)) {
             if (!Minecraft.getInstance().isPaused()) {
-                double shakeDirection1 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection2 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
-                double shakeDirection3 = (p_115321_ * (p_115317_.level.random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection1 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection2 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
+                double shakeDirection3 = (p_115321_ * (p_115317_.level().random.nextBoolean() ? 1 : -1)) / 50;
                 p_115318_.translate(shakeDirection1, shakeDirection2, shakeDirection3);
             }
         }
-        p_115318_.mulPose(Vector3f.YP.rotationDegrees(180.0F - p_115320_));
+        p_115318_.mulPose(Axis.YP.rotationDegrees(180.0F - p_115320_));
     }
 
     protected float getBob(T p_115305_, float p_115306_) {

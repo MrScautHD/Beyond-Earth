@@ -25,7 +25,6 @@ import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.IOxygenStorageHolder;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenStorage;
 import net.mrscauthd.beyond_earth.common.capabilities.oxygen.OxygenUtil;
-import net.mrscauthd.beyond_earth.common.compats.mekanism.MekanismCompat;
 import net.mrscauthd.beyond_earth.common.data.recipes.BeyondEarthRecipeType;
 import net.mrscauthd.beyond_earth.common.data.recipes.OxygenMakingRecipeAbstract;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.StackCacher;
@@ -67,10 +66,6 @@ public abstract class OxygenMakingBlockEntity extends AbstractMachineBlockEntity
     @Override
     public List<IGaugeValue> getDisplayGaugeValues() {
         List<IGaugeValue> list = super.getDisplayGaugeValues();
-
-        if (!MekanismCompat.LOADED) {
-            list.add(GaugeValueHelper.getOxygen(this.getOutputTank()));
-        }
 
         return list;
     }

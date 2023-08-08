@@ -2,7 +2,7 @@ package net.mrscauthd.beyond_earth.client.renderers.armors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -157,9 +157,9 @@ public class JetSuitModel {
 
             poseStack.scale(scale, scale, scale);
 
-            poseStack.mulPose(Vector3f.ZP.rotation(modelPart.zRot));
-            poseStack.mulPose(Vector3f.YP.rotation(modelPart.yRot));
-            poseStack.mulPose(Vector3f.XP.rotation(modelPart.xRot));
+            poseStack.mulPose(Axis.ZP.rotation(modelPart.zRot));
+            poseStack.mulPose(Axis.YP.rotation(modelPart.yRot));
+            poseStack.mulPose(Axis.XP.rotation(modelPart.xRot));
 
             poseStack.translate(x, y, z);
 

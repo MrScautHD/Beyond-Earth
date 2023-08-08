@@ -5,19 +5,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeDyedItem;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeEnchantedBook;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeEnchantedItem;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeItemStack;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipeMap;
-import net.mrscauthd.beyond_earth.common.data.recipes.AlienTradingRecipePotionedItem;
-import net.mrscauthd.beyond_earth.common.data.recipes.CompressingRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.FuelRefiningRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.GeneratingRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.OxygenBubbleDistributorRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.OxygenLoaderRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.SpaceStationRecipeSerializer;
-import net.mrscauthd.beyond_earth.common.data.recipes.WorkbenchingRecipeSerializer;
+import net.mrscauthd.beyond_earth.common.data.recipes.*;
 
 public class RecipeSerializersRegistry {
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, BeyondEarth.MODID);
@@ -36,5 +24,6 @@ public class RecipeSerializersRegistry {
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_POTIONED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_potioned_item", () -> new AlienTradingRecipePotionedItem.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_ALIEN_TRADING_DYED_ITEM = RECIPE_SERIALIZERS.register("alien_trading_dyed_item", () -> new AlienTradingRecipeDyedItem.Serializer());
     public static final RegistryObject<RecipeSerializer<?>> RECIPE_SERIALIZER_SPACE_STATION = RECIPE_SERIALIZERS.register("space_station", () -> new SpaceStationRecipeSerializer());
+
 
 }

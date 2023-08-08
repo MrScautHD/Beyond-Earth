@@ -7,10 +7,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.client.renderers.entities.VehicleRenderer;
 import net.mrscauthd.beyond_earth.common.entities.IRocketEntity;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier1Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier1Renderer extends VehicleRenderer<RocketTier1Entity, RocketTier1Model<RocketTier1Entity>> {
+public class RocketTier1Renderer extends VehicleRenderer<RocketEntity, RocketTier1Model<RocketEntity>> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t1.png");
 
@@ -19,12 +19,12 @@ public class RocketTier1Renderer extends VehicleRenderer<RocketTier1Entity, Rock
     }
 
     @Override
-    public ResourceLocation getTextureLocation(RocketTier1Entity p_114482_) {
+    public ResourceLocation getTextureLocation(RocketEntity p_114482_) {
         return TEXTURE;
     }
 
     @Override
-    protected boolean isShaking(RocketTier1Entity p_115304_) {
+    protected boolean isShaking(RocketEntity p_115304_) {
         return p_115304_.getEntityData().get(IRocketEntity.ROCKET_START);
     }
 }

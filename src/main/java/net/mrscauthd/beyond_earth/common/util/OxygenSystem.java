@@ -37,7 +37,7 @@ public class OxygenSystem {
         boolean inWater = !mob.getEyeInFluidType().isAir();
         if (inWater)
             return IN_FLUID;
-        Level level = mob.getLevel();
+        Level level = mob.level();
         BlockPos pos = mob.blockPosition();
         ChunkOxygen chunkO2 = ((LevelChunk) level.getChunk(pos)).getCapability(CapabilityRegistry.CHUNK_OXYGEN)
                 .orElse(null);

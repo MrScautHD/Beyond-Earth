@@ -1,9 +1,8 @@
 package net.mrscauthd.beyond_earth.client.overlays;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +26,7 @@ public class RocketTimerOverlay implements IGuiOverlay {
     public static final ResourceLocation TIMER_10 = new ResourceLocation(BeyondEarth.MODID, "textures/overlay/timer/timer_10.png");
 
     @Override
-    public void render(ForgeGui gui, PoseStack poseStack, float partialTick, int width, int height) {
+    public void render(ForgeGui gui, GuiGraphics graphics, float partialTick, int width, int height) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
 
@@ -46,43 +45,43 @@ public class RocketTimerOverlay implements IGuiOverlay {
             /** TIMER */
             if (timer > -1 && timer < 20) {
                 RenderSystem.setShaderTexture(0, TIMER_10);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_10, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 20 && timer < 40) {
                 RenderSystem.setShaderTexture(0, TIMER_9);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_9, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 40 && timer < 60) {
                 RenderSystem.setShaderTexture(0, TIMER_8);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_8, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 60 && timer < 80) {
                 RenderSystem.setShaderTexture(0, TIMER_7);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_7, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 80 && timer < 100) {
                 RenderSystem.setShaderTexture(0, TIMER_6);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_6, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 100 && timer < 120) {
                 RenderSystem.setShaderTexture(0, TIMER_5);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_5, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 120 && timer < 140) {
                 RenderSystem.setShaderTexture(0, TIMER_4);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_4, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 140 && timer < 160) {
                 RenderSystem.setShaderTexture(0, TIMER_3);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_3, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 160 && timer < 180) {
                 RenderSystem.setShaderTexture(0, TIMER_2);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_2, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
             else if (timer > 180 && timer < 200) {
                 RenderSystem.setShaderTexture(0, TIMER_1);
-                GuiComponent.blit(poseStack, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
+                graphics.blit(TIMER_1, timerWidth, timerHeight, 0, 0, 60, 38, 60, 38);
             }
         }
     }

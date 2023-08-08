@@ -15,9 +15,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.SpectralArrow;
 import net.minecraft.world.level.Level;
-import net.mrscauthd.beyond_earth.common.config.Config;
-
 import net.minecraftforge.registries.ForgeRegistries;
+import net.mrscauthd.beyond_earth.common.config.Config;
 
 public class StarCrawlerEntity extends Monster {
 	public StarCrawlerEntity(EntityType<? extends Monster> type, Level world) {
@@ -62,8 +61,6 @@ public class StarCrawlerEntity extends Monster {
 			return false;
 		if (source.getDirectEntity() instanceof Arrow)
 			return false;
-		if (source == DamageSource.CACTUS)
-			return false;
 		return super.hurt(source, amount);
 	}
 
@@ -71,7 +68,7 @@ public class StarCrawlerEntity extends Monster {
 	public void baseTick() {
 		super.baseTick();
 		if (!Config.STAR_CRAWLER_SPAWN.get()) {
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}

@@ -1,27 +1,20 @@
 package net.mrscauthd.beyond_earth.common.data.recipes;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.BiPredicate;
-import java.util.stream.Collectors;
-
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.mrscauthd.beyond_earth.common.menus.nasaworkbench.RocketPartsItemHandler;
@@ -29,8 +22,12 @@ import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RocketPartsRegistry;
 
-public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate<RocketPartsItemHandler, Boolean> {
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
+public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate<RocketPartsItemHandler, Boolean> {
     private final Map<RocketPart, List<Ingredient>> parts;
     private final ItemStack output;
 
@@ -110,12 +107,22 @@ public class WorkbenchingRecipe extends BeyondEarthRecipe implements BiPredicate
     }
 
     @Override
+    public boolean matches(Container p_44002_, Level p_44003_) {
+        return false;
+    }
+
+    @Override
+    public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+        return null;
+    }
+
+    @Override
     public boolean canCraftInDimensions(int var1, int var2) {
         return false;
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess p_267052_) {
         return this.output.copy();
     }
 

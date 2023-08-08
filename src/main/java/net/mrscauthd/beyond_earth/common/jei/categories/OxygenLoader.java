@@ -20,6 +20,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.common.Constants;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -89,13 +90,12 @@ public class OxygenLoader implements IRecipeCategory<OxygenLoaderRecipe> {
     }
 
     @Override
-    public void draw(OxygenLoaderRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
-            double mouseY) {
+    public void draw(OxygenLoaderRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
         int energyTime = 100 / Config.FUEL_REFINERY_ENERGY_USAGE.get();
 
         int compressTime = energyTime;
         IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
-        arrow.draw(stack, 40, 22);
+        arrow.draw(graphics, 40, 22);
 
         // Update the energy cost
         recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)

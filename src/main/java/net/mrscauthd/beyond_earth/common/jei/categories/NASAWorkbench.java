@@ -15,6 +15,7 @@ import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -73,8 +74,8 @@ public class NASAWorkbench implements IRecipeCategory<WorkbenchingRecipe> {
     }
 
     @Override
-    public void draw(WorkbenchingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
-            double mouseY) {
+    public void draw(WorkbenchingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
+
     }
 
     @Override

@@ -11,9 +11,8 @@ import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
-
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.common.registries.EntityRegistry;
 import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
 
@@ -58,18 +57,18 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
         double z = this.getZ();
         Vec3 vec = this.getDeltaMovement();
 
-        this.level.addParticle(ParticleTypes.SPIT, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
-        this.level.addParticle(ParticleTypes.ITEM_SNOWBALL, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
+        this.level().addParticle(ParticleTypes.SPIT, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
+        this.level().addParticle(ParticleTypes.ITEM_SNOWBALL, x - vec.x, y - vec.y, z - vec.z, 0, 0.001, 0);
 
         if (this.inGround) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }
     }
 
     public static IceSpitEntity shoot(LivingEntity entity, LivingEntity target, int damage) {
-        IceSpitEntity entityArrow = new IceSpitEntity(EntityRegistry.ICE_SPIT_ENTITY.get(), entity, entity.level);
+        IceSpitEntity entityArrow = new IceSpitEntity(EntityRegistry.ICE_SPIT_ENTITY.get(), entity, entity.level());
 
         double d0 = target.getY() + (double) target.getEyeHeight() - 1.1;
         double d1 = target.getX() - entity.getX();
@@ -81,9 +80,9 @@ public class IceSpitEntity extends AbstractArrow implements ItemSupplier {
         entityArrow.setKnockback(1);
         entityArrow.setCritArrow(false);
 
-        entity.level.addFreshEntity(entityArrow);
+        entity.level().addFreshEntity(entityArrow);
 
-        entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.HOSTILE, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
+        entity.level().playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.BLAZE_SHOOT, SoundSource.HOSTILE, 1, 1f / (new Random().nextFloat() * 0.5f + 1));
         return entityArrow;
     }
 }

@@ -15,7 +15,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
@@ -34,7 +35,7 @@ import java.util.function.Consumer;
 public class JetSuit {
 
     public static class Helmet extends ISpaceArmor.Helmet {
-        public Helmet(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Helmet(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -72,7 +73,7 @@ public class JetSuit {
         public static final String TAG_MODE = BeyondEarth.MODID + ":jet_suit_mode";
         public float spacePressTime;
 
-        public Suit(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Suit(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -161,7 +162,7 @@ public class JetSuit {
 
         @Override
         public boolean elytraFlightTick(ItemStack stack, LivingEntity entity, int flightTicks) {
-            if (!entity.level.isClientSide) {
+            if (!entity.level().isClientSide) {
                 int nextFlightTick = flightTicks + 1;
                 if (nextFlightTick % 10 == 0) {
                     entity.gameEvent(GameEvent.ELYTRA_GLIDE);
@@ -201,7 +202,7 @@ public class JetSuit {
                     Vec3 vec3 = player.getDeltaMovement();
 
                     /** MAIN MOVEMENT */
-                    if (!player.isOnGround() && !player.isInFluidType()) {
+                    if (!player.onGround() && !player.isInFluidType()) {
                         player.setDeltaMovement(vec3.x, vec3.y + gravity - 0.005, vec3.z);
                         player.resetFallDistance();
                         Methods.disableFlyAntiCheat(player, true);
@@ -214,7 +215,7 @@ public class JetSuit {
                     }
 
                     /** MOVE DOWN */
-                    if (!player.isOnGround() && player.isCrouching()) {
+                    if (!player.onGround() && player.isCrouching()) {
                         player.moveRelative(2.0F, new Vec3(0, -0.008, 0));
 
                         if (player instanceof LocalPlayer localPlayer) {
@@ -223,7 +224,7 @@ public class JetSuit {
                     }
 
                     /** MOVE FORWARD AND BACKWARD */
-                    if (!player.isOnGround()) {
+                    if (!player.onGround()) {
                         if (KeyVariables.isHoldingUp(player)) {
                             player.moveRelative(1.0F, new Vec3(0, 0, 0.01));
                         }
@@ -233,7 +234,7 @@ public class JetSuit {
                     }
 
                     /** MOVE SIDEWAYS */
-                    if (!player.isOnGround()) {
+                    if (!player.onGround()) {
                         if (KeyVariables.isHoldingRight(player)) {
                             player.moveRelative(1.0F, new Vec3(-0.01, 0, 0));
                         }
@@ -254,7 +255,7 @@ public class JetSuit {
                     }
 
                     /** MOVE FORWARD AND BACKWARD */
-                    if (!player.isOnGround()) {
+                    if (!player.onGround()) {
                         if (KeyVariables.isHoldingUp(player)) {
                             player.moveRelative(1.0F, new Vec3(0, 0, 0.03));
                         }
@@ -264,7 +265,7 @@ public class JetSuit {
                     }
 
                     /** MOVE SIDEWAYS */
-                    if (!player.isOnGround()) {
+                    if (!player.onGround()) {
                         if (KeyVariables.isHoldingRight(player)) {
                             player.moveRelative(1.0F, new Vec3(-0.03, 0, 0));
                         }
@@ -305,7 +306,7 @@ public class JetSuit {
 
                 /** HOVER MODE */
                 if (mode == ModeType.HOVER.getMode()) {
-                    if (!player.isOnGround() && this.spacePressTime < 0.6F) {
+                    if (!player.onGround() && this.spacePressTime < 0.6F) {
                         this.spacePressTime = this.spacePressTime + 0.2F;
                     }
                     else if (KeyVariables.isHoldingJump(player)) {
@@ -348,9 +349,9 @@ public class JetSuit {
                 if (sonicBoom) {
                     Vec3 vec33 = player.getLookAngle().scale(6.5D);
 
-                    if (player.level instanceof ServerLevel) {
-                        for (ServerPlayer p : ((ServerLevel) player.level).getServer().getPlayerList().getPlayers()) {
-                            ((ServerLevel) player.level).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
+                    if (player.level() instanceof ServerLevel) {
+                        for (ServerPlayer p : ((ServerLevel) player.level()).getServer().getPlayerList().getPlayers()) {
+                            ((ServerLevel) player.level()).sendParticles(p, ParticleTypes.FLASH, true, player.getX() - vec33.x, player.getY() - vec33.y, player.getZ() - vec33.z, 1, 0, 0, 0, 0.001);
                         }
                     }
                 }
@@ -369,7 +370,7 @@ public class JetSuit {
     }
 
     public static class Pants extends ISpaceArmor.Leggings {
-        public Pants(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Pants(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 
@@ -406,7 +407,7 @@ public class JetSuit {
     }
 
     public static class Boots extends ISpaceArmor.Boots {
-        public Boots(ArmorMaterial armorMaterial, EquipmentSlot equipmentSlot, Properties properties) {
+        public Boots(ArmorMaterial armorMaterial, Type equipmentSlot, Properties properties) {
             super(armorMaterial, equipmentSlot, properties);
         }
 

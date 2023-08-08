@@ -19,13 +19,13 @@ import snownee.jade.api.IServerDataProvider;
 import snownee.jade.api.ITooltip;
 import snownee.jade.api.config.IPluginConfig;
 
-public class BlockDataProvider implements IServerDataProvider<BlockEntity>, IBlockComponentProvider {
+public class BlockDataProvider implements IServerDataProvider<BlockAccessor>, IBlockComponentProvider {
 
 	public static final ResourceLocation Uid = new ResourceLocation(BeyondEarth.MODID, "block");
 	public static final BlockDataProvider INSTANCE = new BlockDataProvider();
 
 	@Override
-	public void appendServerData(CompoundTag data, ServerPlayer player, Level level, BlockEntity blockEntity, boolean b) {
+	public void appendServerData(CompoundTag data, BlockAccessor blockEntity) {
 
 		List<IGaugeValue> list = new ArrayList<>();
 
@@ -49,5 +49,4 @@ public class BlockDataProvider implements IServerDataProvider<BlockEntity>, IBlo
 	public ResourceLocation getUid() {
 		return Uid;
 	}
-
 }

@@ -34,7 +34,7 @@ public class StarHelper {
         BufferBuilder bufferbuilder = tesselator.getBuilder();
         RenderSystem.setShader(colorSystem ? GameRenderer::getPositionColorShader : GameRenderer::getPositionShader);
 
-        VertexBuffer vertexBuffer = new VertexBuffer();
+        VertexBuffer vertexBuffer = new VertexBuffer(VertexBuffer.Usage.STATIC);
 
         BufferBuilder.RenderedBuffer renderedBuffer = drawStars(bufferbuilder, scale, amountDefault, amountFast, amountFancy, colorSystem, r, g, b);
         vertexBuffer.bind();

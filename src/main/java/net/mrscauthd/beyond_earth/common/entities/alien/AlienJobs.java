@@ -17,7 +17,7 @@ public enum AlienJobs {
     JOB12(VillagerProfession.LEATHERWORKER),
     JOB13(VillagerProfession.MASON);
 
-    public VillagerProfession profession;
+    public final VillagerProfession profession;
 
     AlienJobs(VillagerProfession profession){
         this.profession = profession;

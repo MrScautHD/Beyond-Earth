@@ -118,10 +118,6 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         return true;
     }
 
-    @Override
-    public boolean rideableUnderWater() {
-        return true;
-    }
 
     @Override
     public double getPassengersRidingOffset() {
@@ -152,14 +148,14 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         }
 
         for(BlockPos blockpos : set) {
-            if (!this.level.getFluidState(blockpos).is(FluidTags.LAVA)) {
-                double d3 = this.level.getBlockFloorHeight(blockpos);
+            if (!this.level().getFluidState(blockpos).is(FluidTags.LAVA)) {
+                double d3 = this.level().getBlockFloorHeight(blockpos);
                 if (DismountHelper.isBlockFloorValid(d3)) {
                     Vec3 vector3d1 = Vec3.upFromBottomCenterOf(blockpos, d3);
 
                     for(Pose pose : livingEntity.getDismountPoses()) {
                         AABB axisalignedbb = livingEntity.getLocalBoundsForPose(pose);
-                        if (DismountHelper.isBlockFloorValid(this.level.getBlockFloorHeight(blockpos))) {
+                        if (DismountHelper.isBlockFloorValid(this.level().getBlockFloorHeight(blockpos))) {
                             livingEntity.setPose(pose);
                             return vector3d1;
                         }
@@ -182,7 +178,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
 
     @Override
     protected void removePassenger(Entity passenger) {
-        if (passenger.isCrouching() && !passenger.level.isClientSide) {
+        if (passenger.isCrouching() && !passenger.level().isClientSide) {
             if (passenger instanceof ServerPlayer) {
                 this.setSpeed(0f);
             }
@@ -203,18 +199,18 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         this.spawnRoverItem();
         this.dropEquipment();
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.remove(RemovalReason.DISCARDED);
         }
     }
 
     @Override
     public boolean hurt(DamageSource source, float p_21017_) {
-        if (!source.isProjectile() && source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
+        if (source.getEntity() != null && source.getEntity().isCrouching() && !this.isVehicle()) {
             this.spawnRoverItem();
             this.dropEquipment();
 
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
             return true;
@@ -227,9 +223,9 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         ItemStack itemStack = new ItemStack(ItemsRegistry.ROVER_ITEM.get(), 1);
         itemStack.getOrCreateTag().putInt(BeyondEarth.MODID + ":fuel", this.getEntityData().get(FUEL));
 
-        ItemEntity entityToSpawn = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), itemStack);
+        ItemEntity entityToSpawn = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), itemStack);
         entityToSpawn.setPickUpDelay(10);
-        level.addFreshEntity(entityToSpawn);
+        level().addFreshEntity(entityToSpawn);
     }
 
     protected void dropEquipment() {
@@ -328,9 +324,9 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
     @Override
     public InteractionResult interact(Player player, InteractionHand hand) {
         super.interact(player, hand);
-        InteractionResult result = InteractionResult.sidedSuccess(this.level.isClientSide);
+        InteractionResult result = InteractionResult.sidedSuccess(this.level().isClientSide);
 
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             if (player.isCrouching()) {
                 NetworkHooks.openScreen((ServerPlayer) player, new MenuProvider() {
                     @Override
@@ -415,7 +411,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
 
     @Override
     public float getFrictionInfluencedSpeed(float p_21331_) {
-        return this.onGround ? this.getSpeed() * (0.21600002F / (p_21331_ * p_21331_ * p_21331_)) : this.flyingSpeed;
+        return this.onGround() ? this.getSpeed() * (0.21600002F / (p_21331_ * p_21331_ * p_21331_)) : this.flyingSpeed;
     }
 
     @Override
@@ -425,7 +421,7 @@ public class RoverEntity extends IVehicleEntity implements IGaugeValuesProvider 
         if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof Player passanger) {
 
             this.flyingSpeed = this.getSpeed() * 0.15F;
-            this.maxUpStep = 1.0F;
+            this.setMaxUpStep(1.0F);
 
             double pmovement = passanger.zza;
 

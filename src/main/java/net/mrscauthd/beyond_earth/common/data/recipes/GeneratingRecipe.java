@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -52,8 +53,23 @@ public class GeneratingRecipe extends BeyondEarthRecipe implements Predicate<Ite
 	}
 
 	@Override
+	public boolean matches(Container p_44002_, Level p_44003_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+		return null;
+	}
+
+	@Override
 	public boolean canCraftInDimensions(int var1, int var2) {
 		return true;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
+		return null;
 	}
 
 	@Override

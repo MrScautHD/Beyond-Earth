@@ -19,7 +19,7 @@ public class OxygenBubbleDistributorMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) inv.player.level
+            OxygenDistributorBlockEntity blockEntity = (OxygenDistributorBlockEntity) inv.player.level()
                     .getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }
@@ -32,9 +32,9 @@ public class OxygenBubbleDistributorMenu {
             super(ContainerRegistry.OXYGEN_BUBBLE_DISTRIBUTOR_GUI.get(), id);
             this.blockEntity = blockEntity;
 
-            IItemHandlerModifiable internal = blockEntity.getItemHandler();
-            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 17, 58));
-            this.addSlot(new SlotItemHandler(internal, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 17, 88));
+            IItemHandlerModifiable itemHandler = blockEntity.getItemHandler();
+            this.addSlot(new SlotItemHandler(itemHandler, OxygenMakingBlockEntity.SLOT_INPUT_SOURCE, 17, 58));
+            this.addSlot(new SlotItemHandler(itemHandler, OxygenMakingBlockEntity.SLOT_INPUT_SINK, 17, 88));
 
             MenuHelper.createInventorySlots(inv, this::addSlot, 8, 138);
         }
@@ -44,7 +44,7 @@ public class OxygenBubbleDistributorMenu {
         }
 
         @Override
-        public boolean stillValid(Player p_38874_) {
+        public boolean stillValid(Player player) {
             return !this.getBlockEntity().isRemoved();
         }
 

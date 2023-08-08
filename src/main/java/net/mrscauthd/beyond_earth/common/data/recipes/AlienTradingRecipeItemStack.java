@@ -1,5 +1,8 @@
 package net.mrscauthd.beyond_earth.common.data.recipes;
 
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.world.Container;
+import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.tuple.Triple;
 
 import com.google.gson.JsonObject;
@@ -46,6 +49,21 @@ public class AlienTradingRecipeItemStack extends AlienTradingRecipeItemStackBase
 
 	public ItemStack getResult(Entity trader, RandomSource rand) {
 		return this.result.copy();
+	}
+
+	@Override
+	public boolean matches(Container p_44002_, Level p_44003_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
+		return null;
 	}
 
 	@Override

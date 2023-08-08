@@ -22,10 +22,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.FluidType;
-import net.mrscauthd.beyond_earth.common.registries.FluidTypeRegistry;
-import net.mrscauthd.beyond_earth.common.registries.BlockRegistry;
-import net.mrscauthd.beyond_earth.common.registries.FluidRegistry;
-import net.mrscauthd.beyond_earth.common.registries.ItemsRegistry;
+import net.mrscauthd.beyond_earth.common.registries.*;
 
 import javax.annotation.Nullable;
 
@@ -64,7 +61,7 @@ public class FuelFluid extends FlowingFluid {
 	}
 
 	@Override
-	protected boolean canConvertToSource() {
+	protected boolean canConvertToSource(Level level) {
 		return false;
 	}
 

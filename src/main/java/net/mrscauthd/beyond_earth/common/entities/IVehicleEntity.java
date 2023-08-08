@@ -2,18 +2,18 @@ package net.mrscauthd.beyond_earth.common.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.NetworkHooks;
 
 public abstract class IVehicleEntity extends Entity {
     private int lerpSteps;
@@ -32,11 +32,6 @@ public abstract class IVehicleEntity extends Entity {
     public IVehicleEntity(EntityType<?> p_19870_, Level p_19871_) {
         super(p_19870_, p_19871_);
         this.blocksBuilding = true;
-    }
-
-    @Override
-    public Packet<?> getAddEntityPacket() {
-        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
@@ -184,12 +179,12 @@ public abstract class IVehicleEntity extends Entity {
                 }
             } else {
                 BlockPos blockpos = this.getBlockPosBelowThatAffectsMyMovement();
-                float f3 = this.level.getBlockState(this.getBlockPosBelowThatAffectsMyMovement()).getFriction(level, this.getBlockPosBelowThatAffectsMyMovement(), this);
-                float f4 = this.onGround ? f3 * 0.91F : 0.91F;
+                float f3 = this.level().getBlockState(this.getBlockPosBelowThatAffectsMyMovement()).getFriction(level(), this.getBlockPosBelowThatAffectsMyMovement(), this);
+                float f4 = this.onGround() ? f3 * 0.91F : 0.91F;
                 Vec3 vec35 = this.handleRelativeFrictionAndCalculateMovement(p_21280_, f3);
                 double d2 = vec35.y;
-                if (this.level.isClientSide && !this.level.hasChunkAt(blockpos)) {
-                    if (this.getY() > (double)this.level.getMinBuildHeight()) {
+                if (this.level().isClientSide && !this.level().hasChunkAt(blockpos)) {
+                    if (this.getY() > (double)this.level().getMinBuildHeight()) {
                         d2 = -0.1D;
                     } else {
                         d2 = 0.0D;

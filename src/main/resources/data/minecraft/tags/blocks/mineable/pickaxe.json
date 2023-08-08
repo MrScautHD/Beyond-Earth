@@ -77,6 +77,15 @@
     "beyond_earth:glacio_stone_brick_slab",
     "beyond_earth:glacio_stone_brick_stairs",
     "beyond_earth:glacio_stone",
-    "beyond_earth:permafrost"
+    "beyond_earth:permafrost",
+
+    "beyond_earth:fuel_refinery",
+    "beyond_earth:compressor",
+    "beyond_earth:coal_generator",
+    "beyond_earth:oxygen_loader",
+    "beyond_earth:solar_panel",
+    "beyond_earth:nasa_workbench",
+    "beyond_earth:oxygen_bubble_distributor",
+    "beyond_earth:water_pump"
   ]
 }

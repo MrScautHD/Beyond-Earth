@@ -1,9 +1,7 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -18,6 +16,8 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeTex
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeValueHelper;
 import net.mrscauthd.beyond_earth.common.menus.CompressorMenu;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
+
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class CompressorScreen extends AbstractContainerScreen<CompressorMenu.GuiContainer> {
@@ -38,31 +38,30 @@ public class CompressorScreen extends AbstractContainerScreen<CompressorMenu.Gui
     }
 
     @Override
-    public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderTooltip(ms, mouseX, mouseY);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(graphics, mouseX, mouseY);
 
         if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-            this.renderTooltip(ms,
-                    GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(this.getMenu().getBlockEntity())).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass(GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(this.getMenu().getBlockEntity())).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(GuiGraphics graphics, float p_97788_, int p_97789_, int p_97790_) {
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, TEXTURE);
-        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
+        graphics.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
                 this.imageHeight);
 
         CompressorBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
-                blockEntity.getPrimaryEnergyStorage());
-        GuiHelper.drawHammer(ms, this.leftPos + ARROW_LEFT, this.topPos + ARROW_TOP, blockEntity.getTimerRatio());
+        GuiHelper.drawEnergy(graphics, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
+                Objects.requireNonNull(blockEntity.getPrimaryEnergyStorage()));
+        GuiHelper.drawHammer(graphics, this.leftPos + ARROW_LEFT, this.topPos + ARROW_TOP, blockEntity.getTimerRatio());
     }
 
     public Rectangle2d getEnergyBounds() {

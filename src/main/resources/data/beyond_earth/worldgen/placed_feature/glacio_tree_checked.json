@@ -1,0 +1,17 @@
+{
+  "feature": "beyond_earth:glacio_tree_key",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "beyond_earth:glacio_tree_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
+    }
+  ]
+}

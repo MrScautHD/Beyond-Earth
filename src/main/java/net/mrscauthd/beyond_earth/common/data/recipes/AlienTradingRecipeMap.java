@@ -1,13 +1,9 @@
 package net.mrscauthd.beyond_earth.common.data.recipes;
 
-import java.util.Locale;
-
-import org.apache.commons.lang3.tuple.Triple;
-
 import com.google.gson.JsonObject;
-
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -15,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +27,9 @@ import net.mrscauthd.beyond_earth.BeyondEarth;
 import net.mrscauthd.beyond_earth.common.registries.RecipeSerializersRegistry;
 import net.mrscauthd.beyond_earth.common.registries.RecipeTypeRegistry;
 import net.mrscauthd.beyond_earth.common.util.EnumUtils;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.Locale;
 
 public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
@@ -59,12 +59,12 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 		buffer.writeEnum(this.mapDecorationType);
 	}
 
-	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registry.ENTITY_TYPE_REGISTRY, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));
+	public static final TagKey<EntityType<?>> OXYGEN_TAG = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(BeyondEarth.MODID, "entities/oxygen"));
 	
 	@Override
 	public Triple<ItemStack, ItemStack, ItemStack> getTrade(Entity trader, RandomSource rand) {
-		Level level = trader.level;
-                TagKey<Structure> key = TagKey.create(Registry.STRUCTURE_REGISTRY, this.getStructureName());
+		Level level = trader.level();
+                TagKey<Structure> key = TagKey.create(Registries.STRUCTURE, this.getStructureName());
 		ItemStack itemstack = new ItemStack(Items.FILLED_MAP);
 
 		if (level instanceof ServerLevel serverWorld) {
@@ -88,6 +88,21 @@ public class AlienTradingRecipeMap extends AlienTradingRecipeItemStackBase {
 
 	public MapDecoration.Type getMapDecorationType() {
 		return this.mapDecorationType;
+	}
+
+	@Override
+	public boolean matches(Container p_44002_, Level p_44003_) {
+		return false;
+	}
+
+	@Override
+	public ItemStack assemble(Container p_44001_, RegistryAccess p_267165_) {
+		return null;
+	}
+
+	@Override
+	public ItemStack getResultItem(RegistryAccess p_267052_) {
+		return null;
 	}
 
 	@Override

@@ -1,19 +1,11 @@
 package net.mrscauthd.beyond_earth.client.screens.planetselection.helper;
 
-import java.util.List;
-
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
-import com.mojang.blaze3d.vertex.BufferUploader;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexFormat;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
-
+import com.mojang.blaze3d.vertex.*;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -30,6 +22,8 @@ import net.mrscauthd.beyond_earth.client.util.ClientMethods;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.PlanetSelectionMenuNetworkHandler;
 import net.mrscauthd.beyond_earth.common.menus.planetselection.helper.PlanetSelectionMenuNetworkHandlerHelper;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class PlanetSelectionScreenHelper {
@@ -99,19 +93,19 @@ public class PlanetSelectionScreenHelper {
     }
 
     /** USE THIS TO ROTATE PLANETS */
-    public static void drawPlanet(PoseStack ms, Planet planet, int width, int height, boolean showName) {
+    public static void drawPlanet(GuiGraphics graphics, Planet planet, int width, int height, boolean showName) {
         ResourceLocation texture = planet.texture;
 
         /** TEXTURE */
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
-        ScreenHelper.renderWithFloat.blit(ms, planet._xPos, planet._yPos, 0, 0, width, height, width, height);
+        ScreenHelper.renderWithFloat.blit(graphics.pose(), planet._xPos, planet._yPos, 0, 0, width, height, width, height);
 
         /** TEXT */
         if (showName) {
             Font font = Minecraft.getInstance().font;
             Component name = planet.description;
-            font.draw(ms, name, planet._xPos - font.width(name) / 3, planet._yPos + 13, 0xFFFFFF);
+            graphics.drawString(font, name, (int)planet._xPos - font.width(name) / 3, (int)planet._yPos + 13, 0xFFFFFF);
         }
     }
 
@@ -120,7 +114,7 @@ public class PlanetSelectionScreenHelper {
         ms.pushPose();
 
         ms.translate(screen.width / 2, screen.height / 2, 0);
-        ms.mulPose(new Quaternion(Vector3f.ZP, rotation, true));
+        ms.mulPose(Axis.ZP.rotationDegrees(rotation));
 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);

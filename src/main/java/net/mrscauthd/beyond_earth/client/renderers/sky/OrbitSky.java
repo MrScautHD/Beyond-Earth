@@ -1,23 +1,15 @@
 package net.mrscauthd.beyond_earth.client.renderers.sky;
 
-import org.apache.commons.lang3.tuple.Triple;
-
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.math.Matrix4f;
-import com.mojang.math.Vector3f;
-
+import com.mojang.math.Axis;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.DimensionSpecialEffects;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.client.renderer.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
@@ -27,6 +19,8 @@ import net.mrscauthd.beyond_earth.client.renderers.sky.helper.SkyHelper;
 import net.mrscauthd.beyond_earth.client.renderers.sky.helper.StarHelper;
 import net.mrscauthd.beyond_earth.common.util.Planets;
 import net.mrscauthd.beyond_earth.common.util.Planets.Planet;
+import org.apache.commons.lang3.tuple.Triple;
+import org.joml.Matrix4f;
 
 @OnlyIn(Dist.CLIENT)
 public class OrbitSky extends DimensionSpecialEffects {
@@ -110,14 +104,14 @@ public class OrbitSky extends DimensionSpecialEffects {
 
                 /** STARS */
                 matrix4f = SkyHelper.setMatrixRot(poseStack,
-                        Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(dayTime), null));
+                        Triple.of(Axis.YP.rotationDegrees(-90), Axis.XP.rotationDegrees(dayTime), null));
                 RenderSystem.setShaderColor(0.8F, 0.8F, 0.8F, 0.8F);
                 SkyHelper.drawStars(starBuffer, matrix4f, projectionMatrix, GameRenderer.getPositionColorShader(),
                         setupFog, true);
 
                 /** SUN */
                 matrix4f = SkyHelper.setMatrixRot(poseStack,
-                        Triple.of(Vector3f.YP.rotationDegrees(-90), Vector3f.XP.rotationDegrees(dayTime), null));
+                        Triple.of(Axis.YP.rotationDegrees(-90), Axis.XP.rotationDegrees(dayTime), null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                 SkyHelper.drawPlanet(SkyHelper.WHITE_SUN, new Vec3(255, 255, 255), bufferBuilder, matrix4f, 30, 100,
                         true);
@@ -140,8 +134,8 @@ public class OrbitSky extends DimensionSpecialEffects {
                             float dAngle = 90 * Mth.sin(phase) / distance;
                             float angle = dayAngle + (inner ? dAngle : phase);
 
-                            matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
-                                    Vector3f.XP.rotationDegrees(angle), null));
+                            matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(-90),
+                                    Axis.XP.rotationDegrees(angle), null));
                             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                             SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f,
                                     3, 3 * 4, 100 * distance, false);
@@ -153,8 +147,8 @@ public class OrbitSky extends DimensionSpecialEffects {
                         // Update the phase to include the partialTick.
                         p.orbitPhase = Planets.getRotation(p, dayTime, 1);
 
-                        matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.YP.rotationDegrees(-90),
-                                Vector3f.XP.rotationDegrees(p.orbitPhase), Vector3f.ZP.rotationDegrees(1)));
+                        matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.YP.rotationDegrees(-90),
+                                Axis.XP.rotationDegrees(p.orbitPhase), Axis.ZP.rotationDegrees(1)));
                         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
                         SkyHelper.drawPlanetWithLight(p.texture, new Vec3(232, 219, 176), bufferBuilder, matrix4f, 3,
                                 3 * 4, 100, false);
@@ -162,7 +156,7 @@ public class OrbitSky extends DimensionSpecialEffects {
                 }
 
                 /** PLANET BELOW */
-                matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Vector3f.XP.rotationDegrees(180), null, null));
+                matrix4f = SkyHelper.setMatrixRot(poseStack, Triple.of(Axis.XP.rotationDegrees(180), null, null));
                 RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
                 float posScale = -3000.0F + (float) y * 6F;

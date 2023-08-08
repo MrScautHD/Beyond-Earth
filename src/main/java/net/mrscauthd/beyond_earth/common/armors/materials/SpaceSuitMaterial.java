@@ -3,6 +3,7 @@ package net.mrscauthd.beyond_earth.common.armors.materials;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -11,15 +12,15 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class SpaceSuitMaterial {
     public static ArmorMaterial ARMOR_MATERIAL = new ArmorMaterial() {
-
         @Override
-        public int getDurabilityForSlot(EquipmentSlot slot) {
-            return new int[]{195, 225, 240, 165}[slot.getIndex()];
+        public int getDurabilityForType(ArmorItem.Type type) {
+            return new int[]{195, 225, 240, 165}[type.getSlot().getIndex()];
+
         }
 
         @Override
-        public int getDefenseForSlot(EquipmentSlot slot) {
-            return new int[]{2, 5, 6, 2}[slot.getIndex()];
+        public int getDefenseForType(ArmorItem.Type type) {
+            return new int[]{2, 5, 6, 2}[type.getSlot().getIndex()];
         }
 
         @Override

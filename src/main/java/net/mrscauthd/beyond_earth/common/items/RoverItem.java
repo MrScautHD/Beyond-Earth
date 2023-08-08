@@ -2,6 +2,7 @@ package net.mrscauthd.beyond_earth.common.items;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -11,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -116,16 +118,6 @@ public class RoverItem extends VehicleItem {
                 return ItemRendererRegistry.ROVER_ITEM_RENDERER;
             }
         });
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab p_41391_, NonNullList<ItemStack> p_41392_) {
-        super.fillItemCategory(p_41391_, p_41392_);
-        if (this.allowedIn(p_41391_)) {
-            ItemStack itemStack = new ItemStack(this);
-            itemStack.getOrCreateTag().putInt(FUEL_TAG, Config.ROVER_FUEL_BUCKETS.get() * FluidUtil2.BUCKET_SIZE);
-            p_41392_.add(itemStack);
-        }
     }
 
     public static void roverPlaceSound(BlockPos pos, Level world) {

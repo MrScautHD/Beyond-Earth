@@ -18,7 +18,7 @@ public class FuelRefineryMenu {
     public static class GuiContainerFactory implements IContainerFactory<GuiContainer> {
         public GuiContainer create(int id, Inventory inv, FriendlyByteBuf extraData) {
             BlockPos pos = extraData.readBlockPos();
-            FuelRefineryBlockEntity blockEntity = (FuelRefineryBlockEntity) inv.player.level.getBlockEntity(pos);
+            FuelRefineryBlockEntity blockEntity = (FuelRefineryBlockEntity) inv.player.level().getBlockEntity(pos);
             return new GuiContainer(id, inv, blockEntity);
         }
     }

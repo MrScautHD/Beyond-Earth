@@ -75,7 +75,7 @@ public class AlienZombieEntity extends Monster implements RangedAttackMob {
 
 	@Override
 	public boolean checkSpawnRules(LevelAccessor p_21686_, MobSpawnType p_21687_) {
-		BlockState blockState = level.getBlockState(new BlockPos(this.getX(), this.getY() - 1, this.getZ()));
+		BlockState blockState = level().getBlockState(new BlockPos((int)this.getX(), (int)this.getY() - 1, (int)this.getZ()));
 
 		if (blockState.is(Blocks.LAVA) || blockState.is(Blocks.AIR)) {
 			return false;
@@ -88,7 +88,7 @@ public class AlienZombieEntity extends Monster implements RangedAttackMob {
 	public void tick() {
 		super.tick();
 		if (!Config.ALIEN_ZOMBIE_SPAWN.get()) {
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				this.remove(RemovalReason.DISCARDED);
 			}
 		}

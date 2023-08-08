@@ -2,7 +2,6 @@ package net.mrscauthd.beyond_earth.common.fluids.types;
 
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -20,6 +19,7 @@ import net.minecraftforge.fluids.FluidType;
 import net.mrscauthd.beyond_earth.BeyondEarth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 

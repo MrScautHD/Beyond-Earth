@@ -25,10 +25,5 @@ public class SkyRendererRegistry {
         Planets.PLANETS_BY_ORBIT.forEach((key, planet) -> {
             event.register(key.location(), new OrbitSky(planet));
         });
-
-//        event.register(new ResourceLocation("overworld"), new EarthSky(192.0F, true, DimensionSpecialEffects.SkyType.NORMAL, false, false));
-//        event.register(new ResourceLocation(BeyondEarth.MODID, "earth_orbit"), new EarthOrbitSky(0, true, DimensionSpecialEffects.SkyType.NONE, false, false));
-//        event.register(new ResourceLocation(BeyondEarth.MODID, "moon"), new MoonSky(0, true, DimensionSpecialEffects.SkyType.NONE, false, false));
-//        event.register(new ResourceLocation(BeyondEarth.MODID, "mars"), new MarsSky(0, true, DimensionSpecialEffects.SkyType.NONE, false, false));
     }
 }

@@ -2,9 +2,9 @@ package net.mrscauthd.beyond_earth.client.events.forge;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.eventbus.api.Cancelable;
 import net.minecraftforge.eventbus.api.Event;
@@ -12,13 +12,13 @@ import net.minecraftforge.eventbus.api.Event;
 public class RenderHandItemEvent extends Event {
     private final LivingEntity livingEntity;
     private final ItemStack itemStack;
-    private final ItemTransforms.TransformType transformType;
+    private final ItemDisplayContext transformType;
     private final HumanoidArm handSide;
     private final PoseStack poseStack;
     private final MultiBufferSource renderTypeBuffer;
     private final int light;
 
-    public RenderHandItemEvent(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
+    public RenderHandItemEvent(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
         this.livingEntity = livingEntity;
         this.itemStack = itemStack;
         this.transformType = transformType;
@@ -36,7 +36,7 @@ public class RenderHandItemEvent extends Event {
         return this.itemStack;
     }
 
-    public ItemTransforms.TransformType getTransformType() {
+    public ItemDisplayContext getTransformType() {
         return this.transformType;
     }
 
@@ -58,13 +58,13 @@ public class RenderHandItemEvent extends Event {
 
     @Cancelable
     public static class Pre extends RenderHandItemEvent {
-        public Pre(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
+        public Pre(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
             super(livingEntity, itemStack, transformType, handSide, matrixStack, renderTypeBuffer, light);
         }
     }
 
     public static class Post extends RenderHandItemEvent {
-        public Post(LivingEntity livingEntity, ItemStack itemStack, ItemTransforms.TransformType transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
+        public Post(LivingEntity livingEntity, ItemStack itemStack, ItemDisplayContext transformType, HumanoidArm handSide, PoseStack matrixStack, MultiBufferSource renderTypeBuffer, int light) {
             super(livingEntity, itemStack, transformType, handSide, matrixStack, renderTypeBuffer, light);
         }
     }

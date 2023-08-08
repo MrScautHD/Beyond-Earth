@@ -1,20 +1,21 @@
 package net.mrscauthd.beyond_earth.client.screens.buttons;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Predicate;
-
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.client.screens.planetselection.PlanetSelectionScreen;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
 
 @OnlyIn(Dist.CLIENT)
 public class ModifiedButton extends TexturedButton {
@@ -31,10 +32,10 @@ public class ModifiedButton extends TexturedButton {
     public Predicate<Integer> isVisible = i -> false;
 
     public ModifiedButton(int xIn, int yIn, int row, int widthIn, int heightIn, int xTexStartIn, int yTexStartIn, int yDiffTextIn, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress onPressIn, Component title) {
-        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, Button.NO_TOOLTIP, title);
+        this(xIn, yIn, row, widthIn, heightIn, xTexStartIn, yTexStartIn, yDiffTextIn, rocketCondition, type, list, buttonTexture, colorType, textureWidth, textureHeight, onPressIn, DEFAULT_NARRATION, title);
     }
 
-    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int xTexStart, int yTexStart, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, Button.OnTooltip p_i244513_12_, Component p_i244513_13_) {
+    public ModifiedButton(int p_i244513_1_, int p_i244513_2_, int row, int p_i244513_3_, int p_i244513_4_, int xTexStart, int yTexStart, int p_i244513_7_, boolean rocketCondition, ButtonTypes type, List<String> list, ResourceLocation buttonTexture, ColorTypes colorType, int textureWidth, int textureHeight, Button.OnPress p_i244513_11_, CreateNarration p_i244513_12_, Component p_i244513_13_) {
         super(p_i244513_1_, p_i244513_2_, p_i244513_3_, p_i244513_4_, p_i244513_13_, p_i244513_11_, p_i244513_12_);
         this.tex(buttonTexture, buttonTexture);
         this.size(textureWidth, textureHeight);
@@ -48,8 +49,8 @@ public class ModifiedButton extends TexturedButton {
     }
 
     public void setPosition(int xIn, int yIn) {
-        this.x = xIn;
-        this.y = yIn;
+        this.setX(xIn);
+        this.setY(yIn);
     }
 
     /** IF YOU WANT NO ONE RETURN (NULL) */
@@ -68,21 +69,21 @@ public class ModifiedButton extends TexturedButton {
         PLANET_SPACE_STATION_CATEGORY
     }
 
-    public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderButton(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
 
-        super.renderButton(poseStack, mouseX, mouseY, partialTicks);
+        super.renderWidget(graphics, mouseX, mouseY, partialTicks);
         /** TYPE SYSTEM */
         if (mc.screen instanceof PlanetSelectionScreen) {
-            this.milkyWayCategoryManager(mc, poseStack, mouseX, mouseY);
-            this.solarSystemToolTip(mc, poseStack, mouseX, mouseY);
-            this.planetToolTip(mc, poseStack, mouseX, mouseY);
-            this.spaceStationToolTip(mc, poseStack, mouseX, mouseY);
+            this.milkyWayCategoryManager(mc, graphics, mouseX, mouseY);
+            this.solarSystemToolTip(mc, graphics, mouseX, mouseY, partialTicks);
+            this.planetToolTip(mc, graphics, mouseX, mouseY, partialTicks);
+            this.spaceStationToolTip(mc, graphics, mouseX, mouseY, partialTicks);
         }
     }
 
     /** MILKY WAY TYPE MANAGER */
-    private void milkyWayCategoryManager(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+    private void milkyWayCategoryManager(Minecraft minecraft, GuiGraphics graphics, int mouseX, int mouseY) {
         if (this.isHovered && this.type == ButtonTypes.MILKY_WAY_CATEGORY) {
             Screen screen = minecraft.screen;
 
@@ -91,50 +92,52 @@ public class ModifiedButton extends TexturedButton {
             list.add(Component.literal("\u00A79" + PlanetSelectionScreen.CATEGORY_TEXT.getString() + ": \u00A7b" + this.list.get(0)));
             list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TYPE_TEXT.getString() + ": \u00A73" + PlanetSelectionScreen.SOLAR_SYSTEM_TEXT.getString()));
 
-            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+            graphics.renderComponentTooltip(Minecraft.getInstance().font, list, mouseX, mouseY);
         }
     }
 
     /** SOLAR SYSTEM TYPE MANAGER */
-    private void solarSystemToolTip(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+    private void solarSystemToolTip(Minecraft minecraft, GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (this.isHovered && this.type == ButtonTypes.SOLAR_SYSTEM_CATEGORY) {
             Screen screen = minecraft.screen;
 
-            List<Component> list = new ArrayList<>();
+            List<FormattedCharSequence> list = new ArrayList<>();
 
             String condition = this.rocketCondition ? "a" : "c";
 
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.CATEGORY_TEXT.getString() + ": \u00A7" + condition + this.list.get(0)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.PROVIDED_TEXT.getString() + ": \u00A7b" + this.list.get(1)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.CATEGORY_TEXT.getString() + ": \u00A7" + condition + this.list.get(0)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.PROVIDED_TEXT.getString() + ": \u00A7b" + this.list.get(1)).getVisualOrderText());
 
-            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+            screen.setTooltipForNextRenderPass(list);
+            screen.renderWithTooltip(graphics, mouseX, mouseY, partialTick);
         }
     }
 
     /** PLANET SYSTEM TYPE MANAGER */
-    private void planetToolTip(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+    private void planetToolTip(Minecraft minecraft, GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (this.isHovered && this.type == ButtonTypes.PLANET_CATEGORY) {
             Screen screen = minecraft.screen;
 
-            List<Component> list = new ArrayList<>();
+            List<FormattedCharSequence> list = new ArrayList<>();
 
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)).getVisualOrderText());
 
-            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+            screen.setTooltipForNextRenderPass(list);
+            screen.renderWithTooltip(graphics, mouseX, mouseY, partialTick);
         }
     }
 
     /** PLANET SPACE STATION SYSTEM TYPE MANAGER */
-    private void spaceStationToolTip(Minecraft minecraft, PoseStack poseStack, int mouseX, int mouseY) {
+    private void spaceStationToolTip(Minecraft minecraft, GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
         if (this.isHovered && this.type == ButtonTypes.PLANET_SPACE_STATION_CATEGORY) {
             PlanetSelectionScreen screen = (PlanetSelectionScreen) minecraft.screen;
 
-            List<Component> list = new ArrayList<>();
+            List<FormattedCharSequence> list = new ArrayList<>();
 
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.ITEM_REQUIREMENT_TEXT.getString()));
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.ITEM_REQUIREMENT_TEXT.getString()).getVisualOrderText());
 
             //TODO NEED A REWORK WITH THE CRAFTING RECPIES
             /*
@@ -145,13 +148,14 @@ public class ModifiedButton extends TexturedButton {
                 list.add(Component.literal("\u00A78[\u00A76" + ingredientStack.getCount() + "\u00A78]" + (check ? "\u00A7a" : "\u00A7c") + " " + component.getString() + (ingredientStack.getCount() > 1 ? "'s" : "")));
             }*/
 
-            list.add(Component.literal("\u00A7c----------------"));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)));
-            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)));
+            list.add(Component.literal("\u00A7c----------------").getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TYPE_TEXT.getString() + ": \u00A73" + this.list.get(0)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.GRAVITY_TEXT.getString() + ": \u00A73" + this.list.get(1)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.OXYGEN_TEXT.getString() + ": \u00A7" + this.list.get(2)).getVisualOrderText());
+            list.add(Component.literal("\u00A79" + PlanetSelectionScreen.TEMPERATURE_TEXT.getString() + ": \u00A7" + this.list.get(3)).getVisualOrderText());
 
-            screen.renderComponentTooltip(poseStack, list, mouseX, mouseY);
+            screen.setTooltipForNextRenderPass(list);
+            screen.renderWithTooltip(graphics, mouseX, mouseY, partialTick);
         }
     }
 

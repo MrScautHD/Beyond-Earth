@@ -49,10 +49,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class AlienEntity extends Villager implements Merchant, Npc {
-
-	//TODO SHOULD GET REPLACED WITH VillagerGoalPackages#getCorePackage
-	public static ImmutableList<Pair<Integer, ? extends Behavior<? super Villager>>> core(VillagerProfession profession, float p_220638_1_) {
-		return ImmutableList.of(Pair.of(0, new Swim(0.8F)), Pair.of(0, new InteractWithDoor()), Pair.of(0, new LookAtTargetSink(45, 90)), Pair.of(0, new VillagerPanicTrigger()), Pair.of(0, new WakeUp()), Pair.of(0, new ReactToBell()), Pair.of(0, new SetRaidStatus()), Pair.of(0, new ValidateNearbyPoi(profession.heldJobSite(), MemoryModuleType.JOB_SITE)), Pair.of(0, new ValidateNearbyPoi(profession.heldJobSite(), MemoryModuleType.POTENTIAL_JOB_SITE)), Pair.of(1, new MoveToTargetSink()), Pair.of(2, new PoiCompetitorScan(profession)), Pair.of(3, new LookAndFollowTradingPlayerSink(p_220638_1_)), Pair.of(5, new GoToWantedItem(p_220638_1_, false, 4)), Pair.of(6, new AcquirePoi(profession.heldJobSite(), MemoryModuleType.JOB_SITE, MemoryModuleType.POTENTIAL_JOB_SITE, true, Optional.empty())), Pair.of(7, new GoToPotentialJobSite(p_220638_1_)), Pair.of(8, new YieldJobSite(p_220638_1_)), Pair.of(10, new AcquirePoi(PoiType.NONE, MemoryModuleType.HOME, false, Optional.of((byte)14))), Pair.of(10, new AcquirePoi(PoiType.NONE, MemoryModuleType.MEETING_POINT, true, Optional.of((byte)14))));
+	public static ImmutableList<Pair<Integer, ? extends BehaviorControl<? super Villager>>> core(VillagerProfession profession, float p_220638_1_) {
+		return VillagerGoalPackages.getCorePackage(profession, p_220638_1_);
 	}
 
 	private static final ImmutableList<MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(MemoryModuleType.HOME, MemoryModuleType.JOB_SITE, MemoryModuleType.POTENTIAL_JOB_SITE, MemoryModuleType.MEETING_POINT, MemoryModuleType.NEAREST_LIVING_ENTITIES, MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES, MemoryModuleType.VISIBLE_VILLAGER_BABIES, MemoryModuleType.NEAREST_PLAYERS, MemoryModuleType.NEAREST_VISIBLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER, MemoryModuleType.NEAREST_VISIBLE_WANTED_ITEM, MemoryModuleType.WALK_TARGET, MemoryModuleType.LOOK_TARGET, MemoryModuleType.INTERACTION_TARGET, MemoryModuleType.BREED_TARGET, MemoryModuleType.PATH, MemoryModuleType.DOORS_TO_CLOSE, MemoryModuleType.NEAREST_BED, MemoryModuleType.HURT_BY, MemoryModuleType.HURT_BY_ENTITY, MemoryModuleType.NEAREST_HOSTILE, MemoryModuleType.SECONDARY_JOB_SITE, MemoryModuleType.HIDING_PLACE, MemoryModuleType.HEARD_BELL_TIME, MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE, MemoryModuleType.LAST_SLEPT, MemoryModuleType.LAST_WOKEN, MemoryModuleType.LAST_WORKED_AT_POI, MemoryModuleType.GOLEM_DETECTED_RECENTLY);
@@ -71,9 +69,9 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 
 	@Override
 	public Villager getBreedOffspring(ServerLevel p_241840_1_, AgeableMob p_241840_2_) {
-		AlienEntity alienentity = new AlienEntity(EntityRegistry.ALIEN.get(), this.level);
+		AlienEntity alienentity = new AlienEntity(EntityRegistry.ALIEN.get(), this.level());
 
-		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos(p_241840_2_.getX(), p_241840_2_.getY(), p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
+		alienentity.finalizeSpawn(p_241840_1_, p_241840_1_.getCurrentDifficultyAt(new BlockPos((int)p_241840_2_.getX(), (int)p_241840_2_.getY(), (int)p_241840_2_.getZ())), MobSpawnType.BREEDING, null, null);
 		return alienentity;
 	}
 
@@ -92,11 +90,11 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 		if (itemstack.getItem() != ItemsRegistry.ALIEN_SPAWN_EGG.get() && this.isAlive() && !this.isTrading() && !this.isSleeping() && !p_230254_1_.isSecondaryUseActive()) {
 			if (this.isBaby()) {
 				this.shakeHead();
-				return InteractionResult.sidedSuccess(this.level.isClientSide);
+				return InteractionResult.sidedSuccess(this.level().isClientSide);
 			} else {
 				boolean flag = this.getOffers().isEmpty();
 				if (p_230254_2_ == InteractionHand.MAIN_HAND) {
-					if (flag && !this.level.isClientSide) {
+					if (flag && !this.level().isClientSide) {
 						this.shakeHead();
 					}
 
@@ -104,13 +102,13 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 				}
 
 				if (flag) {
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				} else {
-					if (!this.level.isClientSide && !this.offers.isEmpty()) {
+					if (!this.level().isClientSide && !this.offers.isEmpty()) {
 						this.displayMerchantGui(p_230254_1_);
 					}
 
-					return InteractionResult.sidedSuccess(this.level.isClientSide);
+					return InteractionResult.sidedSuccess(this.level().isClientSide);
 				}
 			}
 		} else {
@@ -147,7 +145,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 
 	private void shakeHead() {
 		this.setUnhappyCounter(40);
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			this.playSound(SoundEvents.VILLAGER_NO, this.getSoundVolume(), this.getVoicePitch());
 		}
 	}
@@ -194,7 +192,7 @@ public class AlienEntity extends Villager implements Merchant, Npc {
 		p_35425_.setCoreActivities(ImmutableSet.of(Activity.CORE));
 		p_35425_.setDefaultActivity(Activity.IDLE);
 		p_35425_.setActiveActivityIfPossible(Activity.IDLE);
-		p_35425_.updateActivityFromSchedule(this.level.getDayTime(), this.level.getGameTime());
+		p_35425_.updateActivityFromSchedule(this.level().getDayTime(), this.level().getGameTime());
 	}
 
 	@Nullable

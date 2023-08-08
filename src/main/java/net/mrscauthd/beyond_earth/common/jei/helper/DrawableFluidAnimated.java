@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import mezz.jei.api.gui.ITickTimer;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
 import mezz.jei.common.util.TickTimer;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.fluids.FluidStack;
 import net.mrscauthd.beyond_earth.client.util.GuiHelper;
 
@@ -41,7 +42,7 @@ public class DrawableFluidAnimated implements IDrawableAnimated {
     }
 
     @Override
-    public void draw(PoseStack poseStack, int xOffset, int yOffset) {
+    public void draw(GuiGraphics graphics, int xOffset, int yOffset) {
 
         int animationValue = tickTimer.getValue();
 
@@ -49,11 +50,11 @@ public class DrawableFluidAnimated implements IDrawableAnimated {
                 : this.getHeight() - animationValue + yOffset;
 
         if (this.O2) {
-            GuiHelper.drawOxygenTank(poseStack, xOffset, yOffset,
+            GuiHelper.drawOxygenTank(graphics, xOffset, yOffset,
                     animationValue / (double) GuiHelper.FLUID_TANK_HEIGHT);
         } else {
-            GuiHelper.drawFluid(poseStack, xOffset, fluidY, GuiHelper.FLUID_TANK_WIDTH, animationValue, fluid);
-            GuiHelper.drawFluidTankOverlay(poseStack, xOffset, yOffset);
+            GuiHelper.drawFluid(graphics, xOffset, fluidY, GuiHelper.FLUID_TANK_WIDTH, animationValue, fluid);
+            GuiHelper.drawFluidTankOverlay(graphics, xOffset, yOffset);
         }
     }
 }

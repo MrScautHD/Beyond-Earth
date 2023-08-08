@@ -1,9 +1,7 @@
 package net.mrscauthd.beyond_earth.client.screens;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
-
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -19,6 +17,8 @@ import net.mrscauthd.beyond_earth.common.blocks.entities.machines.gauge.GaugeVal
 import net.mrscauthd.beyond_earth.common.config.Config;
 import net.mrscauthd.beyond_earth.common.menus.OxygenBubbleDistributorMenu;
 import net.mrscauthd.beyond_earth.common.util.Rectangle2d;
+
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenBubbleDistributorMenu.GuiContainer> {
@@ -50,63 +50,58 @@ public class OxygenDistributorScreen extends AbstractContainerScreen<OxygenBubbl
     }
 
     @Override
-    public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(ms);
-        super.render(ms, mouseX, mouseY, partialTicks);
-        this.renderTooltip(ms, mouseX, mouseY);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(graphics);
+        super.render(graphics, mouseX, mouseY, partialTicks);
+        this.renderTooltip(graphics, mouseX, mouseY);
 
         OxygenDistributorBlockEntity blockEntity = this.getMenu()
                 .getBlockEntity();
 
         if (GuiHelper.isHover(this.getInputTankBounds(), mouseX, mouseY)) {
-
-            this.renderTooltip(ms,
-                    GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass(GaugeTextHelper.getStorageText(GaugeValueHelper.getFluid(blockEntity.getInputTank())).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         } else if (GuiHelper.isHover(this.getOutputTankBounds(), mouseX, mouseY)) {
-
-            this.renderTooltip(ms,
-                    GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(blockEntity.getOutputTank())).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass(GaugeTextHelper.getStorageText(GaugeValueHelper.getOxygen(blockEntity.getOutputTank())).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         } else if (GuiHelper.isHover(this.getEnergyBounds(), mouseX, mouseY)) {
-
-            this.renderTooltip(ms, GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build(),
-                    mouseX, mouseY);
+            this.setTooltipForNextRenderPass(GaugeTextHelper.getStorageText(GaugeValueHelper.getEnergy(blockEntity)).build());
+            this.renderTooltip(graphics, mouseX, mouseY);
         }
     }
 
     @Override
-    protected void renderBg(PoseStack ms, float p_97788_, int p_97789_, int p_97790_) {
+    protected void renderBg(GuiGraphics graphics, float p_97788_, int p_97789_, int p_97790_) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(ms, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
+        graphics.blit(texture, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight, this.imageWidth,
                 this.imageHeight);
 
         OxygenDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        GuiHelper.drawEnergy(ms, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
-                blockEntity.getPrimaryEnergyStorage());
-        GuiHelper.drawFluidTank(ms, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP,
+        GuiHelper.drawEnergy(graphics, this.leftPos + ENERGY_LEFT, this.topPos + ENERGY_TOP,
+                Objects.requireNonNull(blockEntity.getPrimaryEnergyStorage()));
+        GuiHelper.drawFluidTank(graphics, this.leftPos + INPUT_TANK_LEFT, this.topPos + INPUT_TANK_TOP,
                 blockEntity.getInputTank());
-        GuiHelper.drawOxygenTank(ms, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP,
+        GuiHelper.drawOxygenTank(graphics, this.leftPos + OUTPUT_TANK_LEFT, this.topPos + OUTPUT_TANK_TOP,
                 blockEntity.getOutputTank());
     }
 
     @Override
-    protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
-        super.renderLabels(ms, mouseX, mouseY);
+    protected void renderLabels(GuiGraphics graphics, int mouseX, int mouseY) {
+        super.renderLabels(graphics, mouseX, mouseY);
         OxygenDistributorBlockEntity blockEntity = this.getMenu().getBlockEntity();
-        ms.pushPose();
+        graphics.pose().pushPose();
         float oyxgenScale = 0.8F;
-        ms.scale(oyxgenScale, oyxgenScale, oyxgenScale);
+        graphics.pose().scale(oyxgenScale, oyxgenScale, oyxgenScale);
         Component oxygenText = GaugeTextHelper
                 .getUsingText2(GaugeValueHelper.getOxygen(Config.OXYGEN_BUBBLE_DISTRIBUTOR_RATE_OUTPUT.get()), blockEntity.getMaxTimer())
                 .build();
         int oxygenWidth = this.font.width(oxygenText);
-        this.font.draw(ms, oxygenText, (int) ((this.imageWidth - 5) / oyxgenScale) - oxygenWidth,
+        graphics.drawString(this.font, oxygenText, (int) ((this.imageWidth - 5) / oyxgenScale) - oxygenWidth,
                 (int) (this.inventoryLabelY / oyxgenScale), 0x333333);
-        ms.popPose();
+        graphics.pose().popPose();
     }
 
     public Rectangle2d getInputTankBounds() {

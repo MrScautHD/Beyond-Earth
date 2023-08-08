@@ -40,8 +40,7 @@ public class SolarPanelBlockEntity extends GeneratorBlockEntity {
         @Override
         protected boolean canGenerateEnergy() {
                 Level level = this.getLevel();
-                BlockPos blockPos = new BlockPos(this.getBlockPos().getX(), this.getBlockPos().getY() + 1, this.getBlockPos().getZ());
-
+                BlockPos blockPos = this.getBlockPos().offset(0, 1, 0);
                 return level.isDay() && level.canSeeSky(blockPos);
         }
 

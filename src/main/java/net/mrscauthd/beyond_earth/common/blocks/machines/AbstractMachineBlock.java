@@ -33,6 +33,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.network.NetworkHooks;
 import net.mrscauthd.beyond_earth.common.blocks.entities.machines.AbstractMachineBlockEntity;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity> extends Block implements EntityBlock {
         public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -122,8 +123,11 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
                 return false;
         }
 
+        @SuppressWarnings("deprecation")
         @Override
-        public InteractionResult use(BlockState state, Level level, BlockPos pos, Player entity, InteractionHand hand, BlockHitResult raytrace) {
+        @NotNull
+        public InteractionResult use(@NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos,
+                                              @NotNull Player entity, @NotNull InteractionHand hand, @NotNull BlockHitResult raytrace) {
                 if (entity instanceof ServerPlayer) {
                         T blockEntity = this.getBlockEntity(level, pos);
 
@@ -147,20 +151,6 @@ public abstract class AbstractMachineBlock<T extends AbstractMachineBlockEntity>
                 }
 
                 return null;
-        }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-                BlockEntity blockEntity = builder.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-
-                if (blockEntity instanceof AbstractMachineBlockEntity) {
-                        ItemStack itemStack = new ItemStack(this);
-                        blockEntity.saveToItem(itemStack);
-                        return Collections.singletonList(itemStack);
-                } else {
-                        return super.getDrops(state, builder);
-                }
         }
 
         @Override

@@ -2,24 +2,24 @@ package net.mrscauthd.beyond_earth.client.renderers.entities.rockettier3;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.mrscauthd.beyond_earth.BeyondEarth;
-import net.mrscauthd.beyond_earth.common.entities.RocketTier3Entity;
+import net.mrscauthd.beyond_earth.common.entities.RocketEntity;
 
 @OnlyIn(Dist.CLIENT)
-public class RocketTier3ItemRenderer<T extends RocketTier3Entity> extends BlockEntityWithoutLevelRenderer {
+public class RocketTier3ItemRenderer<T extends RocketEntity> extends BlockEntityWithoutLevelRenderer {
 
     /** TEXTURE */
     public static final ResourceLocation TEXTURE = new ResourceLocation(BeyondEarth.MODID, "textures/vehicle/rocket_t3.png");
@@ -32,10 +32,10 @@ public class RocketTier3ItemRenderer<T extends RocketTier3Entity> extends BlockE
     }
 
     @Override
-    public void renderByItem(ItemStack p_108830_, ItemTransforms.TransformType p_108831_, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_108835_) {
+    public void renderByItem(ItemStack p_108830_, ItemDisplayContext p_108831_, PoseStack matrixStackIn, MultiBufferSource buffer, int combinedLight, int p_108835_) {
         matrixStackIn.pushPose();
 
-        matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(180));
+        matrixStackIn.mulPose(Axis.ZP.rotationDegrees(180));
         matrixStackIn.translate(0.0, -1.5, 0.0);
 
         Minecraft mc = Minecraft.getInstance();

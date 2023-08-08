@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.Nullable;
 
 import com.google.common.cache.CacheBuilder;
@@ -28,7 +29,7 @@ public class EnergyIngredient implements IIngredientHelper<EnergyIngredient>, II
 
     public static final class DummyRenderer implements IIngredientRenderer<EnergyIngredient> {
         @Override
-        public void render(PoseStack stack, EnergyIngredient ingredient) {
+        public void render(GuiGraphics graphics, EnergyIngredient ingredient) {
             // DO NOT USE THIS, THIS IS BECAUSE JEI REQUIRES SIZE 16
         }
 
@@ -66,10 +67,10 @@ public class EnergyIngredient implements IIngredientHelper<EnergyIngredient>, II
     }
 
     @Override
-    public void render(PoseStack stack, EnergyIngredient ingredient) {
+    public void render(GuiGraphics graphics, EnergyIngredient ingredient) {
         int amount = Math.max(ingredient.amount, 1);
         DrawableEnergyAnimated fluid = cachedTank.getUnchecked(amount);
-        fluid.draw(stack);
+        fluid.draw(graphics);
     }
 
     @Override

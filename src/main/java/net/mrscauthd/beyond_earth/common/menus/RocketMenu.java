@@ -30,7 +30,7 @@ public class RocketMenu {
 		public GuiContainer(int id, Inventory inv, FriendlyByteBuf extraData) {
 			super(ContainerRegistry.ROCKET_GUI.get(), id);
 
-			this.rocket = (IRocketEntity) inv.player.level.getEntity(extraData.readVarInt());
+			this.rocket = (IRocketEntity) inv.player.level().getEntity(extraData.readVarInt());
 
 			IItemHandlerModifiable itemHandler = rocket.getItemHandler();
 

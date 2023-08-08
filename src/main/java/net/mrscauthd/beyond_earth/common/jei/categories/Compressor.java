@@ -19,6 +19,7 @@ import mezz.jei.api.recipe.RecipeIngredientRole;
 import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import mezz.jei.common.Constants;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -86,11 +87,10 @@ public class Compressor implements IRecipeCategory<CompressingRecipe> {
     }
 
     @Override
-    public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, PoseStack stack, double mouseX,
-            double mouseY) {
+    public void draw(CompressingRecipe recipe, IRecipeSlotsView recipeSlotsView, GuiGraphics graphics, double mouseX, double mouseY) {
         int compressTime = recipe.getCookTime();
         IDrawableAnimated arrow = cachedArrow.getUnchecked(compressTime);
-        arrow.draw(stack, 38, 21);
+        arrow.draw(graphics, 38, 21);
 
         // Update the energy cost
         recipeSlotsView.getSlotViews(RecipeIngredientRole.INPUT).get(0).getIngredients(Jei.FE_INGREDIENT_TYPE)

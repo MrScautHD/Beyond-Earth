@@ -62,7 +62,7 @@ public class MartianRaptor extends Monster {
     @Override
     public boolean doHurtTarget(Entity p_21372_) {
         this.AttackAnim = 10;
-        this.level.broadcastEntityEvent(this, (byte)4);
+        this.level().broadcastEntityEvent(this, (byte)4);
         return super.doHurtTarget(p_21372_);
     }
 
@@ -87,7 +87,7 @@ public class MartianRaptor extends Monster {
     public void baseTick() {
         super.baseTick();
         if (!Config.MARTIAN_RAPTOR_SPAWN.get()) {
-            if (!this.level.isClientSide) {
+            if (!this.level().isClientSide) {
                 this.remove(RemovalReason.DISCARDED);
             }
         }

@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "beyond_earth:glacio_wood",
+    "beyond_earth:glacio_wood_log",
+    "beyond_earth:glacio_wood_planks",
+    "beyond_earth:glacio_wood_door",
+    "beyond_earth:glacio_wood_slab",
+    "beyond_earth:glacio_wood_stairs"
+  ]
+}
